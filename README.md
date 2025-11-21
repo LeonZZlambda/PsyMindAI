@@ -1,20 +1,54 @@
-# React + Vite
+# PsyMind.AI 🧠💙
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Solução educativa de apoio emocional para estudantes.
 
-Currently, two official plugins are available:
+## 📖 Sobre o Projeto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+O **PsyMind.AI** é uma solução educativa de apoio emocional que ajuda estudantes do Ensino Médio a compreenderem seus comportamentos e emoções, utilizando bases científicas de psicologia.
 
-## License
+A IA interpreta o que o aluno relata e, de forma empática, explica as possíveis causas psicológicas, oferecendo orientações práticas de melhoria. A proposta busca reduzir ansiedade, procrastinação e autossabotagem, fortalecendo a saúde mental e o desempenho escolar.
 
-This project is licensed under the [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/) license.
+Desenvolvido com o **NotebookLM** e **Gemini Gems**, o sistema se apoia em estudos sobre motivação, foco e bem-estar, garantindo fundamentação teórica.
 
-## React Compiler
+## ✨ Funcionalidades
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+*   **Chat Inteligente**: Interface conversacional amigável para desabafos e orientações.
+*   **Acessibilidade**: Suporte a temas (Claro/Escuro), tamanho de fonte ajustável, modo de alto contraste e redução de movimento.
+*   **Entrada de Voz**: Interação por microfone para facilitar o relato de sentimentos.
+*   **Envio de Arquivos**: Capacidade de analisar imagens e documentos para contexto adicional.
+*   **Privacidade e Ética**: Alertas éticos que incentivam a busca por ajuda profissional quando necessário.
 
-## Expanding the ESLint configuration
+## 🚀 Tecnologias Utilizadas
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+*   [React](https://reactjs.org/)
+*   [Vite](https://vitejs.dev/)
+*   [Google Gemini / NotebookLM](https://notebooklm.google.com/) (Motor de IA)
+*   Web Speech API (Reconhecimento de voz)
+
+## 🛠️ Como Executar
+
+1.  Clone o repositório:
+    ```bash
+    git clone https://github.com/LeonZZlambda/PsyMindAI.git
+    ```
+2.  Instale as dependências:
+    ```bash
+    cd PsyMindAI
+    npm install
+    ```
+3.  Inicie o servidor de desenvolvimento:
+    ```bash
+    npm run dev
+    ```
+
+## ⚠️ Aviso Importante
+
+O PsyMind.AI oferece **apoio educativo** e não substitui o acompanhamento psicológico ou psiquiátrico profissional. Em casos graves, procure ajuda especializada.
+
+## 📄 Licença
+
+Este projeto está licenciado sob a [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/).
+
+---
+
+Feito com 💙 por LeonZZlambda
