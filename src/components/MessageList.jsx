@@ -1,0 +1,138 @@
+import React, { useRef, useEffect, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
+
+const MessageList = ({ messages, isTyping, onSuggestionClick }) => {
+  const messagesEndRef = useRef(null);
+  const chatContainerRef = useRef(null);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const scrollToTop = () => {
+    chatContainerRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, isTyping]);
+
+  const handleScroll = () => {
+    if (chatContainerRef.current) {
+      const { scrollTop } = chatContainerRef.current;
+      setShowScrollTop(scrollTop > 300);
+    }
+  };
+
+  const speakMessage = (text) => {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel(); // Stop any current speech
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'pt-BR';
+      window.speechSynthesis.speak(utterance);
+    }
+  };
+
+  return (
+    <main 
+      className="chat-container" 
+      ref={chatContainerRef} 
+      onScroll={handleScroll}
+    > 
+      {messages.length === 0 ? (
+        <div className="welcome">
+          <div className="welcome-icon">
+            <span className="material-symbols-outlined">psychology</span>
+          </div>
+          <h2>
+            <span>Olá, sou o PsyMind.AI</span>
+          </h2>
+          <p>Como posso ajudar você hoje?</p>
+          <div className="suggestions">
+            <button className="suggestion" onClick={() => onSuggestionClick('Estou me sentindo ansioso com as provas')}>
+              <strong><span className="material-symbols-outlined">psychology_alt</span> Ansiedade com provas</strong><br />
+              <span>Como lidar com a ansiedade antes dos exames</span>
+            </button>
+            <button className="suggestion" onClick={() => onSuggestionClick('Tenho dificuldade para me concentrar')}>
+              <strong><span className="material-symbols-outlined">center_focus_strong</span> Falta de concentração</strong><br />
+              <span>Estratégias para melhorar o foco nos estudos</span>
+            </button>
+            <button className="suggestion" onClick={() => onSuggestionClick('Como posso melhorar minha autoestima?')}>
+              <strong><span className="material-symbols-outlined">auto_awesome</span> Autoestima</strong><br />
+              <span>Dicas para fortalecer a confiança em si mesmo</span>
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="messages">
+          {messages.map((message, index) => (
+            <div key={index} className={`message ${message.type}`}>
+              <div className="message-avatar">
+                <span className="material-symbols-outlined">
+                  {message.type === 'user' ? 'person' : 'psychology'}
+                </span>
+              </div>
+              <div className="message-content-wrapper">
+                <div className="message-content">
+                  {message.files && message.files.length > 0 && (
+                    <div className="message-files">
+                      {message.files.map((file, i) => (
+                        <div key={i} className="message-file-item">
+                          {file.type.startsWith('image/') ? (
+                            <img src={URL.createObjectURL(file)} alt={file.name} className="message-file-image" />
+                          ) : (
+                            <div className="message-file-generic">
+                              <span className="material-symbols-outlined">description</span>
+                              <span>{file.name}</span>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  <ReactMarkdown>{message.content}</ReactMarkdown>
+                </div>
+                <button 
+                  className="speak-btn" 
+                  onClick={() => speakMessage(message.content)}
+                  title="Ouvir mensagem"
+                  aria-label="Ouvir mensagem"
+                >
+                  <span className="material-symbols-outlined">volume_up</span>
+                </button>
+              </div>
+            </div>
+          ))}
+          {isTyping && (
+            <div className="message ai">
+              <div className="message-avatar">
+                <span className="material-symbols-outlined">psychology</span>
+              </div>
+              <div className="message-content typing">
+                <div className="typing-dots">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+            </div>
+          )}
+          <div ref={messagesEndRef} />
+        </div>
+      )}
+      
+      {showScrollTop && (
+        <button 
+          className={`scroll-top-btn ${showScrollTop ? 'visible' : ''}`}
+          onClick={scrollToTop}
+          aria-label="Voltar ao topo"
+        >
+          <span className="material-symbols-outlined">arrow_upward</span>
+        </button>
+      )}
+    </main>
+  );
+};
+
+export default MessageList;
