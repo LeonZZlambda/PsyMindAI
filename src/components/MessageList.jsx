@@ -1,6 +1,29 @@
 import React, { useRef, useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 
+const CopyButton = ({ text }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <button 
+      className="action-btn" 
+      onClick={handleCopy}
+      title={copied ? "Copiado!" : "Copiar texto"}
+      aria-label="Copiar texto"
+    >
+      <span className="material-symbols-outlined">
+        {copied ? 'check' : 'content_copy'}
+      </span>
+    </button>
+  );
+};
+
 const MessageList = ({ messages, isTyping, onSuggestionClick }) => {
   const messagesEndRef = useRef(null);
   const chatContainerRef = useRef(null);
@@ -93,14 +116,17 @@ const MessageList = ({ messages, isTyping, onSuggestionClick }) => {
                   )}
                   <ReactMarkdown>{message.content}</ReactMarkdown>
                 </div>
-                <button 
-                  className="speak-btn" 
-                  onClick={() => speakMessage(message.content)}
-                  title="Ouvir mensagem"
-                  aria-label="Ouvir mensagem"
-                >
-                  <span className="material-symbols-outlined">volume_up</span>
-                </button>
+                <div className="message-actions">
+                  <button 
+                    className="action-btn" 
+                    onClick={() => speakMessage(message.content)}
+                    title="Ouvir mensagem"
+                    aria-label="Ouvir mensagem"
+                  >
+                    <span className="material-symbols-outlined">volume_up</span>
+                  </button>
+                  <CopyButton text={message.content} />
+                </div>
               </div>
             </div>
           ))}

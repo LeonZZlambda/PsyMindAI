@@ -626,7 +626,9 @@
   border: none;
   background: transparent;
   color: #1f1f1f;
+  font-family: inherit;
   font-size: 1rem;
+  font-weight: 400;
   outline: none;
   resize: none;
   min-height: 24px;
@@ -2061,4 +2063,51 @@
 
 .app.dark .file-type {
   color: #e3e3e3;
+}
+
+/* Message Actions */
+.message-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.message:hover .message-actions {
+  opacity: 1;
+}
+
+.action-btn {
+  background: transparent;
+  border: none;
+  color: #444746;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.action-btn:hover {
+  background-color: rgba(0,0,0,0.05);
+}
+
+.action-btn .material-symbols-outlined {
+  font-size: 18px;
+}
+
+.app.dark .action-btn {
+  color: #c4c7c5;
+}
+
+.app.dark .action-btn:hover {
+  background-color: rgba(255,255,255,0.1);
+}
+
+/* Hide original speak-btn styles if we replace them, or just override */
+.message:hover .speak-btn {
+  opacity: 1; /* Keep compatibility if needed, but we will replace usage */
 }
