@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback, Suspense, lazy } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { Toaster } from 'sonner'
 import { ErrorBoundary } from 'react-error-boundary'
+import { AnimatePresence, motion, MotionConfig } from 'framer-motion'
 import './App.css'
 import Sidebar from './components/Sidebar'
 import Header from './components/Header'
@@ -16,7 +17,7 @@ const HelpModal = lazy(() => import('./components/HelpModal'))
 
 function App() {
   const { isDarkMode, fontSize, reducedMotion, highContrast, colorBlindMode } = useTheme()
-  const { clearHistory, setInput } = useChat()
+  const { clearHistory, setInput, isLoading } = useChat()
   
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
   const [isSettingsOpen, setIsSettingsOpen] = useState(false)
@@ -68,8 +69,9 @@ function App() {
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => window.location.reload()}>
-      <div className={`app ${isDarkMode ? 'dark' : ''} ${fontSize === 'large' ? 'font-large' : ''} ${reducedMotion ? 'reduced-motion' : ''} ${highContrast ? 'high-contrast' : ''} color-blind-${colorBlindMode}`}>
-        <Toaster 
+      <MotionConfig reducedMotion={reducedMotion ? "always" : "user"}>
+        <div className={`app ${isDarkMode ? 'dark' : ''} ${fontSize === 'large' ? 'font-large' : ''} ${reducedMotion ? 'reduced-motion' : ''} ${highContrast ? 'high-contrast' : ''} color-blind-${colorBlindMode}`}>
+          <Toaster 
           position="bottom-center" 
           toastOptions={{
             style: {
@@ -99,7 +101,18 @@ function App() {
             isSidebarOpen={isSidebarOpen} 
             toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
           />
-
+          <AnimatePresence>
+            {isLoading && (
+              <motion.div 
+                className="header-loader-bar"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+              />
+            )}
+          </AnimatePresence>
+          
           <Routes>
             <Route path="/" element={<ChatPage inputRef={inputRef} />} />
             <Route path="*" element={<Navigate to="/" replace />} />
@@ -121,7 +134,8 @@ function App() {
             />
           )}
         </Suspense>
-      </div>
+        </div>
+      </MotionConfig>
     </ErrorBoundary>
   )
 }

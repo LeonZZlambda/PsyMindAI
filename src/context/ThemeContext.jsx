@@ -48,11 +48,49 @@ export const ThemeProvider = ({ children }) => {
 
   const isDarkMode = themeMode === 'system' ? systemIsDark : themeMode === 'dark';
 
-  const toggleTheme = () => {
-    setThemeMode(prev => {
-      const currentIsDark = prev === 'system' ? systemIsDark : prev === 'dark';
-      return currentIsDark ? 'light' : 'dark';
+  const toggleTheme = async (e) => {
+    const isAppearanceTransition = document.startViewTransition && 
+                                   !window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
+                                   !reducedMotion;
+
+    if (!isAppearanceTransition) {
+      setThemeMode(prev => {
+        const currentIsDark = prev === 'system' ? systemIsDark : prev === 'dark';
+        return currentIsDark ? 'light' : 'dark';
+      });
+      return;
+    }
+
+    const x = e?.clientX ?? window.innerWidth / 2;
+    const y = e?.clientY ?? window.innerHeight / 2;
+
+    const endRadius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y)
+    );
+
+    const transition = document.startViewTransition(() => {
+      setThemeMode(prev => {
+        const currentIsDark = prev === 'system' ? systemIsDark : prev === 'dark';
+        return currentIsDark ? 'light' : 'dark';
+      });
     });
+
+    await transition.ready;
+
+    document.documentElement.animate(
+      {
+        clipPath: [
+          `circle(0px at ${x}px ${y}px)`,
+          `circle(${endRadius}px at ${x}px ${y}px)`,
+        ],
+      },
+      {
+        duration: 500,
+        easing: "ease-in-out",
+        pseudoElement: "::view-transition-new(root)",
+      }
+    );
   };
 
   const value = {

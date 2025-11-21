@@ -26,6 +26,7 @@ export const ChatProvider = ({ children }) => {
 
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('chatMessages', JSON.stringify(messages));
@@ -56,10 +57,15 @@ export const ChatProvider = ({ children }) => {
   }, []);
 
   const loadChat = useCallback((chat) => {
-    setMessages([
-      { type: 'user', content: chat.title },
-      { type: 'ai', content: `Entendo que você queira falar sobre **${chat.title}**. ${chat.preview} Como posso ajudar mais especificamente?` }
-    ]);
+    setIsLoading(true);
+    // Simulate loading delay
+    setTimeout(() => {
+      setMessages([
+        { type: 'user', content: chat.title },
+        { type: 'ai', content: `Entendo que você queira falar sobre **${chat.title}**. ${chat.preview} Como posso ajudar mais especificamente?` }
+      ]);
+      setIsLoading(false);
+    }, 1000);
   }, []);
 
   const value = {
@@ -67,6 +73,7 @@ export const ChatProvider = ({ children }) => {
     input,
     setInput,
     isTyping,
+    isLoading,
     sendMessage,
     clearHistory,
     loadChat

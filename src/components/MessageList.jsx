@@ -172,10 +172,13 @@ const MessageList = () => {
                 <span className="material-symbols-outlined">psychology</span>
               </div>
               <div className="message-content typing">
-                <div className="typing-dots">
-                  <span></span>
-                  <span></span>
-                  <span></span>
+                <div className="gemini-loader-container">
+                  <div className="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                  <span className="gemini-loader-text">PsyMind está pensando...</span>
                 </div>
               </div>
             </motion.div>

@@ -5,6 +5,7 @@
   background: #fff;
   font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   overflow: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .sidebar {
@@ -2113,4 +2114,71 @@
 /* Hide original speak-btn styles if we replace them, or just override */
 .message:hover .speak-btn {
   opacity: 1; /* Keep compatibility if needed, but we will replace usage */
+}
+
+/* Gemini Loader Animation */
+.gemini-loader-container {
+  padding: 4px 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-loader-bar {
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(90deg, #4285f4, #9b72cb, #d96570, #4285f4);
+  background-size: 200% 100%;
+  animation: gemini-gradient-move 2s linear infinite;
+  position: absolute;
+  top: 64px; /* Approximate header height */
+  left: 0;
+  z-index: 5;
+}
+
+.gemini-loader-bar {
+  /* Deprecated but kept for reference if needed, replaced by typing-dots */
+  height: 4px;
+  width: 100%;
+  max-width: 120px;
+  background: linear-gradient(90deg, #4285f4, #9b72cb, #d96570, #4285f4);
+  background-size: 200% 100%;
+  border-radius: 4px;
+  animation: gemini-gradient-move 2s linear infinite;
+}
+
+.gemini-loader-text {
+  font-size: 0.9rem;
+  background: linear-gradient(90deg, #4285f4, #9b72cb, #d96570);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 500;
+  animation: gemini-pulse 2s ease-in-out infinite;
+}
+
+@keyframes gemini-gradient-move {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+@keyframes gemini-pulse {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 0.4; }
+}
+
+/* View Transitions for Theme Toggle */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2147483646;
 }
