@@ -1,54 +1,60 @@
-# PsyMind.AI 🧠💙
+# PsyMind.AI
 
-> Solução educativa de apoio emocional para estudantes.
+PsyMind.AI is an educational emotional support solution designed to help high school students understand their behaviors and emotions through scientific psychology.
 
-## 📖 Sobre o Projeto
+## Introduction
 
-O **PsyMind.AI** é uma solução educativa de apoio emocional que ajuda estudantes do Ensino Médio a compreenderem seus comportamentos e emoções, utilizando bases científicas de psicologia.
+PsyMind.AI interprets student reports and, empathetically, explains possible psychological causes while offering practical improvement guidelines. The proposal seeks to reduce anxiety, procrastination, and self-sabotage, strengthening mental health and school performance.
 
-A IA interpreta o que o aluno relata e, de forma empática, explica as possíveis causas psicológicas, oferecendo orientações práticas de melhoria. A proposta busca reduzir ansiedade, procrastinação e autossabotagem, fortalecendo a saúde mental e o desempenho escolar.
+Developed with **NotebookLM** and **Gemini Gems**, the system relies on studies regarding motivation, focus, and well-being, ensuring theoretical grounding.
 
-Desenvolvido com o **NotebookLM** e **Gemini Gems**, o sistema se apoia em estudos sobre motivação, foco e bem-estar, garantindo fundamentação teórica.
+The tool includes ethical alerts encouraging the search for professional help and integrates a future module to refer students to volunteer partner psychologists or free services, making the project safe, accessible, and socially responsible.
 
-## ✨ Funcionalidades
+## Features
 
-*   **Chat Inteligente**: Interface conversacional amigável para desabafos e orientações.
-*   **Acessibilidade**: Suporte a temas (Claro/Escuro), tamanho de fonte ajustável, modo de alto contraste e redução de movimento.
-*   **Entrada de Voz**: Interação por microfone para facilitar o relato de sentimentos.
-*   **Envio de Arquivos**: Capacidade de analisar imagens e documentos para contexto adicional.
-*   **Privacidade e Ética**: Alertas éticos que incentivam a busca por ajuda profissional quando necessário.
+-   **Smart Chat**: Friendly conversational interface for venting and guidance.
+-   **Accessibility**: Support for themes (Light/Dark), adjustable font size, high contrast mode, and reduced motion.
+-   **Voice Input**: Microphone interaction to facilitate feeling reporting.
+-   **File Upload**: Ability to analyze images and documents for additional context.
+-   **Privacy and Ethics**: Ethical alerts encouraging professional help when necessary.
 
-## 🚀 Tecnologias Utilizadas
+## Technologies
 
-*   [React](https://reactjs.org/)
-*   [Vite](https://vitejs.dev/)
-*   [Google Gemini / NotebookLM](https://notebooklm.google.com/) (Motor de IA)
-*   Web Speech API (Reconhecimento de voz)
+-   [React](https://reactjs.org/)
+-   [Vite](https://vitejs.dev/)
+-   [Google Gemini / NotebookLM](https://notebooklm.google.com/) (AI Engine)
+-   Web Speech API (Voice Recognition)
 
-## 🛠️ Como Executar
+## Getting Started
 
-1.  Clone o repositório:
+### Prerequisites
+
+-   Node.js (version 14 or higher)
+-   npm or yarn
+
+### Installation
+
+1.  Clone the repository:
     ```bash
     git clone https://github.com/LeonZZlambda/PsyMindAI.git
     ```
-2.  Instale as dependências:
+
+2.  Install dependencies:
     ```bash
     cd PsyMindAI
     npm install
     ```
-3.  Inicie o servidor de desenvolvimento:
+
+3.  Start the development server:
     ```bash
     npm run dev
     ```
 
-## ⚠️ Aviso Importante
+## Disclaimer
 
-O PsyMind.AI oferece **apoio educativo** e não substitui o acompanhamento psicológico ou psiquiátrico profissional. Em casos graves, procure ajuda especializada.
+**PsyMind.AI offers educational support and does not replace professional psychological or psychiatric monitoring.** In severe cases, please seek specialized help.
 
-## 📄 Licença
+## License
 
-Este projeto está licenciado sob a [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/).
+This project is licensed under the [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/).
 
----
-
-Feito com 💙 por LeonZZlambda
