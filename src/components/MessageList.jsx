@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { useChat } from '../context/ChatContext';
 
 const CopyButton = ({ text }) => {
   const [copied, setCopied] = useState(false);
@@ -24,7 +25,8 @@ const CopyButton = ({ text }) => {
   );
 };
 
-const MessageList = ({ messages, isTyping, onSuggestionClick }) => {
+const MessageList = () => {
+  const { messages, isTyping, setInput } = useChat();
   const messagesEndRef = useRef(null);
   const chatContainerRef = useRef(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -75,7 +77,7 @@ const MessageList = ({ messages, isTyping, onSuggestionClick }) => {
           <div className="suggestions" role="group" aria-label="Sugestões de perguntas">
             <button 
               className="suggestion" 
-              onClick={() => onSuggestionClick('Estou me sentindo ansioso com as provas')}
+              onClick={() => setInput('Estou me sentindo ansioso com as provas')}
               aria-label="Sugestão: Estou me sentindo ansioso com as provas"
             >
               <strong><span className="material-symbols-outlined" aria-hidden="true">psychology_alt</span> Ansiedade com provas</strong><br />
@@ -83,7 +85,7 @@ const MessageList = ({ messages, isTyping, onSuggestionClick }) => {
             </button>
             <button 
               className="suggestion" 
-              onClick={() => onSuggestionClick('Tenho dificuldade para me concentrar')}
+              onClick={() => setInput('Tenho dificuldade para me concentrar')}
               aria-label="Sugestão: Tenho dificuldade para me concentrar"
             >
               <strong><span className="material-symbols-outlined" aria-hidden="true">center_focus_strong</span> Falta de concentração</strong><br />
@@ -91,7 +93,7 @@ const MessageList = ({ messages, isTyping, onSuggestionClick }) => {
             </button>
             <button 
               className="suggestion" 
-              onClick={() => onSuggestionClick('Como posso melhorar minha autoestima?')}
+              onClick={() => setInput('Como posso melhorar minha autoestima?')}
               aria-label="Sugestão: Como posso melhorar minha autoestima?"
             >
               <strong><span className="material-symbols-outlined" aria-hidden="true">auto_awesome</span> Autoestima</strong><br />
@@ -114,12 +116,12 @@ const MessageList = ({ messages, isTyping, onSuggestionClick }) => {
                     <div className="message-files">
                       {message.files.map((file, i) => (
                         <div key={i} className="message-file-item">
-                          {file.type.startsWith('image/') ? (
+                          {file.type && file.type.startsWith('image/') && (file instanceof Blob || file instanceof File) ? (
                             <img src={URL.createObjectURL(file)} alt={file.name} className="message-file-image" />
                           ) : (
                             <div className="message-file-generic">
                               <span className="material-symbols-outlined">description</span>
-                              <span>{file.name}</span>
+                              <span>{file.name || 'Arquivo'}</span>
                             </div>
                           )}
                         </div>

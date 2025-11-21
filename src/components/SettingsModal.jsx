@@ -1,10 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useTheme } from '../context/ThemeContext';
+import { useChat } from '../context/ChatContext';
 
-const SettingsModal = ({ 
-  isOpen, onClose, isDarkMode, toggleTheme, themeMode, setThemeMode, 
-  fontSize, setFontSize, reducedMotion, setReducedMotion, 
-  highContrast, setHighContrast, colorBlindMode, setColorBlindMode, onClearHistory 
-}) => {
+const SettingsModal = ({ isOpen, onClose }) => {
+  const { 
+    isDarkMode, toggleTheme, themeMode, setThemeMode, 
+    fontSize, setFontSize, reducedMotion, setReducedMotion, 
+    highContrast, setHighContrast, colorBlindMode, setColorBlindMode 
+  } = useTheme();
+  const { clearHistory } = useChat();
+  
   const modalRef = useRef(null);
   const [isClosing, setIsClosing] = useState(false);
 
@@ -176,7 +181,7 @@ const SettingsModal = ({
               </div>
               <button className="danger-btn" onClick={() => {
                 if(window.confirm('Tem certeza que deseja apagar todo o histórico?')) {
-                  onClearHistory();
+                  clearHistory();
                 }
               }}>
                 <span className="material-symbols-outlined">delete</span>

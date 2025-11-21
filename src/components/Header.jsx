@@ -1,6 +1,9 @@
 import React from 'react';
+import { useTheme } from '../context/ThemeContext';
 
-const Header = ({ isSidebarOpen, toggleSidebar, isDarkMode, toggleTheme }) => {
+const Header = ({ isSidebarOpen, toggleSidebar }) => {
+  const { isDarkMode, toggleTheme } = useTheme();
+
   return (
     <header className="header">
       <div className="header-left">

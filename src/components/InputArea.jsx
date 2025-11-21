@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
+import { useChat } from '../context/ChatContext';
 
-const InputArea = ({ input, setInput, onSend, isTyping, inputRef }) => {
+const InputArea = ({ inputRef }) => {
+  const { input, setInput, sendMessage, isTyping } = useChat();
   const [isListening, setIsListening] = useState(false);
   const [recognition, setRecognition] = useState(null);
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -65,7 +67,7 @@ const InputArea = ({ input, setInput, onSend, isTyping, inputRef }) => {
 
   const handleSendClick = () => {
     if (!input.trim() && selectedFiles.length === 0) return;
-    onSend(selectedFiles);
+    sendMessage(input, selectedFiles);
     setSelectedFiles([]);
   };
 

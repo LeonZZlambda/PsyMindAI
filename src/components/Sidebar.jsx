@@ -1,6 +1,8 @@
 import React from 'react';
+import { useChat } from '../context/ChatContext';
 
-const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onLoadChat, onOpenSettings, onOpenHelp }) => {
+const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onOpenSettings, onOpenHelp }) => {
+  const { loadChat } = useChat();
   const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
   const cmdKey = isMac ? '⌘' : 'Ctrl';
   const shiftKey = isMac ? '⇧' : 'Shift';
@@ -46,7 +48,7 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onLoadChat, onOpenSettings,
           <button 
             key={chat.id} 
             className="recent-item" 
-            onClick={() => onLoadChat(chat)}
+            onClick={() => loadChat(chat)}
             title={chat.preview}
             aria-label={`Carregar chat: ${chat.title}`}
           >
