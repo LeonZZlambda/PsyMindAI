@@ -1,5 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
 import { useChat } from '../context/ChatContext';
@@ -20,6 +22,29 @@ const CopyButton = ({ text }) => {
       onClick={handleCopy}
       title={copied ? "Copiado!" : "Copiar texto"}
       aria-label="Copiar texto"
+    >
+      <span className="material-symbols-outlined">
+        {copied ? 'check' : 'content_copy'}
+      </span>
+    </button>
+  );
+};
+
+const CodeCopyButton = ({ text }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    toast.success('Código copiado!');
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <button 
+      className="code-copy-btn"
+      onClick={handleCopy}
+      title={copied ? "Copiado!" : "Copiar código"}
     >
       <span className="material-symbols-outlined">
         {copied ? 'check' : 'content_copy'}
@@ -117,7 +142,7 @@ const MessageList = () => {
             {messages.map((message, index) => (
               <motion.div 
                 key={index} 
-                className={`message ${message.type}`}
+                className={`message ${message.type} ${message.isStreaming ? 'streaming' : ''}`}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
@@ -145,7 +170,35 @@ const MessageList = () => {
                         ))}
                       </div>
                     )}
-                    <ReactMarkdown>{message.content}</ReactMarkdown>
+                    <ReactMarkdown
+                      components={{
+                        code({node, inline, className, children, ...props}) {
+                          const match = /language-(\w+)/.exec(className || '')
+                          return !inline && match ? (
+                            <div className="code-block-wrapper">
+                              <div className="code-block-header">
+                                <span>{match[1]}</span>
+                                <CodeCopyButton text={String(children).replace(/\n$/, '')} />
+                              </div>
+                              <SyntaxHighlighter
+                                style={vscDarkPlus}
+                                language={match[1]}
+                                PreTag="div"
+                                {...props}
+                              >
+                                {String(children).replace(/\n$/, '')}
+                              </SyntaxHighlighter>
+                            </div>
+                          ) : (
+                            <code className={className} {...props}>
+                              {children}
+                            </code>
+                          )
+                        }
+                      }}
+                    >
+                      {message.content}
+                    </ReactMarkdown>
                   </div>
                   <div className="message-actions">
                     <button 

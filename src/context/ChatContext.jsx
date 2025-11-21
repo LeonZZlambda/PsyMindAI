@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { useTheme } from './ThemeContext';
 
 const ChatContext = createContext();
 
@@ -11,6 +12,7 @@ export const useChat = () => {
 };
 
 export const ChatProvider = ({ children }) => {
+  const { reducedMotion } = useTheme();
   const [messages, setMessages] = useState(() => {
     if (typeof window !== 'undefined') {
       try {
@@ -40,14 +42,69 @@ export const ChatProvider = ({ children }) => {
     setInput('');
     setIsTyping(true);
 
-    // Simulate AI response
+    // Simulate AI response with streaming effect
     setTimeout(() => {
-      const aiResponse = {
-        type: 'ai',
-        content: 'Olá! Sou o PsyMind.AI e estou aqui para te ajudar a compreender suas emoções e comportamentos. Como posso te apoiar hoje?'
-      };
-      setMessages(prev => [...prev, aiResponse]);
       setIsTyping(false);
+      
+      const fullResponse = 'Olá! Sou o PsyMind.AI e estou aqui para te ajudar a compreender suas emoções e comportamentos. \n\nSe precisar de exemplos de código, posso ajudar também:\n\n```javascript\nconsole.log("Olá, mundo!");\nconst emocao = "felicidade";\n```\n\nComo posso te apoiar hoje?';
+      
+      if (reducedMotion) {
+        setMessages(prev => [...prev, { type: 'ai', content: fullResponse, isStreaming: false }]);
+        return;
+      }
+
+      // Add empty AI message first with isStreaming: true
+      setMessages(prev => [...prev, { type: 'ai', content: '', isStreaming: true }]);
+
+      let currentIndex = 0;
+
+      const streamText = () => {
+        if (currentIndex >= fullResponse.length) {
+          setMessages(prev => {
+            const newMessages = [...prev];
+            const lastIndex = newMessages.length - 1;
+            if (lastIndex >= 0) {
+              newMessages[lastIndex] = { ...newMessages[lastIndex], isStreaming: false };
+            }
+            return newMessages;
+          });
+          return;
+        }
+
+        // Variable chunk size for more natural feel
+        const chunkSize = Math.floor(Math.random() * 3) + 1;
+        const chunk = fullResponse.slice(currentIndex, currentIndex + chunkSize);
+        
+        setMessages(prev => {
+          const newMessages = [...prev];
+          const lastIndex = newMessages.length - 1;
+          
+          if (lastIndex >= 0 && newMessages[lastIndex].type === 'ai') {
+             const currentContent = newMessages[lastIndex].content || '';
+             newMessages[lastIndex] = {
+               ...newMessages[lastIndex],
+               content: currentContent + chunk
+             };
+          }
+          return newMessages;
+        });
+
+        currentIndex += chunkSize;
+
+        // Dynamic delay based on content (punctuation pauses)
+        let delay = 15 + Math.random() * 20;
+        const lastChar = chunk[chunk.length - 1];
+        
+        if (['.', '!', '?', '\n'].includes(lastChar)) {
+          delay += 300;
+        } else if ([',', ';', ':'].includes(lastChar)) {
+          delay += 150;
+        }
+
+        setTimeout(streamText, delay);
+      };
+
+      streamText();
     }, 1500);
   }, []);
 
