@@ -12,13 +12,23 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onLoadChat, onOpenSettings,
   ];
 
   return (
-    <aside className={`sidebar ${!isOpen ? 'closed' : ''}`}>
+    <aside className={`sidebar ${!isOpen ? 'closed' : ''}`} aria-label="Menu lateral">
       <div className="sidebar-header">
-        <button className="menu-btn" onClick={toggleSidebar} title="Fechar menu">
+        <button 
+          className="menu-btn" 
+          onClick={toggleSidebar} 
+          title="Fechar menu"
+          aria-label="Fechar menu lateral"
+        >
           <span className="material-symbols-outlined">menu</span>
         </button>
       </div>
-      <button className="new-chat-btn" onClick={onNewChat} title="Novo chat">
+      <button 
+        className="new-chat-btn" 
+        onClick={onNewChat} 
+        title="Novo chat"
+        aria-label="Iniciar novo chat"
+      >
         <span className="material-symbols-outlined">add</span>
         <span>Novo chat</span>
         {isOpen && (
@@ -30,7 +40,7 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onLoadChat, onOpenSettings,
         )}
       </button>
       
-      <div className="recent-chats">
+      <div className="recent-chats" role="group" aria-label="Chats recentes">
         <span className="recent-label">Recentes</span>
         {recentChats.map(chat => (
           <button 
@@ -38,6 +48,7 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onLoadChat, onOpenSettings,
             className="recent-item" 
             onClick={() => onLoadChat(chat)}
             title={chat.preview}
+            aria-label={`Carregar chat: ${chat.title}`}
           >
             <span className="material-symbols-outlined">chat_bubble_outline</span>
             <span>{chat.title}</span>
@@ -46,7 +57,12 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onLoadChat, onOpenSettings,
       </div>
 
       <div className="sidebar-footer">
-        <button className="sidebar-item" title="Ajuda" onClick={onOpenHelp}>
+        <button 
+          className="sidebar-item" 
+          title="Ajuda" 
+          onClick={onOpenHelp}
+          aria-label="Abrir ajuda"
+        >
           <span className="material-symbols-outlined">help</span>
           <span>Ajuda</span>
           {isOpen && (
@@ -56,11 +72,21 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onLoadChat, onOpenSettings,
             </span>
           )}
         </button>
-        <button className="sidebar-item" title="Atividade" onClick={() => alert('Histórico de atividades em breve')}>
+        <button 
+          className="sidebar-item" 
+          title="Atividade" 
+          onClick={() => alert('Histórico de atividades em breve')}
+          aria-label="Ver histórico de atividades"
+        >
           <span className="material-symbols-outlined">history</span>
           <span>Atividade</span>
         </button>
-        <button className="sidebar-item" title="Configurações" onClick={onOpenSettings}>
+        <button 
+          className="sidebar-item" 
+          title="Configurações" 
+          onClick={onOpenSettings}
+          aria-label="Abrir configurações"
+        >
           <span className="material-symbols-outlined">settings</span>
           <span>Configurações</span>
           {isOpen && (

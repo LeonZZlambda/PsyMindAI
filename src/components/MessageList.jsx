@@ -72,17 +72,29 @@ const MessageList = ({ messages, isTyping, onSuggestionClick }) => {
             <span>Olá, sou o PsyMind.AI</span>
           </h2>
           <p>Como posso ajudar você hoje?</p>
-          <div className="suggestions">
-            <button className="suggestion" onClick={() => onSuggestionClick('Estou me sentindo ansioso com as provas')}>
-              <strong><span className="material-symbols-outlined">psychology_alt</span> Ansiedade com provas</strong><br />
+          <div className="suggestions" role="group" aria-label="Sugestões de perguntas">
+            <button 
+              className="suggestion" 
+              onClick={() => onSuggestionClick('Estou me sentindo ansioso com as provas')}
+              aria-label="Sugestão: Estou me sentindo ansioso com as provas"
+            >
+              <strong><span className="material-symbols-outlined" aria-hidden="true">psychology_alt</span> Ansiedade com provas</strong><br />
               <span>Como lidar com a ansiedade antes dos exames</span>
             </button>
-            <button className="suggestion" onClick={() => onSuggestionClick('Tenho dificuldade para me concentrar')}>
-              <strong><span className="material-symbols-outlined">center_focus_strong</span> Falta de concentração</strong><br />
+            <button 
+              className="suggestion" 
+              onClick={() => onSuggestionClick('Tenho dificuldade para me concentrar')}
+              aria-label="Sugestão: Tenho dificuldade para me concentrar"
+            >
+              <strong><span className="material-symbols-outlined" aria-hidden="true">center_focus_strong</span> Falta de concentração</strong><br />
               <span>Estratégias para melhorar o foco nos estudos</span>
             </button>
-            <button className="suggestion" onClick={() => onSuggestionClick('Como posso melhorar minha autoestima?')}>
-              <strong><span className="material-symbols-outlined">auto_awesome</span> Autoestima</strong><br />
+            <button 
+              className="suggestion" 
+              onClick={() => onSuggestionClick('Como posso melhorar minha autoestima?')}
+              aria-label="Sugestão: Como posso melhorar minha autoestima?"
+            >
+              <strong><span className="material-symbols-outlined" aria-hidden="true">auto_awesome</span> Autoestima</strong><br />
               <span>Dicas para fortalecer a confiança em si mesmo</span>
             </button>
           </div>

@@ -130,7 +130,11 @@ const InputArea = ({ input, setInput, onSend, isTyping, inputRef }) => {
                         <span className="file-type">{file.name.split('.').pop().slice(0, 4).toUpperCase()}</span>
                       </div>
                     )}
-                    <button className="remove-file-btn" onClick={() => removeFile(index)}>
+                    <button 
+                      className="remove-file-btn" 
+                      onClick={() => removeFile(index)}
+                      aria-label={`Remover arquivo ${file.name}`}
+                    >
                       <span className="material-symbols-outlined" style={{ fontSize: '14px' }}>close</span>
                     </button>
                   </div>
@@ -147,11 +151,13 @@ const InputArea = ({ input, setInput, onSend, isTyping, inputRef }) => {
               onChange={handleFileChange}
               style={{ display: 'none' }}
               multiple
+              aria-hidden="true"
             />
             <button 
               className="input-action-btn" 
               onClick={handleFileClick}
               title="Adicionar arquivos (Cmd + Shift + U)"
+              aria-label="Adicionar arquivos"
             >
               <span className="material-symbols-outlined">add_circle</span>
             </button>
@@ -164,31 +170,38 @@ const InputArea = ({ input, setInput, onSend, isTyping, inputRef }) => {
               className="message-input"
               minRows={1}
               maxRows={5}
+              aria-label="Digite sua mensagem"
             />
             <button 
               className={`input-action-btn ${isListening ? 'listening' : ''}`} 
               onClick={toggleListening}
               title={isListening ? "Parar de ouvir" : "Usar microfone (Cmd + Shift + .)"}
               disabled={!recognition}
+              aria-label={isListening ? "Parar microfone" : "Ativar microfone"}
             >
               <span className="material-symbols-outlined">
                 {isListening ? 'mic_off' : 'mic'}
               </span>
             </button>
             {(input.trim() || selectedFiles.length > 0) && (
-              <button onClick={handleSendClick} className="send-button" title="Enviar mensagem">
+              <button 
+                onClick={handleSendClick} 
+                className="send-button" 
+                title="Enviar mensagem"
+                aria-label="Enviar mensagem"
+              >
                 <span className="material-symbols-outlined">send</span>
               </button>
             )}
           </div>
         </div>
       </div>
-      <p className="disclaimer">
-        <span className="material-symbols-outlined" style={{ fontSize: '14px', verticalAlign: 'middle', marginRight: '4px' }}>warning</span>
+      <p className="disclaimer" role="note">
+        <span className="material-symbols-outlined" style={{ fontSize: '14px', verticalAlign: 'middle', marginRight: '4px' }} aria-hidden="true">warning</span>
         O PsyMind.AI oferece apoio educativo. Para questões sérias, procure ajuda profissional.
       </p>
-      <p className="license-notice">
-        <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">
+      <p className="license-notice" role="contentinfo">
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer" aria-label="Licença Creative Commons BY-SA 4.0">
           Licenciado sob CC BY-SA 4.0
         </a>
       </p>

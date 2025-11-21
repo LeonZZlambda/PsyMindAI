@@ -209,6 +209,9 @@
   justify-content: center;
   cursor: pointer;
   color: #444746;
+  border: none;
+  background: transparent;
+  padding: 0;
 }
 
 .user-profile:hover {

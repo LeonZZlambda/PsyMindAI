@@ -1,11 +1,13 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback, Suspense, lazy } from 'react'
 import './App.css'
 import Sidebar from './components/Sidebar'
 import Header from './components/Header'
 import MessageList from './components/MessageList'
 import InputArea from './components/InputArea'
-import SettingsModal from './components/SettingsModal'
-import HelpModal from './components/HelpModal'
+
+// Lazy load modals to improve initial load performance
+const SettingsModal = lazy(() => import('./components/SettingsModal'))
+const HelpModal = lazy(() => import('./components/HelpModal'))
 
 function App() {
   const [messages, setMessages] = useState([])
@@ -153,28 +155,34 @@ function App() {
         />
       </div>
 
-            <SettingsModal 
-        isOpen={isSettingsOpen} 
-        onClose={() => setIsSettingsOpen(false)}
-        isDarkMode={isDarkMode}
-        toggleTheme={toggleTheme}
-        themeMode={themeMode}
-        setThemeMode={setThemeMode}
-        fontSize={fontSize}
-        setFontSize={setFontSize}
-        reducedMotion={reducedMotion}
-        setReducedMotion={setReducedMotion}
-        highContrast={highContrast}
-        setHighContrast={setHighContrast}
-        colorBlindMode={colorBlindMode}
-        setColorBlindMode={setColorBlindMode}
-        onClearHistory={() => setMessages([])}
-      />
+      <Suspense fallback={null}>
+        {isSettingsOpen && (
+          <SettingsModal 
+            isOpen={isSettingsOpen} 
+            onClose={() => setIsSettingsOpen(false)}
+            isDarkMode={isDarkMode}
+            toggleTheme={toggleTheme}
+            themeMode={themeMode}
+            setThemeMode={setThemeMode}
+            fontSize={fontSize}
+            setFontSize={setFontSize}
+            reducedMotion={reducedMotion}
+            setReducedMotion={setReducedMotion}
+            highContrast={highContrast}
+            setHighContrast={setHighContrast}
+            colorBlindMode={colorBlindMode}
+            setColorBlindMode={setColorBlindMode}
+            onClearHistory={() => setMessages([])}
+          />
+        )}
 
-      <HelpModal 
-        isOpen={isHelpOpen} 
-        onClose={() => setIsHelpOpen(false)} 
-      />
+        {isHelpOpen && (
+          <HelpModal 
+            isOpen={isHelpOpen} 
+            onClose={() => setIsHelpOpen(false)} 
+          />
+        )}
+      </Suspense>
     </div>
   )
 }
