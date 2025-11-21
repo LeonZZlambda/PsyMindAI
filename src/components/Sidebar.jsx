@@ -1,4 +1,5 @@
 import React from 'react';
+import { toast } from 'sonner';
 import { useChat } from '../context/ChatContext';
 
 const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onOpenSettings, onOpenHelp }) => {
@@ -12,6 +13,12 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onOpenSettings, onOpenHelp 
     { id: 2, title: 'Dicas de estudo', preview: 'Como posso melhorar...' },
     { id: 3, title: 'Problemas de sono', preview: 'Não consigo dormir...' }
   ];
+
+  const handleActivityClick = () => {
+    toast.info('Histórico de atividades em breve!', {
+      description: 'Estamos trabalhando para trazer estatísticas sobre seu bem-estar.'
+    });
+  };
 
   return (
     <aside className={`sidebar ${!isOpen ? 'closed' : ''}`} aria-label="Menu lateral">
@@ -77,7 +84,7 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onOpenSettings, onOpenHelp 
         <button 
           className="sidebar-item" 
           title="Atividade" 
-          onClick={() => alert('Histórico de atividades em breve')}
+          onClick={handleActivityClick}
           aria-label="Ver histórico de atividades"
         >
           <span className="material-symbols-outlined">history</span>

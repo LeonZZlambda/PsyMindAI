@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { toast } from 'sonner';
 import { useTheme } from '../context/ThemeContext';
 import { useChat } from '../context/ChatContext';
 
@@ -19,6 +20,13 @@ const SettingsModal = ({ isOpen, onClose }) => {
       setIsClosing(false);
       onClose();
     }, 300);
+  };
+
+  const handleClearHistory = () => {
+    if(window.confirm('Tem certeza que deseja apagar todo o histórico?')) {
+      clearHistory();
+      toast.success('Histórico apagado com sucesso');
+    }
   };
 
   // Close on Escape key
@@ -179,11 +187,7 @@ const SettingsModal = ({ isOpen, onClose }) => {
                 <span className="setting-label">Limpar Histórico</span>
                 <span className="setting-desc">Apagar todas as conversas salvas neste dispositivo</span>
               </div>
-              <button className="danger-btn" onClick={() => {
-                if(window.confirm('Tem certeza que deseja apagar todo o histórico?')) {
-                  clearHistory();
-                }
-              }}>
+              <button className="danger-btn" onClick={handleClearHistory}>
                 <span className="material-symbols-outlined">delete</span>
                 Limpar tudo
               </button>

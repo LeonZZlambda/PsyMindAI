@@ -1,9 +1,12 @@
 import { useState, useEffect, useRef, useCallback, Suspense, lazy } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
+import { Toaster } from 'sonner'
+import { ErrorBoundary } from 'react-error-boundary'
 import './App.css'
 import Sidebar from './components/Sidebar'
 import Header from './components/Header'
 import ChatPage from './pages/ChatPage'
+import ErrorFallback from './components/ErrorFallback'
 import { useTheme } from './context/ThemeContext'
 import { useChat } from './context/ChatContext'
 
@@ -64,43 +67,62 @@ function App() {
   }, [handleNewChat]);
 
   return (
-    <div className={`app ${isDarkMode ? 'dark' : ''} ${fontSize === 'large' ? 'font-large' : ''} ${reducedMotion ? 'reduced-motion' : ''} ${highContrast ? 'high-contrast' : ''} color-blind-${colorBlindMode}`}>
-      <Sidebar 
-        isOpen={isSidebarOpen} 
-        toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} 
-        onNewChat={handleNewChat}
-        onOpenSettings={() => setIsSettingsOpen(true)}
-        onOpenHelp={() => setIsHelpOpen(true)}
-      />
-
-      <div className="main-content">
-        <Header 
-          isSidebarOpen={isSidebarOpen} 
-          toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+    <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => window.location.reload()}>
+      <div className={`app ${isDarkMode ? 'dark' : ''} ${fontSize === 'large' ? 'font-large' : ''} ${reducedMotion ? 'reduced-motion' : ''} ${highContrast ? 'high-contrast' : ''} color-blind-${colorBlindMode}`}>
+        <Toaster 
+          position="bottom-center" 
+          toastOptions={{
+            style: {
+              background: isDarkMode ? '#e8eaed' : '#202124',
+              color: isDarkMode ? '#202124' : '#e8eaed',
+              border: 'none',
+              borderRadius: '4px',
+              fontFamily: "'Google Sans', Roboto, sans-serif",
+              fontSize: '14px',
+              padding: '14px 24px',
+              gap: '12px',
+              boxShadow: '0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12)'
+            },
+          }}
+        />
+        
+        <Sidebar 
+          isOpen={isSidebarOpen} 
+          toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} 
+          onNewChat={handleNewChat}
+          onOpenSettings={() => setIsSettingsOpen(true)}
+          onOpenHelp={() => setIsHelpOpen(true)}
         />
 
-        <Routes>
-          <Route path="/" element={<ChatPage inputRef={inputRef} />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+        <div className="main-content">
+          <Header 
+            isSidebarOpen={isSidebarOpen} 
+            toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+          />
+
+          <Routes>
+            <Route path="/" element={<ChatPage inputRef={inputRef} />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </div>
+
+        <Suspense fallback={null}>
+          {isSettingsOpen && (
+            <SettingsModal 
+              isOpen={isSettingsOpen} 
+              onClose={() => setIsSettingsOpen(false)}
+            />
+          )}
+
+          {isHelpOpen && (
+            <HelpModal 
+              isOpen={isHelpOpen} 
+              onClose={() => setIsHelpOpen(false)} 
+            />
+          )}
+        </Suspense>
       </div>
-
-      <Suspense fallback={null}>
-        {isSettingsOpen && (
-          <SettingsModal 
-            isOpen={isSettingsOpen} 
-            onClose={() => setIsSettingsOpen(false)}
-          />
-        )}
-
-        {isHelpOpen && (
-          <HelpModal 
-            isOpen={isHelpOpen} 
-            onClose={() => setIsHelpOpen(false)} 
-          />
-        )}
-      </Suspense>
-    </div>
+    </ErrorBoundary>
   )
 }
 

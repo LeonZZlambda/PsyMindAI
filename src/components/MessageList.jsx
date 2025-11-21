@@ -1,5 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { motion, AnimatePresence } from 'framer-motion';
+import { toast } from 'sonner';
 import { useChat } from '../context/ChatContext';
 
 const CopyButton = ({ text }) => {
@@ -8,6 +10,7 @@ const CopyButton = ({ text }) => {
   const handleCopy = () => {
     navigator.clipboard.writeText(text);
     setCopied(true);
+    toast.success('Texto copiado para a área de transferência');
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -56,6 +59,8 @@ const MessageList = () => {
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = 'pt-BR';
       window.speechSynthesis.speak(utterance);
+    } else {
+      toast.error('Seu navegador não suporta síntese de voz');
     }
   };
 
@@ -66,7 +71,12 @@ const MessageList = () => {
       onScroll={handleScroll}
     > 
       {messages.length === 0 ? (
-        <div className="welcome">
+        <motion.div 
+          className="welcome"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <div className="welcome-icon">
             <span className="material-symbols-outlined">psychology</span>
           </div>
@@ -100,52 +110,64 @@ const MessageList = () => {
               <span>Dicas para fortalecer a confiança em si mesmo</span>
             </button>
           </div>
-        </div>
+        </motion.div>
       ) : (
         <div className="messages">
-          {messages.map((message, index) => (
-            <div key={index} className={`message ${message.type}`}>
-              <div className="message-avatar">
-                <span className="material-symbols-outlined">
-                  {message.type === 'user' ? 'person' : 'psychology'}
-                </span>
-              </div>
-              <div className="message-content-wrapper">
-                <div className="message-content">
-                  {message.files && message.files.length > 0 && (
-                    <div className="message-files">
-                      {message.files.map((file, i) => (
-                        <div key={i} className="message-file-item">
-                          {file.type && file.type.startsWith('image/') && (file instanceof Blob || file instanceof File) ? (
-                            <img src={URL.createObjectURL(file)} alt={file.name} className="message-file-image" />
-                          ) : (
-                            <div className="message-file-generic">
-                              <span className="material-symbols-outlined">description</span>
-                              <span>{file.name || 'Arquivo'}</span>
-                            </div>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                  <ReactMarkdown>{message.content}</ReactMarkdown>
+          <AnimatePresence>
+            {messages.map((message, index) => (
+              <motion.div 
+                key={index} 
+                className={`message ${message.type}`}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="message-avatar">
+                  <span className="material-symbols-outlined">
+                    {message.type === 'user' ? 'person' : 'psychology'}
+                  </span>
                 </div>
-                <div className="message-actions">
-                  <button 
-                    className="action-btn" 
-                    onClick={() => speakMessage(message.content)}
-                    title="Ouvir mensagem"
-                    aria-label="Ouvir mensagem"
-                  >
-                    <span className="material-symbols-outlined">volume_up</span>
-                  </button>
-                  <CopyButton text={message.content} />
+                <div className="message-content-wrapper">
+                  <div className="message-content">
+                    {message.files && message.files.length > 0 && (
+                      <div className="message-files">
+                        {message.files.map((file, i) => (
+                          <div key={i} className="message-file-item">
+                            {file.type && file.type.startsWith('image/') && (file instanceof Blob || file instanceof File) ? (
+                              <img src={URL.createObjectURL(file)} alt={file.name} className="message-file-image" />
+                            ) : (
+                              <div className="message-file-generic">
+                                <span className="material-symbols-outlined">description</span>
+                                <span>{file.name || 'Arquivo'}</span>
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    <ReactMarkdown>{message.content}</ReactMarkdown>
+                  </div>
+                  <div className="message-actions">
+                    <button 
+                      className="action-btn" 
+                      onClick={() => speakMessage(message.content)}
+                      title="Ouvir mensagem"
+                      aria-label="Ouvir mensagem"
+                    >
+                      <span className="material-symbols-outlined">volume_up</span>
+                    </button>
+                    <CopyButton text={message.content} />
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))}
+              </motion.div>
+            ))}
+          </AnimatePresence>
           {isTyping && (
-            <div className="message ai">
+            <motion.div 
+              className="message ai"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+            >
               <div className="message-avatar">
                 <span className="material-symbols-outlined">psychology</span>
               </div>
@@ -156,7 +178,7 @@ const MessageList = () => {
                   <span></span>
                 </div>
               </div>
-            </div>
+            </motion.div>
           )}
           <div ref={messagesEndRef} />
         </div>
