@@ -1,4 +1,4 @@
-# PsyMind.AI
+# Ψ PsyMind.AI Ψ
 
 PsyMind.AI is an educational emotional support solution designed to help high school students understand their behaviors and emotions through scientific psychology.
 
