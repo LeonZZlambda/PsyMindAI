@@ -26,6 +26,14 @@
   animation: slideUp 0.3s cubic-bezier(0.2, 0, 0, 1);
 }
 
+.modal-overlay.closing {
+  animation: fadeOut 0.3s ease-in forwards;
+}
+
+.modal-overlay.closing .modal-content {
+  animation: slideDown 0.3s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
 .modal-header {
   padding: 1.5rem 1.5rem 1rem;
   display: flex;

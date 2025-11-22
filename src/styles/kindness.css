@@ -9,6 +9,10 @@
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
 }
 
+.modal-overlay.closing .kindness-modal {
+  animation: slideDown 0.3s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
 .kindness-body {
   display: flex;
   flex-direction: column;
