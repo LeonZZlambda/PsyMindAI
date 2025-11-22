@@ -924,6 +924,31 @@
   color: #c4c7c5;
 }
 
+/* IB Specific Subjects */
+/* Literature - Deep Blue */
+.subject-literature .subject-icon-wrapper {
+  background: #304ffe;
+  color: #fff;
+}
+.subject-literature:hover .subject-icon-wrapper {
+  background: #1a237e;
+}
+
+/* Humanities - Teal/Brown Mix */
+.subject-humanities .subject-icon-wrapper {
+  background: #00796b;
+  color: #fff;
+}
+.subject-humanities:hover .subject-icon-wrapper {
+  background: #004d40;
+}
+
+.app.dark .subject-literature .subject-icon-wrapper { background: #536dfe; color: #fff; }
+.app.dark .subject-literature:hover .subject-icon-wrapper { background: #304ffe; }
+
+.app.dark .subject-humanities .subject-icon-wrapper { background: #26a69a; color: #fff; }
+.app.dark .subject-humanities:hover .subject-icon-wrapper { background: #00796b; }
+
 @media (max-width: 600px) {
   .exams-categories-grid {
     grid-template-columns: 1fr;

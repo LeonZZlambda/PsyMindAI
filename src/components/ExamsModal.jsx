@@ -516,6 +516,17 @@ const ExamsModal = ({ isOpen, onClose }) => {
   const getSubjectConfig = (subjectName) => {
     const lowerName = subjectName.toLowerCase();
     
+    // IB Specific
+    if (lowerName.includes('acquisition')) {
+      return { icon: 'translate', className: 'subject-languages' };
+    }
+    if (lowerName.includes('literature')) {
+      return { icon: 'auto_stories', className: 'subject-literature' };
+    }
+    if (lowerName.includes('individuals') || lowerName.includes('societies')) {
+      return { icon: 'groups', className: 'subject-humanities' };
+    }
+    
     // Specific Math Types (SAT)
     if (lowerName.includes('no calculator')) {
       return { icon: 'stylus', className: 'subject-math-nocalc' };
