@@ -55,7 +55,16 @@ function App() {
     inputRef.current?.focus()
     setIsNewChatAnimating(true)
     setTimeout(() => setIsNewChatAnimating(false), 200)
+    if (window.innerWidth <= 768) {
+      setIsSidebarOpen(false)
+    }
   }, [clearHistory, setInput])
+
+  const handleChatSelect = useCallback(() => {
+    if (window.innerWidth <= 768) {
+      setIsSidebarOpen(false)
+    }
+  }, [])
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -120,6 +129,7 @@ function App() {
               isOpen={isSidebarOpen} 
               toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} 
               onNewChat={handleNewChat}
+              onChatSelect={handleChatSelect}
               isNewChatAnimating={isNewChatAnimating}
               onOpenSettings={() => setIsSettingsOpen(true)}
               onOpenHelp={() => setIsHelpOpen(true)}

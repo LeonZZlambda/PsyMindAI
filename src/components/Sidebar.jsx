@@ -2,7 +2,7 @@ import React from 'react';
 import { toast } from 'sonner';
 import { useChat } from '../context/ChatContext';
 
-const Sidebar = ({ isOpen, toggleSidebar, onNewChat, isNewChatAnimating, onOpenSettings, onOpenHelp }) => {
+const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onChatSelect, isNewChatAnimating, onOpenSettings, onOpenHelp }) => {
   const { loadChat } = useChat();
   const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
   const cmdKey = isMac ? '⌘' : 'Ctrl';
@@ -13,6 +13,13 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, isNewChatAnimating, onOpenS
     { id: 2, title: 'Dicas de estudo', preview: 'Como posso melhorar...' },
     { id: 3, title: 'Problemas de sono', preview: 'Não consigo dormir...' }
   ];
+
+  const handleChatClick = (chat) => {
+    loadChat(chat);
+    if (onChatSelect) {
+      onChatSelect();
+    }
+  };
 
   const handleActivityClick = () => {
     toast.info('Histórico de atividades em breve!', {
@@ -55,7 +62,7 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, isNewChatAnimating, onOpenS
           <button 
             key={chat.id} 
             className="recent-item" 
-            onClick={() => loadChat(chat)}
+            onClick={() => handleChatClick(chat)}
             title={chat.preview}
             aria-label={`Carregar chat: ${chat.title}`}
           >
