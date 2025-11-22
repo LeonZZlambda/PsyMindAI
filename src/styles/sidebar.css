@@ -1,0 +1,279 @@
+.sidebar {
+  width: 300px;
+  background: #f0f4f9;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  white-space: nowrap;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.sidebar.closed {
+  width: 0;
+  padding-left: 0;
+  padding-right: 0;
+  pointer-events: none;
+}
+
+/* Prevent content squashing during animation */
+.sidebar > * {
+  min-width: 268px;
+  opacity: 1;
+  transition: opacity 0.15s ease-out;
+}
+
+.sidebar.closed > * {
+  opacity: 0;
+  transition: opacity 0.1s ease-in;
+}
+
+.sidebar-header {
+  padding: 0.5rem 0;
+  margin-bottom: 1rem;
+}
+
+.menu-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #444746;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-btn:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+.new-chat-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: #dfe4ea;
+  border: 2px solid transparent;
+  border-radius: 24px;
+  color: #1f1f1f;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  margin-bottom: 1.5rem;
+}
+
+.new-chat-btn:hover {
+  background: #d3d8de;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.new-chat-btn:active,
+.new-chat-btn.active {
+  background: 
+    linear-gradient(#dfe4ea, #dfe4ea) padding-box,
+    linear-gradient(90deg, #009688, #4285f4, #7c4dff, #009688) border-box;
+  background-size: 200% 100%;
+  animation: gemini-gradient-move 4s linear infinite;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.new-chat-btn .material-symbols-outlined {
+  font-size: 20px;
+  color: #444746;
+}
+
+.recent-chats {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  overflow-y: auto;
+}
+
+.recent-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #444746;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.recent-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: none;
+  border-radius: 24px;
+  color: #1f1f1f;
+  font-family: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.recent-item:hover {
+  background: #e3e3e3;
+}
+
+.recent-item:active {
+  background: #d3d3d3;
+  transform: scale(0.98);
+}
+
+.recent-item .material-symbols-outlined {
+  font-size: 18px;
+  color: #444746;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: none;
+  border-radius: 24px;
+  color: #444746;
+  font-family: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.sidebar-item:hover {
+  background: #e3e3e3;
+}
+
+.sidebar-item:active {
+  background: #d3d3d3;
+  transform: scale(0.98);
+}
+
+.sidebar-item .material-symbols-outlined {
+  font-size: 20px;
+}
+
+/* Keyboard shortcuts in sidebar */
+.keyboard-shortcut {
+  margin-left: auto;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.key {
+  font-size: 11px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 2px 6px;
+  min-width: 14px;
+  text-align: center;
+  color: #444746;
+  line-height: 1.2;
+  font-weight: 500;
+}
+
+/* Hide keyboard shortcuts on touch devices or small screens */
+@media (hover: none) and (pointer: coarse), (max-width: 768px) {
+  .keyboard-shortcut {
+    display: none !important;
+  }
+}
+
+/* Dark Mode Sidebar */
+.app.dark .sidebar {
+  background: #1e1f20;
+}
+
+.app.dark .menu-btn {
+  color: #e3e3e3;
+}
+
+.app.dark .menu-btn:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+.app.dark .new-chat-btn {
+  background: #282a2c;
+  color: #e3e3e3;
+}
+
+.app.dark .new-chat-btn:hover {
+  background: #37393b;
+}
+
+.app.dark .new-chat-btn:active,
+.app.dark .new-chat-btn.active {
+  background: 
+    linear-gradient(#282a2c, #282a2c) padding-box,
+    linear-gradient(74deg, #009688, #4285f4, #7c4dff, #009688) border-box;
+  background-size: 400% 100%;
+  animation: gemini-gradient-move 4s linear infinite;
+  border-color: transparent;
+}
+
+.app.dark .new-chat-btn .material-symbols-outlined {
+  color: #c4c7c5;
+}
+
+.app.dark .recent-label {
+  color: #c4c7c5;
+}
+
+.app.dark .recent-item {
+  color: #e3e3e3;
+}
+
+.app.dark .recent-item:hover {
+  background: #282a2c;
+}
+
+.app.dark .recent-item:active {
+  background: #3c4043;
+  transform: scale(0.98);
+}
+
+.app.dark .recent-item .material-symbols-outlined {
+  color: #c4c7c5;
+}
+
+.app.dark .sidebar-item {
+  color: #e3e3e3;
+}
+
+.app.dark .sidebar-item:hover {
+  background: #282a2c;
+}
+
+.app.dark .sidebar-item:active {
+  background: #3c4043;
+  transform: scale(0.98);
+}
+
+.app.dark .key {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #e3e3e3;
+}

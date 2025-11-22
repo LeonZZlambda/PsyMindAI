@@ -1,0 +1,229 @@
+/* Contribute Page Styles */
+.contribute-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+
+.contribute-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 8rem 2rem 4rem;
+  width: 100%;
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.contribute-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.contribute-header h1 {
+  font-size: 2.5rem;
+  color: #202124;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.contribute-header p {
+  font-size: 1.1rem;
+  color: #5f6368;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.contribute-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.contribute-card {
+  background: #f8f9fa;
+  border-radius: 24px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: all 0.2s ease;
+}
+
+.contribute-card:hover {
+  background: #fff;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transform: translateY(-4px);
+}
+
+.icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.icon-box.code { background: #e8f0fe; color: #1a73e8; }
+.icon-box.design { background: #fce8e6; color: #d93025; }
+.icon-box.docs { background: #e6f4ea; color: #188038; }
+
+.contribute-card h3 {
+  font-size: 1.25rem;
+  color: #202124;
+  margin-bottom: 1rem;
+}
+
+.contribute-card p {
+  color: #5f6368;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  flex: 1;
+}
+
+.text-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #1a73e8;
+  font-weight: 500;
+  text-decoration: none;
+  transition: gap 0.2s ease;
+}
+
+.text-link:hover {
+  gap: 0.75rem;
+  text-decoration: underline;
+}
+
+.steps-section {
+  background: #fff;
+  border: 1px solid #dadce0;
+  border-radius: 24px;
+  padding: 3rem;
+}
+
+.steps-section h2 {
+  text-align: center;
+  margin-bottom: 3rem;
+  color: #202124;
+}
+
+.steps-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+}
+
+.step-number {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #1a73e8;
+  color: #fff;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.step-text h4 {
+  color: #202124;
+  margin-bottom: 0.5rem;
+}
+
+.step-text p {
+  color: #5f6368;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.step-text code {
+  background: #f1f3f4;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.85rem;
+}
+
+/* Dark Mode Support for Contribute */
+.app.dark .contribute-page {
+  background: #131314;
+}
+
+.app.dark .contribute-header h1,
+.app.dark .contribute-card h3,
+.app.dark .steps-section h2,
+.app.dark .step-text h4 {
+  color: #e3e3e3;
+}
+
+.app.dark .contribute-header p,
+.app.dark .contribute-card p,
+.app.dark .step-text p {
+  color: #9aa0a6;
+}
+
+.app.dark .contribute-card {
+  background: #1e1f20;
+}
+
+.app.dark .contribute-card:hover {
+  background: #2d2e30;
+}
+
+.app.dark .icon-box.code { background: rgba(26, 115, 232, 0.2); color: #8ab4f8; }
+.app.dark .icon-box.design { background: rgba(217, 48, 37, 0.2); color: #f28b82; }
+.app.dark .icon-box.docs { background: rgba(24, 128, 56, 0.2); color: #81c995; }
+
+.app.dark .text-link {
+  color: #8ab4f8;
+}
+
+.app.dark .steps-section {
+  background: #1e1f20;
+  border-color: #3c4043;
+}
+
+.app.dark .step-number {
+  background: #8ab4f8;
+  color: #131314;
+}
+
+.app.dark .step-text code {
+  background: #303134;
+  color: #e3e3e3;
+}
+
+@media (max-width: 768px) {
+  .contribute-content {
+    padding: 6rem 1.5rem 3rem;
+  }
+
+  .contribute-header h1 {
+    font-size: 2rem;
+  }
+
+  .steps-list {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  
+  .contribute-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,236 @@
+/* Pomodoro Modal Styles */
+.pomodoro-modal {
+  max-width: 380px;
+  width: 90%;
+  text-align: center;
+  background: #fff;
+  border-radius: 28px;
+  padding: 24px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+}
+
+.pomodoro-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.pomodoro-modes {
+  display: flex;
+  gap: 0.5rem;
+  background: #f1f3f4;
+  padding: 4px;
+  border-radius: 24px;
+}
+
+.mode-btn {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: none;
+  background: transparent;
+  color: #5f6368;
+  cursor: pointer;
+  font-family: 'Google Sans', Roboto, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.mode-btn:hover {
+  color: #202124;
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.mode-btn.active {
+  background: #fff;
+  color: var(--primary-color);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.timer-display {
+  font-family: 'Google Sans Display', 'Roboto', sans-serif;
+  font-size: 6rem;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  letter-spacing: -2px;
+  margin: 1rem 0;
+}
+
+.timer-controls {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.control-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.control-btn:active {
+  transform: scale(0.95);
+}
+
+.main-control {
+  width: 72px;
+  height: 72px;
+  border-radius: 24px; /* Material 3 shape */
+  color: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.main-control:hover {
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+.main-control .material-symbols-outlined {
+  font-size: 36px;
+}
+
+.reset-control {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #f1f3f4;
+  color: #5f6368;
+}
+
+.reset-control:hover {
+  background: #e8eaed;
+  color: #202124;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 4px;
+  background: #f1f3f4;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  transition: width 1s linear, background-color 0.3s ease;
+}
+
+/* AI Tip Section in Pomodoro */
+.ai-tip-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.ai-tip-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 8px 16px;
+  border-radius: 100px;
+  background: transparent;
+  border: 1px solid;
+  font-family: 'Google Sans', Roboto, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ai-tip-btn:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.ai-tip-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.ai-tip-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: #f8f9fa;
+  padding: 16px;
+  border-radius: 16px;
+  text-align: left;
+  width: 100%;
+  animation: fadeIn 0.3s ease;
+  border: 1px solid #f1f3f4;
+}
+
+.tip-icon {
+  font-size: 1.25rem;
+  margin-top: 2px;
+}
+
+.ai-tip-content p {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.95rem;
+  color: #3c4043;
+  line-height: 1.5;
+}
+
+/* Dark Mode for Pomodoro Modal */
+.app.dark .pomodoro-modal {
+  background: #1e1f20;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+}
+
+.app.dark .pomodoro-modes {
+  background: #282a2c;
+}
+
+.app.dark .mode-btn {
+  color: #c4c7c5;
+}
+
+.app.dark .mode-btn:hover {
+  color: #e3e3e3;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.app.dark .mode-btn.active {
+  background: #3c4043;
+}
+
+.app.dark .reset-control {
+  background: #282a2c;
+  color: #c4c7c5;
+}
+
+.app.dark .reset-control:hover {
+  background: #37393b;
+  color: #e3e3e3;
+}
+
+.app.dark .progress-bar-container {
+  background: #282a2c;
+}
+
+.app.dark .ai-tip-btn {
+  color: #e3e3e3;
+  border-color: #444746;
+}
+
+.app.dark .ai-tip-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.app.dark .ai-tip-content {
+  background: #282a2c;
+  border-color: #444746;
+}
+
+.app.dark .ai-tip-content p {
+  color: #e3e3e3;
+}

@@ -1,0 +1,161 @@
+/* Shared Components */
+.primary-btn {
+  background: transparent;
+  color: #0b57d0;
+  border: none;
+  padding: 0 1.5rem;
+  height: 40px;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.primary-btn:hover {
+  background: rgba(11, 87, 208, 0.08);
+}
+
+.app.dark .primary-btn {
+  color: #a8c7fa;
+}
+
+.app.dark .primary-btn:hover {
+  background: rgba(168, 199, 250, 0.08);
+}
+
+/* Toggle Switch */
+.toggle-switch {
+  width: 52px;
+  height: 32px;
+  background: #e3e3e3;
+  border-radius: 16px;
+  border: none;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  padding: 0;
+}
+
+.toggle-switch:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.toggle-switch.active {
+  background: #4285f4;
+}
+
+.toggle-thumb {
+  width: 24px;
+  height: 24px;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.toggle-switch.active .toggle-thumb {
+  transform: translateX(20px);
+}
+
+.app.dark .toggle-switch {
+  background: #444746;
+}
+
+.app.dark .toggle-switch.active {
+  background: #8ab4f8;
+}
+
+.app.dark .toggle-thumb {
+  background: #e3e3e3;
+}
+
+/* Select Input - Google Material Style */
+.select-input {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 10px 40px 10px 16px;
+  border-radius: 18px;
+  border: 1px solid transparent;
+  background-color: #f0f4f9;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1f1f1f;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22%23444746%22%3E%3Cpath%20d%3D%22M7%2010l5%205%205-5z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  transition: all 0.2s ease;
+  min-width: 180px;
+}
+
+.select-input:hover {
+  background-color: #e1e5ea;
+}
+
+.select-input:focus {
+  outline: none;
+  border-color: transparent;
+  background-color: #e1e5ea;
+  box-shadow: none;
+}
+
+.app.dark .select-input {
+  background-color: #282a2c;
+  color: #e3e3e3;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22%23e3e3e3%22%3E%3Cpath%20d%3D%22M7%2010l5%205%205-5z%22%2F%3E%3C%2Fsvg%3E");
+}
+
+.app.dark .select-input:hover {
+  background-color: #3c3f41;
+}
+
+.app.dark .select-input:focus {
+  background-color: #3c3f41;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.app.high-contrast .select-input {
+  background-color: var(--hc-bg);
+  color: var(--hc-text);
+  border: 2px solid var(--hc-border);
+  background-image: none; /* Remove custom arrow in HC mode to rely on native or add high contrast arrow if needed, but native is safer for HC */
+  appearance: auto; /* Revert to native for maximum accessibility in HC mode */
+  -webkit-appearance: auto;
+  padding: 8px;
+}
+
+/* Danger Button */
+.danger-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: #fff0f0;
+  color: #d93025;
+  border: none;
+  border-radius: 24px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.danger-btn:hover {
+  background: #ffeceb;
+}
+
+.app.dark .danger-btn {
+  background: #390c0c;
+  color: #ffb4ab;
+}
+
+.app.dark .danger-btn:hover {
+  background: #531010;
+}

@@ -1,0 +1,238 @@
+/* Kindness Modal Styles */
+.kindness-modal {
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  background: #fff;
+  border-radius: 28px;
+  padding: 24px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+}
+
+.kindness-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+.kindness-categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.category-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid #dadce0;
+  background: #f8f9fa;
+  color: #1a73e8;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.category-btn:hover {
+  background: #f1f3f4;
+}
+
+.category-btn.active {
+  background: #1a73e8;
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.act-card {
+  background: #f0f4f9;
+  border: 1px solid #dadce0;
+  border-radius: 24px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.act-card:hover {
+  background: #e1f5fe;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.act-icon {
+  font-size: 48px;
+  color: #1a73e8;
+  background: #e8f0fe;
+  padding: 16px;
+  border-radius: 50%;
+}
+
+.act-text {
+  font-family: 'Google Sans', Roboto, sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: #202124;
+  text-align: center;
+  font-weight: 400;
+}
+
+.completion-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #188038;
+  font-weight: 500;
+  font-size: 0.9rem;
+  background: #fff;
+  padding: 4px 12px;
+  border-radius: 100px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  margin-top: 1rem;
+  animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.kindness-controls {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 10px 24px;
+  border-radius: 100px;
+  font-family: 'Google Sans', Roboto, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.action-btn.secondary {
+  background: #fff;
+  color: #1a73e8;
+  border: 1px solid #dadce0;
+}
+
+.action-btn.secondary:hover {
+  background: #f8f9fa;
+  border-color: #d2e3fc;
+  background: #e8f0fe;
+}
+
+.action-btn.primary {
+  background: #1a73e8;
+  color: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+}
+
+.action-btn.primary:hover {
+  background: #1557b0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transform: translateY(-1px);
+}
+
+.action-btn.primary.disabled {
+  background: #f1f3f4;
+  color: #9aa0a6;
+  cursor: default;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Dark Mode for Kindness Modal */
+.app.dark .kindness-modal {
+  background: #1e1f20;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+}
+
+.app.dark .kindness-body {
+  padding-top: 1rem;
+}
+
+.app.dark .category-btn {
+  background: #282a2c;
+  border-color: #444746;
+  color: #e3e3e3;
+}
+
+.app.dark .category-btn:hover {
+  background: #37393b;
+  border-color: #5f6368;
+}
+
+.app.dark .category-btn.active {
+  background: #004a77;
+  color: #c2e7ff;
+  border-color: transparent;
+}
+
+.app.dark .act-card {
+  background: #282a2c;
+  border-color: #444746;
+}
+
+.app.dark .act-card:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.5), 0 10px 10px rgba(0,0,0,0.4);
+}
+
+.app.dark .act-card.completed {
+  background: #0f5223;
+  border-color: transparent;
+}
+
+.app.dark .act-icon {
+  background: #004a77;
+  color: #c2e7ff;
+}
+
+.app.dark .act-card.completed .act-icon {
+  background: #0f5223;
+  color: #6dd58c;
+}
+
+.app.dark .act-text {
+  color: #e3e3e3;
+}
+
+.app.dark .completion-badge {
+  background: #1e1f20;
+  color: #6dd58c;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.app.dark .action-btn.secondary {
+  background: transparent;
+  color: #a8c7fa;
+  border-color: #444746;
+}
+
+.app.dark .action-btn.secondary:hover {
+  background: rgba(168, 199, 250, 0.08);
+}
+
+.app.dark .action-btn.primary {
+  background: #a8c7fa;
+  color: #062e6f;
+}
+
+.app.dark .action-btn.primary:hover {
+  background: #8ab4f8;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+.app.dark .action-btn.primary.disabled {
+  background: #444746;
+  color: #8e918f;
+}

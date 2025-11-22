@@ -1,0 +1,16 @@
+/* Global Styles */
+:root {
+  --primary-color: #1a73e8;
+  --primary-hover: #1557b0;
+  --secondary-color: #f8f9fa;
+  --text-color: #444746;
+  --text-light: #c4c7c5;
+  --background-color: #fff;
+  --background-dark: #131314;
+  --card-background: #f0f4f9;
+  --border-color: #e3e3e3;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --gradient-start: #009688;
+  --gradient-mid: #4285f4;
+  --gradient-end: #7c4dff;
+}

@@ -1,0 +1,155 @@
+/* Help Modal Styles - Material Design 3 */
+.help-body {
+  padding: 0 1.5rem 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.help-section {
+  margin-bottom: 2rem;
+}
+
+.help-section h3 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #1f1f1f;
+  margin-bottom: 1rem;
+}
+
+.app.dark .help-section h3 {
+  color: #e3e3e3;
+}
+
+.help-text {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #444746;
+  margin-bottom: 1rem;
+}
+
+.app.dark .help-text {
+  color: #c4c7c5;
+}
+
+.help-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  margin-bottom: 0.5rem;
+}
+
+.help-icon {
+  color: #0b57d0;
+  font-size: 24px;
+  padding: 8px;
+  background: #d3e3fd;
+  border-radius: 50%;
+}
+
+.app.dark .help-icon {
+  color: #d3e3fd;
+  background: #0842a0;
+}
+
+.help-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.help-label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1f1f1f;
+}
+
+.app.dark .help-label {
+  color: #e3e3e3;
+}
+
+.help-desc {
+  font-size: 0.875rem;
+  color: #444746;
+  line-height: 1.4;
+}
+
+.app.dark .help-desc {
+  color: #c4c7c5;
+}
+
+/* FAQ Accordion - Material Style */
+.faq-item {
+  border: none;
+  border-bottom: 1px solid #e0e3e1;
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+.app.dark .faq-item {
+  border-bottom-color: #444746;
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+}
+
+.faq-item summary {
+  padding: 1rem 0;
+  cursor: pointer;
+  font-weight: 500;
+  background: transparent;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #1f1f1f;
+  transition: color 0.2s;
+}
+
+.app.dark .faq-item summary {
+  background: transparent;
+  color: #e3e3e3;
+}
+
+.faq-item summary:hover {
+  color: #0b57d0;
+}
+
+.app.dark .faq-item summary:hover {
+  color: #a8c7fa;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  content: none;
+}
+
+.expand-icon {
+  transition: transform 0.3s ease;
+  color: #444746;
+}
+
+.app.dark .expand-icon {
+  color: #c4c7c5;
+}
+
+.faq-item[open] .expand-icon {
+  transform: rotate(180deg);
+}
+
+.faq-item p {
+  padding: 0 0 1rem 0;
+  margin: 0;
+  border-top: none;
+  line-height: 1.6;
+  color: #444746;
+  font-size: 0.95rem;
+}
+
+.app.dark .faq-item p {
+  color: #c4c7c5;
+}

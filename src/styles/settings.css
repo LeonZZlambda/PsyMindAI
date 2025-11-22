@@ -1,0 +1,189 @@
+/* Settings Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.2s ease-out;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 28px;
+  width: 90%;
+  max-width: 560px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.modal-header {
+  padding: 1.5rem 1.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #1f1f1f;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #444746;
+  transition: background 0.2s ease;
+}
+
+.close-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.modal-footer {
+  padding: 1rem 1.5rem 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+
+.settings-body {
+  padding: 0 1.5rem 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.settings-section {
+  margin-bottom: 2rem;
+}
+
+.settings-section h3 {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #444746;
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.setting-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.setting-item.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.setting-info {
+  flex: 1;
+}
+
+.setting-label {
+  display: block;
+  font-size: 1rem;
+  color: #1f1f1f;
+  margin-bottom: 0.25rem;
+}
+
+.setting-desc {
+  display: block;
+  font-size: 0.875rem;
+  color: #444746;
+}
+
+/* Font Size Controls */
+.font-size-controls {
+  display: flex;
+  background: #f0f4f9;
+  border-radius: 18px;
+  padding: 4px;
+}
+
+.font-btn {
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  border-radius: 14px;
+  font-size: 0.875rem;
+  color: #444746;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.font-btn.active {
+  background: #fff;
+  color: #1f1f1f;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  font-weight: 500;
+}
+
+/* Dark Mode Settings */
+.app.dark .modal-content {
+  background: #1e1f20;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+}
+
+.app.dark .modal-header {
+  border-bottom-color: #444746;
+}
+
+.app.dark .modal-header h2 {
+  color: #e3e3e3;
+}
+
+.app.dark .close-btn {
+  color: #c4c7c5;
+}
+
+.app.dark .close-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.app.dark .settings-section h3 {
+  color: #c4c7c5;
+}
+
+.app.dark .setting-label {
+  color: #e3e3e3;
+}
+
+.app.dark .setting-desc {
+  color: #c4c7c5;
+}
+
+.app.dark .font-size-controls {
+  background: #131314;
+}
+
+.app.dark .font-btn {
+  color: #c4c7c5;
+}
+
+.app.dark .font-btn.active {
+  background: #444746;
+  color: #e3e3e3;
+}
