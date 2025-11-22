@@ -34,7 +34,7 @@ const InputArea = ({ inputRef }) => {
     { id: 'emocional', icon: 'sentiment_satisfied', label: 'Emocional' },
     { id: 'reflexoes', icon: 'self_improvement', label: 'Reflexões' },
     { id: 'vestibulares', icon: 'school', label: 'Vestibulares' },
-    { id: 'kindness', icon: 'volunteer_activism', label: 'Ato de Bondade' },
+    { id: 'kindness', icon: 'volunteer_activism', label: 'Atos de Bondade' },
     { id: 'helpline', icon: 'support_agent', label: 'Linha de Apoio' },
     { id: 'learning', icon: 'menu_book', label: 'Aprendizado Guiado' }
   ];

@@ -13,6 +13,30 @@
   --gradient-start: #009688;
   --gradient-mid: #4285f4;
   --gradient-end: #7c4dff;
+
+  /* Material Design 3 Tokens - Light Mode */
+  --surface: #ffffff;
+  --on-surface: #1f1f1f;
+  --surface-variant: #f0f4f9;
+  --on-surface-variant: #444746;
+  --outline-variant: #c4c7c5;
+  --primary: #1a73e8;
+  --on-primary: #ffffff;
+  --primary-container: #d2e3fc;
+  --on-primary-container: #001d35;
+}
+
+/* Dark Mode Tokens */
+.app.dark {
+  --surface: #1e1f20;
+  --on-surface: #e3e3e3;
+  --surface-variant: #2d2e30;
+  --on-surface-variant: #c4c7c5;
+  --outline-variant: #444746;
+  --primary: #8ab4f8;
+  --on-primary: #001d35;
+  --primary-container: #004a77;
+  --on-primary-container: #c2e7ff;
 }
 
 /* Base Styles */
@@ -3925,15 +3949,16 @@ button {
   align-items: center;
   gap: 0.75rem;
   padding: 0.75rem 1rem;
-  border: none;
   background: transparent;
-  color: #1f1f1f;
-  font-size: 0.9rem;
+  border: none;
+  border-radius: 24px;
+  color: #444746;
+  font-family: inherit;
+  font-size: 0.875rem;
   cursor: pointer;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-  width: 100%;
   text-align: left;
+  transition: background 0.2s ease, transform 0.1s ease;
+  width: 100%;
 }
 
 .app.dark .tool-item {
@@ -4506,11 +4531,11 @@ button {
   height: 64px;
   border-radius: 50%;
   color: white;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .main-control:hover {
-  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
 .main-control .material-symbols-outlined {
@@ -4659,7 +4684,6 @@ button {
 
 .category-btn:hover {
   background: rgba(0, 0, 0, 0.05);
-  border-color: var(--primary);
 }
 
 .category-btn.active {
@@ -4846,6 +4870,134 @@ button {
 }
 
 .app.dark .action-btn.secondary:hover {
-  background: rgba(138, 180, 248, 0.1);
+  background: rgba(138,  180, 248, 0.1);
   border-color: #8ab4f8;
+}
+
+/* Vestibulares Modal Styles */
+.vestibulares-modal {
+  max-width: 600px;
+  width: 90%;
+}
+
+.vestibulares-body {
+  padding: 1rem 0;
+}
+
+.vestibulares-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.vestibular-card-btn {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: var(--surface-variant);
+  border: 1px solid transparent;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  width: 100%;
+}
+
+.vestibular-card-btn:hover {
+  background: var(--surface);
+  border-color: var(--outline-variant);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  transform: translateY(-2px);
+}
+
+.vestibular-card-btn .icon-container {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.vestibular-card-btn .text-container {
+  flex: 1;
+}
+
+.vestibular-card-btn h3 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.1rem;
+  color: var(--on-surface);
+  font-weight: 500;
+}
+
+.vestibular-card-btn p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--on-surface-variant);
+}
+
+.vestibular-card-btn .arrow {
+  color: var(--on-surface-variant);
+  opacity: 0.5;
+}
+
+.vestibular-card-btn:hover .arrow {
+  opacity: 1;
+  transform: translateX(4px);
+  transition: transform 0.2s ease;
+}
+
+.back-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--on-surface);
+  padding: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
+}
+
+.back-btn:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+.placeholder-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  text-align: center;
+  color: var(--on-surface-variant);
+}
+
+.large-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.sub-text {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  opacity: 0.8;
+}
+
+/* Dark Mode Support for Vestibulares - Now handled by CSS Variables */
+.app.dark .vestibular-card-btn:hover {
+  border-color: var(--primary);
+}
+
+
+/* Fix Global Text Color in Dark Mode */
+.app.dark {
+  --text-color: var(--on-surface);
+  color: var(--on-surface);
 }

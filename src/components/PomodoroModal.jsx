@@ -158,9 +158,8 @@ const PomodoroModal = ({ isOpen, onClose, onStatusChange }) => {
                 className={`mode-btn ${mode === m ? 'active' : ''}`}
                 onClick={() => changeMode(m)}
                 style={{ 
-                  backgroundColor: mode === m ? modes[m].color : 'transparent',
-                  color: mode === m ? '#fff' : 'inherit',
-                  borderColor: modes[m].color
+                  backgroundColor: mode === m ? `${modes[m].color}15` : 'transparent',
+                  color: mode === m ? modes[m].color : '#5f6368',
                 }}
               >
                 {modes[m].label}
@@ -206,7 +205,11 @@ const PomodoroModal = ({ isOpen, onClose, onStatusChange }) => {
               className="ai-tip-btn"
               onClick={fetchAiTip}
               disabled={isLoadingTip}
-              style={{ color: modes[mode].color, borderColor: modes[mode].color }}
+              style={{ 
+                color: modes[mode].color, 
+                borderColor: modes[mode].color,
+                backgroundColor: `${modes[mode].color}08`
+              }}
             >
               <span className="material-symbols-outlined">
                 {isLoadingTip ? 'hourglass_empty' : 'psychology'}

@@ -93,7 +93,7 @@ const KindnessModal = ({ isOpen, onClose }) => {
     <div className={`modal-overlay ${isClosing ? 'closing' : ''}`} onClick={handleClose}>
       <div className="modal-content kindness-modal" onClick={e => e.stopPropagation()}>
         <div className="modal-header">
-          <h2>Ato de Bondade</h2>
+          <h2>Atos de Bondade</h2>
           <button className="close-btn" onClick={handleClose}>
             <span className="material-symbols-outlined">close</span>
           </button>
