@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 
-const HelpModal = ({ isOpen, onClose }) => {
+const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
   const modalRef = useRef(null);
   const [isClosing, setIsClosing] = useState(false);
-  const [activeTab, setActiveTab] = useState('faq'); // 'faq' or 'feedback'
+  const [activeTab, setActiveTab] = useState(initialTab); // 'faq', 'shortcuts' or 'feedback'
   const [feedbackType, setFeedbackType] = useState('sugestao');
   const [feedbackText, setFeedbackText] = useState('');
   const [feedbackImage, setFeedbackImage] = useState(null);
@@ -26,13 +26,17 @@ const HelpModal = ({ isOpen, onClose }) => {
     }
   }, []);
 
+  useEffect(() => {
+    setActiveTab(initialTab);
+  }, [initialTab]);
+
   const handleClose = () => {
     setIsClosing(true);
     setTimeout(() => {
       setIsClosing(false);
       onClose();
       setTimeout(() => {
-        setActiveTab('faq');
+        setActiveTab(initialTab);
         setFeedbackText('');
         setFeedbackImage(null);
         setFeedbackType('sugestao');
@@ -240,6 +244,14 @@ const HelpModal = ({ isOpen, onClose }) => {
                   <span className="shortcut-desc">Ajuda</span>
                   <div className="shortcut-keys">
                     <kbd>{cmdKey}</kbd>
+                    <kbd>/</kbd>
+                  </div>
+                </div>
+                <div className="shortcut-item">
+                  <span className="shortcut-desc">Ver Atalhos</span>
+                  <div className="shortcut-keys">
+                    <kbd>{cmdKey}</kbd>
+                    <kbd>{shiftKey}</kbd>
                     <kbd>/</kbd>
                   </div>
                 </div>

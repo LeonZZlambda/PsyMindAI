@@ -39,6 +39,22 @@ const SupportModal = ({ isOpen, onClose }) => {
     }, 300);
   };
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!isOpen) return;
+
+      if (e.key === 'Escape') {
+        handleClose();
+      } else if (e.key === 'Tab') {
+        e.preventDefault();
+        setActiveTab(prev => prev === 'immediate' ? 'investigate' : 'immediate');
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
+
   // Immediate Support Logic
   const handleAnalyzeFeeling = () => {
     if (!feelingInput.trim()) return;

@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useChat } from '../context/ChatContext';
+import { usePomodoro } from '../context/PomodoroContext';
 import PomodoroModal from './PomodoroModal';
 import KindnessModal from './KindnessModal';
 import ExamsModal from './ExamsModal';
@@ -11,6 +12,7 @@ import ExamsModal from './ExamsModal';
 const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections }) => {
   const navigate = useNavigate();
   const { input, setInput, sendMessage, isTyping } = useChat();
+  const { isActive: pomodoroIsActive, mode: pomodoroMode, timeLeft: pomodoroTimeLeft } = usePomodoro();
   const [isListening, setIsListening] = useState(false);
   const [recognition, setRecognition] = useState(null);
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -18,9 +20,12 @@ const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections }) =
   const [showPomodoro, setShowPomodoro] = useState(false);
   const [showKindness, setShowKindness] = useState(false);
   const [showExamsModal, setShowExamsModal] = useState(false);
-  const [pomodoroStatus, setPomodoroStatus] = useState({ isActive: false, mode: 'focus' });
   const fileInputRef = useRef(null);
   const toolsMenuRef = useRef(null);
+
+  const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
+  const cmdKey = isMac ? '⌘' : 'Ctrl';
+  const shiftKey = isMac ? '⇧' : 'Shift';
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -158,6 +163,12 @@ const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections }) =
         e.preventDefault();
         handleFileClick();
       }
+
+      // Tools Menu: Cmd + K
+      if (metaKey && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setShowToolsMenu(prev => !prev);
+      }
     };
 
     window.addEventListener('keydown', handleKeyDown);
@@ -226,22 +237,22 @@ const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections }) =
               multiple
               aria-hidden="true"
             />
-            <button 
+                        <button 
               className="input-action-btn" 
               onClick={handleFileClick}
-              title="Adicionar arquivos (Cmd + Shift + U)"
-              aria-label="Adicionar arquivos"
+              title={`Anexar arquivo (${cmdKey} + ${shiftKey} + U)`}
+              aria-label="Anexar arquivo"
             >
-              <span className="material-symbols-outlined">add_circle</span>
+              <span className="material-symbols-outlined">attach_file</span>
             </button>
             <div className="tools-menu-container" ref={toolsMenuRef}>
               <button 
                 className={`input-action-btn ${showToolsMenu ? 'active' : ''}`}
                 onClick={() => setShowToolsMenu(!showToolsMenu)}
-                title="Ferramentas"
-                aria-label="Ferramentas"
+                title={`Ferramentas (${cmdKey} + K)`}
+                aria-label="Menu de ferramentas"
               >
-                <span className="material-symbols-outlined">handyman</span>
+                <span className="material-symbols-outlined">add_circle</span>
               </button>
               <AnimatePresence>
                 {showToolsMenu && (
@@ -253,9 +264,9 @@ const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections }) =
                     transition={{ duration: 0.2, ease: "easeOut" }}
                   >
                     {tools.map(tool => {
-                      const isPomodoroActive = tool.id === 'pomodoro' && pomodoroStatus.isActive;
+                      const isPomodoroActive = tool.id === 'pomodoro' && pomodoroIsActive;
                       const activeColor = isPomodoroActive 
-                        ? (pomodoroStatus.mode === 'focus' ? '#1a73e8' : pomodoroStatus.mode === 'short' ? '#188038' : '#e37400')
+                        ? (pomodoroMode === 'focus' ? '#1a73e8' : pomodoroMode === 'short' ? '#188038' : '#e37400')
                         : null;
 
                       return (
@@ -275,7 +286,7 @@ const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections }) =
                             {tool.label}
                             {isPomodoroActive && (
                               <span style={{ marginLeft: '4px', fontSize: '0.9em', opacity: 0.9 }}>
-                                {formatTime(pomodoroStatus.timeLeft)}
+                                {formatTime(pomodoroTimeLeft)}
                               </span>
                             )}
                           </span>
@@ -300,7 +311,7 @@ const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections }) =
             <button 
               className={`input-action-btn ${isListening ? 'listening' : ''}`} 
               onClick={toggleListening}
-              title={isListening ? "Parar de ouvir" : "Usar microfone (Cmd + Shift + .)"}
+              title={isListening ? "Parar de ouvir" : `Usar microfone (${cmdKey} + ${shiftKey} + .)`}
               disabled={!recognition}
               aria-label={isListening ? "Parar microfone" : "Ativar microfone"}
             >
@@ -312,7 +323,7 @@ const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections }) =
               <button 
                 onClick={handleSendClick} 
                 className="send-button" 
-                title="Enviar mensagem"
+                title="Enviar mensagem (Enter)"
                 aria-label="Enviar mensagem"
               >
                 <span className="material-symbols-outlined">send</span>
@@ -335,7 +346,6 @@ const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections }) =
           <PomodoroModal 
             isOpen={showPomodoro} 
             onClose={() => setShowPomodoro(false)}
-            onStatusChange={setPomodoroStatus}
           />
         )}
         {showKindness && (

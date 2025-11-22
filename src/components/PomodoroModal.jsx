@@ -1,96 +1,24 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+import { usePomodoro } from '../context/PomodoroContext';
 
-const PomodoroModal = ({ isOpen, onClose, onStatusChange }) => {
-  const [timeLeft, setTimeLeft] = useState(25 * 60);
-  const [isActive, setIsActive] = useState(false);
-  const [mode, setMode] = useState('focus'); // 'focus', 'short', 'long'
+const PomodoroModal = ({ isOpen, onClose }) => {
+  const { 
+    timeLeft, 
+    isActive, 
+    mode, 
+    modes, 
+    toggleTimer, 
+    resetTimer, 
+    changeMode 
+  } = usePomodoro();
+
   const [isClosing, setIsClosing] = useState(false);
   const [aiTip, setAiTip] = useState('');
   const [isLoadingTip, setIsLoadingTip] = useState(false);
-  const timerRef = useRef(null);
-
-  const modes = {
-    focus: { label: 'Foco', time: 25 * 60, color: '#1a73e8' },
-    short: { label: 'Pausa Curta', time: 5 * 60, color: '#188038' },
-    long: { label: 'Pausa Longa', time: 15 * 60, color: '#e37400' }
-  };
 
   useEffect(() => {
     setAiTip(''); // Clear tip when mode changes
   }, [mode]);
-
-  useEffect(() => {
-    if (onStatusChange) {
-      onStatusChange({ isActive, mode, timeLeft });
-    }
-  }, [isActive, mode, timeLeft, onStatusChange]);
-
-  const playNotificationSound = () => {
-    try {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      if (!AudioContext) return;
-      
-      const ctx = new AudioContext();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(880, ctx.currentTime); // A5
-      osc.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 0.5); // Drop to A4
-      
-      gain.gain.setValueAtTime(0.1, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
-
-      osc.start();
-      osc.stop(ctx.currentTime + 0.5);
-    } catch (e) {
-      console.error("Audio play failed", e);
-    }
-  };
-
-  useEffect(() => {
-    if (isActive && timeLeft > 0) {
-      timerRef.current = setInterval(() => {
-        setTimeLeft((prev) => prev - 1);
-      }, 1000);
-    } else if (timeLeft === 0) {
-      setIsActive(false);
-      clearInterval(timerRef.current);
-      
-      playNotificationSound();
-
-      // Play sound or notification here
-      if ('Notification' in window && Notification.permission === 'granted') {
-        new Notification("PsyMind Pomodoro", { body: "O tempo acabou!" });
-      } else if ('Notification' in window && Notification.permission !== 'denied') {
-        Notification.requestPermission().then(permission => {
-          if (permission === 'granted') {
-            new Notification("PsyMind Pomodoro", { body: "O tempo acabou!" });
-          }
-        });
-      }
-    }
-
-    return () => clearInterval(timerRef.current);
-  }, [isActive, timeLeft]);
-
-  const toggleTimer = () => {
-    setIsActive(!isActive);
-  };
-
-  const resetTimer = () => {
-    setIsActive(false);
-    setTimeLeft(modes[mode].time);
-  };
-
-  const changeMode = (newMode) => {
-    setMode(newMode);
-    setIsActive(false);
-    setTimeLeft(modes[newMode].time);
-  };
 
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
@@ -135,6 +63,28 @@ const PomodoroModal = ({ isOpen, onClose, onStatusChange }) => {
       onClose();
     }, 300);
   };
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!isOpen) return;
+
+      if (e.key === 'Escape') {
+        handleClose();
+      } else if (e.key === 'Tab') {
+        e.preventDefault();
+        const modeKeys = ['focus', 'short', 'long'];
+        const currentIndex = modeKeys.indexOf(mode);
+        const nextIndex = (currentIndex + 1) % modeKeys.length;
+        changeMode(modeKeys[nextIndex]);
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        toggleTimer();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, mode, isActive]);
 
   if (!isOpen) return null;
 

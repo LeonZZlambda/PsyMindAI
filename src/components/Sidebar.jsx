@@ -44,7 +44,7 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onChatSelect, isNewChatAnim
       <button 
         className={`new-chat-btn ${isNewChatAnimating ? 'active' : ''}`}
         onClick={onNewChat} 
-        title="Novo chat"
+        title={`Novo chat (${cmdKey} + ${shiftKey} + O)`}
         aria-label="Iniciar novo chat"
       >
         <span className="material-symbols-outlined">add</span>
@@ -77,8 +77,8 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onChatSelect, isNewChatAnim
       <div className="sidebar-footer">
         <button 
           className="sidebar-item" 
-          title="Ajuda" 
-          onClick={onOpenHelp}
+          title={`Ajuda (${cmdKey} + /)`}
+          onClick={() => onOpenHelp('faq')}
           aria-label="Abrir ajuda"
         >
           <span className="material-symbols-outlined">help</span>
@@ -101,7 +101,7 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onChatSelect, isNewChatAnim
         </button>
         <button 
           className="sidebar-item" 
-          title="Configurações" 
+          title={`Configurações (${cmdKey} + ,)`}
           onClick={onOpenSettings}
           aria-label="Abrir configurações"
         >

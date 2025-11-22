@@ -28,6 +28,21 @@ const EnemCalculator = ({ onClose }) => {
   const resultRef = useRef(null);
 
   useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        const modes = ['select', 'simple', 'advanced'];
+        const currentIndex = modes.indexOf(mode);
+        const nextIndex = (currentIndex + 1) % modes.length;
+        setMode(modes[nextIndex]);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [mode]);
+
+  useEffect(() => {
     if (result && resultRef.current) {
       resultRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
@@ -395,6 +410,19 @@ const ExamsModal = ({ isOpen, onClose }) => {
   const [isClosing, setIsClosing] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedExam, setSelectedExam] = useState(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!isOpen) return;
+
+      if (e.key === 'Escape') {
+        handleClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
 
   const categories = [
     {

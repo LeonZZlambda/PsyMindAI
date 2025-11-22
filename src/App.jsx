@@ -37,7 +37,7 @@ const SupportModal = lazy(() => import('./components/SupportModal'))
 const ReflectionsModal = lazy(() => import('./components/ReflectionsModal'))
 
 function App() {
-  const { isDarkMode, fontSize, reducedMotion, highContrast, colorBlindMode } = useTheme()
+  const { isDarkMode, fontSize, reducedMotion, highContrast, colorBlindMode, toggleTheme } = useTheme()
   const { clearHistory, setInput, isLoading } = useChat()
   const location = useLocation()
   const publicRoutes = ['/', '/roadmap', '/contribute']
@@ -49,6 +49,7 @@ function App() {
   const [isSupportOpen, setIsSupportOpen] = useState(false)
   const [isReflectionsOpen, setIsReflectionsOpen] = useState(false)
   const [isNewChatAnimating, setIsNewChatAnimating] = useState(false)
+  const [helpInitialTab, setHelpInitialTab] = useState('faq')
   
   const inputRef = useRef(null)
 
@@ -100,6 +101,18 @@ function App() {
         handleNewChat();
       }
 
+      // Toggle Sidebar: Command + B
+      if (metaKey && e.key.toLowerCase() === 'b') {
+        e.preventDefault();
+        setIsSidebarOpen(prev => !prev);
+      }
+
+      // Toggle Theme: Command + Shift + L
+      if (metaKey && e.shiftKey && e.key.toLowerCase() === 'l') {
+        e.preventDefault();
+        toggleTheme();
+      }
+
       // Settings: Command + ,
       if (metaKey && e.key === ',') {
         e.preventDefault();
@@ -109,6 +122,14 @@ function App() {
       // Help: Command + /
       if (metaKey && e.key === '/') {
         e.preventDefault();
+        setHelpInitialTab('faq');
+        setIsHelpOpen(true);
+      }
+
+      // Shortcuts: Command + Shift + / (or ?)
+      if (metaKey && (e.key === '?' || (e.shiftKey && e.key === '/'))) {
+        e.preventDefault();
+        setHelpInitialTab('shortcuts');
         setIsHelpOpen(true);
       }
 
@@ -155,7 +176,10 @@ function App() {
               onChatSelect={handleChatSelect}
               isNewChatAnimating={isNewChatAnimating}
               onOpenSettings={() => setIsSettingsOpen(true)}
-              onOpenHelp={() => setIsHelpOpen(true)}
+              onOpenHelp={(tab = 'faq') => {
+                setHelpInitialTab(tab);
+                setIsHelpOpen(true);
+              }}
             />
             {isSidebarOpen && (
               <div 
@@ -188,7 +212,10 @@ function App() {
               element={
                 <ChatPage 
                   inputRef={inputRef} 
-                  onOpenHelp={() => setIsHelpOpen(true)}
+                  onOpenHelp={() => {
+                    setHelpInitialTab('faq');
+                    setIsHelpOpen(true);
+                  }}
                   onOpenSupport={() => setIsSupportOpen(true)}
                   onOpenReflections={() => setIsReflectionsOpen(true)}
                 />
@@ -210,6 +237,7 @@ function App() {
             <HelpModal 
               isOpen={isHelpOpen} 
               onClose={() => setIsHelpOpen(false)} 
+              initialTab={helpInitialTab}
             />
           )}
 

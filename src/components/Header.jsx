@@ -4,6 +4,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const Header = ({ isSidebarOpen, toggleSidebar, isLoading }) => {
   const { isDarkMode, toggleTheme } = useTheme();
+  const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
+  const cmdKey = isMac ? '⌘' : 'Ctrl';
+  const shiftKey = isMac ? '⇧' : 'Shift';
 
   return (
     <header className="header">
@@ -12,7 +15,7 @@ const Header = ({ isSidebarOpen, toggleSidebar, isLoading }) => {
           <button 
             className="header-btn menu-toggle" 
             onClick={toggleSidebar} 
-            title="Abrir menu"
+            title={`Abrir menu (${cmdKey} + B)`}
             aria-label="Abrir menu lateral"
           >
             <span className="material-symbols-outlined">menu</span>
@@ -29,7 +32,7 @@ const Header = ({ isSidebarOpen, toggleSidebar, isLoading }) => {
         <button 
           className="header-btn" 
           onClick={toggleTheme} 
-          title={isDarkMode ? "Modo claro" : "Modo escuro"}
+          title={isDarkMode ? `Modo claro (${cmdKey} + ${shiftKey} + L)` : `Modo escuro (${cmdKey} + ${shiftKey} + L)`}
           aria-label={isDarkMode ? "Ativar modo claro" : "Ativar modo escuro"}
         >
           <span className="material-symbols-outlined">
