@@ -8,6 +8,8 @@ import Sidebar from './components/Sidebar'
 import Header from './components/Header'
 import ChatPage from './pages/ChatPage'
 import LandingPage from './pages/LandingPage'
+import RoadmapPage from './pages/RoadmapPage'
+import ContributePage from './pages/ContributePage'
 import ErrorFallback from './components/ErrorFallback'
 import { useTheme } from './context/ThemeContext'
 import { useChat } from './context/ChatContext'
@@ -20,7 +22,8 @@ function App() {
   const { isDarkMode, fontSize, reducedMotion, highContrast, colorBlindMode } = useTheme()
   const { clearHistory, setInput, isLoading } = useChat()
   const location = useLocation()
-  const isLanding = location.pathname === '/'
+  const publicRoutes = ['/', '/roadmap', '/contribute']
+  const isPublicPage = publicRoutes.includes(location.pathname)
   
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
   const [isSettingsOpen, setIsSettingsOpen] = useState(false)
@@ -123,7 +126,7 @@ function App() {
           }}
         />
         
-        {!isLanding && (
+        {!isPublicPage && (
           <>
             <Sidebar 
               isOpen={isSidebarOpen} 
@@ -145,8 +148,8 @@ function App() {
           </>
         )}
 
-        <div className={isLanding ? "landing-wrapper" : "main-content"}>
-          {!isLanding && (
+        <div className={isPublicPage ? "landing-wrapper" : "main-content"}>
+          {!isPublicPage && (
             <>
               <Header 
                 isSidebarOpen={isSidebarOpen} 
@@ -159,6 +162,8 @@ function App() {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/chat" element={<ChatPage inputRef={inputRef} />} />
+            <Route path="/roadmap" element={<RoadmapPage />} />
+            <Route path="/contribute" element={<ContributePage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
