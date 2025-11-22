@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback, Suspense, lazy } from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { Toaster } from 'sonner'
 import { ErrorBoundary } from 'react-error-boundary'
 import { AnimatePresence, motion, MotionConfig } from 'framer-motion'
@@ -7,6 +7,7 @@ import './App.css'
 import Sidebar from './components/Sidebar'
 import Header from './components/Header'
 import ChatPage from './pages/ChatPage'
+import LandingPage from './pages/LandingPage'
 import ErrorFallback from './components/ErrorFallback'
 import { useTheme } from './context/ThemeContext'
 import { useChat } from './context/ChatContext'
@@ -18,17 +19,42 @@ const HelpModal = lazy(() => import('./components/HelpModal'))
 function App() {
   const { isDarkMode, fontSize, reducedMotion, highContrast, colorBlindMode } = useTheme()
   const { clearHistory, setInput, isLoading } = useChat()
+  const location = useLocation()
+  const isLanding = location.pathname === '/'
   
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
   const [isSettingsOpen, setIsSettingsOpen] = useState(false)
   const [isHelpOpen, setIsHelpOpen] = useState(false)
+  const [isNewChatAnimating, setIsNewChatAnimating] = useState(false)
   
   const inputRef = useRef(null)
+
+  // Handle initial sidebar state for mobile
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 768) {
+        setIsSidebarOpen(false);
+      } else {
+        setIsSidebarOpen(true);
+      }
+    };
+
+    // Set initial state
+    if (window.innerWidth <= 768) {
+      setIsSidebarOpen(false);
+    }
+
+    // Optional: Listen for resize events if we want dynamic behavior
+    // window.addEventListener('resize', handleResize);
+    // return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleNewChat = useCallback(() => {
     clearHistory()
     setInput('')
     inputRef.current?.focus()
+    setIsNewChatAnimating(true)
+    setTimeout(() => setIsNewChatAnimating(false), 200)
   }, [clearHistory, setInput])
 
   useEffect(() => {
@@ -88,33 +114,51 @@ function App() {
           }}
         />
         
-        <Sidebar 
-          isOpen={isSidebarOpen} 
-          toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} 
-          onNewChat={handleNewChat}
-          onOpenSettings={() => setIsSettingsOpen(true)}
-          onOpenHelp={() => setIsHelpOpen(true)}
-        />
-
-        <div className="main-content">
-          <Header 
-            isSidebarOpen={isSidebarOpen} 
-            toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
-          />
-          <AnimatePresence>
-            {isLoading && (
-              <motion.div 
-                className="header-loader-bar"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
+        {!isLanding && (
+          <>
+            <Sidebar 
+              isOpen={isSidebarOpen} 
+              toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} 
+              onNewChat={handleNewChat}
+              isNewChatAnimating={isNewChatAnimating}
+              onOpenSettings={() => setIsSettingsOpen(true)}
+              onOpenHelp={() => setIsHelpOpen(true)}
+            />
+            {isSidebarOpen && (
+              <div 
+                className="sidebar-overlay" 
+                onClick={() => setIsSidebarOpen(false)}
+                role="presentation"
+                aria-hidden="true"
               />
             )}
-          </AnimatePresence>
+          </>
+        )}
+
+        <div className={isLanding ? "landing-wrapper" : "main-content"}>
+          {!isLanding && (
+            <>
+              <Header 
+                isSidebarOpen={isSidebarOpen} 
+                toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+              />
+              <AnimatePresence>
+                {isLoading && (
+                  <motion.div 
+                    className="header-loader-bar"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                  />
+                )}
+              </AnimatePresence>
+            </>
+          )}
           
           <Routes>
-            <Route path="/" element={<ChatPage inputRef={inputRef} />} />
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/chat" element={<ChatPage inputRef={inputRef} />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>

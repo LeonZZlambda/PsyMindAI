@@ -2,7 +2,7 @@ import React from 'react';
 import { toast } from 'sonner';
 import { useChat } from '../context/ChatContext';
 
-const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onOpenSettings, onOpenHelp }) => {
+const Sidebar = ({ isOpen, toggleSidebar, onNewChat, isNewChatAnimating, onOpenSettings, onOpenHelp }) => {
   const { loadChat } = useChat();
   const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
   const cmdKey = isMac ? '⌘' : 'Ctrl';
@@ -33,7 +33,7 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onOpenSettings, onOpenHelp 
         </button>
       </div>
       <button 
-        className="new-chat-btn" 
+        className={`new-chat-btn ${isNewChatAnimating ? 'active' : ''}`}
         onClick={onNewChat} 
         title="Novo chat"
         aria-label="Iniciar novo chat"

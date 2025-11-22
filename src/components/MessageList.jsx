@@ -240,15 +240,22 @@ const MessageList = () => {
         </div>
       )}
       
-      {showScrollTop && (
-        <button 
-          className={`scroll-top-btn ${showScrollTop ? 'visible' : ''}`}
-          onClick={scrollToTop}
-          aria-label="Voltar ao topo"
-        >
-          <span className="material-symbols-outlined">arrow_upward</span>
-        </button>
-      )}
+      <AnimatePresence>
+        {showScrollTop && (
+          <motion.button 
+            className="scroll-top-btn"
+            onClick={scrollToTop}
+            initial={{ opacity: 0, scale: 0.5, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.5, y: 20 }}
+            whileHover={{ scale: 1.1, y: -5 }}
+            whileTap={{ scale: 0.9 }}
+            title="Voltar ao topo"
+          >
+            <span className="material-symbols-outlined">arrow_upward</span>
+          </motion.button>
+        )}
+      </AnimatePresence>
     </main>
   );
 };
