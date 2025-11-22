@@ -3,6 +3,8 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
 import { useChat } from '../context/ChatContext';
+import PomodoroModal from './PomodoroModal';
+import KindnessModal from './KindnessModal';
 
 const InputArea = ({ inputRef }) => {
   const { input, setInput, sendMessage, isTyping } = useChat();
@@ -10,6 +12,9 @@ const InputArea = ({ inputRef }) => {
   const [recognition, setRecognition] = useState(null);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [showToolsMenu, setShowToolsMenu] = useState(false);
+  const [showPomodoro, setShowPomodoro] = useState(false);
+  const [showKindness, setShowKindness] = useState(false);
+  const [pomodoroStatus, setPomodoroStatus] = useState({ isActive: false, mode: 'focus' });
   const fileInputRef = useRef(null);
   const toolsMenuRef = useRef(null);
 
@@ -35,8 +40,25 @@ const InputArea = ({ inputRef }) => {
   ];
 
   const handleToolClick = (tool) => {
+    if (tool.id === 'pomodoro') {
+      setShowPomodoro(true);
+      setShowToolsMenu(false);
+      return;
+    }
+    if (tool.id === 'kindness') {
+      setShowKindness(true);
+      setShowToolsMenu(false);
+      return;
+    }
     toast.info(`Ferramenta ${tool.label} em breve!`);
     setShowToolsMenu(false);
+  };
+
+  const formatTime = (seconds) => {
+    if (seconds === undefined) return '';
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
   useEffect(() => {
@@ -211,16 +233,36 @@ const InputArea = ({ inputRef }) => {
                     exit={{ opacity: 0, scale: 0.95, y: 10 }}
                     transition={{ duration: 0.2, ease: "easeOut" }}
                   >
-                    {tools.map(tool => (
-                      <button 
-                        key={tool.id} 
-                        className="tool-item"
-                        onClick={() => handleToolClick(tool)}
-                      >
-                        <span className="material-symbols-outlined">{tool.icon}</span>
-                        <span>{tool.label}</span>
-                      </button>
-                    ))}
+                    {tools.map(tool => {
+                      const isPomodoroActive = tool.id === 'pomodoro' && pomodoroStatus.isActive;
+                      const activeColor = isPomodoroActive 
+                        ? (pomodoroStatus.mode === 'focus' ? '#1a73e8' : pomodoroStatus.mode === 'short' ? '#188038' : '#e37400')
+                        : null;
+
+                      return (
+                        <button 
+                          key={tool.id} 
+                          className={`tool-item ${isPomodoroActive ? 'pomodoro-active' : ''}`}
+                          onClick={() => handleToolClick(tool)}
+                          style={isPomodoroActive ? { color: activeColor } : {}}
+                        >
+                          <span 
+                            className={`material-symbols-outlined ${isPomodoroActive ? 'spin-animation' : ''}`}
+                            style={isPomodoroActive ? { color: activeColor } : {}}
+                          >
+                            {tool.icon}
+                          </span>
+                          <span>
+                            {tool.label}
+                            {isPomodoroActive && (
+                              <span style={{ marginLeft: '4px', fontSize: '0.9em', opacity: 0.9 }}>
+                                {formatTime(pomodoroStatus.timeLeft)}
+                              </span>
+                            )}
+                          </span>
+                        </button>
+                      );
+                    })}
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -269,6 +311,12 @@ const InputArea = ({ inputRef }) => {
           Licenciado sob CC BY-SA 4.0
         </a>
       </p>
+      <PomodoroModal 
+        isOpen={showPomodoro} 
+        onClose={() => setShowPomodoro(false)} 
+        onStatusChange={setPomodoroStatus}
+      />
+      <KindnessModal isOpen={showKindness} onClose={() => setShowKindness(false)} />
     </footer>
   );
 };

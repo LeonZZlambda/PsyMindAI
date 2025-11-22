@@ -4435,3 +4435,361 @@ button {
 }
 
 
+
+/* Pomodoro Modal Styles */
+.pomodoro-modal {
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+}
+
+.pomodoro-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem 0;
+}
+
+.pomodoro-modes {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--surface-variant);
+  padding: 0.25rem;
+  border-radius: 2rem;
+}
+
+.mode-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 1.5rem;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--on-surface-variant);
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.mode-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.timer-display {
+  font-size: 5rem;
+  font-weight: 200;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.timer-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.control-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.1s ease, opacity 0.2s ease;
+}
+
+.control-btn:active {
+  transform: scale(0.95);
+}
+
+.main-control {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.main-control:hover {
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+.main-control .material-symbols-outlined {
+  font-size: 32px;
+}
+
+.reset-control {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--surface-variant);
+  color: var(--on-surface-variant);
+}
+
+.reset-control:hover {
+  background: var(--outline-variant);
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 4px;
+  background: var(--surface-variant);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  transition: width 1s linear, background-color 0.3s ease;
+}
+
+/* AI Tip Section in Pomodoro */
+.ai-tip-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.ai-tip-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  background: transparent;
+  border: 1px solid;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ai-tip-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.ai-tip-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.ai-tip-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: var(--surface-variant);
+  padding: 1rem;
+  border-radius: 1rem;
+  text-align: left;
+  width: 100%;
+  animation: fadeIn 0.3s ease;
+}
+
+.tip-icon {
+  font-size: 1.25rem;
+  margin-top: 0.1rem;
+}
+
+.ai-tip-content p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--on-surface);
+  line-height: 1.5;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Pomodoro Active Animation in Tools Menu */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spin-animation {
+  animation: spin-slow 4s linear infinite;
+}
+
+.tool-item.pomodoro-active {
+  background-color: rgba(0, 0, 0, 0.03);
+  font-weight: 500;
+}
+
+/* Kindness Modal Styles */
+.kindness-modal {
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+}
+
+.kindness-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+.kindness-categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.category-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  border: 1px solid var(--outline-variant);
+  background: transparent;
+  color: var(--on-surface-variant);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.85rem;
+}
+
+.category-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: var(--primary);
+}
+
+.category-btn.active {
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+  border-color: var(--primary);
+}
+
+.category-btn .material-symbols-outlined {
+  font-size: 1.1rem;
+}
+
+.act-display-container {
+  width: 100%;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.act-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  color: var(--primary);
+}
+
+.act-card {
+  background: linear-gradient(135deg, var(--surface-variant) 0%, var(--surface) 100%);
+  padding: 2rem;
+  border-radius: 1.5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border: 1px solid var(--outline-variant);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.act-card.completed {
+  background: linear-gradient(135deg, #e6f4ea 0%, #ceead6 100%);
+  border-color: #188038;
+}
+
+.act-icon {
+  font-size: 3rem;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.act-card.completed .act-icon {
+  color: #188038;
+}
+
+.act-text {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: var(--on-surface);
+  font-weight: 500;
+}
+
+.completion-badge {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #188038;
+  font-weight: 600;
+  background: rgba(255,255,255,0.5);
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.kindness-controls {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 2rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.action-btn.primary {
+  background: var(--primary);
+  color: var(--on-primary);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.action-btn.primary:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  transform: translateY(-1px);
+}
+
+.action-btn.primary.disabled {
+  background: var(--surface-variant);
+  color: var(--on-surface-variant);
+  cursor: default;
+  box-shadow: none;
+  transform: none;
+}
+
+.action-btn.secondary {
+  background: transparent;
+  color: var(--primary);
+  border: 1px solid var(--outline-variant);
+}
+
+.action-btn.secondary:hover {
+  background: var(--surface-variant);
+  border-color: var(--primary);
+}
+
+@keyframes popIn {
+  from { transform: scale(0.5); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
