@@ -4793,3 +4793,59 @@ button {
   from { transform: scale(0.5); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
+
+/* Dark Mode Support for Kindness Modal */
+.app.dark .act-card {
+  background: linear-gradient(135deg, #303134 0%, #202124 100%);
+  border-color: #5f6368;
+}
+
+.app.dark .act-text {
+  color: #e8eaed;
+  font-weight: 400;
+}
+
+.app.dark .act-card.completed {
+  background: linear-gradient(135deg, #132a1c 0%, #0f2215 100%);
+  border-color: #6dd58c;
+}
+
+.app.dark .act-card.completed .act-text {
+  color: #e6f4ea;
+}
+
+.app.dark .act-card.completed .act-icon {
+  color: #6dd58c;
+}
+
+.app.dark .completion-badge {
+  background: rgba(0, 0, 0, 0.3);
+  color: #6dd58c;
+  border: 1px solid #188038;
+}
+
+.app.dark .category-btn {
+  color: #e8eaed;
+  border-color: #5f6368;
+}
+
+.app.dark .category-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #8ab4f8;
+}
+
+.app.dark .category-btn.active {
+  background: #4285f4;
+  color: #ffffff;
+  border-color: #8ab4f8;
+}
+
+.app.dark .action-btn.secondary {
+  color: #8ab4f8;
+  border-color: #5f6368;
+}
+
+.app.dark .action-btn.secondary:hover {
+  background: rgba(138, 180, 248, 0.1);
+  border-color: #8ab4f8;
+}
