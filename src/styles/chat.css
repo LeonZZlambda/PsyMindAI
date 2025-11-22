@@ -940,23 +940,141 @@
 }
 
 @media (max-width: 768px) {
-  .image-viewer-overlay {
-    padding: 0;
+  .chat-container {
+    padding-top: 60px; /* Smaller header space */
   }
-  
-  .full-screen-image {
-    width: 100%;
+
+  .messages {
+    padding: 0.5rem 1rem; /* Reduced vertical padding, kept horizontal */
+    gap: 1.5rem;
+  }
+
+  .message {
+    gap: 0.75rem;
+  }
+
+  .message.user .message-content {
+    padding: 0.75rem 1rem;
+    border-radius: 20px 20px 4px 20px;
+  }
+
+  .welcome {
+    padding: 1.5rem;
+  }
+
+  .welcome h2 {
+    font-size: 2.5rem;
+  }
+
+  .welcome p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+
+  .suggestions {
+    grid-template-columns: 1fr; /* Stack suggestions on mobile */
+    gap: 0.75rem;
+  }
+
+  .suggestion {
+    min-height: auto; /* Allow auto height */
     height: auto;
-    max-height: 100vh;
-  }
-  
-  .viewer-header {
     padding: 1rem;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
+  }
+
+  .input-area {
+    padding: 0 1rem 1rem;
+  }
+
+  .input-container {
+    padding: 0.25rem 0.5rem;
   }
 }
 
-/* Dark Mode Chat */
+/* Small Mobile Devices (iPhone SE, etc) */
+@media (max-width: 480px) {
+  .messages {
+    padding: 0.5rem; /* Minimal padding */
+    gap: 1rem;
+  }
+
+  .message-avatar {
+    width: 24px;
+    height: 24px;
+    font-size: 0.875rem;
+    margin-top: 4px; /* Align with text */
+  }
+
+  .message {
+    gap: 0.5rem; /* Reduce gap between avatar and text */
+  }
+
+  .message.user .message-content {
+    padding: 0.6rem 0.9rem;
+    font-size: 0.95rem;
+  }
+
+  .message-content {
+    font-size: 0.95rem;
+  }
+
+  .welcome h2 {
+    font-size: 1.75rem;
+  }
+
+  .welcome p {
+    font-size: 0.95rem;
+  }
+
+  .input-area {
+    padding: 0 0.5rem 0.5rem;
+  }
+
+  .message-input {
+    font-size: 0.95rem;
+    padding: 0.6rem;
+  }
+
+  .send-button, .input-action-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  /* Fix for icons shape and spacing on mobile */
+  .speak-btn, .action-btn {
+    width: 28px;
+    height: 28px;
+    min-width: 28px; /* Prevent squashing */
+    border-radius: 100% !important; /* User requested "100" for roundness */
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0,0.03); /* Slight background to see the shape */
+    
+    /* Ensure roundness on all devices */
+    overflow: hidden;
+    -webkit-appearance: none;
+    appearance: none;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    
+    /* Fix for flex items */
+    flex-shrink: 0;
+    flex-grow: 0;
+  }
+
+  .speak-btn .material-symbols-outlined,
+  .action-btn .material-symbols-outlined {
+    font-size: 16px;
+  }
+
+  .message-actions {
+    gap: 4px;
+  }
+}
+
 .app.dark .welcome h2 {
   color: #e3e3e3;
 }

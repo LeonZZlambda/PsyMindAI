@@ -124,3 +124,31 @@
 .app.dark .header-btn:hover {
   background-color: rgba(227, 227, 227, 0.08);
 }
+
+/* Fix for header visibility on smaller desktop screens - Landing Page Style */
+@media (max-width: 1200px) {
+  .header {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    z-index: 100;
+    width: 100%;
+    
+    /* Landing Page Header Style */
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  }
+
+  .app.dark .header {
+    background: rgba(19, 19, 20, 0.8);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  }
+}
