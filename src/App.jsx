@@ -17,6 +17,7 @@ import './styles/kindness.css'
 import './styles/help.css'
 import './styles/roadmap.css'
 import './styles/contribute.css'
+import './styles/exams.css'
 import './styles/landing.css'
 import './styles/accessibility.css'
 import Sidebar from './components/Sidebar'
@@ -176,9 +177,14 @@ function App() {
           
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/chat" element={<ChatPage inputRef={inputRef} />} />
             <Route path="/roadmap" element={<RoadmapPage />} />
             <Route path="/contribute" element={<ContributePage />} />
+            <Route 
+              path="/chat" 
+              element={
+                <ChatPage inputRef={inputRef} />
+              } 
+            />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>

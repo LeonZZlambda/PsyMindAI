@@ -1,0 +1,1057 @@
+/* Exams Modal Styles */
+.exams-modal {
+  max-width: 600px;
+  width: 90%;
+  background: #fff;
+  border-radius: 28px;
+  padding: 0;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  max-height: 85vh;
+  overflow: hidden;
+}
+
+.modal-overlay.closing .exams-modal {
+  animation: slideDown 0.3s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+.exams-body {
+  padding: 0 24px 24px;
+  overflow-y: auto;
+}
+
+.exams-categories-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  padding: 8px 0;
+}
+
+.exam-category-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+  border: 1px solid #e0e3e7;
+  border-radius: 16px;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  height: 100%;
+}
+
+.exam-category-btn:hover {
+  background: #f8f9fa;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.exam-category-btn > span {
+  font-family: 'Google Sans', Roboto, sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #202124;
+}
+
+.category-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.category-icon .material-symbols-outlined {
+  font-size: 24px;
+}
+
+/* Category Colors */
+.category-international .category-icon {
+  background: linear-gradient(135deg, #4285f4, #1967d2);
+}
+
+.category-national .category-icon {
+  background: linear-gradient(135deg, #34a853, #188038);
+}
+
+.category-regional .category-icon {
+  background: linear-gradient(135deg, #fbbc04, #e37400);
+}
+
+.category-olympiads .category-icon {
+  background: linear-gradient(135deg, #ea4335, #c5221f);
+}
+
+/* List View */
+.exams-list-view {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.back-btn {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px 8px 8px;
+  border: none;
+  background: transparent;
+  color: #5f6368;
+  font-family: 'Google Sans', Roboto, sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: background 0.2s;
+}
+
+.back-btn:hover {
+  background: #f1f3f4;
+  color: #202124;
+}
+
+.category-header-small {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 12px;
+}
+
+.category-header-small .material-symbols-outlined {
+  color: #5f6368;
+}
+
+.category-header-small h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #202124;
+}
+
+.exams-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.exam-item-modal {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #fff;
+  border: 1px solid #e0e3e7;
+  border-radius: 12px;
+  color: #444746;
+  transition: all 0.2s;
+  width: 100%;
+  text-align: left;
+}
+
+.exam-item-modal:hover:not(.no-hover) {
+  background: #f8f9fa;
+  border-color: #dadce0;
+}
+
+.exam-item-modal.no-hover {
+  cursor: default;
+}
+
+.exam-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.exam-name {
+  font-weight: 500;
+  color: #202124;
+}
+
+.exam-fullname {
+  font-size: 0.8rem;
+  color: #5f6368;
+}
+
+.arrow-icon {
+  color: #5f6368;
+  font-size: 20px;
+}
+
+/* Subjects View */
+.exams-subjects-view {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.exam-header-detail {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.exam-header-detail h3 {
+  font-size: 1.5rem;
+  color: #202124;
+  margin-bottom: 4px;
+}
+
+.exam-header-detail p {
+  color: #5f6368;
+  font-size: 0.9rem;
+}
+
+.subjects-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.subject-card {
+  background: #f8f9fa;
+  border: 1px solid #e0e3e7;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  transition: all 0.2s;
+  flex: 1 1 140px;
+  max-width: 180px;
+}
+
+.subject-card:hover {
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transform: translateY(-2px);
+}
+
+.subject-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  transition: all 0.2s;
+}
+
+.subject-card .material-symbols-outlined {
+  font-size: 24px;
+  color: inherit;
+}
+
+/* Subject Specific Colors */
+/* Math - Red */
+.subject-math .subject-icon-wrapper {
+  background: #c5221f;
+  color: #fff;
+}
+.subject-math:hover .subject-icon-wrapper {
+  background: #b31412;
+}
+
+/* Math (Calculator) - Deep Red */
+.subject-math-calc .subject-icon-wrapper {
+  background: #b71c1c;
+  color: #fff;
+}
+.subject-math-calc:hover .subject-icon-wrapper {
+  background: #8e0000;
+}
+
+/* Math (No Calculator) - Orange Red */
+.subject-math-nocalc .subject-icon-wrapper {
+  background: #ff5722;
+  color: #fff;
+}
+.subject-math-nocalc:hover .subject-icon-wrapper {
+  background: #e64a19;
+}
+
+/* Physics - Orange/Yellow */
+.subject-physics .subject-icon-wrapper {
+  background: #f9ab00;
+  color: #fff;
+}
+.subject-physics:hover .subject-icon-wrapper {
+  background: #e37400;
+}
+
+/* Chemistry - Purple */
+.subject-chemistry .subject-icon-wrapper {
+  background: #9334e6;
+  color: #fff;
+}
+.subject-chemistry:hover .subject-icon-wrapper {
+  background: #7c28c2;
+}
+
+/* Biology/Nature - Green */
+.subject-biology .subject-icon-wrapper {
+  background: #137333;
+  color: #fff;
+}
+.subject-biology:hover .subject-icon-wrapper {
+  background: #0d652d;
+}
+
+/* History/Humanities - Brown/Orange */
+.subject-history .subject-icon-wrapper {
+  background: #ea8600;
+  color: #fff;
+}
+.subject-history:hover .subject-icon-wrapper {
+  background: #d27500;
+}
+
+/* Geography - Blue */
+.subject-geography .subject-icon-wrapper {
+  background: #1967d2;
+  color: #fff;
+}
+.subject-geography:hover .subject-icon-wrapper {
+  background: #174ea6;
+}
+
+/* Languages - Cyan/Teal */
+.subject-languages .subject-icon-wrapper {
+  background: #12b5cb;
+  color: #fff;
+}
+.subject-languages:hover .subject-icon-wrapper {
+  background: #0fa3b8;
+}
+
+/* Reading - Teal */
+.subject-reading .subject-icon-wrapper {
+  background: #009688;
+  color: #fff;
+}
+.subject-reading:hover .subject-icon-wrapper {
+  background: #00796b;
+}
+
+/* Listening - Deep Purple */
+.subject-listening .subject-icon-wrapper {
+  background: #673ab7;
+  color: #fff;
+}
+.subject-listening:hover .subject-icon-wrapper {
+  background: #512da8;
+}
+
+/* Speaking - Deep Orange */
+.subject-speaking .subject-icon-wrapper {
+  background: #ff5722;
+  color: #fff;
+}
+.subject-speaking:hover .subject-icon-wrapper {
+  background: #e64a19;
+}
+
+/* Essay/Writing - Pink */
+.subject-essay .subject-icon-wrapper {
+  background: #d93025;
+  color: #fff;
+}
+.subject-essay:hover .subject-icon-wrapper {
+  background: #c5221f;
+}
+
+/* Arts - Indigo */
+.subject-arts .subject-icon-wrapper {
+  background: #3f51b5;
+  color: #fff;
+}
+.subject-arts:hover .subject-icon-wrapper {
+  background: #303f9f;
+}
+
+/* Default - Grey */
+.subject-default .subject-icon-wrapper {
+  background: #5f6368;
+  color: #fff;
+}
+.subject-default:hover .subject-icon-wrapper {
+  background: #444746;
+}
+
+.subject-card span {
+  font-size: 0.85rem;
+  color: #444746;
+  font-weight: 500;
+}
+
+/* Dark Mode Subject Colors */
+.app.dark .subject-math .subject-icon-wrapper { background: #e2514a; color: #fff; }
+.app.dark .subject-math:hover .subject-icon-wrapper { background: #c5221f; }
+
+.app.dark .subject-math-calc .subject-icon-wrapper { background: #ef5350; color: #fff; }
+.app.dark .subject-math-calc:hover .subject-icon-wrapper { background: #c62828; }
+
+.app.dark .subject-math-nocalc .subject-icon-wrapper { background: #ff7043; color: #fff; }
+.app.dark .subject-math-nocalc:hover .subject-icon-wrapper { background: #f4511e; }
+
+.app.dark .subject-physics .subject-icon-wrapper { background: #f9ab00; color: #fff; }
+.app.dark .subject-physics:hover .subject-icon-wrapper { background: #e37400; }
+
+.app.dark .subject-chemistry .subject-icon-wrapper { background: #af5cf7; color: #fff; }
+.app.dark .subject-chemistry:hover .subject-icon-wrapper { background: #9334e6; }
+
+.app.dark .subject-biology .subject-icon-wrapper { background: #34a853; color: #fff; }
+.app.dark .subject-biology:hover .subject-icon-wrapper { background: #188038; }
+
+.app.dark .subject-history .subject-icon-wrapper { background: #ea8600; color: #fff; }
+.app.dark .subject-history:hover .subject-icon-wrapper { background: #d27500; }
+
+.app.dark .subject-geography .subject-icon-wrapper { background: #669df6; color: #fff; }
+.app.dark .subject-geography:hover .subject-icon-wrapper { background: #4285f4; }
+
+.app.dark .subject-languages .subject-icon-wrapper { background: #12b5cb; color: #fff; }
+.app.dark .subject-languages:hover .subject-icon-wrapper { background: #0fa3b8; }
+
+.app.dark .subject-reading .subject-icon-wrapper { background: #4db6ac; color: #fff; }
+.app.dark .subject-reading:hover .subject-icon-wrapper { background: #009688; }
+
+.app.dark .subject-listening .subject-icon-wrapper { background: #9575cd; color: #fff; }
+.app.dark .subject-listening:hover .subject-icon-wrapper { background: #673ab7; }
+
+.app.dark .subject-speaking .subject-icon-wrapper { background: #ff8a65; color: #fff; }
+.app.dark .subject-speaking:hover .subject-icon-wrapper { background: #ff5722; }
+
+.app.dark .subject-essay .subject-icon-wrapper { background: #e2514a; color: #fff; }
+.app.dark .subject-essay:hover .subject-icon-wrapper { background: #c5221f; }
+
+.app.dark .subject-arts .subject-icon-wrapper { background: #7986cb; color: #fff; }
+.app.dark .subject-arts:hover .subject-icon-wrapper { background: #5c6bc0; }
+
+.app.dark .subject-default .subject-icon-wrapper { background: #7f868b; color: #fff; }
+.app.dark .subject-default:hover .subject-icon-wrapper { background: #5f6368; }
+
+/* Dark Mode */
+.app.dark .exams-modal {
+  background: #1e1f20;
+}
+
+.app.dark .exam-category-btn {
+  background: #2d2e30;
+  border-color: #444746;
+}
+
+.app.dark .exam-category-btn:hover {
+  background: #3c4043;
+}
+
+.app.dark .exam-category-btn > span {
+  color: #e3e3e3;
+}
+
+.app.dark .back-btn {
+  color: #c4c7c5;
+}
+
+.app.dark .back-btn:hover {
+  background: #3c4043;
+  color: #e3e3e3;
+}
+
+.app.dark .category-header-small {
+  background: #2d2e30;
+}
+
+.app.dark .category-header-small h3 {
+  color: #e3e3e3;
+}
+
+.app.dark .exam-item-modal {
+  background: #2d2e30;
+  border-color: #444746;
+  color: #c4c7c5;
+}
+
+.app.dark .exam-item-modal:hover {
+  background: #3c4043;
+}
+
+.app.dark .exam-name {
+  color: #e3e3e3;
+}
+
+.app.dark .exam-fullname {
+  color: #c4c7c5;
+}
+
+.app.dark .arrow-icon {
+  color: #c4c7c5;
+}
+
+.app.dark .exam-header-detail h3 {
+  color: #e3e3e3;
+}
+
+.app.dark .exam-header-detail p {
+  color: #c4c7c5;
+}
+
+.app.dark .subject-card {
+  background: #2d2e30;
+  border-color: #444746;
+}
+
+.app.dark .subject-card:hover {
+  background: #3c4043;
+}
+
+.app.dark .subject-card span {
+  color: #e3e3e3;
+}
+
+/* Calculator Styles */
+.enem-calculator {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 8px;
+}
+
+.calc-inputs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.calc-extra-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+/* Material Design Input Group */
+.md-input-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+}
+
+.md-input-group.full-width {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+.md-input-group input,
+.md-input-group select {
+  padding: 13px 15px;
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: #202124;
+  background: transparent;
+  transition: border-color 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+  height: 48px;
+}
+
+.md-input-group select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23202124%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px top 50%;
+  background-size: 12px auto;
+  cursor: pointer;
+}
+
+.md-input-group label {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #fff;
+  padding: 0 4px;
+  font-size: 1rem;
+  color: #5f6368;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  z-index: 1;
+}
+
+/* Floating Label Logic */
+.md-input-group input:focus,
+.md-input-group input:not(:placeholder-shown),
+.md-input-group select:focus {
+  border-color: #1a73e8;
+  border-width: 2px;
+  padding: 12px 14px; /* Adjust for border width change */
+}
+
+.md-input-group input:focus + label,
+.md-input-group input:not(:placeholder-shown) + label,
+.md-input-group select:focus + label,
+.md-input-group select + label {
+  top: 0;
+  font-size: 0.75rem;
+  color: #1a73e8;
+  font-weight: 500;
+}
+
+/* Select label always floats if it has a value (which it usually does) */
+.md-input-group select + label {
+  top: 0;
+  font-size: 0.75rem;
+  color: #5f6368;
+}
+
+.md-input-group select:focus + label {
+  color: #1a73e8;
+}
+
+.calc-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 16px;
+  width: 100%;
+}
+
+.calc-btn {
+  background: #1a73e8;
+  color: #fff;
+  border: none;
+  padding: 0 24px;
+  height: 48px;
+  border-radius: 24px;
+  font-weight: 500;
+  font-size: 0.875rem;
+  letter-spacing: 0.25px;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex: 1;
+  max-width: 240px;
+  text-transform: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calc-btn:hover {
+  background: #1557b0;
+  box-shadow: 0 1px 3px 1px rgba(0,0,0,0.15);
+}
+
+.calc-btn.secondary {
+  background: transparent;
+  color: #1a73e8;
+  border: 1px solid #dadce0;
+}
+
+.calc-btn.secondary:hover {
+  background: #f8f9fa;
+  border-color: #1a73e8;
+  box-shadow: none;
+}
+
+.calc-result {
+  background: #e8f0fe;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: fadeIn 0.3s ease-out;
+  border: 1px solid transparent;
+}
+
+.calc-result .label {
+  font-size: 0.875rem;
+  color: #1967d2;
+  font-weight: 500;
+  letter-spacing: 0.25px;
+}
+
+.calc-result .value {
+  font-size: 2.25rem;
+  font-weight: 400;
+  color: #1967d2;
+}
+
+.calc-result .note {
+  font-size: 0.75rem;
+  color: #5f6368;
+  margin-top: 8px;
+  max-width: 90%;
+  line-height: 1.5;
+}
+
+/* Dark Mode Calculator */
+.app.dark .md-input-group input,
+.app.dark .md-input-group select {
+  border-color: #5f6368;
+  color: #e3e3e3;
+}
+
+.app.dark .md-input-group label {
+  background: #1e1f20;
+  color: #c4c7c5;
+}
+
+.app.dark .md-input-group select {
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23e3e3e3%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+}
+
+.app.dark .md-input-group input:focus,
+.app.dark .md-input-group select:focus {
+  border-color: #8ab4f8;
+}
+
+.app.dark .md-input-group input:focus + label,
+.app.dark .md-input-group input:not(:placeholder-shown) + label,
+.app.dark .md-input-group select:focus + label {
+  color: #8ab4f8;
+}
+
+.app.dark .calc-btn {
+  background: #8ab4f8;
+  color: #202124;
+}
+
+.app.dark .calc-btn:hover {
+  background: #aecbfa;
+}
+
+.app.dark .calc-btn.secondary {
+  color: #8ab4f8;
+  border-color: #5f6368;
+  background: transparent;
+}
+
+.app.dark .calc-btn.secondary:hover {
+  background: #3c4043;
+  border-color: #8ab4f8;
+}
+
+.app.dark .calc-result {
+  background: #1e2a3b;
+  border-color: #444746;
+}
+
+.app.dark .calc-result .label {
+  color: #d3e3fd;
+}
+
+.app.dark .calc-result .value {
+  color: #a8c7fa;
+}
+
+.app.dark .calc-result .note {
+  color: #c4c7c5;
+}
+
+/* Checkbox Styles */
+.checkbox-group {
+  grid-column: 1 / -1;
+  margin-top: 8px;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+  padding: 8px 0;
+}
+
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  height: 20px;
+  width: 20px;
+  background-color: #fff;
+  border: 2px solid #5f6368;
+  border-radius: 4px;
+  position: relative;
+  transition: all 0.2s;
+}
+
+.checkbox-container:hover .checkmark {
+  border-color: #202124;
+  background-color: #f1f3f4;
+}
+
+.checkbox-container input:checked ~ .checkmark {
+  background-color: #1a73e8;
+  border-color: #1a73e8;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkbox-container .checkmark:after {
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox-label {
+  font-size: 0.9rem;
+  color: #202124;
+  font-weight: 500;
+}
+
+/* Warning Box */
+.warning-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fce8e6;
+  color: #c5221f;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin: 12px 0;
+  text-align: left;
+  border: 1px solid #fad2cf;
+}
+
+.warning-box .material-symbols-outlined {
+  font-size: 24px;
+}
+
+.warning-box p {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+/* Dark Mode Updates */
+.app.dark .checkbox-label {
+  color: #e3e3e3;
+}
+
+.app.dark .checkmark {
+  background-color: #2d2e30;
+  border-color: #c4c7c5;
+}
+
+.app.dark .checkbox-container:hover .checkmark {
+  background-color: #3c4043;
+  border-color: #e3e3e3;
+}
+
+.app.dark .checkbox-container input:checked ~ .checkmark {
+  background-color: #8ab4f8;
+  border-color: #8ab4f8;
+}
+
+.app.dark .checkbox-container input:checked ~ .checkmark:after {
+  border-color: #202124;
+}
+
+.app.dark .warning-box {
+  background: #392020; /* Dark red background */
+  color: #f28b82; /* Light red text */
+  border-color: #5c2b29;
+}
+
+/* TRI Range Display */
+.tri-result-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.tri-range-display {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 2.25rem;
+  font-weight: 400;
+  color: #1967d2;
+}
+
+.range-sep {
+  font-size: 1.25rem;
+  color: #5f6368;
+  font-weight: 500;
+}
+
+.tri-avg-label {
+  font-size: 0.9rem;
+  color: #5f6368;
+  font-weight: 500;
+}
+
+.app.dark .tri-range-display {
+  color: #a8c7fa;
+}
+
+.app.dark .range-sep,
+.app.dark .tri-avg-label {
+  color: #c4c7c5;
+}
+
+@media (max-width: 600px) {
+  .exams-categories-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Calculator Mode Selection */
+.calc-mode-selection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.calc-mode-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px;
+  border: 1px solid #e0e3e7;
+  border-radius: 16px;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.calc-mode-card:hover {
+  background: #f8f9fa;
+  border-color: #dadce0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.calc-mode-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #e8f0fe;
+  color: #1967d2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calc-mode-icon .material-symbols-outlined {
+  font-size: 28px;
+}
+
+.calc-mode-card h4 {
+  margin: 0;
+  color: #202124;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.calc-mode-card p {
+  margin: 0;
+  color: #5f6368;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+/* Input Icons */
+.md-input-group.has-icon input,
+.md-input-group.has-icon select {
+  padding-left: 44px;
+}
+
+.field-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #5f6368;
+  pointer-events: none;
+  font-size: 20px;
+  transition: color 0.2s;
+  z-index: 2;
+}
+
+.md-input-group.has-icon input:focus ~ .field-icon,
+.md-input-group.has-icon select:focus ~ .field-icon {
+  color: #1a73e8;
+}
+
+/* Fix label position when icon is present */
+.md-input-group.has-icon label {
+  left: 44px;
+}
+
+.md-input-group.has-icon input:focus + label,
+.md-input-group.has-icon input:not(:placeholder-shown) + label,
+.md-input-group.has-icon select:focus + label,
+.md-input-group.has-icon select + label {
+  left: 12px;
+}
+
+/* Dark Mode Updates */
+.app.dark .calc-mode-card {
+  background: #2d2e30;
+  border-color: #444746;
+}
+
+.app.dark .calc-mode-card:hover {
+  background: #3c4043;
+}
+
+.app.dark .calc-mode-icon {
+  background: #4285f4;
+  color: #fff;
+}
+
+.app.dark .calc-mode-card h4 {
+  color: #e3e3e3;
+}
+
+.app.dark .calc-mode-card p {
+  color: #c4c7c5;
+}
+
+.app.dark .field-icon {
+  color: #c4c7c5;
+}
+
+.app.dark .md-input-group.has-icon input:focus ~ .field-icon,
+.app.dark .md-input_group.has-icon select:focus ~ .field-icon {
+  color: #8ab4f8;
+}

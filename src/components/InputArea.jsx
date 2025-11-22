@@ -2,11 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
 import { useChat } from '../context/ChatContext';
 import PomodoroModal from './PomodoroModal';
 import KindnessModal from './KindnessModal';
+import ExamsModal from './ExamsModal';
 
 const InputArea = ({ inputRef }) => {
+  const navigate = useNavigate();
   const { input, setInput, sendMessage, isTyping } = useChat();
   const [isListening, setIsListening] = useState(false);
   const [recognition, setRecognition] = useState(null);
@@ -14,6 +17,7 @@ const InputArea = ({ inputRef }) => {
   const [showToolsMenu, setShowToolsMenu] = useState(false);
   const [showPomodoro, setShowPomodoro] = useState(false);
   const [showKindness, setShowKindness] = useState(false);
+  const [showExamsModal, setShowExamsModal] = useState(false);
   const [pomodoroStatus, setPomodoroStatus] = useState({ isActive: false, mode: 'focus' });
   const fileInputRef = useRef(null);
   const toolsMenuRef = useRef(null);
@@ -47,6 +51,11 @@ const InputArea = ({ inputRef }) => {
     }
     if (tool.id === 'kindness') {
       setShowKindness(true);
+      setShowToolsMenu(false);
+      return;
+    }
+    if (tool.id === 'vestibulares') {
+      setShowExamsModal(true);
       setShowToolsMenu(false);
       return;
     }
@@ -311,12 +320,27 @@ const InputArea = ({ inputRef }) => {
           Licenciado sob CC BY-SA 4.0
         </a>
       </p>
-      <PomodoroModal 
-        isOpen={showPomodoro} 
-        onClose={() => setShowPomodoro(false)} 
-        onStatusChange={setPomodoroStatus}
-      />
-      <KindnessModal isOpen={showKindness} onClose={() => setShowKindness(false)} />
+      <AnimatePresence>
+        {showPomodoro && (
+          <PomodoroModal 
+            isOpen={showPomodoro} 
+            onClose={() => setShowPomodoro(false)}
+            onStatusChange={setPomodoroStatus}
+          />
+        )}
+        {showKindness && (
+          <KindnessModal 
+            isOpen={showKindness} 
+            onClose={() => setShowKindness(false)}
+          />
+        )}
+        {showExamsModal && (
+          <ExamsModal 
+            isOpen={showExamsModal} 
+            onClose={() => setShowExamsModal(false)}
+          />
+        )}
+      </AnimatePresence>
     </footer>
   );
 };

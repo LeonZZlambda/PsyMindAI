@@ -1,8 +1,10 @@
 import React from 'react';
 import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
 import { useChat } from '../context/ChatContext';
 
 const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onChatSelect, isNewChatAnimating, onOpenSettings, onOpenHelp }) => {
+  const navigate = useNavigate();
   const { loadChat } = useChat();
   const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
   const cmdKey = isMac ? '⌘' : 'Ctrl';

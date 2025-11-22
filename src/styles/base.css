@@ -37,3 +37,23 @@ button {
   cursor: pointer;
   font-family: inherit;
 }
+
+/* Material Symbols Fallback */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  /* Support for all WebKit browsers. */
+  -webkit-font-feature-settings: 'liga';
+  -moz-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
+}
