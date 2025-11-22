@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
+import { motion, AnimatePresence } from 'framer-motion';
+import { toast } from 'sonner';
 import { useChat } from '../context/ChatContext';
 
 const InputArea = ({ inputRef }) => {
@@ -7,7 +9,35 @@ const InputArea = ({ inputRef }) => {
   const [isListening, setIsListening] = useState(false);
   const [recognition, setRecognition] = useState(null);
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [showToolsMenu, setShowToolsMenu] = useState(false);
   const fileInputRef = useRef(null);
+  const toolsMenuRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (toolsMenuRef.current && !toolsMenuRef.current.contains(event.target)) {
+        setShowToolsMenu(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const tools = [
+    { id: 'pomodoro', icon: 'timer', label: 'Pomodoro' },
+    { id: 'emocional', icon: 'sentiment_satisfied', label: 'Emocional' },
+    { id: 'reflexoes', icon: 'self_improvement', label: 'Reflexões' },
+    { id: 'vestibulares', icon: 'school', label: 'Vestibulares' },
+    { id: 'kindness', icon: 'volunteer_activism', label: 'Ato de Bondade' },
+    { id: 'helpline', icon: 'support_agent', label: 'Linha de Apoio' },
+    { id: 'learning', icon: 'menu_book', label: 'Aprendizado Guiado' }
+  ];
+
+  const handleToolClick = (tool) => {
+    toast.info(`Ferramenta ${tool.label} em breve!`);
+    setShowToolsMenu(false);
+  };
 
   useEffect(() => {
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
@@ -163,6 +193,38 @@ const InputArea = ({ inputRef }) => {
             >
               <span className="material-symbols-outlined">add_circle</span>
             </button>
+            <div className="tools-menu-container" ref={toolsMenuRef}>
+              <button 
+                className={`input-action-btn ${showToolsMenu ? 'active' : ''}`}
+                onClick={() => setShowToolsMenu(!showToolsMenu)}
+                title="Ferramentas"
+                aria-label="Ferramentas"
+              >
+                <span className="material-symbols-outlined">handyman</span>
+              </button>
+              <AnimatePresence>
+                {showToolsMenu && (
+                  <motion.div 
+                    className="tools-menu"
+                    initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95, y: 10 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                  >
+                    {tools.map(tool => (
+                      <button 
+                        key={tool.id} 
+                        className="tool-item"
+                        onClick={() => handleToolClick(tool)}
+                      >
+                        <span className="material-symbols-outlined">{tool.icon}</span>
+                        <span>{tool.label}</span>
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
             <TextareaAutosize
               ref={inputRef}
               value={input}

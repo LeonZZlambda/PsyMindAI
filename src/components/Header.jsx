@@ -1,7 +1,8 @@
 import React from 'react';
 import { useTheme } from '../context/ThemeContext';
+import { motion, AnimatePresence } from 'framer-motion';
 
-const Header = ({ isSidebarOpen, toggleSidebar }) => {
+const Header = ({ isSidebarOpen, toggleSidebar, isLoading }) => {
   const { isDarkMode, toggleTheme } = useTheme();
 
   return (
@@ -39,6 +40,17 @@ const Header = ({ isSidebarOpen, toggleSidebar }) => {
           <span className="material-symbols-outlined">account_circle</span>
         </button>
       </div>
+      <AnimatePresence>
+        {isLoading && (
+          <motion.div 
+            className="header-loader-bar"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+          />
+        )}
+      </AnimatePresence>
     </header>
   );
 };

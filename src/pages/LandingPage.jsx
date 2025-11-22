@@ -117,12 +117,12 @@ const LandingPage = () => {
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
         >
           <h1 className="hero-title">
-            <span className="gradient-text">Inteligência emocional</span><br />
-            ao seu alcance
+            <span className="gradient-text">Equilíbrio mental</span><br />
+            para seus estudos
           </h1>
           <p className="hero-subtitle">
-            O PsyMind.AI é seu assistente pessoal para autoconhecimento e bem-estar mental. 
-            Converse, reflita e evolua com apoio de inteligência artificial avançada.
+            O PsyMind.AI é seu companheiro para enfrentar o Ensino Médio e Vestibulares. 
+            Organize sua rotina, controle a ansiedade e conquiste seus objetivos com apoio da IA.
           </p>
           
           <div className="hero-actions">
@@ -132,8 +132,8 @@ const LandingPage = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <span className="material-symbols-outlined">chat_bubble</span>
-              Iniciar conversa
+              <span className="material-symbols-outlined">rocket_launch</span>
+              Começar Jornada
             </motion.button>
             <motion.button 
               className="secondary-btn"
@@ -206,9 +206,9 @@ const LandingPage = () => {
           transition={{ delay: 0.2 }}
           whileHover={{ y: -5 }}
         >
-          <span className="material-symbols-outlined feature-icon">lock</span>
-          <h3>Privacidade Total</h3>
-          <p>Suas conversas são privadas e seguras. Você tem total controle sobre seus dados.</p>
+          <span className="material-symbols-outlined feature-icon">school</span>
+          <h3>Foco nos Estudos</h3>
+          <p>Dicas de organização e cronogramas personalizados para o ENEM e vestibulares.</p>
         </motion.div>
         <motion.div 
           className="feature-card"
@@ -218,9 +218,9 @@ const LandingPage = () => {
           transition={{ delay: 0.3 }}
           whileHover={{ y: -5 }}
         >
-          <span className="material-symbols-outlined feature-icon">auto_awesome</span>
-          <h3>IA Avançada</h3>
-          <p>Utilizamos modelos de linguagem de última geração para oferecer respostas empáticas.</p>
+          <span className="material-symbols-outlined feature-icon">self_improvement</span>
+          <h3>Controle da Ansiedade</h3>
+          <p>Técnicas de respiração e mindfulness para manter a calma antes de provas e redações.</p>
         </motion.div>
         <motion.div 
           className="feature-card"
@@ -230,9 +230,9 @@ const LandingPage = () => {
           transition={{ delay: 0.4 }}
           whileHover={{ y: -5 }}
         >
-          <span className="material-symbols-outlined feature-icon">history</span>
+          <span className="material-symbols-outlined feature-icon">schedule</span>
           <h3>Disponível 24/7</h3>
-          <p>Apoio emocional a qualquer hora do dia ou da noite, sempre que você precisar.</p>
+          <p>Tire dúvidas, desabafe ou peça dicas de estudo a qualquer hora do dia ou da noite.</p>
         </motion.div>
       </section>
 
@@ -258,8 +258,8 @@ const LandingPage = () => {
               whileHover={{ y: -5 }}
             >
               <span className="material-symbols-outlined card-icon">sentiment_satisfied</span>
-              <h3>Apoio Emocional</h3>
-              <p>Suporte para lidar com ansiedade de provas, pressão escolar e organização de rotina.</p>
+              <h3>Gestão de Estresse</h3>
+              <p>Suporte para lidar com a pressão de provas, simulados e a escolha da profissão.</p>
             </motion.div>
             <motion.div 
               className="info-card"
@@ -269,8 +269,8 @@ const LandingPage = () => {
               whileHover={{ y: -5 }}
             >
               <span className="material-symbols-outlined card-icon">rocket_launch</span>
-              <h3>Preparação para o Futuro</h3>
-              <p>Dicas e orientações focadas em Vestibulares e ENEM, ajudando a manter o foco e a motivação.</p>
+              <h3>Mentoria para Vestibulares</h3>
+              <p>Orientações estratégicas para o ENEM e principais vestibulares, mantendo o foco no resultado.</p>
             </motion.div>
             <motion.div 
               className="info-card"
@@ -279,9 +279,9 @@ const LandingPage = () => {
               transition={{ delay: 0.4 }}
               whileHover={{ y: -5 }}
             >
-              <span className="material-symbols-outlined card-icon">self_improvement</span>
-              <h3>Desenvolvimento Pessoal</h3>
-              <p>Ferramentas para autoconhecimento que auxiliam na escolha de carreira e no amadurecimento.</p>
+              <span className="material-symbols-outlined card-icon">psychology_alt</span>
+              <h3>Autoconhecimento</h3>
+              <p>Ferramentas que auxiliam na descoberta de vocações e no amadurecimento emocional.</p>
             </motion.div>
           </div>
         </motion.div>
@@ -345,16 +345,57 @@ const LandingPage = () => {
       </section>
 
       <footer className="landing-footer">
-        <p className="disclaimer">
-          <span className="material-symbols-outlined" style={{ fontSize: '14px', verticalAlign: 'middle', marginRight: '4px' }}>warning</span>
-          O PsyMind.AI oferece apoio educativo. Para questões sérias, procure ajuda profissional.
-        </p>
-        <p className="license-notice">
-          <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">
-            Licenciado sob CC BY-SA 4.0
-          </a>
-        </p>
-        <p className="copyright">© 2025 PsyMind.AI</p>
+        <div className="footer-content">
+          <div className="footer-brand">
+            <div className="footer-logo">
+              <span className="material-symbols-outlined">psychology</span>
+              <span>PsyMind.AI</span>
+            </div>
+            <p>Seu companheiro de estudos e bem-estar emocional, disponível 24/7 para ajudar você a evoluir.</p>
+            <div className="social-links">
+              <a href="https://github.com/LeonZZlambda/PsyMindAI" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                <span className="material-symbols-outlined">code</span>
+              </a>
+              <a href="#" aria-label="Discord">
+                <span className="material-symbols-outlined">forum</span>
+              </a>
+              <a href="#" aria-label="Twitter">
+                <span className="material-symbols-outlined">alternate_email</span>
+              </a>
+            </div>
+          </div>
+          
+          <div className="footer-links-container">
+            <div className="footer-column">
+              <h4>Navegação</h4>
+              <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>Início</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); document.querySelector('.features-section')?.scrollIntoView({ behavior: 'smooth' }); }}>Recursos</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); document.querySelector('.educational-focus')?.scrollIntoView({ behavior: 'smooth' }); }}>Educação</a>
+            </div>
+            <div className="footer-column">
+              <h4>Legal</h4>
+              <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">Licença</a>
+              <a href="#">Política de Privacidade</a>
+              <a href="#">Termos de Uso</a>
+            </div>
+            <div className="footer-column">
+              <h4>Projeto</h4>
+              <a href="https://github.com/LeonZZlambda/PsyMindAI" target="_blank" rel="noopener noreferrer">Repositório</a>
+              <a href="#">Como Contribuir</a>
+              <a href="#">Roadmap</a>
+            </div>
+          </div>
+        </div>
+        
+        <div className="footer-bottom">
+          <div className="disclaimer-box">
+            <span className="material-symbols-outlined">warning</span>
+            <p>O PsyMind.AI oferece apoio educativo e emocional básico. Para questões de saúde mental sérias, procure sempre ajuda profissional especializada.</p>
+          </div>
+          <div className="footer-info">
+            <p>© {new Date().getFullYear()} PsyMind.AI • Licenciado sob <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a></p>
+          </div>
+        </div>
       </footer>
       </motion.div>
 

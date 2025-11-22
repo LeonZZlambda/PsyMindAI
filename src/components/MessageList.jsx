@@ -53,11 +53,120 @@ const CodeCopyButton = ({ text }) => {
   );
 };
 
+const ImageViewer = ({ src, alt, onClose }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async (e) => {
+    e.stopPropagation();
+    try {
+      const response = await fetch(src);
+      const blob = await response.blob();
+      
+      try {
+        await navigator.clipboard.write([
+          new ClipboardItem({
+            [blob.type]: blob
+          })
+        ]);
+        setCopied(true);
+        toast.success('Imagem copiada!');
+        setTimeout(() => setCopied(false), 2000);
+      } catch (writeErr) {
+        // Fallback: Convert to PNG using Canvas (better compatibility)
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.src = src;
+        await new Promise((resolve, reject) => {
+          img.onload = resolve;
+          img.onerror = reject;
+        });
+
+        const canvas = document.createElement('canvas');
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+
+        const pngBlob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+        
+        await navigator.clipboard.write([
+          new ClipboardItem({
+            'image/png': pngBlob
+          })
+        ]);
+        setCopied(true);
+        toast.success('Imagem copiada!');
+        setTimeout(() => setCopied(false), 2000);
+      }
+    } catch (err) {
+      console.error('Failed to copy:', err);
+      toast.error('Erro ao copiar imagem');
+    }
+  };
+
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [onClose]);
+
+  return (
+    <motion.div 
+      className="image-viewer-overlay"
+      initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+      animate={{ opacity: 1, backdropFilter: "blur(5px)" }}
+      exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+      onClick={onClose}
+    >
+      <div className="viewer-header">
+        <div className="viewer-actions">
+          <button className="viewer-btn" onClick={handleCopy} title={copied ? "Copiado!" : "Copiar imagem"}>
+            <span className="material-symbols-outlined">
+              {copied ? 'check' : 'content_copy'}
+            </span>
+          </button>
+          <button className="viewer-btn" onClick={onClose} title="Fechar">
+            <span className="material-symbols-outlined">close</span>
+          </button>
+        </div>
+      </div>
+      <motion.img 
+        src={src} 
+        alt={alt} 
+        className="full-screen-image"
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        transition={{ type: "spring", damping: 25, stiffness: 300 }}
+        onClick={(e) => e.stopPropagation()}
+      />
+    </motion.div>
+  );
+};
+
 const MessageList = () => {
   const { messages, isTyping, setInput } = useChat();
   const messagesEndRef = useRef(null);
   const chatContainerRef = useRef(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const quotes = [
+    "O sucesso é a soma de pequenos esforços repetidos dia após dia. — Robert Collier",
+    "Acredite em si mesmo e em tudo o que você é. — Christian D. Larson",
+    "A educação é a arma mais poderosa que você pode usar para mudar o mundo. — Nelson Mandela",
+    "Não espere por oportunidades extraordinárias. Agarre ocasiões comuns e faça-as grandes. — Orison Swett Marden",
+    "O único lugar onde o sucesso vem antes do trabalho é no dicionário. — Vidal Sassoon",
+    "A mente que se abre a uma nova ideia jamais voltará ao seu tamanho original. — Albert Einstein"
+  ];
+  
+  const [dailyQuote, setDailyQuote] = useState('');
+
+  useEffect(() => {
+    setDailyQuote(quotes[Math.floor(Math.random() * quotes.length)]);
+  }, []);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -108,7 +217,17 @@ const MessageList = () => {
           <h2>
             <span>Olá, sou o PsyMind.AI</span>
           </h2>
-          <p>Como posso ajudar você hoje?</p>
+          <div className="daily-quote-wrapper">
+            <div className="daily-quote-container">
+              <span className="material-symbols-outlined quote-icon quote-start">format_quote</span>
+              <p className="daily-quote">{dailyQuote}</p>
+              <span className="material-symbols-outlined quote-icon quote-end">format_quote</span>
+            </div>
+            <p className="quote-date">
+              {new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }).replace(/^\w/, c => c.toUpperCase())}
+            </p>
+          </div>
+          <p className="welcome-subtitle">Como posso ajudar você hoje?</p>
           <div className="suggestions" role="group" aria-label="Sugestões de perguntas">
             <button 
               className="suggestion" 
@@ -133,6 +252,30 @@ const MessageList = () => {
             >
               <strong><span className="material-symbols-outlined" aria-hidden="true">auto_awesome</span> Autoestima</strong><br />
               <span>Dicas para fortalecer a confiança em si mesmo</span>
+            </button>
+            <button 
+              className="suggestion" 
+              onClick={() => setInput('Quais são as melhores técnicas de estudo?')}
+              aria-label="Sugestão: Quais são as melhores técnicas de estudo?"
+            >
+              <strong><span className="material-symbols-outlined" aria-hidden="true">school</span> Técnicas de Estudo</strong><br />
+              <span>Pomodoro, Flashcards e métodos eficazes</span>
+            </button>
+            <button 
+              className="suggestion" 
+              onClick={() => setInput('Me ajude a criar um cronograma de estudos')}
+              aria-label="Sugestão: Me ajude a criar um cronograma de estudos"
+            >
+              <strong><span className="material-symbols-outlined" aria-hidden="true">calendar_month</span> Planejamento</strong><br />
+              <span>Organize sua rotina e horários de estudo</span>
+            </button>
+            <button 
+              className="suggestion" 
+              onClick={() => setInput('Como evitar o burnout nos estudos?')}
+              aria-label="Sugestão: Como evitar o burnout nos estudos?"
+            >
+              <strong><span className="material-symbols-outlined" aria-hidden="true">spa</span> Descanso Mental</strong><br />
+              <span>Importância do lazer e prevenção ao burnout</span>
             </button>
           </div>
         </motion.div>
@@ -159,7 +302,12 @@ const MessageList = () => {
                         {message.files.map((file, i) => (
                           <div key={i} className="message-file-item">
                             {file.type && file.type.startsWith('image/') && (file instanceof Blob || file instanceof File) ? (
-                              <img src={URL.createObjectURL(file)} alt={file.name} className="message-file-image" />
+                              <img 
+                                src={URL.createObjectURL(file)} 
+                                alt={file.name} 
+                                className="message-file-image clickable" 
+                                onClick={() => setSelectedImage({ src: URL.createObjectURL(file), alt: file.name })}
+                              />
                             ) : (
                               <div className="message-file-generic">
                                 <span className="material-symbols-outlined">description</span>
@@ -241,6 +389,13 @@ const MessageList = () => {
       )}
       
       <AnimatePresence>
+        {selectedImage && (
+          <ImageViewer 
+            src={selectedImage.src} 
+            alt={selectedImage.alt} 
+            onClose={() => setSelectedImage(null)} 
+          />
+        )}
         {showScrollTop && (
           <motion.button 
             className="scroll-top-btn"
