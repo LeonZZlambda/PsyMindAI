@@ -34,6 +34,7 @@ import { useChat } from './context/ChatContext'
 const SettingsModal = lazy(() => import('./components/SettingsModal'))
 const HelpModal = lazy(() => import('./components/HelpModal'))
 const SupportModal = lazy(() => import('./components/SupportModal'))
+const ReflectionsModal = lazy(() => import('./components/ReflectionsModal'))
 
 function App() {
   const { isDarkMode, fontSize, reducedMotion, highContrast, colorBlindMode } = useTheme()
@@ -46,6 +47,7 @@ function App() {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false)
   const [isHelpOpen, setIsHelpOpen] = useState(false)
   const [isSupportOpen, setIsSupportOpen] = useState(false)
+  const [isReflectionsOpen, setIsReflectionsOpen] = useState(false)
   const [isNewChatAnimating, setIsNewChatAnimating] = useState(false)
   
   const inputRef = useRef(null)
@@ -188,6 +190,7 @@ function App() {
                   inputRef={inputRef} 
                   onOpenHelp={() => setIsHelpOpen(true)}
                   onOpenSupport={() => setIsSupportOpen(true)}
+                  onOpenReflections={() => setIsReflectionsOpen(true)}
                 />
               } 
             />
@@ -214,6 +217,13 @@ function App() {
             <SupportModal 
               isOpen={isSupportOpen} 
               onClose={() => setIsSupportOpen(false)} 
+            />
+          )}
+
+          {isReflectionsOpen && (
+            <ReflectionsModal 
+              isOpen={isReflectionsOpen} 
+              onClose={() => setIsReflectionsOpen(false)} 
             />
           )}
         </Suspense>

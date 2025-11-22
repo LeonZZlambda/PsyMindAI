@@ -1,0 +1,168 @@
+/* Reflections Modal Styles */
+.reflection-card {
+  background: linear-gradient(135deg, #fdfbf7 0%, #fff 100%);
+  border: 1px solid #e0e3e7;
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  margin: 1rem 0 2rem;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+  transition: all 0.3s ease;
+}
+
+.app.dark .reflection-card {
+  background: linear-gradient(135deg, #1e1f20 0%, #2d2e31 100%);
+  border-color: #444746;
+}
+
+.reflection-icon {
+  font-size: 48px;
+  color: #9c27b0;
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
+}
+
+.app.dark .reflection-icon {
+  color: #d0bcff;
+}
+
+.reflection-text {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: #1f1f1f;
+  font-family: 'Georgia', serif;
+  font-style: italic;
+  margin-bottom: 1.5rem;
+}
+
+.app.dark .reflection-text {
+  color: #e3e3e3;
+}
+
+.reflection-author {
+  font-size: 0.9rem;
+  color: #5f6368;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.app.dark .reflection-author {
+  color: #c4c7c5;
+}
+
+.reflection-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.reflection-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 24px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.btn-new {
+  background: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.app.dark .btn-new {
+  background: #4a148c;
+  color: #e1bee7;
+}
+
+.btn-new:hover {
+  background: #e1bee7;
+}
+
+.app.dark .btn-new:hover {
+  background: #6a1b9a;
+}
+
+.btn-chat {
+  background: #7b1fa2;
+  color: white;
+  box-shadow: 0 4px 12px rgba(123, 31, 162, 0.3);
+}
+
+.app.dark .btn-chat {
+  background: #d0bcff;
+  color: #381e72;
+}
+
+.btn-chat:hover {
+  background: #6a1b9a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(123, 31, 162, 0.4);
+}
+
+.app.dark .btn-chat:hover {
+  background: #e8def8;
+}
+
+/* Categories Grid */
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.category-card {
+  background: #fff;
+  border: 1px solid #e0e3e7;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.app.dark .category-card {
+  background: #1e1f20;
+  border-color: #444746;
+}
+
+.category-card:hover {
+  border-color: #9c27b0;
+  background: #f3e5f5;
+  transform: translateY(-2px);
+}
+
+.app.dark .category-card:hover {
+  border-color: #d0bcff;
+  background: #4a148c;
+}
+
+.category-icon {
+  font-size: 32px;
+  color: #7b1fa2;
+}
+
+.app.dark .category-icon {
+  color: #d0bcff;
+}
+
+.category-name {
+  font-weight: 500;
+  color: #1f1f1f;
+}
+
+.app.dark .category-name {
+  color: #e3e3e3;
+}
