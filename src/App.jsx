@@ -33,6 +33,7 @@ import { useChat } from './context/ChatContext'
 // Lazy load modals to improve initial load performance
 const SettingsModal = lazy(() => import('./components/SettingsModal'))
 const HelpModal = lazy(() => import('./components/HelpModal'))
+const SupportModal = lazy(() => import('./components/SupportModal'))
 
 function App() {
   const { isDarkMode, fontSize, reducedMotion, highContrast, colorBlindMode } = useTheme()
@@ -44,6 +45,7 @@ function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
   const [isSettingsOpen, setIsSettingsOpen] = useState(false)
   const [isHelpOpen, setIsHelpOpen] = useState(false)
+  const [isSupportOpen, setIsSupportOpen] = useState(false)
   const [isNewChatAnimating, setIsNewChatAnimating] = useState(false)
   
   const inputRef = useRef(null)
@@ -182,7 +184,11 @@ function App() {
             <Route 
               path="/chat" 
               element={
-                <ChatPage inputRef={inputRef} />
+                <ChatPage 
+                  inputRef={inputRef} 
+                  onOpenHelp={() => setIsHelpOpen(true)}
+                  onOpenSupport={() => setIsSupportOpen(true)}
+                />
               } 
             />
             <Route path="*" element={<Navigate to="/" replace />} />
@@ -201,6 +207,13 @@ function App() {
             <HelpModal 
               isOpen={isHelpOpen} 
               onClose={() => setIsHelpOpen(false)} 
+            />
+          )}
+
+          {isSupportOpen && (
+            <SupportModal 
+              isOpen={isSupportOpen} 
+              onClose={() => setIsSupportOpen(false)} 
             />
           )}
         </Suspense>

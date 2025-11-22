@@ -8,7 +8,7 @@ import PomodoroModal from './PomodoroModal';
 import KindnessModal from './KindnessModal';
 import ExamsModal from './ExamsModal';
 
-const InputArea = ({ inputRef }) => {
+const InputArea = ({ inputRef, onOpenHelp, onOpenSupport }) => {
   const navigate = useNavigate();
   const { input, setInput, sendMessage, isTyping } = useChat();
   const [isListening, setIsListening] = useState(false);
@@ -56,6 +56,11 @@ const InputArea = ({ inputRef }) => {
     }
     if (tool.id === 'vestibulares') {
       setShowExamsModal(true);
+      setShowToolsMenu(false);
+      return;
+    }
+    if (tool.id === 'helpline') {
+      if (onOpenSupport) onOpenSupport();
       setShowToolsMenu(false);
       return;
     }

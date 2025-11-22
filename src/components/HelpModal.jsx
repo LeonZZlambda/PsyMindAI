@@ -40,7 +40,7 @@ const HelpModal = ({ isOpen, onClose }) => {
         tabIndex="-1"
       >
         <div className="modal-header">
-          <h2 id="help-title">Ajuda & Suporte</h2>
+          <h2 id="help-title">Ajuda & FAQ</h2>
           <button className="close-btn" onClick={handleClose} aria-label="Fechar ajuda">
             <span className="material-symbols-outlined">close</span>
           </button>
