@@ -5,6 +5,8 @@ import App from './App.jsx'
 import { ThemeProvider } from './context/ThemeContext'
 import { ChatProvider } from './context/ChatContext'
 import { PomodoroProvider } from './context/PomodoroContext'
+import { SoundProvider } from './context/SoundContext'
+import { MoodProvider } from './context/MoodContext'
 import { BrowserRouter } from 'react-router-dom'
 
 createRoot(document.getElementById('root')).render(
@@ -13,7 +15,11 @@ createRoot(document.getElementById('root')).render(
       <ThemeProvider>
         <ChatProvider>
           <PomodoroProvider>
-            <App />
+            <SoundProvider>
+              <MoodProvider>
+                <App />
+              </MoodProvider>
+            </SoundProvider>
           </PomodoroProvider>
         </ChatProvider>
       </ThemeProvider>

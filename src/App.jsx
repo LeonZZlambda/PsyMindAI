@@ -35,6 +35,7 @@ const SettingsModal = lazy(() => import('./components/SettingsModal'))
 const HelpModal = lazy(() => import('./components/HelpModal'))
 const SupportModal = lazy(() => import('./components/SupportModal'))
 const ReflectionsModal = lazy(() => import('./components/ReflectionsModal'))
+const MoodTrackerModal = lazy(() => import('./components/MoodTrackerModal'))
 
 function App() {
   const { isDarkMode, fontSize, reducedMotion, highContrast, colorBlindMode, toggleTheme } = useTheme()
@@ -48,6 +49,7 @@ function App() {
   const [isHelpOpen, setIsHelpOpen] = useState(false)
   const [isSupportOpen, setIsSupportOpen] = useState(false)
   const [isReflectionsOpen, setIsReflectionsOpen] = useState(false)
+  const [isMoodTrackerOpen, setIsMoodTrackerOpen] = useState(false)
   const [isNewChatAnimating, setIsNewChatAnimating] = useState(false)
   const [helpInitialTab, setHelpInitialTab] = useState('faq')
   
@@ -176,8 +178,9 @@ function App() {
               onChatSelect={handleChatSelect}
               isNewChatAnimating={isNewChatAnimating}
               onOpenSettings={() => setIsSettingsOpen(true)}
-              onOpenHelp={(tab = 'faq') => {
-                setHelpInitialTab(tab);
+              onOpenMoodTracker={() => setIsMoodTrackerOpen(true)}
+              onOpenHelp={(tab) => {
+                setHelpInitialTab(tab || 'faq');
                 setIsHelpOpen(true);
               }}
             />
@@ -252,6 +255,13 @@ function App() {
             <ReflectionsModal 
               isOpen={isReflectionsOpen} 
               onClose={() => setIsReflectionsOpen(false)} 
+            />
+          )}
+
+          {isMoodTrackerOpen && (
+            <MoodTrackerModal 
+              isOpen={isMoodTrackerOpen} 
+              onClose={() => setIsMoodTrackerOpen(false)} 
             />
           )}
         </Suspense>

@@ -3,7 +3,7 @@ import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useChat } from '../context/ChatContext';
 
-const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onChatSelect, isNewChatAnimating, onOpenSettings, onOpenHelp }) => {
+const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onChatSelect, isNewChatAnimating, onOpenSettings, onOpenHelp, onOpenMoodTracker }) => {
   const navigate = useNavigate();
   const { loadChat } = useChat();
   const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
@@ -75,6 +75,15 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onChatSelect, isNewChatAnim
       </div>
 
       <div className="sidebar-footer">
+        <button 
+          className="sidebar-item" 
+          title="Diário de Emoções" 
+          onClick={onOpenMoodTracker}
+          aria-label="Abrir diário de emoções"
+        >
+          <span className="material-symbols-outlined">mood</span>
+          <span>Diário de Emoções</span>
+        </button>
         <button 
           className="sidebar-item" 
           title={`Ajuda (${cmdKey} + /)`}

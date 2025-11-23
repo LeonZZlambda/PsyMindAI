@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import { motion, AnimatePresence } from 'framer-motion';
+import SoundscapesModal from './SoundscapesModal';
 
 const Header = ({ isSidebarOpen, toggleSidebar, isLoading }) => {
   const { isDarkMode, toggleTheme } = useTheme();
+  const [isSoundModalOpen, setIsSoundModalOpen] = useState(false);
   const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
   const cmdKey = isMac ? '⌘' : 'Ctrl';
   const shiftKey = isMac ? '⇧' : 'Shift';
@@ -31,6 +33,14 @@ const Header = ({ isSidebarOpen, toggleSidebar, isLoading }) => {
       <div className="header-actions">
         <button 
           className="header-btn" 
+          onClick={() => setIsSoundModalOpen(true)} 
+          title="Sons Ambientais"
+          aria-label="Abrir sons ambientais"
+        >
+          <span className="material-symbols-outlined">headphones</span>
+        </button>
+        <button 
+          className="header-btn" 
           onClick={toggleTheme} 
           title={isDarkMode ? `Modo claro (${cmdKey} + ${shiftKey} + L)` : `Modo escuro (${cmdKey} + ${shiftKey} + L)`}
           aria-label={isDarkMode ? "Ativar modo claro" : "Ativar modo escuro"}
@@ -54,6 +64,11 @@ const Header = ({ isSidebarOpen, toggleSidebar, isLoading }) => {
           />
         )}
       </AnimatePresence>
+      
+      <SoundscapesModal 
+        isOpen={isSoundModalOpen} 
+        onClose={() => setIsSoundModalOpen(false)} 
+      />
     </header>
   );
 };
