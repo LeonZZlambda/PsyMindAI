@@ -1232,3 +1232,13 @@
   background: linear-gradient(135deg, rgba(138, 180, 248, 0.2), rgba(197, 138, 249, 0.2));
   color: #8ab4f8;
 }
+/* Dark Mode Gemini Section */
+.app.dark .gemini-integration .info-icon {
+  background: linear-gradient(135deg, #8ab4f8, #c58af9);
+  color: white;
+}
+
+.app.dark .gemini-integration .card-icon {
+  background: linear-gradient(135deg, rgba(138, 180, 248, 0.2), rgba(197, 138, 249, 0.2));
+  color: #8ab4f8;
+}
