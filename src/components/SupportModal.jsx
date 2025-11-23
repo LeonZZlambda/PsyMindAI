@@ -8,7 +8,7 @@ const SupportModal = ({ isOpen, onClose }) => {
   const { setInput } = useChat();
   const { isDarkMode, reducedMotion } = useTheme();
   const [isClosing, setIsClosing] = useState(false);
-  const [activeTab, setActiveTab] = useState('immediate'); // 'immediate' or 'investigate'
+    const [activeTab, setActiveTab] = useState('immediate'); // 'immediate', 'investigate', 'reframing'
   
   // Immediate Support State
   const [feelingInput, setFeelingInput] = useState('');
@@ -23,6 +23,15 @@ const SupportModal = ({ isOpen, onClose }) => {
     duration: ''
   });
   const [investigationResult, setInvestigationResult] = useState(null);
+
+  // Reframing State
+  const [reframingStep, setReframingStep] = useState(0);
+  const [reframingData, setReframingData] = useState({
+    situation: '',
+    thought: '',
+    intensity: 5
+  });
+  const [reframingResult, setReframingResult] = useState(null);
 
   // Avatar State
   const [eyePos, setEyePos] = useState({ x: 0, y: 0 });
@@ -72,6 +81,9 @@ const SupportModal = ({ isOpen, onClose }) => {
         setInvestigationStep(0);
         setInvestigationData({ emotion: '', context: '', duration: '' });
         setInvestigationResult(null);
+        setReframingStep(0);
+        setReframingData({ thought: '', distortion: '', challenge: '', alternative: '' });
+        setReframingResult(null);
       }, 100);
     }, 300);
   };
@@ -207,6 +219,57 @@ const SupportModal = ({ isOpen, onClose }) => {
     setInvestigationResult(null);
   };
 
+  // Reframing Logic
+  const handleReframingSelect = (field, value) => {
+    setReframingData(prev => ({ ...prev, [field]: value }));
+    if (field === 'alternative') {
+      analyzeReframing({ ...reframingData, [field]: value });
+    } else {
+      setReframingStep(prev => prev + 1);
+    }
+  };
+
+  const analyzeReframing = (data) => {
+    setIsAnalyzing(true);
+    setTimeout(() => {
+      let result = {
+        title: 'Reformulação Cognitiva',
+        description: 'Vamos trabalhar juntos para reformular seus pensamentos.',
+        advice: 'Tente olhar para a situação de uma nova perspectiva.'
+      };
+
+      if (data.distortion === 'catastrofizacao') {
+        result = {
+          title: 'Catastrofização Detectada',
+          description: 'Parece que você está imaginando o pior cenário possível.',
+          advice: 'Vamos tentar ver o lado positivo ou pelo menos o mais realista da situação.'
+        };
+      } else if (data.distortion === 'generalizacao') {
+        result = {
+          title: 'Generalização Excessiva',
+          description: 'Você está tirando conclusões gerais a partir de um único evento.',
+          advice: 'Lembre-se de que um revés não define todo o seu valor ou futuro.'
+        };
+      } else if (data.distortion === 'pensamento_dicotomico') {
+        result = {
+          title: 'Pensamento Dicotômico',
+          description: 'Você está vendo as coisas em preto e branco, sem meio-termo.',
+          advice: 'Tente encontrar uma terceira opção ou um meio-termo na situação.'
+        };
+      }
+
+      setReframingResult(result);
+      setIsAnalyzing(false);
+      setReframingStep(3); // Result step
+    }, 1500);
+  };
+
+  const resetReframing = () => {
+    setReframingStep(0);
+    setReframingData({ thought: '', distortion: '', challenge: '', alternative: '' });
+    setReframingResult(null);
+  };
+
   const handleTalkAboutIt = () => {
     const emotionMap = {
       'ansiedade': 'ansiedade',
@@ -245,6 +308,163 @@ const SupportModal = ({ isOpen, onClose }) => {
     const message = `Oi, PsyMind. Estou passando por um momento delicado e gostaria de desabafar. ${feelingInput}. Você poderia me ouvir e me ajudar a entender melhor o que estou sentindo?`;
     setInput(message);
     handleClose();
+  };
+
+  const handleReframingSubmit = async (e) => {
+    e.preventDefault();
+    if (!reframingData.situation || !reframingData.thought) return;
+
+    setIsAnalyzing(true);
+    
+    // Simulação de processamento de IA para Reestruturação Cognitiva
+    setTimeout(() => {
+      const situation = reframingData.situation.toLowerCase();
+      const thought = reframingData.thought.toLowerCase();
+      
+      let result = {
+        distortion: "Generalização Excessiva ou Catastrofização",
+        challenge: "Você está tomando um evento isolado como um padrão universal ou prevendo o pior cenário possível sem evidências concretas.",
+        alternative: "Tente ver a situação como um evento único e não como uma definição de quem você é. Pergunte-se: 'Qual é a evidência real de que isso sempre acontecerá?'",
+        reframe: `Em vez de pensar '${reframingData.thought}', tente pensar: 'Embora essa situação tenha sido difícil, ela não define todo o meu futuro ou capacidade.'`
+      };
+
+      if (thought.includes("nunca") || thought.includes("sempre")) {
+        result.distortion = "Pensamento Tudo ou Nada";
+        result.challenge = "A vida raramente é preta ou branca. O uso de 'sempre' ou 'nunca' geralmente indica uma distorção da realidade.";
+        result.alternative = "Procure exceções. Houve momentos em que isso não aconteceu? Tente usar palavras como 'às vezes' ou 'frequentemente'.";
+      } else if (thought.includes("deveria") || thought.includes("tenho que")) {
+        result.distortion = "Declarações de 'Deveria'";
+        result.challenge = "O uso de 'deveria' cria culpa e frustração. Você está impondo regras rígidas a si mesmo ou aos outros.";
+        result.alternative = "Substitua 'eu deveria' por 'eu gostaria' ou 'seria preferível'. Isso reduz a pressão e aumenta a aceitação.";
+      }
+
+      setReframingResult(result);
+      setReframingStep(2);
+      setIsAnalyzing(false);
+    }, 2000);
+  };
+
+  const renderReframingTab = () => {
+    if (reframingStep === 0) {
+      return (
+        <div className="step-container">
+          <h3>Reestruturação Cognitiva</h3>
+          <p>Vamos trabalhar juntos para identificar e reestruturar pensamentos negativos.</p>
+          <button className="action-btn primary" onClick={() => setReframingStep(1)}>
+            <span className="material-symbols-outlined">arrow_forward</span>
+            Começar
+          </button>
+        </div>
+      );
+    }
+
+    if (reframingStep === 1) {
+      return (
+        <div className="reframing-step">
+          <div className="step-header">
+            <div className="header-row">
+              <button className="back-btn-icon" onClick={() => setReframingStep(0)}>
+                <span className="material-symbols-outlined">arrow_back</span>
+              </button>
+              <h3>Desafie seus Pensamentos</h3>
+            </div>
+            <p>Identifique um pensamento negativo e vamos trabalhar juntos para encontrar uma perspectiva mais equilibrada.</p>
+          </div>
+          
+          <form onSubmit={handleReframingSubmit} className="reframing-form">
+            <div className="form-group">
+              <label>Qual é a situação gatilho?</label>
+              <input 
+                type="text" 
+                placeholder="Ex: Recebi uma crítica no trabalho..."
+                value={reframingData.situation}
+                onChange={(e) => setReframingData({...reframingData, situation: e.target.value})}
+                className="material-input"
+              />
+            </div>
+            
+            <div className="form-group">
+              <label>O que você pensou automaticamente?</label>
+              <textarea 
+                placeholder="Ex: Eu sou incompetente e vou ser demitido..."
+                value={reframingData.thought}
+                onChange={(e) => setReframingData({...reframingData, thought: e.target.value})}
+                className="material-textarea"
+                rows="3"
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Como isso faz você se sentir? (0-10)</label>
+              <div className="intensity-slider-container">
+                <input 
+                  type="range" 
+                  min="0" 
+                  max="10" 
+                  value={reframingData.intensity}
+                  onChange={(e) => setReframingData({...reframingData, intensity: e.target.value})}
+                  className="intensity-slider"
+                />
+                <span className="intensity-value">{reframingData.intensity}</span>
+              </div>
+            </div>
+
+            <button type="submit" className="action-btn primary" disabled={!reframingData.situation || !reframingData.thought || isAnalyzing}>
+              {isAnalyzing ? (
+                <span className="loading-dots">Analisando<span>.</span><span>.</span><span>.</span></span>
+              ) : (
+                <>
+                  <span className="material-symbols-outlined">psychology</span>
+                  Analisar Pensamento
+                </>
+              )}
+            </button>
+          </form>
+        </div>
+      );
+    }
+
+    return (
+      <div className="reframing-result fade-in">
+        <div className="result-card">
+          <div className="result-header">
+            <span className="material-symbols-outlined result-icon">lightbulb</span>
+            <h3>Análise Cognitiva</h3>
+          </div>
+          
+          <div className="analysis-section">
+            <h4>Possível Distorção</h4>
+            <p className="highlight-text">{reframingResult.distortion}</p>
+          </div>
+
+          <div className="analysis-section">
+            <h4>O Desafio</h4>
+            <p>{reframingResult.challenge}</p>
+          </div>
+
+          <div className="analysis-section">
+            <h4>Perspectiva Alternativa</h4>
+            <p>{reframingResult.alternative}</p>
+          </div>
+
+          <div className="reframe-box">
+            <h4>Novo Pensamento Sugerido</h4>
+            <p>"{reframingResult.reframe}"</p>
+          </div>
+
+          <button 
+            className="action-btn secondary"
+            onClick={() => {
+              setReframingStep(1);
+              setReframingData({ situation: '', thought: '', intensity: 5 });
+              setReframingResult(null);
+            }}
+          >
+            Analisar Outro Pensamento
+          </button>
+        </div>
+      </div>
+    );
   };
 
   // Close on Escape key
@@ -288,6 +508,12 @@ const SupportModal = ({ isOpen, onClose }) => {
             >
               Investigar Causas
             </button>
+            <button 
+              className={`tab-btn ${activeTab === 'reframing' ? 'active' : ''}`}
+              onClick={() => setActiveTab('reframing')}
+            >
+              Reestruturação
+            </button>
           </div>
           <button className="close-btn" onClick={handleClose} aria-label="Fechar">
             <span className="material-symbols-outlined">close</span>
@@ -295,7 +521,7 @@ const SupportModal = ({ isOpen, onClose }) => {
         </div>
         
         <div className="help-body">
-          {activeTab === 'immediate' ? (
+          {activeTab === 'immediate' && (
             <div className="support-section">
               <div className="support-hero">
                 <div className="ai-avatar-container">
@@ -407,7 +633,8 @@ const SupportModal = ({ isOpen, onClose }) => {
                 </div>
               )}
             </div>
-          ) : (
+          )}
+          {activeTab === 'investigate' && (
             <div className="investigation-section">
               {investigationStep === 0 && (
                 <div className="step-container">
@@ -497,6 +724,11 @@ const SupportModal = ({ isOpen, onClose }) => {
                   </div>
                 </div>
               )}
+            </div>
+          )}
+          {activeTab === 'reframing' && (
+            <div className="reframing-section">
+              {renderReframingTab()}
             </div>
           )}
         </div>
