@@ -5,22 +5,38 @@ import { useChat } from '../context/ChatContext';
 
 const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onChatSelect, isNewChatAnimating, onOpenSettings, onOpenHelp, onOpenMoodTracker }) => {
   const navigate = useNavigate();
-  const { loadChat } = useChat();
+  const { loadChat, chats, currentChatId, deleteChat } = useChat();
   const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
   const cmdKey = isMac ? '⌘' : 'Ctrl';
   const shiftKey = isMac ? '⇧' : 'Shift';
 
-  const recentChats = [
-    { id: 1, title: 'Ansiedade com provas', preview: 'Estou me sentindo ansioso...' },
-    { id: 2, title: 'Dicas de estudo', preview: 'Como posso melhorar...' },
-    { id: 3, title: 'Problemas de sono', preview: 'Não consigo dormir...' }
-  ];
-
-  const handleChatClick = (chat) => {
-    loadChat(chat);
+  const handleChatClick = (chatId) => {
+    loadChat(chatId);
     if (onChatSelect) {
       onChatSelect();
     }
+  };
+  
+  const handleDeleteChat = (e, chatId) => {
+    e.stopPropagation();
+    deleteChat(chatId);
+    toast.success('Chat excluído');
+  };
+  
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffMs = now - date;
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMs / 3600000);
+    const diffDays = Math.floor(diffMs / 86400000);
+    
+    if (diffMins < 1) return 'Agora';
+    if (diffMins < 60) return `${diffMins}m atrás`;
+    if (diffHours < 24) return `${diffHours}h atrás`;
+    if (diffDays === 1) return 'Ontem';
+    if (diffDays < 7) return `${diffDays}d atrás`;
+    return date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
   };
 
   const handleActivityClick = () => {
@@ -59,17 +75,26 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onChatSelect, isNewChatAnim
       </button>
       
       <div className="recent-chats" role="group" aria-label="Chats recentes">
-        <span className="recent-label">Recentes</span>
-        {recentChats.map(chat => (
+        {chats.length > 0 && <span className="recent-label">Recentes</span>}
+        {chats.map(chat => (
           <button 
             key={chat.id} 
-            className="recent-item" 
-            onClick={() => handleChatClick(chat)}
-            title={chat.preview}
+            className={`recent-item ${currentChatId === chat.id ? 'active' : ''}`}
+            onClick={() => handleChatClick(chat.id)}
             aria-label={`Carregar chat: ${chat.title}`}
           >
             <span className="material-symbols-outlined">chat_bubble_outline</span>
-            <span>{chat.title}</span>
+            <div className="recent-item-content">
+              <span className="recent-item-title">{chat.title}</span>
+              <span className="recent-item-date">{formatDate(chat.updatedAt)}</span>
+            </div>
+            <button 
+              className="delete-chat-btn"
+              onClick={(e) => handleDeleteChat(e, chat.id)}
+              aria-label="Excluir chat"
+            >
+              <span className="material-symbols-outlined">delete</span>
+            </button>
           </button>
         ))}
       </div>

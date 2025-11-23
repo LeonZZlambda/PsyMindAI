@@ -120,6 +120,56 @@
   cursor: pointer;
   text-align: left;
   transition: background 0.2s ease, transform 0.1s ease;
+  position: relative;
+}
+
+.recent-item-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.recent-item-title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.recent-item-date {
+  font-size: 0.75rem;
+  color: var(--text-light);
+}
+
+.recent-item.active {
+  background: #e3e3e3;
+}
+
+.delete-chat-btn {
+  opacity: 0;
+  background: transparent;
+  border: none;
+  color: var(--text-light);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s, background 0.2s;
+}
+
+.recent-item:hover .delete-chat-btn {
+  opacity: 1;
+}
+
+.delete-chat-btn:hover {
+  background: rgba(0,0,0,0.1);
+  color: #d93025;
 }
 
 .recent-item:hover {
@@ -248,6 +298,23 @@
 
 .app.dark .recent-item .material-symbols-outlined {
   color: var(--text-light);
+}
+
+.app.dark .recent-item.active {
+  background: #282a2c;
+}
+
+.app.dark .recent-item-title {
+  color: var(--text-color);
+}
+
+.app.dark .recent-item-date {
+  color: var(--text-light);
+}
+
+.app.dark .delete-chat-btn:hover {
+  background: rgba(255,255,255,0.1);
+  color: #ffb4ab;
 }
 
 .app.dark .recent-label {

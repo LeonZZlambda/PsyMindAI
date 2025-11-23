@@ -14,31 +14,83 @@ export const useChat = () => {
 
 export const ChatProvider = ({ children }) => {
   const { reducedMotion } = useTheme();
-  const [messages, setMessages] = useState(() => {
+  const [chats, setChats] = useState(() => {
     if (typeof window !== 'undefined') {
       try {
-        const saved = localStorage.getItem('chatMessages');
+        const saved = localStorage.getItem('chatHistory');
         return saved ? JSON.parse(saved) : [];
       } catch (error) {
-        console.error('Error parsing chat messages from localStorage:', error);
+        console.error('Error parsing chat history:', error);
         return [];
       }
     }
     return [];
   });
-
+  
+  const [currentChatId, setCurrentChatId] = useState(null);
+  const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem('chatMessages', JSON.stringify(messages));
-  }, [messages]);
+    localStorage.setItem('chatHistory', JSON.stringify(chats));
+  }, [chats]);
+
+  useEffect(() => {
+    if (currentChatId) {
+      const chat = chats.find(c => c.id === currentChatId);
+      if (chat) {
+        setMessages(chat.messages);
+      }
+    }
+  }, [currentChatId, chats]);
+
+  const generateTitle = async (text) => {
+    try {
+      const { sendMessageToGemini } = await import('../services/gemini');
+      const prompt = `Resuma esta mensagem em no máximo 4 palavras: "${text}". Responda APENAS com o resumo, sem aspas ou pontuação extra.`;
+      const result = await sendMessageToGemini(prompt, []);
+      if (result.success) {
+        return result.text.trim().replace(/["']/g, '');
+      }
+    } catch (error) {
+      console.error('Error generating title:', error);
+    }
+    return text.slice(0, 40) + (text.length > 40 ? '...' : '');
+  };
 
   const sendMessage = useCallback(async (text, files = []) => {
     if (!text.trim() && files.length === 0) return;
 
     const userMessage = { type: 'user', content: text, files };
+    
+    let chatId = currentChatId;
+    if (!chatId) {
+      chatId = Date.now().toString();
+      const tempTitle = text.slice(0, 40) + (text.length > 40 ? '...' : '');
+      setChats(prev => [{
+        id: chatId,
+        title: tempTitle,
+        messages: [userMessage],
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      }, ...prev]);
+      setCurrentChatId(chatId);
+      
+      generateTitle(text).then(title => {
+        setChats(prev => prev.map(chat => 
+          chat.id === chatId ? { ...chat, title } : chat
+        ));
+      });
+    } else {
+      setChats(prev => prev.map(chat => 
+        chat.id === chatId 
+          ? { ...chat, messages: [...chat.messages, userMessage], updatedAt: new Date().toISOString() }
+          : chat
+      ));
+    }
+    
     setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsTyping(true);
@@ -60,8 +112,17 @@ export const ChatProvider = ({ children }) => {
     setTimeout(() => {
       setIsTyping(false);
       
+      const aiMessage = { type: 'ai', content: fullResponse, isStreaming: false };
+      
       if (reducedMotion) {
-        setMessages(prev => [...prev, { type: 'ai', content: fullResponse, isStreaming: false }]);
+        setMessages(prev => [...prev, aiMessage]);
+        if (chatId) {
+          setChats(prev => prev.map(chat => 
+            chat.id === chatId 
+              ? { ...chat, messages: [...chat.messages, aiMessage], updatedAt: new Date().toISOString() }
+              : chat
+          ));
+        }
         return;
       }
 
@@ -80,6 +141,14 @@ export const ChatProvider = ({ children }) => {
             }
             return newMessages;
           });
+          
+          if (chatId) {
+            setChats(prev => prev.map(chat => 
+              chat.id === chatId 
+                ? { ...chat, messages: [...chat.messages, { type: 'ai', content: fullResponse, isStreaming: false }], updatedAt: new Date().toISOString() }
+                : chat
+            ));
+          }
           return;
         }
 
@@ -118,24 +187,28 @@ export const ChatProvider = ({ children }) => {
 
       streamText();
     }, 800);
-  }, [messages, reducedMotion]);
+  }, [messages, reducedMotion, currentChatId, chats]);
 
   const clearHistory = useCallback(() => {
     setMessages([]);
-    localStorage.removeItem('chatMessages');
+    setCurrentChatId(null);
   }, []);
 
-  const loadChat = useCallback((chat) => {
-    setIsLoading(true);
-    // Simulate loading delay
-    setTimeout(() => {
-      setMessages([
-        { type: 'user', content: chat.title },
-        { type: 'ai', content: `Entendo que você queira falar sobre **${chat.title}**. ${chat.preview} Como posso ajudar mais especificamente?` }
-      ]);
-      setIsLoading(false);
-    }, 1000);
-  }, []);
+  const deleteChat = useCallback((chatId) => {
+    setChats(prev => prev.filter(c => c.id !== chatId));
+    if (currentChatId === chatId) {
+      setMessages([]);
+      setCurrentChatId(null);
+    }
+  }, [currentChatId]);
+
+  const loadChat = useCallback((chatId) => {
+    setCurrentChatId(chatId);
+    const chat = chats.find(c => c.id === chatId);
+    if (chat) {
+      setMessages(chat.messages);
+    }
+  }, [chats]);
 
   const value = {
     messages,
@@ -145,7 +218,10 @@ export const ChatProvider = ({ children }) => {
     isLoading,
     sendMessage,
     clearHistory,
-    loadChat
+    loadChat,
+    chats,
+    currentChatId,
+    deleteChat
   };
 
   return (
