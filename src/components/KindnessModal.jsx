@@ -47,23 +47,48 @@ const KindnessModal = ({ isOpen, onClose }) => {
     ]
   };
 
-  const generateAct = (selectedCategory = category) => {
+  const generateAct = async (selectedCategory = category) => {
     setIsLoading(true);
     setCompleted(false);
     
-    // Simulate AI thinking
-    setTimeout(() => {
+    try {
+      const { sendMessageToGemini } = await import('../services/gemini');
+      
+      const categoryPrompts = {
+        random: 'Sugira um ato de bondade simples e prático que qualquer pessoa pode fazer hoje (1 frase).',
+        stranger: 'Sugira um ato de bondade simples para fazer a um estranho (1 frase).',
+        family: 'Sugira um ato de bondade simples para fazer a família ou amigos (1 frase).',
+        self: 'Sugira um ato de autocuidado ou autocompaixão simples (1 frase).',
+        work: 'Sugira um ato de bondade simples para fazer no trabalho ou escola (1 frase).'
+      };
+      
+      const prompt = categoryPrompts[selectedCategory] || categoryPrompts.random;
+      const result = await sendMessageToGemini(prompt, []);
+      
+      if (result.success) {
+        setAct(result.text.trim());
+      } else {
+        let pool = [];
+        if (selectedCategory === 'random') {
+          Object.values(actsDatabase).forEach(arr => pool.push(...arr));
+        } else {
+          pool = actsDatabase[selectedCategory];
+        }
+        const randomAct = pool[Math.floor(Math.random() * pool.length)];
+        setAct(randomAct);
+      }
+    } catch (error) {
       let pool = [];
       if (selectedCategory === 'random') {
         Object.values(actsDatabase).forEach(arr => pool.push(...arr));
       } else {
         pool = actsDatabase[selectedCategory];
       }
-      
       const randomAct = pool[Math.floor(Math.random() * pool.length)];
       setAct(randomAct);
-      setIsLoading(false);
-    }, 1000);
+    }
+    
+    setIsLoading(false);
   };
 
   useEffect(() => {
