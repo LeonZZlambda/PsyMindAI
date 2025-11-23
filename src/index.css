@@ -5,8 +5,9 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #f8f4ff 0%, #f0e6ff 50%, #e8d5ff 100%);
+  font-family: 'Google Sans', Roboto, Arial, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
   min-height: 100vh;
 }
 

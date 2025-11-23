@@ -29,7 +29,7 @@
 
 .welcome-icon .material-symbols-outlined {
   font-size: 64px;
-  background: linear-gradient(135deg, #009688, #4285f4, #7c4dff);
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -44,7 +44,7 @@
 }
 
 .welcome h2 span {
-  background: linear-gradient(90deg, #009688, #4285f4, #7c4dff, #009688);
+  background: linear-gradient(90deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end), var(--gradient-start));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -77,14 +77,14 @@
 
 .suggestion {
   padding: 1rem;
-  background: #f0f4f9;
-  border: none;
+  background: var(--card-background);
+  border: 1px solid var(--border-color);
   border-radius: 16px;
-  color: #1f1f1f;
+  color: var(--text-color);
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: left;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+  box-shadow: 0 2px 6px var(--shadow-color);
   min-width: 200px;
   flex: 1;
   display: flex;
@@ -207,7 +207,7 @@
 
 .message.ai .message-avatar .material-symbols-outlined {
   font-size: 28px;
-  background: linear-gradient(135deg, #009688, #4285f4, #7c4dff);
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -245,11 +245,11 @@
 }
 
 .message.user .message-content {
-  background: #f0f4f9;
+  background: var(--secondary-color);
   padding: 1rem 1.5rem;
   border-radius: 24px 24px 4px 24px;
-  color: #1f1f1f;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  color: var(--text-color);
+  box-shadow: 0 2px 4px var(--shadow-color);
 }
 
 .message-content-wrapper {
@@ -1204,21 +1204,21 @@
 }
 
 .app.dark .preview-content {
-  background: #2d2e2f;
-  border-color: rgba(255,255,255,0.1);
+  background: var(--card-background);
+  border-color: var(--border-color);
 }
 
 .app.dark .file-preview-item .file-icon {
-  color: #e3e3e3;
+  color: var(--text-color);
 }
 
 .app.dark .file-name {
-  color: #c4c7c5;
+  color: var(--text-light);
 }
 
 .app.dark .remove-file-btn {
-  background: rgba(227, 227, 227, 0.6);
-  color: #1f1f1f;
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--background-dark);
 }
 
 .app.dark .message-file-generic {
@@ -1226,11 +1226,11 @@
 }
 
 .app.dark .file-type {
-  color: #e3e3e3;
+  color: var(--text-color);
 }
 
 .app.dark .action-btn {
-  color: #c4c7c5;
+  color: var(--text-light);
 }
 
 .app.dark .action-btn:hover {
@@ -1238,26 +1238,26 @@
 }
 
 .app.dark .header-loader-bar {
-  box-shadow: 0 4px 12px rgba(66, 133, 244, 0.6);
+  box-shadow: 0 4px 12px rgba(128, 203, 196, 0.6);
 }
 
 .app.dark .quote-date {
-  color: #c4c7c5;
+  color: var(--text-light);
 }
 
 .app.dark .daily-quote {
-  color: #e3e3e3;
+  color: var(--text-color);
   background: none;
   -webkit-text-fill-color: initial;
   background-clip: border-box;
 }
 
 .app.dark .quote-icon {
-  color: #a8c7fa;
+  color: var(--primary-color);
 }
 
 .app.dark .welcome-subtitle {
-  color: #c4c7c5;
+  color: var(--text-light);
 }
 
 .app.dark .daily-quote-container {
@@ -1266,13 +1266,13 @@
 }
 
 .app.dark .tools-menu {
-  background: #1e1f20;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-  border: 1px solid #444746;
+  background: var(--card-background);
+  box-shadow: 0 4px 20px var(--shadow-color);
+  border: 1px solid var(--border-color);
 }
 
 .app.dark .tool-item {
-  color: #e3e3e3;
+  color: var(--text-color);
 }
 
 .app.dark .tool-item:hover {
@@ -1280,5 +1280,5 @@
 }
 
 .app.dark .tool-item .material-symbols-outlined {
-  color: #c4c7c5;
+  color: var(--text-light);
 }

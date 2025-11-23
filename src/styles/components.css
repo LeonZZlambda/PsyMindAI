@@ -1,7 +1,7 @@
 /* Shared Components */
 .primary-btn {
   background: transparent;
-  color: #0b57d0;
+  color: var(--primary-color);
   border: none;
   padding: 0 1.5rem;
   height: 40px;
@@ -13,15 +13,15 @@
 }
 
 .primary-btn:hover {
-  background: rgba(11, 87, 208, 0.08);
+  background: rgba(0, 121, 107, 0.08); /* Teal opacity */
 }
 
 .app.dark .primary-btn {
-  color: #a8c7fa;
+  color: var(--primary-color);
 }
 
 .app.dark .primary-btn:hover {
-  background: rgba(168, 199, 250, 0.08);
+  background: rgba(128, 203, 196, 0.08);
 }
 
 /* Toggle Switch */
@@ -43,7 +43,7 @@
 }
 
 .toggle-switch.active {
-  background: #4285f4;
+  background: var(--primary-color);
 }
 
 .toggle-thumb {
@@ -63,15 +63,15 @@
 }
 
 .app.dark .toggle-switch {
-  background: #444746;
+  background: var(--border-color);
 }
 
 .app.dark .toggle-switch.active {
-  background: #8ab4f8;
+  background: var(--primary-color);
 }
 
 .app.dark .toggle-thumb {
-  background: #e3e3e3;
+  background: var(--text-color);
 }
 
 /* Select Input - Google Material Style */
@@ -81,11 +81,11 @@
   padding: 10px 40px 10px 16px;
   border-radius: 18px;
   border: 1px solid transparent;
-  background-color: #f0f4f9;
+  background-color: var(--secondary-color);
   font-family: inherit;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #1f1f1f;
+  color: var(--text-color);
   cursor: pointer;
   background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22%23444746%22%3E%3Cpath%20d%3D%22M7%2010l5%205%205-5z%22%2F%3E%3C%2Fsvg%3E");
   background-repeat: no-repeat;
@@ -106,17 +106,17 @@
 }
 
 .app.dark .select-input {
-  background-color: #282a2c;
-  color: #e3e3e3;
+  background-color: var(--secondary-color);
+  color: var(--text-color);
   background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22%23e3e3e3%22%3E%3Cpath%20d%3D%22M7%2010l5%205%205-5z%22%2F%3E%3C%2Fsvg%3E");
 }
 
 .app.dark .select-input:hover {
-  background-color: #3c3f41;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .app.dark .select-input:focus {
-  background-color: #3c3f41;
+  background-color: rgba(255, 255, 255, 0.1);
   border-color: transparent;
   box-shadow: none;
 }

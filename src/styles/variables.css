@@ -1,16 +1,60 @@
 /* Global Styles */
 :root {
-  --primary-color: #1a73e8;
-  --primary-hover: #1557b0;
-  --secondary-color: #f8f9fa;
-  --text-color: #444746;
-  --text-light: #c4c7c5;
-  --background-color: #fff;
-  --background-dark: #131314;
-  --card-background: #f0f4f9;
-  --border-color: #e3e3e3;
-  --shadow-color: rgba(0, 0, 0, 0.1);
-  --gradient-start: #009688;
-  --gradient-mid: #4285f4;
-  --gradient-end: #7c4dff;
+  /* Psychology & Studies Theme - Google Material Inspired */
+  
+  /* Primary: Teal 700 - Focus, Calm, Growth */
+  --primary-color: #00796B;
+  /* Primary Hover: Teal 800 */
+  --primary-hover: #00695C;
+  
+  /* Secondary: Light Blue/Grey - Clarity */
+  --secondary-color: #F1F3F4; /* Google Grey 100 */
+  
+  /* Text: High Contrast */
+  --text-color: #202124; /* Google Grey 900 */
+  --text-light: #5F6368; /* Google Grey 700 */
+  
+  /* Backgrounds */
+  --background-color: #FFFFFF;
+  --background-dark: #202124;
+  --card-background: #FFFFFF; /* Clean cards */
+  
+  /* Borders & Shadows */
+  --border-color: #DADCE0; /* Google Grey 300 */
+  --shadow-color: rgba(60, 64, 67, 0.3); /* Material Shadow */
+  
+  /* Gradients: Brain/Mind (Teal -> Indigo) */
+  --gradient-start: #00796B;
+  --gradient-mid: #1976D2;
+  --gradient-end: #512DA8; /* Deep Purple */
+}
+
+.app.dark {
+  /* Dark Mode Overrides */
+  
+  /* Primary: Teal 200 - Better visibility on dark */
+  --primary-color: #80CBC4;
+  /* Primary Hover: Teal 300 */
+  --primary-hover: #4DB6AC;
+  
+  /* Secondary: Dark Grey - Surface */
+  --secondary-color: #303134; /* Google Grey 800 */
+  
+  /* Text: High Contrast Light */
+  --text-color: #E8EAED; /* Google Grey 100 */
+  --text-light: #BDC1C6; /* Google Grey 400 */
+  
+  /* Backgrounds */
+  --background-color: #202124; /* Google Grey 900 */
+  --background-dark: #000000;
+  --card-background: #303134; /* Google Grey 800 */
+  
+  /* Borders & Shadows */
+  --border-color: #5F6368; /* Google Grey 700 */
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  
+  /* Gradients: Adjusted for Dark Mode */
+  --gradient-start: #80CBC4;
+  --gradient-mid: #4285F4; /* Google Blue 500 */
+  --gradient-end: #B39DDB; /* Deep Purple 200 */
 }

@@ -30,7 +30,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: #444746;
+  color: var(--text-color);
   border: none;
   background: transparent;
   padding: 0;

@@ -162,41 +162,41 @@
 
 /* Dark Mode Support for Contribute */
 .app.dark .contribute-page {
-  background: #131314;
+  background: var(--background-color);
 }
 
 .app.dark .contribute-header h1,
 .app.dark .contribute-card h3,
 .app.dark .steps-section h2,
 .app.dark .step-text h4 {
-  color: #e3e3e3;
+  color: var(--text-color);
 }
 
 .app.dark .contribute-header p,
 .app.dark .contribute-card p,
 .app.dark .step-text p {
-  color: #9aa0a6;
+  color: var(--text-light);
 }
 
 .app.dark .contribute-card {
-  background: #1e1f20;
+  background: var(--card-background);
 }
 
 .app.dark .contribute-card:hover {
-  background: #2d2e30;
+  background: rgba(255, 255, 255, 0.05);
 }
 
-.app.dark .icon-box.code { background: rgba(26, 115, 232, 0.2); color: #8ab4f8; }
-.app.dark .icon-box.design { background: rgba(217, 48, 37, 0.2); color: #f28b82; }
-.app.dark .icon-box.docs { background: rgba(24, 128, 56, 0.2); color: #81c995; }
+.app.dark .icon-box.code { background: rgba(128, 203, 196, 0.2); color: var(--primary-color); }
+.app.dark .icon-box.design { background: rgba(179, 157, 219, 0.2); color: var(--gradient-end); }
+.app.dark .icon-box.docs { background: rgba(66, 133, 244, 0.2); color: var(--gradient-mid); }
 
 .app.dark .text-link {
-  color: #8ab4f8;
+  color: var(--primary-color);
 }
 
 .app.dark .steps-section {
-  background: #1e1f20;
-  border-color: #3c4043;
+  background: var(--card-background);
+  border-color: var(--border-color);
 }
 
 .app.dark .step-number {

@@ -11,14 +11,14 @@
 .landing-page {
   width: 100%;
   min-height: 100vh;
-  background: #fff;
+  background: var(--background-color);
   background-image: 
-    linear-gradient(rgba(66, 133, 244, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(66, 133, 244, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(0, 121, 107, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 121, 107, 0.05) 1px, transparent 1px);
   background-size: 40px 40px;
   display: flex;
   flex-direction: column;
-  color: #1f1f1f;
+  color: var(--text-color);
   position: relative;
 }
 
@@ -90,7 +90,7 @@
   gap: 0.75rem;
   font-size: 1.5rem;
   font-weight: 500;
-  color: #444746;
+  color: var(--text-color);
 }
 
 .landing-nav-links {
@@ -507,42 +507,42 @@
 }
 
 .app.dark .scroll-top-btn {
-  background: #8ab4f8;
-  color: #131314;
-  box-shadow: 0 4px 12px rgba(138, 180, 248, 0.3);
+  background: var(--primary-color);
+  color: var(--background-dark);
+  box-shadow: 0 4px 12px rgba(128, 203, 196, 0.3);
 }
 
 .app.dark .scroll-top-btn:hover {
-  background: #aecbfa;
-  box-shadow: 0 6px 16px rgba(138, 180, 248, 0.4);
+  background: var(--primary-hover);
+  box-shadow: 0 6px 16px rgba(128, 203, 196, 0.4);
 }
 
 /* Dark Mode for Info Cards */
 .app.dark .info-card {
-  background: rgba(45, 46, 47, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--card-background);
+  border: 1px solid var(--border-color);
 }
 
 .app.dark .info-card:hover {
-  background: rgba(45, 46, 47, 0.9);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .app.dark .info-card h3 {
-  color: #e3e3e3;
+  color: var(--text-color);
 }
 
 .app.dark .info-card p {
-  color: #c4c7c5;
+  color: var(--text-light);
 }
 
 .app.dark .educational-focus .card-icon {
-  background: rgba(66, 133, 244, 0.2);
-  color: #8ab4f8;
+  background: rgba(128, 203, 196, 0.2);
+  color: var(--primary-color);
 }
 
 .app.dark .license-info .card-icon {
-  background: rgba(124, 77, 255, 0.2);
-  color: #b388ff;
+  background: rgba(179, 157, 219, 0.2);
+  color: var(--gradient-end);
 }
 
 .info-icon {

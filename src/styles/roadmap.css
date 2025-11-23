@@ -153,44 +153,44 @@
 
 /* Dark Mode Support for Roadmap */
 .app.dark .roadmap-page {
-  background: #131314;
+  background: var(--background-color);
 }
 
 .app.dark .roadmap-header h1,
 .app.dark .roadmap-card h2 {
-  color: #e3e3e3;
+  color: var(--text-color);
 }
 
 .app.dark .roadmap-header p,
 .app.dark .feature-list li {
-  color: #9aa0a6;
+  color: var(--text-light);
 }
 
 .app.dark .roadmap-timeline::before {
-  background: #3c4043;
+  background: var(--border-color);
 }
 
 .app.dark .roadmap-card {
-  background: #1e1f20;
-  border-color: #3c4043;
+  background: var(--card-background);
+  border-color: var(--border-color);
 }
 
 .app.dark .roadmap-card:hover {
-  background: #2d2e30;
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .app.dark .roadmap-card.planned::before {
-  border-color: #5f6368;
-  background: #1e1f20;
+  border-color: var(--text-light);
+  background: var(--card-background);
 }
 
 .app.dark .quarter-badge {
-  background: #303134;
-  color: #e3e3e3;
+  background: var(--secondary-color);
+  color: var(--text-color);
 }
 
 .app.dark .feature-list li .material-symbols-outlined {
-  color: #8ab4f8;
+  color: var(--primary-color);
 }
 
 @media (max-width: 768px) {
