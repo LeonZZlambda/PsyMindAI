@@ -50,15 +50,50 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
       getRandomReflection();
     }
   }, [isOpen]);
-
-  const getRandomReflection = (category = null) => {
-    let filtered = reflectionsData;
-    if (category) {
-      filtered = reflectionsData.filter(r => r.category === category);
+  
+  useEffect(() => {
+    if (activeTab === 'daily' && !currentReflection) {
+      getRandomReflection();
     }
-    const random = filtered[Math.floor(Math.random() * filtered.length)];
-    setCurrentReflection(random);
+  }, [activeTab]);
+
+  const getRandomReflection = async (category = null) => {
     setAiReflection('');
+    setIsLoadingReflection(true);
+    
+    try {
+      const { sendMessageToGemini } = await import('../services/gemini');
+      
+      const categoryPrompt = category 
+        ? `sobre ${category}` 
+        : 'motivacional para estudantes';
+      
+      const prompt = `Gere uma frase inspiradora ${categoryPrompt} (máximo 2 linhas) e indique o autor (pode ser um pensador, cientista ou frase original sua como "PsyMind.AI"). Formato: "Frase" - Autor`;
+      
+      const result = await sendMessageToGemini(prompt, []);
+      
+      if (result.success) {
+        const text = result.text.replace(/["\"\"]/g, '').trim();
+        const parts = text.split(' - ');
+        const quote = parts[0] || text;
+        const author = parts[1] || 'PsyMind.AI';
+        
+        setCurrentReflection({
+          id: Date.now(),
+          text: quote,
+          author: author,
+          category: category || 'geral'
+        });
+      } else {
+        const random = reflectionsData[Math.floor(Math.random() * reflectionsData.length)];
+        setCurrentReflection(random);
+      }
+    } catch (error) {
+      const random = reflectionsData[Math.floor(Math.random() * reflectionsData.length)];
+      setCurrentReflection(random);
+    }
+    
+    setIsLoadingReflection(false);
   };
 
   const getAiReflection = async () => {
@@ -185,33 +220,42 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
         </div>
         
         <div className="help-body">
-          {activeTab === 'daily' && currentReflection && (
+          {activeTab === 'daily' && (
             <div className="reflection-container">
-              <div className="reflection-card">
-                <span className="material-symbols-outlined reflection-icon">format_quote</span>
-                <p className="reflection-text">"{currentReflection.text}"</p>
-                <span className="reflection-author">— {currentReflection.author}</span>
-              </div>
-              
-              <div className="reflection-actions">
-                <button className="reflection-btn btn-new" onClick={() => getRandomReflection()}>
-                  <span className="material-symbols-outlined">refresh</span>
-                  Nova Frase
-                </button>
-                <button className="reflection-btn btn-ai" onClick={getAiReflection} disabled={isLoadingReflection}>
-                  <span className="material-symbols-outlined">{isLoadingReflection ? 'hourglass_empty' : 'psychology'}</span>
-                  {isLoadingReflection ? 'Refletindo...' : 'Reflexão IA'}
-                </button>
-                <button className="reflection-btn btn-chat" onClick={handleDiscussReflection}>
-                  <span className="material-symbols-outlined">chat</span>
-                  Refletir no Chat
-                </button>
-              </div>
-              
-              {aiReflection && (
-                <div className="ai-reflection-box" style={{ marginTop: '1.5rem', padding: '1rem', background: 'rgba(123, 31, 162, 0.1)', borderRadius: '12px', border: '1px solid rgba(123, 31, 162, 0.3)' }}>
-                  <p style={{ margin: 0, lineHeight: 1.6, color: 'var(--text-primary)' }}>{aiReflection}</p>
+              {isLoadingReflection && !currentReflection ? (
+                <div className="reflection-card" style={{ textAlign: 'center', padding: '3rem' }}>
+                  <span className="material-symbols-outlined reflection-icon" style={{ animation: 'spin 2s linear infinite' }}>autorenew</span>
+                  <p style={{ color: 'var(--text-secondary)' }}>Gerando frase inspiradora...</p>
                 </div>
+              ) : currentReflection && (
+                <>
+                  <div className="reflection-card">
+                    <span className="material-symbols-outlined reflection-icon">format_quote</span>
+                    <p className="reflection-text">"{currentReflection.text}"</p>
+                    <span className="reflection-author">— {currentReflection.author}</span>
+                  </div>
+              
+                  <div className="reflection-actions">
+                    <button className="reflection-btn btn-new" onClick={() => getRandomReflection()} disabled={isLoadingReflection}>
+                      <span className="material-symbols-outlined">refresh</span>
+                      Nova Frase IA
+                    </button>
+                    <button className="reflection-btn btn-ai" onClick={getAiReflection} disabled={isLoadingReflection}>
+                      <span className="material-symbols-outlined">{isLoadingReflection ? 'hourglass_empty' : 'psychology'}</span>
+                      {isLoadingReflection ? 'Refletindo...' : 'Reflexão IA'}
+                    </button>
+                    <button className="reflection-btn btn-chat" onClick={handleDiscussReflection}>
+                      <span className="material-symbols-outlined">chat</span>
+                      Refletir no Chat
+                    </button>
+                  </div>
+              
+                  {aiReflection && (
+                    <div className="ai-reflection-box" style={{ marginTop: '1.5rem', padding: '1rem', background: 'rgba(123, 31, 162, 0.1)', borderRadius: '12px', border: '1px solid rgba(123, 31, 162, 0.3)' }}>
+                      <p style={{ margin: 0, lineHeight: 1.6, color: 'var(--text-primary)' }}>{aiReflection}</p>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           )}
