@@ -30,17 +30,21 @@ const PomodoroModal = ({ isOpen, onClose }) => {
     setIsLoadingTip(true);
     setAiTip('');
     
-    const { sendMessageToGemini } = await import('../services/gemini');
-    const prompt = mode === 'focus' 
-      ? 'Dê uma dica rápida e prática (1 frase) para um estudante manter o foco durante uma sessão Pomodoro de estudo.'
-      : 'Dê uma sugestão rápida (1 frase) de atividade relaxante para um estudante fazer durante uma pausa de 5 minutos.';
-    
-    const result = await sendMessageToGemini(prompt, []);
-    
-    if (result.success) {
-      setAiTip(result.text);
-    } else {
-      setAiTip('Tente se concentrar em uma tarefa por vez e elimine distrações.');
+    try {
+      const { sendMessageToGemini } = await import('../services/gemini');
+      const prompt = mode === 'focus' 
+        ? 'Dê uma dica rápida e prática (1 frase) para um estudante manter o foco durante uma sessão Pomodoro de estudo.'
+        : 'Dê uma sugestão rápida (1 frase) de atividade relaxante para um estudante fazer durante uma pausa de 5 minutos.';
+      
+      const result = await sendMessageToGemini(prompt, []);
+      
+      if (result.success) {
+        setAiTip(result.text);
+      } else {
+        setAiTip(result.userMessage || '⚠️ Não foi possível gerar dica no momento.');
+      }
+    } catch (error) {
+      setAiTip('❌ Erro ao conectar com IA. Tente novamente.');
     }
     setIsLoadingTip(false);
   };

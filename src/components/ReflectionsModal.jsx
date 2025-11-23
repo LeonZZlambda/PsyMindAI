@@ -65,16 +65,20 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
     if (!currentReflection) return;
     
     setIsLoadingReflection(true);
-    const { sendMessageToGemini } = await import('../services/gemini');
-    
-    const prompt = `Sobre a frase "${currentReflection.text}" de ${currentReflection.author}, escreva uma breve reflexão (2-3 frases) de como um estudante pode aplicar isso no dia a dia.`;
-    
-    const result = await sendMessageToGemini(prompt, []);
-    
-    if (result.success) {
-      setAiReflection(result.text);
-    } else {
-      setAiReflection('Reflita sobre como essa frase se conecta com seus objetivos e desafios atuais.');
+    try {
+      const { sendMessageToGemini } = await import('../services/gemini');
+      
+      const prompt = `Sobre a frase "${currentReflection.text}" de ${currentReflection.author}, escreva uma breve reflexão (2-3 frases) de como um estudante pode aplicar isso no dia a dia.`;
+      
+      const result = await sendMessageToGemini(prompt, []);
+      
+      if (result.success) {
+        setAiReflection(result.text);
+      } else {
+        setAiReflection(result.userMessage || '⚠️ Não foi possível gerar reflexão no momento.');
+      }
+    } catch (error) {
+      setAiReflection('❌ Erro ao conectar com IA. Tente novamente.');
     }
     setIsLoadingReflection(false);
   };

@@ -51,7 +51,7 @@ export const ChatProvider = ({ children }) => {
       if (result.success) {
         fullResponse = result.text;
       } else {
-        fullResponse = `⚠️ Erro ao conectar com Gemini: ${result.error}\n\nModo demonstração ativo.`;
+        fullResponse = `${result.userMessage}\n\n💬 Você pode continuar conversando, mas as respostas serão limitadas até resolver o problema.`;
       }
     } else {
       fullResponse = '🤖 **Modo Demonstração** - Configure sua API Key do Gemini no arquivo .env\n\nOlá! Sou o PsyMind.AI, desenvolvido com **Google Gemini**. Estou aqui para te ajudar a compreender suas emoções e comportamentos através da psicologia científica.\n\nComo posso te apoiar hoje? 💜';
