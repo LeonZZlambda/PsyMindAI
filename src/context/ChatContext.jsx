@@ -32,6 +32,8 @@ export const ChatProvider = ({ children }) => {
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isStreaming, setIsStreaming] = useState(false);
+  const streamTimeoutRef = React.useRef(null);
 
   useEffect(() => {
     localStorage.setItem('chatHistory', JSON.stringify(chats));
@@ -130,6 +132,7 @@ export const ChatProvider = ({ children }) => {
       setMessages(prev => [...prev, { type: 'ai', content: '', isStreaming: true }]);
 
       let currentIndex = 0;
+      setIsStreaming(true);
 
       const streamText = () => {
         if (currentIndex >= fullResponse.length) {
@@ -149,6 +152,8 @@ export const ChatProvider = ({ children }) => {
                 : chat
             ));
           }
+          setIsStreaming(false);
+          streamTimeoutRef.current = null;
           return;
         }
 
@@ -182,12 +187,30 @@ export const ChatProvider = ({ children }) => {
           delay += 150;
         }
 
-        setTimeout(streamText, delay);
+        streamTimeoutRef.current = setTimeout(streamText, delay);
       };
 
       streamText();
     }, 800);
   }, [messages, reducedMotion, currentChatId, chats]);
+
+  const stopStreaming = useCallback(() => {
+    if (streamTimeoutRef.current) {
+      clearTimeout(streamTimeoutRef.current);
+      streamTimeoutRef.current = null;
+    }
+    setIsStreaming(false);
+    setIsTyping(false);
+    
+    setMessages(prev => {
+      const newMessages = [...prev];
+      const lastIndex = newMessages.length - 1;
+      if (lastIndex >= 0 && newMessages[lastIndex].type === 'ai') {
+        newMessages[lastIndex] = { ...newMessages[lastIndex], isStreaming: false };
+      }
+      return newMessages;
+    });
+  }, []);
 
   const clearHistory = useCallback(() => {
     setMessages([]);
@@ -221,7 +244,9 @@ export const ChatProvider = ({ children }) => {
     loadChat,
     chats,
     currentChatId,
-    deleteChat
+    deleteChat,
+    isStreaming,
+    stopStreaming
   };
 
   return (

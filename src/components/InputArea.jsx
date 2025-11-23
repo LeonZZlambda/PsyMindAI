@@ -11,7 +11,7 @@ import ExamsModal from './ExamsModal';
 
 const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections }) => {
   const navigate = useNavigate();
-  const { input, setInput, sendMessage, isTyping } = useChat();
+  const { input, setInput, sendMessage, isTyping, isStreaming, stopStreaming } = useChat();
   const { isActive: pomodoroIsActive, mode: pomodoroMode, timeLeft: pomodoroTimeLeft } = usePomodoro();
   const [isListening, setIsListening] = useState(false);
   const [recognition, setRecognition] = useState(null);
@@ -319,7 +319,16 @@ const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections }) =
                 {isListening ? 'mic_off' : 'mic'}
               </span>
             </button>
-            {(input.trim() || selectedFiles.length > 0) && (
+            {isStreaming ? (
+              <button 
+                onClick={stopStreaming} 
+                className="send-button" 
+                title="Parar geração"
+                aria-label="Parar geração"
+              >
+                <span className="material-symbols-outlined">stop_circle</span>
+              </button>
+            ) : (input.trim() || selectedFiles.length > 0) && (
               <button 
                 onClick={handleSendClick} 
                 className="send-button" 
