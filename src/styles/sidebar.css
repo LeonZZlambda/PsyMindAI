@@ -42,7 +42,7 @@
   background: transparent;
   border-radius: 50%;
   cursor: pointer;
-  color: #444746;
+  color: var(--text-light);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -60,7 +60,7 @@
   background: #dfe4ea;
   border: 2px solid transparent;
   border-radius: 24px;
-  color: #1f1f1f;
+  color: var(--text-color);
   font-family: inherit;
   font-size: 0.875rem;
   font-weight: 500;
@@ -87,7 +87,7 @@
 
 .new-chat-btn .material-symbols-outlined {
   font-size: 20px;
-  color: #444746;
+  color: var(--text-light);
 }
 
 .recent-chats {
@@ -101,7 +101,7 @@
 .recent-label {
   font-size: 0.75rem;
   font-weight: 500;
-  color: #444746;
+  color: var(--text-light);
   padding: 0.5rem 1rem;
   margin-bottom: 0.25rem;
 }
@@ -114,7 +114,7 @@
   background: transparent;
   border: none;
   border-radius: 24px;
-  color: #1f1f1f;
+  color: var(--text-color);
   font-family: inherit;
   font-size: 0.875rem;
   cursor: pointer;
@@ -133,7 +133,7 @@
 
 .recent-item .material-symbols-outlined {
   font-size: 18px;
-  color: #444746;
+  color: var(--text-light);
 }
 
 .sidebar-footer {
@@ -152,7 +152,7 @@
   background: transparent;
   border: none;
   border-radius: 24px;
-  color: #444746;
+  color: var(--text-light);
   font-family: inherit;
   font-size: 0.875rem;
   cursor: pointer;
@@ -190,7 +190,7 @@
   padding: 2px 6px;
   min-width: 14px;
   text-align: center;
-  color: #444746;
+  color: var(--text-light);
   line-height: 1.2;
   font-weight: 500;
 }
@@ -203,9 +203,7 @@
 }
 
 /* Dark Mode Sidebar */
-.app.dark .sidebar {
-  background: #1e1f20;
-}
+
 
 .app.dark .menu-btn {
   color: #e3e3e3;
@@ -217,7 +215,6 @@
 
 .app.dark .new-chat-btn {
   background: #282a2c;
-  color: #e3e3e3;
 }
 
 .app.dark .new-chat-btn:hover {
@@ -234,17 +231,11 @@
   border-color: transparent;
 }
 
-.app.dark .new-chat-btn .material-symbols-outlined {
-  color: #c4c7c5;
-}
 
-.app.dark .recent-label {
-  color: #c4c7c5;
-}
 
-.app.dark .recent-item {
-  color: #e3e3e3;
-}
+
+
+
 
 .app.dark .recent-item:hover {
   background: #282a2c;
@@ -255,9 +246,7 @@
   transform: scale(0.98);
 }
 
-.app.dark .recent-item .material-symbols-outlined {
-  color: #c4c7c5;
-}
+
 
 .app.dark .sidebar-item {
   color: #e3e3e3;

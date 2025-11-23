@@ -38,7 +38,7 @@
 .welcome h2 {
   font-size: 3.5rem;
   font-weight: 500;
-  color: #c4c7c5;
+  color: var(--text-color);
   margin-bottom: 0.5rem;
   line-height: 1.2;
 }
@@ -53,7 +53,7 @@
 }
 
 .welcome p {
-  color: #444746;
+  color: var(--text-light);
   font-size: 1.5rem;
   line-height: 1.5;
   margin-bottom: 4rem;
@@ -63,7 +63,7 @@
 
 .welcome-subtitle {
   font-size: 1.1rem;
-  color: #444746;
+  color: var(--text-light);
   margin-bottom: 2rem;
 }
 
@@ -159,7 +159,7 @@
 }
 
 .suggestion span {
-  color: #444746;
+  color: var(--text-light);
   font-size: 0.875rem;
   line-height: 1.4;
 }
@@ -219,7 +219,7 @@
   border-radius: 0;
   max-width: 100%;
   line-height: 1.6;
-  color: #1f1f1f;
+  color: var(--text-color);
   font-size: 1rem;
 }
 
@@ -262,7 +262,7 @@
 .speak-btn {
   background: transparent;
   border: none;
-  color: #444746;
+  color: var(--text-light);
   cursor: pointer;
   padding: 4px;
   border-radius: 50%;
@@ -324,7 +324,7 @@
 }
 
 .input-container {
-  background: #f0f4f9;
+  background: var(--secondary-color);
   border-radius: 32px;
   padding: 0.5rem;
   transition: background 0.2s ease;
@@ -344,7 +344,7 @@
   border-radius: 50%;
   border: none;
   background: transparent;
-  color: #444746;
+  color: var(--text-light);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -354,7 +354,7 @@
 
 .input-action-btn:hover {
   background: rgba(0,0,0,0.05);
-  color: #1f1f1f;
+  color: var(--text-color);
 }
 
 .input-action-btn.listening {
@@ -374,7 +374,7 @@
   padding: 0.75rem;
   border: none;
   background: transparent;
-  color: #1f1f1f;
+  color: var(--text-color);
   font-family: inherit;
   font-size: 1rem;
   font-weight: 400;
@@ -389,7 +389,7 @@
 }
 
 .message-input::placeholder {
-  color: #444746;
+  color: var(--text-light);
 }
 
 .send-button {
@@ -398,7 +398,7 @@
   border-radius: 50%;
   border: none;
   background: transparent;
-  color: #1f1f1f;
+  color: var(--text-color);
   font-size: 1.2rem;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -421,14 +421,14 @@
   text-align: center;
   margin: 1rem 0 0 0;
   font-size: 0.75rem;
-  color: #444746;
+  color: var(--text-light);
 }
 
 .license-notice {
   text-align: center;
   margin: 0.5rem 0 0 0;
   font-size: 0.75rem;
-  color: #444746;
+  color: var(--text-light);
 }
 
 .license-notice a {
@@ -447,8 +447,8 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #fff;
-  border: 1px solid #e3e3e3;
+  background: var(--card-background);
+  border: 1px solid var(--border-color);
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   cursor: pointer;
   display: flex;
@@ -459,7 +459,7 @@
   transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
   opacity: 0;
   pointer-events: none;
-  color: #444746;
+  color: var(--text-light);
 }
 
 .scroll-top-btn.visible {
@@ -511,7 +511,7 @@
   width: 64px;
   height: 64px;
   border-radius: 12px;
-  background: #f0f4f9;
+  background: var(--secondary-color);
   border: 1px solid rgba(0,0,0,0.08);
   display: flex;
   align-items: center;
@@ -527,13 +527,13 @@
 
 .file-preview-item .file-icon {
   font-size: 28px;
-  color: #444746;
+  color: var(--text-light);
 }
 
 .file-name {
   font-size: 10px;
   font-weight: 500;
-  color: #444746;
+  color: var(--text-light);
   text-align: center;
   width: 100%;
   white-space: nowrap;
@@ -625,7 +625,7 @@
 .file-type {
   font-size: 9px;
   font-weight: 700;
-  color: #444746;
+  color: var(--text-light);
   margin-top: -2px;
   text-transform: uppercase;
 }
@@ -649,7 +649,7 @@
 .action-btn {
   background: transparent;
   border: none;
-  color: #444746;
+  color: var(--text-light);
   cursor: pointer;
   padding: 4px;
   border-radius: 50%;
@@ -777,7 +777,7 @@
 
 .quote-date {
   font-size: 0.55rem;
-  color: #444746;
+  color: var(--text-light);
   margin-top: 0;
   margin-bottom: 0;
   font-weight: 500;
@@ -798,7 +798,7 @@
 
 .quote-icon {
   font-size: 18px;
-  color: #4285f4;
+  color: var(--primary-color);
   opacity: 0.4;
   flex-shrink: 0;
   user-select: none;
@@ -816,7 +816,7 @@
   font-weight: 400;
   margin: 0;
   text-align: center;
-  color: #1f1f1f;
+  color: var(--text-color);
 }
 
 /* Tools Menu */
@@ -850,7 +850,7 @@
   background: transparent;
   border: none;
   border-radius: 24px;
-  color: #444746;
+  color: var(--text-light);
   font-family: inherit;
   font-size: 0.875rem;
   cursor: pointer;
@@ -864,7 +864,7 @@
 
 .tool-item .material-symbols-outlined {
   font-size: 20px;
-  color: #5f6368;
+  color: var(--text-light);
 }
 
 .tool-item.pomodoro-active {
@@ -1075,18 +1075,11 @@
   }
 }
 
-.app.dark .welcome h2 {
-  color: #e3e3e3;
-}
 
-.app.dark .welcome p {
-  color: #c4c7c5;
-}
 
-.app.dark .suggestion {
-  background: #1e1f20;
-  color: #e3e3e3;
-}
+
+
+
 
 .app.dark .suggestion:hover {
   background: #2d2e2f;
@@ -1096,9 +1089,7 @@
   color: #e3e3e3;
 }
 
-.app.dark .suggestion span {
-  color: #c4c7c5;
-}
+
 
 .app.dark .suggestion strong .material-symbols-outlined {
   background: rgba(66, 133, 244, 0.2);
@@ -1120,64 +1111,38 @@
   color: #f28b82;
 }
 
-.app.dark .input-container {
-  background: #1e1f20;
-}
+
 
 .app.dark .input-container:focus-within {
   background: #2d2e2f;
 }
 
-.app.dark .message-content {
-  color: #e3e3e3;
-}
 
-.app.dark .message.user .message-content {
-  background: #2d2e2f;
-  color: #e3e3e3;
-}
 
-.app.dark .input-action-btn {
-  color: #c4c7c5;
-}
+
+
+
 
 .app.dark .input-action-btn:hover {
   background: rgba(255,255,255,0.05);
   color: #e3e3e3;
 }
 
-.app.dark .message-input {
-  color: #e3e3e3;
-}
 
-.app.dark .message-input::placeholder {
-  color: #c4c7c5;
-}
 
-.app.dark .send-button {
-  color: #e3e3e3;
-}
+
+
+
 
 .app.dark .send-button:hover:not(:disabled) {
   background: #282a2c;
 }
 
-.app.dark .send-button:disabled {
-  color: #444746;
-}
 
-.app.dark .disclaimer {
-  color: #c4c7c5;
-}
 
-.app.dark .license-notice {
-  color: #c4c7c5;
-}
+
 
 .app.dark .scroll-top-btn {
-  background: #2d2d30;
-  border-color: #444746;
-  color: #e3e3e3;
   box-shadow: 0 2px 6px rgba(0,0,0,0.4);
 }
 
@@ -1187,34 +1152,25 @@
   box-shadow: 0 4px 8px rgba(0,0,0,0.5);
 }
 
-.app.dark .speak-btn {
-  color: #c4c7c5;
-}
+
 
 .app.dark .speak-btn:hover {
   background-color: rgba(255,255,255,0.1);
 }
 
-.app.dark .input-container.has-files {
-  background: #1e1f20;
-}
+
 
 .app.dark .file-preview-list {
   border-bottom-color: rgba(255,255,255,0.1);
 }
 
-.app.dark .preview-content {
-  background: var(--card-background);
-  border-color: var(--border-color);
-}
+
 
 .app.dark .file-preview-item .file-icon {
   color: var(--text-color);
 }
 
-.app.dark .file-name {
-  color: var(--text-light);
-}
+
 
 .app.dark .remove-file-btn {
   background: rgba(255, 255, 255, 0.6);
@@ -1229,9 +1185,7 @@
   color: var(--text-color);
 }
 
-.app.dark .action-btn {
-  color: var(--text-light);
-}
+
 
 .app.dark .action-btn:hover {
   background-color: rgba(255,255,255,0.1);
@@ -1241,29 +1195,15 @@
   box-shadow: 0 4px 12px rgba(128, 203, 196, 0.6);
 }
 
-.app.dark .quote-date {
-  color: var(--text-light);
-}
 
-.app.dark .daily-quote {
-  color: var(--text-color);
-  background: none;
-  -webkit-text-fill-color: initial;
-  background-clip: border-box;
-}
 
-.app.dark .quote-icon {
-  color: var(--primary-color);
-}
 
-.app.dark .welcome-subtitle {
-  color: var(--text-light);
-}
 
-.app.dark .daily-quote-container {
-  background: transparent;
-  border: none;
-}
+
+
+
+
+
 
 .app.dark .tools-menu {
   background: var(--card-background);
@@ -1279,6 +1219,4 @@
   background: rgba(255, 255, 255, 0.08);
 }
 
-.app.dark .tool-item .material-symbols-outlined {
-  color: var(--text-light);
-}
+
