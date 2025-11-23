@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, useContext, useRef } from 'react';
+import { playNotificationSound, showNotification, requestNotificationPermission } from '../utils/notifications';
 
 const PomodoroContext = createContext();
 
@@ -16,31 +17,7 @@ export const PomodoroProvider = ({ children }) => {
     long: { label: 'Pausa Longa', time: 15 * 60, color: '#e37400' }
   };
 
-  const playNotificationSound = () => {
-    try {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      if (!AudioContext) return;
-      
-      const ctx = new AudioContext();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
 
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(880, ctx.currentTime); // A5
-      osc.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 0.5); // Drop to A4
-      
-      gain.gain.setValueAtTime(0.1, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
-
-      osc.start();
-      osc.stop(ctx.currentTime + 0.5);
-    } catch (e) {
-      console.error("Audio play failed", e);
-    }
-  };
 
   useEffect(() => {
     if (isActive && timeLeft > 0) {
@@ -52,16 +29,12 @@ export const PomodoroProvider = ({ children }) => {
       clearInterval(timerRef.current);
       
       playNotificationSound();
-
-      if ('Notification' in window && Notification.permission === 'granted') {
-        new Notification("PsyMind Pomodoro", { body: "O tempo acabou!" });
-      } else if ('Notification' in window && Notification.permission !== 'denied') {
-        Notification.requestPermission().then(permission => {
-          if (permission === 'granted') {
-            new Notification("PsyMind Pomodoro", { body: "O tempo acabou!" });
-          }
-        });
-      }
+      
+      requestNotificationPermission().then(hasPermission => {
+        if (hasPermission) {
+          showNotification("PsyMind Pomodoro", "O tempo acabou!");
+        }
+      });
     }
 
     return () => clearInterval(timerRef.current);

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useMood } from '../context/MoodContext';
+import { generateMoodInsight } from '../services/tools/moodService';
 import '../styles/mood.css';
 
 const moods = [
@@ -35,18 +36,8 @@ const MoodTrackerModal = ({ isOpen, onClose }) => {
     
     setIsLoadingInsight(true);
     try {
-      const { sendMessageToGemini } = await import('../services/gemini');
-      
-      const recentMoods = moodHistory.slice(-5).map(e => e.mood.label).join(', ');
-      const prompt = `Baseado nos últimos registros emocionais de um estudante (${recentMoods}), dê uma breve reflexão empática (2-3 frases) e uma sugestão prática.`;
-      
-      const result = await sendMessageToGemini(prompt, []);
-      
-      if (result.success) {
-        setAiInsight(result.text);
-      } else {
-        setAiInsight(result.userMessage || '⚠️ Não foi possível gerar análise no momento.');
-      }
+      const insight = await generateMoodInsight(moodHistory);
+      setAiInsight(insight);
     } catch (error) {
       setAiInsight('❌ Erro ao conectar com IA. Tente novamente.');
     }

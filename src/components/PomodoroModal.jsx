@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { usePomodoro } from '../context/PomodoroContext';
+import { generatePomodoroTip } from '../services/tools/pomodoroService';
 
 const PomodoroModal = ({ isOpen, onClose }) => {
   const { 
@@ -31,24 +32,8 @@ const PomodoroModal = ({ isOpen, onClose }) => {
     setAiTip('');
     
     try {
-      const { sendMessageToGemini } = await import('../services/gemini');
-      let prompt;
-      
-      if (mode === 'focus') {
-        prompt = 'Dê uma dica rápida e prática (1 frase) para um estudante manter o foco durante uma sessão Pomodoro de estudo.';
-      } else if (mode === 'short') {
-        prompt = 'Dê uma sugestão rápida (1 frase) de atividade relaxante para um estudante fazer durante uma pausa curta de 5 minutos.';
-      } else {
-        prompt = 'Dê uma sugestão rápida (1 frase) de atividade relaxante para um estudante fazer durante uma pausa longa de 15 minutos.';
-      }
-      
-      const result = await sendMessageToGemini(prompt, []);
-      
-      if (result.success) {
-        setAiTip(result.text);
-      } else {
-        setAiTip(result.userMessage || '⚠️ Não foi possível gerar dica no momento.');
-      }
+      const tip = await generatePomodoroTip(mode);
+      setAiTip(tip);
     } catch (error) {
       setAiTip('❌ Erro ao conectar com IA. Tente novamente.');
     }

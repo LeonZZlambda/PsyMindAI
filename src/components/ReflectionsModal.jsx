@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useChat } from '../context/ChatContext';
+import { generateReflection, generateReflectionAnalysis } from '../services/tools/reflectionService';
 import '../styles/help.css';
 import '../styles/reflections.css';
 
@@ -62,28 +63,10 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
     setIsLoadingReflection(true);
     
     try {
-      const { sendMessageToGemini } = await import('../services/gemini');
+      const reflection = await generateReflection(category);
       
-      const categoryPrompt = category 
-        ? `sobre ${category}` 
-        : 'motivacional para estudantes';
-      
-      const prompt = `Gere uma frase inspiradora ${categoryPrompt} (máximo 2 linhas) e indique o autor (pode ser um pensador, cientista ou frase original sua como "PsyMind.AI"). Formato: "Frase" - Autor`;
-      
-      const result = await sendMessageToGemini(prompt, []);
-      
-      if (result.success) {
-        const text = result.text.replace(/["\"\"]/g, '').trim();
-        const parts = text.split(' - ');
-        const quote = parts[0] || text;
-        const author = parts[1] || 'PsyMind.AI';
-        
-        setCurrentReflection({
-          id: Date.now(),
-          text: quote,
-          author: author,
-          category: category || 'geral'
-        });
+      if (reflection) {
+        setCurrentReflection({ id: Date.now(), ...reflection });
       } else {
         const random = reflectionsData[Math.floor(Math.random() * reflectionsData.length)];
         setCurrentReflection(random);
@@ -101,17 +84,8 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
     
     setIsLoadingReflection(true);
     try {
-      const { sendMessageToGemini } = await import('../services/gemini');
-      
-      const prompt = `Sobre a frase "${currentReflection.text}" de ${currentReflection.author}, escreva uma breve reflexão (2-3 frases) de como um estudante pode aplicar isso no dia a dia.`;
-      
-      const result = await sendMessageToGemini(prompt, []);
-      
-      if (result.success) {
-        setAiReflection(result.text);
-      } else {
-        setAiReflection(result.userMessage || '⚠️ Não foi possível gerar reflexão no momento.');
-      }
+      const analysis = await generateReflectionAnalysis(currentReflection);
+      setAiReflection(analysis);
     } catch (error) {
       setAiReflection('❌ Erro ao conectar com IA. Tente novamente.');
     }
