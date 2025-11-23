@@ -406,10 +406,277 @@ Por favor, analise as chances de aprovação considerando esse intervalo de nota
   );
 };
 
+const examTopics = {
+  'Matemática': [
+    'Aritmética Básica (Frações, Decimais, Porcentagem)',
+    'Funções (1º e 2º Grau, Exponencial, Logarítmica)',
+    'Geometria Plana (Áreas, Perímetros, Ângulos)',
+    'Geometria Espacial (Volumes, Prismas, Cilindros)',
+    'Estatística (Média, Moda, Mediana, Desvio Padrão)',
+    'Probabilidade e Análise Combinatória',
+    'Trigonometria (Triângulo Retângulo, Ciclo Trigonométrico)',
+    'Matemática Financeira (Juros Simples e Compostos)'
+  ],
+  'Linguagens': [
+    'Interpretação de Texto e Gêneros Textuais',
+    'Variação Linguística e Funções da Linguagem',
+    'Movimentos Literários (Romantismo, Modernismo, etc.)',
+    'Gramática (Sintaxe, Morfologia, Semântica)',
+    'Artes e Vanguardas Europeias',
+    'Educação Física e Cultura Corporal',
+    'Tecnologias da Informação e Comunicação'
+  ],
+  'Ciências Humanas': [
+    'História do Brasil (Colônia, Império, República)',
+    'História Geral (Antiguidade, Idade Média, Moderna, Contemporânea)',
+    'Geografia Física (Clima, Relevo, Hidrografia)',
+    'Geografia Humana (População, Urbanização, Agricultura)',
+    'Geopolítica e Globalização',
+    'Filosofia (Antiga, Moderna, Contemporânea, Ética)',
+    'Sociologia (Cultura, Trabalho, Desigualdade, Instituições)'
+  ],
+  'Ciências da Natureza': [
+    'Física: Mecânica (Cinemática, Dinâmica, Energia)',
+    'Física: Eletricidade e Magnetismo',
+    'Física: Termologia e Óptica',
+    'Física: Ondulatória',
+    'Química: Geral e Inorgânica (Atomística, Ligações, Funções)',
+    'Química: Físico-Química (Soluções, Termoquímica, Cinética)',
+    'Química: Orgânica (Cadeias, Funções, Reações)',
+    'Biologia: Citologia e Metabolismo Energético',
+    'Biologia: Genética e Evolução',
+    'Biologia: Ecologia e Meio Ambiente',
+    'Biologia: Fisiologia Humana e Botânica'
+  ],
+  'Redação': [
+    'Estrutura do Texto Dissertativo-Argumentativo',
+    'Competência 1: Norma Culta',
+    'Competência 2: Compreensão do Tema e Tipo Textual',
+    'Competência 3: Seleção e Organização de Argumentos',
+    'Competência 4: Coesão Textual',
+    'Competência 5: Proposta de Intervenção',
+    'Repertório Sociocultural',
+    'Análise de Temas Anteriores'
+  ],
+  'Física': [
+    'Mecânica (Cinemática, Dinâmica, Estática, Hidrostática)',
+    'Termologia (Termometria, Calorimetria, Termodinâmica)',
+    'Óptica (Geométrica e Física)',
+    'Ondulatória (MHS, Ondas, Acústica)',
+    'Eletricidade (Eletrostática, Eletrodinâmica, Eletromagnetismo)',
+    'Física Moderna (Relatividade, Quântica, Nuclear)'
+  ],
+  'Química': [
+    'Química Geral (Matéria, Átomo, Tabela Periódica, Ligações)',
+    'Química Inorgânica (Ácidos, Bases, Sais, Óxidos, Reações)',
+    'Físico-Química (Soluções, Termoquímica, Cinética, Equilíbrio, Eletroquímica)',
+    'Química Orgânica (Cadeias, Funções, Isomeria, Reações)',
+    'Química Ambiental e Bioquímica'
+  ],
+  'Biologia': [
+    'Citologia (Célula, Membrana, Citoplasma, Núcleo)',
+    'Metabolismo Energético (Fotossíntese, Respiração, Fermentação)',
+    'Histologia e Fisiologia Humana/Animal',
+    'Genética e Biotecnologia',
+    'Evolução e Origem da Vida',
+    'Ecologia e Meio Ambiente',
+    'Botânica e Zoologia (Reinos)'
+  ],
+  'História': [
+    'História Antiga (Grécia, Roma, Egito)',
+    'Idade Média (Feudalismo, Igreja, Islã)',
+    'Idade Moderna (Renascimento, Reformas, Absolutismo, Expansão Marítima)',
+    'Idade Contemporânea (Revoluções, Guerras Mundiais, Guerra Fria)',
+    'História do Brasil Colônia',
+    'História do Brasil Império',
+    'História do Brasil República'
+  ],
+  'Geografia': [
+    'Geografia Física (Cartografia, Geologia, Clima, Vegetação)',
+    'Geografia Humana (Demografia, Urbanização, Migrações)',
+    'Geografia Econômica (Indústria, Agropecuária, Energia, Transportes)',
+    'Geopolítica Mundial e Conflitos',
+    'Geografia do Brasil (Regionalização, Economia, Sociedade)'
+  ],
+  'Inglês': [
+    'Interpretação de Texto (Reading Comprehension)',
+    'Vocabulário Contextual (Synonyms, Antonyms)',
+    'Gramática Aplicada (Verb Tenses, Pronouns, Prepositions)',
+    'Falsos Cognatos',
+    'Expressões Idiomáticas'
+  ],
+  'Espanhol': [
+    'Interpretação de Texto',
+    'Falsos Cognatos (Heterosemánticos)',
+    'Gramática Aplicada (Verbos, Pronombres, Artículos)',
+    'Vocabulário e Cultura Hispânica'
+  ],
+  'SAT Reading & Writing': [
+    'Craft and Structure (Words in Context, Text Structure)',
+    'Information and Ideas (Central Ideas, Evidence)',
+    'Standard English Conventions (Grammar, Punctuation)',
+    'Expression of Ideas (Transitions, Rhetorical Synthesis)'
+  ],
+  'SAT Math': [
+    'Heart of Algebra (Linear Equations, Systems)',
+    'Problem Solving and Data Analysis (Ratios, Percentages, Probability)',
+    'Passport to Advanced Math (Quadratics, Polynomials, Functions)',
+    'Additional Topics (Geometry, Trigonometry, Complex Numbers)'
+  ],
+  'ACT English': [
+    'Production of Writing (Topic Development, Organization)',
+    'Knowledge of Language (Style, Tone)',
+    'Conventions of Standard English (Sentence Structure, Punctuation)'
+  ],
+  'ACT Math': [
+    'Number & Quantity (Real/Complex Numbers)',
+    'Algebra & Functions',
+    'Geometry (Plane, Coordinate, Solid)',
+    'Statistics & Probability'
+  ],
+  'ACT Reading': [
+    'Key Ideas and Details',
+    'Craft and Structure',
+    'Integration of Knowledge and Ideas'
+  ],
+  'ACT Science': [
+    'Data Representation (Graphs, Tables)',
+    'Research Summaries (Experiments)',
+    'Conflicting Viewpoints (Hypotheses)'
+  ],
+  'TOEFL Reading': [
+    'Reading for Gist/Main Idea',
+    'Reading for Detail',
+    'Inference and Rhetorical Purpose',
+    'Vocabulary in Context'
+  ],
+  'TOEFL Listening': [
+    'Gist-Content and Gist-Purpose',
+    'Detail Questions',
+    'Function and Attitude',
+    'Connecting Content'
+  ],
+  'TOEFL Speaking': [
+    'Independent Speaking Task',
+    'Integrated Speaking Tasks (Read/Listen/Speak)'
+  ],
+  'TOEFL Writing': [
+    'Integrated Writing Task',
+    'Writing for an Academic Discussion'
+  ],
+  'IELTS Listening': [
+    'Social Context (Conversation/Monologue)',
+    'Educational/Training Context (Conversation/Monologue)'
+  ],
+  'IELTS Reading': [
+    'Gist, Main Ideas, and Details',
+    'Skimming and Scanning',
+    'Understanding Logical Argument'
+  ],
+  'IELTS Writing': [
+    'Task 1: Graph/Table/Chart Description',
+    'Task 2: Essay Writing'
+  ],
+  'IELTS Speaking': [
+    'Part 1: Introduction and Interview',
+    'Part 2: Long Turn (Cue Card)',
+    'Part 3: Discussion'
+  ],
+  'IB Theory of Knowledge': [
+    'Knowledge Questions',
+    'Areas of Knowledge (History, Human Sciences, Natural Sciences, Arts, Math)',
+    'Core Theme: Knowledge and the Knower',
+    'Optional Themes (Technology, Language, Politics, Religion, Indigenous Societies)'
+  ],
+  'IB Extended Essay': [
+    'Research Question Formulation',
+    'Methodology and Investigation',
+    'Critical Thinking and Analysis',
+    'Academic Writing and Referencing'
+  ],
+  'Português': [
+    'Interpretação de Texto',
+    'Gramática Normativa',
+    'Morfologia e Sintaxe',
+    'Semântica e Estilística',
+    'Literatura Brasileira e Portuguesa',
+    'Movimentos Literários',
+    'Análise de Obras Obrigatórias'
+  ],
+  'Literatura': [
+    'Teoria Literária',
+    'Escolas Literárias (Barroco, Arcadismo, etc.)',
+    'Literatura Contemporânea',
+    'Leitura de Obras Obrigatórias'
+  ]
+};
+
+const getTopicsForSubject = (subjectName, examName) => {
+  const lower = subjectName.toLowerCase();
+  const examLower = examName ? examName.toLowerCase() : '';
+
+  // International Exams Logic
+  if (examLower.includes('sat')) {
+    if (lower.includes('math')) return examTopics['SAT Math'];
+    if (lower.includes('reading') || lower.includes('writing')) return examTopics['SAT Reading & Writing'];
+  }
+  if (examLower.includes('act')) {
+    if (lower.includes('math')) return examTopics['ACT Math'];
+    if (lower.includes('english') || lower.includes('writing')) return examTopics['ACT English'];
+    if (lower.includes('reading')) return examTopics['ACT Reading'];
+    if (lower.includes('science')) return examTopics['ACT Science'];
+  }
+  if (examLower.includes('toefl')) {
+    if (lower.includes('reading')) return examTopics['TOEFL Reading'];
+    if (lower.includes('listening')) return examTopics['TOEFL Listening'];
+    if (lower.includes('speaking')) return examTopics['TOEFL Speaking'];
+    if (lower.includes('writing')) return examTopics['TOEFL Writing'];
+  }
+  if (examLower.includes('ielts')) {
+    if (lower.includes('reading')) return examTopics['IELTS Reading'];
+    if (lower.includes('listening')) return examTopics['IELTS Listening'];
+    if (lower.includes('speaking')) return examTopics['IELTS Speaking'];
+    if (lower.includes('writing')) return examTopics['IELTS Writing'];
+  }
+  if (examLower.includes('ib') || examLower.includes('baccalaureate')) {
+    if (lower.includes('theory of knowledge')) return examTopics['IB Theory of Knowledge'];
+    if (lower.includes('extended essay')) return examTopics['IB Extended Essay'];
+    // Fallback for standard subjects in IB
+    if (lower.includes('math')) return examTopics['SAT Math']; // Similar enough for general topics
+    if (lower.includes('sciences')) return examTopics['Ciências da Natureza']; // Or specific
+    if (lower.includes('individuals') || lower.includes('societies')) return examTopics['Ciências Humanas'];
+    if (lower.includes('literature') || lower.includes('language')) return examTopics['Linguagens'];
+    if (lower.includes('arts')) return examTopics['Linguagens'];
+  }
+
+  // Specific Subjects (Priority)
+  if (lower === 'física' || lower === 'fisica') return examTopics['Física'];
+  if (lower === 'química' || lower === 'quimica') return examTopics['Química'];
+  if (lower === 'biologia') return examTopics['Biologia'];
+  if (lower === 'história' || lower === 'historia') return examTopics['História'];
+  if (lower === 'geografia') return examTopics['Geografia'];
+  if (lower === 'português' || lower === 'portugues') return examTopics['Português'];
+  if (lower === 'literatura') return examTopics['Literatura'];
+  
+  // Broad Categories
+  if (lower.includes('matemática')) return examTopics['Matemática'];
+  if (lower.includes('linguagens') || lower.includes('português') || lower.includes('literatura')) return examTopics['Linguagens'];
+  if (lower.includes('humanas')) return examTopics['Ciências Humanas'];
+  if (lower.includes('natureza')) return examTopics['Ciências da Natureza'];
+  if (lower.includes('redação')) return examTopics['Redação'];
+  
+  // Languages
+  if (lower.includes('inglês') || lower.includes('english')) return examTopics['Inglês'];
+  if (lower.includes('espanhol')) return examTopics['Espanhol'];
+  
+  return ['Conteúdo Programático Geral', 'Resolução de Questões', 'Revisão de Conceitos'];
+};
+
 const ExamsModal = ({ isOpen, onClose }) => {
   const [isClosing, setIsClosing] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedExam, setSelectedExam] = useState(null);
+  const [selectedSubject, setSelectedSubject] = useState(null);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -613,12 +880,17 @@ const ExamsModal = ({ isOpen, onClose }) => {
       setIsClosing(false);
       setSelectedCategory(null);
       setSelectedExam(null);
+      setSelectedSubject(null);
     }, 300);
   };
 
   const handleExamClick = (exam) => {
     if (selectedCategory.id === 'olympiads') return;
     setSelectedExam(exam);
+  };
+
+  const handleSubjectClick = (subject) => {
+    setSelectedSubject(subject);
   };
 
   if (!isOpen) return null;
@@ -684,7 +956,7 @@ const ExamsModal = ({ isOpen, onClose }) => {
                 ))}
               </div>
             </div>
-          ) : (
+          ) : !selectedSubject ? (
             <div className="exams-subjects-view">
               <button 
                 className="back-btn"
@@ -706,7 +978,12 @@ const ExamsModal = ({ isOpen, onClose }) => {
                   {selectedExam.subjects.map((subject, index) => {
                     const { icon, className } = getSubjectConfig(subject);
                     return (
-                      <div key={index} className={`subject-card ${className}`}>
+                      <div 
+                        key={index} 
+                        className={`subject-card ${className}`}
+                        onClick={() => handleSubjectClick(subject)}
+                        style={{ cursor: 'pointer' }}
+                      >
                         <div className="subject-icon-wrapper">
                           <span className="material-symbols-outlined">{icon}</span>
                         </div>
@@ -716,6 +993,30 @@ const ExamsModal = ({ isOpen, onClose }) => {
                   })}
                 </div>
               )}
+            </div>
+          ) : (
+            <div className="exams-topics-view">
+              <button 
+                className="back-btn"
+                onClick={() => setSelectedSubject(null)}
+              >
+                <span className="material-symbols-outlined">arrow_back</span>
+                Voltar
+              </button>
+
+              <div className="exam-header-detail">
+                <h3>{selectedSubject}</h3>
+                <p>Matriz de Referência e Conteúdos</p>
+              </div>
+
+              <div className="topics-list">
+                {getTopicsForSubject(selectedSubject, selectedExam?.name).map((topic, index) => (
+                  <div key={index} className="topic-item">
+                    <span className="material-symbols-outlined topic-icon">check_circle</span>
+                    <span className="topic-text">{topic}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </div>

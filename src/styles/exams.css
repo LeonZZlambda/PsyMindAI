@@ -1182,3 +1182,62 @@
   background: rgba(168, 199, 250, 0.08);
   border-color: #a8c7fa;
 }
+
+/* Topics View */
+.exams-topics-view {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.topics-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.topic-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: #f8f9fa;
+  border: 1px solid #e0e3e7;
+  border-radius: 12px;
+  transition: all 0.2s;
+}
+
+.topic-item:hover {
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transform: translateX(4px);
+}
+
+.topic-icon {
+  color: #34a853;
+  font-size: 20px;
+}
+
+.topic-text {
+  font-size: 0.95rem;
+  color: #202124;
+  font-weight: 500;
+}
+
+/* Dark Mode Topics */
+.app.dark .topic-item {
+  background: #2d2e30;
+  border-color: #444746;
+}
+
+.app.dark .topic-item:hover {
+  background: #3c4043;
+}
+
+.app.dark .topic-text {
+  color: #e3e3e3;
+}
+
+.app.dark .topic-icon {
+  color: #81c995;
+}
