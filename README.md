@@ -20,10 +20,16 @@ The tool includes ethical alerts encouraging the search for professional help an
 
 ## Technologies
 
--   [React](https://reactjs.org/)
--   [Vite](https://vitejs.dev/)
--   [Google Gemini / NotebookLM](https://notebooklm.google.com/) (AI Engine)
--   Web Speech API (Voice Recognition)
+### Frontend
+-   [React](https://reactjs.org/) - UI Framework
+-   [Vite](https://vitejs.dev/) - Build Tool
+-   [Framer Motion](https://www.framer.com/motion/) - Animations
+-   Web Speech API - Voice Recognition
+
+### Google AI Suite
+-   **[Google Gemini 1.5 Flash](https://ai.google.dev/)** - Main AI Engine
+-   **[NotebookLM](https://notebooklm.google.com/)** - Prompt Engineering & Research
+-   **[Gemini Gems](https://blog.google/products/gemini/google-gemini-update-august-2024/)** - Personality Customization
 
 ## Getting Started
 
@@ -45,10 +51,48 @@ The tool includes ethical alerts encouraging the search for professional help an
     npm install
     ```
 
-3.  Start the development server:
+3.  Configure Google Gemini API (optional for demo):
+    ```bash
+    cp .env.example .env
+    # Add your VITE_GEMINI_API_KEY in .env file
+    ```
+    See [SETUP.md](SETUP.md) for detailed instructions.
+
+4.  Start the development server:
     ```bash
     npm run dev
     ```
+
+## Google AI Integration
+
+PsyMind.AI leverages Google's AI suite:
+
+- **Gemini API**: Powers intelligent, context-aware conversations
+- **NotebookLM**: Used to develop and refine psychological prompts based on educational research
+- **Gemini Gems**: Customizes AI personality for empathetic teen support
+
+The system works in **demo mode** without API key, or with **full AI capabilities** when configured.
+
+## Key Features
+
+### 🧠 Intelligent Chat
+- Real-time conversations powered by Google Gemini
+- Context-aware responses with conversation history
+- Empathetic tone optimized for adolescents
+
+### 🎯 Student Tools
+- **Pomodoro Timer**: Focus sessions with break reminders
+- **Mood Tracker**: Daily emotional monitoring
+- **Guided Breathing**: Multiple meditation techniques with visual guide
+- **Reflections**: Curated quotes for self-reflection
+- **Soundscapes**: Ambient sounds for concentration
+
+### ♿ Accessibility
+- Light/Dark themes
+- Adjustable font sizes
+- High contrast mode
+- Reduced motion support
+- Voice input
 
 ## Disclaimer
 

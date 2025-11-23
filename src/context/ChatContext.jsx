@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { useTheme } from './ThemeContext';
+import { sendMessageToGemini, isGeminiConfigured } from '../services/gemini';
 
 const ChatContext = createContext();
 
@@ -42,11 +43,22 @@ export const ChatProvider = ({ children }) => {
     setInput('');
     setIsTyping(true);
 
-    // Simulate AI response with streaming effect
+    // Try Gemini API first, fallback to demo
+    let fullResponse;
+    
+    if (isGeminiConfigured()) {
+      const result = await sendMessageToGemini(text, messages);
+      if (result.success) {
+        fullResponse = result.text;
+      } else {
+        fullResponse = `⚠️ Erro ao conectar com Gemini: ${result.error}\n\nModo demonstração ativo.`;
+      }
+    } else {
+      fullResponse = '🤖 **Modo Demonstração** - Configure sua API Key do Gemini no arquivo .env\n\nOlá! Sou o PsyMind.AI, desenvolvido com **Google Gemini**. Estou aqui para te ajudar a compreender suas emoções e comportamentos através da psicologia científica.\n\nComo posso te apoiar hoje? 💜';
+    }
+    
     setTimeout(() => {
       setIsTyping(false);
-      
-      const fullResponse = 'Olá! Sou o PsyMind.AI e estou aqui para te ajudar a compreender suas emoções e comportamentos. \n\nSe precisar de exemplos de código, posso ajudar também:\n\n```javascript\nconsole.log("Olá, mundo!");\nconst emocao = "felicidade";\n```\n\nComo posso te apoiar hoje?';
       
       if (reducedMotion) {
         setMessages(prev => [...prev, { type: 'ai', content: fullResponse, isStreaming: false }]);
@@ -105,8 +117,8 @@ export const ChatProvider = ({ children }) => {
       };
 
       streamText();
-    }, 1500);
-  }, []);
+    }, 800);
+  }, [messages, reducedMotion]);
 
   const clearHistory = useCallback(() => {
     setMessages([]);

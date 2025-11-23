@@ -26,34 +26,23 @@ const PomodoroModal = ({ isOpen, onClose }) => {
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const fetchAiTip = () => {
+  const fetchAiTip = async () => {
     setIsLoadingTip(true);
     setAiTip('');
     
-    // Simulate AI delay
-    setTimeout(() => {
-      const focusTips = [
-        "Divida sua tarefa principal em 3 passos menores antes de começar.",
-        "Afaste o celular e feche abas desnecessárias do navegador.",
-        "A técnica 5-4-3-2-1 pode ajudar se sentir ansiedade antes de começar.",
-        "Lembre-se: O feito é melhor que o perfeito. Apenas comece.",
-        "Tente trabalhar em blocos de foco intenso, sem interrupções."
-      ];
-      
-      const breakTips = [
-        "Respire fundo 10 vezes. Sinta o ar entrando e saindo.",
-        "Olhe para um ponto distante (20 metros) por 20 segundos para descansar os olhos.",
-        "Levante-se e alongue os braços e as costas.",
-        "Beba um copo d'água. A hidratação ajuda na concentração.",
-        "Faça uma breve caminhada pela casa para ativar a circulação."
-      ];
-
-      const tips = mode === 'focus' ? focusTips : breakTips;
-      const randomTip = tips[Math.floor(Math.random() * tips.length)];
-      
-      setAiTip(randomTip);
-      setIsLoadingTip(false);
-    }, 1500);
+    const { sendMessageToGemini } = await import('../services/gemini');
+    const prompt = mode === 'focus' 
+      ? 'Dê uma dica rápida e prática (1 frase) para um estudante manter o foco durante uma sessão Pomodoro de estudo.'
+      : 'Dê uma sugestão rápida (1 frase) de atividade relaxante para um estudante fazer durante uma pausa de 5 minutos.';
+    
+    const result = await sendMessageToGemini(prompt, []);
+    
+    if (result.success) {
+      setAiTip(result.text);
+    } else {
+      setAiTip('Tente se concentrar em uma tarefa por vez e elimine distrações.');
+    }
+    setIsLoadingTip(false);
   };
 
   const handleClose = () => {

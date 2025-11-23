@@ -150,6 +150,57 @@ const LandingPage = () => {
         </motion.div>
       </section>
 
+      <section className="info-section gemini-integration">
+        <motion.div 
+          className="info-content"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
+        >
+          <span className="material-symbols-outlined info-icon">auto_awesome</span>
+          <h2>Powered by Google Gemini</h2>
+          <p>
+            O PsyMind.AI utiliza o <strong>Google Gemini 1.5 Flash</strong>, modelo de IA de última geração, para oferecer respostas empáticas e cientificamente embasadas.
+          </p>
+          <div className="info-cards-container">
+            <motion.div 
+              className="info-card"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              whileHover={{ y: -5 }}
+            >
+              <span className="material-symbols-outlined card-icon">psychology</span>
+              <h3>Gemini API</h3>
+              <p>Integração direta com a API do Google Gemini para conversas naturais e contextualizadas.</p>
+            </motion.div>
+            <motion.div 
+              className="info-card"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              whileHover={{ y: -5 }}
+            >
+              <span className="material-symbols-outlined card-icon">menu_book</span>
+              <h3>NotebookLM</h3>
+              <p>Prompt engineering desenvolvido com NotebookLM, baseado em estudos de psicologia educacional.</p>
+            </motion.div>
+            <motion.div 
+              className="info-card"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              whileHover={{ y: -5 }}
+            >
+              <span className="material-symbols-outlined card-icon">diamond</span>
+              <h3>Gemini Gems</h3>
+              <p>Personalidade e tom de voz otimizados através de Gems para suporte emocional adolescente.</p>
+            </motion.div>
+          </div>
+        </motion.div>
+      </section>
+
       <section className="info-section educational-focus">
         <motion.div 
           className="info-content"

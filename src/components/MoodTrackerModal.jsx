@@ -16,6 +16,8 @@ const MoodTrackerModal = ({ isOpen, onClose }) => {
   const [selectedMood, setSelectedMood] = useState(null);
   const [note, setNote] = useState('');
   const [activeTab, setActiveTab] = useState('new'); // 'new' or 'history'
+  const [aiInsight, setAiInsight] = useState('');
+  const [isLoadingInsight, setIsLoadingInsight] = useState(false);
 
   if (!isOpen) return null;
 
@@ -26,6 +28,25 @@ const MoodTrackerModal = ({ isOpen, onClose }) => {
       setNote('');
       setActiveTab('history');
     }
+  };
+
+  const getAiInsight = async () => {
+    if (moodHistory.length === 0) return;
+    
+    setIsLoadingInsight(true);
+    const { sendMessageToGemini } = await import('../services/gemini');
+    
+    const recentMoods = moodHistory.slice(-5).map(e => e.mood.label).join(', ');
+    const prompt = `Baseado nos últimos registros emocionais de um estudante (${recentMoods}), dê uma breve reflexão empática (2-3 frases) e uma sugestão prática.`;
+    
+    const result = await sendMessageToGemini(prompt, []);
+    
+    if (result.success) {
+      setAiInsight(result.text);
+    } else {
+      setAiInsight('Continue registrando suas emoções. O autoconhecimento é o primeiro passo para o bem-estar.');
+    }
+    setIsLoadingInsight(false);
   };
 
   const formatDate = (isoString) => {
@@ -103,7 +124,26 @@ const MoodTrackerModal = ({ isOpen, onClose }) => {
               {moodHistory.length === 0 ? (
                 <p className="empty-state">Nenhum registro encontrado.</p>
               ) : (
-                moodHistory.map(entry => (
+                <>
+                  <button 
+                    className="ai-insight-btn"
+                    onClick={getAiInsight}
+                    disabled={isLoadingInsight}
+                    style={{ marginBottom: '1rem', width: '100%' }}
+                  >
+                    <span className="material-symbols-outlined">
+                      {isLoadingInsight ? 'hourglass_empty' : 'psychology'}
+                    </span>
+                    {isLoadingInsight ? 'Analisando...' : 'Análise IA do Humor'}
+                  </button>
+                  
+                  {aiInsight && (
+                    <div className="ai-insight-box" style={{ marginBottom: '1rem', padding: '1rem', background: 'rgba(156, 39, 176, 0.1)', borderRadius: '12px', border: '1px solid rgba(156, 39, 176, 0.3)' }}>
+                      <p style={{ margin: 0, lineHeight: 1.6 }}>{aiInsight}</p>
+                    </div>
+                  )}
+                  
+                  {moodHistory.map(entry => (
                   <div key={entry.id} className="history-item">
                     <div className="history-icon">
                       <span className="material-symbols-outlined" style={{ color: entry.mood.color }}>
@@ -125,7 +165,8 @@ const MoodTrackerModal = ({ isOpen, onClose }) => {
                       <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>delete</span>
                     </button>
                   </div>
-                ))
+                  ))}
+                </>
               )}
             </div>
           )}

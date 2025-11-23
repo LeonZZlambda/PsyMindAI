@@ -42,6 +42,8 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
   const [breathingPhase, setBreathingPhase] = useState('inhale');
   const [selectedTechnique, setSelectedTechnique] = useState(null);
   const breathingTimerRef = useRef(null);
+  const [aiReflection, setAiReflection] = useState('');
+  const [isLoadingReflection, setIsLoadingReflection] = useState(false);
 
   useEffect(() => {
     if (isOpen && !currentReflection) {
@@ -56,6 +58,25 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
     }
     const random = filtered[Math.floor(Math.random() * filtered.length)];
     setCurrentReflection(random);
+    setAiReflection('');
+  };
+
+  const getAiReflection = async () => {
+    if (!currentReflection) return;
+    
+    setIsLoadingReflection(true);
+    const { sendMessageToGemini } = await import('../services/gemini');
+    
+    const prompt = `Sobre a frase "${currentReflection.text}" de ${currentReflection.author}, escreva uma breve reflexão (2-3 frases) de como um estudante pode aplicar isso no dia a dia.`;
+    
+    const result = await sendMessageToGemini(prompt, []);
+    
+    if (result.success) {
+      setAiReflection(result.text);
+    } else {
+      setAiReflection('Reflita sobre como essa frase se conecta com seus objetivos e desafios atuais.');
+    }
+    setIsLoadingReflection(false);
   };
 
   const handleClose = () => {
@@ -173,11 +194,21 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
                   <span className="material-symbols-outlined">refresh</span>
                   Nova Frase
                 </button>
+                <button className="reflection-btn btn-ai" onClick={getAiReflection} disabled={isLoadingReflection}>
+                  <span className="material-symbols-outlined">{isLoadingReflection ? 'hourglass_empty' : 'psychology'}</span>
+                  {isLoadingReflection ? 'Refletindo...' : 'Reflexão IA'}
+                </button>
                 <button className="reflection-btn btn-chat" onClick={handleDiscussReflection}>
                   <span className="material-symbols-outlined">chat</span>
                   Refletir no Chat
                 </button>
               </div>
+              
+              {aiReflection && (
+                <div className="ai-reflection-box" style={{ marginTop: '1.5rem', padding: '1rem', background: 'rgba(123, 31, 162, 0.1)', borderRadius: '12px', border: '1px solid rgba(123, 31, 162, 0.3)' }}>
+                  <p style={{ margin: 0, lineHeight: 1.6, color: 'var(--text-primary)' }}>{aiReflection}</p>
+                </div>
+              )}
             </div>
           )}
 
