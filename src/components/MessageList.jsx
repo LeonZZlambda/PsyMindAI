@@ -153,19 +153,29 @@ const MessageList = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const quotes = [
-    "O sucesso é a soma de pequenos esforços repetidos dia após dia. — Robert Collier",
-    "Acredite em si mesmo e em tudo o que você é. — Christian D. Larson",
-    "A educação é a arma mais poderosa que você pode usar para mudar o mundo. — Nelson Mandela",
-    "Não espere por oportunidades extraordinárias. Agarre ocasiões comuns e faça-as grandes. — Orison Swett Marden",
-    "O único lugar onde o sucesso vem antes do trabalho é no dicionário. — Vidal Sassoon",
-    "A mente que se abre a uma nova ideia jamais voltará ao seu tamanho original. — Albert Einstein"
-  ];
-  
   const [dailyQuote, setDailyQuote] = useState('');
+  const [isLoadingQuote, setIsLoadingQuote] = useState(true);
 
   useEffect(() => {
-    setDailyQuote(quotes[Math.floor(Math.random() * quotes.length)]);
+    const generateDailyQuote = async () => {
+      try {
+        const { sendMessageToGemini } = await import('../services/gemini');
+        const prompt = 'Gere uma frase motivacional curta (máximo 2 linhas) para estudantes, com autor. Formato: "Frase" — Autor';
+        
+        const result = await sendMessageToGemini(prompt, []);
+        
+        if (result.success) {
+          setDailyQuote(result.text.replace(/[\"\"\"]/g, '').trim());
+        } else {
+          setDailyQuote('O sucesso é a soma de pequenos esforços repetidos dia após dia. — Robert Collier');
+        }
+      } catch (error) {
+        setDailyQuote('O sucesso é a soma de pequenos esforços repetidos dia após dia. — Robert Collier');
+      }
+      setIsLoadingQuote(false);
+    };
+    
+    generateDailyQuote();
   }, []);
 
   const scrollToBottom = () => {
@@ -218,14 +228,23 @@ const MessageList = () => {
             <span>Olá, sou o PsyMind.AI</span>
           </h2>
           <div className="daily-quote-wrapper">
-            <div className="daily-quote-container">
-              <span className="material-symbols-outlined quote-icon quote-start">format_quote</span>
-              <p className="daily-quote">{dailyQuote}</p>
-              <span className="material-symbols-outlined quote-icon quote-end">format_quote</span>
-            </div>
-            <p className="quote-date">
-              {new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }).replace(/^\w/, c => c.toUpperCase())}
-            </p>
+            {isLoadingQuote ? (
+              <div className="daily-quote-container" style={{ opacity: 0.6 }}>
+                <span className="material-symbols-outlined quote-icon" style={{ animation: 'spin 2s linear infinite' }}>autorenew</span>
+                <p className="daily-quote">Gerando frase inspiradora...</p>
+              </div>
+            ) : (
+              <>
+                <div className="daily-quote-container">
+                  <span className="material-symbols-outlined quote-icon quote-start">format_quote</span>
+                  <p className="daily-quote">{dailyQuote}</p>
+                  <span className="material-symbols-outlined quote-icon quote-end">format_quote</span>
+                </div>
+                <p className="quote-date">
+                  {new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }).replace(/^\w/, c => c.toUpperCase())}
+                </p>
+              </>
+            )}
           </div>
           <p className="welcome-subtitle">Como posso ajudar você hoje?</p>
           <div className="suggestions" role="group" aria-label="Sugestões de perguntas">
