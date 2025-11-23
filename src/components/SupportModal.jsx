@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useChat } from '../context/ChatContext';
+import { useTheme } from '../context/ThemeContext';
 import '../styles/help.css';
 
 const SupportModal = ({ isOpen, onClose }) => {
   const modalRef = useRef(null);
   const { setInput } = useChat();
+  const { isDarkMode, reducedMotion } = useTheme();
   const [isClosing, setIsClosing] = useState(false);
   const [activeTab, setActiveTab] = useState('immediate'); // 'immediate' or 'investigate'
   
@@ -21,6 +23,41 @@ const SupportModal = ({ isOpen, onClose }) => {
     duration: ''
   });
   const [investigationResult, setInvestigationResult] = useState(null);
+
+  // Avatar State
+  const [eyePos, setEyePos] = useState({ x: 0, y: 0 });
+  const [isInputFocused, setIsInputFocused] = useState(false);
+  const [isSmiling, setIsSmiling] = useState(false);
+
+  useEffect(() => {
+    if (reducedMotion) {
+      setEyePos({ x: 0, y: 0 });
+      return;
+    }
+
+    const handleMouseMove = (e) => {
+      if (isInputFocused) return;
+      
+      const { innerWidth, innerHeight } = window;
+      // Calculate eye movement (limited range)
+      const x = (e.clientX / innerWidth - 0.5) * 6;
+      const y = (e.clientY / innerHeight - 0.5) * 6;
+      setEyePos({ x, y });
+    };
+
+    if (isOpen) {
+      window.addEventListener('mousemove', handleMouseMove);
+    }
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [isOpen, isInputFocused, reducedMotion]);
+
+  useEffect(() => {
+    if (reducedMotion) return;
+
+    if (isInputFocused) {
+      setEyePos({ x: 0, y: 6 }); // Look down at input
+    }
+  }, [isInputFocused, reducedMotion]);
 
   const handleClose = () => {
     setIsClosing(true);
@@ -60,6 +97,10 @@ const SupportModal = ({ isOpen, onClose }) => {
     if (!feelingInput.trim()) return;
     
     setIsAnalyzing(true);
+    if (!reducedMotion) {
+      setIsSmiling(true);
+    }
+
     // Simulate AI analysis
     setTimeout(() => {
       const input = feelingInput.toLowerCase();
@@ -103,6 +144,7 @@ const SupportModal = ({ isOpen, onClose }) => {
 
       setAiResponse(response);
       setIsAnalyzing(false);
+      setIsSmiling(false);
     }, 1500);
   };
 
@@ -256,7 +298,51 @@ const SupportModal = ({ isOpen, onClose }) => {
           {activeTab === 'immediate' ? (
             <div className="support-section">
               <div className="support-hero">
-                <span className="material-symbols-outlined support-icon">support_agent</span>
+                <div className="ai-avatar-container">
+                  <svg className="ai-avatar" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                    {/* Google Style Body - Minimalist & Friendly */}
+                    <rect 
+                      x="25" 
+                      y="25" 
+                      width="70" 
+                      height="70" 
+                      rx="24" 
+                      fill="none" 
+                      stroke="#4285F4" 
+                      strokeWidth="6" 
+                    />
+                    
+                    {/* Robot Detail: Antenna */}
+                    <line x1="60" y1="25" x2="60" y2="12" stroke="#4285F4" strokeWidth="3" strokeLinecap="round" />
+                    <circle cx="60" cy="12" r="4" fill="#4285F4" />
+
+                    {/* Eyes Group */}
+                    <g className="avatar-eyes">
+                      {/* Left Eye - Always White Background */}
+                      <circle cx="45" cy="50" r="8" fill="white" stroke="#4285F4" strokeWidth="2" />
+                      <circle cx="45" cy="50" r="3.5" fill="#4285F4" style={{ transform: `translate(${eyePos.x}px, ${eyePos.y}px)` }} />
+                      
+                      {/* Right Eye - Always White Background */}
+                      <circle cx="75" cy="50" r="8" fill="white" stroke="#4285F4" strokeWidth="2" />
+                      <circle cx="75" cy="50" r="3.5" fill="#4285F4" style={{ transform: `translate(${eyePos.x}px, ${eyePos.y}px)` }} />
+                      
+                      {/* Eyebrows - Expressive */}
+                      <path d="M 38 38 Q 45 34 52 38" fill="none" stroke="#4285F4" strokeWidth="3" strokeLinecap="round" style={{ transform: `translate(0, ${eyePos.y * 0.5}px)` }} />
+                      <path d="M 68 38 Q 75 34 82 38" fill="none" stroke="#4285F4" strokeWidth="3" strokeLinecap="round" style={{ transform: `translate(0, ${eyePos.y * 0.5}px)` }} />
+                      
+                      {/* Mouth - Small & Simple or Smiling */}
+                      <path 
+                        d={isSmiling ? "M 45 70 L 75 70 Q 60 90 45 70 Z" : "M 53 72 Q 60 76 67 72"} 
+                        fill={isSmiling ? "white" : "none"}
+                        stroke="#4285F4" 
+                        strokeWidth="3" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
+                        style={{ transition: 'all 0.3s ease' }}
+                      />
+                    </g>
+                  </svg>
+                </div>
                 <h3>Como você está se sentindo hoje?</h3>
                 <p>Nossa IA pode sugerir exercícios e recursos baseados no seu estado emocional.</p>
               </div>
@@ -268,6 +354,8 @@ const SupportModal = ({ isOpen, onClose }) => {
                   value={feelingInput}
                   onChange={(e) => setFeelingInput(e.target.value)}
                   rows={3}
+                  onFocus={() => setIsInputFocused(true)}
+                  onBlur={() => setIsInputFocused(false)}
                 />
                 <button 
                   className="analyze-btn"
