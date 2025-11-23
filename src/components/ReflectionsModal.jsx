@@ -25,12 +25,23 @@ const categories = [
   { id: 'autoestima', label: 'Autoestima', icon: 'favorite' }
 ];
 
+const breathingTechniques = [
+  { id: '478', name: '4-7-8', description: 'Relaxamento profundo', inhale: 4, hold: 7, exhale: 8 },
+  { id: 'box', name: 'Box Breathing', description: 'Equilíbrio e foco', inhale: 4, hold: 4, exhale: 4, holdAfter: 4 },
+  { id: 'calm', name: 'Respiração Calma', description: 'Redução de ansiedade', inhale: 4, exhale: 6 },
+  { id: 'energy', name: 'Respiração Energizante', description: 'Aumenta energia', inhale: 3, exhale: 3 }
+];
+
 const ReflectionsModal = ({ isOpen, onClose }) => {
   const modalRef = useRef(null);
   const { setInput } = useChat();
   const [isClosing, setIsClosing] = useState(false);
-  const [activeTab, setActiveTab] = useState('daily'); // 'daily' or 'explore'
+  const [activeTab, setActiveTab] = useState('daily'); // 'daily', 'explore', or 'breathing'
   const [currentReflection, setCurrentReflection] = useState(null);
+  const [breathingActive, setBreathingActive] = useState(false);
+  const [breathingPhase, setBreathingPhase] = useState('inhale');
+  const [selectedTechnique, setSelectedTechnique] = useState(null);
+  const breathingTimerRef = useRef(null);
 
   useEffect(() => {
     if (isOpen && !currentReflection) {
@@ -48,12 +59,45 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
   };
 
   const handleClose = () => {
+    if (breathingTimerRef.current) clearTimeout(breathingTimerRef.current);
+    setBreathingActive(false);
     setIsClosing(true);
     setTimeout(() => {
       setIsClosing(false);
       onClose();
     }, 300);
   };
+
+  const startBreathing = (technique) => {
+    setSelectedTechnique(technique);
+    setBreathingActive(true);
+    setBreathingPhase('inhale');
+    runBreathingCycle(technique, 'inhale');
+  };
+
+  const stopBreathing = () => {
+    if (breathingTimerRef.current) clearTimeout(breathingTimerRef.current);
+    setBreathingActive(false);
+    setSelectedTechnique(null);
+  };
+
+  const runBreathingCycle = (technique, phase) => {
+    const phases = ['inhale', technique.hold ? 'hold' : null, 'exhale', technique.holdAfter ? 'holdAfter' : null].filter(Boolean);
+    const currentIndex = phases.indexOf(phase);
+    const nextPhase = phases[(currentIndex + 1) % phases.length];
+    const duration = technique[phase] * 1000;
+
+    breathingTimerRef.current = setTimeout(() => {
+      setBreathingPhase(nextPhase);
+      runBreathingCycle(technique, nextPhase);
+    }, duration);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (breathingTimerRef.current) clearTimeout(breathingTimerRef.current);
+    };
+  }, []);
 
   const handleDiscussReflection = () => {
     if (!currentReflection) return;
@@ -103,6 +147,12 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
             >
               Explorar Temas
             </button>
+            <button 
+              className={`tab-btn ${activeTab === 'breathing' ? 'active' : ''}`}
+              onClick={() => { setActiveTab('breathing'); stopBreathing(); }}
+            >
+              Respiração Guiada
+            </button>
           </div>
           <button className="close-btn" onClick={handleClose} aria-label="Fechar">
             <span className="material-symbols-outlined">close</span>
@@ -151,6 +201,50 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
                   </button>
                 ))}
               </div>
+            </div>
+          )}
+
+          {activeTab === 'breathing' && (
+            <div className="breathing-container">
+              {!breathingActive ? (
+                <>
+                  <h3 style={{ textAlign: 'center', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
+                    Escolha uma técnica de respiração
+                  </h3>
+                  <div className="breathing-techniques">
+                    {breathingTechniques.map(tech => (
+                      <div key={tech.id} className="technique-card">
+                        <h4>{tech.name}</h4>
+                        <p>{tech.description}</p>
+                        <button className="start-breathing-btn" onClick={() => startBreathing(tech)}>
+                          <span className="material-symbols-outlined">air</span>
+                          Iniciar
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <div className="breathing-active">
+                  <div className={`breathing-circle ${breathingPhase}`}>
+                    <div className="breathing-face">
+                      {breathingPhase === 'inhale' && '😌'}
+                      {breathingPhase === 'hold' && '😊'}
+                      {breathingPhase === 'exhale' && '😮'}
+                      {breathingPhase === 'holdAfter' && '🙂'}
+                    </div>
+                  </div>
+                  <div className="breathing-instruction">
+                    {breathingPhase === 'inhale' && 'Inspire'}
+                    {breathingPhase === 'hold' && 'Segure'}
+                    {breathingPhase === 'exhale' && 'Expire'}
+                    {breathingPhase === 'holdAfter' && 'Segure'}
+                  </div>
+                  <button className="stop-breathing-btn" onClick={stopBreathing}>
+                    Parar
+                  </button>
+                </div>
+              )}
             </div>
           )}
         </div>
