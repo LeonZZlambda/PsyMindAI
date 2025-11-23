@@ -3,7 +3,7 @@ import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useChat } from '../context/ChatContext';
 
-const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onChatSelect, isNewChatAnimating, onOpenSettings, onOpenHelp, onOpenMoodTracker, onOpenCognitiveAnalysis }) => {
+const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onChatSelect, isNewChatAnimating, onOpenSettings, onOpenHelp, onOpenMoodTracker, onOpenCognitiveAnalysis, onOpenImageGenerator }) => {
   const navigate = useNavigate();
   const { loadChat } = useChat();
   const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
@@ -92,6 +92,15 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onChatSelect, isNewChatAnim
         >
           <span className="material-symbols-outlined">psychology_alt</span>
           <span>Análise Cognitiva</span>
+        </button>
+        <button 
+          className="sidebar-item" 
+          title="Gerador de Imagens" 
+          onClick={onOpenImageGenerator}
+          aria-label="Abrir gerador de imagens"
+        >
+          <span className="material-symbols-outlined">image</span>
+          <span>Gerar Imagem</span>
         </button>
         <button 
           className="sidebar-item" 

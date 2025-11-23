@@ -69,8 +69,9 @@ export const sendMessageToGemini = async (message, history = [], retries = 2) =>
 
     // Mapeamento de erros
     const errorMap = {
+      400: { type: 'INVALID_KEY', message: '🔑 API Key expirada ou inválida. Gere uma nova em https://aistudio.google.com/app/apikey' },
       429: { type: 'RATE_LIMIT', message: '⏱️ Muitas requisições. Aguarde alguns segundos e tente novamente.' },
-      403: { type: 'FORBIDDEN', message: '🚫 API Key inválida ou sem permissões. Verifique sua configuração.' },
+      403: { type: 'FORBIDDEN', message: '🚫 API Key sem permissões. Verifique sua configuração.' },
       404: { type: 'NOT_FOUND', message: '❌ Modelo não encontrado. Verifique a configuração da API.' },
       500: { type: 'SERVER_ERROR', message: '⚠️ Erro no servidor do Gemini. Tente novamente em instantes.' },
       503: { type: 'UNAVAILABLE', message: '🔧 Serviço temporariamente indisponível. Tente novamente.' }
@@ -86,6 +87,60 @@ export const sendMessageToGemini = async (message, history = [], retries = 2) =>
       error: mappedError.type,
       userMessage: mappedError.message,
       details: error.message
+    };
+  }
+};
+
+export const generateImage = async (prompt) => {
+  if (!API_KEY) {
+    return {
+      success: false,
+      error: 'API_KEY_MISSING',
+      userMessage: '🔑 Configure sua API Key do Gemini no arquivo .env para gerar imagens.'
+    };
+  }
+
+  try {
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-001:predict?key=${API_KEY}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          instances: [{ prompt }],
+          parameters: {
+            sampleCount: 1,
+            aspectRatio: '1:1',
+            safetyFilterLevel: 'block_some',
+            personGeneration: 'allow_adult'
+          }
+        })
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(JSON.stringify(errorData));
+    }
+
+    const data = await response.json();
+    const imageBase64 = data.predictions?.[0]?.bytesBase64Encoded;
+
+    if (!imageBase64) {
+      throw new Error('EMPTY_RESPONSE');
+    }
+
+    return {
+      success: true,
+      imageUrl: `data:image/png;base64,${imageBase64}`
+    };
+  } catch (error) {
+    console.error('Erro ao gerar imagem:', error);
+    
+    return {
+      success: false,
+      error: 'IMAGE_GENERATION_ERROR',
+      userMessage: '🎨 Não foi possível gerar a imagem. Tente novamente.'
     };
   }
 };
