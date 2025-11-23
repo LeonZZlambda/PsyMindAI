@@ -1,20 +1,15 @@
+import { defaultStorage } from '../adapters/storageAdapter';
+
 const STORAGE_KEY = 'chatHistory';
 
-export function loadChats() {
+export function loadChats(storage = defaultStorage) {
   if (typeof window === 'undefined') return [];
-  
-  try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    return saved ? JSON.parse(saved) : [];
-  } catch (error) {
-    console.error('Error loading chats:', error);
-    return [];
-  }
+  return storage.get(STORAGE_KEY) || [];
 }
 
-export function saveChats(chats) {
+export function saveChats(chats, storage = defaultStorage) {
   if (typeof window === 'undefined') return;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(chats));
+  storage.set(STORAGE_KEY, chats);
 }
 
 export function createChat(id, title, messages) {

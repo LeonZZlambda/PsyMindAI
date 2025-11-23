@@ -3,9 +3,14 @@ import { parseError, createErrorResponse, ERROR_TYPES } from '../api/errorHandle
 import { withRetry } from '../api/retryHandler';
 import { SYSTEM_PROMPTS } from '../prompts/systemPrompts';
 import { formatHistoryForGemini } from './messageFormatter';
+import { defaultConfig } from '../config/apiConfig';
 
-const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
-const geminiClient = new GeminiClient(API_KEY);
+let geminiClient = new GeminiClient(defaultConfig.getApiKey());
+
+export function setApiKey(apiKey) {
+  defaultConfig.setApiKey(apiKey);
+  geminiClient = new GeminiClient(apiKey);
+}
 
 export async function sendMessage(message, history = []) {
   if (!geminiClient.isConfigured()) {
@@ -53,5 +58,5 @@ export async function generateTitle(text) {
 }
 
 export function isConfigured() {
-  return geminiClient.isConfigured();
+  return defaultConfig.isConfigured();
 }

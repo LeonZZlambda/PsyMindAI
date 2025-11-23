@@ -1,0 +1,26 @@
+{
+  "name": "psymind-services",
+  "version": "1.0.0",
+  "description": "Serviços modulares do PsyMind.AI para reutilização",
+  "main": "src/services/index.js",
+  "exports": {
+    ".": "./src/services/index.js",
+    "./utils": "./src/utils/index.js",
+    "./services": "./src/services/index.js",
+    "./services/*": "./src/services/*/index.js"
+  },
+  "dependencies": {
+    "@google/genai": "^0.21.0"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0"
+  },
+  "keywords": [
+    "gemini",
+    "ai",
+    "chat",
+    "mental-health",
+    "education",
+    "modular"
+  ]
+}

@@ -162,11 +162,39 @@ Todos os módulos são independentes e podem ser migrados individualmente:
 - ✅ **Manutenção**: Mudanças isoladas não afetam todo o sistema
 - ✅ **Migração**: Fácil mover funcionalidades para backend
 
-## 🚀 Próximos Passos
+## 🚀 Migração para Outros Projetos
 
-Para migrar para outro projeto:
+Veja o [MIGRATION_GUIDE.md](./MIGRATION_GUIDE.md) para instruções completas.
 
-1. Copie os diretórios `services/` e `utils/`
-2. Ajuste os imports nos contextos
-3. Configure variáveis de ambiente
-4. Adapte o storage conforme necessário
+### Quick Start
+```bash
+# Copiar módulos
+cp -r src/services /seu-projeto/src/
+cp -r src/utils /seu-projeto/src/
+
+# Instalar dependências
+npm install @google/genai
+
+# Usar
+import { sendMessage, generatePomodoroTip } from './services';
+```
+
+### Pontos de Entrada
+- `./services` - Todos os serviços (API, Chat, Tools, Storage)
+- `./utils` - Utilitários (Notificações, Streaming, Transições)
+
+## 🔌 Adaptadores
+
+Todos os módulos suportam adaptadores customizados:
+
+```javascript
+// Storage customizado
+class DatabaseAdapter extends StorageAdapter {
+  async get(key) { return await db.find(key); }
+  async set(key, value) { return await db.save(key, value); }
+}
+
+// Usar
+const dbStorage = new DatabaseAdapter();
+loadChats(dbStorage);
+```
