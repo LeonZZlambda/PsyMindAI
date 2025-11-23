@@ -1241,3 +1241,11 @@
 .app.dark .topic-icon {
   color: #81c995;
 }
+
+.app.dark .modal-title .material-symbols-outlined {
+  color: var(--primary-color);
+}
+
+.app.dark .modal-title h3 {
+  color: var(--text-color);
+}

@@ -262,7 +262,7 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
 
           {activeTab === 'explore' && (
             <div className="explore-container">
-              <h3 style={{ textAlign: 'center', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
+              <h3 style={{ textAlign: 'center', marginBottom: '1.5rem', color: 'var(--text-color)' }}>
                 Escolha um tema para refletir
               </h3>
               <div className="categories-grid">
@@ -287,7 +287,7 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
             <div className="breathing-container">
               {!breathingActive ? (
                 <>
-                  <h3 style={{ textAlign: 'center', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
+                  <h3 style={{ textAlign: 'center', marginBottom: '1.5rem', color: 'var(--text-color)' }}>
                     Escolha uma técnica de respiração
                   </h3>
                   <div className="breathing-techniques">

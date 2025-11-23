@@ -354,3 +354,24 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.app.dark .explore-container h3 {
+  color: var(--text-color);
+}
+
+.app.dark .breathing-container h3 {
+  color: var(--text-color);
+}
+
+.app.dark .technique-card {
+  background: #2d2e30;
+  border-color: #444746;
+}
+
+.app.dark .technique-card h4 {
+  color: var(--primary-color);
+}
+
+.app.dark .technique-card p {
+  color: var(--text-light);
+}

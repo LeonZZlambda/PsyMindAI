@@ -13,6 +13,24 @@
   animation: slideDown 0.3s cubic-bezier(0.4, 0, 1, 1) forwards;
 }
 
+.modal-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.modal-title h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.modal-title .material-symbols-outlined {
+  color: var(--primary-color);
+  font-size: 28px;
+}
+
 .pomodoro-body {
   display: flex;
   flex-direction: column;
@@ -237,4 +255,12 @@
 
 .app.dark .ai-tip-content p {
   color: #e3e3e3;
+}
+
+.app.dark .modal-title .material-symbols-outlined {
+  color: var(--primary-color);
+}
+
+.app.dark .timer-display {
+  color: var(--text-color);
 }

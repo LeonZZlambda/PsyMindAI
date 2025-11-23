@@ -1262,3 +1262,69 @@ kbd {
 .app.dark .back-btn-icon:hover {
   background-color: rgba(255, 255, 255, 0.05);
 }
+
+.app.dark .image-upload-area {
+  border-color: #444746;
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.app.dark .image-upload-area:hover {
+  border-color: var(--primary-color);
+  background-color: rgba(128, 203, 196, 0.05);
+}
+
+.app.dark .upload-icon {
+  color: var(--text-light);
+}
+
+.app.dark .upload-hint {
+  color: var(--text-light);
+}
+
+.app.dark .analyze-btn:disabled {
+  background-color: #444746;
+  color: #8e918f;
+}
+
+.app.dark .ai-response-card .response-header p {
+  color: var(--text-color);
+}
+
+.app.dark .resource-card {
+  background: #2d2e30;
+  border-color: #444746;
+}
+
+.app.dark .resource-card h4 {
+  color: var(--text-color);
+}
+
+.app.dark .resource-card p {
+  color: var(--text-light);
+}
+
+.app.dark .resource-card .material-symbols-outlined {
+  color: var(--primary-color);
+}
+
+.app.dark .result-card {
+  background: #2d2e30;
+}
+
+.app.dark .result-card h3,
+.app.dark .result-card h4 {
+  color: var(--text-color);
+}
+
+.app.dark .result-card p {
+  color: var(--text-light);
+}
+
+.app.dark .analysis-section h4 {
+  color: var(--text-light);
+}
+
+.app.dark .reframe-box {
+  background: #1e1f20;
+  border-left-color: var(--primary-color);
+}

@@ -1219,4 +1219,16 @@
   background: rgba(255, 255, 255, 0.08);
 }
 
+.app.dark .tool-item .material-symbols-outlined {
+  color: var(--text-light);
+}
+
+.app.dark .input-action-btn {
+  color: var(--text-light);
+}
+
+.app.dark .send-button {
+  color: var(--text-color);
+}
+
 

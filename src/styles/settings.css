@@ -166,6 +166,25 @@
   background: rgba(255, 255, 255, 0.08);
 }
 
+.app.dark .close-btn {
+  color: var(--text-light);
+}
+
+.app.dark .font-size-controls {
+  background: #282a2c;
+}
+
+.app.dark .font-btn {
+  color: var(--text-light);
+}
+
+.app.dark .font-btn.active {
+  background: #3c4043;
+  color: var(--text-color);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  font-weight: 500;
+}
+
 
 
 

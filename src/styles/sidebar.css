@@ -246,6 +246,22 @@
   transform: scale(0.98);
 }
 
+.app.dark .recent-item .material-symbols-outlined {
+  color: var(--text-light);
+}
+
+.app.dark .recent-label {
+  color: var(--text-light);
+}
+
+.app.dark .new-chat-btn .material-symbols-outlined {
+  color: var(--text-light);
+}
+
+.app.dark .new-chat-btn {
+  color: var(--text-color);
+}
+
 
 
 .app.dark .sidebar-item {
@@ -265,4 +281,8 @@
   background-color: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.2);
   color: #e3e3e3;
+}
+
+.app.dark .sidebar-item .material-symbols-outlined {
+  color: var(--text-light);
 }
