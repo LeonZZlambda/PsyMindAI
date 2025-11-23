@@ -669,7 +669,6 @@
 
 /* Gemini Loader Animation */
 .gemini-loader-container {
-  padding: 4px 0;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -702,12 +701,8 @@
 
 .gemini-loader-text {
   font-size: 0.9rem;
-  background: linear-gradient(90deg, #009688, #4285f4, #7c4dff);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  font-weight: 500;
-  animation: gemini-pulse 2s ease-in-out infinite;
+  color: var(--text-light);
+  font-weight: 400;
 }
 
 /* Code Block Styling */

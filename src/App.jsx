@@ -36,8 +36,7 @@ const HelpModal = lazy(() => import('./components/HelpModal'))
 const SupportModal = lazy(() => import('./components/SupportModal'))
 const ReflectionsModal = lazy(() => import('./components/ReflectionsModal'))
 const MoodTrackerModal = lazy(() => import('./components/MoodTrackerModal'))
-const CognitiveAnalysisModal = lazy(() => import('./components/CognitiveAnalysisModal'))
-const ImageGeneratorModal = lazy(() => import('./components/ImageGeneratorModal'))
+
 
 function App() {
   const { isDarkMode, fontSize, reducedMotion, highContrast, colorBlindMode, toggleTheme } = useTheme()
@@ -52,8 +51,7 @@ function App() {
   const [isSupportOpen, setIsSupportOpen] = useState(false)
   const [isReflectionsOpen, setIsReflectionsOpen] = useState(false)
   const [isMoodTrackerOpen, setIsMoodTrackerOpen] = useState(false)
-  const [isCognitiveAnalysisOpen, setIsCognitiveAnalysisOpen] = useState(false)
-  const [isImageGeneratorOpen, setIsImageGeneratorOpen] = useState(false)
+
   const [isNewChatAnimating, setIsNewChatAnimating] = useState(false)
   const [helpInitialTab, setHelpInitialTab] = useState('faq')
   
@@ -183,8 +181,6 @@ function App() {
               isNewChatAnimating={isNewChatAnimating}
               onOpenSettings={() => setIsSettingsOpen(true)}
               onOpenMoodTracker={() => setIsMoodTrackerOpen(true)}
-              onOpenCognitiveAnalysis={() => setIsCognitiveAnalysisOpen(true)}
-              onOpenImageGenerator={() => setIsImageGeneratorOpen(true)}
               onOpenHelp={(tab) => {
                 setHelpInitialTab(tab || 'faq');
                 setIsHelpOpen(true);
@@ -271,19 +267,7 @@ function App() {
             />
           )}
 
-          {isCognitiveAnalysisOpen && (
-            <CognitiveAnalysisModal 
-              isOpen={isCognitiveAnalysisOpen} 
-              onClose={() => setIsCognitiveAnalysisOpen(false)} 
-            />
-          )}
 
-          {isImageGeneratorOpen && (
-            <ImageGeneratorModal 
-              isOpen={isImageGeneratorOpen} 
-              onClose={() => setIsImageGeneratorOpen(false)} 
-            />
-          )}
         </Suspense>
         </div>
       </MotionConfig>
