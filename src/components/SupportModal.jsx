@@ -105,7 +105,7 @@ const SupportModal = ({ isOpen, onClose }) => {
   }, [isOpen]);
 
   // Immediate Support Logic
-  const handleAnalyzeFeeling = () => {
+  const handleAnalyzeFeeling = async () => {
     if (!feelingInput.trim()) return;
     
     setIsAnalyzing(true);
@@ -113,7 +113,45 @@ const SupportModal = ({ isOpen, onClose }) => {
       setIsSmiling(true);
     }
 
-    // Simulate AI analysis
+    try {
+      const { sendMessageToGemini } = await import('../services/gemini');
+      const prompt = `Analise este sentimento: "${feelingInput}". Identifique a emoção principal (ansiedade, tristeza, raiva, etc) e sugira 2 técnicas rápidas de apoio emocional (1 frase cada). Formato: EMOÇÃO: [nome]\nTÉCNICA 1: [título] - [descrição]\nTÉCNICA 2: [título] - [descrição]`;
+      
+      const result = await sendMessageToGemini(prompt, []);
+      
+      if (result.success) {
+        const lines = result.text.split('\n').filter(l => l.trim());
+        const resources = [];
+        
+        lines.forEach(line => {
+          if (line.includes('TÉCNICA')) {
+            const match = line.match(/TÉCNICA \d+: (.+?) - (.+)/);
+            if (match) {
+              resources.push({
+                icon: 'self_improvement',
+                title: match[1].trim(),
+                desc: match[2].trim()
+              });
+            }
+          }
+        });
+        
+        setAiResponse({
+          type: 'general',
+          message: 'Entendo que você esteja passando por isso. Aqui estão alguns recursos que podem ajudar:',
+          resources: resources.length > 0 ? resources : [
+            { icon: 'self_improvement', title: 'Respiração Guiada', desc: 'Técnica 4-7-8 para acalmar' },
+            { icon: 'spa', title: 'Mindfulness', desc: 'Exercício rápido de atenção plena' }
+          ]
+        });
+        setIsAnalyzing(false);
+        setIsSmiling(false);
+        return;
+      }
+    } catch (error) {
+      console.error('AI analysis error:', error);
+    }
+
     setTimeout(() => {
       const input = feelingInput.toLowerCase();
       let response = {
@@ -170,8 +208,30 @@ const SupportModal = ({ isOpen, onClose }) => {
     }
   };
 
-  const analyzeInvestigation = (data) => {
+  const analyzeInvestigation = async (data) => {
     setIsAnalyzing(true);
+    
+    try {
+      const { sendMessageToGemini } = await import('../services/gemini');
+      const prompt = `Analise: Emoção=${data.emotion}, Contexto=${data.context}, Duração=${data.duration}. Forneça: TÍTULO: [nome]\nDESCRIÇÃO: [2 frases]\nCONSELHO: [1 frase prática]`;
+      
+      const result = await sendMessageToGemini(prompt, []);
+      
+      if (result.success) {
+        const lines = result.text.split('\n');
+        const title = lines.find(l => l.includes('TÍTULO'))?.split(':')[1]?.trim() || 'Análise Inicial';
+        const description = lines.find(l => l.includes('DESCRIÇÃO'))?.split(':')[1]?.trim() || 'Com base no que você compartilhou.';
+        const advice = lines.find(l => l.includes('CONSELHO'))?.split(':')[1]?.trim() || 'Recomendamos focar em pequenas pausas.';
+        
+        setInvestigationResult({ title, description, advice });
+        setIsAnalyzing(false);
+        setInvestigationStep(3);
+        return;
+      }
+    } catch (error) {
+      console.error('Investigation error:', error);
+    }
+    
     setTimeout(() => {
       let result = {
         title: 'Análise Inicial',
@@ -316,7 +376,28 @@ const SupportModal = ({ isOpen, onClose }) => {
 
     setIsAnalyzing(true);
     
-    // Simulação de processamento de IA para Reestruturação Cognitiva
+    try {
+      const { sendMessageToGemini } = await import('../services/gemini');
+      const prompt = `Analise este pensamento negativo usando TCC:\nSituação: ${reframingData.situation}\nPensamento: ${reframingData.thought}\n\nForneça:\nDISTORÇÃO: [tipo de distorção cognitiva]\nDESAFIO: [1 frase explicando a distorção]\nALTERNATIVA: [1 frase com perspectiva alternativa]\nREFORMULAÇÃO: [novo pensamento equilibrado]`;
+      
+      const result = await sendMessageToGemini(prompt, []);
+      
+      if (result.success) {
+        const lines = result.text.split('\n');
+        const distortion = lines.find(l => l.includes('DISTORÇÃO'))?.split(':')[1]?.trim() || 'Distorção Cognitiva';
+        const challenge = lines.find(l => l.includes('DESAFIO'))?.split(':')[1]?.trim() || 'Você está interpretando a situação de forma negativa.';
+        const alternative = lines.find(l => l.includes('ALTERNATIVA'))?.split(':')[1]?.trim() || 'Tente ver a situação de outra perspectiva.';
+        const reframe = lines.find(l => l.includes('REFORMULAÇÃO'))?.split(':')[1]?.trim() || `Embora ${reframingData.situation}, isso não define quem eu sou.`;
+        
+        setReframingResult({ distortion, challenge, alternative, reframe });
+        setReframingStep(2);
+        setIsAnalyzing(false);
+        return;
+      }
+    } catch (error) {
+      console.error('Reframing error:', error);
+    }
+    
     setTimeout(() => {
       const situation = reframingData.situation.toLowerCase();
       const thought = reframingData.thought.toLowerCase();
