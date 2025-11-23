@@ -136,6 +136,35 @@
   color: #202124;
 }
 
+/* Category Header Colors */
+.category-header-small.category-international {
+  background: linear-gradient(135deg, #4285f4, #1967d2);
+}
+
+.category-header-small.category-national {
+  background: linear-gradient(135deg, #34a853, #188038);
+}
+
+.category-header-small.category-regional {
+  background: linear-gradient(135deg, #fbbc04, #e37400);
+}
+
+.category-header-small.category-olympiads {
+  background: linear-gradient(135deg, #ea4335, #c5221f);
+}
+
+/* White text/icon for colored headers */
+.category-header-small.category-international h3,
+.category-header-small.category-international .material-symbols-outlined,
+.category-header-small.category-national h3,
+.category-header-small.category-national .material-symbols-outlined,
+.category-header-small.category-regional h3,
+.category-header-small.category-regional .material-symbols-outlined,
+.category-header-small.category-olympiads h3,
+.category-header-small.category-olympiads .material-symbols-outlined {
+  color: #fff;
+}
+
 .exams-list {
   display: flex;
   flex-direction: column;
@@ -519,435 +548,33 @@
   color: #e3e3e3;
 }
 
-/* Calculator Styles */
-.enem-calculator {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  padding: 8px;
+/* Force colored headers in Dark Mode */
+.app.dark .category-header-small.category-international {
+  background: linear-gradient(135deg, #4285f4, #1967d2);
 }
 
-.calc-inputs {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
+.app.dark .category-header-small.category-national {
+  background: linear-gradient(135deg, #34a853, #188038);
 }
 
-.calc-extra-inputs {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-top: 8px;
+.app.dark .category-header-small.category-regional {
+  background: linear-gradient(135deg, #fbbc04, #e37400);
 }
 
-/* Material Design Input Group */
-.md-input-group {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  margin-top: 8px;
+.app.dark .category-header-small.category-olympiads {
+  background: linear-gradient(135deg, #ea4335, #c5221f);
 }
 
-.md-input-group.full-width {
-  grid-column: 1 / -1;
-  width: 100%;
-}
-
-.md-input-group input,
-.md-input-group select {
-  padding: 13px 15px;
-  border: 1px solid #dadce0;
-  border-radius: 4px;
-  font-size: 1rem;
-  color: #202124;
-  background: transparent;
-  transition: border-color 0.2s;
-  width: 100%;
-  box-sizing: border-box;
-  height: 48px;
-}
-
-.md-input-group select {
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23202124%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
-  background-repeat: no-repeat;
-  background-position: right 12px top 50%;
-  background-size: 12px auto;
-  cursor: pointer;
-}
-
-.md-input-group label {
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: #fff;
-  padding: 0 4px;
-  font-size: 1rem;
-  color: #5f6368;
-  pointer-events: none;
-  transition: all 0.2s ease;
-  z-index: 1;
-}
-
-/* Floating Label Logic */
-.md-input-group input:focus,
-.md-input-group input:not(:placeholder-shown),
-.md-input-group select:focus {
-  border-color: #1a73e8;
-  border-width: 2px;
-  padding: 12px 14px; /* Adjust for border width change */
-}
-
-.md-input-group input:focus + label,
-.md-input-group input:not(:placeholder-shown) + label,
-.md-input-group select:focus + label,
-.md-input-group select + label {
-  top: 0;
-  font-size: 0.75rem;
-  color: #1a73e8;
-  font-weight: 500;
-}
-
-/* Select label always floats if it has a value (which it usually does) */
-.md-input-group select + label {
-  top: 0;
-  font-size: 0.75rem;
-  color: #5f6368;
-}
-
-.md-input-group select:focus + label {
-  color: #1a73e8;
-}
-
-.calc-actions {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  margin-top: 16px;
-  width: 100%;
-}
-
-.calc-btn {
-  background: #1a73e8;
-  color: #fff;
-  border: none;
-  padding: 0 24px;
-  height: 48px;
-  border-radius: 24px;
-  font-weight: 500;
-  font-size: 0.875rem;
-  letter-spacing: 0.25px;
-  cursor: pointer;
-  transition: all 0.2s;
-  flex: 1;
-  max-width: 240px;
-  text-transform: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.calc-btn:hover {
-  background: #1557b0;
-  box-shadow: 0 1px 3px 1px rgba(0,0,0,0.15);
-}
-
-.calc-btn.secondary {
-  background: transparent;
-  color: #1a73e8;
-  border: 1px solid #dadce0;
-}
-
-.calc-btn.secondary:hover {
-  background: #f8f9fa;
-  border-color: #1a73e8;
-  box-shadow: none;
-}
-
-.calc-result {
-  background: #e8f0fe;
-  border-radius: 12px;
-  padding: 24px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  animation: fadeIn 0.3s ease-out;
-  border: 1px solid transparent;
-}
-
-.calc-result .label {
-  font-size: 0.875rem;
-  color: #1967d2;
-  font-weight: 500;
-  letter-spacing: 0.25px;
-}
-
-.calc-result .value {
-  font-size: 2.25rem;
-  font-weight: 400;
-  color: #1967d2;
-}
-
-.calc-result .note {
-  font-size: 0.75rem;
-  color: #5f6368;
-  margin-top: 8px;
-  max-width: 90%;
-  line-height: 1.5;
-}
-
-/* Dark Mode Calculator */
-.app.dark .md-input-group input,
-.app.dark .md-input-group select {
-  border-color: #5f6368;
-  color: #e3e3e3;
-}
-
-.app.dark .md-input-group label {
-  background: #1e1f20;
-  color: #c4c7c5;
-}
-
-.app.dark .md-input-group select {
-  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23e3e3e3%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
-}
-
-.app.dark .md-input-group input:focus,
-.app.dark .md-input-group select:focus {
-  border-color: #8ab4f8;
-}
-
-.app.dark .md-input-group input:focus + label,
-.app.dark .md-input-group input:not(:placeholder-shown) + label,
-.app.dark .md-input-group select:focus + label {
-  color: #8ab4f8;
-}
-
-.app.dark .calc-btn {
-  background: #8ab4f8;
-  color: #202124;
-}
-
-.app.dark .calc-btn:hover {
-  background: #aecbfa;
-}
-
-.app.dark .calc-btn.secondary {
-  color: #8ab4f8;
-  border-color: #5f6368;
-  background: transparent;
-}
-
-.app.dark .calc-btn.secondary:hover {
-  background: #3c4043;
-  border-color: #8ab4f8;
-}
-
-.app.dark .calc-result {
-  background: #1e2a3b;
-  border-color: #444746;
-}
-
-.app.dark .calc-result .label {
-  color: #d3e3fd;
-}
-
-.app.dark .calc-result .value {
-  color: #a8c7fa;
-}
-
-.app.dark .calc-result .note {
-  color: #c4c7c5;
-}
-
-/* Checkbox Styles */
-.checkbox-group {
-  grid-column: 1 / -1;
-  margin-top: 8px;
-}
-
-.checkbox-container {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  cursor: pointer;
-  user-select: none;
-  padding: 8px 0;
-}
-
-.checkbox-container input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-.checkmark {
-  height: 20px;
-  width: 20px;
-  background-color: #fff;
-  border: 2px solid #5f6368;
-  border-radius: 4px;
-  position: relative;
-  transition: all 0.2s;
-}
-
-.checkbox-container:hover .checkmark {
-  border-color: #202124;
-  background-color: #f1f3f4;
-}
-
-.checkbox-container input:checked ~ .checkmark {
-  background-color: #1a73e8;
-  border-color: #1a73e8;
-}
-
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-
-.checkbox-container input:checked ~ .checkmark:after {
-  display: block;
-}
-
-.checkbox-container .checkmark:after {
-  left: 6px;
-  top: 2px;
-  width: 5px;
-  height: 10px;
-  border: solid white;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-}
-
-.checkbox-label {
-  font-size: 0.9rem;
-  color: #202124;
-  font-weight: 500;
-}
-
-/* Warning Box */
-.warning-box {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: #fce8e6;
-  color: #c5221f;
-  padding: 12px 16px;
-  border-radius: 8px;
-  margin: 12px 0;
-  text-align: left;
-  border: 1px solid #fad2cf;
-}
-
-.warning-box .material-symbols-outlined {
-  font-size: 24px;
-}
-
-.warning-box p {
-  margin: 0;
-  font-size: 0.85rem;
-  line-height: 1.4;
-}
-
-/* Dark Mode Updates */
-.app.dark .checkbox-label {
-  color: #e3e3e3;
-}
-
-.app.dark .checkmark {
-  background-color: #2d2e30;
-  border-color: #c4c7c5;
-}
-
-.app.dark .checkbox-container:hover .checkmark {
-  background-color: #3c4043;
-  border-color: #e3e3e3;
-}
-
-.app.dark .checkbox-container input:checked ~ .checkmark {
-  background-color: #8ab4f8;
-  border-color: #8ab4f8;
-}
-
-.app.dark .checkbox-container input:checked ~ .checkmark:after {
-  border-color: #202124;
-}
-
-.app.dark .warning-box {
-  background: #392020; /* Dark red background */
-  color: #f28b82; /* Light red text */
-  border-color: #5c2b29;
-}
-
-/* TRI Range Display */
-.tri-result-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
-
-.tri-range-display {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  font-size: 2.25rem;
-  font-weight: 400;
-  color: #1967d2;
-}
-
-.range-sep {
-  font-size: 1.25rem;
-  color: #5f6368;
-  font-weight: 500;
-}
-
-.tri-avg-label {
-  font-size: 0.9rem;
-  color: #5f6368;
-  font-weight: 500;
-}
-
-.app.dark .tri-range-display {
-  color: #a8c7fa;
-}
-
-.app.dark .range-sep,
-.app.dark .tri-avg-label {
-  color: #c4c7c5;
-}
-
-/* IB Specific Subjects */
-/* Literature - Deep Blue */
-.subject-literature .subject-icon-wrapper {
-  background: #304ffe;
+.app.dark .category-header-small.category-international h3,
+.app.dark .category-header-small.category-international .material-symbols-outlined,
+.app.dark .category-header-small.category-national h3,
+.app.dark .category-header-small.category-national .material-symbols-outlined,
+.app.dark .category-header-small.category-regional h3,
+.app.dark .category-header-small.category-regional .material-symbols-outlined,
+.app.dark .category-header-small.category-olympiads h3,
+.app.dark .category-header-small.category-olympiads .material-symbols-outlined {
   color: #fff;
 }
-.subject-literature:hover .subject-icon-wrapper {
-  background: #1a237e;
-}
-
-/* Humanities - Teal/Brown Mix */
-.subject-humanities .subject-icon-wrapper {
-  background: #00796b;
-  color: #fff;
-}
-.subject-humanities:hover .subject-icon-wrapper {
-  background: #004d40;
-}
-
-.app.dark .subject-literature .subject-icon-wrapper { background: #536dfe; color: #fff; }
-.app.dark .subject-literature:hover .subject-icon-wrapper { background: #304ffe; }
-
-.app.dark .subject-humanities .subject-icon-wrapper { background: #26a69a; color: #fff; }
-.app.dark .subject-humanities:hover .subject-icon-wrapper { background: #00796b; }
 
 @media (max-width: 600px) {
   .exams-categories-grid {
