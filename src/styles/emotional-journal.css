@@ -1,0 +1,171 @@
+.emotional-journal-modal {
+  background: var(--card-background);
+  border-radius: 16px;
+  width: 90%;
+  max-width: 700px;
+  max-height: 85vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.journal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.journal-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.journal-title h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.journal-description {
+  padding: 1rem 1.5rem;
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-light);
+  background: rgba(156, 39, 176, 0.05);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.journal-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+}
+
+.journal-questions {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.journal-question-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.journal-question {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--text-color);
+}
+
+.journal-textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--background-color);
+  color: var(--text-color);
+  font-family: inherit;
+  font-size: 0.9rem;
+  resize: vertical;
+  min-height: 60px;
+  transition: border-color 0.2s;
+}
+
+.journal-textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.journal-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.journal-history {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.journal-entry {
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+.entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.entry-date {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+.entry-responses {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.entry-response {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.response-question {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.response-question strong {
+  color: var(--text-color);
+}
+
+.response-text {
+  margin: 0;
+  padding-left: 2rem;
+  color: var(--text-light);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .emotional-journal-modal {
+    width: 95%;
+    max-height: 90vh;
+  }
+
+  .journal-header {
+    padding: 1rem;
+  }
+
+  .journal-content {
+    padding: 1rem;
+  }
+
+  .journal-questions {
+    gap: 1.25rem;
+  }
+}

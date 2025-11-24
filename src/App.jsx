@@ -20,6 +20,7 @@ import './styles/contribute.css'
 import './styles/exams.css'
 import './styles/landing.css'
 import './styles/accessibility.css'
+import './styles/emotional-journal.css'
 import Sidebar from './components/Sidebar'
 import Header from './components/Header'
 import ChatPage from './pages/ChatPage'
@@ -36,6 +37,7 @@ const HelpModal = lazy(() => import('./components/HelpModal'))
 const SupportModal = lazy(() => import('./components/SupportModal'))
 const ReflectionsModal = lazy(() => import('./components/ReflectionsModal'))
 const MoodTrackerModal = lazy(() => import('./components/MoodTrackerModal'))
+const EmotionalJournalModal = lazy(() => import('./components/EmotionalJournalModal'))
 
 
 function App() {
@@ -51,6 +53,7 @@ function App() {
   const [isSupportOpen, setIsSupportOpen] = useState(false)
   const [isReflectionsOpen, setIsReflectionsOpen] = useState(false)
   const [isMoodTrackerOpen, setIsMoodTrackerOpen] = useState(false)
+  const [isEmotionalJournalOpen, setIsEmotionalJournalOpen] = useState(false)
 
   const [isNewChatAnimating, setIsNewChatAnimating] = useState(false)
   const [helpInitialTab, setHelpInitialTab] = useState('faq')
@@ -181,6 +184,7 @@ function App() {
               isNewChatAnimating={isNewChatAnimating}
               onOpenSettings={() => setIsSettingsOpen(true)}
               onOpenMoodTracker={() => setIsMoodTrackerOpen(true)}
+              onOpenEmotionalJournal={() => setIsEmotionalJournalOpen(true)}
               onOpenHelp={(tab) => {
                 setHelpInitialTab(tab || 'faq');
                 setIsHelpOpen(true);
@@ -267,7 +271,12 @@ function App() {
             />
           )}
 
-
+          {isEmotionalJournalOpen && (
+            <EmotionalJournalModal 
+              isOpen={isEmotionalJournalOpen} 
+              onClose={() => setIsEmotionalJournalOpen(false)} 
+            />
+          )}
         </Suspense>
         </div>
       </MotionConfig>
