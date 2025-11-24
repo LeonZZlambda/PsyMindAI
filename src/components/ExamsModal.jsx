@@ -63,21 +63,43 @@ const EnemCalculator = ({ onClose }) => {
     setResult({ type: 'simple', value: avg });
 
     if (desiredCourse) {
-      const prompt = `Realize uma análise de viabilidade para o SiSU/ProUni com os seguintes dados:
-    
-Notas do ENEM:
-- Linguagens: ${scores.linguagens}
-- Ciências Humanas: ${scores.humanas}
-- Ciências da Natureza: ${scores.natureza}
-- Matemática: ${scores.matematica}
-- Redação: ${scores.redacao}
+      const prompt = `🎓 ANÁLISE DE VIABILIDADE SISU/PROUNI
 
-Média Simples Calculada: ${avg}
+📊 MINHAS NOTAS DO ENEM:
+• Linguagens: ${scores.linguagens}
+• Ciências Humanas: ${scores.humanas}
+• Ciências da Natureza: ${scores.natureza}
+• Matemática: ${scores.matematica}
+• Redação: ${scores.redacao}
 
-Curso Almejado: ${desiredCourse}
-Modalidade de Concorrência: ${category}
+📈 Média Simples: ${avg}
 
-Com base nas notas de corte recentes (2023/2024), liste quais universidades (Federais/Estaduais) eu teria chance de passar e quais seriam "arriscadas". Se possível, mencione os pesos comuns para este curso.`;
+🎯 OBJETIVO:
+• Curso: ${desiredCourse}
+• Modalidade: ${category}
+
+Por favor, me ajude com:
+
+1. 🏛️ UNIVERSIDADES VIÁVEIS
+   - Liste universidades federais/estaduais onde tenho BOA chance
+   - Mencione as notas de corte recentes (2023/2024)
+
+2. ⚠️ OPÇÕES ARRISCADAS
+   - Universidades onde seria mais difícil, mas possível
+
+3. ⚖️ SISTEMA DE PESOS
+   - Como ${desiredCourse} costuma pesar as áreas?
+   - Qual minha nota ponderada estimada?
+
+4. 💡 ESTRATÉGIAS
+   - Devo focar em melhorar alguma área específica?
+   - Dicas para escolha de cursos no SiSU
+
+5. 🧠 APOIO EMOCIONAL
+   - Como lidar com a ansiedade da espera?
+   - Mensagem motivacional personalizada
+
+Seja realista mas encorajador! 💪`;
       
       sendMessage(prompt);
       onClose();
@@ -129,22 +151,11 @@ Com base nas notas de corte recentes (2023/2024), liste quais universidades (Fed
     });
 
     if (desiredCourse) {
-        const prompt = `Realize uma análise de viabilidade para o SiSU/ProUni com base na quantidade de acertos (TRI Estimado):
-
-Acertos e Estimativas TRI:
-- Linguagens: ${correctAnswers.linguagens}/45 (Est: ${triLinguagens.min}-${triLinguagens.max})
-- Humanas: ${correctAnswers.humanas}/45 (Est: ${triHumanas.min}-${triHumanas.max})
-- Natureza: ${correctAnswers.natureza}/45 (Est: ${triNatureza.min}-${triNatureza.max})
-- Matemática: ${correctAnswers.matematica}/45 (Est: ${triMatematica.min}-${triMatematica.max})
-${ignoreRedacao ? '- Nota Redação: NÃO INFORMADA (Ignorada no cálculo)' : `- Nota Redação: ${correctAnswers.redacao}`}
-
-Média Estimada (Intervalo): ${totalMin.toFixed(2)} a ${totalMax.toFixed(2)}
-${ignoreRedacao ? '(Considerando apenas as 4 áreas objetivas)' : ''}
-
-Curso Almejado: ${desiredCourse}
-Modalidade: ${category}
-
-Por favor, analise as chances de aprovação considerando esse intervalo de notas (pessimista e otimista). ${ignoreRedacao ? 'Considere que a nota da redação ainda não saiu.' : ''}`;
+        const redacaoInfo = ignoreRedacao ? '⚠️ Redação: AINDA NÃO DIVULGADA (excluída do cálculo)' : '• Redação: ' + correctAnswers.redacao + ' pontos';
+        const observacao = ignoreRedacao ? '\n💡 (Cálculo baseado apenas nas 4 áreas objetivas)' : '';
+        const impactoRedacao = ignoreRedacao ? '   - Como a nota da redação pode impactar minhas chances?' : '';
+        
+        const prompt = '🎯 ANÁLISE TRI - ESTIMATIVA DE DESEMPENHO\n\n📝 MEUS ACERTOS:\n• Linguagens: ' + correctAnswers.linguagens + '/45 questões\n  📉 Nota estimada: ' + triLinguagens.min + ' - ' + triLinguagens.max + ' pontos\n  \n• Humanas: ' + correctAnswers.humanas + '/45 questões\n  📉 Nota estimada: ' + triHumanas.min + ' - ' + triHumanas.max + ' pontos\n  \n• Natureza: ' + correctAnswers.natureza + '/45 questões\n  📉 Nota estimada: ' + triNatureza.min + ' - ' + triNatureza.max + ' pontos\n  \n• Matemática: ' + correctAnswers.matematica + '/45 questões\n  📉 Nota estimada: ' + triMatematica.min + ' - ' + triMatematica.max + ' pontos\n\n' + redacaoInfo + '\n\n📊 MÉDIA ESTIMADA:\n• Cenário pessimista: ' + totalMin.toFixed(2) + '\n• Cenário otimista: ' + totalMax.toFixed(2) + '\n• Média provável: ~' + totalAvg.toFixed(2) + observacao + '\n\n🎯 MEU OBJETIVO:\n• Curso: ' + desiredCourse + '\n• Modalidade: ' + category + '\n\nPreciso de uma análise completa:\n\n1. 🏛️ CHANCES REAIS\n   - Considerando o intervalo de notas, quais universidades são viáveis?\n   - Compare com notas de corte 2023/2024\n' + impactoRedacao + '\n\n2. 📈 ANÁLISE POR ÁREA\n   - Em quais áreas fui bem?\n   - Onde posso melhorar se fizer novamente?\n\n3. ⚖️ PESOS E ESTRATÉGIA\n   - Como ' + desiredCourse + ' pondera as áreas?\n   - Minhas áreas fortes favorecem este curso?\n\n4. 🔄 PLANO B\n   - Cursos alternativos que combinam com meu perfil de notas\n   - Opções em universidades próximas\n\n5. 💪 APOIO PSICOLÓGICO\n   - Como lidar com a incerteza da estimativa TRI?\n   - Dicas para manter a calma até o resultado oficial\n   - Mensagem motivacional baseada no meu desempenho\n\nSeja honesto sobre as chances, mas também encorajador! 🌟';
         sendMessage(prompt);
         onClose();
     }
@@ -673,6 +684,7 @@ const getTopicsForSubject = (subjectName, examName) => {
 };
 
 const ExamsModal = ({ isOpen, onClose }) => {
+  const { sendMessage } = useChat();
   const [isClosing, setIsClosing] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedExam, setSelectedExam] = useState(null);
@@ -1009,11 +1021,104 @@ const ExamsModal = ({ isOpen, onClose }) => {
                 <p>Matriz de Referência e Conteúdos</p>
               </div>
 
+              <div className="exam-ai-actions">
+                <button 
+                  className="ai-action-btn primary"
+                  onClick={() => {
+                    const topics = getTopicsForSubject(selectedSubject, selectedExam?.name);
+                    const prompt = `Crie um plano de estudos completo para ${selectedExam.name} - ${selectedSubject}:
+
+📚 TÓPICOS:
+${topics.map((t, i) => `${i + 1}. ${t}`).join('\n')}
+
+Por favor, forneça:
+1. Ordem ideal de estudo
+2. Tempo sugerido para cada tópico
+3. Técnicas de estudo específicas
+4. Recursos recomendados
+5. Como esse conteúdo aparece nas provas
+6. Dicas para fixação e revisão
+
+Seja prático e motivador! 💪`;
+                    sendMessage(prompt);
+                    onClose();
+                  }}
+                >
+                  <span className="material-symbols-outlined">auto_awesome</span>
+                  Criar Plano de Estudos com IA
+                </button>
+                
+                <button 
+                  className="ai-action-btn secondary"
+                  onClick={() => {
+                    const prompt = `Analise a estratégia de preparação para ${selectedExam.name} - ${selectedSubject}:
+
+🎯 Como devo priorizar meus estudos?
+📊 Quais são os tópicos que mais caem?
+⚡ Técnicas de resolução rápida
+🧠 Como lidar com ansiedade pré-prova
+📝 Dicas de gestão de tempo durante o exame
+
+Dê conselhos práticos e motivadores!`;
+                    sendMessage(prompt);
+                    onClose();
+                  }}
+                >
+                  <span className="material-symbols-outlined">psychology</span>
+                  Estratégia de Prova
+                </button>
+              </div>
+
               <div className="topics-list">
                 {getTopicsForSubject(selectedSubject, selectedExam?.name).map((topic, index) => (
                   <div key={index} className="topic-item">
                     <span className="material-symbols-outlined topic-icon">check_circle</span>
                     <span className="topic-text">{topic}</span>
+                    <div className="topic-actions">
+                      <button 
+                        className="topic-action-btn"
+                        onClick={() => {
+                          const prompt = `Explique de forma clara e didática o seguinte tópico de ${selectedSubject} para ${selectedExam.name}:
+
+📌 ${topic}
+
+Incluindo:
+1. Conceitos fundamentais
+2. Exemplos práticos
+3. Como aparece nas provas
+4. Dicas de memorização
+5. Erros comuns a evitar
+
+Use linguagem acessível! 📚`;
+                          sendMessage(prompt);
+                          onClose();
+                        }}
+                        title="Explicar tópico"
+                      >
+                        <span className="material-symbols-outlined">school</span>
+                      </button>
+                      <button 
+                        className="topic-action-btn"
+                        onClick={() => {
+                          const prompt = `Crie questões de prática para ${selectedExam.name} sobre:
+
+📝 ${topic} (${selectedSubject})
+
+Gere:
+1. 3 questões no estilo do exame (fácil, média, difícil)
+2. Gabarito comentado
+3. Explicação dos conceitos
+4. Dicas para questões similares
+
+Formato múltipla escolha quando aplicável! ✍️`;
+                          sendMessage(prompt);
+                          onClose();
+                        }}
+                        title="Gerar questões"
+                      >
+                        <span className="material-symbols-outlined">quiz</span>
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>

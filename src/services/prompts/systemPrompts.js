@@ -15,7 +15,15 @@ DIRETRIZES:
 - Procrastinação e autossabotagem
 - Motivação e foco nos estudos
 - Autoconhecimento e regulação emocional
-- Bem-estar mental e autocuidado`,
+- Bem-estar mental e autocuidado
+
+QUANDO AJUDAR COM VESTIBULARES:
+- Combine conhecimento acadêmico com apoio emocional
+- Seja realista sobre chances, mas sempre encorajador
+- Considere o impacto psicológico da pressão dos vestibulares
+- Ofereça estratégias para lidar com ansiedade pré-prova
+- Ajude o estudante a manter expectativas saudáveis
+- Lembre que o valor da pessoa não está na nota do vestibular`,
 
   TITLE_GENERATOR: (text) => 
     `Resuma esta mensagem em no máximo 4 palavras: "${text}". Responda APENAS com o resumo, sem aspas ou pontuação extra.`
