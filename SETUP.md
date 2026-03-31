@@ -41,10 +41,13 @@ Se a API Key não estiver configurada, o sistema funcionará em **modo demonstra
 
 ## Funcionalidades Integradas com Gemini
 
-✅ **Chat Inteligente** - Conversas contextualizadas com memória de histórico
-✅ **Prompt Engineering** - Sistema de instruções desenvolvido com NotebookLM
-✅ **Personalidade Otimizada** - Tom empático calibrado via Gemini Gems
-✅ **Respostas Científicas** - Baseadas em psicologia educacional
+✅ **Chat Inteligente** - Conversas contextualizadas com memória de histórico.
+
+✅ **Prompt Engineering** - Sistema de instruções desenvolvido com NotebookLM.
+
+✅ **Personalidade Otimizada** - Tom empático calibrado via Gemini Gems.
+
+✅ **Respostas Científicas** - Baseadas em psicologia educacional.
 
 ## Tecnologias Google Utilizadas
 
