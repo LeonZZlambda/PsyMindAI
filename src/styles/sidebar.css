@@ -1,7 +1,6 @@
 .sidebar {
-  width: 280px;
+  width: 300px;
   background: var(--secondary-color);
-  border-right: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
   padding: 1rem;
@@ -21,7 +20,7 @@
 
 /* Prevent content squashing during animation */
 .sidebar > * {
-  min-width: 248px;
+  min-width: 268px;
   opacity: 1;
   transition: opacity 0.15s ease-out;
 }

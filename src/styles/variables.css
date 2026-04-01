@@ -1,55 +1,60 @@
+/* Global Styles */
 :root {
-  --primary-color: #6366f1;
-  --primary-hover: #4f46e5;
-  --primary-subtle: rgba(99, 102, 241, 0.08);
-
-  --secondary-color: #f4f4f5;
-
-  --text-color: #09090b;
-  --text-light: #71717a;
-  --text-muted: #a1a1aa;
-
-  --background-color: #ffffff;
-  --background-dark: #09090b;
-  --card-background: #ffffff;
-
-  --border-color: #e4e4e7;
-  --border-subtle: #f4f4f5;
-  --shadow-color: rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.08);
-
-  --gradient-start: #6366f1;
-  --gradient-mid: #8b5cf6;
-  --gradient-end: #a78bfa;
-
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
-  --radius-full: 9999px;
+  /* Psychology & Studies Theme - Google Material Inspired */
+  
+  /* Primary: Teal 700 - Focus, Calm, Growth */
+  --primary-color: #00796B;
+  /* Primary Hover: Teal 800 */
+  --primary-hover: #00695C;
+  
+  /* Secondary: Light Blue/Grey - Clarity */
+  --secondary-color: #F1F3F4; /* Google Grey 100 */
+  
+  /* Text: High Contrast */
+  --text-color: #202124; /* Google Grey 900 */
+  --text-light: #5F6368; /* Google Grey 700 */
+  
+  /* Backgrounds */
+  --background-color: #FFFFFF;
+  --background-dark: #202124;
+  --card-background: #FFFFFF; /* Clean cards */
+  
+  /* Borders & Shadows */
+  --border-color: #DADCE0; /* Google Grey 300 */
+  --shadow-color: rgba(60, 64, 67, 0.3); /* Material Shadow */
+  
+  /* Gradients: Brain/Mind (Teal -> Indigo) */
+  --gradient-start: #00796B;
+  --gradient-mid: #1976D2;
+  --gradient-end: #512DA8; /* Deep Purple */
 }
 
 .app.dark {
-  --primary-color: #818cf8;
-  --primary-hover: #6366f1;
-  --primary-subtle: rgba(129, 140, 248, 0.1);
-
-  --secondary-color: #18181b;
-
-  --text-color: #fafafa;
-  --text-light: #a1a1aa;
-  --text-muted: #52525b;
-
-  --background-color: #09090b;
+  /* Dark Mode Overrides */
+  
+  /* Primary: Teal 200 - Better visibility on dark */
+  --primary-color: #80CBC4;
+  /* Primary Hover: Teal 300 */
+  --primary-hover: #4DB6AC;
+  
+  /* Secondary: Dark Grey - Surface */
+  --secondary-color: #303134; /* Google Grey 800 */
+  
+  /* Text: High Contrast Light */
+  --text-color: #E8EAED; /* Google Grey 100 */
+  --text-light: #BDC1C6; /* Google Grey 400 */
+  
+  /* Backgrounds */
+  --background-color: #202124; /* Google Grey 900 */
   --background-dark: #000000;
-  --card-background: #18181b;
-
-  --border-color: #27272a;
-  --border-subtle: #18181b;
-  --shadow-color: rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.3);
-
-  --gradient-start: #818cf8;
-  --gradient-mid: #a78bfa;
-  --gradient-end: #c4b5fd;
+  --card-background: #303134; /* Google Grey 800 */
+  
+  /* Borders & Shadows */
+  --border-color: #5F6368; /* Google Grey 700 */
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  
+  /* Gradients: Adjusted for Dark Mode */
+  --gradient-start: #80CBC4;
+  --gradient-mid: #4285F4; /* Google Blue 500 */
+  --gradient-end: #B39DDB; /* Deep Purple 200 */
 }

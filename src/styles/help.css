@@ -155,31 +155,43 @@
 /* Modal Tabs */
 .modal-tabs {
   display: flex;
-  gap: 0.25rem;
+  gap: 1rem;
   margin-right: auto;
 }
 
 .tab-btn {
   background: none;
   border: none;
-  padding: 0.4rem 0.875rem;
-  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
   font-weight: 500;
   color: var(--text-light);
   cursor: pointer;
-  border-radius: var(--radius-full);
-  transition: background 0.15s, color 0.15s;
-  font-family: inherit;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.app.dark .tab-btn {
+  color: #c4c7c5;
 }
 
 .tab-btn:hover {
-  background: var(--secondary-color);
-  color: var(--text-color);
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 4px 4px 0 0;
+}
+
+.app.dark .tab-btn:hover {
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 .tab-btn.active {
-  background: var(--primary-subtle);
   color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+}
+
+.app.dark .tab-btn.active {
+  color: #a8c7fa;
+  border-bottom-color: #a8c7fa;
 }
 
 /* Feedback Section */

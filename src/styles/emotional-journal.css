@@ -1,57 +1,45 @@
-/* Emotional Journal Modal */
-
 .emotional-journal-modal {
   background: var(--card-background);
-  border-radius: var(--radius-xl);
+  border-radius: 16px;
   width: 90%;
-  max-width: 680px;
+  max-width: 700px;
   max-height: 85vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  box-shadow: var(--shadow-md), 0 0 0 1px var(--border-color);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .journal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.25rem 1.5rem;
+  padding: 1.5rem;
   border-bottom: 1px solid var(--border-color);
-  flex-shrink: 0;
 }
 
 .journal-title {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-}
-
-.journal-title .material-symbols-outlined {
-  font-size: 20px;
-  color: var(--primary-color);
+  gap: 0.75rem;
 }
 
 .journal-title h3 {
   margin: 0;
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.25rem;
+  font-weight: 500;
   color: var(--text-color);
-  letter-spacing: -0.02em;
 }
 
 .journal-description {
-  padding: 0.875rem 1.5rem;
+  padding: 1rem 1.5rem;
   margin: 0;
-  font-size: 0.825rem;
+  font-size: 0.9rem;
   color: var(--text-light);
-  line-height: 1.55;
+  background: rgba(156, 39, 176, 0.05);
   border-bottom: 1px solid var(--border-color);
-  background: var(--secondary-color);
-  flex-shrink: 0;
 }
 
-/* Tabs — reutiliza .pomodoro-modes do modal de pomodoro */
 .journal-content {
   flex: 1;
   overflow-y: auto;
@@ -61,7 +49,7 @@
 .journal-questions {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.5rem;
 }
 
 .journal-question-block {
@@ -75,37 +63,27 @@
   align-items: center;
   gap: 0.5rem;
   font-weight: 500;
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   color: var(--text-color);
-}
-
-.journal-question .material-symbols-outlined {
-  font-size: 18px;
 }
 
 .journal-textarea {
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem;
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
+  border-radius: 8px;
   background: var(--background-color);
   color: var(--text-color);
   font-family: inherit;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   resize: vertical;
-  min-height: 72px;
-  transition: border-color 0.15s, box-shadow 0.15s;
-  line-height: 1.55;
-}
-
-.journal-textarea::placeholder {
-  color: var(--text-muted);
+  min-height: 60px;
+  transition: border-color 0.2s;
 }
 
 .journal-textarea:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px var(--primary-subtle);
 }
 
 .journal-actions {
@@ -114,55 +92,17 @@
   justify-content: flex-end;
 }
 
-/* Save button — extends .cta-btn style */
-.journal-actions .primary-btn {
-  background: var(--primary-color);
-  color: #fff;
-  border: none;
-  padding: 0.6rem 1.5rem;
-  border-radius: var(--radius-full);
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  font-family: inherit;
-  transition: background 0.15s, transform 0.15s;
-}
-
-.journal-actions .primary-btn:hover:not(:disabled) {
-  background: var(--primary-hover);
-  transform: translateY(-1px);
-}
-
-.journal-actions .primary-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-  transform: none;
-}
-
-/* History */
 .journal-history {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-}
-
-.empty-state {
-  text-align: center;
-  color: var(--text-muted);
-  font-size: 0.875rem;
-  padding: 2.5rem 0;
+  gap: 1.5rem;
 }
 
 .journal-entry {
   background: var(--background-color);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
+  border-radius: 12px;
   padding: 1.25rem;
-  transition: border-color 0.15s;
-}
-
-.journal-entry:hover {
-  border-color: var(--primary-color);
 }
 
 .entry-header {
@@ -175,91 +115,40 @@
 }
 
 .entry-date {
-  font-size: 0.75rem;
-  color: var(--text-muted);
+  font-size: 0.85rem;
+  color: var(--text-light);
   font-weight: 500;
-  letter-spacing: 0.01em;
-}
-
-.delete-entry-btn {
-  background: transparent;
-  border: none;
-  color: var(--text-muted);
-  cursor: pointer;
-  padding: 4px;
-  border-radius: var(--radius-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.15s, color 0.15s;
-}
-
-.delete-entry-btn:hover {
-  background: rgba(239, 68, 68, 0.08);
-  color: #ef4444;
-}
-
-.delete-entry-btn .material-symbols-outlined {
-  font-size: 18px;
 }
 
 .entry-responses {
   display: flex;
   flex-direction: column;
-  gap: 0.875rem;
+  gap: 1rem;
 }
 
 .entry-response {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.5rem;
 }
 
 .response-question {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  font-size: 0.8rem;
-}
-
-.response-question .material-symbols-outlined {
-  font-size: 16px;
+  gap: 0.5rem;
+  font-size: 0.9rem;
 }
 
 .response-question strong {
   color: var(--text-color);
-  font-weight: 500;
 }
 
 .response-text {
   margin: 0;
-  padding-left: 1.5rem;
+  padding-left: 2rem;
   color: var(--text-light);
-  font-size: 0.85rem;
-  line-height: 1.55;
-}
-
-/* Dark mode */
-.app.dark .emotional-journal-modal {
-  background: var(--card-background);
-  box-shadow: 0 4px 24px rgba(0,0,0,0.4), 0 0 0 1px var(--border-color);
-}
-
-.app.dark .journal-description {
-  background: #18181b;
-}
-
-.app.dark .journal-textarea {
-  background: #09090b;
-  border-color: var(--border-color);
-}
-
-.app.dark .journal-textarea:focus {
-  border-color: var(--primary-color);
-}
-
-.app.dark .journal-entry {
-  background: #09090b;
+  font-size: 0.9rem;
+  line-height: 1.5;
 }
 
 @media (max-width: 768px) {
@@ -268,12 +157,15 @@
     max-height: 90vh;
   }
 
-  .journal-header,
+  .journal-header {
+    padding: 1rem;
+  }
+
   .journal-content {
     padding: 1rem;
   }
 
-  .journal-description {
-    padding: 0.75rem 1rem;
+  .journal-questions {
+    gap: 1.25rem;
   }
 }

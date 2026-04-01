@@ -1,6 +1,5 @@
 .header {
-  padding: 0 1.5rem;
-  height: 60px;
+  padding: 1rem 1.5rem;
   background: transparent;
   display: flex;
   align-items: center;
@@ -66,10 +65,10 @@
 }
 
 .logo h1 {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text-color);
-  letter-spacing: -0.02em;
+  font-size: 1.375rem;
+  font-weight: 400;
+  color: var(--text-light);
+  letter-spacing: -0.01em;
 }
 
 .header-actions {
@@ -79,26 +78,25 @@
 }
 
 .header-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: var(--radius-full);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
   border: none;
   background: transparent;
   color: var(--text-light);
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition: background-color 0.2s cubic-bezier(0.2, 0, 0, 1);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .header-btn:hover {
-  background: var(--secondary-color);
-  color: var(--text-color);
+  background-color: rgba(68, 71, 70, 0.08);
 }
 
 .header-btn:active {
-  background: var(--border-color);
+  background-color: rgba(68, 71, 70, 0.12);
 }
 
 /* Dark Mode Header */
