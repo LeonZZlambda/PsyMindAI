@@ -199,6 +199,83 @@
   font-weight: 500;
 }
 
+.account-modal-overlay {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  align-items: flex-start !important;
+  justify-content: flex-end !important;
+  padding: 70px 24px !important;
+}
+
+.account-modal-content {
+  width: 380px !important;
+  max-height: calc(100vh - 100px) !important;
+  padding: 0 !important;
+}
+
+.account-menu-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 24px;
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  border-radius: 16px;
+  font-size: 0.95rem;
+  text-align: left;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.account-menu-item:hover {
+  background-color: var(--hover-color, rgba(0, 0, 0, 0.05));
+}
+
+.app.dark .account-menu-item:hover {
+  background-color: var(--hover-color, rgba(255, 255, 255, 0.05));
+}
+
+.account-manage-btn {
+  border-radius: 24px;
+  padding: 8px 24px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border: 1px solid var(--border-color);
+  background: transparent;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.account-manage-btn:hover {
+  background-color: var(--hover-color, rgba(0, 0, 0, 0.05));
+}
+
+.app.dark .account-manage-btn:hover {
+  background-color: var(--hover-color, rgba(255, 255, 255, 0.05));
+}
+
+@media (max-width: 768px) {
+  .account-modal-overlay {
+    align-items: flex-end !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    background: rgba(0, 0, 0, 0.4) !important;
+    backdrop-filter: blur(4px) !important;
+  }
+  
+  .account-modal-content {
+    width: 100% !important;
+    margin: 0 !important;
+    max-height: 90vh !important;
+    border-radius: 28px 28px 0 0 !important;
+    box-shadow: 0 -4px 24px rgba(0,0,0,0.2) !important;
+  }
+}
+
+
 
 
 

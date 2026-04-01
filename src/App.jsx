@@ -32,7 +32,7 @@ import { useTheme } from './context/ThemeContext'
 import { useChat } from './context/ChatContext'
 
 // Lazy load modals to improve initial load performance
-const UserProfileModal = lazy(() => import('./components/UserProfileModal'))
+const AccountModal = lazy(() => import('./components/AccountModal'))
 const SettingsModal = lazy(() => import('./components/SettingsModal'))
 const HelpModal = lazy(() => import('./components/HelpModal'))
 const SupportModal = lazy(() => import('./components/SupportModal'))
@@ -254,9 +254,10 @@ function App() {
 
         <Suspense fallback={null}>
           {isUserProfileOpen && (
-            <UserProfileModal
+            <AccountModal
               isOpen={isUserProfileOpen}
               onClose={() => setIsUserProfileOpen(false)}
+              initialView="personalization"
             />
           )}
           {isSettingsOpen && (

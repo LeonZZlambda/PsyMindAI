@@ -29,7 +29,7 @@
   --gradient-end: #512DA8; /* Deep Purple */
 }
 
-.app.dark {
+body.dark, .app.dark {
   /* Dark Mode Overrides */
   
   /* Primary: Teal 200 - Better visibility on dark */

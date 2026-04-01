@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
+import AccountModal from './AccountModal';
 
 const LandingHeader = () => {
   const navigate = useNavigate();
   const { isDarkMode, toggleTheme } = useTheme();
+  const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
 
   return (
     <nav className="landing-nav">
@@ -41,6 +44,7 @@ const LandingHeader = () => {
           
           <motion.button 
             className="user-profile" 
+            onClick={() => setIsAccountModalOpen(true)}
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: 0.4 }}
@@ -63,6 +67,18 @@ const LandingHeader = () => {
           </motion.button>
         </div>
       </div>
+      
+      {createPortal(
+        <AnimatePresence>
+          {isAccountModalOpen && (
+            <AccountModal
+              isOpen={isAccountModalOpen}
+              onClose={() => setIsAccountModalOpen(false)}
+            />
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </nav>
   );
 };

@@ -3,10 +3,12 @@ import { createPortal } from 'react-dom';
 import { useTheme } from '../context/ThemeContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import SoundscapesModal from './SoundscapesModal';
+import AccountModal from './AccountModal';
 
 const Header = ({ isSidebarOpen, toggleSidebar, isLoading }) => {
   const { isDarkMode, toggleTheme } = useTheme();
   const [isSoundModalOpen, setIsSoundModalOpen] = useState(false);
+  const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
   const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
   const cmdKey = isMac ? '⌘' : 'Ctrl';
   const shiftKey = isMac ? '⇧' : 'Shift';
@@ -50,7 +52,7 @@ const Header = ({ isSidebarOpen, toggleSidebar, isLoading }) => {
             {isDarkMode ? 'light_mode' : 'dark_mode'}
           </span>
         </button>
-        <button className="user-profile" title="Conta do Google" aria-label="Perfil do usuário">
+        <button className="user-profile" onClick={() => setIsAccountModalOpen(true)} title="Conta do Google" aria-label="Perfil do usuário">
           <span className="material-symbols-outlined">account_circle</span>
         </button>
       </div>
@@ -71,6 +73,18 @@ const Header = ({ isSidebarOpen, toggleSidebar, isLoading }) => {
           isOpen={isSoundModalOpen}
           onClose={() => setIsSoundModalOpen(false)}
         />,
+        document.body
+      )}
+
+      {createPortal(
+        <AnimatePresence>
+          {isAccountModalOpen && (
+            <AccountModal
+              isOpen={isAccountModalOpen}
+              onClose={() => setIsAccountModalOpen(false)}
+            />
+          )}
+        </AnimatePresence>,
         document.body
       )}
     </header>
