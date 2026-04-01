@@ -40,6 +40,7 @@ const ReflectionsModal = lazy(() => import('./components/ReflectionsModal'))
 const MoodTrackerModal = lazy(() => import('./components/MoodTrackerModal'))
 const EmotionalJournalModal = lazy(() => import('./components/EmotionalJournalModal'))
 const ImportContextModal = lazy(() => import('./components/ImportContextModal'))
+const StudyStatsModal = lazy(() => import('./components/StudyStatsModal'))
 
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
   const [isMoodTrackerOpen, setIsMoodTrackerOpen] = useState(false)
   const [isEmotionalJournalOpen, setIsEmotionalJournalOpen] = useState(false)
   const [isImportContextOpen, setIsImportContextOpen] = useState(false)
+  const [isStudyStatsOpen, setIsStudyStatsOpen] = useState(false)
 
   const [isNewChatAnimating, setIsNewChatAnimating] = useState(false)
   const [helpInitialTab, setHelpInitialTab] = useState('faq')
@@ -203,6 +205,7 @@ function App() {
               onOpenImportContext={() => setIsImportContextOpen(true)}
               onOpenMoodTracker={() => setIsMoodTrackerOpen(true)}
               onOpenEmotionalJournal={() => setIsEmotionalJournalOpen(true)}
+              onOpenStudyStats={() => setIsStudyStatsOpen(true)}
               onOpenHelp={(tab) => {
                 setHelpInitialTab(tab || 'faq');
                 setIsHelpOpen(true);
@@ -308,6 +311,13 @@ function App() {
             <ImportContextModal 
               isOpen={isImportContextOpen} 
               onClose={() => setIsImportContextOpen(false)} 
+            />
+          )}
+
+          {isStudyStatsOpen && (
+            <StudyStatsModal 
+              isOpen={isStudyStatsOpen} 
+              onClose={() => setIsStudyStatsOpen(false)} 
             />
           )}
         </Suspense>

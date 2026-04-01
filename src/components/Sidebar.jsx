@@ -3,7 +3,7 @@ import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useChat } from '../context/ChatContext';
 
-const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onAnonymousChat, onChatSelect, isNewChatAnimating, onOpenUserProfile, onOpenSettings, onOpenHelp, onOpenMoodTracker, onOpenEmotionalJournal }) => {
+const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onAnonymousChat, onChatSelect, isNewChatAnimating, onOpenUserProfile, onOpenSettings, onOpenHelp, onOpenMoodTracker, onOpenEmotionalJournal, onOpenStudyStats }) => {
   const navigate = useNavigate();
   const { loadChat, chats = [], currentChatId, deleteChat } = useChat();
   const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
@@ -37,12 +37,6 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onAnonymousChat, onChatSele
     if (diffDays === 1) return 'Ontem';
     if (diffDays < 7) return `${diffDays}d atrás`;
     return date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
-  };
-
-  const handleActivityClick = () => {
-    toast.info('Histórico de atividades em breve!', {
-      description: 'Estamos trabalhando para trazer estatísticas sobre seu bem-estar.'
-    });
   };
 
   return (
@@ -153,12 +147,12 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onAnonymousChat, onChatSele
         </button>
         <button 
           className="sidebar-item" 
-          title="Atividade" 
-          onClick={handleActivityClick}
-          aria-label="Ver histórico de atividades"
+          title="Estatísticas de Estudo" 
+          onClick={onOpenStudyStats}
+          aria-label="Ver histórico de atividades e estatísticas"
         >
-          <span className="material-symbols-outlined">history</span>
-          <span>Atividade</span>
+          <span className="material-symbols-outlined">bar_chart</span>
+          <span>Estatísticas e Atividade</span>
         </button>
         <button 
           className="sidebar-item" 
