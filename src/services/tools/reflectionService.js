@@ -2,12 +2,12 @@ import { sendMessage } from '../chat/chatService';
 
 export async function generateReflection(category = null) {
   const categoryPrompt = category ? `sobre ${category}` : 'motivacional para estudantes';
-  const prompt = `Gere uma frase inspiradora ${categoryPrompt} (máximo 2 linhas) e indique o autor (pode ser um pensador, cientista ou frase original sua como "PsyMind.AI"). Formato: "Frase" - Autor`;
+  const prompt = `Gere apenas UMA ÚNICA frase curta e inspiradora ${categoryPrompt} (uma linha apenas) e indique o autor (pode ser um pensador, cientista ou frase original sua como "PsyMind.AI"). Formato: "Frase" - Autor`;
   
   const result = await sendMessage(prompt, []);
   
   if (result.success) {
-    const text = result.text.replace(/["\"\"]/g, '').trim();
+    const text = result.text.replace(/["\"\"]/g, '').replace(/\n/g, ' ').trim();
     const parts = text.split(' - ');
     return {
       text: parts[0] || text,

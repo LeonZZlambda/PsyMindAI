@@ -47,16 +47,10 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
   const [isLoadingReflection, setIsLoadingReflection] = useState(false);
 
   useEffect(() => {
-    if (isOpen && !currentReflection) {
+    if (isOpen && activeTab === 'daily' && !currentReflection && !isLoadingReflection) {
       getRandomReflection();
     }
-  }, [isOpen]);
-  
-  useEffect(() => {
-    if (activeTab === 'daily' && !currentReflection) {
-      getRandomReflection();
-    }
-  }, [activeTab]);
+  }, [isOpen, activeTab]);
 
   const getRandomReflection = async (category = null) => {
     setAiReflection('');
