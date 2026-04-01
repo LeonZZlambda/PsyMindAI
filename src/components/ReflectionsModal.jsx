@@ -225,8 +225,8 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
                   </div>
               
                   {aiReflection && (
-                    <div className="ai-reflection-box" style={{ marginTop: '1.5rem', padding: '1rem', background: 'rgba(123, 31, 162, 0.1)', borderRadius: '12px', border: '1px solid rgba(123, 31, 162, 0.3)' }}>
-                      <p style={{ margin: 0, lineHeight: 1.6, color: 'var(--text-primary)' }}>{aiReflection}</p>
+                    <div className="ai-reflection-box">
+                      <p>{aiReflection}</p>
                     </div>
                   )}
                 </>
@@ -236,9 +236,7 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
 
           {activeTab === 'explore' && (
             <div className="explore-container">
-              <h3 style={{ textAlign: 'center', marginBottom: '1.5rem', color: 'var(--text-color)' }}>
-                Escolha um tema para refletir
-              </h3>
+              <h3>Escolha um tema para refletir</h3>
               <div className="categories-grid">
                 {categories.map(cat => (
                   <button 
@@ -261,9 +259,7 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
             <div className="breathing-container">
               {!breathingActive ? (
                 <>
-                  <h3 style={{ textAlign: 'center', marginBottom: '1.5rem', color: 'var(--text-color)' }}>
-                    Escolha uma técnica de respiração
-                  </h3>
+                  <h3>Escolha uma técnica de respiração</h3>
                   <div className="breathing-techniques">
                     {breathingTechniques.map(tech => (
                       <div key={tech.id} className="technique-card">

@@ -155,20 +155,36 @@
 /* Modal Tabs */
 .modal-tabs {
   display: flex;
-  gap: 1rem;
+  gap: 0.25rem;
   margin-right: auto;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.modal-tabs::-webkit-scrollbar {
+  display: none;
 }
 
 .tab-btn {
   background: none;
   border: none;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9375rem;
   font-weight: 500;
   color: var(--text-light);
   cursor: pointer;
   border-bottom: 2px solid transparent;
   transition: all 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .tab-btn {
+    padding: 0.5rem 0.5rem;
+    font-size: 0.8125rem;
+  }
 }
 
 .app.dark .tab-btn {
