@@ -229,6 +229,11 @@
   border-radius: 12px;
   padding: 1.25rem;
   text-align: center;
+  /* ensure cards are consistent height and layout */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 140px;
 }
 
 .technique-card h4 {
@@ -248,8 +253,8 @@
   align-items: center;
   gap: 0.5rem;
   justify-content: center;
-  width: 100%;
-  padding: 0.625rem;
+  width: 72%;
+  padding: 0.625rem 0.875rem;
   background: var(--primary-color);
   color: #fff;
   border: none;
@@ -259,6 +264,9 @@
   font-size: 0.875rem;
   font-weight: 500;
   transition: all 0.2s;
+  /* keep button anchored to the bottom of the card */
+  margin-top: 0.5rem;
+  align-self: center;
 }
 
 .start-breathing-btn:hover {

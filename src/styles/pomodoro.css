@@ -37,12 +37,14 @@
   display: flex;
   gap: 0.5rem;
   background: var(--secondary-color);
-  padding: 4px;
+  padding: 6px 8px;
   border-radius: 24px;
+  align-items: center;
+  justify-content: center;
 }
 
 .mode-btn {
-  padding: 8px 16px;
+  padding: 8px 14px;
   border-radius: 20px;
   border: none;
   background: transparent;
@@ -52,6 +54,8 @@
   font-size: 0.875rem;
   font-weight: 500;
   transition: all 0.2s ease;
+  min-width: 96px;
+  text-align: center;
 }
 
 .mode-btn:hover {
