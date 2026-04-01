@@ -68,8 +68,9 @@ const AccountModal = ({ isOpen, onClose, initialView = 'account' }) => {
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: -20, opacity: 0 }}
               transition={{ duration: 0.2 }}
+              style={{ width: '100%', display: 'flex', flexDirection: 'column' }}
             >
-              <div style={{ padding: '12px', display: 'flex', justifyContent: 'flex-end' }}>
+              <div style={{ padding: '12px', display: 'flex', justifyContent: 'flex-end', flexShrink: 0 }}>
                 <button className="close-btn" onClick={onClose} aria-label="Fechar">
                   <span className="material-symbols-outlined">close</span>
                 </button>
@@ -148,9 +149,9 @@ const AccountModal = ({ isOpen, onClose, initialView = 'account' }) => {
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: 20, opacity: 0 }}
               transition={{ duration: 0.2 }}
-              style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}
+              style={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0, width: '100%' }}
             >
-              <div className="modal-header" style={{ padding: '16px 24px', borderBottom: '1px solid var(--border-color)' }}>
+              <div className="modal-header" style={{ padding: '16px 24px', borderBottom: '1px solid var(--border-color)', flexShrink: 0 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                   <button className="header-btn" onClick={() => setActiveView('account')} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--text-color)', display: 'flex', alignItems: 'center', padding: '0', height: 'auto' }}>
                     <span className="material-symbols-outlined">arrow_back</span>
@@ -253,7 +254,7 @@ const AccountModal = ({ isOpen, onClose, initialView = 'account' }) => {
                 </div>
               </div>
 
-              <div className="modal-footer" style={{ padding: '16px 24px', borderTop: '1px solid var(--border-color)', display: 'flex', gap: '16px' }}>
+              <div className="modal-footer" style={{ padding: '16px 24px', borderTop: '1px solid var(--border-color)', display: 'flex', gap: '16px', flexShrink: 0 }}>
                 <button className="primary-btn" onClick={() => setActiveView('account')} style={{ flex: 1, padding: '0.7rem 1.5rem', fontWeight: 600, fontSize: '0.95rem' }}>Cancelar</button>
                 <button className="primary-btn cta" onClick={handleSave} style={{ flex: 1, padding: '0.7rem 1.5rem' }}>Salvar</button>
               </div>

@@ -211,6 +211,7 @@
   width: 380px !important;
   max-height: calc(100vh - 100px) !important;
   padding: 0 !important;
+    padding-bottom: env(safe-area-inset-bottom) !important;
 }
 
 .account-menu-item {
@@ -255,19 +256,21 @@
 
 @media (max-width: 768px) {
   .account-modal-overlay {
-    align-items: flex-end !important;
+    align-items: center !important;
     justify-content: center !important;
-    padding: 0 !important;
+    padding: 24px !important;
     background: rgba(0, 0, 0, 0.4) !important;
     backdrop-filter: blur(4px) !important;
   }
   
   .account-modal-content {
     width: 100% !important;
-    margin: 0 !important;
-    max-height: 90vh !important;
-    border-radius: 28px 28px 0 0 !important;
-    box-shadow: 0 -4px 24px rgba(0,0,0,0.2) !important;
+    margin: 0 auto !important;
+    max-height: 85dvh !important;
+    overflow-y: hidden !important;
+    padding-bottom: 0 !important;
+    border-radius: 28px !important;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.3) !important;
   }
 }
 
