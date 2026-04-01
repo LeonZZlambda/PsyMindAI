@@ -205,7 +205,7 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
                 <>
                   <div className="reflection-card">
                     <span className="material-symbols-outlined reflection-icon">format_quote</span>
-                    <p className="reflection-text">"{currentReflection.text}"</p>
+                    <p className="reflection-text">{currentReflection.text}</p>
                     <span className="reflection-author">— {currentReflection.author}</span>
                   </div>
               

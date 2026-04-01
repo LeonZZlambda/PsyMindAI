@@ -46,15 +46,9 @@ export async function sendMessage(message, history = []) {
 }
 
 export async function generateTitle(text) {
-  try {
-    const result = await sendMessage(SYSTEM_PROMPTS.TITLE_GENERATOR(text), []);
-    if (result.success) {
-      return result.text.trim().replace(/[\"']/g, '');
-    }
-  } catch (error) {
-    console.error('Error generating title:', error);
-  }
-  return text.slice(0, 40) + (text.length > 40 ? '...' : '');
+  // Para evitar esgotar a cota da API (erro 429), o título agora é retornado localmente 
+  // usando o conteúdo da primeira mensagem sem fazer requisições secundárias pesadas ao Gemini.
+  return text.trim().slice(0, 40) + (text.length > 40 ? '...' : '');
 }
 
 export function isConfigured() {
