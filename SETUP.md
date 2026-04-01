@@ -1,77 +1,71 @@
-# 🚀 Guia de Configuração - PsyMind.AI
+# Setup
 
-## Configuração da API do Google Gemini
+## Gemini API Key
 
-Para ativar a integração completa com o Google Gemini, siga os passos:
+### 1. Get a key
 
-### 1. Obter API Key do Gemini
+1. Go to [Google AI Studio](https://makersuite.google.com/app/apikey)
+2. Sign in with your Google account
+3. Click **Get API Key** → **Create API Key**
+4. Copy the generated key
 
-1. Acesse [Google AI Studio](https://makersuite.google.com/app/apikey)
-2. Faça login com sua conta Google
-3. Clique em "Get API Key" ou "Create API Key"
-4. Copie a chave gerada
+### 2. Configure
 
-### 2. Configurar no Projeto
-
-1. Crie um arquivo `.env` na raiz do projeto:
 ```bash
 cp .env.example .env
 ```
 
-2. Abra o arquivo `.env` e adicione sua chave:
+Open `.env` and set:
+
 ```
-VITE_GEMINI_API_KEY=sua_chave_aqui
+VITE_GEMINI_API_KEY=your_key_here
 ```
 
-### 3. Instalar Dependências
+### 3. Run
 
 ```bash
 npm install
-```
-
-### 4. Executar o Projeto
-
-```bash
 npm run dev
 ```
 
-## Modo Demonstração
+---
 
-Se a API Key não estiver configurada, o sistema funcionará em **modo demonstração** com respostas simuladas, permitindo testar todas as funcionalidades da interface.
+## Demo Mode
 
-## Funcionalidades Integradas com Gemini
+If no API key is set, the app runs in **demo mode** — all UI features work with simulated AI responses. Useful for development and UI testing without consuming API quota.
 
-✅ **Chat Inteligente** - Conversas contextualizadas com memória de histórico.
-
-✅ **Prompt Engineering** - Sistema de instruções desenvolvido com NotebookLM.
-
-✅ **Personalidade Otimizada** - Tom empático calibrado via Gemini Gems.
-
-✅ **Respostas Científicas** - Baseadas em psicologia educacional.
-
-## Tecnologias Google Utilizadas
-
-- **Google Gemini 1.5 Flash** - Motor de IA principal
-- **NotebookLM** - Desenvolvimento e refinamento de prompts
-- **Gemini Gems** - Personalização de personalidade e tom
-- **Google AI Studio** - Gerenciamento de API Keys
+---
 
 ## Troubleshooting
 
-### Erro: "API Key não configurada"
-- Verifique se o arquivo `.env` existe na raiz do projeto
-- Confirme que a variável está nomeada como `VITE_GEMINI_API_KEY`
-- Reinicie o servidor de desenvolvimento após criar o `.env`
+**`API Key not configured`**
+- Confirm `.env` exists at the project root
+- Confirm the variable is named exactly `VITE_GEMINI_API_KEY`
+- Restart the dev server after editing `.env`
 
-### Erro: "Failed to fetch"
-- Verifique sua conexão com a internet
-- Confirme que a API Key é válida no Google AI Studio
-- Verifique se não excedeu o limite de requisições gratuitas
+**`Failed to fetch`**
+- Check your internet connection
+- Validate the key in [Google AI Studio](https://makersuite.google.com/app/apikey)
+- Check if you've exceeded the free tier quota
 
-## Limites da API Gratuita
+---
 
-- 60 requisições por minuto
-- 1500 requisições por dia
-- Ideal para demonstrações e testes
+## Free Tier Limits
 
-Para uso em produção, considere upgrade para plano pago.
+| Limit | Value |
+|---|---|
+| Requests per minute | 60 |
+| Requests per day | 1,500 |
+
+For production use, consider upgrading to a paid plan.
+
+---
+
+## Google Technologies Used
+
+| Tool | Purpose |
+|---|---|
+| Gemini 1.5 Flash | Core AI model |
+| NotebookLM | Prompt engineering and refinement |
+| Gemini Gems | Personality and tone calibration |
+| Google AI Studio | API key management |

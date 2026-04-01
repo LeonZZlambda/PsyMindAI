@@ -1,200 +1,174 @@
-# 🏗️ Arquitetura Modular - PsyMind.AI
+# Architecture
 
-## 📁 Estrutura de Diretórios
+PsyMind.AI follows a modular service-oriented architecture. Each layer has a single responsibility and can be replaced or migrated independently.
+
+---
+
+## Directory Structure
 
 ```
 src/
-├── services/           # Serviços e lógica de negócio
-│   ├── api/           # Integrações com APIs externas
-│   │   ├── geminiClient.js      # Cliente do Google Gemini
-│   │   ├── errorHandler.js      # Tratamento de erros
-│   │   └── retryHandler.js      # Lógica de retry
-│   ├── chat/          # Serviços de chat
-│   │   ├── chatService.js       # Lógica principal do chat
-│   │   └── messageFormatter.js  # Formatação de mensagens
-│   ├── tools/         # Serviços das ferramentas
-│   │   ├── pomodoroService.js   # Dicas do Pomodoro
-│   │   ├── moodService.js       # Análise de humor
-│   │   └── reflectionService.js # Reflexões e frases
-│   ├── storage/       # Persistência de dados
-│   │   ├── chatStorage.js       # Armazenamento de conversas
-│   │   └── settingsStorage.js   # Armazenamento de configurações
-│   ├── prompts/       # Prompts do sistema
-│   │   └── systemPrompts.js     # Prompts para IA
-│   └── gemini.js      # Interface pública (compatibilidade)
-├── utils/             # Utilitários reutilizáveis
-│   ├── notifications.js         # Sistema de notificações
-│   ├── textStreaming.js         # Streaming de texto
-│   └── themeTransition.js       # Transições de tema
-├── context/           # Contextos React
-├── components/        # Componentes React
-└── pages/            # Páginas da aplicação
+├── services/
+│   ├── api/
+│   │   ├── geminiClient.js       # Google Gemini API client
+│   │   ├── errorHandler.js       # Centralized error parsing
+│   │   └── retryHandler.js       # Exponential backoff retry logic
+│   ├── chat/
+│   │   ├── chatService.js        # Core chat orchestration
+│   │   └── messageFormatter.js   # Message normalization for Gemini
+│   ├── tools/
+│   │   ├── pomodoroService.js    # AI tips for focus/break cycles
+│   │   ├── moodService.js        # Mood history analysis
+│   │   └── reflectionService.js  # Reflection prompt generation
+│   ├── storage/
+│   │   ├── chatStorage.js        # Chat persistence (localStorage)
+│   │   └── settingsStorage.js    # User settings persistence
+│   ├── prompts/
+│   │   └── systemPrompts.js      # System prompt definitions
+│   ├── adapters/                 # Pluggable storage adapters
+│   └── index.js                  # Public service interface
+├── utils/
+│   ├── notifications.js          # Browser notifications and sounds
+│   ├── textStreaming.js          # Typewriter streaming effect
+│   └── themeTransition.js        # Animated theme switching
+├── context/                      # React context providers
+├── components/                   # UI components
+└── pages/                        # Route-level pages
 ```
 
-## 🔧 Módulos Principais
+---
 
-### 1. **API Services** (`services/api/`)
+## Modules
 
-#### `geminiClient.js`
-Cliente modular para Google Gemini API.
-```javascript
+### `services/api/`
+
+**`geminiClient.js`** — Thin wrapper around `@google/genai`.
+
+```js
 import { GeminiClient } from './services/api/geminiClient';
 const client = new GeminiClient(apiKey);
 await client.generateContent({ model, contents });
 ```
 
-#### `errorHandler.js`
-Tratamento centralizado de erros.
-```javascript
+**`errorHandler.js`** — Normalizes API errors into typed responses.
+
+```js
 import { parseError, createErrorResponse, ERROR_TYPES } from './services/api/errorHandler';
 ```
 
-#### `retryHandler.js`
-Lógica de retry para requisições.
-```javascript
+**`retryHandler.js`** — Retries failed requests with configurable backoff.
+
+```js
 import { withRetry } from './services/api/retryHandler';
-await withRetry(async () => apiCall(), retries, delay);
+await withRetry(() => apiCall(), retries, delay);
 ```
 
-### 2. **Chat Services** (`services/chat/`)
+---
 
-#### `chatService.js`
-Serviço principal de chat com IA.
-```javascript
+### `services/chat/`
+
+**`chatService.js`** — Orchestrates message sending, history management, and title generation.
+
+```js
 import { sendMessage, generateTitle, isConfigured } from './services/chat/chatService';
 ```
 
-#### `messageFormatter.js`
-Formatação de mensagens para diferentes contextos.
-```javascript
+**`messageFormatter.js`** — Converts internal message format to Gemini's `contents` schema.
+
+```js
 import { formatHistoryForGemini, createUserMessage, createAIMessage } from './services/chat/messageFormatter';
 ```
 
-### 3. **Storage Services** (`services/storage/`)
+---
 
-#### `chatStorage.js`
-Gerenciamento de conversas no localStorage.
-```javascript
+### `services/storage/`
+
+**`chatStorage.js`**
+
+```js
 import { loadChats, saveChats, createChat, updateChat } from './services/storage/chatStorage';
 ```
 
-#### `settingsStorage.js`
-Gerenciamento de configurações.
-```javascript
+**`settingsStorage.js`**
+
+```js
 import { loadSetting, saveSetting, loadBooleanSetting } from './services/storage/settingsStorage';
 ```
 
-### 4. **Tools Services** (`services/tools/`)
+---
 
-#### `pomodoroService.js`
-Geração de dicas para sessões Pomodoro.
-```javascript
+### `services/tools/`
+
+```js
 import { generatePomodoroTip } from './services/tools/pomodoroService';
-await generatePomodoroTip('focus');
-```
-
-#### `moodService.js`
-Análise de histórico de humor.
-```javascript
 import { generateMoodInsight } from './services/tools/moodService';
-await generateMoodInsight(moodHistory);
-```
-
-#### `reflectionService.js`
-Geração de reflexões e análises.
-```javascript
 import { generateReflection, generateReflectionAnalysis } from './services/tools/reflectionService';
 ```
 
-### 5. **Utilities** (`utils/`)
+---
 
-#### `notifications.js`
-Sistema de notificações e sons.
-```javascript
-import { playNotificationSound, showNotification, requestNotificationPermission } from './utils/notifications';
-```
+### `utils/`
 
-#### `textStreaming.js`
-Classe para streaming de texto com efeito de digitação.
-```javascript
+**`textStreaming.js`** — Streams AI responses character-by-character with reduced-motion support.
+
+```js
 import { TextStreamer } from './utils/textStreaming';
 const streamer = new TextStreamer(text, onChunk, onComplete, reducedMotion);
 streamer.start();
 ```
 
-#### `themeTransition.js`
-Transições animadas de tema.
-```javascript
+**`themeTransition.js`**
+
+```js
 import { animateThemeTransition } from './utils/themeTransition';
 await animateThemeTransition(event, callback, reducedMotion);
 ```
 
-## 🔄 Fluxo de Dados
+**`notifications.js`**
 
-### Chat Flow
+```js
+import { playNotificationSound, showNotification, requestNotificationPermission } from './utils/notifications';
 ```
-User Input → ChatContext → chatService → geminiClient → API
-                ↓              ↓            ↓
+
+---
+
+## Data Flows
+
+### Chat
+
+```
+User Input → ChatContext → chatService → geminiClient → Gemini API
+                ↓               ↓
          chatStorage ← messageFormatter ← errorHandler
 ```
 
-### Settings Flow
+### Settings
+
 ```
 User Action → ThemeContext → settingsStorage → localStorage
-                ↓
-         themeTransition (animação)
+                  ↓
+           themeTransition
 ```
 
-## 📦 Migração Facilitada
+---
 
-Todos os módulos são independentes e podem ser migrados individualmente:
+## Pluggable Storage
 
-1. **API Layer**: `services/api/*` - Migre para backend
-2. **Business Logic**: `services/chat/*` - Migre para servidor
-3. **Storage**: `services/storage/*` - Substitua por banco de dados
-4. **Utils**: `utils/*` - Reutilize em qualquer projeto
+All storage modules accept a custom adapter, enabling migration from localStorage to any backend:
 
-## 🎯 Benefícios
+```js
+import { StorageAdapter } from './services';
 
-- ✅ **Modularidade**: Cada módulo tem responsabilidade única
-- ✅ **Testabilidade**: Fácil criar testes unitários
-- ✅ **Reutilização**: Módulos podem ser usados em outros projetos
-- ✅ **Manutenção**: Mudanças isoladas não afetam todo o sistema
-- ✅ **Migração**: Fácil mover funcionalidades para backend
-
-## 🚀 Migração para Outros Projetos
-
-Veja o [MIGRATION_GUIDE.md](./MIGRATION_GUIDE.md) para instruções completas.
-
-### Quick Start
-```bash
-# Copiar módulos
-cp -r src/services /seu-projeto/src/
-cp -r src/utils /seu-projeto/src/
-
-# Instalar dependências
-npm install @google/genai
-
-# Usar
-import { sendMessage, generatePomodoroTip } from './services';
-```
-
-### Pontos de Entrada
-- `./services` - Todos os serviços (API, Chat, Tools, Storage)
-- `./utils` - Utilitários (Notificações, Streaming, Transições)
-
-## 🔌 Adaptadores
-
-Todos os módulos suportam adaptadores customizados:
-
-```javascript
-// Storage customizado
 class DatabaseAdapter extends StorageAdapter {
   async get(key) { return await db.find(key); }
   async set(key, value) { return await db.save(key, value); }
 }
 
-// Usar
-const dbStorage = new DatabaseAdapter();
-loadChats(dbStorage);
+loadChats(new DatabaseAdapter());
 ```
+
+---
+
+## Migration
+
+See [MIGRATION_GUIDE.md](./MIGRATION_GUIDE.md) for instructions on extracting individual modules into other projects.

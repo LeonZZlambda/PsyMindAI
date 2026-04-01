@@ -1,140 +1,128 @@
-# 🚀 Guia de Migração - PsyMind.AI
+# Migration Guide
 
-## Como Usar os Módulos em Outro Projeto
+Instructions for extracting PsyMind.AI service modules into another project.
 
-### 1️⃣ Copiar Arquivos
+---
 
-Copie as pastas para seu novo projeto:
+## 1. Copy modules
 
 ```bash
-cp -r src/services /seu-projeto/src/
-cp -r src/utils /seu-projeto/src/
+cp -r src/services /your-project/src/
+cp -r src/utils /your-project/src/
 ```
 
-### 2️⃣ Instalar Dependências
+## 2. Install dependencies
 
 ```bash
 npm install @google/genai
 ```
 
-### 3️⃣ Configurar API Key
+## 3. Configure API key
 
-#### Opção A: Variável de Ambiente
-```javascript
-// .env
-VITE_GEMINI_API_KEY=sua_chave_aqui
+**Via environment variable (recommended):**
+```
+VITE_GEMINI_API_KEY=your_key_here
 ```
 
-#### Opção B: Configuração Manual
-```javascript
+**Via code:**
+```js
 import { setApiKey } from './services';
-
-setApiKey('sua_chave_aqui');
+setApiKey('your_key_here');
 ```
 
-### 4️⃣ Usar os Serviços
+---
 
-#### Chat com IA
-```javascript
+## Usage
+
+### Chat
+
+```js
 import { sendMessage, isConfigured } from './services';
 
 if (isConfigured()) {
-  const result = await sendMessage('Olá!', []);
+  const result = await sendMessage('Hello!', history);
   console.log(result.text);
 }
 ```
 
-#### Ferramentas
-```javascript
-import { 
-  generatePomodoroTip, 
-  generateMoodInsight, 
-  generateReflection 
-} from './services';
+### Tools
 
-// Dica de Pomodoro
-const tip = await generatePomodoroTip('focus');
+```js
+import { generatePomodoroTip, generateMoodInsight, generateReflection } from './services';
 
-// Análise de humor
-const insight = await generateMoodInsight(moodHistory);
-
-// Reflexão
-const reflection = await generateReflection('motivação');
+await generatePomodoroTip('focus');
+await generateMoodInsight(moodHistory);
+await generateReflection('motivation');
 ```
 
-#### Storage
-```javascript
+### Storage
+
+```js
 import { loadChats, saveChats, createChat } from './services';
 
 const chats = loadChats();
-const newChat = createChat(id, title, messages);
-saveChats([...chats, newChat]);
+const chat = createChat(id, title, messages);
+saveChats([...chats, chat]);
 ```
 
-#### Notificações
-```javascript
+### Utilities
+
+```js
 import { playNotificationSound, showNotification } from './utils';
-
-playNotificationSound();
-await showNotification('Título', 'Mensagem');
+import { TextStreamer } from './utils';
+import { animateThemeTransition } from './utils';
 ```
 
-### 5️⃣ Adaptar Storage (Opcional)
+---
 
-Para usar banco de dados ao invés de localStorage:
+## Custom Storage Adapter
 
-```javascript
+Replace localStorage with any backend by extending `StorageAdapter`:
+
+```js
 import { StorageAdapter } from './services';
 
 class DatabaseAdapter extends StorageAdapter {
-  async get(key) {
-    return await db.find(key);
-  }
-
-  async set(key, value) {
-    return await db.save(key, value);
-  }
+  async get(key) { return await db.find(key); }
+  async set(key, value) { return await db.save(key, value); }
 }
 
-const dbStorage = new DatabaseAdapter();
-loadChats(dbStorage);
+loadChats(new DatabaseAdapter());
 ```
 
-### 6️⃣ Customizar Prompts
+---
 
-```javascript
-import { SYSTEM_PROMPTS } from './services';
+## Framework Examples
 
-// Usar prompts existentes
-const prompt = SYSTEM_PROMPTS.PSYMIND;
+**React:**
+```js
+import { sendMessage, loadChats, saveChats } from './services';
 
-// Ou criar novos
-const customPrompt = 'Você é um assistente...';
+function Chat() {
+  const [chats, setChats] = useState(loadChats());
+
+  const handleSend = async (message) => {
+    const result = await sendMessage(message, []);
+    const updated = [...chats, result];
+    setChats(updated);
+    saveChats(updated);
+  };
+}
 ```
 
-## 📦 Estrutura Exportada
+**Next.js API Route:**
+```js
+import { sendMessage } from '@/services';
 
-### Services (`./services`)
-- `sendMessage(message, history)` - Enviar mensagem para IA
-- `generateTitle(text)` - Gerar título de chat
-- `isConfigured()` - Verificar se API está configurada
-- `setApiKey(key)` - Configurar API key
-- `generatePomodoroTip(mode)` - Dicas de Pomodoro
-- `generateMoodInsight(history)` - Análise de humor
-- `generateReflection(category)` - Gerar reflexão
-- `loadChats()`, `saveChats()` - Gerenciar chats
-- `loadSetting()`, `saveSetting()` - Gerenciar configurações
+export async function POST(request) {
+  const { message, history } = await request.json();
+  const result = await sendMessage(message, history);
+  return Response.json(result);
+}
+```
 
-### Utils (`./utils`)
-- `playNotificationSound()` - Tocar som
-- `showNotification(title, body)` - Mostrar notificação
-- `TextStreamer` - Classe para streaming de texto
-- `animateThemeTransition()` - Animação de tema
-
-## 🔧 Exemplos de Uso
-
-### Backend Node.js
-```javascript
+**Node.js:**
+```js
 import { sendMessage, setApiKey } from './services';
 
 setApiKey(process.env.GEMINI_API_KEY);
@@ -145,53 +133,58 @@ app.post('/chat', async (req, res) => {
 });
 ```
 
-### React/Vue/Angular
-```javascript
-import { sendMessage, loadChats, saveChats } from './services';
+---
 
-function ChatComponent() {
-  const [chats, setChats] = useState(loadChats());
-  
-  const handleSend = async (message) => {
-    const result = await sendMessage(message, []);
-    const newChats = [...chats, result];
-    setChats(newChats);
-    saveChats(newChats);
-  };
-}
-```
+## Partial Migration
 
-### Next.js API Route
-```javascript
-import { sendMessage } from '@/services';
+You don't need to copy everything. Take only what you need:
 
-export async function POST(request) {
-  const { message, history } = await request.json();
-  const result = await sendMessage(message, history);
-  return Response.json(result);
-}
-```
+| Need | Copy |
+|---|---|
+| AI chat only | `services/api/`, `services/chat/` |
+| Tools only | `services/tools/` |
+| Storage only | `services/storage/`, `services/adapters/` |
+| All services | `services/` |
 
-## ⚠️ Notas Importantes
+---
 
-1. **API Key**: Nunca exponha sua API key no frontend em produção
-2. **Rate Limits**: O retry handler já gerencia limites de taxa
-3. **Storage**: Adapte o storage para seu caso de uso (DB, Redis, etc)
-4. **Erros**: Todos os serviços retornam `{ success, text/error, userMessage }`
+## Public API Reference
 
-## 🎯 Migração Completa vs Parcial
+### `services/index.js`
 
-### Migração Completa
-Copie tudo e use como está. Ideal para projetos similares.
+| Export | Description |
+|---|---|
+| `sendMessage(message, history)` | Send a message to the AI |
+| `generateTitle(text)` | Generate a chat title |
+| `isConfigured()` | Check if API key is set |
+| `setApiKey(key)` | Set API key at runtime |
+| `generatePomodoroTip(mode)` | AI tip for focus/break cycle |
+| `generateMoodInsight(history)` | Mood trend analysis |
+| `generateReflection(category)` | Generate a reflection prompt |
+| `loadChats()` / `saveChats()` | Chat persistence |
+| `loadSetting()` / `saveSetting()` | Settings persistence |
 
-### Migração Parcial
-Copie apenas o que precisa:
-- Só IA? → `services/api/`, `services/chat/`
-- Só ferramentas? → `services/tools/`
-- Só storage? → `services/storage/`, `services/adapters/`
+### `utils/index.js`
 
-## 📚 Recursos Adicionais
+| Export | Description |
+|---|---|
+| `playNotificationSound()` | Play notification audio |
+| `showNotification(title, body)` | Browser notification |
+| `TextStreamer` | Typewriter streaming class |
+| `animateThemeTransition()` | Animated theme switch |
 
-- [Documentação Gemini API](https://ai.google.dev/)
-- [ARCHITECTURE.md](./ARCHITECTURE.md) - Arquitetura detalhada
-- [README.md](./README.md) - Visão geral do projeto
+---
+
+## Notes
+
+- Never expose your API key in client-side code in production — proxy requests through a backend
+- All service functions return `{ success, text | error, userMessage }`
+- The retry handler automatically manages rate limit errors
+
+---
+
+## References
+
+- [Gemini API Docs](https://ai.google.dev/)
+- [ARCHITECTURE.md](./ARCHITECTURE.md)
+- [SETUP.md](./SETUP.md)
