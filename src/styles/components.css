@@ -3,17 +3,18 @@
   background: transparent;
   color: var(--primary-color);
   border: none;
-  padding: 0 1.5rem;
-  height: 40px;
-  border-radius: 20px;
+  padding: 0 1.25rem;
+  height: 36px;
+  border-radius: var(--radius-full);
   font-weight: 500;
   font-size: 0.875rem;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: background 0.15s;
+  font-family: inherit;
 }
 
 .primary-btn:hover {
-  background: rgba(0, 121, 107, 0.08); /* Teal opacity */
+  background: var(--primary-subtle);
 }
 
 .app.dark .primary-btn {
