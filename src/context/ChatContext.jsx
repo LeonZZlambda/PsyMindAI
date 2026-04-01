@@ -22,7 +22,10 @@ export const ChatProvider = ({ children }) => {
 
   useEffect(() => {
     loadChats().then(loaded => {
-      setChats(loaded);
+      setChats(Array.isArray(loaded) ? loaded : []);
+      setChatsLoaded(true);
+    }).catch(() => {
+      setChats([]);
       setChatsLoaded(true);
     });
   }, []);

@@ -178,8 +178,13 @@ const MessageList = () => {
     generateDailyQuote();
   }, []);
 
+  const userScrolledUpRef = useRef(false);
+  const isAutoScrollingRef = useRef(false);
+
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    isAutoScrollingRef.current = true;
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => { isAutoScrollingRef.current = false; }, 400);
   };
 
   const scrollToTop = () => {
@@ -187,14 +192,18 @@ const MessageList = () => {
   };
 
   useEffect(() => {
-    scrollToBottom();
+    if (!userScrolledUpRef.current) scrollToBottom();
   }, [messages, isTyping]);
 
   const handleScroll = () => {
-    if (chatContainerRef.current) {
-      const { scrollTop } = chatContainerRef.current;
-      setShowScrollTop(scrollTop > 300);
+    const el = chatContainerRef.current;
+    if (!el) return;
+    const { scrollTop, scrollHeight, clientHeight } = el;
+    const atBottom = scrollHeight - scrollTop - clientHeight < 60;
+    if (!isAutoScrollingRef.current) {
+      userScrolledUpRef.current = !atBottom;
     }
+    setShowScrollTop(scrollTop > 300);
   };
 
   const speakMessage = (text) => {

@@ -5,7 +5,7 @@ import { useChat } from '../context/ChatContext';
 
 const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onChatSelect, isNewChatAnimating, onOpenSettings, onOpenHelp, onOpenMoodTracker, onOpenEmotionalJournal }) => {
   const navigate = useNavigate();
-  const { loadChat, chats, currentChatId, deleteChat } = useChat();
+  const { loadChat, chats = [], currentChatId, deleteChat } = useChat();
   const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
   const cmdKey = isMac ? '⌘' : 'Ctrl';
   const shiftKey = isMac ? '⇧' : 'Shift';
@@ -77,10 +77,13 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onChatSelect, isNewChatAnim
       <div className="recent-chats" role="group" aria-label="Chats recentes">
         {chats.length > 0 && <span className="recent-label">Recentes</span>}
         {chats.map(chat => (
-          <button 
-            key={chat.id} 
+          <div
+            key={chat.id}
             className={`recent-item ${currentChatId === chat.id ? 'active' : ''}`}
             onClick={() => handleChatClick(chat.id)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === 'Enter' && handleChatClick(chat.id)}
             aria-label={`Carregar chat: ${chat.title}`}
           >
             <span className="material-symbols-outlined">chat_bubble_outline</span>
@@ -88,14 +91,14 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onChatSelect, isNewChatAnim
               <span className="recent-item-title">{chat.title}</span>
               <span className="recent-item-date">{formatDate(chat.updatedAt)}</span>
             </div>
-            <button 
+            <button
               className="delete-chat-btn"
               onClick={(e) => handleDeleteChat(e, chat.id)}
               aria-label="Excluir chat"
             >
               <span className="material-symbols-outlined">delete</span>
             </button>
-          </button>
+          </div>
         ))}
       </div>
 

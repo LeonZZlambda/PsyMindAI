@@ -6,7 +6,12 @@ export class StorageAdapter {
   async get(key) {
     try {
       const value = this.storage.getItem(key);
-      return value ? JSON.parse(value) : null;
+      if (value === null) return null;
+      try {
+        return JSON.parse(value);
+      } catch {
+        return value; // raw string fallback for legacy values
+      }
     } catch {
       return null;
     }
