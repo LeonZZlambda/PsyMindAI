@@ -1,17 +1,18 @@
 import { sendMessage, generateTitle, isConfigured } from './chat/chatService';
+import { defaultConfig } from './config/apiConfig';
 
 export const sendMessageToGemini = sendMessage;
 export const generateChatTitle = generateTitle;
 export const isGeminiConfigured = isConfigured;
 
 export const generateImage = async (prompt) => {
-  const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+  const API_KEY = defaultConfig.getApiKey();
   
   if (!API_KEY) {
     return {
       success: false,
       error: 'API_KEY_MISSING',
-      userMessage: '🔑 Configure sua API Key do Gemini no arquivo .env para gerar imagens.'
+      userMessage: '🔑 Configure sua API Key.'
     };
   }
 

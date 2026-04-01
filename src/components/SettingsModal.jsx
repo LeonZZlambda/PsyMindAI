@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 import { useTheme } from '../context/ThemeContext';
 import { useChat } from '../context/ChatContext';
+import { defaultConfig } from '../services/config/apiConfig';
+import { setApiKey as updateApiKey } from '../services/chat/chatService';
 
 const SettingsModal = ({ isOpen, onClose }) => {
   const { 
@@ -13,6 +15,12 @@ const SettingsModal = ({ isOpen, onClose }) => {
   
   const modalRef = useRef(null);
   const [isClosing, setIsClosing] = useState(false);
+  const [apiKey, setApiKey] = useState(defaultConfig.getApiKey() || '');
+
+  const handleSaveApiKey = () => {
+    updateApiKey(apiKey);
+    toast.success('Chave da API salva com sucesso!');
+  };
 
   const handleClose = () => {
     setIsClosing(true);
@@ -182,7 +190,28 @@ const SettingsModal = ({ isOpen, onClose }) => {
 
           <div className="settings-section">
             <h3>Dados e Privacidade</h3>
+            
             <div className="setting-item">
+              <div className="setting-info">
+                <span className="setting-label">Chave da API Gemini</span>
+                <span className="setting-desc">Insira sua própria API Key para usar o sistema</span>
+              </div>
+              <div className="api-key-input-group" style={{ display: 'flex', gap: '8px', marginTop: '10px' }}>
+                <input 
+                  type="password"
+                  className="input-field"
+                  placeholder="AIzaSy..."
+                  value={apiKey}
+                  onChange={(e) => setApiKey(e.target.value)}
+                  style={{ flex: 1, padding: '8px', borderRadius: '4px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-color)' }}
+                />
+                <button className="primary-btn" onClick={handleSaveApiKey} style={{ padding: '8px 16px', borderRadius: '4px', border: 'none', background: 'var(--accent-color)', color: '#fff', cursor: 'pointer' }}>
+                  Salvar
+                </button>
+              </div>
+            </div>
+
+            <div className="setting-item" style={{ marginTop: '20px' }}>
               <div className="setting-info">
                 <span className="setting-label">Limpar Histórico</span>
                 <span className="setting-desc">Apagar todas as conversas salvas neste dispositivo</span>
