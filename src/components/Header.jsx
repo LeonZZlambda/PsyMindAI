@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useTheme } from '../context/ThemeContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import SoundscapesModal from './SoundscapesModal';
@@ -65,10 +66,13 @@ const Header = ({ isSidebarOpen, toggleSidebar, isLoading }) => {
         )}
       </AnimatePresence>
       
-      <SoundscapesModal 
-        isOpen={isSoundModalOpen} 
-        onClose={() => setIsSoundModalOpen(false)} 
-      />
+      {isSoundModalOpen && createPortal(
+        <SoundscapesModal
+          isOpen={isSoundModalOpen}
+          onClose={() => setIsSoundModalOpen(false)}
+        />,
+        document.body
+      )}
     </header>
   );
 };

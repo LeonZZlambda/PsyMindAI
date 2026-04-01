@@ -1,82 +1,104 @@
 import React from 'react';
 import { useSound } from '../context/SoundContext';
-import '../styles/pomodoro.css'; // Reuse modal styles
+
+const sounds = [
+  { id: 'rain',  label: 'Chuva Suave',   icon: 'water_drop' },
+  { id: 'focus', label: 'Foco Profundo', icon: 'self_improvement' },
+  { id: 'white', label: 'Ruído Branco',  icon: 'graphic_eq' },
+];
 
 const SoundscapesModal = ({ isOpen, onClose }) => {
   const { isPlaying, currentSound, volume, toggleSound, changeSound, setVolume } = useSound();
 
   if (!isOpen) return null;
 
-  const sounds = [
-    { id: 'rain', label: 'Chuva Suave', icon: 'water_drop' },
-    { id: 'focus', label: 'Foco Profundo', icon: 'self_improvement' }, // Brown noise
-    { id: 'white', label: 'Ruído Branco', icon: 'graphic_eq' },
-  ];
-
   return (
-    <div className={`modal-overlay ${isOpen ? 'open' : ''}`} onClick={onClose}>
-      <div className="pomodoro-modal" onClick={e => e.stopPropagation()}>
+    <div className="modal-overlay" onClick={onClose}>
+      <div
+        className="modal-content"
+        onClick={e => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="soundscapes-title"
+      >
         <div className="modal-header">
-          <div className="modal-title">
-            <span className="material-symbols-outlined">headphones</span>
-            <h3>Sons Ambientais</h3>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <span className="material-symbols-outlined" style={{ color: 'var(--primary-color)' }}>headphones</span>
+            <h2 id="soundscapes-title" style={{ margin: 0, fontSize: '1.25rem', fontWeight: 500 }}>Sons Ambientais</h2>
           </div>
-          <button className="close-btn" onClick={onClose}>
+          <button className="close-btn" onClick={onClose} aria-label="Fechar">
             <span className="material-symbols-outlined">close</span>
           </button>
         </div>
 
-        <div className="pomodoro-body">
-          <div className="sound-controls">
-            <button 
-              className={`timer-toggle-btn ${isPlaying ? 'active' : ''}`}
+        <div className="settings-body">
+          {/* Play / Pause */}
+          <div className="settings-section" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div className="setting-info">
+              <span className="setting-label">{isPlaying ? 'Reproduzindo' : 'Pausado'}</span>
+              <span className="setting-desc">{isPlaying ? sounds.find(s => s.id === currentSound)?.label : 'Pressione para iniciar'}</span>
+            </div>
+            <button
               onClick={toggleSound}
-              style={{ width: '80px', height: '80px', borderRadius: '50%' }}
+              style={{
+                width: 52, height: 52, borderRadius: '50%', border: 'none',
+                background: 'var(--primary-color)', color: '#fff',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                cursor: 'pointer', flexShrink: 0,
+                boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
+              }}
+              aria-label={isPlaying ? 'Pausar' : 'Reproduzir'}
             >
-              <span className="material-symbols-outlined" style={{ fontSize: '32px' }}>
+              <span className="material-symbols-outlined" style={{ fontSize: 28 }}>
                 {isPlaying ? 'pause' : 'play_arrow'}
               </span>
             </button>
-            <p style={{ marginTop: '1rem', color: 'var(--text-light)' }}>
-              {isPlaying ? 'Reproduzindo...' : 'Pausado'}
-            </p>
           </div>
 
-          <div className="sound-list" style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-            {sounds.map(sound => (
-              <button
-                key={sound.id}
-                className={`mode-btn ${currentSound === sound.id ? 'active' : ''}`}
-                onClick={() => changeSound(sound.id)}
-                style={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  gap: '1rem', 
-                  width: '100%', 
-                  justifyContent: 'flex-start',
-                  padding: '12px 16px',
-                  background: currentSound === sound.id ? 'var(--secondary-color)' : 'transparent'
-                }}
-              >
-                <span className="material-symbols-outlined">{sound.icon}</span>
-                {sound.label}
-              </button>
-            ))}
+          {/* Sound selector */}
+          <div className="settings-section">
+            <h3>Ambiente</h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              {sounds.map(sound => (
+                <button
+                  key={sound.id}
+                  onClick={() => changeSound(sound.id)}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: '0.75rem',
+                    padding: '0.75rem 1rem', borderRadius: 16, border: 'none',
+                    background: currentSound === sound.id ? 'var(--secondary-color)' : 'transparent',
+                    color: currentSound === sound.id ? 'var(--primary-color)' : 'var(--text-color)',
+                    fontFamily: 'inherit', fontSize: '0.9375rem', fontWeight: currentSound === sound.id ? 500 : 400,
+                    cursor: 'pointer', textAlign: 'left', transition: 'background 0.2s',
+                    outline: currentSound === sound.id ? '2px solid var(--primary-color)' : 'none',
+                    outlineOffset: -2,
+                  }}
+                  aria-pressed={currentSound === sound.id}
+                >
+                  <span className="material-symbols-outlined" style={{ fontSize: 22 }}>{sound.icon}</span>
+                  {sound.label}
+                  {currentSound === sound.id && (
+                    <span className="material-symbols-outlined" style={{ marginLeft: 'auto', fontSize: 18 }}>check</span>
+                  )}
+                </button>
+              ))}
+            </div>
           </div>
 
-          <div className="volume-control" style={{ width: '100%', marginTop: '1rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: 'var(--text-light)' }}>
-              <span className="material-symbols-outlined">volume_down</span>
-              <input 
-                type="range" 
-                min="0" 
-                max="1" 
-                step="0.01" 
-                value={volume} 
-                onChange={(e) => setVolume(parseFloat(e.target.value))}
-                style={{ flex: 1, accentColor: 'var(--primary-color)' }}
+          {/* Volume */}
+          <div className="settings-section" style={{ marginBottom: 0 }}>
+            <h3>Volume</h3>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <span className="material-symbols-outlined" style={{ color: 'var(--text-light)', fontSize: 20 }}>volume_down</span>
+              <input
+                type="range"
+                min="0" max="1" step="0.01"
+                value={volume}
+                onChange={e => setVolume(parseFloat(e.target.value))}
+                style={{ flex: 1, accentColor: 'var(--primary-color)', height: 4 }}
+                aria-label="Volume"
               />
-              <span className="material-symbols-outlined">volume_up</span>
+              <span className="material-symbols-outlined" style={{ color: 'var(--text-light)', fontSize: 20 }}>volume_up</span>
             </div>
           </div>
         </div>

@@ -934,19 +934,35 @@
   transform: scale(1.02);
 }
 
-@media (max-width: 768px) {
-  .chat-container {
-    padding-top: 60px; /* Smaller header space */
+/* ── Tablet (768–1024px) ───────────────────────────────────────── */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .welcome h2 { font-size: 2.75rem; }
+
+  .suggestions {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .messages {
-    padding: 0.5rem 1rem; /* Reduced vertical padding, kept horizontal */
-    gap: 1.5rem;
+    padding: 1.5rem;
   }
 
-  .message {
-    gap: 0.75rem;
+  .input-area {
+    padding: 0 1.5rem 1.5rem;
   }
+}
+
+/* ── Mobile (≤768px) ───────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .chat-container {
+    padding-top: 64px;
+  }
+
+  .messages {
+    padding: 1rem;
+    gap: 1.25rem;
+  }
+
+  .message { gap: 0.75rem; }
 
   .message.user .message-content {
     padding: 0.75rem 1rem;
@@ -954,79 +970,95 @@
   }
 
   .welcome {
-    padding: 1.5rem;
+    padding: 1.25rem 1rem;
+    align-items: center;
+    text-align: center;
   }
 
-  .welcome h2 {
-    font-size: 2.5rem;
-  }
+  .welcome h2 { font-size: 2rem; }
 
   .welcome p {
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
   }
 
+  .daily-quote-wrapper { max-width: 100%; }
+
   .suggestions {
-    grid-template-columns: 1fr; /* Stack suggestions on mobile */
+    grid-template-columns: repeat(2, 1fr);
     gap: 0.75rem;
   }
 
   .suggestion {
-    min-height: auto; /* Allow auto height */
     height: auto;
-    padding: 1rem;
+    min-height: 0;
+    padding: 0.875rem;
+  }
+
+  /* Always show message actions on touch devices */
+  .message-actions {
+    opacity: 1;
+    visibility: visible;
   }
 
   .input-area {
-    padding: 0 1rem 1rem;
+    padding: 0 0.75rem;
+    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
   }
 
-  .input-container {
-    padding: 0.25rem 0.5rem;
+  .input-container { padding: 0.25rem 0.5rem; }
+
+  .tools-menu {
+    left: 0;
+    right: auto;
+    min-width: 180px;
+  }
+
+  .scroll-top-btn {
+    bottom: calc(90px + env(safe-area-inset-bottom));
+    right: 1rem;
   }
 }
 
-/* Small Mobile Devices (iPhone SE, etc) */
+/* ── Small mobile (≤480px) ─────────────────────────────────────── */
 @media (max-width: 480px) {
   .messages {
-    padding: 0.5rem; /* Minimal padding */
+    padding: 0.75rem 0.5rem;
     gap: 1rem;
   }
 
   .message-avatar {
-    width: 24px;
-    height: 24px;
+    width: 26px;
+    height: 26px;
     font-size: 0.875rem;
-    margin-top: 4px; /* Align with text */
   }
 
-  .message {
-    gap: 0.5rem; /* Reduce gap between avatar and text */
-  }
+  .message { gap: 0.5rem; }
 
   .message.user .message-content {
     padding: 0.6rem 0.9rem;
-    font-size: 0.95rem;
+    font-size: 0.9375rem;
   }
 
-  .message-content {
-    font-size: 0.95rem;
+  .message-content { font-size: 0.9375rem; }
+
+  .welcome h2 { font-size: 1.625rem; }
+
+  .welcome p { font-size: 0.9375rem; }
+
+  .suggestions {
+    grid-template-columns: 1fr;
   }
 
-  .welcome h2 {
-    font-size: 1.75rem;
-  }
-
-  .welcome p {
-    font-size: 0.95rem;
-  }
+  .suggestion strong { font-size: 0.9375rem; }
 
   .input-area {
-    padding: 0 0.5rem 0.5rem;
+    padding: 0 0.5rem;
+    padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
   }
 
   .message-input {
-    font-size: 0.95rem;
+    font-size: 1rem; /* Prevent iOS zoom on focus (must be ≥16px) */
     padding: 0.6rem;
   }
 
@@ -1035,39 +1067,18 @@
     height: 36px;
   }
 
-  /* Fix for icons shape and spacing on mobile */
-  .speak-btn, .action-btn {
-    width: 28px;
-    height: 28px;
-    min-width: 28px; /* Prevent squashing */
-    border-radius: 100% !important; /* User requested "100" for roundness */
-    padding: 0 !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(0,0,0,0.03); /* Slight background to see the shape */
-    
-    /* Ensure roundness on all devices */
-    overflow: hidden;
-    -webkit-appearance: none;
-    appearance: none;
-    box-sizing: border-box;
-    border: none;
-    outline: none;
-    
-    /* Fix for flex items */
-    flex-shrink: 0;
-    flex-grow: 0;
+  .action-btn {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    padding: 0;
   }
 
-  .speak-btn .material-symbols-outlined,
-  .action-btn .material-symbols-outlined {
-    font-size: 16px;
-  }
+  .action-btn .material-symbols-outlined { font-size: 16px; }
 
-  .message-actions {
-    gap: 4px;
-  }
+  .message-actions { gap: 2px; }
+
+  .tools-menu { min-width: 160px; }
 }
 
 

@@ -150,3 +150,17 @@
     box-shadow: 0 1px 2px rgba(0,0,0,0.2);
   }
 }
+
+@media (max-width: 768px) {
+  .header {
+    padding: 0.625rem 0.75rem;
+    padding-top: calc(0.625rem + env(safe-area-inset-top));
+  }
+
+  .header-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .logo h1 { font-size: 1.125rem; }
+}

@@ -245,10 +245,57 @@
   font-weight: 500;
 }
 
-/* Hide keyboard shortcuts on touch devices or small screens */
+/* Hide keyboard shortcuts on touch devices */
 @media (hover: none) and (pointer: coarse), (max-width: 768px) {
-  .keyboard-shortcut {
-    display: none !important;
+  .keyboard-shortcut { display: none !important; }
+}
+
+/* ── Mobile sidebar: drawer over content ───────────────────────── */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100dvh;
+    z-index: 200;
+    transform: translateX(0);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 280px !important;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .sidebar.closed {
+    transform: translateX(-100%);
+    width: 280px !important;
+    pointer-events: none;
+  }
+
+  .sidebar > * {
+    min-width: 248px;
+  }
+
+  .sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 199;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+
+  .recent-item {
+    padding: 0.875rem 1rem;
+    min-height: 48px;
+  }
+
+  .sidebar-item {
+    padding: 0.875rem 1rem;
+    min-height: 48px;
+  }
+
+  /* Always show delete button on touch */
+  .delete-chat-btn {
+    opacity: 1;
   }
 }
 

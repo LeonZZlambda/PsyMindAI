@@ -1,12 +1,7 @@
 /* Pomodoro Modal Styles */
 .pomodoro-modal {
   max-width: 380px;
-  width: 90%;
   text-align: center;
-  background: #fff;
-  border-radius: 28px;
-  padding: 24px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
 }
 
 .modal-overlay.closing .pomodoro-modal {
