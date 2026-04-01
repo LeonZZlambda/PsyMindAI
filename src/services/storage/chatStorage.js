@@ -2,14 +2,14 @@ import { defaultStorage } from '../adapters/storageAdapter';
 
 const STORAGE_KEY = 'chatHistory';
 
-export function loadChats(storage = defaultStorage) {
+export async function loadChats(storage = defaultStorage) {
   if (typeof window === 'undefined') return [];
-  return storage.get(STORAGE_KEY) || [];
+  return (await storage.get(STORAGE_KEY)) || [];
 }
 
-export function saveChats(chats, storage = defaultStorage) {
+export async function saveChats(chats, storage = defaultStorage) {
   if (typeof window === 'undefined') return;
-  storage.set(STORAGE_KEY, chats);
+  await storage.set(STORAGE_KEY, chats);
 }
 
 export function createChat(id, title, messages) {

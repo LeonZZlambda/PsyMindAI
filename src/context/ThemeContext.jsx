@@ -13,7 +13,11 @@ export const useTheme = () => {
 };
 
 export const ThemeProvider = ({ children }) => {
-  const [themeMode, setThemeMode] = useState(() => loadSetting('themeMode', 'system'));
+  const [themeMode, setThemeMode] = useState('system');
+  const [fontSize, setFontSize] = useState('normal');
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const [highContrast, setHighContrast] = useState(false);
+  const [colorBlindMode, setColorBlindMode] = useState('none');
 
   const [systemIsDark, setSystemIsDark] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -22,10 +26,22 @@ export const ThemeProvider = ({ children }) => {
     return false;
   });
 
-  const [fontSize, setFontSize] = useState(() => loadSetting('fontSize', 'normal'));
-  const [reducedMotion, setReducedMotion] = useState(() => loadBooleanSetting('reducedMotion'));
-  const [highContrast, setHighContrast] = useState(() => loadBooleanSetting('highContrast'));
-  const [colorBlindMode, setColorBlindMode] = useState(() => loadSetting('colorBlindMode', 'none'));
+  // Load all settings async on mount
+  useEffect(() => {
+    Promise.all([
+      loadSetting('themeMode', 'system'),
+      loadSetting('fontSize', 'normal'),
+      loadBooleanSetting('reducedMotion'),
+      loadBooleanSetting('highContrast'),
+      loadSetting('colorBlindMode', 'none'),
+    ]).then(([tm, fs, rm, hc, cb]) => {
+      setThemeMode(tm);
+      setFontSize(fs);
+      setReducedMotion(rm);
+      setHighContrast(hc);
+      setColorBlindMode(cb);
+    });
+  }, []);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -34,11 +50,11 @@ export const ThemeProvider = ({ children }) => {
     return () => mediaQuery.removeEventListener('change', handler);
   }, []);
 
-  useEffect(() => saveSetting('themeMode', themeMode), [themeMode]);
-  useEffect(() => saveSetting('fontSize', fontSize), [fontSize]);
-  useEffect(() => saveSetting('reducedMotion', reducedMotion), [reducedMotion]);
-  useEffect(() => saveSetting('highContrast', highContrast), [highContrast]);
-  useEffect(() => saveSetting('colorBlindMode', colorBlindMode), [colorBlindMode]);
+  useEffect(() => { saveSetting('themeMode', themeMode); }, [themeMode]);
+  useEffect(() => { saveSetting('fontSize', fontSize); }, [fontSize]);
+  useEffect(() => { saveSetting('reducedMotion', reducedMotion); }, [reducedMotion]);
+  useEffect(() => { saveSetting('highContrast', highContrast); }, [highContrast]);
+  useEffect(() => { saveSetting('colorBlindMode', colorBlindMode); }, [colorBlindMode]);
 
   const isDarkMode = themeMode === 'system' ? systemIsDark : themeMode === 'dark';
 

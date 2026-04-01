@@ -3,7 +3,7 @@ export class StorageAdapter {
     this.storage = storage;
   }
 
-  get(key) {
+  async get(key) {
     try {
       const value = this.storage.getItem(key);
       return value ? JSON.parse(value) : null;
@@ -12,7 +12,7 @@ export class StorageAdapter {
     }
   }
 
-  set(key, value) {
+  async set(key, value) {
     try {
       this.storage.setItem(key, JSON.stringify(value));
       return true;
@@ -21,11 +21,11 @@ export class StorageAdapter {
     }
   }
 
-  remove(key) {
+  async remove(key) {
     this.storage.removeItem(key);
   }
 
-  clear() {
+  async clear() {
     this.storage.clear();
   }
 }

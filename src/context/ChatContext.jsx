@@ -17,7 +17,15 @@ export const useChat = () => {
 
 export const ChatProvider = ({ children }) => {
   const { reducedMotion } = useTheme();
-  const [chats, setChats] = useState(loadChats);
+  const [chats, setChats] = useState([]);
+  const [chatsLoaded, setChatsLoaded] = useState(false);
+
+  useEffect(() => {
+    loadChats().then(loaded => {
+      setChats(loaded);
+      setChatsLoaded(true);
+    });
+  }, []);
   
   const [currentChatId, setCurrentChatId] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -28,8 +36,8 @@ export const ChatProvider = ({ children }) => {
   const streamTimeoutRef = React.useRef(null);
 
   useEffect(() => {
-    saveChats(chats);
-  }, [chats]);
+    if (chatsLoaded) saveChats(chats);
+  }, [chats, chatsLoaded]);
 
   useEffect(() => {
     if (currentChatId) {
