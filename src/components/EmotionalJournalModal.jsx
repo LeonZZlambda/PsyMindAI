@@ -12,12 +12,21 @@ const journalQuestions = [
 const EmotionalJournalModal = ({ isOpen, onClose }) => {
   const { entries, addEntry, deleteEntry } = useEmotionalJournal();
   const [activeTab, setActiveTab] = useState('new');
+  const [isClosing, setIsClosing] = useState(false);
   const [responses, setResponses] = useState({
     excited: '',
     irritated: '',
     frustrated: '',
     proud: ''
   });
+
+  const handleClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setIsClosing(false);
+      onClose();
+    }, 300);
+  };
 
   if (!isOpen) return null;
 
@@ -42,23 +51,21 @@ const EmotionalJournalModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className={`modal-overlay ${isOpen ? 'open' : ''}`} onClick={onClose}>
-      <div className="emotional-journal-modal" onClick={e => e.stopPropagation()}>
-        <div className="journal-header">
-          <div className="journal-title">
-            <span className="material-symbols-outlined">auto_stories</span>
-            <h3>Repertório Emocional</h3>
-          </div>
-          <button className="close-btn" onClick={onClose}>
+    <div className={`modal-overlay ${isClosing ? 'closing' : ''}`} onClick={handleClose}>
+      <div className="modal-content emotional-journal-modal" onClick={e => e.stopPropagation()}>
+        <div className="modal-header">
+          <h2>
+            <span className="material-symbols-outlined" style={{ verticalAlign: 'middle', marginRight: '8px' }}>auto_stories</span>
+            Repertório Emocional
+          </h2>
+          <button className="close-btn" onClick={handleClose} aria-label="Fechar repertório emocional">
             <span className="material-symbols-outlined">close</span>
           </button>
         </div>
 
-        <p className="journal-description">
-          Amplie seu vocabulário emocional. Quanto mais você nomeia o que sente, mais fácil é comunicar-se e conectar-se.
-        </p>
+        <div className="modal-body">
 
-        <div className="pomodoro-modes">
+          <div className="pomodoro-modes" style={{ marginBottom: '1.5rem' }}>
           <button 
             className={`mode-btn ${activeTab === 'new' ? 'active' : ''}`}
             onClick={() => setActiveTab('new')}
@@ -71,11 +78,14 @@ const EmotionalJournalModal = ({ isOpen, onClose }) => {
           >
             Histórico
           </button>
-        </div>
+          </div>
 
-        <div className="journal-content">
-          {activeTab === 'new' ? (
+          <div className="journal-content" style={{ padding: 0 }}>
+            {activeTab === 'new' ? (
             <>
+              <h4 style={{ textAlign: 'center', marginBottom: '1.5rem', color: 'var(--text-color)', fontWeight: 500, fontSize: '1rem' }}>
+                Amplie seu vocabulário emocional. Quanto mais você nomeia o que sente, mais fácil é comunicar-se e conectar-se.
+              </h4>
               <div className="journal-questions">
                 {journalQuestions.map(q => (
                   <div key={q.id} className="journal-question-block">
@@ -141,6 +151,7 @@ const EmotionalJournalModal = ({ isOpen, onClose }) => {
               )}
             </div>
           )}
+          </div>
         </div>
       </div>
     </div>

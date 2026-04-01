@@ -19,6 +19,15 @@ const MoodTrackerModal = ({ isOpen, onClose }) => {
   const [activeTab, setActiveTab] = useState('new'); // 'new' or 'history'
   const [aiInsight, setAiInsight] = useState('');
   const [isLoadingInsight, setIsLoadingInsight] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+
+  const handleClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setIsClosing(false);
+      onClose();
+    }, 300);
+  };
 
   if (!isOpen) return null;
 
@@ -55,20 +64,21 @@ const MoodTrackerModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className={`modal-overlay ${isOpen ? 'open' : ''}`} onClick={onClose}>
-      <div className="mood-modal" onClick={e => e.stopPropagation()}>
-        <div className="mood-header">
-          <div className="mood-title">
-            <span className="material-symbols-outlined">mood</span>
-            <h3>Diário de Emoções</h3>
-          </div>
-          <button className="close-btn" onClick={onClose}>
+    <div className={`modal-overlay ${isClosing ? 'closing' : ''}`} onClick={handleClose}>
+      <div className={`modal-content mood-modal ${isClosing ? 'closing' : ''}`} onClick={e => e.stopPropagation()}>
+        <div className="modal-header">
+          <h2>
+            <span className="material-symbols-outlined" style={{ verticalAlign: 'middle', marginRight: '8px' }}>mood</span>
+            Diário de Emoções
+          </h2>
+          <button className="close-btn" onClick={handleClose} aria-label="Fechar diário de emoções">
             <span className="material-symbols-outlined">close</span>
           </button>
         </div>
 
-        <div className="pomodoro-modes" style={{ marginBottom: '1.5rem' }}>
-          <button 
+        <div className="modal-body">
+          <div className="pomodoro-modes" style={{ marginBottom: '1.5rem' }}>
+            <button 
             className={`mode-btn ${activeTab === 'new' ? 'active' : ''}`}
             onClick={() => setActiveTab('new')}
           >
@@ -164,6 +174,7 @@ const MoodTrackerModal = ({ isOpen, onClose }) => {
               )}
             </div>
           )}
+        </div>
         </div>
       </div>
     </div>
