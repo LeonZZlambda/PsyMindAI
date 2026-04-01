@@ -146,7 +146,7 @@
   background: var(--card-background);
   border: 1px solid var(--border-color);
   border-radius: 12px;
-  padding: 1.25rem 1rem;
+  padding: 1.25rem;
   text-align: center;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -156,7 +156,7 @@
   justify-content: center;
   gap: 0.625rem;
   font-family: inherit;
-  aspect-ratio: 1;
+  min-height: 140px;
 }
 
 .category-card:hover {

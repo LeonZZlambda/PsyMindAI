@@ -996,35 +996,32 @@ kbd {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  background-color: var(--primary-color);
-  color: white;
+  padding: 0.9rem 1.5rem;
+  background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-mid) 60%, var(--gradient-end) 100%);
+  color: #ffffff;
   border: none;
-  border-radius: 100px;
+  border-radius: 24px;
   font-size: 0.95rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: transform 0.18s ease, background 0.2s ease;
   /* make the button fill the full width of the container */
   width: 100%;
   align-self: stretch;
   box-sizing: border-box;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .app.dark .analyze-btn {
-  background-color: #a8c7fa;
-  color: #041e49;
+  background: linear-gradient(135deg, var(--gradient-mid) 0%, var(--gradient-end) 100%);
+  color: #001d35;
 }
 
 .analyze-btn:hover:not(:disabled) {
-  background-color: var(--primary-hover);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 .app.dark .analyze-btn:hover:not(:disabled) {
-  background-color: #8ab4f8;
+  /* no extra changes needed beyond darker gradient */
 }
 
 .analyze-btn:disabled {
@@ -1092,8 +1089,27 @@ kbd {
 .support-section .action-btn.primary,
 .reframing-section .action-btn.primary,
 .reframing-result .action-btn.primary {
-  background: var(--primary-color);
-  color: #fff;
+  /* Match primary CTA visual from components.css (.primary-btn.cta) */
+  background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-mid) 60%, var(--gradient-end) 100%);
+  color: #ffffff;
+  padding: 0.9rem 1.5rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 24px;
+  transition: transform 0.18s ease, background 0.2s ease;
+}
+
+.support-section .action-btn.primary:hover,
+.reframing-section .action-btn.primary:hover,
+.reframing-result .action-btn.primary:hover {
+  transform: translateY(-2px);
+}
+
+.app.dark .support-section .action-btn.primary,
+.app.dark .reframing-section .action-btn.primary,
+.app.dark .reframing-result .action-btn.primary {
+  background: linear-gradient(135deg, var(--gradient-mid) 0%, var(--gradient-end) 100%);
+  color: #001d35;
 }
 
 .support-section .action-btn.secondary,
@@ -1111,6 +1127,25 @@ kbd {
     width: 100%;
     max-width: 100%;
   }
+}
+
+/* Make reframing primary actions fill their column on desktop/tablet too */
+.reframing-step .action-btn.primary,
+.step-container .action-btn.primary,
+.reframing-result .action-btn.primary {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+}
+
+/* Make reframing secondary actions fill their column as well */
+.reframing-step .action-btn.secondary,
+.step-container .action-btn.secondary,
+.reframing-result .action-btn.secondary {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .step-header {

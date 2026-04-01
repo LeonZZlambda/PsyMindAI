@@ -98,7 +98,7 @@ const EmotionalJournalModal = ({ isOpen, onClose }) => {
 
               <div className="journal-actions">
                 <button 
-                  className="primary-btn" 
+                  className="primary-btn cta" 
                   onClick={handleSave}
                   disabled={!Object.values(responses).some(r => r.trim())}
                 >

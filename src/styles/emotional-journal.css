@@ -92,6 +92,13 @@
   justify-content: flex-end;
 }
 
+/* Make CTA button fill the journal-actions area (responsive and supports multiple buttons via flex) */
+.journal-actions .primary-btn.cta {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+}
+
 .journal-history {
   display: flex;
   flex-direction: column;

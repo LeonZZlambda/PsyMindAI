@@ -109,7 +109,7 @@ const MoodTrackerModal = ({ isOpen, onClose }) => {
               />
 
               <div className="mood-actions">
-                <button className="primary-btn" onClick={handleSave} disabled={!selectedMood}>
+                <button className="primary-btn cta" onClick={handleSave} disabled={!selectedMood}>
                   Salvar Registro
                 </button>
               </div>
@@ -124,7 +124,6 @@ const MoodTrackerModal = ({ isOpen, onClose }) => {
                     className="ai-insight-btn"
                     onClick={getAiInsight}
                     disabled={isLoadingInsight}
-                    style={{ marginBottom: '1rem', width: '100%' }}
                   >
                     <span className="material-symbols-outlined">
                       {isLoadingInsight ? 'hourglass_empty' : 'psychology'}

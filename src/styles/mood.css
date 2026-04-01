@@ -132,6 +132,40 @@
   transition: all 0.2s ease;
 }
 
+/* AI insight button - match primary CTA style but full width inside mood modal */
+.ai-insight-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-mid) 60%, var(--gradient-end) 100%);
+  border: none;
+  border-radius: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: transform 0.18s ease, background 0.2s ease;
+}
+
+.ai-insight-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.ai-insight-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  background: var(--secondary-color);
+  color: var(--text-light);
+}
+
+.app.dark .ai-insight-btn {
+  background: linear-gradient(135deg, var(--gradient-mid) 0%, var(--gradient-end) 100%);
+  color: #001d35;
+}
+
 .mood-note-input:focus {
   outline: none;
   border-bottom-color: var(--primary-color);
@@ -146,6 +180,13 @@
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
+}
+
+/* Make CTA button fill the mood-actions area (responsive and supports multiple buttons via flex) */
+.mood-actions .primary-btn.cta {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0; /* avoid overflow in flex items */
 }
 
 .mood-history {

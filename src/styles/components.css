@@ -24,6 +24,36 @@
   background: rgba(128, 203, 196, 0.08);
 }
 
+/* Filled CTA variant for prominent actions (consistent across modals and result actions) */
+.primary-btn.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-mid) 60%, var(--gradient-end) 100%);
+  border: none;
+  border-radius: 24px;
+  transition: transform 0.18s ease, background 0.2s ease;
+}
+
+.primary-btn.cta:hover {
+  transform: translateY(-2px);
+}
+
+.app.dark .primary-btn.cta {
+  /* Lighter gradient for dark mode for better contrast */
+  background: linear-gradient(135deg, var(--gradient-mid) 0%, var(--gradient-end) 100%);
+  color: #001d35;
+}
+
+.app.dark .primary-btn.cta:hover {
+  /* no shadow on hover */
+}
+
 /* Toggle Switch */
 .toggle-switch {
   width: 52px;
