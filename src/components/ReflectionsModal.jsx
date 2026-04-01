@@ -167,7 +167,7 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
         ref={modalRef}
         tabIndex="-1"
       >
-        <div className="modal-header">
+        <div className="modal-header with-tabs">
           <div className="modal-tabs">
             <button 
               className={`tab-btn ${activeTab === 'daily' ? 'active' : ''}`}

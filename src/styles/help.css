@@ -180,10 +180,40 @@
   flex-shrink: 0;
 }
 
+@media (max-width: 768px) {
+  .modal-header.with-tabs {
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .modal-header.with-tabs .modal-tabs {
+    flex: 1;
+    min-width: 0;
+    padding-right: 0.25rem;
+  }
+
+  .modal-header.with-tabs .close-btn {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+  }
+}
+
 @media (max-width: 480px) {
+  .modal-header.with-tabs {
+    padding-right: 1rem;
+    gap: 0.5rem;
+  }
+
+  .modal-header.with-tabs .modal-tabs {
+    gap: 0.125rem;
+    margin-right: 0;
+    max-width: calc(100% - 2.5rem);
+  }
+
   .tab-btn {
-    padding: 0.5rem 0.5rem;
-    font-size: 0.8125rem;
+    padding: 0.5rem 0.4375rem;
+    font-size: 0.78rem;
   }
 }
 
@@ -1018,6 +1048,66 @@ kbd {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+}
+
+/* Scoped action buttons for Support/Reframing modal */
+.support-section .action-btn,
+.reframing-section .action-btn,
+.reframing-result .action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 999px;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.2;
+  width: fit-content;
+  min-width: 0;
+}
+
+.support-section .action-btn:disabled,
+.reframing-section .action-btn:disabled,
+.reframing-result .action-btn:disabled,
+.support-section .action-btn.disabled,
+.reframing-section .action-btn.disabled,
+.reframing-result .action-btn.disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.support-section .action-btn .material-symbols-outlined,
+.reframing-section .action-btn .material-symbols-outlined,
+.reframing-result .action-btn .material-symbols-outlined {
+  font-size: 20px;
+}
+
+.support-section .action-btn.primary,
+.reframing-section .action-btn.primary,
+.reframing-result .action-btn.primary {
+  background: var(--primary-color);
+  color: #fff;
+}
+
+.support-section .action-btn.secondary,
+.reframing-section .action-btn.secondary,
+.reframing-result .action-btn.secondary {
+  background: transparent;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+@media (max-width: 768px) {
+  .support-section .action-btn,
+  .reframing-section .action-btn,
+  .reframing-result .action-btn {
+    width: 100%;
+    max-width: 100%;
+  }
 }
 
 .step-header {
