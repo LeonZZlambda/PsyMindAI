@@ -11,14 +11,14 @@ export const ERROR_TYPES = {
 };
 
 const ERROR_MESSAGES = {
-  [ERROR_TYPES.API_KEY_MISSING]: '🔑 Configure sua API Key do Gemini no arquivo .env para ativar a IA.',
-  [ERROR_TYPES.INVALID_KEY]: '🔑 API Key expirada ou inválida. Gere uma nova em https://aistudio.google.com/app/apikey',
-  [ERROR_TYPES.RATE_LIMIT]: '⏱️ Muitas requisições. Aguarde alguns segundos e tente novamente.',
-  [ERROR_TYPES.FORBIDDEN]: '🚫 API Key sem permissões. Verifique sua configuração.',
-  [ERROR_TYPES.NOT_FOUND]: '❌ Modelo não encontrado. Verifique a configuração da API.',
-  [ERROR_TYPES.SERVER_ERROR]: '⚠️ Erro no servidor do Gemini. Tente novamente em instantes.',
-  [ERROR_TYPES.UNAVAILABLE]: '🔧 Serviço temporariamente indisponível. Tente novamente.',
-  [ERROR_TYPES.UNKNOWN]: '❌ Erro inesperado ao conectar com a IA. Tente novamente.'
+  [ERROR_TYPES.API_KEY_MISSING]: '🔑 Para que eu possa conversar com você com todo o meu potencial, preciso que uma API Key seja configurada no arquivo .env.',
+  [ERROR_TYPES.INVALID_KEY]: '🔑 Ops, parece que a chave de acesso (API Key) expirou ou é inválida. Que tal gerar uma nova em https://aistudio.google.com/app/apikey ? 💜',
+  [ERROR_TYPES.RATE_LIMIT]: 'Desculpe! 💜 Eu estou um pouco sobrecarregada agora com muitas mensagens. Você se importa de aguardar um momentinho e tentar novamente?',
+  [ERROR_TYPES.FORBIDDEN]: '🚫 Ah, a API Key atual parece estar sem as permissões necessárias. Você poderia verificar a configuração? 💜',
+  [ERROR_TYPES.NOT_FOUND]: '❌ Ops, ocorreu um problema e o modelo de IA que estou tentando acessar não foi encontrado nas configurações.',
+  [ERROR_TYPES.SERVER_ERROR]: '⚠️ Eita, parece que meus sistemas estão passando por uma instabilidade temporária. Tente novamente em instantes.',
+  [ERROR_TYPES.UNAVAILABLE]: '🔧 Meu serviço está temporariamente indisponível. Vamos tentar de novo em instantes?',
+  [ERROR_TYPES.UNKNOWN]: 'Desculpe, eu não consegui me conectar agora, estava processando muita informação ao mesmo tempo! 💜 Tente me enviar sua mensagem de novo em alguns instantes.'
 };
 
 const HTTP_ERROR_MAP = {
@@ -31,8 +31,13 @@ const HTTP_ERROR_MAP = {
 };
 
 export function parseError(error) {
-  const errorData = typeof error === 'string' ? JSON.parse(error) : error;
-  const errorCode = errorData?.error?.code || error.code;
+  let errorData;
+  try {
+    errorData = typeof error === 'string' ? JSON.parse(error) : error;
+  } catch (e) {
+    errorData = error;
+  }
+  const errorCode = errorData?.status || errorData?.response?.status || errorData?.error?.code || error.code || error.status;
   
   const errorType = HTTP_ERROR_MAP[errorCode] || ERROR_TYPES.UNKNOWN;
   

@@ -90,7 +90,13 @@ export const ChatProvider = ({ children }) => {
       if (result.success) {
         fullResponse = result.text;
       } else {
-        fullResponse = `${result.userMessage}\n\n💬 Você pode continuar conversando, mas as respostas serão limitadas até resolver o problema.`;
+        // Para erros técnicos como RATE_LIMIT, UNKNOWN, conexões e servidor, envia uma mensagem simpática e direta
+        const backendErrors = ['RATE_LIMIT', 'UNKNOWN', 'SERVER_ERROR', 'UNAVAILABLE'];
+        if (backendErrors.includes(result.error)) {
+           fullResponse = result.userMessage;
+        } else {
+           fullResponse = `${result.userMessage}\n\n💬 Você pode continuar conversando, mas as respostas serão limitadas até resolver o problema.`;
+        }
       }
     } else {
       fullResponse = '🤖 **Modo Demonstração** - Configure sua API Key do Gemini no arquivo .env\n\nOlá! Sou o PsyMind.AI, desenvolvido com **Google Gemini**. Estou aqui para te ajudar a compreender suas emoções e comportamentos através da psicologia científica.\n\nComo posso te apoiar hoje? 💜';
