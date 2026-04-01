@@ -1,5 +1,7 @@
 export const SYSTEM_PROMPTS = {
-  PSYMIND: `Você é o PsyMind.AI, um assistente educacional de apoio emocional para estudantes do ensino médio.
+  get PSYMIND() {
+    const importedContext = localStorage.getItem('psymind_imported_context');
+    const basePrompt = `Você é o PsyMind.AI, um assistente educacional de apoio emocional para estudantes do ensino médio.
 
 POSTURA:
 - Seja honesto e criterioso — não concorde com o estudante só para agradá-lo
@@ -29,7 +31,13 @@ QUANDO AJUDAR COM VESTIBULARES:
 - Considere o impacto psicológico da pressão dos vestibulares
 - Ofereça estratégias para lidar com ansiedade pré-prova
 - Ajude o estudante a manter expectativas saudáveis
-- Lembre que o valor da pessoa não está na nota do vestibular`,
+- Lembre que o valor da pessoa não está na nota do vestibular`;
+
+    if (importedContext && importedContext.trim()) {
+      return `${basePrompt}\n\nCONTEXTO DO USUÁRIO (Memorize e aja de acordo):\n${importedContext.trim()}`;
+    }
+    return basePrompt;
+  },
 
   TITLE_GENERATOR: (text) => 
     `Resuma esta mensagem em no máximo 4 palavras: "${text}". Responda APENAS com o resumo, sem aspas ou pontuação extra.`

@@ -38,6 +38,7 @@ const SupportModal = lazy(() => import('./components/SupportModal'))
 const ReflectionsModal = lazy(() => import('./components/ReflectionsModal'))
 const MoodTrackerModal = lazy(() => import('./components/MoodTrackerModal'))
 const EmotionalJournalModal = lazy(() => import('./components/EmotionalJournalModal'))
+const ImportContextModal = lazy(() => import('./components/ImportContextModal'))
 
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
   const [isReflectionsOpen, setIsReflectionsOpen] = useState(false)
   const [isMoodTrackerOpen, setIsMoodTrackerOpen] = useState(false)
   const [isEmotionalJournalOpen, setIsEmotionalJournalOpen] = useState(false)
+  const [isImportContextOpen, setIsImportContextOpen] = useState(false)
 
   const [isNewChatAnimating, setIsNewChatAnimating] = useState(false)
   const [helpInitialTab, setHelpInitialTab] = useState('faq')
@@ -183,6 +185,7 @@ function App() {
               onChatSelect={handleChatSelect}
               isNewChatAnimating={isNewChatAnimating}
               onOpenSettings={() => setIsSettingsOpen(true)}
+              onOpenImportContext={() => setIsImportContextOpen(true)}
               onOpenMoodTracker={() => setIsMoodTrackerOpen(true)}
               onOpenEmotionalJournal={() => setIsEmotionalJournalOpen(true)}
               onOpenHelp={(tab) => {
@@ -239,6 +242,7 @@ function App() {
             <SettingsModal 
               isOpen={isSettingsOpen} 
               onClose={() => setIsSettingsOpen(false)}
+              onOpenImportContext={() => setIsImportContextOpen(true)}
             />
           )}
 
@@ -275,6 +279,13 @@ function App() {
             <EmotionalJournalModal 
               isOpen={isEmotionalJournalOpen} 
               onClose={() => setIsEmotionalJournalOpen(false)} 
+            />
+          )}
+
+          {isImportContextOpen && (
+            <ImportContextModal 
+              isOpen={isImportContextOpen} 
+              onClose={() => setIsImportContextOpen(false)} 
             />
           )}
         </Suspense>

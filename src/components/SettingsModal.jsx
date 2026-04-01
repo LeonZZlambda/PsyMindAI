@@ -5,7 +5,7 @@ import { useChat } from '../context/ChatContext';
 import { defaultConfig } from '../services/config/apiConfig';
 import { setApiKey as updateApiKey } from '../services/chat/chatService';
 
-const SettingsModal = ({ isOpen, onClose }) => {
+const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
   const { 
     isDarkMode, toggleTheme, themeMode, setThemeMode, 
     fontSize, setFontSize, reducedMotion, setReducedMotion, 
@@ -186,6 +186,24 @@ const SettingsModal = ({ isOpen, onClose }) => {
                 <option value="achromatopsia">Acromatopsia (Monocromático)</option>
               </select>
             </div>
+
+          </div>
+
+          <div className="settings-section">
+            <h3>Integração</h3>
+            <div className="setting-item" style={{ marginTop: '10px' }}>
+              <div className="setting-info">
+                <span className="setting-label">Importar contexto</span>
+                <span className="setting-desc">Transfira as informações de outras IAs para personalizar sua experiência.</span>
+              </div>
+              <button className="secondary-btn" onClick={() => {
+                onClose();
+                onOpenImportContext();
+              }}>
+                <span className="material-symbols-outlined" style={{ fontSize: '18px', marginRight: '6px' }}>cloud_download</span>
+                Importar
+              </button>
+            </div>
           </div>
 
           <div className="settings-section">
@@ -205,7 +223,7 @@ const SettingsModal = ({ isOpen, onClose }) => {
                   onChange={(e) => setApiKey(e.target.value)}
                   style={{ flex: 1, padding: '8px', borderRadius: '4px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-color)' }}
                 />
-                <button className="primary-btn" onClick={handleSaveApiKey} style={{ padding: '8px 16px', borderRadius: '4px', border: 'none', background: 'var(--accent-color)', color: '#fff', cursor: 'pointer' }}>
+                <button className="primary-btn" onClick={handleSaveApiKey} style={{ padding: '8px 16px', borderRadius: '4px', border: 'none', background: 'var(--primary-color)', color: '#fff', cursor: 'pointer' }}>
                   Salvar
                 </button>
               </div>
