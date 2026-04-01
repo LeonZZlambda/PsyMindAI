@@ -3,7 +3,7 @@ import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useChat } from '../context/ChatContext';
 
-const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onAnonymousChat, onChatSelect, isNewChatAnimating, onOpenSettings, onOpenHelp, onOpenMoodTracker, onOpenEmotionalJournal }) => {
+const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onAnonymousChat, onChatSelect, isNewChatAnimating, onOpenUserProfile, onOpenSettings, onOpenHelp, onOpenMoodTracker, onOpenEmotionalJournal }) => {
   const navigate = useNavigate();
   const { loadChat, chats = [], currentChatId, deleteChat } = useChat();
   const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
@@ -159,6 +159,14 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onAnonymousChat, onChatSele
         >
           <span className="material-symbols-outlined">history</span>
           <span>Atividade</span>
+        </button>
+        <button 
+          className="sidebar-item" 
+          onClick={onOpenUserProfile}
+          aria-label="Personalizar IA"
+        >
+          <span className="material-symbols-outlined">tune</span>
+          <span>Personalização</span>
         </button>
         <button 
           className="sidebar-item" 

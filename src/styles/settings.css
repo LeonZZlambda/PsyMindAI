@@ -83,6 +83,7 @@
   padding: 1rem 1.5rem 1.5rem;
   display: flex;
   justify-content: flex-end;
+  gap: 1rem;
   flex-shrink: 0;
 }
 

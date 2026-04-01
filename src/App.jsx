@@ -32,6 +32,7 @@ import { useTheme } from './context/ThemeContext'
 import { useChat } from './context/ChatContext'
 
 // Lazy load modals to improve initial load performance
+const UserProfileModal = lazy(() => import('./components/UserProfileModal'))
 const SettingsModal = lazy(() => import('./components/SettingsModal'))
 const HelpModal = lazy(() => import('./components/HelpModal'))
 const SupportModal = lazy(() => import('./components/SupportModal'))
@@ -49,6 +50,7 @@ function App() {
   const isPublicPage = publicRoutes.includes(location.pathname)
   
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
+  const [isUserProfileOpen, setIsUserProfileOpen] = useState(false)
   const [isSettingsOpen, setIsSettingsOpen] = useState(false)
   const [isHelpOpen, setIsHelpOpen] = useState(false)
   const [isSupportOpen, setIsSupportOpen] = useState(false)
@@ -196,6 +198,7 @@ function App() {
               onAnonymousChat={handleAnonymousChat}
               onChatSelect={handleChatSelect}
               isNewChatAnimating={isNewChatAnimating}
+              onOpenUserProfile={() => setIsUserProfileOpen(true)}
               onOpenSettings={() => setIsSettingsOpen(true)}
               onOpenImportContext={() => setIsImportContextOpen(true)}
               onOpenMoodTracker={() => setIsMoodTrackerOpen(true)}
@@ -250,6 +253,12 @@ function App() {
         </div>
 
         <Suspense fallback={null}>
+          {isUserProfileOpen && (
+            <UserProfileModal
+              isOpen={isUserProfileOpen}
+              onClose={() => setIsUserProfileOpen(false)}
+            />
+          )}
           {isSettingsOpen && (
             <SettingsModal 
               isOpen={isSettingsOpen} 
