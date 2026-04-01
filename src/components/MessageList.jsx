@@ -147,7 +147,7 @@ const ImageViewer = ({ src, alt, onClose }) => {
 };
 
 const MessageList = () => {
-  const { messages, isTyping, setInput } = useChat();
+  const { messages, isTyping, setInput, isAnonymous } = useChat();
   const messagesEndRef = useRef(null);
   const chatContainerRef = useRef(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -236,76 +236,109 @@ const MessageList = () => {
           <h2>
             <span>Olá, sou o PsyMind.AI</span>
           </h2>
-          <div className="daily-quote-wrapper">
-            {isLoadingQuote ? (
-              <div className="daily-quote-container" style={{ opacity: 0.6 }}>
-                <span className="material-symbols-outlined quote-icon" style={{ animation: 'spin 2s linear infinite' }}>autorenew</span>
-                <p className="daily-quote">Gerando frase inspiradora...</p>
+          {!isAnonymous && (
+            <>
+              <div className="daily-quote-wrapper">
+                {isLoadingQuote ? (
+                  <div className="daily-quote-container" style={{ opacity: 0.6 }}>
+                    <span className="material-symbols-outlined quote-icon" style={{ animation: 'spin 2s linear infinite' }}>autorenew</span>
+                    <p className="daily-quote">Gerando frase inspiradora...</p>
+                  </div>
+                ) : (
+                  <>
+                    <div className="daily-quote-container">
+                      <span className="material-symbols-outlined quote-icon quote-start">format_quote</span>
+                      <p className="daily-quote">{dailyQuote}</p>
+                      <span className="material-symbols-outlined quote-icon quote-end">format_quote</span>
+                    </div>
+                    <p className="quote-date">
+                      {new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }).replace(/^\w/, c => c.toUpperCase())}
+                    </p>
+                  </>
+                )}
               </div>
-            ) : (
-              <>
-                <div className="daily-quote-container">
-                  <span className="material-symbols-outlined quote-icon quote-start">format_quote</span>
-                  <p className="daily-quote">{dailyQuote}</p>
-                  <span className="material-symbols-outlined quote-icon quote-end">format_quote</span>
-                </div>
-                <p className="quote-date">
-                  {new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }).replace(/^\w/, c => c.toUpperCase())}
-                </p>
-              </>
-            )}
-          </div>
-          <p className="welcome-subtitle">Como posso ajudar você hoje?</p>
-          <div className="suggestions" role="group" aria-label="Sugestões de perguntas">
-            <button 
-              className="suggestion" 
-              onClick={() => setInput('Estou me sentindo ansioso com as provas')}
-              aria-label="Sugestão: Estou me sentindo ansioso com as provas"
+              <p className="welcome-subtitle">Como posso ajudar você hoje?</p>
+            </>
+          )}
+          
+          {isAnonymous ? (
+            <div 
+              className="anonymous-disclaimer" 
+              style={{
+                backgroundColor: 'var(--bg-color-secondary, rgba(255,255,255,0.05))',
+                border: '1px solid var(--border-color, rgba(200,200,200,0.1))',
+                borderRadius: '12px',
+                padding: '24px',
+                marginTop: '16px',
+                textAlign: 'center',
+                color: 'var(--text-color-secondary, #aaa)',
+                maxWidth: '700px',
+                margin: '16px auto 0 auto'
+              }}
             >
-              <strong><span className="material-symbols-outlined" aria-hidden="true">psychology_alt</span> Ansiedade com provas</strong><br />
-              <span>Como lidar com a ansiedade antes dos exames</span>
-            </button>
-            <button 
-              className="suggestion" 
-              onClick={() => setInput('Tenho dificuldade para me concentrar')}
-              aria-label="Sugestão: Tenho dificuldade para me concentrar"
-            >
-              <strong><span className="material-symbols-outlined" aria-hidden="true">center_focus_strong</span> Falta de concentração</strong><br />
-              <span>Estratégias para melhorar o foco nos estudos</span>
-            </button>
-            <button 
-              className="suggestion" 
-              onClick={() => setInput('Como posso melhorar minha autoestima?')}
-              aria-label="Sugestão: Como posso melhorar minha autoestima?"
-            >
-              <strong><span className="material-symbols-outlined" aria-hidden="true">auto_awesome</span> Autoestima</strong><br />
-              <span>Dicas para fortalecer a confiança em si mesmo</span>
-            </button>
-            <button 
-              className="suggestion" 
-              onClick={() => setInput('Quais são as melhores técnicas de estudo?')}
-              aria-label="Sugestão: Quais são as melhores técnicas de estudo?"
-            >
-              <strong><span className="material-symbols-outlined" aria-hidden="true">school</span> Técnicas de Estudo</strong><br />
-              <span>Pomodoro, Flashcards e métodos eficazes</span>
-            </button>
-            <button 
-              className="suggestion" 
-              onClick={() => setInput('Me ajude a criar um cronograma de estudos')}
-              aria-label="Sugestão: Me ajude a criar um cronograma de estudos"
-            >
-              <strong><span className="material-symbols-outlined" aria-hidden="true">calendar_month</span> Planejamento</strong><br />
-              <span>Organize sua rotina e horários de estudo</span>
-            </button>
-            <button 
-              className="suggestion" 
-              onClick={() => setInput('Como evitar o burnout nos estudos?')}
-              aria-label="Sugestão: Como evitar o burnout nos estudos?"
-            >
-              <strong><span className="material-symbols-outlined" aria-hidden="true">spa</span> Descanso Mental</strong><br />
-              <span>Importância do lazer e prevenção ao burnout</span>
-            </button>
-          </div>
+              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
+                <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color, #e0a3ff)' }}>visibility_off</span>
+              </div>
+              <h3 style={{ fontSize: '1.2rem', marginBottom: '12px', color: 'var(--text-color, #fff)' }}>Modo Anônimo</h3>
+              <p style={{ fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '12px' }}>
+                <strong>Esta conversa não aparecerá em seu histórico e não será salva localmente no seu dispositivo.</strong>
+              </p>
+              <p style={{ fontSize: '0.85rem', lineHeight: '1.5', opacity: 0.8 }}>
+                As conversas momentâneas não aparecem nas conversas recentes. Além disso, elas não são usadas para treinar modelos ou personalizar sua experiência. Para manter o contexto e a continuidade, as conversas ficam ativas apenas enquanto esta sessão (aba) estiver em andamento.
+              </p>
+            </div>
+          ) : (
+            <div className="suggestions" role="group" aria-label="Sugestões de perguntas">
+              <button 
+                className="suggestion" 
+                onClick={() => setInput('Estou me sentindo ansioso com as provas')}
+                aria-label="Sugestão: Estou me sentindo ansioso com as provas"
+              >
+                <strong><span className="material-symbols-outlined" aria-hidden="true">psychology_alt</span> Ansiedade com provas</strong><br />
+                <span>Como lidar com a ansiedade antes dos exames</span>
+              </button>
+              <button 
+                className="suggestion" 
+                onClick={() => setInput('Tenho dificuldade para me concentrar')}
+                aria-label="Sugestão: Tenho dificuldade para me concentrar"
+              >
+                <strong><span className="material-symbols-outlined" aria-hidden="true">center_focus_strong</span> Falta de concentração</strong><br />
+                <span>Estratégias para melhorar o foco nos estudos</span>
+              </button>
+              <button 
+                className="suggestion" 
+                onClick={() => setInput('Como posso melhorar minha autoestima?')}
+                aria-label="Sugestão: Como posso melhorar minha autoestima?"
+              >
+                <strong><span className="material-symbols-outlined" aria-hidden="true">auto_awesome</span> Autoestima</strong><br />
+                <span>Dicas para fortalecer a confiança em si mesmo</span>
+              </button>
+              <button 
+                className="suggestion" 
+                onClick={() => setInput('Quais são as melhores técnicas de estudo?')}
+                aria-label="Sugestão: Quais são as melhores técnicas de estudo?"
+              >
+                <strong><span className="material-symbols-outlined" aria-hidden="true">school</span> Técnicas de Estudo</strong><br />
+                <span>Pomodoro, Flashcards e métodos eficazes</span>
+              </button>
+              <button 
+                className="suggestion" 
+                onClick={() => setInput('Me ajude a criar um cronograma de estudos')}
+                aria-label="Sugestão: Me ajude a criar um cronograma de estudos"
+              >
+                <strong><span className="material-symbols-outlined" aria-hidden="true">calendar_month</span> Planejamento</strong><br />
+                <span>Organize sua rotina e horários de estudo</span>
+              </button>
+              <button 
+                className="suggestion" 
+                onClick={() => setInput('Como evitar o burnout nos estudos?')}
+                aria-label="Sugestão: Como evitar o burnout nos estudos?"
+              >
+                <strong><span className="material-symbols-outlined" aria-hidden="true">spa</span> Descanso Mental</strong><br />
+                <span>Importância do lazer e prevenção ao burnout</span>
+              </button>
+            </div>
+          )}
         </motion.div>
       ) : (
         <div className="messages">
@@ -313,7 +346,7 @@ const MessageList = () => {
             {messages.map((message, index) => (
               <motion.div 
                 key={index} 
-                className={`message ${message.type} ${message.isStreaming ? 'streaming' : ''}`}
+                  className={`message ${message.type} ${message.isStreaming ? 'streaming' : ''} ${isAnonymous ? 'anonymous' : ''}`}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}

@@ -1238,3 +1238,22 @@
 }
 
 
+
+/* Anonymous Mode Messages */
+.message.anonymous.user .message-content {
+  background: transparent;
+  border: 1px dashed var(--primary-color);
+  color: var(--text-color);
+  box-shadow: none;
+}
+
+.message.anonymous.ai .message-content {
+  background: rgba(128, 128, 128, 0.08);
+  border: 1px dashed var(--text-light);
+  padding: 1rem 1.5rem;
+  border-radius: 4px 24px 24px 24px;
+}
+
+.app.dark .message.anonymous.ai .message-content {
+  background: rgba(255, 255, 255, 0.04);
+}

@@ -31,6 +31,7 @@ export const ChatProvider = ({ children }) => {
   }, []);
   
   const [currentChatId, setCurrentChatId] = useState(null);
+  const [isAnonymous, setIsAnonymous] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -39,7 +40,10 @@ export const ChatProvider = ({ children }) => {
   const streamTimeoutRef = React.useRef(null);
 
   useEffect(() => {
-    if (chatsLoaded) saveChats(chats);
+    if (chatsLoaded) {
+      // Don't save anonymous chats to storage
+      saveChats(chats.filter(c => !c.isAnonymous));
+    }
   }, [chats, chatsLoaded]);
 
   useEffect(() => {
@@ -61,15 +65,20 @@ export const ChatProvider = ({ children }) => {
     let chatId = currentChatId;
     if (!chatId) {
       chatId = Date.now().toString();
-      const tempTitle = text.slice(0, 40) + (text.length > 40 ? '...' : '');
-      setChats(prev => [createChat(chatId, tempTitle, [userMessage]), ...prev]);
+      const tempTitle = isAnonymous ? 'Modo Anônimo' : text.slice(0, 40) + (text.length > 40 ? '...' : '');
+      const newChat = createChat(chatId, tempTitle, [userMessage]);
+      if (isAnonymous) newChat.isAnonymous = true;
+      
+      setChats(prev => [newChat, ...prev]);
       setCurrentChatId(chatId);
       
-      generateChatTitle(text).then(title => {
-        setChats(prev => prev.map(chat => 
-          chat.id === chatId ? updateChat(chat, { title }) : chat
-        ));
-      });
+      if (!isAnonymous) {
+        generateChatTitle(text).then(title => {
+          setChats(prev => prev.map(chat => 
+            chat.id === chatId ? updateChat(chat, { title }) : chat
+          ));
+        });
+      }
     } else {
       setChats(prev => prev.map(chat => 
         chat.id === chatId 
@@ -163,7 +172,7 @@ export const ChatProvider = ({ children }) => {
       streamTimeoutRef.current = streamer;
       streamer.start();
     }, 800);
-  }, [messages, reducedMotion, currentChatId, chats]);
+  }, [messages, reducedMotion, currentChatId, chats, isAnonymous]);
 
   const stopStreaming = useCallback(() => {
     if (streamTimeoutRef.current) {
@@ -187,10 +196,27 @@ export const ChatProvider = ({ children }) => {
     });
   }, []);
 
+  const startAnonymousChat = useCallback(() => {
+    setMessages([]);
+    setCurrentChatId(null);
+    setIsAnonymous(true);
+    setInput('');
+  }, []);
+
   const clearHistory = useCallback(() => {
+    setIsAnonymous(false);
     setMessages([]);
     setCurrentChatId(null);
   }, []);
+
+  const loadChat = useCallback((chatId) => {
+    setCurrentChatId(chatId);
+    setIsAnonymous(false);
+    const chat = chats.find(c => c.id === chatId);
+    if (chat) {
+      setMessages(chat.messages);
+    }
+  }, [chats]);
 
   const deleteChat = useCallback((chatId) => {
     setChats(prev => prev.filter(c => c.id !== chatId));
@@ -199,14 +225,6 @@ export const ChatProvider = ({ children }) => {
       setCurrentChatId(null);
     }
   }, [currentChatId]);
-
-  const loadChat = useCallback((chatId) => {
-    setCurrentChatId(chatId);
-    const chat = chats.find(c => c.id === chatId);
-    if (chat) {
-      setMessages(chat.messages);
-    }
-  }, [chats]);
 
   const value = {
     messages,
@@ -217,11 +235,13 @@ export const ChatProvider = ({ children }) => {
     sendMessage,
     clearHistory,
     loadChat,
-    chats,
+    chats: chats.filter(c => !c.isAnonymous), // never show anonymous chats in history
     currentChatId,
     deleteChat,
     isStreaming,
-    stopStreaming
+    stopStreaming,
+    isAnonymous,
+    startAnonymousChat
   };
 
   return (

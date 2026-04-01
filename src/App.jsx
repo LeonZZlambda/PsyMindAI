@@ -43,7 +43,7 @@ const ImportContextModal = lazy(() => import('./components/ImportContextModal'))
 
 function App() {
   const { isDarkMode, fontSize, reducedMotion, highContrast, colorBlindMode, toggleTheme } = useTheme()
-  const { clearHistory, setInput, isLoading } = useChat()
+  const { clearHistory, setInput, isLoading, startAnonymousChat } = useChat()
   const location = useLocation()
   const publicRoutes = ['/', '/roadmap', '/contribute']
   const isPublicPage = publicRoutes.includes(location.pathname)
@@ -92,6 +92,17 @@ function App() {
       setIsSidebarOpen(false)
     }
   }, [clearHistory, setInput])
+
+  const handleAnonymousChat = useCallback(() => {
+    startAnonymousChat()
+    setInput('')
+    inputRef.current?.focus()
+    setIsNewChatAnimating(true)
+    setTimeout(() => setIsNewChatAnimating(false), 2000)
+    if (window.innerWidth <= 768) {
+      setIsSidebarOpen(false)
+    }
+  }, [startAnonymousChat, setInput])
 
   const handleChatSelect = useCallback(() => {
     if (window.innerWidth <= 768) {
@@ -182,6 +193,7 @@ function App() {
               isOpen={isSidebarOpen} 
               toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} 
               onNewChat={handleNewChat}
+              onAnonymousChat={handleAnonymousChat}
               onChatSelect={handleChatSelect}
               isNewChatAnimating={isNewChatAnimating}
               onOpenSettings={() => setIsSettingsOpen(true)}

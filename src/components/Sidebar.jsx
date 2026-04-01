@@ -3,7 +3,7 @@ import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useChat } from '../context/ChatContext';
 
-const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onChatSelect, isNewChatAnimating, onOpenSettings, onOpenHelp, onOpenMoodTracker, onOpenEmotionalJournal }) => {
+const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onAnonymousChat, onChatSelect, isNewChatAnimating, onOpenSettings, onOpenHelp, onOpenMoodTracker, onOpenEmotionalJournal }) => {
   const navigate = useNavigate();
   const { loadChat, chats = [], currentChatId, deleteChat } = useChat();
   const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
@@ -67,11 +67,26 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onChatSelect, isNewChatAnim
         <span>Novo chat</span>
         {isOpen && (
           <span className="keyboard-shortcut">
-            <span className="key">{shiftKey}</span>
             <span className="key">{cmdKey}</span>
             <span className="key">O</span>
           </span>
         )}
+      </button>
+
+      <button 
+        className="new-chat-btn secondary anonymous-btn"
+        onClick={onAnonymousChat} 
+        title="Conversa Anônima (Nenhum histórico será salvo)"
+        aria-label="Iniciar conversa anônima"
+        style={{ 
+          background: 'var(--card-hover)', 
+          color: 'var(--text-color)',
+          marginTop: '0.5rem',
+          border: '1px dashed var(--border-color)' 
+        }}
+      >
+        <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>visibility_off</span>
+        <span>Sessão Anônima</span>
       </button>
       
       <div className="recent-chats" role="group" aria-label="Chats recentes">
