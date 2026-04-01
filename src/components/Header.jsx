@@ -6,7 +6,7 @@ import SoundscapesModal from './SoundscapesModal';
 import AccountModal from './AccountModal';
 
 const Header = ({ isSidebarOpen, toggleSidebar, isLoading }) => {
-  const { isDarkMode, toggleTheme } = useTheme();
+  const { isDarkMode, toggleTheme, fontSize, reducedMotion, highContrast, colorBlindMode } = useTheme();
   const [isSoundModalOpen, setIsSoundModalOpen] = useState(false);
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
   const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
@@ -69,20 +69,24 @@ const Header = ({ isSidebarOpen, toggleSidebar, isLoading }) => {
       </AnimatePresence>
       
       {isSoundModalOpen && createPortal(
-        <SoundscapesModal
-          isOpen={isSoundModalOpen}
-          onClose={() => setIsSoundModalOpen(false)}
-        />,
+        <div className={`app ${isDarkMode ? 'dark' : ''} ${fontSize === 'large' ? 'font-large' : ''} ${reducedMotion ? 'reduced-motion' : ''} ${highContrast ? 'high-contrast' : ''} color-blind-${colorBlindMode}`} style={{ display: 'contents' }}>
+          <SoundscapesModal
+            isOpen={isSoundModalOpen}
+            onClose={() => setIsSoundModalOpen(false)}
+          />
+        </div>,
         document.body
       )}
 
       {createPortal(
         <AnimatePresence>
           {isAccountModalOpen && (
-            <AccountModal
-              isOpen={isAccountModalOpen}
-              onClose={() => setIsAccountModalOpen(false)}
-            />
+            <div className={`app ${isDarkMode ? 'dark' : ''} ${fontSize === 'large' ? 'font-large' : ''} ${reducedMotion ? 'reduced-motion' : ''} ${highContrast ? 'high-contrast' : ''} color-blind-${colorBlindMode}`} style={{ display: 'contents' }}>
+              <AccountModal
+                isOpen={isAccountModalOpen}
+                onClose={() => setIsAccountModalOpen(false)}
+              />
+            </div>
           )}
         </AnimatePresence>,
         document.body

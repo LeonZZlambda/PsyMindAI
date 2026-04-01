@@ -22,6 +22,7 @@
   /* Borders & Shadows */
   --border-color: #DADCE0; /* Google Grey 300 */
   --shadow-color: rgba(60, 64, 67, 0.3); /* Material Shadow */
+  --hover-color: rgba(0, 0, 0, 0.05);
   
   /* Gradients: Brain/Mind (Teal -> Indigo) */
   --gradient-start: #00796B;
@@ -52,6 +53,7 @@ body.dark, .app.dark {
   /* Borders & Shadows */
   --border-color: #5F6368; /* Google Grey 700 */
   --shadow-color: rgba(0, 0, 0, 0.5);
+  --hover-color: rgba(255, 255, 255, 0.05);
   
   /* Gradients: Adjusted for Dark Mode */
   --gradient-start: #80CBC4;

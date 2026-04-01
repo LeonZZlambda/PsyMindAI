@@ -41,10 +41,6 @@ export const ThemeProvider = ({ children }) => {
 
   const isDarkMode = themeMode === 'system' ? systemIsDark : themeMode === 'dark';
 
-  useEffect(() => {
-    document.body.className = `app ${isDarkMode ? 'dark' : ''} ${fontSize === 'large' ? 'font-large' : ''} ${reducedMotion ? 'reduced-motion' : ''} ${highContrast ? 'high-contrast' : ''} color-blind-${colorBlindMode}`;
-  }, [isDarkMode, fontSize, reducedMotion, highContrast, colorBlindMode]);
-
   const toggleTheme = async (e) => {
     await animateThemeTransition(
       e,

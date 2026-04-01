@@ -233,9 +233,7 @@
   background-color: var(--hover-color, rgba(0, 0, 0, 0.05));
 }
 
-.app.dark .account-menu-item:hover {
-  background-color: var(--hover-color, rgba(255, 255, 255, 0.05));
-}
+
 
 .account-manage-btn {
   border-radius: 24px;
@@ -253,9 +251,7 @@
   background-color: var(--hover-color, rgba(0, 0, 0, 0.05));
 }
 
-.app.dark .account-manage-btn:hover {
-  background-color: var(--hover-color, rgba(255, 255, 255, 0.05));
-}
+
 
 @media (max-width: 768px) {
   .account-modal-overlay {

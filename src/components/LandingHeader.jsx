@@ -7,7 +7,7 @@ import AccountModal from './AccountModal';
 
 const LandingHeader = () => {
   const navigate = useNavigate();
-  const { isDarkMode, toggleTheme } = useTheme();
+  const { isDarkMode, toggleTheme, fontSize, reducedMotion, highContrast, colorBlindMode } = useTheme();
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
 
   return (
@@ -71,10 +71,12 @@ const LandingHeader = () => {
       {createPortal(
         <AnimatePresence>
           {isAccountModalOpen && (
-            <AccountModal
-              isOpen={isAccountModalOpen}
-              onClose={() => setIsAccountModalOpen(false)}
-            />
+            <div className={`app ${isDarkMode ? 'dark' : ''} ${fontSize === 'large' ? 'font-large' : ''} ${reducedMotion ? 'reduced-motion' : ''} ${highContrast ? 'high-contrast' : ''} color-blind-${colorBlindMode}`} style={{ display: 'contents' }}>
+              <AccountModal
+                isOpen={isAccountModalOpen}
+                onClose={() => setIsAccountModalOpen(false)}
+              />
+            </div>
           )}
         </AnimatePresence>,
         document.body
