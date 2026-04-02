@@ -1,4 +1,4 @@
-import { GeminiClient } from '../api/geminiClient';
+import { GeminiClient } from '../api/providers/geminiClient';
 import { parseError, createErrorResponse, ERROR_TYPES } from '../api/errorHandler';
 import { withRetry } from '../api/retryHandler';
 import { SYSTEM_PROMPTS } from '../prompts/systemPrompts';

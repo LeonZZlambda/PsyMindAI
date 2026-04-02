@@ -1,5 +1,5 @@
 // API
-export { GeminiClient } from './api/geminiClient';
+export { GeminiClient } from './api/providers/geminiClient';
 export { parseError, createErrorResponse, ERROR_TYPES } from './api/errorHandler';
 export { withRetry } from './api/retryHandler';
 
