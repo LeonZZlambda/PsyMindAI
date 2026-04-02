@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useSound } from '../context/SoundContext';
+import '../styles/soundscapes.css';
 
 const sounds = [
   { id: 'rain',  label: 'Chuva Suave',   icon: 'water_drop' },
@@ -9,8 +10,25 @@ const sounds = [
 
 const SoundscapesModal = ({ isOpen, onClose }) => {
   const { isPlaying, currentSound, volume, toggleSound, changeSound, setVolume } = useSound();
+  const modalRef = useRef(null);
+
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+      // Optional chaining to prevent undefined error if ref is not attached yet
+      if (modalRef.current) {
+        modalRef.current.focus();
+      }
+    }
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
+  
+  const currentSoundData = sounds.find(s => s.id === currentSound);
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -20,6 +38,8 @@ const SoundscapesModal = ({ isOpen, onClose }) => {
         role="dialog"
         aria-modal="true"
         aria-labelledby="soundscapes-title"
+        ref={modalRef}
+        tabIndex="-1"
       >
         <div className="modal-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
@@ -31,76 +51,70 @@ const SoundscapesModal = ({ isOpen, onClose }) => {
           </button>
         </div>
 
-        <div className="settings-body">
-          {/* Play / Pause */}
-          <div className="settings-section" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div className="setting-info">
-              <span className="setting-label">{isPlaying ? 'Reproduzindo' : 'Pausado'}</span>
-              <span className="setting-desc">{isPlaying ? sounds.find(s => s.id === currentSound)?.label : 'Pressione para iniciar'}</span>
+        <div className="soundscapes-body">
+          
+          {/* Main Visual Banner */}
+          <div className="soundscapes-hero">
+            <div className="hero-info">
+              <span className="hero-status">{isPlaying ? 'Reproduzindo' : 'Pausado'}</span>
+              <span className="hero-track">
+                {currentSoundData ? currentSoundData.label : 'Nenhum som'}
+              </span>
             </div>
-            <button
+            
+            <button 
+              className="play-toggle-btn"
               onClick={toggleSound}
-              style={{
-                width: 52, height: 52, borderRadius: '50%', border: 'none',
-                background: 'var(--primary-color)', color: '#fff',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                cursor: 'pointer', flexShrink: 0,
-                boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
-              }}
               aria-label={isPlaying ? 'Pausar' : 'Reproduzir'}
             >
               <span className="material-symbols-outlined" style={{ fontSize: 28 }}>
                 {isPlaying ? 'pause' : 'play_arrow'}
               </span>
             </button>
-          </div>
-
-          {/* Sound selector */}
-          <div className="settings-section">
-            <h3>Ambiente</h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              {sounds.map(sound => (
-                <button
-                  key={sound.id}
-                  onClick={() => changeSound(sound.id)}
-                  style={{
-                    display: 'flex', alignItems: 'center', gap: '0.75rem',
-                    padding: '0.75rem 1rem', borderRadius: 16, border: 'none',
-                    background: currentSound === sound.id ? 'var(--secondary-color)' : 'transparent',
-                    color: currentSound === sound.id ? 'var(--primary-color)' : 'var(--text-color)',
-                    fontFamily: 'inherit', fontSize: '0.9375rem', fontWeight: currentSound === sound.id ? 500 : 400,
-                    cursor: 'pointer', textAlign: 'left', transition: 'background 0.2s',
-                    outline: currentSound === sound.id ? '2px solid var(--primary-color)' : 'none',
-                    outlineOffset: -2,
-                  }}
-                  aria-pressed={currentSound === sound.id}
-                >
-                  <span className="material-symbols-outlined" style={{ fontSize: 22 }}>{sound.icon}</span>
-                  {sound.label}
-                  {currentSound === sound.id && (
-                    <span className="material-symbols-outlined" style={{ marginLeft: 'auto', fontSize: 18 }}>check</span>
-                  )}
-                </button>
+            
+            <div className="equalizer-bg">
+              {[...Array(8)].map((_, i) => (
+                <div key={i} className={`bar ${isPlaying ? 'animate' : ''}`}></div>
               ))}
             </div>
           </div>
 
-          {/* Volume */}
-          <div className="settings-section" style={{ marginBottom: 0 }}>
-            <h3>Volume</h3>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <span className="material-symbols-outlined" style={{ color: 'var(--text-light)', fontSize: 20 }}>volume_down</span>
-              <input
-                type="range"
-                min="0" max="1" step="0.01"
-                value={volume}
-                onChange={e => setVolume(parseFloat(e.target.value))}
-                style={{ flex: 1, accentColor: 'var(--primary-color)', height: 4 }}
-                aria-label="Volume"
-              />
-              <span className="material-symbols-outlined" style={{ color: 'var(--text-light)', fontSize: 20 }}>volume_up</span>
+          <div className="sounds-section">
+            <h3>Escolha um Ambiente</h3>
+            <div className="sound-grid">
+              {sounds.map(sound => (
+                <div 
+                  key={sound.id}
+                  className={`sound-card ${currentSound === sound.id ? 'active' : ''}`}
+                  onClick={() => {
+                    changeSound(sound.id);
+                    if (!isPlaying) toggleSound();
+                  }}
+                  role="button"
+                  tabIndex="0"
+                  aria-pressed={currentSound === sound.id}
+                >
+                  <span className="material-symbols-outlined">{sound.icon}</span>
+                  <span className="label">{sound.label}</span>
+                </div>
+              ))}
             </div>
           </div>
+
+          <div className="volume-control">
+            <span className="material-symbols-outlined">volume_down</span>
+            <input
+              type="range"
+              className="volume-slider"
+              min="0" max="1" step="0.01"
+              value={volume}
+              onChange={e => setVolume(parseFloat(e.target.value))}
+              aria-label="Volume do ambiente"
+              style={{ background: `linear-gradient(to right, var(--primary-color) ${volume * 100}%, var(--border-color) ${volume * 100}%)` }}
+            />
+            <span className="material-symbols-outlined">volume_up</span>
+          </div>
+
         </div>
       </div>
     </div>
