@@ -200,12 +200,8 @@ function App() {
               onAnonymousChat={handleAnonymousChat}
               onChatSelect={handleChatSelect}
               isNewChatAnimating={isNewChatAnimating}
-              onOpenUserProfile={() => setIsUserProfileOpen(true)}
               onOpenSettings={() => setIsSettingsOpen(true)}
               onOpenImportContext={() => setIsImportContextOpen(true)}
-              onOpenMoodTracker={() => setIsMoodTrackerOpen(true)}
-              onOpenEmotionalJournal={() => setIsEmotionalJournalOpen(true)}
-              onOpenStudyStats={() => setIsStudyStatsOpen(true)}
               onOpenHelp={(tab) => {
                 setHelpInitialTab(tab || 'faq');
                 setIsHelpOpen(true);
@@ -229,6 +225,7 @@ function App() {
                 isSidebarOpen={isSidebarOpen} 
                 toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
                 isLoading={isLoading}
+                onOpenStudyStats={() => setIsStudyStatsOpen(true)}
               />
             </>
           )}
@@ -248,6 +245,8 @@ function App() {
                   }}
                   onOpenSupport={() => setIsSupportOpen(true)}
                   onOpenReflections={() => setIsReflectionsOpen(true)}
+                  onOpenMoodTracker={() => setIsMoodTrackerOpen(true)}
+                  onOpenEmotionalJournal={() => setIsEmotionalJournalOpen(true)}
                 />
               } 
             />
@@ -260,6 +259,7 @@ function App() {
             <AccountModal
               isOpen={isUserProfileOpen}
               onClose={() => setIsUserProfileOpen(false)}
+              onOpenStudyStats={() => setIsStudyStatsOpen(true)}
               initialView="personalization"
             />
           )}

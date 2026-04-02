@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const AccountModal = ({ isOpen, onClose, initialView = 'account' }) => {
+const AccountModal = ({ isOpen, onClose, onOpenStudyStats, initialView = 'account' }) => {
   const [activeView, setActiveView] = useState(initialView);
   const [profileSettings, setProfileSettings] = useState({
     basicStyle: 'default',
@@ -114,6 +114,17 @@ const AccountModal = ({ isOpen, onClose, initialView = 'account' }) => {
                 >
                   <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>tune</span>
                   Personalizar Assistente
+                </button>
+
+                <button 
+                  onClick={() => {
+                    onClose();
+                    onOpenStudyStats && onOpenStudyStats();
+                  }}
+                  className="account-menu-item"
+                >
+                  <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>bar_chart</span>
+                  Estatísticas e Atividade
                 </button>
 
                 <button className="account-menu-item">

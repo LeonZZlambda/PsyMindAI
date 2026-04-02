@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import SoundscapesModal from './SoundscapesModal';
 import AccountModal from './AccountModal';
 
-const Header = ({ isSidebarOpen, toggleSidebar, isLoading }) => {
+const Header = ({ isSidebarOpen, toggleSidebar, isLoading, onOpenStudyStats }) => {
   const { isDarkMode, toggleTheme, fontSize, reducedMotion, highContrast, colorBlindMode } = useTheme();
   const [isSoundModalOpen, setIsSoundModalOpen] = useState(false);
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
@@ -85,6 +85,7 @@ const Header = ({ isSidebarOpen, toggleSidebar, isLoading }) => {
               <AccountModal
                 isOpen={isAccountModalOpen}
                 onClose={() => setIsAccountModalOpen(false)}
+                onOpenStudyStats={onOpenStudyStats}
               />
             </div>
           )}

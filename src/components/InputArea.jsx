@@ -9,7 +9,7 @@ import PomodoroModal from './PomodoroModal';
 import KindnessModal from './KindnessModal';
 import ExamsModal from './ExamsModal';
 
-const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections }) => {
+const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections, onOpenMoodTracker, onOpenEmotionalJournal }) => {
   const navigate = useNavigate();
   const { input, setInput, sendMessage, isTyping, isStreaming, stopStreaming } = useChat();
   const { isActive: pomodoroIsActive, mode: pomodoroMode, timeLeft: pomodoroTimeLeft } = usePomodoro();
@@ -40,7 +40,8 @@ const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections }) =
 
   const tools = [
     { id: 'pomodoro', icon: 'timer', label: 'Pomodoro' },
-    { id: 'emocional', icon: 'sentiment_satisfied', label: 'Emocional' },
+    { id: 'mood', icon: 'mood', label: 'Diário de Emoções' },
+    { id: 'journal', icon: 'auto_stories', label: 'Repertório Emocional' },
     { id: 'reflexoes', icon: 'self_improvement', label: 'Reflexões' },
     { id: 'vestibulares', icon: 'school', label: 'Vestibulares' },
     { id: 'kindness', icon: 'volunteer_activism', label: 'Atos de Bondade' },
@@ -71,6 +72,16 @@ const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections }) =
     }
     if (tool.id === 'reflexoes') {
       if (onOpenReflections) onOpenReflections();
+      setShowToolsMenu(false);
+      return;
+    }
+    if (tool.id === 'mood') {
+      if (onOpenMoodTracker) onOpenMoodTracker();
+      setShowToolsMenu(false);
+      return;
+    }
+    if (tool.id === 'journal') {
+      if (onOpenEmotionalJournal) onOpenEmotionalJournal();
       setShowToolsMenu(false);
       return;
     }
