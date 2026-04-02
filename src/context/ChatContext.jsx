@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { useTheme } from './ThemeContext';
-import { sendMessageToGemini, isGeminiConfigured, generateChatTitle } from '../services/gemini';
+import { sendMessage as sendMessageToGemini, isConfigured as isGeminiConfigured, generateTitle as generateChatTitle } from '../services/chat/chatService';
 import { loadChats, saveChats, createChat, updateChat } from '../services/storage/chatStorage';
 import { createUserMessage, createAIMessage } from '../services/chat/messageFormatter';
 import { TextStreamer } from '../utils/textStreaming';

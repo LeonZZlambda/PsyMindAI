@@ -52,7 +52,7 @@ const KindnessModal = ({ isOpen, onClose }) => {
     setCompleted(false);
     
     try {
-      const { sendMessageToGemini } = await import('../services/gemini');
+      const { sendMessage: sendMessageToGemini } = await import('../services/chat/chatService');
       
       const categoryPrompts = {
         random: 'Sugira um ato de bondade simples e prático que qualquer pessoa pode fazer hoje (1 frase).',

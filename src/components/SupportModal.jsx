@@ -114,7 +114,7 @@ const SupportModal = ({ isOpen, onClose }) => {
     }
 
     try {
-      const { sendMessageToGemini } = await import('../services/gemini');
+      const { sendMessage: sendMessageToGemini } = await import('../services/chat/chatService');
       const prompt = `Analise este sentimento: "${feelingInput}". Identifique a emoção principal (ansiedade, tristeza, raiva, etc) e sugira 2 técnicas rápidas de apoio emocional (1 frase cada). Formato: EMOÇÃO: [nome]\nTÉCNICA 1: [título] - [descrição]\nTÉCNICA 2: [título] - [descrição]`;
       
       const result = await sendMessageToGemini(prompt, []);
@@ -212,7 +212,7 @@ const SupportModal = ({ isOpen, onClose }) => {
     setIsAnalyzing(true);
     
     try {
-      const { sendMessageToGemini } = await import('../services/gemini');
+      const { sendMessage: sendMessageToGemini } = await import('../services/chat/chatService');
       const prompt = `Analise: Emoção=${data.emotion}, Contexto=${data.context}, Duração=${data.duration}. Forneça: TÍTULO: [nome]\nDESCRIÇÃO: [2 frases]\nCONSELHO: [1 frase prática]`;
       
       const result = await sendMessageToGemini(prompt, []);
@@ -377,7 +377,7 @@ const SupportModal = ({ isOpen, onClose }) => {
     setIsAnalyzing(true);
     
     try {
-      const { sendMessageToGemini } = await import('../services/gemini');
+      const { sendMessage: sendMessageToGemini } = await import('../services/chat/chatService');
       const prompt = `Analise este pensamento negativo usando TCC:\nSituação: ${reframingData.situation}\nPensamento: ${reframingData.thought}\n\nForneça:\nDISTORÇÃO: [tipo de distorção cognitiva]\nDESAFIO: [1 frase explicando a distorção]\nALTERNATIVA: [1 frase com perspectiva alternativa]\nREFORMULAÇÃO: [novo pensamento equilibrado]`;
       
       const result = await sendMessageToGemini(prompt, []);
