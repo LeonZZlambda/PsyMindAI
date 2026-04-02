@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ReactMarkdown from 'react-markdown';
 import { generateLearningTrail, explainQuizError, evaluateOpenEnded } from "../services/tools/learningService";
@@ -90,7 +90,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
     }
   });
 
-  const trails = [...customTrails, ...DEFAULT_TRAILS];
+  const trails = useMemo(() => [...customTrails, ...DEFAULT_TRAILS], [customTrails]);
 
   useEffect(() => {
     localStorage.setItem('psy_mind_custom_trails', JSON.stringify(customTrails));
@@ -108,6 +108,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
 
   const [activeTab, setActiveTab] = useState("trails");
   const [selectedTrail, setSelectedTrail] = useState(null);
+  const [activeTrailContent, setActiveTrailContent] = useState(null);
   const [trailStepIndex, setTrailStepIndex] = useState(0);
 
   // States for AI Creation
@@ -125,6 +126,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
   });
 
   const [currentTrailStats, setCurrentTrailStats] = useState({ correct: 0, total: 0 });
+  const [isTrailFinished, setIsTrailFinished] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('psy_mind_completed_trails', JSON.stringify(completedTrails));
@@ -152,18 +154,83 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
 
   // SRS Filter for Flashcards Tab
   const now = Date.now();
-  const ALL_FLASHCARDS = trails.filter(t => completedTrails[t.id]).flatMap(t => t.content.filter(c => c.type === "flashcard")).filter(f => !srsData[f.front] || srsData[f.front].nextReview <= now);
-  const ALL_QUIZZES = trails.filter(t => completedTrails[t.id]).flatMap(t => t.content.filter(c => c.type === "quiz"));
+  // Flashcards that are due or haven't been reviewed
+  const baseFlashcards = trails.filter(t => completedTrails[t.id]).flatMap(t => t.content.filter(c => c.type === "flashcard"));
+  
+  const [sessionFailedFlashcards, setSessionFailedFlashcards] = useState([]);
+  
+  // ALL_FLASHCARDS merges due flashcards and any that failed in this session but haven't been re-answered correctly
+  const ALL_FLASHCARDS = [...new Set([...baseFlashcards.filter(f => !srsData[f.front] || srsData[f.front].nextReview <= now), ...sessionFailedFlashcards])];
+
+  const [sessionFailedQuizzes, setSessionFailedQuizzes] = useState([]);
+  
+  const baseQuizzes = useMemo(() => {
+    const pool = trails.filter(t => completedTrails[t.id]).flatMap(t => t.content.filter(c => c.type === "quiz"));
+    if (pool.length === 0) return [];
+
+    // Fisher-Yates pra ordem real das questões sem alterar os originais do 'trails'
+    const shuffled = [...pool];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+
+    // Adiciona algumas questões duplicadas aleatoriamente
+    if (shuffled.length >= 3) {
+      const dupCount = Math.floor(Math.random() * 3) + 1;
+      for (let k = 0; k < dupCount; k++) {
+         const randomPoolItem = pool[Math.floor(Math.random() * pool.length)];
+         shuffled.splice(Math.floor(Math.random() * shuffled.length), 0, randomPoolItem);
+      }
+    }
+
+    return shuffled.map((q, idx) => {
+        const correctText = q.options.find(o => o.id === q.correctOption)?.text;
+        
+        // Deep copy das opções para não mutar o objeto de trails original
+        const opts = q.options.map(o => ({ ...o }));
+        for (let i = opts.length - 1; i > 0; i--) {
+           const j = Math.floor(Math.random() * (i + 1));
+           [opts[i], opts[j]] = [opts[j], opts[i]];
+        }
+        
+        const ids = ["A", "B", "C", "D", "E", "F"];
+        let newCorrectID = "A";
+        opts.forEach((o, i) => {
+           if (o.text === correctText) newCorrectID = ids[i];
+           o.id = ids[i];
+        });
+
+        return {
+           ...q,
+           _uid: `quiz_${idx}_${Math.random().toString(36).substring(2, 9)}`, // UID para React renderizar
+           options: opts,
+           correctOption: newCorrectID
+        };
+    });
+  }, [completedTrails, trails]);
+
+  const ALL_QUIZZES = [...baseQuizzes, ...sessionFailedQuizzes];
+  
   const currentGenericQuiz = ALL_QUIZZES[genericQuizIndex] || ALL_QUIZZES[0];
 
   const handleFlip = () => setIsFlipped(!isFlipped);
   const handleSrsAction = (flashcard, difficulty, isTrailMode) => {
     // difficulty: 0 (Errei), 1 (Difícil), 2 (Bom), 3 (Fácil)
-    const intervals = [1000 * 60 * 1, 1000 * 60 * 60 * 12, 1000 * 60 * 60 * 24 * 3, 1000 * 60 * 60 * 24 * 7];
-    const nextReview = Date.now() + intervals[difficulty];
+    const intervals = [1000 * 30, 1000 * 60 * 5, 1000 * 60 * 30, 1000 * 60 * 60 * 2]; // Reduced intervals: 30s, 5m, 30m, 2h
+    const now = Date.now();
+    const nextReview = now + intervals[difficulty];
     const newSrs = { ...srsData, [flashcard.front]: { nextReview, difficulty } };
     setSrsData(newSrs);
     localStorage.setItem("psy_mind_srs_data", JSON.stringify(newSrs));
+
+    if (difficulty === 0) {
+      if (!sessionFailedFlashcards.find(f => f.front === flashcard.front)) {
+         setSessionFailedFlashcards(prev => [...prev, flashcard]);
+      }
+    } else {
+      setSessionFailedFlashcards(prev => prev.filter(f => f.front !== flashcard.front));
+    }
 
     setIsFlipped(false);
     if (isTrailMode) nextTrailStep();
@@ -171,17 +238,33 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
   };
   const handleNextFlashcard = () => { setIsFlipped(false); setCurrentFlashcard((prev) => (prev + 1) % Math.max(1, ALL_FLASHCARDS.length)); };
   
-  const currentStep = selectedTrail ? selectedTrail.content[trailStepIndex] : null;
+  const currentStep = activeTrailContent ? activeTrailContent[trailStepIndex] : null;
 
   const handleQuizSubmit = () => {
     setQuizSubmitted(true);
-    if (selectedTrail && currentStep && currentStep.type === "quiz") {
+    if (activeTrailContent && currentStep && currentStep.type === "quiz") {
        if (selectedOption === currentStep.correctOption) {
-          setCurrentTrailStats(prev => ({ ...prev, correct: prev.correct + 1 }));
+          if (!currentStep.isRetry) {
+             setCurrentTrailStats(prev => ({ ...prev, correct: prev.correct + 1 }));
+          }
+       } else {
+          // Send failed trail question to the end of the trail content
+          setActiveTrailContent(prev => {
+             const updated = [...prev];
+             // Clonando para ter novo _uid assim não conflita chave no React se repetir
+             const rep = { ...currentStep, _uid: `trail_rep_${Math.random().toString(36).substring(2, 9)}`, isRetry: true };
+             updated.push(rep);
+             return updated;
+          });
        }
     } else if (!isTrailActive) {
        if (selectedOption === currentGenericQuiz.correctOption) {
-          setGenericQuizStats(prev => ({ ...prev, correct: prev.correct + 1 }));
+          if (genericQuizIndex < baseQuizzes.length) {
+             setGenericQuizStats(prev => ({ ...prev, correct: prev.correct + 1 }));
+          }
+       } else {
+          // ALWAYS add failed questions to the end of the line, even if they are already there!
+          setSessionFailedQuizzes(prev => [...prev, currentGenericQuiz]);
        }
     }
   };
@@ -203,21 +286,52 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
     setIsGenericQuizFinished(false);
     setSelectedOption(null);
     setQuizSubmitted(false);
+    setSessionFailedQuizzes([]);
   };
   
   const isTrailActive = !!selectedTrail;
 
   const startTrail = (trail) => {
     setSelectedTrail(trail);
+    
+    // Preparar as questões do Trail (embaralhar opções de quizzes) antes de iniciar
+    const preparedContent = trail.content.map((step, idx) => {
+       if (step.type === "quiz") {
+          const correctText = step.options.find(o => o.id === step.correctOption)?.text;
+          const opts = step.options.map(o => ({ ...o }));
+          for (let i = opts.length - 1; i > 0; i--) {
+             const j = Math.floor(Math.random() * (i + 1));
+             [opts[i], opts[j]] = [opts[j], opts[i]];
+          }
+          const ids = ["A", "B", "C", "D", "E", "F"];
+          let newCorrectID = "A";
+          opts.forEach((o, i) => {
+             if (o.text === correctText) newCorrectID = ids[i];
+             o.id = ids[i];
+          });
+          return {
+             ...step,
+             _uid: `trail_${idx}_${Math.random().toString(36).substring(2, 9)}`,
+             options: opts,
+             correctOption: newCorrectID
+          };
+       }
+       return { ...step, _uid: `trail_${idx}_${Math.random().toString(36).substring(2, 9)}` };
+    });
+
+    setActiveTrailContent(preparedContent);
     setTrailStepIndex(0);
     setIsFlipped(false);
     setSelectedOption(null);
     setQuizSubmitted(false);
+    setIsTrailFinished(false);
     setCurrentTrailStats({ correct: 0, total: trail.content.filter(c => c.type === "quiz").length });
   };
 
   const closeTrail = () => {
     setSelectedTrail(null);
+    setActiveTrailContent(null);
+    setIsTrailFinished(false);
   };
 
   const handleExplainError = async (question, userResp, correctResp) => {
@@ -229,7 +343,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
 
   const nextTrailStep = () => {
     setAiExplanation(null);
-    if (trailStepIndex < selectedTrail.content.length - 1) {
+    if (activeTrailContent && trailStepIndex < activeTrailContent.length - 1) {
        setTrailStepIndex(prev => prev + 1);
        setIsFlipped(false);
        setSelectedOption(null);
@@ -239,7 +353,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
           ...prev,
           [selectedTrail.id]: { correct: currentTrailStats.correct, total: currentTrailStats.total }
        }));
-       closeTrail();
+       setIsTrailFinished(true);
     }
   };
 
@@ -336,7 +450,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
                      style={{width: '100%', marginBottom: '15px', resize: 'none'}}
                    />
                    <div style={{display: 'flex', gap: '10px', width: '100%'}}>
-                      <button className="primary-btn" style={{flex: 1, display: 'flex', justifyContent: 'center', gap: '8px'}} 
+                      <button className="primary-btn cta" style={{flex: 1, display: 'flex', justifyContent: 'center', gap: '8px'}} 
                          onClick={() => handleEvaluateDiscursive(openEndedItem.question, discursiveResp)} disabled={isEvaluating || !discursiveResp.trim()}>
                          <span className="material-symbols-outlined">rate_review</span>
                          {isEvaluating ? 'Avaliando...' : 'Avaliar Resposta com IA'}
@@ -360,7 +474,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
                          </ReactMarkdown>
                       </div>
                    </div>
-                   <button className="primary-btn" onClick={isTrail ? nextTrailStep : null} style={{width: '100%'}}>
+                   <button className="primary-btn cta" onClick={isTrail ? nextTrailStep : null} style={{width: '100%'}}>
                       Continuar Trilha <span className="material-symbols-outlined">arrow_forward</span>
                    </button>
                  </div>
@@ -427,15 +541,15 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
             </div>
          )}
          
-         <div className="quiz-footer" style={{ marginTop: '16px' }}>
+         <div className="quiz-footer" style={{ marginTop: '16px', display: 'flex', justifyContent: 'flex-end' }}>
             {!quizSubmitted ? (
-               <button className="primary-btn" disabled={!selectedOption} onClick={handleQuizSubmit}>
+               <button className="primary-btn cta" disabled={!selectedOption} onClick={handleQuizSubmit}>
                   Verificar Resposta
                </button>
             ) : (
-               <button className="primary-btn" onClick={isTrail ? nextTrailStep : handleNextQuiz}>
+               <button className="primary-btn cta" onClick={isTrail ? nextTrailStep : handleNextQuiz}>
                   {isTrail ? (
-                     (trailStepIndex >= selectedTrail.content.length - 1) ? 
+                     (activeTrailContent && trailStepIndex >= activeTrailContent.length - 1) ? 
                         <><span className="material-symbols-outlined">done_all</span> Concluir Trilha</> : 
                         <><span className="material-symbols-outlined">arrow_forward</span> Próxima Questão</>
                   ) : (
@@ -447,6 +561,59 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
             )}
          </div>
       </div>
+    );
+  };
+
+  const renderCompletionSplash = (title, correct, total, actionText, actionIcon, onAction) => {
+    const percentage = total > 0 ? Math.round((correct / total) * 100) : 100;
+    
+    let message = "Você é incrível!";
+    let icon = "workspace_premium";
+    let color = "var(--primary-color)";
+    
+    if (percentage === 100) {
+      message = "Perfeição! Nenhum erro!";
+      icon = "trophy";
+      color = "#f59e0b"; // Dourado
+    } else if (percentage >= 70) {
+      message = "Excelente trabalho!";
+      icon = "verified";
+      color = "#10b981"; // Verde
+    } else {
+      message = "O aprendizado é um processo contínuo!";
+      icon = "extension";
+      color = "var(--primary-color)";
+    }
+
+    return (
+      <motion.div 
+         initial={{ scale: 0.8, opacity: 0, y: 30 }} 
+         animate={{ scale: 1, opacity: 1, y: 0 }} 
+         transition={{ type: "spring", bounce: 0.5, duration: 0.8 }}
+         className="quiz-card completion-splash" 
+         style={{ textAlign: "center", padding: "50px 20px", display: "flex", flexDirection: "column", alignItems: "center" }}
+      >
+         <motion.div 
+            animate={{ y: [0, -10, 0], scale: [1, 1.05, 1] }} 
+            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+         >
+            <span className="material-symbols-outlined" style={{ fontSize: "80px", color: color, marginBottom: "16px", filter: `drop-shadow(0 4px 12px ${color}66)` }}>{icon}</span>
+         </motion.div>
+         <h4 style={{ fontSize: "1.8rem", marginBottom: "12px", color: "var(--text-color)", fontWeight: "800" }}>{title}</h4>
+         <p style={{ fontSize: "1.1rem", color: "var(--text-light)", marginBottom: "24px", maxWidth: "400px" }}>
+            Você acertou <strong>{correct}</strong> de <strong>{total}</strong> questões de primeira ({percentage}%).<br/><br/>
+            {message}
+         </p>
+         <motion.button 
+            whileHover={{ scale: 1.05 }} 
+            whileTap={{ scale: 0.95 }} 
+            className="primary-btn cta" 
+            onClick={onAction} 
+            style={{ margin: "0 auto", gap: "8px" }}
+         >
+            <span className="material-symbols-outlined">{actionIcon}</span> {actionText}
+         </motion.button>
+      </motion.div>
     );
   };
 
@@ -463,10 +630,10 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
                <span className="material-symbols-outlined watermark">lightbulb</span>
                <p>{flashcardItem.back}</p>
                <div className="flashcard-actions" onClick={(e) => e.stopPropagation()}>
-                  <button className="difficulty-btn" style={{backgroundColor: '#FFE5E5', color: '#D32F2F', borderColor: '#D32F2F'}} onClick={() => handleSrsAction(flashcardItem, 0, isTrail)}>Errei <br/><span style={{fontSize:'0.65rem'}}>1 min</span></button>
-                  <button className="difficulty-btn" style={{backgroundColor: '#FFF4E5', color: '#F57C00', borderColor: '#F57C00'}} onClick={() => handleSrsAction(flashcardItem, 1, isTrail)}>Difícil <br/><span style={{fontSize:'0.65rem'}}>12h</span></button>
-                  <button className="difficulty-btn medium" style={{backgroundColor: '#E8F5E9', color: '#388E3C', borderColor: '#388E3C'}} onClick={() => handleSrsAction(flashcardItem, 2, isTrail)}>Bom <br/><span style={{fontSize:'0.65rem'}}>3 dias</span></button>
-                  <button className="difficulty-btn easy" style={{backgroundColor: '#E3F2FD', color: '#1B5E20', borderColor: '#1B5E20'}} onClick={() => handleSrsAction(flashcardItem, 3, isTrail)}>Fácil <br/><span style={{fontSize:'0.65rem'}}>7 dias</span></button>
+                  <button className="difficulty-btn" style={{backgroundColor: '#FFE5E5', color: '#D32F2F', borderColor: '#D32F2F'}} onClick={() => handleSrsAction(flashcardItem, 0, isTrail)}>Errei <br/><span style={{fontSize:'0.65rem'}}>30 seg</span></button>
+                  <button className="difficulty-btn" style={{backgroundColor: '#FFF4E5', color: '#F57C00', borderColor: '#F57C00'}} onClick={() => handleSrsAction(flashcardItem, 1, isTrail)}>Difícil <br/><span style={{fontSize:'0.65rem'}}>5 min</span></button>
+                  <button className="difficulty-btn medium" style={{backgroundColor: '#E8F5E9', color: '#388E3C', borderColor: '#388E3C'}} onClick={() => handleSrsAction(flashcardItem, 2, isTrail)}>Bom <br/><span style={{fontSize:'0.65rem'}}>30 min</span></button>
+                  <button className="difficulty-btn easy" style={{backgroundColor: '#E3F2FD', color: '#1B5E20', borderColor: '#1B5E20'}} onClick={() => handleSrsAction(flashcardItem, 3, isTrail)}>Fácil <br/><span style={{fontSize:'0.65rem'}}>2h</span></button>
                </div>
             </div>
          </div>
@@ -504,18 +671,33 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
                      <p style={{ margin: '8px 0 0 0', color: 'var(--text-light)', fontSize: '0.9rem'}}>{selectedTrail.description}</p>
                   </div>
                   <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'center' }}>
-                     <span style={{ color: "var(--text-light)", fontSize: '0.9rem', marginBottom: '8px' }}>Passo {trailStepIndex + 1} de {selectedTrail.content.length}</span>
+                     <span style={{ color: "var(--text-light)", fontSize: '0.9rem', marginBottom: '8px' }}>
+                        {isTrailFinished ? 'Concluída' : `Passo ${trailStepIndex + 1} de ${selectedTrail.content.length}`}
+                     </span>
                      <div className="trail-progress-bar" style={{ width: '100px', margin: 0 }}>
-                        <div className="trail-progress-fill" style={{ width: `${((trailStepIndex) / selectedTrail.content.length) * 100}%` }}></div>
+                        <div className="trail-progress-fill" style={{ width: isTrailFinished ? '100%' : `${((trailStepIndex) / selectedTrail.content.length) * 100}%` }}></div>
                      </div>
                   </div>
                </div>
 
                <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>
                   <AnimatePresence mode="wait">
-                     <motion.div key={trailStepIndex} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-                        {currentStep?.type === "open_ended" ? renderOpenEnded(currentStep, true) : currentStep?.type === "flashcard" ? renderFlashcardWrapper(currentStep, true) : renderQuiz(currentStep, true)}
-                     </motion.div>
+                     {isTrailFinished ? (
+                        <motion.div key="trail-splash" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: "40px" }}>
+                           {renderCompletionSplash(
+                              "Trilha Concluída!",
+                              currentTrailStats.correct,
+                              currentTrailStats.total,
+                              "Voltar para Trilhas",
+                              "route",
+                              closeTrail
+                           )}
+                        </motion.div>
+                     ) : (
+                        <motion.div key={trailStepIndex} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                           {currentStep?.type === "open_ended" ? renderOpenEnded(currentStep, true) : currentStep?.type === "flashcard" ? renderFlashcardWrapper(currentStep, true) : renderQuiz(currentStep, true)}
+                        </motion.div>
+                     )}
                   </AnimatePresence>
                </div>
             </div>
@@ -620,9 +802,10 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
                            </div>
                            {ALL_FLASHCARDS.length > 0 ? (
                               <>
-                                 <span style={{ display: "block", color: "var(--text-light)", marginBottom: "16px" }}>
-                                    {currentFlashcard + 1} / {ALL_FLASHCARDS.length} (Flashcards desbloqueados)
-                                 </span>
+                                 <div className="learning-progress-status">
+                                    <span>{baseFlashcards.length} Desbloqueados na Base</span>
+                                    <span>Flashcard {currentFlashcard + 1} / {ALL_FLASHCARDS.length}</span>
+                                 </div>
                                  {renderFlashcardWrapper(
                                     ALL_FLASHCARDS[currentFlashcard % ALL_FLASHCARDS.length], false
                                  )}
@@ -644,20 +827,19 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
                            </div>
                            {ALL_QUIZZES.length > 0 ? (
                               <>
-                                 <span style={{ display: "block", color: "var(--text-light)", marginBottom: "16px", textAlign: "right" }}>
-                                    {isGenericQuizFinished ? ALL_QUIZZES.length : genericQuizIndex + 1} / {ALL_QUIZZES.length} (Quizzes desbloqueados)
-                                 </span>
+                                 <div className="learning-progress-status">
+                                    <span>{baseQuizzes.length} Desbloqueados na Base</span>
+                                    <span>Questão {isGenericQuizFinished ? ALL_QUIZZES.length : genericQuizIndex + 1} / {ALL_QUIZZES.length}</span>
+                                 </div>
                                  {isGenericQuizFinished ? (
-                                    <div className="quiz-card" style={{ textAlign: "center", padding: "40px 20px" }}>
-                                       <span className="material-symbols-outlined" style={{ fontSize: "64px", color: "var(--primary-color)", marginBottom: "16px" }}>emoji_events</span>
-                                       <h4 style={{ fontSize: "1.5rem", marginBottom: "8px", color: "var(--text-color)" }}>Quizzes Concluídos!</h4>
-                                       <p style={{ fontSize: "1rem", color: "var(--text-light)", marginBottom: "24px" }}>
-                                          Você respondeu corretamente a <strong>{genericQuizStats.correct}</strong> de <strong>{ALL_QUIZZES.length}</strong> questões ({Math.round((genericQuizStats.correct / ALL_QUIZZES.length) * 100)}%).
-                                       </p>
-                                       <button className="primary-btn" onClick={resetGenericQuiz} style={{ margin: "0 auto" }}>
-                                          <span className="material-symbols-outlined">refresh</span> Tentar Novamente
-                                       </button>
-                                    </div>
+                                    renderCompletionSplash(
+                                       "Quizzes Concluídos!", 
+                                       genericQuizStats.correct, 
+                                       baseQuizzes.length, 
+                                       "Tentar Novamente", 
+                                       "refresh", 
+                                       resetGenericQuiz
+                                    )
                                  ) : (
                                     renderQuiz(currentGenericQuiz, false)
                                  )}
