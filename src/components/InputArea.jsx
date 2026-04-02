@@ -9,7 +9,7 @@ import PomodoroModal from './PomodoroModal';
 import KindnessModal from './KindnessModal';
 import ExamsModal from './ExamsModal';
 
-const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections, onOpenMoodTracker, onOpenEmotionalJournal }) => {
+const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections, onOpenMoodTracker, onOpenEmotionalJournal, onOpenGuidedLearning }) => {
   const navigate = useNavigate();
   const { input, setInput, sendMessage, isTyping, isStreaming, stopStreaming } = useChat();
   const { isActive: pomodoroIsActive, mode: pomodoroMode, timeLeft: pomodoroTimeLeft } = usePomodoro();
@@ -82,6 +82,11 @@ const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections, onO
     }
     if (tool.id === 'journal') {
       if (onOpenEmotionalJournal) onOpenEmotionalJournal();
+      setShowToolsMenu(false);
+      return;
+    }
+    if (tool.id === 'learning') {
+      if (onOpenGuidedLearning) onOpenGuidedLearning();
       setShowToolsMenu(false);
       return;
     }

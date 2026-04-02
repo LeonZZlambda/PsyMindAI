@@ -1,0 +1,9 @@
+/* AI Create Trail */
+.ai-create-container { display: flex; flex-direction: column; padding: 20px; background: var(--card-background); border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 20px; }
+.ai-input { width: 100%; padding: 16px; border-radius: 12px; border: 1px solid var(--border-color); background: var(--background-color); color: var(--text-color); font-size: 1rem; resize: vertical; margin-bottom: 20px; font-family: inherit; }
+.ai-input:focus { outline: none; border-color: var(--primary-color); }
+.ai-magic-btn { background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-mid) 60%, var(--gradient-end) 100%); color: white; border: none; padding: 10px 1.5rem; border-radius: 20px; font-weight: 500; font-size: 0.875rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: transform 0.18s ease, opacity 0.2s; white-space: nowrap; }
+.ai-magic-btn:hover { transform: translateY(-2px); opacity: 0.9; }
+.ai-magic-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.spin-anim { animation: learning-spin 1s linear infinite; }
+@keyframes learning-spin { 100% { transform: rotate(360deg); } }

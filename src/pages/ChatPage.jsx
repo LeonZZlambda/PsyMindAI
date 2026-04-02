@@ -2,7 +2,7 @@ import React from 'react';
 import MessageList from '../components/MessageList';
 import InputArea from '../components/InputArea';
 
-const ChatPage = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections, onOpenMoodTracker, onOpenEmotionalJournal }) => {
+const ChatPage = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections, onOpenMoodTracker, onOpenEmotionalJournal, onOpenGuidedLearning }) => {
   return (
     <>
       <MessageList />
@@ -13,6 +13,7 @@ const ChatPage = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections, onOp
         onOpenReflections={onOpenReflections}
         onOpenMoodTracker={onOpenMoodTracker}
         onOpenEmotionalJournal={onOpenEmotionalJournal}
+        onOpenGuidedLearning={onOpenGuidedLearning}
       />
     </>
   );

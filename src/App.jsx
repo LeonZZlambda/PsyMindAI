@@ -41,6 +41,7 @@ const MoodTrackerModal = lazy(() => import('./components/MoodTrackerModal'))
 const EmotionalJournalModal = lazy(() => import('./components/EmotionalJournalModal'))
 const ImportContextModal = lazy(() => import('./components/ImportContextModal'))
 const StudyStatsModal = lazy(() => import('./components/StudyStatsModal'))
+const GuidedLearningModal = lazy(() => import('./components/GuidedLearningModal'))
 
 
 function App() {
@@ -60,6 +61,7 @@ function App() {
   const [isEmotionalJournalOpen, setIsEmotionalJournalOpen] = useState(false)
   const [isImportContextOpen, setIsImportContextOpen] = useState(false)
   const [isStudyStatsOpen, setIsStudyStatsOpen] = useState(false)
+  const [isGuidedLearningOpen, setIsGuidedLearningOpen] = useState(false)
 
   const [isNewChatAnimating, setIsNewChatAnimating] = useState(false)
   const [helpInitialTab, setHelpInitialTab] = useState('faq')
@@ -247,6 +249,7 @@ function App() {
                   onOpenReflections={() => setIsReflectionsOpen(true)}
                   onOpenMoodTracker={() => setIsMoodTrackerOpen(true)}
                   onOpenEmotionalJournal={() => setIsEmotionalJournalOpen(true)}
+                  onOpenGuidedLearning={() => setIsGuidedLearningOpen(true)}
                 />
               } 
             />
@@ -314,12 +317,22 @@ function App() {
             />
           )}
 
-          {isStudyStatsOpen && (
-            <StudyStatsModal 
-              isOpen={isStudyStatsOpen} 
-              onClose={() => setIsStudyStatsOpen(false)} 
-            />
-          )}
+          <AnimatePresence>
+            {isStudyStatsOpen && (
+              <StudyStatsModal 
+                isOpen={isStudyStatsOpen} 
+                onClose={() => setIsStudyStatsOpen(false)} 
+              />
+            )}
+          </AnimatePresence>
+          <AnimatePresence>
+            {isGuidedLearningOpen && (
+              <GuidedLearningModal
+                isOpen={isGuidedLearningOpen}
+                onClose={() => setIsGuidedLearningOpen(false)}
+              />
+            )}
+          </AnimatePresence>
         </Suspense>
         </div>
       </MotionConfig>
