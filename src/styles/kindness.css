@@ -1,12 +1,8 @@
 /* Kindness Modal Styles */
 .kindness-modal {
   max-width: 500px;
-  width: 90%;
   text-align: center;
-  background: #fff;
-  border-radius: 28px;
   padding: 24px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
 }
 
 .modal-overlay.closing .kindness-modal {
@@ -35,7 +31,7 @@
   gap: 6px;
   padding: 8px 16px;
   border-radius: 20px;
-  border: 1px solid #dadce0;
+  border: none;
   background: #f8f9fa;
   color: #1a73e8;
   cursor: pointer;
@@ -161,8 +157,7 @@
 
 /* Dark Mode for Kindness Modal */
 .app.dark .kindness-modal {
-  background: #1e1f20;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+  /* Box shadow inherited from .modal-content */
 }
 
 .app.dark .kindness-body {
@@ -170,25 +165,22 @@
 }
 
 .app.dark .category-btn {
-  background: #282a2c;
-  border-color: #444746;
+  background: var(--background-color);
   color: #e3e3e3;
 }
 
 .app.dark .category-btn:hover {
-  background: #37393b;
-  border-color: #5f6368;
+  background: var(--hover-color);
 }
 
 .app.dark .category-btn.active {
   background: #004a77;
   color: #c2e7ff;
-  border-color: transparent;
 }
 
 .app.dark .act-card {
-  background: #282a2c;
-  border-color: #444746;
+  background: var(--background-color);
+  border-color: var(--border-color);
 }
 
 .app.dark .act-card:hover {

@@ -93,9 +93,16 @@ const PomodoroModal = ({ isOpen, onClose }) => {
                 onClick={() => changeMode(m)}
                 style={{ 
                   backgroundColor: mode === m ? `${modes[m].color}15` : 'transparent',
-                  color: mode === m ? modes[m].color : '#5f6368',
+                  color: mode === m ? modes[m].color : 'var(--text-light)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '6px'
                 }}
               >
+                <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>
+                  {modes[m].icon}
+                </span>
                 {modes[m].label}
               </button>
             ))}
@@ -129,7 +136,7 @@ const PomodoroModal = ({ isOpen, onClose }) => {
               className="progress-bar-fill" 
               style={{ 
                 width: `${progress}%`,
-                backgroundColor: modes[mode].color 
+                backgroundColor: isActive ? modes[mode].color : 'var(--secondary-color)' 
               }}
             />
           </div>

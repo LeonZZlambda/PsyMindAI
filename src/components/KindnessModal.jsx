@@ -9,11 +9,11 @@ const KindnessModal = ({ isOpen, onClose }) => {
   const [completed, setCompleted] = useState(false);
 
   const categories = [
-    { id: 'random', label: 'Aleatório', icon: 'shuffle' },
-    { id: 'stranger', label: 'Estranhos', icon: 'public' },
-    { id: 'family', label: 'Família/Amigos', icon: 'group' },
-    { id: 'self', label: 'Para Você', icon: 'favorite' },
-    { id: 'work', label: 'Trabalho/Escola', icon: 'work' }
+    { id: 'random', label: 'Aleatório', icon: 'shuffle', color: '#6366f1' },
+    { id: 'stranger', label: 'Estranhos', icon: 'public', color: '#f59e0b' },
+    { id: 'family', label: 'Família/Amigos', icon: 'group', color: '#ec4899' },
+    { id: 'self', label: 'Para Você', icon: 'favorite', color: '#ef4444' },
+    { id: 'work', label: 'Trabalho/Escola', icon: 'work', color: '#06b6d4' }
   ];
 
   const actsDatabase = {
@@ -136,7 +136,7 @@ const KindnessModal = ({ isOpen, onClose }) => {
                 }}
                 title={cat.label}
               >
-                <span className="material-symbols-outlined">{cat.icon}</span>
+                <span className="material-symbols-outlined" style={{ color: category === cat.id ? '#ffffff' : cat.color }}>{cat.icon}</span>
                 <span className="category-label">{cat.label}</span>
               </button>
             ))}
@@ -146,7 +146,7 @@ const KindnessModal = ({ isOpen, onClose }) => {
             {isLoading ? (
               <div className="act-loading">
                 <span className="material-symbols-outlined spin-animation">psychology</span>
-                <p>A IA está encontrando o ato perfeito...</p>
+                <p style={{ color: 'var(--text-light)' }}>A IA está encontrando o ato perfeito...</p>
               </div>
             ) : (
               <div className={`act-card ${completed ? 'completed' : ''}`}>

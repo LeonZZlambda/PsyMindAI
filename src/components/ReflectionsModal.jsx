@@ -18,19 +18,19 @@ const reflectionsData = [
 ];
 
 const categories = [
-  { id: 'resiliência', label: 'Resiliência', icon: 'psychology' },
-  { id: 'autoconhecimento', label: 'Autoconhecimento', icon: 'self_improvement' },
-  { id: 'propósito', label: 'Propósito', icon: 'lightbulb' },
-  { id: 'ansiedade', label: 'Ansiedade', icon: 'spa' },
-  { id: 'gratidão', label: 'Gratidão', icon: 'volunteer_activism' },
-  { id: 'autoestima', label: 'Autoestima', icon: 'favorite' }
+  { id: 'resiliência', label: 'Resiliência', icon: 'psychology', color: '#B8860B' }, // Goldenrod - strenght, enduring
+  { id: 'autoconhecimento', label: 'Autoconhecimento', icon: 'self_improvement', color: '#8B5CF6' }, // Purple - introspection, spiritual
+  { id: 'propósito', label: 'Propósito', icon: 'lightbulb', color: '#F59E0B' }, // Amber/Yellow - illumination, guide
+  { id: 'ansiedade', label: 'Ansiedade', icon: 'spa', color: '#3B82F6' }, // Blue - calm, cooling
+  { id: 'gratidão', label: 'Gratidão', icon: 'volunteer_activism', color: '#EC4899' }, // Pink - heartwarming, emotional
+  { id: 'autoestima', label: 'Autoestima', icon: 'favorite', color: '#EF4444' } // Red - self-love, passion
 ];
 
 const breathingTechniques = [
-  { id: '478', name: '4-7-8', description: 'Relaxamento profundo', inhale: 4, hold: 7, exhale: 8 },
-  { id: 'box', name: 'Box Breathing', description: 'Equilíbrio e foco', inhale: 4, hold: 4, exhale: 4, holdAfter: 4 },
-  { id: 'calm', name: 'Respiração Calma', description: 'Redução de ansiedade', inhale: 4, exhale: 6 },
-  { id: 'energy', name: 'Respiração Energizante', description: 'Aumenta energia', inhale: 3, exhale: 3 }
+  { id: '478', name: '4-7-8', description: 'Relaxamento profundo', inhale: 4, hold: 7, exhale: 8, icon: 'bedtime', color: '#6366f1' }, // Indigo - deep sleep, profound relaxation
+  { id: 'box', name: 'Box Breathing', description: 'Equilíbrio e foco', inhale: 4, hold: 4, exhale: 4, holdAfter: 4, icon: 'crop_square', color: '#3b82f6' }, // Blue - logic, balance, structure
+  { id: 'calm', name: 'Respiração Calma', description: 'Redução de ansiedade', inhale: 4, exhale: 6, icon: 'spa', color: '#10b981' }, // Green - natural, healing, anxiety relief
+  { id: 'energy', name: 'Respiração Energizante', description: 'Aumenta energia', inhale: 3, exhale: 3, icon: 'bolt', color: '#f59e0b' } // Amber - energy, sunlight, awakening
 ];
 
 const ReflectionsModal = ({ isOpen, onClose }) => {
@@ -193,7 +193,7 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
               {isLoadingReflection && !currentReflection ? (
                 <div className="reflection-card" style={{ textAlign: 'center', padding: '3rem' }}>
                   <span className="material-symbols-outlined reflection-icon" style={{ animation: 'spin 2s linear infinite' }}>autorenew</span>
-                  <p style={{ color: 'var(--text-secondary)' }}>Gerando frase inspiradora...</p>
+                  <p style={{ color: 'var(--text-light)' }}>Gerando frase inspiradora...</p>
                 </div>
               ) : currentReflection && (
                 <>
@@ -241,7 +241,7 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
                       setActiveTab('daily');
                     }}
                   >
-                    <span className="material-symbols-outlined category-icon">{cat.icon}</span>
+                    <span className="material-symbols-outlined category-icon" style={{ color: cat.color }}>{cat.icon}</span>
                     <span className="category-name">{cat.label}</span>
                   </button>
                 ))}
@@ -257,9 +257,16 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
                   <div className="breathing-techniques">
                     {breathingTechniques.map(tech => (
                       <div key={tech.id} className="technique-card">
-                        <h4>{tech.name}</h4>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+                          <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: tech.color }}>{tech.icon}</span>
+                          <h4 style={{ color: tech.color }}>{tech.name}</h4>
+                        </div>
                         <p>{tech.description}</p>
-                        <button className="start-breathing-btn" onClick={() => startBreathing(tech)}>
+                        <button 
+                          className="start-breathing-btn" 
+                          onClick={() => startBreathing(tech)}
+                          style={{ backgroundColor: tech.color, color: '#fff' }}
+                        >
                           <span className="material-symbols-outlined">air</span>
                           Iniciar
                         </button>

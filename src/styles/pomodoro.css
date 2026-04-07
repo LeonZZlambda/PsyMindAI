@@ -64,9 +64,7 @@
 }
 
 .mode-btn.active {
-  background: #fff;
-  color: var(--primary-color);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  /* Box shadow removed for a cleaner flat design consistent with other modals */
 }
 
 .timer-display {
@@ -167,7 +165,8 @@
 }
 
 .ai-tip-btn:hover {
-  background: rgba(0, 0, 0, 0.04);
+  filter: brightness(0.95);
+  transform: translateY(-1px);
 }
 
 .ai-tip-btn:disabled {
@@ -203,12 +202,11 @@
 
 /* Dark Mode for Pomodoro Modal */
 .app.dark .pomodoro-modal {
-  background: #1e1f20;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
 }
 
 .app.dark .pomodoro-modes {
-  background: #282a2c;
+  background: var(--background-color);
 }
 
 .app.dark .mode-btn {
@@ -220,36 +218,32 @@
   background: rgba(255, 255, 255, 0.05);
 }
 
-.app.dark .mode-btn.active {
-  background: #3c4043;
-}
-
 .app.dark .reset-control {
-  background: #282a2c;
+  background: var(--background-color);
   color: #c4c7c5;
 }
 
 .app.dark .reset-control:hover {
-  background: #37393b;
+  background: var(--hover-color);
   color: #e3e3e3;
 }
 
 .app.dark .progress-bar-container {
-  background: #282a2c;
+  background: var(--background-color);
 }
 
 .app.dark .ai-tip-btn {
   color: #e3e3e3;
-  border-color: #444746;
+  border-color: var(--border-color);
 }
 
 .app.dark .ai-tip-btn:hover {
-  background: rgba(255, 255, 255, 0.05);
+  filter: brightness(1.15);
 }
 
 .app.dark .ai-tip-content {
-  background: #282a2c;
-  border-color: #444746;
+  background: var(--background-color);
+  border-color: var(--border-color);
 }
 
 .app.dark .ai-tip-content p {

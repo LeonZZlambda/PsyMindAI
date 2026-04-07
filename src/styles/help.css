@@ -1246,14 +1246,28 @@ kbd {
   appearance: none;
   width: 20px;
   height: 20px;
-  background: #0b57d0;
+  background: var(--slider-thumb-color, #0b57d0);
   border-radius: 50%;
   cursor: pointer;
-  transition: transform 0.1s;
+  transition: background-color 0.3s ease, transform 0.1s;
+}
+
+.intensity-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: var(--slider-thumb-color, #0b57d0);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease, transform 0.1s;
 }
 
 .app.dark .intensity-slider::-webkit-slider-thumb {
-  background: #a8c7fa;
+  background: var(--slider-thumb-color, #a8c7fa);
+}
+
+.app.dark .intensity-slider::-moz-range-thumb {
+  background: var(--slider-thumb-color, #a8c7fa);
 }
 
 .intensity-value {

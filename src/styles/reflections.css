@@ -270,12 +270,12 @@
 }
 
 .start-breathing-btn:hover {
-  background: var(--primary-hover);
+  filter: brightness(0.9);
   transform: translateY(-1px);
 }
 
 .app.dark .start-breathing-btn {
-  color: var(--background-dark);
+  /* color remains inline (#fff) for consistency and contrast */
 }
 
 .breathing-active {

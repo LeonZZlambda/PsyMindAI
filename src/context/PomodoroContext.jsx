@@ -12,9 +12,9 @@ export const PomodoroProvider = ({ children }) => {
   const timerRef = useRef(null);
 
   const modes = {
-    focus: { label: 'Foco', time: 25 * 60, color: '#1a73e8' },
-    short: { label: 'Pausa Curta', time: 5 * 60, color: '#188038' },
-    long: { label: 'Pausa Longa', time: 15 * 60, color: '#e37400' }
+    focus: { label: 'Foco', time: 25 * 60, color: '#ef4444', icon: 'local_fire_department' }, // Red (Tomato/Focus/Vitality)
+    short: { label: 'Pausa Curta', time: 5 * 60, color: '#10b981', icon: 'spa' }, // Green (Relief/Nature/Short Healing)
+    long: { label: 'Pausa Longa', time: 15 * 60, color: '#3b82f6', icon: 'bedtime' } // Blue (Deep Rest/Cool down)
   };
 
 

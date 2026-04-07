@@ -964,6 +964,7 @@ const ExamsModal = ({ isOpen, onClose }) => {
       id: 'international',
       title: 'Internacionais',
       icon: 'public',
+      color: '#3b82f6', // Blue
       className: 'category-international',
       exams: [
         {
@@ -997,6 +998,7 @@ const ExamsModal = ({ isOpen, onClose }) => {
       id: 'national',
       title: 'Nacionais',
       icon: 'flag',
+      color: '#10b981', // Green
       className: 'category-national',
       exams: [
         {
@@ -1026,6 +1028,7 @@ const ExamsModal = ({ isOpen, onClose }) => {
       id: 'regional',
       title: 'Regionais',
       icon: 'location_on',
+      color: '#f59e0b', // Amber
       className: 'category-regional',
       exams: [
         {
@@ -1064,6 +1067,7 @@ const ExamsModal = ({ isOpen, onClose }) => {
       id: 'olympiads',
       title: 'Olimpíadas',
       icon: 'emoji_events',
+      color: '#8b5cf6', // Purple
       className: 'category-olympiads',
       exams: [
         { 
@@ -1208,7 +1212,7 @@ const ExamsModal = ({ isOpen, onClose }) => {
 
   return (
     <div className={`modal-overlay ${isClosing ? 'closing' : ''}`}>
-      <div className="exams-modal">
+      <div className="modal-content exams-modal">
         <div className="modal-header">
           <h2>Preparatório</h2>
           <button className="close-btn" onClick={handleClose}>
@@ -1222,12 +1226,12 @@ const ExamsModal = ({ isOpen, onClose }) => {
               {categories.map((category) => (
                 <button 
                   key={category.id}
-                  className={`exam-category-btn ${category.className}`}
+                  className="exam-category-btn"
                   onClick={() => setSelectedCategory(category)}
                 >
-                  <div className="category-icon">
-                    <span className="material-symbols-outlined">{category.icon}</span>
-                  </div>
+                  <span className="material-symbols-outlined" style={{ color: category.color, fontSize: '32px' }}>
+                    {category.icon}
+                  </span>
                   <span>{category.title}</span>
                 </button>
               ))}
@@ -1242,8 +1246,10 @@ const ExamsModal = ({ isOpen, onClose }) => {
                 Voltar
               </button>
               
-              <div className={`category-header-small ${selectedCategory.className}`}>
-                <span className="material-symbols-outlined">{selectedCategory.icon}</span>
+              <div className="category-header-small">
+                <span className="material-symbols-outlined" style={{ color: selectedCategory.color, fontSize: '28px' }}>
+                  {selectedCategory.icon}
+                </span>
                 <h3>{selectedCategory.title}</h3>
               </div>
 

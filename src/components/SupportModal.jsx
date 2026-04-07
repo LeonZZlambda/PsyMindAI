@@ -483,8 +483,11 @@ const SupportModal = ({ isOpen, onClose }) => {
                   min="0" 
                   max="10" 
                   value={reframingData.intensity}
-                  onChange={(e) => setReframingData({...reframingData, intensity: e.target.value})}
+                  onChange={(e) => setReframingData({...reframingData, intensity: Number(e.target.value)})}
                   className="intensity-slider"
+                  style={{
+                    '--slider-thumb-color': `hsl(${reframingData.intensity * 12}, 84%, 55%)`
+                  }}
                 />
                 <span className="intensity-value">{reframingData.intensity}</span>
               </div>
@@ -722,14 +725,18 @@ const SupportModal = ({ isOpen, onClose }) => {
                   <h3>O que você está sentindo principalmente?</h3>
                   <div className="options-grid">
                     {[
-                      { id: 'ansiedade', label: 'Ansiedade / Nervosismo', icon: 'sentiment_worried' },
-                      { id: 'tristeza', label: 'Tristeza / Desânimo', icon: 'sentiment_dissatisfied' },
-                      { id: 'cansaco', label: 'Cansaço / Esgotamento', icon: 'battery_alert' },
-                      { id: 'confusao', label: 'Confusão / Indecisão', icon: 'psychology_alt' },
-                      { id: 'raiva', label: 'Raiva / Frustração', icon: 'sentiment_extremely_dissatisfied' }
+                      { id: 'ansiedade', label: 'Ansiedade / Nervosismo', icon: 'sentiment_worried', color: '#eab308' },
+                      { id: 'tristeza', label: 'Tristeza / Desânimo', icon: 'sentiment_dissatisfied', color: '#3b82f6' },
+                      { id: 'cansaco', label: 'Cansaço / Esgotamento', icon: 'battery_alert', color: '#94a3b8' },
+                      { id: 'confusao', label: 'Confusão / Indecisão', icon: 'psychology_alt', color: '#a855f7' },
+                      { id: 'raiva', label: 'Raiva / Frustração', icon: 'sentiment_extremely_dissatisfied', color: '#ef4444' }
                     ].map(opt => (
-                      <button key={opt.id} className="option-card" onClick={() => handleInvestigationSelect('emotion', opt.id)}>
-                        <span className="material-symbols-outlined">{opt.icon}</span>
+                      <button 
+                        key={opt.id} 
+                        className="option-card" 
+                        onClick={() => handleInvestigationSelect('emotion', opt.id)}
+                      >
+                        <span className="material-symbols-outlined" style={{ color: opt.color }}>{opt.icon}</span>
                         <span>{opt.label}</span>
                       </button>
                     ))}
@@ -742,14 +749,14 @@ const SupportModal = ({ isOpen, onClose }) => {
                   <h3>Qual área da vida isso mais afeta agora?</h3>
                   <div className="options-grid">
                     {[
-                      { id: 'estudos', label: 'Estudos / Vestibular', icon: 'school' },
-                      { id: 'relacionamentos', label: 'Relacionamentos', icon: 'group' },
-                      { id: 'futuro', label: 'Futuro / Carreira', icon: 'timeline' },
-                      { id: 'saude', label: 'Saúde / Corpo', icon: 'health_and_safety' },
-                      { id: 'naosei', label: 'Não sei identificar', icon: 'question_mark' }
+                      { id: 'estudos', label: 'Estudos / Vestibular', icon: 'school', color: '#3b82f6' },
+                      { id: 'relacionamentos', label: 'Relacionamentos', icon: 'group', color: '#ec4899' },
+                      { id: 'futuro', label: 'Futuro / Carreira', icon: 'timeline', color: '#8b5cf6' },
+                      { id: 'saude', label: 'Saúde / Corpo', icon: 'health_and_safety', color: '#10b981' },
+                      { id: 'naosei', label: 'Não sei identificar', icon: 'question_mark', color: '#64748b' }
                     ].map(opt => (
                       <button key={opt.id} className="option-card" onClick={() => handleInvestigationSelect('context', opt.id)}>
-                        <span className="material-symbols-outlined">{opt.icon}</span>
+                        <span className="material-symbols-outlined" style={{ color: opt.color }}>{opt.icon}</span>
                         <span>{opt.label}</span>
                       </button>
                     ))}
@@ -763,13 +770,13 @@ const SupportModal = ({ isOpen, onClose }) => {
                   <h3>Há quanto tempo você se sente assim?</h3>
                   <div className="options-grid">
                     {[
-                      { id: 'hoje', label: 'Começou hoje', icon: 'today' },
-                      { id: 'semana', label: 'Alguns dias / Uma semana', icon: 'date_range' },
-                      { id: 'mes', label: 'Um mês ou mais', icon: 'calendar_month' },
-                      { id: 'sempre', label: 'Parece que é sempre assim', icon: 'update' }
+                      { id: 'hoje', label: 'Começou hoje', icon: 'today', color: '#22c55e' },
+                      { id: 'semana', label: 'Alguns dias / Uma semana', icon: 'date_range', color: '#eab308' },
+                      { id: 'mes', label: 'Um mês ou mais', icon: 'calendar_month', color: '#f97316' },
+                      { id: 'sempre', label: 'Parece que é sempre assim', icon: 'update', color: '#ef4444' }
                     ].map(opt => (
                       <button key={opt.id} className="option-card" onClick={() => handleInvestigationSelect('duration', opt.id)}>
-                        <span className="material-symbols-outlined">{opt.icon}</span>
+                        <span className="material-symbols-outlined" style={{ color: opt.color }}>{opt.icon}</span>
                         <span>{opt.label}</span>
                       </button>
                     ))}

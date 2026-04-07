@@ -2,10 +2,7 @@
 .exams-modal {
   max-width: 600px;
   width: 90%;
-  background: #fff;
-  border-radius: 28px;
   padding: 0;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
   max-height: 85vh;
@@ -19,6 +16,17 @@
 .exams-body {
   padding: 0 24px 24px;
   overflow-y: auto;
+}
+
+/* Dark mode generic overrides */
+.app.dark .exam-category-btn,
+.app.dark .subject-card {
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.app.dark .exam-category-btn:hover,
+.app.dark .subject-card:hover {
+  box-shadow: 0 8px 12px rgba(0,0,0,0.3);
 }
 
 .exams-categories-grid {
@@ -35,56 +43,25 @@
   justify-content: center;
   gap: 12px;
   padding: 24px;
-  border: 1px solid #e0e3e7;
+  border: 1px solid var(--border-color);
   border-radius: 16px;
-  background: #fff;
+  background: var(--card-background);
   cursor: pointer;
   transition: all 0.2s ease;
   height: 100%;
 }
 
 .exam-category-btn:hover {
-  background: #f8f9fa;
+  background: var(--hover-color);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
-.exam-category-btn > span {
+.exam-category-btn > span:not(.material-symbols-outlined) {
   font-family: 'Google Sans', Roboto, sans-serif;
   font-size: 1rem;
   font-weight: 500;
-  color: #202124;
-}
-
-.category-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-}
-
-.category-icon .material-symbols-outlined {
-  font-size: 24px;
-}
-
-/* Category Colors */
-.category-international .category-icon {
-  background: linear-gradient(135deg, #4285f4, #1967d2);
-}
-
-.category-national .category-icon {
-  background: linear-gradient(135deg, #34a853, #188038);
-}
-
-.category-regional .category-icon {
-  background: linear-gradient(135deg, #fbbc04, #e37400);
-}
-
-.category-olympiads .category-icon {
-  background: linear-gradient(135deg, #ea4335, #c5221f);
+  color: var(--text-color);
 }
 
 /* List View */
@@ -121,48 +98,19 @@
   gap: 12px;
   margin-bottom: 8px;
   padding: 12px;
-  background: #f8f9fa;
+  background: var(--secondary-color);
   border-radius: 12px;
 }
 
 .category-header-small .material-symbols-outlined {
-  color: #5f6368;
+  color: var(--text-light);
 }
 
 .category-header-small h3 {
   margin: 0;
   font-size: 1.1rem;
   font-weight: 500;
-  color: #202124;
-}
-
-/* Category Header Colors */
-.category-header-small.category-international {
-  background: linear-gradient(135deg, #4285f4, #1967d2);
-}
-
-.category-header-small.category-national {
-  background: linear-gradient(135deg, #34a853, #188038);
-}
-
-.category-header-small.category-regional {
-  background: linear-gradient(135deg, #fbbc04, #e37400);
-}
-
-.category-header-small.category-olympiads {
-  background: linear-gradient(135deg, #ea4335, #c5221f);
-}
-
-/* White text/icon for colored headers */
-.category-header-small.category-international h3,
-.category-header-small.category-international .material-symbols-outlined,
-.category-header-small.category-national h3,
-.category-header-small.category-national .material-symbols-outlined,
-.category-header-small.category-regional h3,
-.category-header-small.category-regional .material-symbols-outlined,
-.category-header-small.category-olympiads h3,
-.category-header-small.category-olympiads .material-symbols-outlined {
-  color: #fff;
+  color: var(--text-color);
 }
 
 .exams-list {
@@ -246,8 +194,8 @@
 }
 
 .subject-card {
-  background: #f8f9fa;
-  border: 1px solid #e0e3e7;
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 16px;
   display: flex;
@@ -261,7 +209,7 @@
 }
 
 .subject-card:hover {
-  background: #fff;
+  background: var(--hover-color);
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   transform: translateY(-2px);
 }
@@ -472,19 +420,21 @@
 
 /* Dark Mode */
 .app.dark .exams-modal {
-  background: #1e1f20;
+  /* Background inherited from .modal-content */
 }
 
-.app.dark .exam-category-btn {
-  background: #2d2e30;
-  border-color: #444746;
+.app.dark .exam-category-btn,
+.app.dark .subject-card {
+  background: var(--card-background);
+  border-color: var(--border-color);
 }
 
-.app.dark .exam-category-btn:hover {
-  background: #3c4043;
+.app.dark .exam-category-btn:hover,
+.app.dark .subject-card:hover {
+  background: var(--hover-color);
 }
 
-.app.dark .exam-category-btn > span {
+.app.dark .exam-category-btn > span:not(.material-symbols-outlined) {
   color: #e3e3e3;
 }
 
@@ -546,34 +496,6 @@
 
 .app.dark .subject-card span {
   color: #e3e3e3;
-}
-
-/* Force colored headers in Dark Mode */
-.app.dark .category-header-small.category-international {
-  background: linear-gradient(135deg, #4285f4, #1967d2);
-}
-
-.app.dark .category-header-small.category-national {
-  background: linear-gradient(135deg, #34a853, #188038);
-}
-
-.app.dark .category-header-small.category-regional {
-  background: linear-gradient(135deg, #fbbc04, #e37400);
-}
-
-.app.dark .category-header-small.category-olympiads {
-  background: linear-gradient(135deg, #ea4335, #c5221f);
-}
-
-.app.dark .category-header-small.category-international h3,
-.app.dark .category-header-small.category-international .material-symbols-outlined,
-.app.dark .category-header-small.category-national h3,
-.app.dark .category-header-small.category-national .material-symbols-outlined,
-.app.dark .category-header-small.category-regional h3,
-.app.dark .category-header-small.category-regional .material-symbols-outlined,
-.app.dark .category-header-small.category-olympiads h3,
-.app.dark .category-header-small.category-olympiads .material-symbols-outlined {
-  color: #fff;
 }
 
 @media (max-width: 600px) {

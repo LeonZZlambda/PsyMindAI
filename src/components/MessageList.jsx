@@ -243,7 +243,7 @@ const MessageList = () => {
                 {isLoadingQuote ? (
                   <div className="daily-quote-container" style={{ opacity: 0.6 }}>
                     <span className="material-symbols-outlined quote-icon" style={{ animation: 'spin 2s linear infinite' }}>autorenew</span>
-                    <p className="daily-quote">Gerando frase inspiradora...</p>
+                    <p className="daily-quote" style={{ color: 'var(--text-light)' }}>Gerando frase inspiradora...</p>
                   </div>
                 ) : (
                   <>
