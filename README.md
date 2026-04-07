@@ -40,13 +40,13 @@ PsyMind.AI provides an accessible, non-judgmental space for students to develop 
 ## Preview
 
 ### 🧪 OBI Judge Mode (Code Evaluation)
-![OBI Judge](./assets/obi-judge.png)
+![OBI Judge](./src/assets/obi-judge.png)
 
 ### 📚 Guided Learning (AI-generated study paths)
-![Guided Learning](./assets/guided-learning.png)
+![Guided Learning](./src/assets/guided-learning.png)
 
 ### 🧠 Emotional Support Chat
-![Chat](./assets/chat.png)
+![Chat](./src/assets/chat.png)
 
 ---
 

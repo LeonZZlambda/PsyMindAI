@@ -2,12 +2,21 @@ export const SYSTEM_PROMPTS = {
   get PSYMIND() {
     const importedContext = localStorage.getItem('psymind_imported_context');
     const userProfileStr = localStorage.getItem('psymind_user_profile');
+    const longtermMemoryStr = localStorage.getItem('psymind_longterm_memory');
     let userProfile = null;
+    let longtermMemory = null;
     if (userProfileStr) {
       try {
         userProfile = JSON.parse(userProfileStr);
       } catch (e) {
         console.error('Error parsing user profile', e);
+      }
+    }
+    if (longtermMemoryStr) {
+      try {
+        longtermMemory = JSON.parse(longtermMemoryStr);
+      } catch (e) {
+        console.error('Error parsing long term memory', e);
       }
     }
 
@@ -105,9 +114,20 @@ QUANDO AJUDAR COM VESTIBULARES:
       basePrompt += `\n- Use emojis ocasionalmente para criar conexão.`;
     }
 
-    if (importedContext && importedContext.trim()) {
-      return `${basePrompt}\n\nCONTEXTO DO USUÁRIO (Memorize e aja de acordo):\n${importedContext.trim()}`;
+    if (longtermMemory) {
+      basePrompt += `\n\n=== MEMÓRIA DE LONGO PRAZO DO USUÁRIO ===
+(Estas são as informações interpretadas do histórico e perfil do estudante ao longo do tempo. Use isso ativamente para personalizar sua abordagem).
+- Padrões de Aprendizagem: ${longtermMemory.padroesDeAprendizagem?.join('; ') || 'Nenhum'}
+- Estado Emocional Comum: ${longtermMemory.estadoEmocionalComum?.join('; ') || 'Nenhum'}
+- Desafios Recorrentes: ${longtermMemory.desafiosRecorrentes?.join('; ') || 'Nenhum'}
+- Interesses e Traços: ${longtermMemory.interessesETracos?.join('; ') || 'Nenhum'}
+`;
     }
+
+    if (importedContext && importedContext.trim()) {
+      basePrompt += `\n\n=== CONTEXTO DO USUÁRIO (Memorize e aja de acordo) ===\n${importedContext.trim()}`;
+    }
+    
     return basePrompt;
   },
 
