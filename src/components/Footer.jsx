@@ -59,8 +59,8 @@ const Footer = () => {
             <div className="footer-column">
               <h4>Legal</h4>
               <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">Licença</a>
-              <a href="#">Política de Privacidade</a>
-              <a href="#">Termos de Uso</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); navigate('/privacy'); }}>Política de Privacidade</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); navigate('/terms'); }}>Termos de Uso</a>
             </div>
             <div className="footer-column">
               <h4>Projeto</h4>
@@ -82,9 +82,9 @@ const Footer = () => {
               <span className="copyright-text">© {new Date().getFullYear()}</span>
             </div>
             <div className="footer-legal-links">
-              <a href="#">Privacidade</a>
-              <a href="#">Termos</a>
-              <a href="#">Sobre</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); navigate('/privacy'); }}>Privacidade</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); navigate('/terms'); }}>Termos</a>
+              <a href="https://github.com/LeonZZlambda/PsyMindAI" target="_blank" rel="noopener noreferrer">Sobre</a>
             </div>
           </div>
         </div>

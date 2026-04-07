@@ -28,6 +28,8 @@ import LandingPage from './pages/LandingPage'
 import RoadmapPage from './pages/RoadmapPage'
 import ContributePage from './pages/ContributePage'
 import StyleGuidePage from './pages/StyleGuidePage'
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
+import TermsOfUsePage from './pages/TermsOfUsePage'
 import ErrorFallback from './components/ErrorFallback'
 import { useTheme } from './context/ThemeContext'
 import { useChat } from './context/ChatContext'
@@ -49,7 +51,7 @@ function App() {
   const { isDarkMode, fontSize, reducedMotion, highContrast, colorBlindMode, toggleTheme } = useTheme()
   const { clearHistory, setInput, isLoading, startAnonymousChat } = useChat()
   const location = useLocation()
-  const publicRoutes = ['/', '/roadmap', '/contribute', '/style-guide']
+  const publicRoutes = ['/', '/roadmap', '/contribute', '/style-guide', '/privacy', '/terms']
   const isPublicPage = publicRoutes.includes(location.pathname)
   
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
@@ -238,6 +240,8 @@ function App() {
             <Route path="/roadmap" element={<RoadmapPage />} />
             <Route path="/contribute" element={<ContributePage />} />
             <Route path="/style-guide" element={<StyleGuidePage />} />
+            <Route path="/privacy" element={<PrivacyPolicyPage />} />
+            <Route path="/terms" element={<TermsOfUsePage />} />
             <Route 
               path="/chat" 
               element={
