@@ -284,3 +284,10 @@
 
 
 
+
+/* 4K screens */
+@media (min-width: 2560px) {
+  .modal-content {
+    max-width: 800px;
+  }
+}

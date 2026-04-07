@@ -1242,3 +1242,17 @@
   background: linear-gradient(135deg, rgba(138, 180, 248, 0.2), rgba(197, 138, 249, 0.2));
   color: #8ab4f8;
 }
+
+/* 4K Screens */
+@media (min-width: 2560px) {
+  .landing-nav,
+  .hero-content,
+  .features-container,
+  .testimonials-container,
+  .social-links {
+    max-width: 1800px;
+  }
+  .info-content {
+    max-width: 1400px;
+  }
+}

@@ -400,3 +400,10 @@
 .app.dark .sidebar-item .material-symbols-outlined {
   color: var(--text-light);
 }
+
+/* 4K Screens */
+@media (min-width: 2560px) {
+  .sidebar {
+    width: 400px;
+  }
+}

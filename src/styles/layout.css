@@ -36,3 +36,27 @@
 .app.dark {
   background: #131314;
 }
+
+/* 4K Screens Adaptation */
+@media (min-width: 2560px) {
+  body {
+    background: #000;
+  }
+  
+  #root {
+    display: flex;
+    justify-content: center;
+    background: #0b0b0b;
+  }
+
+  .app {
+    width: 100%;
+    max-width: 2560px;
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.4);
+    margin: 0 auto;
+  }
+  
+  html {
+    font-size: 125%; /* Increase base font size for 4K */
+  }
+}

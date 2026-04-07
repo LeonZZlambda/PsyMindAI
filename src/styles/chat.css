@@ -1257,3 +1257,17 @@
 .app.dark .message.anonymous.ai .message-content {
   background: rgba(255, 255, 255, 0.04);
 }
+
+/* 4K screens */
+@media (min-width: 2560px) {
+  .welcome {
+    max-width: 1200px;
+    padding: 4rem;
+  }
+  .messages {
+    max-width: 1200px;
+  }
+  .input-area {
+    max-width: 1300px;
+  }
+}
