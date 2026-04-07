@@ -2,6 +2,7 @@ import React from 'react';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useChat } from '../context/ChatContext';
+import { Telemetry } from '../services/analytics/telemetry';
 
 const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onAnonymousChat, onChatSelect, isNewChatAnimating, onOpenSettings, onOpenHelp }) => {
   const navigate = useNavigate();
@@ -115,7 +116,7 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onAnonymousChat, onChatSele
         <button 
           className="sidebar-item" 
           title={`Ajuda (${cmdKey} + /)`}
-          onClick={() => onOpenHelp('faq')}
+          onClick={() => { Telemetry.trackFeature('help', 'opened'); onOpenHelp('faq'); }}
           aria-label="Abrir ajuda"
         >
           <span className="material-symbols-outlined">help</span>
@@ -130,7 +131,7 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onAnonymousChat, onChatSele
         <button 
           className="sidebar-item" 
           title={`Configurações (${cmdKey} + ,)`}
-          onClick={onOpenSettings}
+          onClick={() => { Telemetry.trackFeature('settings', 'opened'); onOpenSettings(); }}
           aria-label="Abrir configurações"
         >
           <span className="material-symbols-outlined">settings</span>

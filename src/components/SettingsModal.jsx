@@ -4,6 +4,9 @@ import { useTheme } from '../context/ThemeContext';
 import { useChat } from '../context/ChatContext';
 import { defaultConfig } from '../services/config/apiConfig';
 import { setApiKey as updateApiKey } from '../services/chat/chatService';
+import { Telemetry } from '../services/analytics/telemetry';
+
+import { useNavigate } from 'react-router-dom';
 
 const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
   const { 
@@ -12,10 +15,19 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
     highContrast, setHighContrast, colorBlindMode, setColorBlindMode 
   } = useTheme();
   const { clearHistory } = useChat();
+  const navigate = useNavigate();
   
   const modalRef = useRef(null);
   const [isClosing, setIsClosing] = useState(false);
   const [apiKey, setApiKey] = useState(defaultConfig.getApiKey() || '');
+  const [telemetryOptIn, setTelemetryOptIn] = useState(Telemetry.isOptedIn());
+
+  const handleOptInChange = () => {
+    const newVal = !telemetryOptIn;
+    setTelemetryOptIn(newVal);
+    Telemetry.setOptIn(newVal);
+    toast.success(newVal ? 'Rastreamento anônimo habilitado!' : 'Rastreamento anônimo desativado.');
+  };
 
   const handleSaveApiKey = () => {
     updateApiKey(apiKey);
@@ -231,6 +243,22 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
 
             <div className="setting-item" style={{ marginTop: '20px' }}>
               <div className="setting-info">
+                <span className="setting-label">Enviar dados anônimos (Analytics)</span>
+                <span className="setting-desc" style={{ fontSize: '0.85rem' }}>Ajude a melhorar o app compartilhando uso básico. Nenhuma mensagem é lida.</span>
+              </div>
+              <button 
+                className={`toggle-switch ${telemetryOptIn ? 'active' : ''}`}
+                onClick={handleOptInChange}
+                role="switch"
+                aria-checked={telemetryOptIn}
+                aria-label="Alternar envio de telemetria"
+              >
+                <span className="toggle-thumb"></span>
+              </button>
+            </div>
+
+            <div className="setting-item" style={{ marginTop: '20px' }}>
+              <div className="setting-info">
                 <span className="setting-label">Limpar Histórico</span>
                 <span className="setting-desc">Apagar todas as conversas salvas neste dispositivo</span>
               </div>
@@ -239,6 +267,22 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
                 Limpar tudo
               </button>
             </div>
+
+            <div className="setting-item" style={{ marginTop: '20px', borderTop: '1px solid var(--border-color)', paddingTop: '20px' }}>
+              <div className="setting-info" style={{ flex: 1 }}>
+                <span className="setting-label">Engajamento & Análise</span>
+                <span className="setting-desc" style={{ fontSize: '0.85rem' }}>Acesse a telemetria ou exporte logs de comportamento.</span>
+              </div>
+              <button 
+                className="secondary-btn" 
+                onClick={() => { onClose(); setTimeout(() => navigate('/analytics'), 300); }}
+                style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
+              >
+                <span className="material-symbols-outlined">analytics</span>
+                Ver Dashboard
+              </button>
+            </div>
+
           </div>
         </div>
       </div>

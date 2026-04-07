@@ -67,6 +67,7 @@ const Footer = () => {
               <a href="https://github.com/LeonZZlambda/PsyMindAI" target="_blank" rel="noopener noreferrer">Repositório</a>
               <a href="#" onClick={(e) => { e.preventDefault(); navigate('/contribute'); }}>Como Contribuir</a>
               <a href="#" onClick={(e) => { e.preventDefault(); navigate('/roadmap'); }}>Roadmap</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); navigate('/analytics'); }}>Dashboard</a>
             </div>
           </div>
         </div>

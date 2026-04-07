@@ -1,0 +1,258 @@
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
+import { Telemetry } from '../services/analytics/telemetry';
+import Footer from '../components/Footer';
+import ScrollToTopButton from '../components/ScrollToTopButton';
+import LandingHeader from '../components/LandingHeader';
+
+const AnalyticsPage = () => {
+  const navigate = useNavigate();
+  const { isDarkMode, toggleTheme } = useTheme();
+  
+  const [derived, setDerived] = useState(null);
+  const [stats, setStats] = useState(null);
+  const [viewMode, setViewMode] = useState('global'); // 'global' | 'local'
+
+  useEffect(() => {
+    setDerived(Telemetry.getDerivedMetrics());
+    setStats(Telemetry.getStats());
+    window.scrollTo(0, 0);
+  }, []);
+
+  const handleExport = () => {
+    Telemetry.exportData();
+  };
+
+  // Mock global data since the app is currently client-only
+  const globalStats = {
+    activeUsers: '14.2K+',
+    totalSessions: '1.2M+',
+    avgSessionMinutes: '12.4',
+    transformationScore: '89.4k',
+    topFeatures: [
+      { label: 'Chat Assistente', val: 42500, pct: 100 },
+      { label: 'Diário Emocional', val: 28400, pct: 66.8 },
+      { label: 'Pomodoro', val: 19200, pct: 45.1 },
+      { label: 'Mural de Resoluções', val: 12400, pct: 29.1 },
+      { label: 'Mapas Mentais', val: 8900, pct: 20.9 }
+    ]
+  };
+
+  const getChartData = () => {
+    if (!stats || !stats.featuresUsed) return [];
+    // Convert to array and sort
+    const entries = Object.entries(stats.featuresUsed).sort((a,b) => b[1] - a[1]).slice(0, 5);
+    const maxVal = Math.max(...entries.map(e => e[1]), 1);
+    return entries.map(([label, val]) => ({
+      label,
+      val,
+      pct: (val / maxVal) * 100
+    }));
+  };
+
+  if (!derived || !stats) return null;
+
+  const chartData = getChartData();
+
+  return (
+    <motion.div 
+      className={`landing-page ${isDarkMode ? 'dark' : ''}`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <LandingHeader />
+
+      <main className="roadmap-content" style={{ maxWidth: '800px', margin: '0 auto', paddingBottom: '80px', width: '100%', boxSizing: 'border-box' }}>
+        <div className="roadmap-header">
+          <h1>Dashboard de <span className="gradient-text">Uso</span></h1>
+          <p>Acompanhe a evolução global da nossa comunidade e o seu progresso pessoal.</p>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '40px', flexWrap: 'wrap', gap: '15px' }}>
+            <button className="secondary-btn" onClick={() => navigate('/')} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span className="material-symbols-outlined">arrow_back</span>
+              Voltar ao Início
+            </button>
+
+            <div style={{ display: 'flex', background: 'var(--hover-color)', padding: '4px', borderRadius: '20px' }}>
+              <button 
+                onClick={() => setViewMode('global')}
+                style={{ 
+                  background: viewMode === 'global' ? 'var(--primary-color)' : 'transparent',
+                  color: viewMode === 'global' ? 'white' : 'var(--text-color)',
+                  border: 'none', padding: '8px 16px', borderRadius: '16px', cursor: 'pointer', fontWeight: '500', transition: 'all 0.2s ease'
+                }}
+              >
+                Visão Geral
+              </button>
+              <button 
+                onClick={() => setViewMode('local')}
+                style={{ 
+                  background: viewMode === 'local' ? 'var(--primary-color)' : 'transparent',
+                  color: viewMode === 'local' ? 'white' : 'var(--text-color)',
+                  border: 'none', padding: '8px 16px', borderRadius: '16px', cursor: 'pointer', fontWeight: '500', transition: 'all 0.2s ease'
+                }}
+              >
+                Meu Uso
+              </button>
+            </div>
+          </div>
+
+          {viewMode === 'global' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+              <div style={{ background: 'var(--hover-color)', padding: '16px', borderRadius: '12px', fontSize: '0.9rem', color: 'var(--text-light)', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <span className="material-symbols-outlined" style={{ color: 'var(--primary-color)' }}>warning</span>
+                ⚠️ <strong>Aviso de Mock-up:</strong> Esta é uma demonstração ilustrativa. Como o aplicativo roda 100% no seu dispositivo (sem backend), estes dados globais são simulados. No futuro, representarão a comunidade real.
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '20px' }}>
+                <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>group</span>
+                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>Usuários Ativos</span>
+                  <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{globalStats.activeUsers}</span>
+                </div>
+                <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>timer</span>
+                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>Média de Sessão</span>
+                  <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{globalStats.avgSessionMinutes} min</span>
+                </div>
+                <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>psychology_alt</span>
+                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>Pontos de Transformação</span>
+                  <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{globalStats.transformationScore}</span>
+                </div>
+                <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>history</span>
+                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>Sessões Totais</span>
+                  <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{globalStats.totalSessions}</span>
+                </div>
+              </div>
+
+              <div style={{ background: 'var(--card-background)', padding: '30px', borderRadius: '16px', border: '1px solid var(--border-color)' }}>
+                <h3 style={{ marginBottom: '25px', color: 'var(--text-color)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span className="material-symbols-outlined" style={{ color: 'var(--primary-color)' }}>bar_chart</span>
+                  Top 5 Ferramentas (Comunidade)
+                </h3>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                    {globalStats.topFeatures.map((item, idx) => (
+                      <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                        <span style={{ width: '130px', fontSize: '0.95rem', color: 'var(--text-color)', textTransform: 'capitalize', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                          {item.label}
+                        </span>
+                        <div style={{ flex: 1, backgroundColor: 'var(--hover-color)', height: '24px', borderRadius: '12px', overflow: 'hidden', position: 'relative' }}>
+                          <motion.div 
+                            initial={{ width: 0 }}
+                            animate={{ width: `${item.pct}%` }}
+                            transition={{ duration: 1, delay: idx * 0.1, ease: 'easeOut' }}
+                            style={{ position: 'absolute', top: 0, left: 0, height: '100%', backgroundColor: 'var(--primary-color)', borderRadius: '12px' }}
+                          />
+                        </div>
+                        <span style={{ width: '50px', fontSize: '0.9rem', fontWeight: 'bold', color: 'var(--text-color)', textAlign: 'right' }}>
+                          {item.val >= 1000 ? (item.val/1000).toFixed(1)+'k' : item.val}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+              </div>
+            </div>
+          )}
+
+          {viewMode === 'local' && (
+            !Telemetry.isOptedIn() ? (
+              <div style={{ textAlign: 'center', padding: '60px 20px', background: 'var(--card-background)', borderRadius: '16px', border: '1px solid var(--border-color)' }}>
+                <span className="material-symbols-outlined" style={{ fontSize: '64px', color: 'var(--text-light)' }}>visibility_off</span>
+                <h3 style={{ marginTop: '20px', marginBottom: '10px', color: 'var(--text-color)' }}>Telemetria Pessoal Desativada</h3>
+                <p style={{ color: 'var(--text-light)' }}>O modo de gravação anônima está desligado nas Configuracões.<br/>Ative-o para habilitar gráficos interativos do seu acompanhamento de jornada.</p>
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '20px' }}>
+                <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>psychology_alt</span>
+                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>Transformação (Ganhos)</span>
+                  <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{derived.transformationScore} pts</span>
+                </div>
+                <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>timer</span>
+                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>Média de Sessão</span>
+                  <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{derived.avgSessionMinutes} min</span>
+                </div>
+                <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>calendar_month</span>
+                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>Retenção Sim.</span>
+                  <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{derived.daysActive} dias</span>
+                </div>
+                <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>error</span>
+                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>Taxa de Falhas</span>
+                  <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{derived.errorCount} erros</span>
+                </div>
+              </div>
+
+              {/* Chart Secao */}
+              <div style={{ background: 'var(--card-background)', padding: '30px', borderRadius: '16px', border: '1px solid var(--border-color)' }}>
+                <h3 style={{ marginBottom: '25px', color: 'var(--text-color)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span className="material-symbols-outlined" style={{ color: 'var(--primary-color)' }}>bar_chart</span>
+                  Top 5 Ferramentas Utilizadas
+                </h3>
+                
+                {chartData.length > 0 ? (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                    {chartData.map((item, idx) => (
+                      <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                        <span style={{ width: '100px', fontSize: '0.95rem', color: 'var(--text-color)', textTransform: 'capitalize', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                          {item.label}
+                        </span>
+                        <div style={{ flex: 1, backgroundColor: 'var(--hover-color)', height: '24px', borderRadius: '12px', overflow: 'hidden', position: 'relative' }}>
+                          <motion.div 
+                            initial={{ width: 0 }}
+                            animate={{ width: `${item.pct}%` }}
+                            transition={{ duration: 1, delay: idx * 0.1, ease: 'easeOut' }}
+                            style={{ position: 'absolute', top: 0, left: 0, height: '100%', backgroundColor: 'var(--primary-color)', borderRadius: '12px' }}
+                          />
+                        </div>
+                        <span style={{ width: '30px', fontSize: '0.9rem', fontWeight: 'bold', color: 'var(--text-color)', textAlign: 'right' }}>
+                          {item.val}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p style={{ color: 'var(--text-light)', fontStyle: 'italic' }}>Ainda não há dados suficientes para plotar o uso. Que tal interagir mais com o app?</p>
+                )}
+              </div>
+
+              {/* Botão de Exportação */}
+              <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
+                <button 
+                  className="primary-btn pulse-animation" 
+                  onClick={handleExport} 
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', padding: '12px 24px', fontSize: '1.05rem', boxShadow: '0 4px 15px rgba(0, 121, 107, 0.25)' }}
+                >
+                  <span className="material-symbols-outlined">download</span>
+                  Exportar Telemetria (JSON)
+                </button>
+              </div>
+            </div>
+            )
+          )}
+
+        </motion.div>
+      </main>
+
+      <ScrollToTopButton />
+      <Footer />
+    </motion.div>
+  );
+};
+
+export default AnalyticsPage;

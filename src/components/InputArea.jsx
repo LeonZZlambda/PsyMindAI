@@ -8,6 +8,7 @@ import { usePomodoro } from '../context/PomodoroContext';
 import PomodoroModal from './PomodoroModal';
 import KindnessModal from './KindnessModal';
 import ExamsModal from './ExamsModal';
+import { Telemetry } from '../services/analytics/telemetry';
 
 const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections, onOpenMoodTracker, onOpenEmotionalJournal, onOpenGuidedLearning }) => {
   const navigate = useNavigate();
@@ -50,6 +51,7 @@ const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections, onO
   ];
 
   const handleToolClick = (tool) => {
+    Telemetry.trackFeature(tool.id || tool.label, 'opened');
     if (tool.id === 'pomodoro') {
       setShowPomodoro(true);
       setShowToolsMenu(false);

@@ -1,3 +1,5 @@
+import { Telemetry } from '../analytics/telemetry';
+
 export const ERROR_TYPES = {
   API_KEY_MISSING: 'API_KEY_MISSING',
   INVALID_KEY: 'INVALID_KEY',
@@ -40,12 +42,15 @@ export function parseError(error) {
   const errorCode = errorData?.status || errorData?.response?.status || errorData?.error?.code || error.code || error.status;
   
   const errorType = HTTP_ERROR_MAP[errorCode] || ERROR_TYPES.UNKNOWN;
-  
+  const details = error.message;
+
+  Telemetry.trackError('GEMINI_API', { type: errorType, code: errorCode, details });
+
   return {
     type: errorType,
     code: errorCode,
     message: ERROR_MESSAGES[errorType],
-    details: error.message
+    details
   };
 }
 

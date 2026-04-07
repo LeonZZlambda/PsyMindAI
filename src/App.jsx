@@ -30,9 +30,12 @@ import ContributePage from './pages/ContributePage'
 import StyleGuidePage from './pages/StyleGuidePage'
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
 import TermsOfUsePage from './pages/TermsOfUsePage'
+import AnalyticsPage from './pages/AnalyticsPage'
 import ErrorFallback from './components/ErrorFallback'
+import TelemetryConsent from './components/TelemetryConsent'
 import { useTheme } from './context/ThemeContext'
 import { useChat } from './context/ChatContext'
+import { Telemetry } from './services/analytics/telemetry'
 
 // Lazy load modals to improve initial load performance
 const AccountModal = lazy(() => import('./components/AccountModal'))
@@ -51,7 +54,7 @@ function App() {
   const { isDarkMode, fontSize, reducedMotion, highContrast, colorBlindMode, toggleTheme } = useTheme()
   const { clearHistory, setInput, isLoading, startAnonymousChat } = useChat()
   const location = useLocation()
-  const publicRoutes = ['/', '/roadmap', '/contribute', '/style-guide', '/privacy', '/terms']
+  const publicRoutes = ['/', '/roadmap', '/contribute', '/style-guide', '/privacy', '/terms', '/analytics']
   const isPublicPage = publicRoutes.includes(location.pathname)
   
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
@@ -73,6 +76,8 @@ function App() {
 
   // Handle initial sidebar state for mobile
   useEffect(() => {
+    Telemetry.init();
+
     const handleResize = () => {
       if (window.innerWidth <= 768) {
         setIsSidebarOpen(false);
@@ -238,6 +243,7 @@ function App() {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/roadmap" element={<RoadmapPage />} />
+            <Route path="/analytics" element={<AnalyticsPage />} />
             <Route path="/contribute" element={<ContributePage />} />
             <Route path="/style-guide" element={<StyleGuidePage />} />
             <Route path="/privacy" element={<PrivacyPolicyPage />} />
@@ -340,6 +346,7 @@ function App() {
             )}
           </AnimatePresence>
         </Suspense>
+        <TelemetryConsent />
         </div>
       </MotionConfig>
     </ErrorBoundary>
