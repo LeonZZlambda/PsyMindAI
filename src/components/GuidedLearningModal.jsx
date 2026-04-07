@@ -431,39 +431,37 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
 
   const renderOpenEnded = (openEndedItem, isTrail = false) => {
     return (
-      <div className="flashcard-container" style={{height: 'auto', minHeight: '300px'}}>
-         <div className="flashcard">
-            <div className="flashcard-front" style={{display: 'flex', flexDirection: 'column'}}>
-               <span className="material-symbols-outlined watermark" style={{top: '10px', right: '10px'}}>edit_note</span>
-               <h4 style={{marginBottom: '15px'}}>{openEndedItem.question}</h4>
-               {openEndedItem.hint && <p style={{fontSize: '0.85rem', color: 'var(--text-light)', marginBottom: '15px'}}>{openEndedItem.hint}</p>}
+      <div className="discursive-wrapper">
+         <div className="discursive-card">
+               <span className="material-symbols-outlined watermark discursive-watermark">edit_note</span>
+               <h4 className="discursive-question">{openEndedItem.question}</h4>
+               {openEndedItem.hint && <p className="discursive-hint">{openEndedItem.hint}</p>}
                
                {!discursiveFeedback ? (
                  <>
                    <textarea
-                     className="ai-input"
+                     className="ai-textarea"
                      rows="5"
                      placeholder="Escreva sua reflexão ou resposta aqui..."
                      value={discursiveResp}
                      onChange={(e) => setDiscursiveResp(e.target.value)}
                      disabled={isEvaluating}
-                     style={{width: '100%', marginBottom: '15px', resize: 'none'}}
                    />
-                   <div style={{display: 'flex', gap: '10px', width: '100%'}}>
-                      <button className="primary-btn cta" style={{flex: 1, display: 'flex', justifyContent: 'center', gap: '8px'}} 
+                   <div className="action-buttons-row">
+                      <button className="primary-btn cta evaluate-btn"
                          onClick={() => handleEvaluateDiscursive(openEndedItem.question, discursiveResp)} disabled={isEvaluating || !discursiveResp.trim()}>
                          <span className="material-symbols-outlined">rate_review</span>
                          {isEvaluating ? 'Avaliando...' : 'Avaliar Resposta com IA'}
                       </button>
-               <button className="secondary-btn" onClick={isTrail ? nextTrailStep : null} style={{ height: 'auto', padding: '10px 15px' }}>
+               <button className="secondary-btn skip-btn" onClick={isTrail ? nextTrailStep : null}>
                   Pular
                </button>
                    </div>
                  </>
                ) : (
                  <div style={{textAlign: 'left', width: '100%'}}>
-                   <p style={{marginBottom: '10px'}}><strong>Sua Resposta:</strong> <br/><span style={{color: 'var(--text-light)'}}>{discursiveResp}</span></p>
-                   <div style={{ backgroundColor: 'var(--accent-light, rgba(34, 197, 94, 0.15))', padding: '15px', borderRadius: '12px', marginBottom: '15px', fontSize: '0.95rem' }}>
+                   <p style={{marginBottom: '15px', color: 'var(--text-color)'}}><strong style={{color: 'var(--primary-color)'}}>Sua Resposta:</strong> <br/><span style={{color: 'var(--text-light)', marginTop: '4px', display: 'inline-block'}}>{discursiveResp}</span></p>
+                   <div className="discursive-feedback-box">
                       <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '8px', fontWeight: 'bold', color: 'var(--text-color)' }}>
                          <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--primary-color)' }}>school</span>
                          Feedback da IA:
@@ -479,7 +477,6 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
                    </button>
                  </div>
                )}
-            </div>
          </div>
       </div>
     );
@@ -658,19 +655,19 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
              </div>
 
              {selectedTrail ? (
-                <div className="learning-content" style={{ display: 'flex', flexDirection: 'column' }}>
-                   <div className="trails-header" style={{ marginBottom: '20px', borderBottom: '1px solid var(--border-color)', paddingBottom: '10px' }}>
-                      <div>
-                     <button className="icon-btn" onClick={closeTrail} style={{ background: 'transparent', margin: '0 0 10px 0', padding: 0, justifyContent: 'flex-start', width: 'auto'}}>
+                <div className="learning-content">
+                   <div className="trail-active-header">
+                      <div className="trail-active-header-left">
+                     <button className="trail-active-back-btn" onClick={closeTrail}>
                         <span className="material-symbols-outlined" style={{marginRight: '8px'}}>arrow_back</span> Voltar para Trilhas
                      </button>
-                     <h3>
-                        {selectedTrail.icon && <span className="material-symbols-outlined" style={{ verticalAlign: 'middle', marginRight: '8px', color: 'var(--primary-color)'}}>{selectedTrail.icon}</span>} 
+                     <h3 className="trail-active-title">
+                        {selectedTrail.icon && <span className="material-symbols-outlined" style={{ color: 'var(--primary-color)'}}>{selectedTrail.icon}</span>} 
                         {selectedTrail.title}
                      </h3>
-                     <p style={{ margin: '8px 0 0 0', color: 'var(--text-light)', fontSize: '0.9rem'}}>{selectedTrail.description}</p>
+                     <p className="trail-active-desc">{selectedTrail.description}</p>
                   </div>
-                  <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'center' }}>
+                  <div className="trail-active-header-right">
                      <span style={{ color: "var(--text-light)", fontSize: '0.9rem', marginBottom: '8px' }}>
                         {isTrailFinished ? 'Concluída' : `Passo ${trailStepIndex + 1} de ${selectedTrail.content.length}`}
                      </span>
@@ -680,7 +677,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
                   </div>
                </div>
 
-               <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>
+               <div className="trail-content-area">
                   <AnimatePresence mode="wait">
                      {isTrailFinished ? (
                         <motion.div key="trail-splash" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: "40px" }}>
