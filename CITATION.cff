@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use PsyMind.AI in a publication, please cite the project."
+title: "PsyMind.AI"
+version: "0.0.0"
+date-released: 2026-04-07
+authors:
+  - name: "Leonardo S. Lopes"
+    orcid: ""
+repository-code: "https://github.com/LeonZZlambda/PsyMindAI"
+preferred-citation:
+  type: "bibtex"
+  citation: |
+    @software{psymindai2026,
+      author = {Leonardo S. Lopes},
+      title = {PsyMind.AI},
+      year = {2026},
+      url = {https://github.com/LeonZZlambda/PsyMindAI}
+    }

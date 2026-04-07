@@ -85,8 +85,15 @@ See [ARCHITECTURE.md](./ARCHITECTURE.md) for module-level documentation.
 
 ### Prerequisites
 
-- Node.js ≥ 14
+- Node.js ≥ 18 (LTS recommended)
 - npm or yarn
+
+Recommended: pin Node.js using `nvm` for reproducible builds:
+
+```bash
+nvm install --lts
+nvm use --lts
+```
 
 ### Installation
 

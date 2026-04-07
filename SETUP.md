@@ -1,5 +1,17 @@
 # Setup
 
+## Prerequisites
+
+- Node.js ≥ 18 (LTS recommended)
+- npm or yarn
+
+Recommended: use `nvm` to pin Node.js for reproducible builds:
+
+```bash
+nvm install --lts
+nvm use --lts
+```
+
 ## Gemini API Key
 
 ### 1. Get a key
