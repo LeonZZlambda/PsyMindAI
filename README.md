@@ -3,14 +3,10 @@
 
   <h1>PsyMind.AI</h1>
 
-  <p><strong>AI-assisted psychoeducational system for behavioral awareness in adolescents.</strong></p>
+  <p><strong>AI-powered educational & behavioral system with interactive learning, evaluation, and self-regulation tools.</strong></p>
 
   <p>
-    <a href="#overview">Overview</a> ·
-    <a href="#features">Features</a> ·
-    <a href="#architecture">Architecture</a> ·
-    <a href="#getting-started">Getting Started</a> ·
-    <a href="#contributing">Contributing</a>
+    <a href="https://psymindai.onrender.com"><strong>🚀 Try the Live Demo: psymindai.onrender.com</strong></a>
   </p>
 
   <p>
@@ -25,140 +21,75 @@
 
 ## Overview
 
-PsyMind.AI is a psychoeducational platform that helps high school students understand, interpret, and regulate their emotions through evidence-based psychology. The system analyzes student self-reports and generates structured, empathetic feedback grounded in established psychological frameworks.
+PsyMind.AI is an AI-powered system that combines behavioral guidance, interactive learning, and automated evaluation to help students understand and regulate their emotions. The system analyzes student self-reports and generates structured, empathetic feedback grounded in established psychological frameworks like Cognitive Behavioral Therapy (CBT), Self-Determination Theory, and Growth Mindset.
 
-**Scientific foundation:**
-- Cognitive Behavioral Therapy (CBT)
-- Self-Determination Theory (Deci & Ryan)
-- Growth Mindset (Carol Dweck)
+**Psychological Foundation:** The entire project was meticulously planned with psychological principles in mind. From the application of Color Psychology in the UI design to the empathetic phrasing of the system prompts, the platform was developed with guidance from psychological principles and reviewed with input from a psychology professional.
 
-> PsyMind.AI is an educational tool. It does not replace professional psychological or psychiatric care.
+**What sets it apart:** Unlike generic AI chatbots, PsyMind.AI implements a structured prompt pipeline and integrates behavioral tools into a unified system for emotional regulation, all executing in a privacy-first, client-only architecture. 
 
----
-
-## Features
-
-| Feature | Description |
-|---|---|
-| 🧠 **Intelligent Chat** | Context-aware conversations powered by Google Gemini 1.5 Flash |
-| 🍅 **Pomodoro Timer** | Focus sessions with AI-generated tips per cycle |
-| 📊 **Mood Tracker** | Daily emotional monitoring with trend analysis |
-| 🌬️ **Guided Breathing** | Visual and timed breathing exercises |
-| 📝 **Reflections** | Curated prompts for self-awareness and journaling |
-| 🎵 **Soundscapes** | Ambient audio for concentration |
-| ♿ **Accessibility** | Dark/light themes, font scaling, high contrast, reduced motion, voice input |
+> *Note: PsyMind.AI is an educational tool and does not replace professional psychological or psychiatric care.*
 
 ---
 
-## Architecture
+## Impact
 
-```
-src/
-├── components/        # UI components
-├── context/           # React context providers
-├── pages/             # Route-level page components
-├── services/
-│   ├── api/           # Gemini API client, error & retry handlers
-│   ├── chat/          # Chat service and message formatter
-│   ├── tools/         # Pomodoro, mood, and reflection services
-│   ├── storage/       # localStorage adapters for chats and settings
-│   ├── prompts/       # System prompt definitions
-│   └── adapters/      # Pluggable storage adapters
-└── utils/             # Notifications, text streaming, theme transitions
-```
+PsyMind.AI provides an accessible, non-judgmental space for students to develop emotional intelligence, manage academic stress, and build resilience. By combining generative AI with established behavioral frameworks, it democratizes access to psychoeducational tools and empowers adolescents to take charge of their emotional well-being safely and privately.
 
-**Data flow:**
+---
 
-```
-User Input
-  → Prompt Builder
-  → Gemini API (1.5 Flash)
-  → Response Structuring Layer
-  → UI
-```
+## Preview
 
-See [ARCHITECTURE.md](./ARCHITECTURE.md) for module-level documentation.
+### 🧪 OBI Judge Mode (Code Evaluation)
+![OBI Judge](./assets/obi-judge.png)
+
+### 📚 Guided Learning (AI-generated study paths)
+![Guided Learning](./assets/guided-learning.png)
+
+### 🧠 Emotional Support Chat
+![Chat](./assets/chat.png)
 
 ---
 
 ## Getting Started
 
-### Prerequisites
+**🚀 Live Preview:** Try the project immediately at **[psymindai.onrender.com](https://psymindai.onrender.com)**.
 
-- Node.js ≥ 18 (LTS recommended)
-- npm or yarn
-
-Recommended: pin Node.js using `nvm` for reproducible builds:
-
-```bash
-nvm install --lts
-nvm use --lts
-```
-
-### Installation
+To run the app locally, follow the steps below. If you don't provide an API key, the app gracefully falls back to a **fully functional demo mode**, simulating AI responses so you can experience the features immediately.
 
 ```bash
 git clone https://github.com/LeonZZlambda/PsyMindAI.git
 cd PsyMindAI
 npm install
-```
-
-### Environment
-
-```bash
-cp .env.example .env
-# Set VITE_GEMINI_API_KEY in .env
-```
-
-Without an API key, the app runs in **demo mode** with simulated responses — all UI features remain functional.
-
-### Development
-
-```bash
 npm run dev
 ```
 
-### Production Build
-
-```bash
-npm run build
-npm run preview
-```
+*For complete setup and environment variables, see our [Setup Guide](./SETUP.md).*
 
 ---
 
-## Deployment
+## Engineering Highlights
 
-Recommended platforms: **Vercel** or **Netlify**.
+- **Service-Oriented Frontend Architecture**: Clear separation of concerns between UI components, global React Context providers, and core logic services (\`services/api\`, \`services/tools\`).
+- **Pluggable Storage Strategy**: Implements the adapter pattern for data persistence, allowing a seamless migration from \`localStorage\` to any remote database backend without touching UI code.
+- **Resilient AI Integration**: Features a centralized API layer with exponential backoff retry logic and normalized error handling for reliable Gemini API communication.
+- **Accessible & Animated UI**: Robust accessibility features including reduced motion support tightly synchronized with custom typewriter streaming effects and theme transitions.
 
-Set `VITE_GEMINI_API_KEY` as an environment variable in your deployment dashboard.
+**Technical Decisions:**
+- **Client-Only Execution**: Built entirely as a Vite + React client-side application to minimize operational overhead and guarantee user data privacy (all history remains on-device).
+- **Context-Driven State**: Global state and application logic are authoritatively managed within dedicated React Contexts (e.g., \`ChatContext\`), keeping components thin, declarative, and highly reusable.
 
----
-
-## Contributing
-
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines, or visit the [Contribute page](src/pages/ContributePage.jsx) in the app.
-
----
-
-## Roadmap
-
-- [ ] Mental health support network integration
-- [ ] Longitudinal personalization via user history
-- [ ] Multilingual support
-- [ ] Mobile-first optimization
-- [ ] Improved behavioral modeling
-
-See [ROADMAP](src/pages/RoadmapPage.jsx) in the app for the full timeline.
+**AI Development Guidelines:**
+- Built with AI assistance in mind. See our [copilot-instructions.md](.github/copilot-instructions.md) for repository-specific AI pair-programming patterns, ensuring consistent architectural conventions when generating new features.
 
 ---
 
-## License
+## Documentation Hub
 
-[Creative Commons Attribution-ShareAlike 4.0 International](./LICENSE) (CC BY-SA 4.0)
+Explore our detailed documentation to understand the inner workings, architectural decisions, and how to get involved:
 
----
-
-<div align="center">
-  <sub>Built by <strong>Leonardo</strong> · AI × Psychology × Education</sub>
-</div>
+- 🏗️ **[Architecture Details](./ARCHITECTURE.md)**: Deep dive into the data flow, module breakdown, and service layers.
+- 🚀 **[Setup & Installation](./SETUP.md)**: Detailed instructions for environment configuration and running the project.
+- 🔄 **[Migration Guide](./MIGRATION_GUIDE.md)**: Instructions on extracting individual modules or migrating storage adapters.
+- 🤝 **[Contributing](./CONTRIBUTING.md)**: Guidelines for opening PRs, reporting bugs, and contributing code.
+- 📜 **[Security & Conduct](./SECURITY.md)**: Vulnerability disclosure policies and our code of conduct.
+- 📝 **[Changelog](./CHANGELOG.md)**: History of updates, improvements, and fixes.
