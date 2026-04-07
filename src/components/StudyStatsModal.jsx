@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Telemetry } from '../services/analytics/telemetry';
 
 const StudyStatsModal = ({ isOpen, onClose }) => {
   // Estado real dos estudos
@@ -7,9 +8,15 @@ const StudyStatsModal = ({ isOpen, onClose }) => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [newLogTopic, setNewLogTopic] = useState('');
   const [newLogMinutes, setNewLogMinutes] = useState('30');
+  
+  // Telemetry Stats
+  const [telemetry, setTelemetry] = useState(null);
 
   useEffect(() => {
     if (isOpen) {
+      if (Telemetry.isOptedIn()) {
+        setTelemetry(Telemetry.getDerivedMetrics());
+      }
       const stored = localStorage.getItem('psymind_study_logs');
       if (stored) {
         try {
@@ -125,15 +132,13 @@ const StudyStatsModal = ({ isOpen, onClose }) => {
 
     return {
       avgFocus: avgFocusStr,
-      retention: '85%', // Simulado (precisaria de dados de quiz/testes)
-      streakWeeks: 2,   // Simulado (precisaria calcular de semanas ativas pra trás)
       weeklyData,
       disciplines,
       aiTip: disciplines.length > 0 
-        ? `Sua dedicação em ${disciplines[0].topic} está ótima (${disciplines[0].percent}%)! Se sentir cansaço, alterne com outras matérias.`
-        : "Comece a revisar os tópicos pendentes para construir seu histórico."
+        ? `Sua dedicação em ${disciplines[0].topic} está ótima. Mantenha os seus ${telemetry ? telemetry.transformationScore : 'bons'} pontos de Transformação subindo e tente não sobrecarregar!`
+        : "Nenhum tópico estudado recentemente. Retome os estudos para construir sua disciplina e ganhar pontos!",
     };
-  }, [studyLogs]);
+  }, [studyLogs, telemetry]);
 
   if (!isOpen) return null;
 
@@ -242,15 +247,21 @@ const StudyStatsModal = ({ isOpen, onClose }) => {
             </div>
             
             <div style={{ background: 'var(--card-hover)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-color)', textAlign: 'center' }}>
-              <span className="material-symbols-outlined" style={{ fontSize: '28px', color: '#2196F3', marginBottom: '8px' }}>task_alt</span>
-              <h3 style={{ margin: '0 0 4px 0', fontSize: '0.85rem', color: 'var(--text-light)' }}>Retenção</h3>
-              <p style={{ margin: 0, fontSize: '1.4rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{computedStats.retention}</p>
+              <span className="material-symbols-outlined" style={{ fontSize: '28px', color: '#2196F3', marginBottom: '8px' }}>timeline</span>
+              <h3 style={{ margin: '0 0 4px 0', fontSize: '0.85rem', color: 'var(--text-light)' }}>Sessões no App</h3>
+              <p style={{ margin: 0, fontSize: '1.4rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{telemetry ? telemetry.totalSessions : '--'}</p>
+            </div>
+            
+            <div style={{ background: 'var(--card-hover)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-color)', textAlign: 'center' }}>
+              <span className="material-symbols-outlined" style={{ fontSize: '28px', color: 'var(--primary-color)', marginBottom: '8px' }}>psychology_alt</span>
+              <h3 style={{ margin: '0 0 4px 0', fontSize: '0.85rem', color: 'var(--text-light)' }}>Transformação</h3>
+              <p style={{ margin: 0, fontSize: '1.4rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{telemetry ? telemetry.transformationScore : '--'}</p>
             </div>
             
             <div style={{ background: 'var(--card-hover)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-color)', textAlign: 'center' }}>
               <span className="material-symbols-outlined" style={{ fontSize: '28px', color: '#FF9800', marginBottom: '8px' }}>local_fire_department</span>
-              <h3 style={{ margin: '0 0 4px 0', fontSize: '0.85rem', color: 'var(--text-light)' }}>Ofensiva (Semanas)</h3>
-              <p style={{ margin: 0, fontSize: '1.4rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{computedStats.streakWeeks}</p>
+              <h3 style={{ margin: '0 0 4px 0', fontSize: '0.85rem', color: 'var(--text-light)' }}>Dias Ativos</h3>
+              <p style={{ margin: 0, fontSize: '1.4rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{telemetry ? telemetry.daysActive : '--'}</p>
             </div>
           </div>
 

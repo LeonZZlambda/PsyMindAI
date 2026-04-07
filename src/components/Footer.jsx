@@ -61,6 +61,7 @@ const Footer = () => {
               <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">Licença</a>
               <a href="#" onClick={(e) => { e.preventDefault(); navigate('/privacy'); }}>Política de Privacidade</a>
               <a href="#" onClick={(e) => { e.preventDefault(); navigate('/terms'); }}>Termos de Uso</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); navigate('/transparency'); }}>Portal de Transparência</a>
             </div>
             <div className="footer-column">
               <h4>Projeto</h4>

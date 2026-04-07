@@ -30,6 +30,7 @@ import ContributePage from './pages/ContributePage'
 import StyleGuidePage from './pages/StyleGuidePage'
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
 import TermsOfUsePage from './pages/TermsOfUsePage'
+import TransparencyPage from './pages/TransparencyPage'
 import AnalyticsPage from './pages/AnalyticsPage'
 import ErrorFallback from './components/ErrorFallback'
 import TelemetryConsent from './components/TelemetryConsent'
@@ -54,7 +55,7 @@ function App() {
   const { isDarkMode, fontSize, reducedMotion, highContrast, colorBlindMode, toggleTheme } = useTheme()
   const { clearHistory, setInput, isLoading, startAnonymousChat } = useChat()
   const location = useLocation()
-  const publicRoutes = ['/', '/roadmap', '/contribute', '/style-guide', '/privacy', '/terms', '/analytics']
+  const publicRoutes = ['/', '/roadmap', '/contribute', '/style-guide', '/privacy', '/terms', '/analytics', '/transparency']
   const isPublicPage = publicRoutes.includes(location.pathname)
   
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
@@ -244,6 +245,7 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/roadmap" element={<RoadmapPage />} />
             <Route path="/analytics" element={<AnalyticsPage />} />
+            <Route path="/transparency" element={<TransparencyPage />} />
             <Route path="/contribute" element={<ContributePage />} />
             <Route path="/style-guide" element={<StyleGuidePage />} />
             <Route path="/privacy" element={<PrivacyPolicyPage />} />
