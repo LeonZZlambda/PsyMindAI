@@ -238,6 +238,27 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
                 <button className="primary-btn" onClick={handleSaveApiKey} style={{ padding: '8px 16px', borderRadius: '4px', border: 'none', background: 'var(--primary-color)', color: '#fff', cursor: 'pointer' }}>
                   Salvar
                 </button>
+                {apiKey && (
+                  <button 
+                    onClick={() => {
+                      setApiKey('');
+                      updateApiKey('');
+                      toast.success('Chave removida do dispositivo.');
+                    }} 
+                    style={{ padding: '8px 12px', borderRadius: '4px', border: '1px solid var(--error-color, #ff4c4c)', background: 'transparent', color: 'var(--error-color, #ff4c4c)', cursor: 'pointer' }}
+                    title="Remover API Key armazenada"
+                  >
+                    <span className="material-symbols-outlined" style={{ fontSize: '1.2rem', verticalAlign: 'middle' }}>delete</span>
+                  </button>
+                )}
+              </div>
+              <div style={{ marginTop: '8px', fontSize: '0.8rem', color: 'var(--text-color-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '4px' }}>
+                <div className="settings-tooltip-container" style={{ margin: 0 }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: '1.2rem', color: 'var(--primary-color)', cursor: 'help' }}>lock</span>
+                  <div className="tooltip-text">
+                    Sua chave é armazenada com ofuscação apenas no armazenamento local do seu navegador.
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -265,21 +286,6 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
               <button className="danger-btn" onClick={handleClearHistory}>
                 <span className="material-symbols-outlined">delete</span>
                 Limpar tudo
-              </button>
-            </div>
-
-            <div className="setting-item" style={{ marginTop: '20px', borderTop: '1px solid var(--border-color)', paddingTop: '20px' }}>
-              <div className="setting-info" style={{ flex: 1 }}>
-                <span className="setting-label">Engajamento & Análise</span>
-                <span className="setting-desc" style={{ fontSize: '0.85rem' }}>Acesse a telemetria ou exporte logs de comportamento.</span>
-              </div>
-              <button 
-                className="secondary-btn" 
-                onClick={() => { onClose(); setTimeout(() => navigate('/analytics'), 300); }}
-                style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
-              >
-                <span className="material-symbols-outlined">analytics</span>
-                Ver Dashboard
               </button>
             </div>
 
