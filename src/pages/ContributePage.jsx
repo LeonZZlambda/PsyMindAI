@@ -54,7 +54,11 @@ const ContributePage = () => {
             </div>
             <h3>Design & UX</h3>
             <p>Ajude-nos a melhorar a experiência do usuário. Sugestões de design e melhorias de interface são sempre bem-vindas.</p>
-            <a href="#" className="text-link">
+            <a 
+               href="#" 
+               className="text-link"
+               onClick={(e) => { e.preventDefault(); navigate('/style-guide'); }}
+            >
               Ver Guia de Estilo <span className="material-symbols-outlined">arrow_forward</span>
             </a>
           </motion.div>
