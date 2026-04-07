@@ -748,7 +748,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
                                  <motion.div key="trails-grid" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}>
                                     <div className="trails-header" style={{ paddingBottom: '16px' }}>
                                        <h3>Explore Trilhas ou Crie a Sua</h3>
-                                       <div style={{ display: 'flex', gap: '8px', flexWrap: 'nowrap', overflowX: 'auto', justifyContent: 'center' }}>
+                                       <div style={{ display: 'flex', gap: '8px', flexWrap: 'nowrap', overflowX: 'auto', justifyContent: 'center', paddingBlock: '8px', marginBlock: '-8px' }}>
                                           <button className="secondary-btn" onClick={handleImportTrail}>
                                              <span className="material-symbols-outlined">download</span> Importar
                                           </button>
