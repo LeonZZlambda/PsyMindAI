@@ -155,6 +155,7 @@ const MessageList = () => {
 
   const [dailyQuote, setDailyQuote] = useState('');
   const [isLoadingQuote, setIsLoadingQuote] = useState(true);
+  const [speakingId, setSpeakingId] = useState(null);
 
   useEffect(() => {
     const generateDailyQuote = () => {
@@ -229,11 +230,23 @@ const MessageList = () => {
     setShowScrollTop(scrollTop > 300);
   };
 
-  const speakMessage = (text) => {
+  const speakMessage = (text, id) => {
     if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel(); // Stop any current speech
+      if (speakingId === id) {
+        window.speechSynthesis.cancel();
+        setSpeakingId(null);
+        return;
+      }
+      window.speechSynthesis.cancel();
+      setSpeakingId(id);
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = 'pt-BR';
+      utterance.onend = () => {
+        setSpeakingId(prev => prev === id ? null : prev);
+      };
+      utterance.onerror = () => {
+        setSpeakingId(prev => prev === id ? null : prev);
+      };
       window.speechSynthesis.speak(utterance);
     } else {
       toast.error('Seu navegador não suporta síntese de voz');
@@ -434,12 +447,14 @@ const MessageList = () => {
                   </div>
                   <div className="message-actions">
                     <button 
-                      className="action-btn" 
-                      onClick={() => speakMessage(message.content)}
-                      title="Ouvir mensagem"
-                      aria-label="Ouvir mensagem"
+                      className={`action-btn ${speakingId === index ? 'active' : ''}`}
+                      onClick={() => speakMessage(message.content, index)}
+                      title={speakingId === index ? "Parar leitura" : "Ouvir mensagem"}
+                      aria-label={speakingId === index ? "Parar leitura" : "Ouvir mensagem"}
                     >
-                      <span className="material-symbols-outlined">volume_up</span>
+                      <span className="material-symbols-outlined">
+                        {speakingId === index ? 'stop_circle' : 'volume_up'}
+                      </span>
                     </button>
                     <CopyButton text={message.content} />
                   </div>

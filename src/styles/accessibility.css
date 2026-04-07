@@ -252,3 +252,82 @@ body.high-contrast, .app.high-contrast .suggestion:active span,
 body.high-contrast, .app.high-contrast .suggestion:active .material-symbols-outlined {
   color: var(--hc-bg) !important;
 }
+
+/* Dyslexic Font Mode */
+.app.dyslexic-font *:not(.material-symbols-outlined) {
+  font-family: 'OpenDyslexic', 'Comic Sans MS', 'Comic Neue', sans-serif !important;
+  letter-spacing: 0.1em !important;
+  word-spacing: 0.25em !important;
+  line-height: var(--dyslexic-line-height, 1.6) !important;
+}
+.app.dyslexic-font h1,
+.app.dyslexic-font h2,
+.app.dyslexic-font h3,
+.app.dyslexic-font h4 {
+  letter-spacing: 0.15em !important;
+}
+
+/* Keyboard-only UI Enhancements */
+*:focus-visible {
+  outline: 3px solid var(--primary-color) !important;
+  outline-offset: 4px !important;
+  transition: none !important;
+}
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary-color);
+  color: white;
+  padding: 8px;
+  z-index: 10000;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Strict High Contrast Enforcement for Buttons and Interactive Elements */
+.app.high-contrast button,
+.app.high-contrast input,
+.app.high-contrast select,
+.app.high-contrast textarea {
+  border: 2px solid var(--text-color) !important;
+  border-radius: 4px !important;
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+  box-shadow: none !important;
+}
+
+.app.high-contrast button:hover,
+.app.high-contrast button:focus {
+  background-color: var(--text-color) !important;
+  color: var(--bg-color) !important;
+}
+
+.app.high-contrast .toggle-switch.active {
+  background-color: var(--text-color) !important;
+}
+
+.app.high-contrast .toggle-switch.active .toggle-thumb {
+  background-color: var(--bg-color) !important;
+}
+
+.app.high-contrast * {
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.action-btn.active {
+  color: var(--primary-color) !important;
+  opacity: 1 !important;
+  animation: pulsePulse 2s infinite ease-in-out;
+}
+
+@keyframes pulsePulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}

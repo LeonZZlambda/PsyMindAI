@@ -17,6 +17,7 @@ export const ThemeProvider = ({ children }) => {
   const [fontSize, setFontSize] = useState(() => loadSetting('fontSize', 'normal'));
   const [reducedMotion, setReducedMotion] = useState(() => loadBooleanSetting('reducedMotion'));
   const [highContrast, setHighContrast] = useState(() => loadBooleanSetting('highContrast'));
+  const [dyslexicFont, setDyslexicFont] = useState(() => loadBooleanSetting('dyslexicFont'));
   const [colorBlindMode, setColorBlindMode] = useState(() => loadSetting('colorBlindMode', 'none'));
 
   const [systemIsDark, setSystemIsDark] = useState(() => {
@@ -37,6 +38,7 @@ export const ThemeProvider = ({ children }) => {
   useEffect(() => saveSetting('fontSize', fontSize), [fontSize]);
   useEffect(() => saveSetting('reducedMotion', reducedMotion), [reducedMotion]);
   useEffect(() => saveSetting('highContrast', highContrast), [highContrast]);
+  useEffect(() => saveSetting('dyslexicFont', dyslexicFont), [dyslexicFont]);
   useEffect(() => saveSetting('colorBlindMode', colorBlindMode), [colorBlindMode]);
 
   const isDarkMode = themeMode === 'system' ? systemIsDark : themeMode === 'dark';
@@ -65,6 +67,8 @@ export const ThemeProvider = ({ children }) => {
     setReducedMotion,
     highContrast,
     setHighContrast,
+    dyslexicFont,
+    setDyslexicFont,
     colorBlindMode,
     setColorBlindMode
   };

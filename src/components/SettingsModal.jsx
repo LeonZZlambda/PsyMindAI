@@ -12,7 +12,8 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
   const { 
     isDarkMode, toggleTheme, themeMode, setThemeMode, 
     fontSize, setFontSize, reducedMotion, setReducedMotion, 
-    highContrast, setHighContrast, colorBlindMode, setColorBlindMode 
+    highContrast, setHighContrast, colorBlindMode, setColorBlindMode,
+    dyslexicFont, setDyslexicFont 
   } = useTheme();
   const { clearHistory } = useChat();
   const navigate = useNavigate();
@@ -175,6 +176,22 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
                 role="switch"
                 aria-checked={highContrast}
                 aria-label="Alternar alto contraste"
+              >
+                <span className="toggle-thumb"></span>
+              </button>
+            </div>
+
+            <div className="setting-item">
+              <div className="setting-info">
+                <span className="setting-label">Fonte para Dislexia</span>
+                <span className="setting-desc">Usar fontes amigáveis (OpenDyslexic) e aumentar espaçamento</span>
+              </div>
+              <button 
+                className={`toggle-switch ${dyslexicFont ? 'active' : ''}`}
+                onClick={() => setDyslexicFont(!dyslexicFont)}
+                role="switch"
+                aria-checked={dyslexicFont}
+                aria-label="Alternar fonte para dislexia"
               >
                 <span className="toggle-thumb"></span>
               </button>
