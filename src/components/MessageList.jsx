@@ -192,6 +192,28 @@ const MessageList = () => {
     chatContainerRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const [loadingPhrase, setLoadingPhrase] = useState("Acessando contexto local...");
+
+  useEffect(() => {
+    let interval;
+    if (isTyping) {
+      const phrases = [
+        "Puxando contexto local da sua sessão...",
+        "Analisando seus padrões de foco recentes...",
+        "Acessando histórico de humor...",
+        "Formulando abordagens cognitivas...",
+        "Avaliando estratégias de auto-regulação...",
+        "Cruzando dados do Pomodoro..."
+      ];
+      setLoadingPhrase(phrases[Math.floor(Math.random() * phrases.length)]);
+      
+      interval = setInterval(() => {
+        setLoadingPhrase(phrases[Math.floor(Math.random() * phrases.length)]);
+      }, 2000);
+    }
+    return () => clearInterval(interval);
+  }, [isTyping]);
+
   useEffect(() => {
     if (!userScrolledUpRef.current) scrollToBottom();
   }, [messages, isTyping]);
@@ -280,12 +302,12 @@ const MessageList = () => {
               <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
                 <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color, #e0a3ff)' }}>visibility_off</span>
               </div>
-              <h3 style={{ fontSize: '1.2rem', marginBottom: '12px', color: 'var(--text-color, #fff)' }}>Modo Anônimo</h3>
+              <h3 style={{ fontSize: '1.2rem', marginBottom: '12px', color: 'var(--text-color, #fff)' }}>Private Mode ON – No analytics – No history</h3>
               <p style={{ fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '12px' }}>
-                <strong>Esta conversa não aparecerá em seu histórico e não será salva localmente no seu dispositivo.</strong>
+                <strong>Esta conversa não aparecerá no histórico e todas as estatísticas estão pausadas.</strong>
               </p>
               <p style={{ fontSize: '0.85rem', lineHeight: '1.5', opacity: 0.8 }}>
-                As conversas momentâneas não aparecem nas conversas recentes. Além disso, elas não são usadas para treinar modelos ou personalizar sua experiência. Para manter o contexto e a continuidade, as conversas ficam ativas apenas enquanto esta sessão (aba) estiver em andamento.
+                As conversas anônimas são descartadas ao fechar a janela e não afetam seus gráficos de produtividade. Total privacidade.
               </p>
             </div>
           ) : (
@@ -441,7 +463,7 @@ const MessageList = () => {
                     <span></span>
                     <span></span>
                   </div>
-                  <span className="gemini-loader-text">PsyMind está pensando...</span>
+                  <span className="gemini-loader-text">{loadingPhrase}</span>
                 </div>
               </div>
             </motion.div>

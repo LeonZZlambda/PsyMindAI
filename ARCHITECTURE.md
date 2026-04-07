@@ -14,8 +14,10 @@ src/
 │   │   ├── errorHandler.js       # Centralized error parsing
 │   │   └── retryHandler.js       # Exponential backoff retry logic
 │   ├── chat/
-│   │   ├── chatService.js        # Core chat orchestration
+│   │   ├── chatService.js        # Core chat orchestration & Meta-Insight AI agent
 │   │   └── messageFormatter.js   # Message normalization for Gemini
+│   ├── analytics/
+│   │   └── telemetry.js          # On-device metric calculus parsing focus and usage counts
 │   ├── tools/
 │   │   ├── pomodoroService.js    # AI tips for focus/break cycles
 │   │   ├── moodService.js        # Mood history analysis
@@ -24,7 +26,7 @@ src/
 │   │   ├── chatStorage.js        # Chat persistence (localStorage)
 │   │   └── settingsStorage.js    # User settings persistence
 │   ├── prompts/
-│   │   └── systemPrompts.js      # System prompt definitions
+│   │   └── systemPrompts.js      # System prompt logic and dynamic Local Storage context ingestion
 │   ├── adapters/                 # Pluggable storage adapters
 │   └── index.js                  # Public service interface
 ├── utils/
@@ -107,6 +109,16 @@ import { generateReflection, generateReflectionAnalysis } from './services/tools
 
 ---
 
+### `services/analytics/`
+
+**`telemetry.js`** — Edgeside metrics computation gathering local behavioral usage patterns dynamically mapped by `psymind_telemetry_optin`.
+
+```js
+import { Telemetry, TelemetryEngine } from './services/analytics/telemetry';
+```
+
+---
+
 ### `utils/`
 
 **`textStreaming.js`** — Streams AI responses character-by-character with reduced-motion support.
@@ -134,12 +146,24 @@ import { playNotificationSound, showNotification, requestNotificationPermission 
 
 ## Data Flows
 
-### Chat
+### Chat & Environmental Context Injection
 
-```
-User Input → ChatContext → chatService → geminiClient → Gemini API
+The chat pipeline automatically augments the system prompt with metadata from local tools, generating highly personalized yet strictly local edge-state awareness.
+
+```text
+User Input → ChatContext → chatService → systemPrompts (Context Injection) → geminiClient → Gemini API
                 ↓               ↓
          chatStorage ← messageFormatter ← errorHandler
+```
+
+### Meta-Insight Evaluation
+
+A secondary execution loop decoupled from the interactive UI. Evaluates multi-tool activity (Pomodoros, Mood logs) to synthesize patterns quietly in the background without halting the main rendering thread.
+
+```text
+Dashboard Trigger → generateMetaInsight → systemPrompts (Cross-Reference Rule) → geminiClient
+                         ↓
+                  telemetry.js (Aggregates Focus vs Moods)
 ```
 
 ### Settings

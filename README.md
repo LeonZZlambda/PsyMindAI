@@ -69,13 +69,15 @@ npm run dev
 
 ## Engineering Highlights
 
-- **Service-Oriented Frontend Architecture**: Clear separation of concerns between UI components, global React Context providers, and core logic services (\`services/api\`, \`services/tools\`).
-- **Pluggable Storage Strategy**: Implements the adapter pattern for data persistence, allowing a seamless migration from \`localStorage\` to any remote database backend without touching UI code.
-- **Resilient AI Integration**: Features a centralized API layer with exponential backoff retry logic and normalized error handling for reliable Gemini API communication.
-- **Accessible & Animated UI**: Robust accessibility features including reduced motion support tightly synchronized with custom typewriter streaming effects and theme transitions.
+- **Connected AI Ecosystem**: Uses automated state-injection into system prompts to pass local app metrics (\`localStorage\` tool activity like Pomodoro focus blocks and daily Mood inputs) directly to the LLM agent without ever touching a backend.
+- **Strict Psychological & Clinical Guardrails**: Actively limits the AI layer from venturing into empirical clinical terminology by forcing canonical study guidance (Active Recall, Spaced Repetition) and automatically rerouting distress paths to professional referrals.
+- **Dual-Mode Edge Analytics**: Combines clear mock-up global views for scaling foresight with a highly potent client-side "Meu Uso" metrics board processing data safely with zero external aggregation via \`TelemetryConsent.jsx\`.
+- **Service-Oriented Frontend Architecture**: Clear separation of concerns between UI components, global React Context providers, and core logic services (\`services/api\`, \`services/tools\`, \`services/analytics\`).
+- **Accessible & Animated UI**: Robust accessibility features including smart placeholders during streaming initialization, latency-masking feedbacks, and dynamic theme transitions.
 
 **Technical Decisions:**
-- **Client-Only Execution**: Built entirely as a Vite + React client-side application to minimize operational overhead and guarantee user data privacy (all history remains on-device).
+- **Client-Only Execution**: Built entirely as a Vite + React client-side application to minimize operational overhead and guarantee user data privacy. Features explicit Telemetry consent logic processing the analytical insights exclusively on edge devices.
+- **Meta-Insight Agent Flow**: A passive, secondary AI function (\`generateMetaInsight\`) autonomously analyzes usage histories decoupled from active UI instances to synthesize behavioral intersections mapping raw emotional data onto structured focus sessions.
 - **Context-Driven State**: Global state and application logic are authoritatively managed within dedicated React Contexts (e.g., \`ChatContext\`), keeping components thin, declarative, and highly reusable.
 
 **AI Development Guidelines:**
