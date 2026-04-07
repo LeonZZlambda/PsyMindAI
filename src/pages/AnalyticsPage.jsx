@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { Telemetry } from '../services/analytics/telemetry';
+import { generateMetaInsight } from '../services/chat/chatService';
+import { defaultConfig } from '../services/config/apiConfig';
 import Footer from '../components/Footer';
 import ScrollToTopButton from '../components/ScrollToTopButton';
 import LandingHeader from '../components/LandingHeader';
@@ -14,12 +16,36 @@ const AnalyticsPage = () => {
   const [derived, setDerived] = useState(null);
   const [stats, setStats] = useState(null);
   const [viewMode, setViewMode] = useState('global'); // 'global' | 'local'
+  
+  // Meta-Análise State
+  const [metaInsight, setMetaInsight] = useState(null);
+  const [isGeneratingInsight, setIsGeneratingInsight] = useState(false);
 
   useEffect(() => {
     setDerived(Telemetry.getDerivedMetrics());
     setStats(Telemetry.getStats());
     window.scrollTo(0, 0);
   }, []);
+
+  const handleGenerateInsight = async () => {
+    if (!defaultConfig.isConfigured()) {
+      alert("Você precisa configurar a chave de API do Gemini no Chat/Configurações primeiro.");
+      return;
+    }
+    setIsGeneratingInsight(true);
+    try {
+      const insight = await generateMetaInsight();
+      if (insight && insight.pattern && insight.suggestion) {
+        setMetaInsight(insight);
+      } else {
+        alert("Não houve dados suficientes para gerar a análise (tente estudar ou usar o diário mais vezes).");
+      }
+    } catch (e) {
+      alert("Falha ao se conectar com a IA para meta-análise.");
+    } finally {
+      setIsGeneratingInsight(false);
+    }
+  };
 
   const handleExport = () => {
     Telemetry.exportData();
@@ -175,6 +201,55 @@ const AnalyticsPage = () => {
               </div>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+                
+                {/* Meta Insight Panel */}
+                <div style={{ background: 'linear-gradient(135deg, rgba(82, 196, 26, 0.1) 0%, rgba(0, 121, 107, 0.1) 100%)', border: '1px solid var(--primary-color)', padding: '24px', borderRadius: '16px', display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '15px' }}>
+                    <div>
+                      <h3 style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-color)', margin: 0 }}>
+                        <span className="material-symbols-outlined" style={{ color: 'var(--primary-color)' }}>psychology</span>
+                        Modo Meta: Análise de Padrão (IA)
+                      </h3>
+                      <p style={{ margin: '8px 0 0 0', fontSize: '0.9rem', color: 'var(--text-light)' }}>
+                        Deixe a inteligência artificial revisar passivamente cruzamentos entre seus focos, humores e sessões para te dar dicas ativas.
+                      </p>
+                    </div>
+                    {!metaInsight && (
+                      <button 
+                        className="primary-btn cta"
+                        onClick={handleGenerateInsight}
+                        disabled={isGeneratingInsight}
+                        style={{ padding: '10px 20px', fontSize: '0.9rem' }}
+                      >
+                        {isGeneratingInsight ? 'Analisando dados...' : 'Gerar Auto-Reflexão'}
+                      </button>
+                    )}
+                  </div>
+                  
+                  {metaInsight && (
+                    <motion.div 
+                      initial={{ opacity: 0, height: 0 }} 
+                      animate={{ opacity: 1, height: 'auto' }} 
+                      style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '12px', marginTop: '10px' }}
+                    >
+                      <div style={{ marginBottom: '15px' }}>
+                        <strong style={{ color: 'var(--text-color)', display: 'block', marginBottom: '4px' }}>🧠 Padrão Observado:</strong>
+                        <span style={{ color: 'var(--text-light)', fontSize: '0.95rem' }}>{metaInsight.pattern}</span>
+                      </div>
+                      <div>
+                        <strong style={{ color: 'var(--primary-color)', display: 'block', marginBottom: '4px' }}>⚡ Sugestão:</strong>
+                        <span style={{ color: 'var(--text-light)', fontSize: '0.95rem' }}>{metaInsight.suggestion}</span>
+                      </div>
+                      <button 
+                        onClick={handleGenerateInsight}
+                        style={{ background: 'transparent', border: 'none', color: 'var(--text-light)', fontSize: '0.8rem', marginTop: '15px', cursor: 'pointer', textDecoration: 'underline', padding: 0 }}
+                      >
+                        Gerar nova reflexão
+                      </button>
+                    </motion.div>
+                  )}
+                </div>
+
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '20px' }}>
                 <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
                   <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>psychology_alt</span>

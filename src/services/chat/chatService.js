@@ -96,6 +96,44 @@ Sem markdown de conversação, apenas o JSON válido.`;
   return null;
 }
 
+export async function generateMetaInsight() {
+  if (!geminiClient.isConfigured()) return null;
+
+  try {
+    const longtermMemory = localStorage.getItem('psymind_longterm_memory') || 'Nenhuma';
+    const moodHistoryStr = localStorage.getItem('psymind_mood_history') || '[]';
+    const pomodoroStatsStr = localStorage.getItem('psymind_pomodoro_stats') || '{}';
+    const telemetryStatsStr = localStorage.getItem('psymind_telemetry_stats') || '{}';
+
+    const insightPrompt = `Atuando como um orientador analítico, relacione os seguintes dados reais do uso do estudante neste app educacional/emocional:
+Memória de Longo Prazo: ${longtermMemory}
+Histórico de Humor (Mood): ${moodHistoryStr}
+Estudos (Pomodoro): ${pomodoroStatsStr}
+Estatísticas de Uso Geral: ${telemetryStatsStr}
+
+Analise os pontos fortes e de melhoria, identificando padrões implícitos (correlacionando horários, humor e foco, se possível) e devolva APENAS UM JSON válido na exata seguinte estrutura:
+{
+  "pattern": "A descrição breve e analítica de um padrão real observado no cenário do estudante. Ex: '🧠 Padrão observado: Você estuda à noite com foco baixo.'",
+  "suggestion": "Uma recomendação encorajadora, empírica e acionável para melhorar. Ex: '⚡ Sugestão: Tente sessões mais curtas cedo.'"
+}
+Não use crases, markdown, nem explique o raciocínio fora do JSON. Apenas as chaves "pattern" e "suggestion".`;
+
+    const contents = [{ role: 'user', parts: [{ text: insightPrompt }] }];
+    const response = await geminiClient.generateContent({
+      model: 'gemini-2.5-flash',
+      contents
+    });
+
+    if (response?.text) {
+      const jsonStr = response.text.replace(/```json|```/gi, '').trim();
+      return JSON.parse(jsonStr);
+    }
+  } catch (error) {
+    console.error('Erro na criação do Meta Insight:', error);
+  }
+  return null;
+}
+
 export function isConfigured() {
   return defaultConfig.isConfigured();
 }
