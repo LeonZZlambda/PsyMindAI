@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useChat } from '../context/ChatContext';
+import JudgeModal from './JudgeModal';
+import QuizModal from './QuizModal';
 
 const EnemCalculator = ({ onClose }) => {
   const { sendMessage } = useChat();
@@ -418,6 +420,198 @@ Seja realista mas encorajador! 💪`;
 };
 
 const examTopics = {
+  'Provão Paulista 1º Ano': [
+    'Matemática: Funções, Progressão Aritmética (PA) e Geométrica (PG), Geometria Plana',
+    'Física: Cinemática, Leis de Newton, Energia e Trabalho',
+    'Química: Estrutura Atômica, Tabela Periódica, Ligações Químicas, Funções Inorgânicas',
+    'Biologia: Citologia, Bioquímica Celular, Histologia Biológica',
+    'Português: Gêneros Textuais, Variação Linguística, Literatura (Trovadorismo ao Realismo)',
+    'História: Antiguidade Clássica, Idade Média, Brasil Colônia',
+    'Geografia: Cartografia, Geofísica e Relevo, Clima e Vegetação',
+    'Filosofia/Sociologia: Introdução à Filosofia, Ética, Indivíduo e Sociedade',
+    'Inglês/Espanhol: Compreensão de Texto, Vocabulário Básico e Estruturas Gramaticais'
+  ],
+  'Provão Paulista 2º Ano': [
+    'Matemática: Trigonometria, Matrizes e Sistemas Lineares, Geometria Espacial',
+    'Física: Termologia, Termodinâmica, Óptica Geométrica, Ondulatória',
+    'Química: Soluções, Termoquímica, Cinética Química, Equilíbrio Químico',
+    'Biologia: Botânica, Zoologia, Fisiologia Humana Comparada',
+    'Português: Sintaxe, Modernismo (1ª e 2ª Geração), Interpretação Crítica',
+    'História: Brasil Império, Revolução Industrial, Revoluções Burguesas (Francesa e Independências)',
+    'Geografia: Demografia, Urbanização, Geopolítica Contemporânea',
+    'Filosofia/Sociologia: Contratualistas, Sociologia Brasileira, Cultura e Ideologia',
+    'Inglês/Espanhol: Leitura Crítica e Expressões Idiomáticas'
+  ],
+  'Provão Paulista 3º Ano': [
+    'Matemática: Geometria Analítica, Números Complexos, Polinômios, Probabilidade e Estatística',
+    'Física: Eletromagnetismo, Eletrodinâmica, Física Moderna (Introdução)',
+    'Química: Química Orgânica, Eletroquímica, Reações Orgânicas',
+    'Biologia: Genética, Evolução, Ecologia e Sustentabilidade',
+    'Português e Redação: Dissertação-Argumentativa, Literatura Contemporânea',
+    'História: Brasil República (Era Vargas até Contemporâneo), Guerras Mundiais e Guerra Fria',
+    'Geografia: Globalização, Economia e Espaço Agrário, Meio Ambiente e Questões Climáticas',
+    'Filosofia/Sociologia: Política Contemporânea, Pensamento Crítico e Atualidades'
+  ],
+  'OBMEP Nível 1': [
+    'Aritmética Básica (Operações, Frações, Decimais)',
+    'Geometria Plana (Áreas, Perímetros, Ângulos Intuitivos)',
+    'Lógica e Raciocínio (Padrões, Sequências)',
+    'Contagem Básica e Análise Combinatória Inicial'
+  ],
+  'OBMEP Nível 2': [
+    'Álgebra (Equações do 1º Grau, Sistemas)',
+    'Geometria Plana (Teorema de Pitágoras, Semelhança)',
+    'Contagem e Princípio Multiplicativo',
+    'Probabilidade Básica',
+    'Aritmética (Mínimo Múltiplo Comum, Divisibilidade)'
+  ],
+  'OBMEP Nível 3': [
+    'Álgebra Avançada (Funções, Equações do 2º Grau, Inequações)',
+    'Geometria Plana Avançada (Círculos, Relações Métricas)',
+    'Combinatória e Probabilidade Complexas',
+    'Teoria dos Números (Congruências, Primos)',
+    'Polinômios e Sequências'
+  ],
+  'OBMEP Nível Júnior': [
+    'Operações Fundamentais (Soma, Subtração, Multiplicação, Divisão)',
+    'Raciocínio Lógico Simples',
+    'Identificação de Padrões',
+    'Noções Espaciais Básicas'
+  ],
+  
+  'OBA Nível 1': [
+    'Dia e Noite',
+    'O Sol e a Lua',
+    'Fases da Lua',
+    'Estações do Ano',
+    'Os Planetas e o Sistema Solar Simplificado'
+  ],
+  'OBA Nível 2': [
+    'Sistema Solar (Ordem, Tamanhos)',
+    'Movimentos da Terra (Rotação, Translação)',
+    'Constelações Visíveis',
+    'História da Astronomia Inicial'
+  ],
+  'OBA Nível 3': [
+    'Gravitação Universal e Órbitas',
+    'Física do Sistema Solar',
+    'Evolução Estelar (Nascimento e Morte das Estrelas)',
+    'Astronáutica e Satélites Artificiais'
+  ],
+  'OBA Nível 4': [
+    'Leis de Kepler e Gravitação de Newton',
+    'Astrofísica (Luminosidade, Espectro, Temperatura)',
+    'Cosmologia (Big Bang, Expansão do Universo)',
+    'Buracos Negros e Galáxias',
+    'Mecânica Orbital e Propulsão Espacial'
+  ],
+
+  'OBI Iniciação': [
+    'Lógica de Programação Básica',
+    'Raciocínio Analítico e Problemas',
+    'Algoritmos Simples sem Código',
+    'Reconhecimento de Padrões'
+  ],
+  'OBI Programação Júnior': [
+    'Variáveis e Tipos de Dados',
+    'Estruturas Condicionais (If, Else)',
+    'Estruturas de Repetição (For, While)',
+    'Vetores e Strings Básicos'
+  ],
+  'OBI Programação 1': [
+    'Matrizes e Vetores Multidimensionais',
+    'Busca e Ordenação (Busca Binária, Bubble Sort)',
+    'Funções e Recursão',
+    'Estruturas de Dados Básicas'
+  ],
+  'OBI Programação 2': [
+    'Grafos (Busca em Profundidade/Largura)',
+    'Programação Dinâmica',
+    'Algoritmos Gulosos (Greedy)',
+    'Estruturas de Dados Avançadas (Árvores, Fila de Prioridade, Segment Tree)'
+  ],
+
+  'OBF Nível 1': [
+    'Conceitos Iniciais de Cinemática',
+    'Grandezas Físicas e Medidas',
+    'Calor e Temperatura',
+    'Princípios de Eletricidade Básica'
+  ],
+  'OBF Nível 2': [
+    'Mecânica Newtoniana Completa',
+    'Termologia e Calorimetria',
+    'Óptica Geométrica',
+    'Ondulatória e Fenômenos Ondulatórios',
+    'Eletrostática'
+  ],
+  'OBF Nível 3': [
+    'Eletromagnetismo (Circuitos, Magnetismo, Indução)',
+    'Mecânica dos Fluidos',
+    'Termodinâmica Completa',
+    'Física Moderna (Relatividade, Quântica)'
+  ],
+
+  'OBQjr OBQjr': [
+    'Estados Físicos da Matéria e Mudanças',
+    'Misturas e Substâncias (Separação de Misturas)',
+    'Estrutura Atômica Simplificada',
+    'Tabela Periódica Básica (Classificação)',
+    'Reações Químicas Simples e Cotidianas'
+  ],
+  'OBQ Fase I': [
+    'Modelos Atômicos e Estrutura Atômica',
+    'Propriedades Periódicas',
+    'Ligações Químicas',
+    'Funções Inorgânicas',
+    'Estequiometria Básica'
+  ],
+  'OBQ Fase II': [
+    'Físico-Química (Soluções, Cinética Química, Termoquímica)',
+    'Equilíbrio Químico',
+    'Química Orgânica (Nomenclatura, Funções Orgânicas)',
+    'Isomeria',
+    'Reações Inorgânicas Avançadas'
+  ],
+  'OBQ Fase III': [
+    'Eletroquímica (Pilhas, Eletrólise)',
+    'Química Orgânica Avançada (Reações Orgânicas, Polímeros)',
+    'Compostos de Coordenação',
+    'Bioquímica',
+    'Química Analítica Qualitativa',
+    'Espectroscopia (Noções Básicas)'
+  ],
+
+  'ONC Nível A': [
+    'Corpo Humano e Saúde Básica',
+    'A Terra e a Vida',
+    'Ecossistemas Brasileiros',
+    'Ciclo da Água e Recursos Naturais'
+  ],
+  'ONC Nível B': [
+    'Células (Estrutura e Funcionamento)',
+    'Ecologia e Sustentabilidade',
+    'Materiais e suas Transformações',
+    'Fenômenos Térmicos e Ópticos no Cotidiano'
+  ],
+  'ONC Nível C': [
+    'Fisiologia Humana Comparada',
+    'Evolução Biológica e Genética Básica',
+    'Química Ambiental',
+    'Cinemática e Dinâmica Básicas'
+  ],
+  'ONC Nível D': [
+    'Biologia Celular e Molecular',
+    'Química Geral (Estrutura Atômica, Ligações, Tabela Periódica)',
+    'Física Térmica e Óptica Geométrica',
+    'Astronomia e Ciências do Espaço'
+  ],
+  'ONC Nível E': [
+    'Física Moderna e Eletromagnetismo',
+    'Físico-Química e Química Orgânica',
+    'Ecologia de Populações e Dinâmica de Bio-Sistemas',
+    'Geologia e Ciência do Clima',
+    'Biotecnologia e Engenharia Genética'
+  ],
   'Matemática': [
     'Aritmética Básica (Frações, Decimais, Porcentagem)',
     'Funções (1º e 2º Grau, Exponencial, Logarítmica)',
@@ -626,6 +820,53 @@ const getTopicsForSubject = (subjectName, examName) => {
   const lower = subjectName.toLowerCase();
   const examLower = examName ? examName.toLowerCase() : '';
 
+  
+  // Olympiads Logic
+  if (examLower.includes('obmep')) {
+    if (lower.includes('1')) return examTopics['OBMEP Nível 1'];
+    if (lower.includes('2')) return examTopics['OBMEP Nível 2'];
+    if (lower.includes('3')) return examTopics['OBMEP Nível 3'];
+    if (lower.includes('júnior') || lower.includes('junior')) return examTopics['OBMEP Nível Júnior'];
+  }
+  if (examLower.includes('oba')) {
+    if (lower.includes('1')) return examTopics['OBA Nível 1'];
+    if (lower.includes('2')) return examTopics['OBA Nível 2'];
+    if (lower.includes('3')) return examTopics['OBA Nível 3'];
+    if (lower.includes('4')) return examTopics['OBA Nível 4'];
+  }
+  if (examLower.includes('obi')) {
+    if (lower.includes('iniciação') || lower.includes('iniciacao')) return examTopics['OBI Iniciação'];
+    if (lower.includes('júnior') || lower.includes('junior')) return examTopics['OBI Programação Júnior'];
+    if (lower.includes('1')) return examTopics['OBI Programação 1'];
+    if (lower.includes('2')) return examTopics['OBI Programação 2'];
+  }
+  if (examLower.includes('obf')) {
+    if (lower.includes('1')) return examTopics['OBF Nível 1'];
+    if (lower.includes('2')) return examTopics['OBF Nível 2'];
+    if (lower.includes('3')) return examTopics['OBF Nível 3'];
+  }
+  if (examLower.includes('obq')) {
+    if (lower.includes('obqjr') || lower.includes('jr')) return examTopics['OBQjr OBQjr'] || examTopics['OBQ Fase I'];
+    if (lower.includes('i') && !lower.includes('ii') && !lower.includes('iii')) return examTopics['OBQ Fase I'];
+    if (lower.includes('ii') && !lower.includes('iii')) return examTopics['OBQ Fase II'];
+    if (lower.includes('iii')) return examTopics['OBQ Fase III'];
+  }
+  if (examLower.includes('onc')) {
+    if (lower.includes('a')) return examTopics['ONC Nível A'];
+    if (lower.includes('b')) return examTopics['ONC Nível B'];
+    if (lower.includes('c')) return examTopics['ONC Nível C'];
+    if (lower.includes('d')) return examTopics['ONC Nível D'];
+    if (lower.includes('e')) return examTopics['ONC Nível E'];
+  }
+
+  
+  // Provão Paulista Logic
+  if (examLower.includes('paulista')) {
+    if (lower.includes('1')) return examTopics['Provão Paulista 1º Ano'];
+    if (lower.includes('2')) return examTopics['Provão Paulista 2º Ano'];
+    if (lower.includes('3')) return examTopics['Provão Paulista 3º Ano'];
+  }
+
   // International Exams Logic
   if (examLower.includes('sat')) {
     if (lower.includes('math')) return examTopics['SAT Math'];
@@ -689,6 +930,21 @@ const ExamsModal = ({ isOpen, onClose }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedExam, setSelectedExam] = useState(null);
   const [selectedSubject, setSelectedSubject] = useState(null);
+  const [showJudge, setShowJudge] = useState(false);
+  const [judgeConfig, setJudgeConfig] = useState(null);
+  const [showQuiz, setShowQuiz] = useState(false);
+  const [quizConfig, setQuizConfig] = useState(null);
+
+  const handleClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+      setIsClosing(false);
+      setSelectedCategory(null);
+      setSelectedExam(null);
+      setSelectedSubject(null);
+    }, 300);
+  };
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -790,7 +1046,7 @@ const ExamsModal = ({ isOpen, onClose }) => {
         {
           name: 'Provão Paulista',
           fullName: 'Avaliação Seriada',
-          subjects: ['Linguagens', 'Matemática', 'Ciências da Natureza', 'Ciências Humanas']
+          subjects: ['1º Ano', '2º Ano', '3º Ano']
         },
         {
           name: 'UERJ',
@@ -810,19 +1066,73 @@ const ExamsModal = ({ isOpen, onClose }) => {
       icon: 'emoji_events',
       className: 'category-olympiads',
       exams: [
-        { name: 'OBMEP', fullName: 'Matemática' },
-        { name: 'OBA', fullName: 'Astronomia' },
-        { name: 'OBI', fullName: 'Informática' },
-        { name: 'OBF', fullName: 'Física' },
-        { name: 'OBQ', fullName: 'Química' },
-        { name: 'ONC', fullName: 'Ciências' }
+        { 
+          name: 'OBMEP', 
+          fullName: 'Matemática',
+          subjects: ['Nível 1', 'Nível 2', 'Nível 3', 'Nível Júnior']
+        },
+        { 
+          name: 'OBA', 
+          fullName: 'Astronomia',
+          subjects: ['Nível 1', 'Nível 2', 'Nível 3', 'Nível 4']
+        },
+        { 
+          name: 'OBI', 
+          fullName: 'Informática',
+          subjects: ['Iniciação', 'Programação Júnior', 'Programação 1', 'Programação 2']
+        },
+        { 
+          name: 'OBF', 
+          fullName: 'Física',
+          subjects: ['Nível 1', 'Nível 2', 'Nível 3']
+        },
+        { 
+          name: 'OBQ', 
+          fullName: 'Química',
+          subjects: ['OBQjr', 'Fase I', 'Fase II', 'Fase III']
+        },
+        { 
+          name: 'ONC', 
+          fullName: 'Ciências',
+          subjects: ['Nível A', 'Nível B', 'Nível C', 'Nível D', 'Nível E']
+        }
       ]
     }
   ];
 
-  const getSubjectConfig = (subjectName) => {
+  
+  const getSubjectConfig = (subjectName, examName) => {
     const lowerName = subjectName.toLowerCase();
+    const eLower = examName ? examName.toLowerCase() : '';
+
+    // Olympiads Icons
+    if (eLower.includes('obmep')) {
+      return { icon: 'calculate', className: 'subject-math' };
+    }
+    if (eLower.includes('oba')) {
+      return { icon: 'rocket_launch', className: 'subject-physics' };
+    }
+    if (eLower.includes('obi')) {
+      return { icon: 'terminal', className: 'subject-computer-science' };
+    }
+    if (eLower.includes('obf')) {
+      return { icon: 'bolt', className: 'subject-physics' };
+    }
+    if (eLower.includes('obq')) {
+      return { icon: 'science', className: 'subject-chemistry' };
+    }
+    if (eLower.includes('onc')) {
+      return { icon: 'biotech', className: 'subject-biology' };
+    }
+
     
+    // Provão Paulista Icons
+    if (eLower.includes('paulista')) {
+      if (lowerName.includes('1')) return { icon: 'looks_one', className: 'subject-math' };
+      if (lowerName.includes('2')) return { icon: 'looks_two', className: 'subject-physics' };
+      if (lowerName.includes('3')) return { icon: 'looks_3', className: 'subject-chemistry' };
+    }
+
     // IB Specific
     if (lowerName.includes('acquisition')) {
       return { icon: 'translate', className: 'subject-languages' };
@@ -885,19 +1195,8 @@ const ExamsModal = ({ isOpen, onClose }) => {
     return { icon: 'menu_book', className: 'subject-default' };
   };
 
-  const handleClose = () => {
-    setIsClosing(true);
-    setTimeout(() => {
-      onClose();
-      setIsClosing(false);
-      setSelectedCategory(null);
-      setSelectedExam(null);
-      setSelectedSubject(null);
-    }, 300);
-  };
-
   const handleExamClick = (exam) => {
-    if (selectedCategory.id === 'olympiads') return;
+    
     setSelectedExam(exam);
   };
 
@@ -952,18 +1251,15 @@ const ExamsModal = ({ isOpen, onClose }) => {
                 {selectedCategory.exams.map((exam, index) => (
                   <button 
                     key={index} 
-                    className={`exam-item-modal ${selectedCategory.id === 'olympiads' ? 'no-hover' : ''}`}
+                    className="exam-item-modal"
                     onClick={() => handleExamClick(exam)}
-                    style={{ cursor: selectedCategory.id === 'olympiads' ? 'default' : 'pointer' }}
                   >
                     <span className="material-symbols-outlined">school</span>
                     <div className="exam-info">
                       <span className="exam-name">{exam.name}</span>
                       <span className="exam-fullname">{exam.fullName}</span>
                     </div>
-                    {selectedCategory.id !== 'olympiads' && (
-                      <span className="material-symbols-outlined arrow-icon">chevron_right</span>
-                    )}
+                    <span className="material-symbols-outlined arrow-icon">chevron_right</span>
                   </button>
                 ))}
               </div>
@@ -988,7 +1284,7 @@ const ExamsModal = ({ isOpen, onClose }) => {
               ) : (
                 <div className="subjects-grid">
                   {selectedExam.subjects.map((subject, index) => {
-                    const { icon, className } = getSubjectConfig(subject);
+                    const { icon, className } = getSubjectConfig(subject, selectedExam?.name);
                     return (
                       <div 
                         key={index} 
@@ -1067,6 +1363,25 @@ Dê conselhos práticos e motivadores!`;
                   <span className="material-symbols-outlined">psychology</span>
                   Estratégia de Prova
                 </button>
+
+                {selectedExam?.name === 'OBI' && (
+                  <button 
+                    className="ai-action-btn primary"
+                    style={{ backgroundColor: 'var(--accent-color, #1a73e8)' }}
+                    onClick={() => {
+                      const topics = getTopicsForSubject(selectedSubject, selectedExam?.name);
+                      setJudgeConfig({
+                        subject: selectedSubject,
+                        examName: selectedExam?.name,
+                        topics: topics
+                      });
+                      setShowJudge(true);
+                    }}
+                  >
+                    <span className="material-symbols-outlined">terminal</span>
+                    Modo Preparatório (Juiz OBI)
+                  </button>
+                )}
               </div>
 
               <div className="topics-list">
@@ -1100,21 +1415,14 @@ Use linguagem acessível! 📚`;
                       <button 
                         className="topic-action-btn"
                         onClick={() => {
-                          const prompt = `Crie questões de prática para ${selectedExam.name} sobre:
-
-📝 ${topic} (${selectedSubject})
-
-Gere:
-1. 3 questões no estilo do exame (fácil, média, difícil)
-2. Gabarito comentado
-3. Explicação dos conceitos
-4. Dicas para questões similares
-
-Formato múltipla escolha quando aplicável! ✍️`;
-                          sendMessage(prompt);
-                          onClose();
+                          setQuizConfig({
+                            exam: selectedExam.name,
+                            subject: selectedSubject,
+                            topic: topic
+                          });
+                          setShowQuiz(true);
                         }}
-                        title="Gerar questões"
+                        title="Gerar questões (Simulado)"
                       >
                         <span className="material-symbols-outlined">quiz</span>
                       </button>
@@ -1126,6 +1434,22 @@ Formato múltipla escolha quando aplicável! ✍️`;
           )}
         </div>
       </div>
+      
+      {showJudge && (
+        <JudgeModal 
+          isOpen={showJudge} 
+          onClose={() => setShowJudge(false)} 
+          config={judgeConfig} 
+        />
+      )}
+
+      {showQuiz && (
+        <QuizModal 
+          isOpen={showQuiz} 
+          onClose={() => setShowQuiz(false)} 
+          config={quizConfig} 
+        />
+      )}
     </div>
   );
 };

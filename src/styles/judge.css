@@ -1,0 +1,316 @@
+.judge-modal {
+  background: var(--background-color);
+  border-radius: 12px;
+  width: 90vw;
+  max-width: 1200px;
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 30px var(--shadow-color);
+  overflow: hidden;
+  animation: modalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+.judge-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.col-left {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  border-right: 1px solid var(--border-color);
+  background: var(--card-background);
+}
+
+.col-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--background-color);
+  color: var(--text-color);
+  border-left: 1px solid var(--border-color);
+}
+
+.code-header {
+  padding: 12px 16px;
+  background: var(--background-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.language-select {
+  background: var(--card-background);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+}
+
+.app.dark .language-select {
+  background: #333;
+  color: #ccc;
+  border: 1px solid #444;
+}
+
+.run-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-mid) 60%, var(--gradient-end) 100%);
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 24px;
+  font-weight: 600;
+  font-size: 14.5px;
+  letter-spacing: 0.3px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.run-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.run-btn:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.run-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.code-editor-container {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--background-color);
+}
+
+.code-editor {
+  min-height: 100%;
+  color: var(--text-color);
+  font-family: 'Fira Code', 'Consolas', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  border: none;
+  resize: none;
+  outline: none;
+}
+
+.evaluation-panel {
+  height: 40%;
+  background: var(--card-background);
+  border-top: 1px solid var(--border-color);
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.eval-loading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-light);
+  font-size: 14px;
+}
+
+.app.dark .eval-loading {
+  color: #aaa;
+}
+
+.rotating {
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  100% { transform: rotate(360deg); }
+}
+
+/* Enhancing markdown styles in the judge modal */
+.markdown-content h2 {
+  color: var(--primary-color);
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 1.4rem;
+}
+
+.markdown-content strong {
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.app.dark .markdown-content strong {
+  color: #fff;
+}
+
+.markdown-content pre {
+  background: var(--secondary-color);
+  border: 1px solid var(--border-color);
+  padding: 12px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-family: 'Fira Code', 'Consolas', monospace;
+  font-size: 13px;
+}
+
+.app.dark .markdown-content pre {
+  background: #2d2d2d;
+  border: 1px solid #444;
+  color: #ccc;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .judge-modal {
+    width: 100vw;
+    height: 100dvh;
+    max-height: 100dvh;
+    border-radius: 0;
+    border: none;
+  }
+
+  .judge-body {
+    flex-direction: column;
+  }
+
+  .col-left {
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    flex: 0 0 35%; /* Top 35% for reading the problem */
+    padding: 16px;
+  }
+
+  .col-right {
+    border-left: none;
+    flex: 1; /* Remaining 65% for coding and results */
+  }
+
+  .app.dark .col-left {
+    border-bottom: 1px solid #333;
+  }
+
+  .code-header {
+    padding: 8px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .language-select {
+    flex: 1;
+    min-width: 100px;
+  }
+
+  .run-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 8px;
+  }
+
+  .evaluation-panel {
+    height: 50%;
+  }
+}
+
+/* Override PrismJS backgrounds to match our theme */
+.code-editor-container pre, 
+.code-editor-container code[class*="language-"] {
+  background: transparent !important;
+  text-shadow: none !important;
+}
+
+/* Light mode adjustments for Prism */
+.app:not(.dark) .code-editor-container .token.operator,
+.app:not(.dark) .code-editor-container .token.keyword {
+  color: #0000ff !important;
+}
+.app:not(.dark) .code-editor-container .token.string {
+  color: #a31515 !important;
+}
+.app:not(.dark) .code-editor-container .token.comment {
+  color: #008000 !important;
+}
+.app:not(.dark) .code-editor-container .token.function,
+.app:not(.dark) .code-editor-container .token.class-name {
+  color: #795e26 !important;
+}
+.app:not(.dark) .code-editor-container .token.number {
+  color: #098658 !important;
+}
+.app:not(.dark) .code-editor-container textarea,
+.app:not(.dark) .code-editor-container pre,
+.app:not(.dark) .code-editor-container code[class*="language-"] {
+  color: #333 !important;
+}
+
+/* Explicit Dark Mode Adjustments for PrismJS to ensure perfect legibility */
+.app.dark .code-editor-container textarea,
+.app.dark .code-editor-container pre,
+.app.dark .code-editor-container code[class*="language-"] {
+  color: #f8f8f2 !important;
+}
+
+.app.dark .code-editor-container .token.operator,
+.app.dark .code-editor-container .token.keyword {
+  color: #c678dd !important; /* purple */
+}
+
+.app.dark .code-editor-container .token.string {
+  color: #98c379 !important; /* green */
+}
+
+.app.dark .code-editor-container .token.comment {
+  color: #7f848e !important; /* greyish */
+}
+
+.app.dark .code-editor-container .token.function {
+  color: #61afef !important; /* blue */
+}
+
+.app.dark .code-editor-container .token.class-name,
+.app.dark .code-editor-container .token.builtin {
+  color: #e5c07b !important; /* yellow */
+}
+
+.app.dark .code-editor-container .token.number {
+  color: #d19a66 !important; /* orange */
+}
+
+.app.dark .code-editor-container .token.property,
+.app.dark .code-editor-container .token.constant,
+.app.dark .code-editor-container .token.variable {
+  color: #e06c75 !important; /* soft red */
+}
+
+.app.dark .code-editor-container .token.punctuation {
+  color: #f8f8f2 !important;
+}
+
+/* Icon animation for run button */
+.run-btn .material-symbols-outlined {
+  transition: transform 0.3s ease;
+}
+
+.run-btn:hover:not(:disabled) .material-symbols-outlined {
+  transform: rotate(360deg) scale(1.1);
+  color: #a7f3d0; /* A soft bright tint on hover */
+}
+
+/* Ensure focus states look good too */
+.run-btn:focus-visible {
+  outline: 3px solid var(--gradient-mid);
+  outline-offset: 2px;
+}

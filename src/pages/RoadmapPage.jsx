@@ -27,10 +27,11 @@ const RoadmapPage = () => {
       status: 'in-progress',
       title: 'Expansão de Recursos',
       items: [
-        'Histórico de Conversas Persistente',
-        'Análise de Sentimento em Tempo Real',
-        'Módulo de Pomodoro Integrado',
-        'Sistema de Contas de Usuário'
+        'Sistema de Simulados Integrados (Quizzes)',
+        'Modo Juiz Competitivo (C, C++, Python)',
+        'Integração Interativa de Olimpíadas e Vestibulares',
+        'Módulo de Pomodoro Avançado',
+        'Histórico de Conversas Persistente'
       ]
     },
     {
