@@ -210,7 +210,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
          return {
             ...q,
             // eslint-disable-next-line react-hooks/purity
-            _uid: `quiz_${idx}_${Math.random().toString(36).substring(2, 9)}`, // UID para React renderizar
+            _uid: `quiz_${idx}_${crypto.randomUUID()}`, // UID para React renderizar
            options: opts,
            correctOption: newCorrectID
         };
@@ -260,7 +260,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
           setActiveTrailContent(prev => {
              const updated = [...prev];
              // Clonando para ter novo _uid assim não conflita chave no React se repetir
-             const rep = { ...currentStep, _uid: `trail_rep_${Math.random().toString(36).substring(2, 9)}`, isRetry: true };
+             const rep = { ...currentStep, _uid: `trail_rep_${crypto.randomUUID()}`, isRetry: true };
              updated.push(rep);
              return updated;
           });
@@ -319,12 +319,12 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
           });
           return {
              ...step,
-             _uid: `trail_${idx}_${Math.random().toString(36).substring(2, 9)}`,
+             _uid: `trail_${idx}_${crypto.randomUUID()}`,
              options: opts,
              correctOption: newCorrectID
           };
        }
-       return { ...step, _uid: `trail_${idx}_${Math.random().toString(36).substring(2, 9)}` };
+       return { ...step, _uid: `trail_${idx}_${crypto.randomUUID()}` };
     });
 
     setActiveTrailContent(preparedContent);
