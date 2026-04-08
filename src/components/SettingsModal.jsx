@@ -7,8 +7,71 @@ import { setApiKey as updateApiKey } from '../services/chat/chatService';
 import { Telemetry } from '../services/analytics/telemetry';
 
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const CustomSelect = ({ value, options, onChange, ariaLabel }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const selectRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (selectRef.current && !selectRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const selectedOption = options.find(opt => opt.value === value) || options[0];
+
+  return (
+    <div className="custom-select-container" ref={selectRef}>
+      <button 
+        className={`custom-select-trigger ${isOpen ? 'open' : ''}`}
+        onClick={() => setIsOpen(!isOpen)}
+        aria-label={ariaLabel}
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
+      >
+        <span>{selectedOption ? selectedOption.label : ''}</span>
+        <span className="material-symbols-outlined dropdown-icon">expand_more</span>
+      </button>
+      
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div 
+            className="custom-select-dropdown"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.15 }}
+            role="listbox"
+          >
+            {options.map((option) => (
+              <button
+                key={option.value}
+                className={`custom-select-option ${value === option.value ? 'selected' : ''}`}
+                onClick={() => {
+                  onChange(option.value);
+                  setIsOpen(false);
+                }}
+                role="option"
+                aria-selected={value === option.value}
+              >
+                {option.label}
+              </button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
 
 const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
+  const { t, i18n } = useTranslation();
   const { 
     isDarkMode, toggleTheme, themeMode, setThemeMode, 
     fontSize, setFontSize, reducedMotion, setReducedMotion, 
@@ -87,7 +150,23 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
         
         <div className="settings-body">
           <div className="settings-section">
-            <h3>Aparência</h3>
+            <h3>{t('settings.appearance.title', 'Aparência')}</h3>
+
+            <div className="setting-item">
+              <div className="setting-info">
+                <span className="setting-label">{t('settings.appearance.language.label', 'Idioma')}</span>
+                <span className="setting-desc">{t('settings.appearance.language.desc', 'Selecione o idioma da interface')}</span>
+              </div>
+              <CustomSelect 
+                value={(i18n.resolvedLanguage || i18n.language || 'pt').startsWith('en') ? 'en' : 'pt'}
+                options={[
+                  { value: 'pt', label: t('settings.appearance.language.pt', 'Português (Brasil)') },
+                  { value: 'en', label: t('settings.appearance.language.en', 'English (US)') }
+                ]}
+                onChange={(val) => i18n.changeLanguage(val)}
+                ariaLabel={t('settings.appearance.language.label', 'Idioma')}
+              />
+            </div>
             
             <div className="setting-item">
               <div className="setting-info">
@@ -202,18 +281,18 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
                 <span className="setting-label">Modo Daltonismo</span>
                 <span className="setting-desc">Ajustar cores para diferentes tipos de visão</span>
               </div>
-              <select 
-                className="select-input"
+              <CustomSelect 
                 value={colorBlindMode}
-                onChange={(e) => setColorBlindMode(e.target.value)}
-                aria-label="Selecionar modo de daltonismo"
-              >
-                <option value="none">Nenhum</option>
-                <option value="protanopia">Protanopia (Vermelho)</option>
-                <option value="deuteranopia">Deuteranopia (Verde)</option>
-                <option value="tritanopia">Tritanopia (Azul)</option>
-                <option value="achromatopsia">Acromatopsia (Monocromático)</option>
-              </select>
+                onChange={setColorBlindMode}
+                ariaLabel="Selecionar modo de daltonismo"
+                options={[
+                  { value: 'none', label: 'Nenhum' },
+                  { value: 'protanopia', label: 'Protanopia (Vermelho)' },
+                  { value: 'deuteranopia', label: 'Deuteranopia (Verde)' },
+                  { value: 'tritanopia', label: 'Tritanopia (Azul)' },
+                  { value: 'achromatopsia', label: 'Acromatopsia (Monocromático)' }
+                ]}
+              />
             </div>
 
           </div>

@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, useContext, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { playNotificationSound, showNotification, requestNotificationPermission } from '../utils/notifications';
 
 const PomodoroContext = createContext();
@@ -10,14 +11,13 @@ export const PomodoroProvider = ({ children }) => {
   const [isActive, setIsActive] = useState(false);
   const [mode, setMode] = useState('focus'); // 'focus', 'short', 'long'
   const timerRef = useRef(null);
+  const { t } = useTranslation();
 
   const modes = {
-    focus: { label: 'Foco', time: 25 * 60, color: '#ef4444', icon: 'local_fire_department' }, // Red (Tomato/Focus/Vitality)
-    short: { label: 'Pausa Curta', time: 5 * 60, color: '#10b981', icon: 'spa' }, // Green (Relief/Nature/Short Healing)
-    long: { label: 'Pausa Longa', time: 15 * 60, color: '#3b82f6', icon: 'bedtime' } // Blue (Deep Rest/Cool down)
+    focus: { label: t('pomodoro.focus', 'Foco'), time: 25 * 60, color: '#ef4444', icon: 'local_fire_department' },
+    short: { label: t('pomodoro.short_break', 'Pausa Curta'), time: 5 * 60, color: '#10b981', icon: 'spa' },
+    long: { label: t('pomodoro.long_break', 'Pausa Longa'), time: 15 * 60, color: '#3b82f6', icon: 'bedtime' }
   };
-
-
 
   useEffect(() => {
     if (isActive && timeLeft > 0) {
@@ -32,13 +32,13 @@ export const PomodoroProvider = ({ children }) => {
       
       requestNotificationPermission().then(hasPermission => {
         if (hasPermission) {
-          showNotification("PsyMind Pomodoro", "O tempo acabou!");
+          showNotification(t('pomodoro.notification_title', "PsyMind Pomodoro"), t('pomodoro.time_up', "O tempo acabou!"));
         }
       });
     }
 
     return () => clearInterval(timerRef.current);
-  }, [isActive, timeLeft]);
+  }, [isActive, timeLeft, t]);
 
   const toggleTimer = () => {
     setIsActive(!isActive);

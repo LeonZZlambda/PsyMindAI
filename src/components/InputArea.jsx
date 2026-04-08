@@ -3,6 +3,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useChat } from '../context/ChatContext';
 import { usePomodoro } from '../context/PomodoroContext';
 import PomodoroModal from './PomodoroModal';
@@ -25,7 +26,6 @@ const ImagePreview = ({ file }) => {
     };
   }, [file]);
   if (!url) return null;
-  // Ensure the filename is safely treated as a string to avoid CodeQL "DOM text reinterpreted as HTML" false positives
   const safeName = typeof file.name === 'string' ? file.name : 'image';
   return <img src={url} alt={safeName} />;
 };
@@ -34,6 +34,8 @@ const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections, onO
   const navigate = useNavigate();
   const { input, setInput, sendMessage, isTyping, isStreaming, stopStreaming } = useChat();
   const { isActive: pomodoroIsActive, mode: pomodoroMode, timeLeft: pomodoroTimeLeft } = usePomodoro();
+  const { t } = useTranslation();
+  
   const [isListening, setIsListening] = useState(false);
   const [recognition, setRecognition] = useState(null);
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -60,14 +62,14 @@ const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections, onO
   }, []);
 
   const tools = [
-    { id: 'pomodoro', icon: 'timer', label: 'Pomodoro' },
-    { id: 'mood', icon: 'mood', label: 'Diário de Emoções' },
-    { id: 'journal', icon: 'auto_stories', label: 'Repertório Emocional' },
-    { id: 'reflexoes', icon: 'self_improvement', label: 'Reflexões' },
-    { id: 'vestibulares', icon: 'school', label: 'Vestibulares' },
-    { id: 'kindness', icon: 'volunteer_activism', label: 'Atos de Bondade' },
-    { id: 'helpline', icon: 'support_agent', label: 'Linha de Apoio' },
-    { id: 'learning', icon: 'menu_book', label: 'Aprendizado Guiado' }
+    { id: 'pomodoro', icon: 'timer', label: t('chat.input.tools.pomodoro') },
+    { id: 'mood', icon: 'mood', label: t('chat.input.tools.mood') },
+    { id: 'journal', icon: 'auto_stories', label: t('chat.input.tools.journal') },
+    { id: 'reflexoes', icon: 'self_improvement', label: t('chat.input.tools.reflexoes') },
+    { id: 'vestibulares', icon: 'school', label: t('chat.input.tools.vestibulares') },
+    { id: 'kindness', icon: 'volunteer_activism', label: t('chat.input.tools.kindness') },
+    { id: 'helpline', icon: 'support_agent', label: t('chat.input.tools.helpline') },
+    { id: 'learning', icon: 'menu_book', label: t('chat.input.tools.learning') }
   ];
 
   const handleToolClick = (tool) => {
@@ -112,7 +114,7 @@ const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections, onO
       setShowToolsMenu(false);
       return;
     }
-    toast.info(`Ferramenta ${tool.label} em breve!`);
+    toast.info(t('chat.input.tool_soon', { tool: tool.label }));
     setShowToolsMenu(false);
   };
 
@@ -129,7 +131,7 @@ const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections, onO
       const recognitionInstance = new SpeechRecognition();
       recognitionInstance.continuous = false;
       recognitionInstance.interimResults = false;
-      recognitionInstance.lang = 'pt-BR';
+      recognitionInstance.lang = 'pt-BR'; // It might be beneficial to hook this to i18n.language later
 
       recognitionInstance.onresult = (event) => {
         const transcript = event.results[0][0].transcript;
@@ -190,19 +192,16 @@ const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections, onO
       const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
       const metaKey = isMac ? e.metaKey : e.ctrlKey;
 
-      // Microphone: Cmd + Shift + .
       if (metaKey && e.shiftKey && e.key === '.') {
         e.preventDefault();
         toggleListening();
       }
 
-      // Upload: Cmd + Shift + U
       if (metaKey && e.shiftKey && e.key.toLowerCase() === 'u') {
         e.preventDefault();
         handleFileClick();
       }
 
-      // Tools Menu: Cmd + K
       if (metaKey && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         setShowToolsMenu(prev => !prev);
@@ -226,7 +225,6 @@ const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections, onO
     if (lastDotIndex !== -1 && lastDotIndex < name.length - 1) {
       const ext = name.slice(lastDotIndex);
       const nameWithoutExt = name.slice(0, lastDotIndex);
-      // Keep extension, truncate middle
       const charsToShow = 10 - ext.length;
       if (charsToShow > 0) {
         return `${nameWithoutExt.slice(0, charsToShow)}..${ext}`;
@@ -255,7 +253,7 @@ const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections, onO
                     <button 
                       className="remove-file-btn" 
                       onClick={() => removeFile(index)}
-                      aria-label={`Remover arquivo ${file.name}`}
+                      aria-label={`${t('chat.input.remove_file')} ${file.name}`}
                     >
                       <span className="material-symbols-outlined" style={{ fontSize: '14px' }}>close</span>
                     </button>
@@ -275,11 +273,11 @@ const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections, onO
               multiple
               aria-hidden="true"
             />
-                        <button 
+            <button 
               className="input-action-btn" 
               onClick={handleFileClick}
-              title={`Anexar arquivo (${cmdKey} + ${shiftKey} + U)`}
-              aria-label="Anexar arquivo"
+              title={`${t('chat.input.attach_file')} (${cmdKey} + ${shiftKey} + U)`}
+              aria-label={t('chat.input.attach_file')}
             >
               <span className="material-symbols-outlined">attach_file</span>
             </button>
@@ -287,8 +285,8 @@ const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections, onO
               <button 
                 className={`input-action-btn ${showToolsMenu ? 'active' : ''}`}
                 onClick={() => setShowToolsMenu(!showToolsMenu)}
-                title={`Ferramentas (${cmdKey} + K)`}
-                aria-label="Menu de ferramentas"
+                title={`${t('chat.input.tools_menu')} (${cmdKey} + K)`}
+                aria-label={t('chat.input.tools_menu_aria')}
               >
                 <span className="material-symbols-outlined">add_circle</span>
               </button>
@@ -340,18 +338,18 @@ const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections, onO
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Digite uma mensagem..."
+              placeholder={t('chat.input.placeholder')}
               className="message-input"
               minRows={1}
               maxRows={5}
-              aria-label="Digite sua mensagem"
+              aria-label={t('chat.input.placeholder')}
             />
             <button 
               className={`input-action-btn ${isListening ? 'listening' : ''}`} 
               onClick={toggleListening}
-              title={isListening ? "Parar de ouvir" : `Usar microfone (${cmdKey} + ${shiftKey} + .)`}
+              title={isListening ? t('chat.input.stop_listening') : `${t('chat.input.use_mic')} (${cmdKey} + ${shiftKey} + .)`}
               disabled={!recognition}
-              aria-label={isListening ? "Parar microfone" : "Ativar microfone"}
+              aria-label={isListening ? t('chat.input.stop_mic') : t('chat.input.start_mic')}
             >
               <span className="material-symbols-outlined">
                 {isListening ? 'mic_off' : 'mic'}
@@ -361,8 +359,8 @@ const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections, onO
               <button 
                 onClick={stopStreaming} 
                 className="send-button" 
-                title="Parar geração"
-                aria-label="Parar geração"
+                title={t('chat.input.stop_streaming')}
+                aria-label={t('chat.input.stop_streaming')}
               >
                 <span className="material-symbols-outlined">stop_circle</span>
               </button>
@@ -370,8 +368,8 @@ const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections, onO
               <button 
                 onClick={handleSendClick} 
                 className="send-button" 
-                title="Enviar mensagem (Enter)"
-                aria-label="Enviar mensagem"
+                title={`${t('chat.input.send_message')} (Enter)`}
+                aria-label={t('chat.input.send_message')}
               >
                 <span className="material-symbols-outlined">send</span>
               </button>
@@ -381,7 +379,7 @@ const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections, onO
       </div>
       <p className="disclaimer" role="note">
         <span className="material-symbols-outlined" style={{ fontSize: '14px', verticalAlign: 'middle', marginRight: '4px' }} aria-hidden="true">warning</span>
-        O PsyMind.AI oferece apoio educativo. Para questões sérias, procure ajuda profissional.
+        {t('chat.input.disclaimer')}
       </p>
       <p className="license-notice" role="contentinfo">
         <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer" aria-label="Licença Creative Commons BY-SA 4.0">

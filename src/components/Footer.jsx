@@ -1,8 +1,10 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const location = useLocation();
 
   const handleNavigation = (e, selector) => {
@@ -35,7 +37,7 @@ const Footer = () => {
               <span className="material-symbols-outlined">psychology</span>
               <span>PsyMind.AI</span>
             </div>
-            <p>Seu companheiro de estudos e bem-estar emocional, disponível 24/7 para ajudar você a evoluir.</p>
+            <p>{t('footer.brand_desc')}</p>
             <div className="social-links">
               <a href="https://github.com/LeonZZlambda/PsyMindAI" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                 <span className="material-symbols-outlined">code</span>
@@ -51,31 +53,31 @@ const Footer = () => {
           
           <div className="footer-links-container">
             <div className="footer-column">
-              <h4>Navegação</h4>
-              <a href="#" onClick={(e) => handleNavigation(e, null)}>Início</a>
-              <a href="#" onClick={(e) => handleNavigation(e, '.features-section')}>Recursos</a>
-              <a href="#" onClick={(e) => handleNavigation(e, '.educational-focus')}>Educação</a>
+              <h4>{t('footer.nav_title')}</h4>
+              <a href="#" onClick={(e) => handleNavigation(e, null)}>{t('footer.nav_home')}</a>
+              <a href="#" onClick={(e) => handleNavigation(e, '.features-section')}>{t('footer.nav_features')}</a>
+              <a href="#" onClick={(e) => handleNavigation(e, '.educational-focus')}>{t('footer.nav_education')}</a>
             </div>
             <div className="footer-column">
-              <h4>Legal</h4>
-              <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">Licença</a>
-              <a href="#" onClick={(e) => { e.preventDefault(); navigate('/privacy'); }}>Política de Privacidade</a>
-              <a href="#" onClick={(e) => { e.preventDefault(); navigate('/terms'); }}>Termos de Uso</a>
-              <a href="#" onClick={(e) => { e.preventDefault(); navigate('/transparency'); }}>Portal de Transparência</a>
+              <h4>{t('footer.legal_title')}</h4>
+              <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">{t('footer.legal_license')}</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); navigate('/privacy'); }}>{t('footer.legal_privacy')}</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); navigate('/terms'); }}>{t('footer.legal_terms')}</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); navigate('/transparency'); }}>{t('footer.legal_transparency')}</a>
             </div>
             <div className="footer-column">
-              <h4>Projeto</h4>
-              <a href="https://github.com/LeonZZlambda/PsyMindAI" target="_blank" rel="noopener noreferrer">Repositório</a>
-              <a href="#" onClick={(e) => { e.preventDefault(); navigate('/contribute'); }}>Como Contribuir</a>
-              <a href="#" onClick={(e) => { e.preventDefault(); navigate('/roadmap'); }}>Roadmap</a>
-              <a href="#" onClick={(e) => { e.preventDefault(); navigate('/analytics'); }}>Dashboard</a>
+              <h4>{t('footer.project_title')}</h4>
+              <a href="https://github.com/LeonZZlambda/PsyMindAI" target="_blank" rel="noopener noreferrer">{t('footer.project_repo')}</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); navigate('/contribute'); }}>{t('footer.project_contribute')}</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); navigate('/roadmap'); }}>{t('footer.project_roadmap')}</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); navigate('/analytics'); }}>{t('footer.project_dashboard')}</a>
             </div>
           </div>
         </div>
         
         <div className="footer-bottom">
           <div className="footer-disclaimer">
-            <p>O PsyMind.AI oferece apoio educativo e emocional básico. Para questões de saúde mental sérias, procure sempre ajuda profissional especializada.</p>
+            <p>{t('footer.disclaimer')}</p>
           </div>
           <div className="footer-legal-row">
             <div className="footer-logo-small">
@@ -84,9 +86,9 @@ const Footer = () => {
               <span className="copyright-text">© {new Date().getFullYear()}</span>
             </div>
             <div className="footer-legal-links">
-              <a href="#" onClick={(e) => { e.preventDefault(); navigate('/privacy'); }}>Privacidade</a>
-              <a href="#" onClick={(e) => { e.preventDefault(); navigate('/terms'); }}>Termos</a>
-              <a href="https://github.com/LeonZZlambda/PsyMindAI" target="_blank" rel="noopener noreferrer">Sobre</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); navigate('/privacy'); }}>{t('footer.legal_privacy_short')}</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); navigate('/terms'); }}>{t('footer.legal_terms_short')}</a>
+              <a href="https://github.com/LeonZZlambda/PsyMindAI" target="_blank" rel="noopener noreferrer">{t('footer.about')}</a>
             </div>
           </div>
         </div>

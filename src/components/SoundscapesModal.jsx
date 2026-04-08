@@ -1,16 +1,18 @@
 import React, { useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSound } from '../context/SoundContext';
 import '../styles/soundscapes.css';
 
-const sounds = [
-  { id: 'rain',  label: 'Chuva Suave',   icon: 'water_drop' },
-  { id: 'focus', label: 'Foco Profundo', icon: 'self_improvement' },
-  { id: 'white', label: 'Ruído Branco',  icon: 'graphic_eq' },
-];
-
 const SoundscapesModal = ({ isOpen, onClose }) => {
+  const { t } = useTranslation();
   const { isPlaying, currentSound, volume, toggleSound, changeSound, setVolume } = useSound();
   const modalRef = useRef(null);
+
+  const sounds = [
+    { id: 'rain',  label: t('soundscapes.sounds.rain'),   icon: 'water_drop' },
+    { id: 'focus', label: t('soundscapes.sounds.focus'), icon: 'self_improvement' },
+    { id: 'white', label: t('soundscapes.sounds.white'),  icon: 'graphic_eq' },
+  ];
 
   useEffect(() => {
     const handleEscape = (e) => {
@@ -44,9 +46,9 @@ const SoundscapesModal = ({ isOpen, onClose }) => {
         <div className="modal-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <span className="material-symbols-outlined" style={{ color: 'var(--primary-color)' }}>headphones</span>
-            <h2 id="soundscapes-title" style={{ margin: 0, fontSize: '1.25rem', fontWeight: 500 }}>Sons Ambientais</h2>
+            <h2 id="soundscapes-title" style={{ margin: 0, fontSize: '1.25rem', fontWeight: 500 }}>{t('soundscapes.title')}</h2>
           </div>
-          <button className="close-btn" onClick={onClose} aria-label="Fechar">
+          <button className="close-btn" onClick={onClose} aria-label={t('soundscapes.close')}>
             <span className="material-symbols-outlined">close</span>
           </button>
         </div>
@@ -56,16 +58,16 @@ const SoundscapesModal = ({ isOpen, onClose }) => {
           {/* Main Visual Banner */}
           <div className="soundscapes-hero">
             <div className="hero-info">
-              <span className="hero-status">{isPlaying ? 'Reproduzindo' : 'Pausado'}</span>
+              <span className="hero-status">{isPlaying ? t('soundscapes.status.playing') : t('soundscapes.status.paused')}</span>
               <span className="hero-track">
-                {currentSoundData ? currentSoundData.label : 'Nenhum som'}
+                {currentSoundData ? currentSoundData.label : t('soundscapes.no_sound')}
               </span>
             </div>
             
             <button 
               className="play-toggle-btn"
               onClick={toggleSound}
-              aria-label={isPlaying ? 'Pausar' : 'Reproduzir'}
+              aria-label={isPlaying ? t('soundscapes.actions.pause') : t('soundscapes.actions.play')}
             >
               <span className="material-symbols-outlined" style={{ fontSize: 28 }}>
                 {isPlaying ? 'pause' : 'play_arrow'}
@@ -80,7 +82,7 @@ const SoundscapesModal = ({ isOpen, onClose }) => {
           </div>
 
           <div className="sounds-section">
-            <h3>Escolha um Ambiente</h3>
+            <h3>{t('soundscapes.choose_env')}</h3>
             <div className="sound-grid">
               {sounds.map(sound => (
                 <div 
@@ -109,7 +111,7 @@ const SoundscapesModal = ({ isOpen, onClose }) => {
               min="0" max="1" step="0.01"
               value={volume}
               onChange={e => setVolume(parseFloat(e.target.value))}
-              aria-label="Volume do ambiente"
+              aria-label={t('soundscapes.volume')}
               style={{ background: `linear-gradient(to right, var(--primary-color) ${volume * 100}%, var(--border-color) ${volume * 100}%)` }}
             />
             <span className="material-symbols-outlined">volume_up</span>

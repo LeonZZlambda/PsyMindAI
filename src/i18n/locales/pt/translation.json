@@ -1,0 +1,1306 @@
+{
+  "landing": {
+    "hero": {
+      "title_main": "Equilíbrio mental",
+      "title_sub": "para seus estudos",
+      "subtitle": "O PsyMind.AI é seu companheiro para enfrentar o Ensino Médio e Vestibulares. Organize sua rotina, controle a ansiedade e conquiste seus objetivos com apoio da IA.",
+      "start_journey": "Começar Jornada",
+      "learn_more": "Saiba mais"
+    },
+    "features": {
+      "study_focus": {
+        "title": "Foco nos Estudos",
+        "description": "Dicas de organização e cronogramas personalizados para o ENEM e vestibulares."
+      },
+      "anxiety_control": {
+        "title": "Controle da Ansiedade",
+        "description": "Técnicas de respiração e mindfulness para manter a calma antes de provas e redações."
+      },
+      "always_available": {
+        "title": "Disponível 24/7",
+        "description": "Tire dúvidas, desabafe ou peça dicas de estudo a qualquer hora do dia ou da noite."
+      }
+    },
+    "gemini": {
+      "title": "Powered by Google Gemini",
+      "description": "O PsyMind.AI utiliza o <1>Google Gemini 1.5 Flash</1>, modelo de IA de última geração, para oferecer respostas empáticas e cientificamente embasadas.",
+      "api": {
+        "title": "Gemini API",
+        "description": "Integração direta com a API do Google Gemini para conversas naturais e contextualizadas."
+      },
+      "notebooklm": {
+        "title": "NotebookLM",
+        "description": "Prompt engineering desenvolvido com NotebookLM, baseado em estudos de psicologia educacional."
+      },
+      "gems": {
+        "title": "Gemini Gems",
+        "description": "Personalidade e tom de voz otimizados através de Gems para suporte emocional adolescente."
+      }
+    },
+    "education": {
+      "title": "Foco Educacional",
+      "description": "O PsyMind.AI não é apenas um chat, é um companheiro de jornada para estudantes do <1>Ensino Fundamental e Médio</1>.",
+      "stress": {
+        "title": "Gestão de Estresse",
+        "description": "Suporte para lidar com a pressão de provas, simulados e a escolha da profissão."
+      },
+      "mentoring": {
+        "title": "Mentoria para Vestibulares",
+        "description": "Orientações estratégicas para o ENEM e principais vestibulares, mantendo o foco no resultado."
+      },
+      "self_knowledge": {
+        "title": "Autoconhecimento",
+        "description": "Ferramentas que auxiliam na descoberta de vocações e no amadurecimento emocional."
+      }
+    },
+    "license": {
+      "title": "Transparência e Código Aberto",
+      "description": "O PsyMind.AI é um projeto <1>Open Source</1> (Código Aberto), o que significa que sua tecnologia é acessível e auditável por todos.",
+      "transparency": {
+        "title": "Transparência",
+        "description": "Você sabe exatamente como seus dados são tratados, garantindo maior segurança e confiança."
+      },
+      "community": {
+        "title": "Comunidade",
+        "description": "Desenvolvedores, educadores e estudantes podem colaborar para evoluir a plataforma continuamente."
+      },
+      "education_code": {
+        "title": "Educação",
+        "description": "O código-fonte serve como material de estudo gratuito para quem deseja aprender programação e IA."
+      },
+      "terms": "Distribuído sob a licença <1>Creative Commons BY-SA 4.0</1>, permitindo o compartilhamento e adaptação com os devidos créditos.",
+      "read_full": "Ler licença completa"
+    }
+  },
+  "sidebar": {
+    "new_chat": "Novo chat",
+    "anonymous_chat": "Sessão Anônima",
+    "anonymous_tooltip": "Conversa Anônima (Nenhum histórico será salvo)",
+    "recent_label": "Recentes",
+    "chat_deleted": "Chat excluído",
+    "help": "Ajuda",
+    "settings": "Configurações",
+    "close_menu": "Fechar menu lateral",
+    "time": {
+      "now": "Agora",
+      "minutes_ago": "{{count}}m atrás",
+      "hours_ago": "{{count}}h atrás",
+      "yesterday": "Ontem",
+      "days_ago": "{{count}}d atrás",
+      "date": "{{day}}/{{month}}"
+    }
+  },
+  "settings": {
+    "appearance": {
+      "title": "Aparência",
+      "language": {
+        "label": "Idioma",
+        "desc": "Selecione o idioma da interface",
+        "pt": "Português (Brasil)",
+        "en": "English (US)"
+      }
+    }
+  },
+  "header": {
+    "open_menu": "Abrir menu",
+    "open_menu_aria": "Abrir menu lateral",
+    "ambient_sounds": "Sons Ambientais",
+    "ambient_sounds_aria": "Abrir sons ambientais",
+    "light_mode": "Modo claro",
+    "dark_mode": "Modo escuro",
+    "activate_light_mode": "Ativar modo claro",
+    "activate_dark_mode": "Ativar modo escuro",
+    "user_account": "Conta do Google",
+    "user_profile": "Perfil do usuário"
+  },
+  "chat": {
+    "input": {
+      "placeholder": "Digite uma mensagem...",
+      "tool_soon": "Ferramenta {{tool}} em breve!",
+      "stop_listening": "Parar de ouvir",
+      "use_mic": "Usar microfone",
+      "stop_mic": "Parar microfone",
+      "start_mic": "Ativar microfone",
+      "stop_streaming": "Parar geração",
+      "send_message": "Enviar mensagem",
+      "disclaimer": "O PsyMind.AI oferece apoio educativo. Para questões sérias, procure ajuda profissional.",
+      "attach_file": "Anexar arquivo",
+      "tools_menu": "Ferramentas",
+      "tools_menu_aria": "Menu de ferramentas",
+      "remove_file": "Remover arquivo",
+      "file": "Arquivo",
+      "tools": {
+        "pomodoro": "Pomodoro",
+        "mood": "Diário de Emoções",
+        "journal": "Repertório Emocional",
+        "reflexoes": "Reflexões",
+        "vestibulares": "Vestibulares",
+        "kindness": "Atos de Bondade",
+        "helpline": "Linha de Apoio",
+        "learning": "Aprendizado Guiado"
+      }
+    },
+    "messages": {
+      "copied": "Texto copiado para a área de transferência",
+      "copied_short": "Copiado!",
+      "copy_text": "Copiar texto",
+      "code_copied": "Código copiado!",
+      "copy_code": "Copiar código",
+      "image_copied": "Imagem copiada!",
+      "copy_image_error": "Erro ao copiar imagem",
+      "copy_image": "Copiar imagem",
+      "close": "Fechar",
+      "welcome_title": "Olá, sou o PsyMind.AI",
+      "welcome_subtitle": "Como posso ajudar você hoje?",
+      "generating_quote": "Gerando frase inspiradora...",
+      "anonymous_private_mode_title": "Private Mode ON – No analytics – No history",
+      "anonymous_desc_1": "Esta conversa não aparecerá no histórico e todas as estatísticas estão pausadas.",
+      "anonymous_desc_2": "As conversas anônimas são descartadas ao fechar a janela e não afetam seus gráficos de produtividade. Total privacidade.",
+      "scroll_top": "Voltar ao topo",
+      "speech_stop": "Parar leitura",
+      "speech_play": "Ouvir mensagem",
+      "speech_error": "Seu navegador não suporta síntese de voz",
+      "suggestions": {
+        "anxiety_title": "Ansiedade com provas",
+        "anxiety_desc": "Como lidar com a ansiedade antes dos exames",
+        "anxiety_prompt": "Estou me sentindo ansioso com as provas",
+        "focus_title": "Falta de concentração",
+        "focus_desc": "Estratégias para melhorar o foco nos estudos",
+        "focus_prompt": "Tenho dificuldade para me concentrar",
+        "esteem_title": "Autoestima",
+        "esteem_desc": "Dicas para fortalecer a confiança em si mesmo",
+        "esteem_prompt": "Como posso melhorar minha autoestima?",
+        "techniques_title": "Técnicas de Estudo",
+        "techniques_desc": "Pomodoro, Flashcards e métodos eficazes",
+        "techniques_prompt": "Quais são as melhores técnicas de estudo?",
+        "schedule_title": "Planejamento",
+        "schedule_desc": "Organize sua rotina e horários de estudo",
+        "schedule_prompt": "Me ajude a criar um cronograma de estudos",
+        "burnout_title": "Descanso Mental",
+        "burnout_desc": "Importância do lazer e prevenção ao burnout",
+        "burnout_prompt": "Como evitar o burnout nos estudos?"
+      },
+      "loading_phrases": [
+        "Acessando contexto local...",
+        "Puxando contexto local da sua sessão...",
+        "Analisando seus padrões de foco recentes...",
+        "Acessando histórico de humor...",
+        "Formulando abordagens cognitivas...",
+        "Avaliando estratégias de auto-regulação...",
+        "Cruzando dados do Pomodoro..."
+      ]
+    }
+  },
+  "pomodoro": {
+    "title": "Pomodoro",
+    "restart": "Reiniciar",
+    "generating": "Gerando...",
+    "focus_tip": "Dica de Foco IA",
+    "break_tip": "Sugestão de Pausa IA",
+    "error": "❌ Erro ao conectar com IA. Tente novamente.",
+    "focus": "Foco",
+    "short_break": "Pausa Curta",
+    "long_break": "Pausa Longa",
+    "time_up": "O tempo acabou!",
+    "notification_title": "PsyMind Pomodoro"
+  },
+  "kindness": {
+    "title": "Atos de Bondade",
+    "categories": {
+      "random": "Aleatório",
+      "stranger": "Estranhos",
+      "family": "Família/Amigos",
+      "self": "Para Você",
+      "work": "Trabalho/Escola"
+    },
+    "loading": "A IA está encontrando o ato perfeito...",
+    "completed": "Concluído",
+    "generate_new": "Gerar Outro",
+    "will_do": "Vou fazer isso!",
+    "done": "Feito!",
+    "success_toast": "Parabéns! O mundo ficou um pouco melhor.",
+    "prompts": {
+      "random": "Sugira um ato de bondade simples e prático que qualquer pessoa pode fazer hoje (1 frase).",
+      "stranger": "Sugira um ato de bondade simples para fazer a um estranho (1 frase).",
+      "family": "Sugira um ato de bondade simples para fazer a família ou amigos (1 frase).",
+      "self": "Sugira um ato de autocuidado ou autocompaixão simples (1 frase).",
+      "work": "Sugira um ato de bondade simples para fazer no trabalho ou escola (1 frase)."
+    },
+    "database": {
+      "stranger": [
+        "Elogie sinceramente a roupa ou acessório de alguém que você não conhece.",
+        "Segure a porta para alguém entrar ou sair.",
+        "Deixe um bilhete positivo em um livro da biblioteca ou lugar público.",
+        "Sorria e cumprimente o motorista do ônibus ou caixa do mercado.",
+        "Pague o café da pessoa atrás de você na fila (se puder)."
+      ],
+      "family": [
+        "Ligue para um parente apenas para dizer que o ama.",
+        "Faça uma tarefa doméstica que não é sua responsabilidade.",
+        "Escreva uma carta de agradecimento para alguém que te ajudou no passado.",
+        "Cozinhe a refeição favorita de alguém da sua casa.",
+        "Ouça ativamente alguém sem interromper ou olhar o celular."
+      ],
+      "self": [
+        "Liste 3 coisas que você gosta em si mesmo.",
+        "Tire 15 minutos para fazer algo que você ama sem culpa.",
+        "Perdoe-se por um erro cometido recentemente.",
+        "Faça uma caminhada consciente observando a natureza.",
+        "Escreva em um diário como você está se sentindo hoje."
+      ],
+      "work": [
+        "Ofereça ajuda a um colega que parece sobrecarregado.",
+        "Elogie o trabalho de alguém publicamente ou para o chefe.",
+        "Traga um lanche ou doce para compartilhar com a equipe.",
+        "Deixe um post-it de encorajamento na mesa de alguém.",
+        "Agradeça a alguém por algo específico que ela fez."
+      ]
+    }
+  },
+  "help": {
+    "tabs": {
+      "faq": "Ajuda & FAQ",
+      "shortcuts": "Atalhos",
+      "feedback": "Enviar Feedback"
+    },
+    "about": {
+      "title": "Sobre o PsyMindAI",
+      "text": "O PsyMindAI é um assistente virtual focado em saúde mental e bem-estar. Nosso objetivo é fornecer um espaço seguro para conversas, dicas de estudo e suporte emocional."
+    },
+    "how_to": {
+      "title": "Como usar",
+      "items": {
+        "chat": {
+          "label": "Inicie uma conversa",
+          "desc": "Digite sua mensagem na caixa de texto abaixo e pressione Enter ou clique no botão de enviar."
+        },
+        "new": {
+          "label": "Novo Chat",
+          "desc": "Use o botão 'Novo chat' na barra lateral para começar um novo tópico."
+        },
+        "settings": {
+          "label": "Personalize",
+          "desc": "Acesse as configurações para ajustar o tema, tamanho da fonte e opções de acessibilidade."
+        },
+        "support": {
+          "label": "Linha de Apoio",
+          "desc": "Acesse a Linha de Apoio no menu de ferramentas para suporte emocional imediato."
+        }
+      }
+    },
+    "faq": {
+      "title": "Perguntas Frequentes",
+      "items": {
+        "q1": {
+          "question": "O PsyMindAI substitui um psicólogo?",
+          "answer": "Não. O PsyMindAI é uma ferramenta de apoio e não substitui o acompanhamento profissional. Se você estiver em crise, procure ajuda profissional imediatamente."
+        },
+        "q2": {
+          "question": "Minhas conversas são privadas?",
+          "answer": "Sim, suas conversas são processadas localmente e priorizamos sua privacidade. Nenhuma informação pessoal é compartilhada com terceiros."
+        },
+        "q3": {
+          "question": "Como funciona o Pomodoro?",
+          "answer": "A técnica Pomodoro ajuda no foco. O padrão é 25 minutos de foco e 5 de pausa. Você pode ativar o timer no menu de ferramentas."
+        },
+        "q4": {
+          "question": "Posso usar offline?",
+          "answer": "Atualmente o PsyMindAI requer conexão com a internet para processar as respostas da inteligência artificial."
+        }
+      }
+    },
+    "shortcuts": {
+      "title": "Atalhos de Teclado",
+      "desc": "Agilize sua navegação com estes atalhos rápidos.",
+      "items": {
+        "new_chat": "Novo Chat",
+        "settings": "Configurações",
+        "help": "Ajuda",
+        "view_shortcuts": "Ver Atalhos",
+        "focus_chat": "Focar no Chat",
+        "send": "Enviar Mensagem",
+        "new_line": "Quebra de Linha",
+        "mic": "Alternar Microfone",
+        "attach": "Anexar Arquivo"
+      }
+    },
+    "feedback": {
+      "title": "Sua opinião é importante",
+      "desc": "Ajude-nos a melhorar o PsyMindAI enviando suas sugestões, elogios ou reportando problemas.",
+      "type_label": "Tipo de Feedback",
+      "types": {
+        "suggestion": "Sugestão",
+        "problem": "Problema",
+        "praise": "Elogio"
+      },
+      "message_label": "Mensagem",
+      "message_placeholder": "Descreva seu feedback em detalhes...",
+      "image_label": "Anexar Imagem (Opcional)",
+      "image_hint": "Clique para adicionar uma imagem",
+      "image_subhint": "JPG, PNG até 5MB",
+      "sending": "Enviando...",
+      "send": "Enviar Feedback",
+      "success": "Feedback enviado com sucesso!",
+      "success_desc": "Obrigado por nos ajudar a melhorar o PsyMindAI.",
+      "error_size": "A imagem deve ter no máximo 5MB",
+      "remove_image": "Remover imagem"
+    },
+    "got_it": "Entendi",
+    "close_aria": "Fechar ajuda"
+  },
+  "soundscapes": {
+    "title": "Sons Ambientais",
+    "close": "Fechar",
+    "status": {
+      "playing": "Reproduzindo",
+      "paused": "Pausado"
+    },
+    "no_sound": "Nenhum som",
+    "actions": {
+      "play": "Reproduzir",
+      "pause": "Pausar"
+    },
+    "choose_env": "Escolha um Ambiente",
+    "volume": "Volume do ambiente",
+    "sounds": {
+      "rain": "Chuva Suave",
+      "focus": "Foco Profundo",
+      "white": "Ruído Branco"
+    }
+  },
+  "account": {
+    "close": "Fechar",
+    "greeting": "Olá, {{name}}!",
+    "manage": "Gerenciar sua Conta",
+    "menu": {
+      "personalize": "Personalizar Assistente",
+      "stats": "Estatísticas e Atividade",
+      "add_account": "Adicionar outra conta",
+      "logout": "Sair da conta"
+    },
+    "links": {
+      "privacy": "Política de Privacidade",
+      "terms": "Termos de Serviço"
+    },
+    "personalization": {
+      "title": "Personalização",
+      "profile": {
+        "title": "Perfil de Resposta",
+        "desc": "Escolha um perfil de comportamento para o assistente.",
+        "modes": {
+          "default": {
+            "title": "Padrão",
+            "desc": "Equilibrado e adaptável"
+          },
+          "reflective": {
+            "title": "Reflexivo",
+            "desc": "Foco em análise emocional"
+          },
+          "action": {
+            "title": "Ação",
+            "desc": "Direto e focado em soluções"
+          },
+          "learning": {
+            "title": "Didático",
+            "desc": "Explicações passo a passo"
+          },
+          "support": {
+            "title": "Acolhimento",
+            "desc": "Validação e suporte emocional"
+          }
+        }
+      },
+      "fine_tuning": {
+        "title": "Ajustes Finos Opcionais",
+        "style": {
+          "label": "Estilo padrão",
+          "desc": "Defina o tom do Assistente.",
+          "options": {
+            "default": "Padrão",
+            "concise": "Mais conciso",
+            "detailed": "Mais detalhado",
+            "casual": "Mais casual",
+            "formal": "Mais formal"
+          }
+        }
+      },
+      "traits": {
+        "title": "Características",
+        "welcoming": "Acolhedor",
+        "enthusiastic": "Entusiasmado",
+        "formatting": "Listas e cabeçalhos",
+        "emojis": "Emoji",
+        "levels": {
+          "less": "Menos",
+          "default": "Padrão",
+          "more": "Mais"
+        }
+      },
+      "instant": "Respostas instantâneas",
+      "custom_instructions": {
+        "title": "Instruções personalizadas",
+        "placeholder": "Ex: Responda como se fosse meu irmão..."
+      },
+      "actions": {
+        "cancel": "Cancelar",
+        "save": "Salvar"
+      }
+    }
+  },
+  "emotional_journal": {
+    "title": "Repertório Emocional",
+    "close_aria": "Fechar repertório emocional",
+    "tabs": {
+      "new": "Novo Registro",
+      "history": "Histórico"
+    },
+    "subtitle": "Amplie seu vocabulário emocional. Quanto mais você nomeia o que sente, mais fácil é comunicar-se e conectar-se.",
+    "placeholder": "Escreva sua resposta...",
+    "save": "Salvar Registro",
+    "empty": "Nenhum registro encontrado. Comece seu diário emocional!",
+    "delete_aria": "Excluir registro",
+    "questions": {
+      "excited": "O que te deixou animado no dia de hoje?",
+      "irritated": "O que te irritou?",
+      "frustrated": "Algo te frustrou?",
+      "proud": "Quando você se sentiu bem consigo mesmo?"
+    }
+  },
+  "mood_tracker": {
+    "title": "Diário de Emoções",
+    "close_aria": "Fechar diário de emoções",
+    "tabs": {
+      "new": "Novo Registro",
+      "history": "Histórico"
+    },
+    "question": "Como você está se sentindo agora?",
+    "note_placeholder": "Adicione uma nota sobre o que está sentindo... (opcional)",
+    "save": "Salvar Registro",
+    "empty": "Nenhum registro encontrado.",
+    "ai_insight": {
+      "analyzing": "Analisando...",
+      "button": "Análise IA do Humor",
+      "error": "❌ Erro ao conectar com IA. Tente novamente."
+    },
+    "delete_aria": "Excluir registro",
+    "moods": {
+      "happy": "Feliz",
+      "calm": "Calmo",
+      "focused": "Focado",
+      "anxious": "Ansioso",
+      "tired": "Cansado",
+      "sad": "Triste"
+    }
+  },
+  "study_stats": {
+    "title": "Dashboard de Estudos",
+    "close": "Fechar",
+    "add_session": "Sessão",
+    "form": {
+      "title": "Registrar Estudo (Dia Atual)",
+      "topic_placeholder": "Matéria / Tópico",
+      "durations": {
+        "15": "15 min",
+        "30": "30 min",
+        "45": "45 min",
+        "60": "1 hora",
+        "90": "1h 30m",
+        "120": "2 horas"
+      },
+      "save": "Salvar"
+    },
+    "metrics": {
+      "avg_focus": "Foco Médio",
+      "sessions": "Sessões no App",
+      "transformation": "Transformação",
+      "active_days": "Dias Ativos"
+    },
+    "charts": {
+      "weekly_title": "Ritmo Semanal",
+      "discipline_title": "Foco por Disciplina"
+    },
+    "ai_tip": {
+      "label": "Dica da IA:",
+      "empty": "Nenhum tópico estudado recentemente. Retome os estudos para construir sua disciplina e ganhar pontos!",
+      "good": "Sua dedicação em {{topic}} está ótima. Mantenha os seus {{score}} pontos de Transformação subindo e tente não sobrecarregar!"
+    },
+    "empty": "Você ainda não tem registros de estudo. Comece a registrar para receber insights!",
+    "days": {
+      "mon": "Seg",
+      "tue": "Ter",
+      "wed": "Qua",
+      "thu": "Qui",
+      "fri": "Sex",
+      "sat": "Sáb",
+      "sun": "Dom"
+    }
+  },
+  "reflections": {
+    "tabs": {
+      "daily": "Reflexão do Dia",
+      "explore": "Explorar Temas",
+      "breathing": "Respiração Guiada"
+    },
+    "close": "Fechar",
+    "daily_tab": {
+      "generating": "Gerando frase inspiradora...",
+      "new_button": "Nova Frase IA",
+      "ai_button": "Reflexão IA",
+      "ai_reflecting": "Refletindo...",
+      "chat_button": "Refletir no Chat",
+      "error": "❌ Erro ao conectar com IA. Tente novamente."
+    },
+    "explore_tab": {
+      "title": "Escolha um tema para refletir",
+      "categories": {
+        "resilience": "Resiliência",
+        "self_knowledge": "Autoconhecimento",
+        "purpose": "Propósito",
+        "anxiety": "Ansiedade",
+        "gratitude": "Gratidão",
+        "self_esteem": "Autoestima"
+      }
+    },
+    "breathing_tab": {
+      "title": "Escolha uma técnica de respiração",
+      "techniques": {
+        "478": {
+          "name": "4-7-8",
+          "desc": "Relaxamento profundo"
+        },
+        "box": {
+          "name": "Box Breathing",
+          "desc": "Equilíbrio e foco"
+        },
+        "calm": {
+          "name": "Respiração Calma",
+          "desc": "Redução de ansiedade"
+        },
+        "energy": {
+          "name": "Respiração Energizante",
+          "desc": "Aumenta energia"
+        }
+      },
+      "start": "Iniciar",
+      "stop": "Parar",
+      "phases": {
+        "inhale": "Inspire",
+        "hold": "Segure",
+        "exhale": "Expire",
+        "holdAfter": "Segure"
+      }
+    },
+    "chat_prompt": "Oi, PsyMind. Li essa frase de {{author}}: \"{{text}}\". Gostaria de refletir sobre o que ela significa para o meu momento atual.",
+    "default_quotes": [
+      {
+        "text": "A única maneira de fazer um excelente trabalho é amar o que você faz.",
+        "author": "Steve Jobs",
+        "category": "propósito"
+      },
+      {
+        "text": "Não é o que nos acontece, mas nossa reação ao que nos acontece que nos fere.",
+        "author": "Epiteto",
+        "category": "resiliência"
+      },
+      {
+        "text": "A felicidade não é algo pronto. Ela vem de suas próprias ações.",
+        "author": "Dalai Lama",
+        "category": "felicidade"
+      },
+      {
+        "text": "Conhece-te a ti mesmo e conhecerás o universo e os deuses.",
+        "author": "Sócrates",
+        "category": "autoconhecimento"
+      },
+      {
+        "text": "O sucesso é ir de fracasso em fracasso sem perder o entusiasmo.",
+        "author": "Winston Churchill",
+        "category": "resiliência"
+      },
+      {
+        "text": "Seja a mudança que você quer ver no mundo.",
+        "author": "Mahatma Gandhi",
+        "category": "propósito"
+      },
+      {
+        "text": "A ansiedade é a vertigem da liberdade.",
+        "author": "Søren Kierkegaard",
+        "category": "ansiedade"
+      },
+      {
+        "text": "O que você pensa, você se torna. O que você sente, você atrai. O que você imagina, você cria.",
+        "author": "Buda",
+        "category": "autoconhecimento"
+      },
+      {
+        "text": "Não deixe que o ruído da opinião alheia cale a sua própria voz interior.",
+        "author": "Steve Jobs",
+        "category": "autoestima"
+      },
+      {
+        "text": "A gratidão transforma o que temos em suficiente.",
+        "author": "Melody Beattie",
+        "category": "gratidão"
+      }
+    ]
+  },
+  "quiz": {
+    "title": "Simulado Integrado: {{topic}}",
+    "close": "Fechar",
+    "loading": {
+      "title": "Gerando questões inéditas...",
+      "desc": "Nossa IA está formulando o simulado pedagógico no formato de {{exam}}."
+    },
+    "results": {
+      "title": "Treinamento Concluído!",
+      "score": "Você acertou {{score}} de {{total}} questões.",
+      "finish": "Finalizar Revisão"
+    },
+    "active": {
+      "progress": "Questão {{current}} de {{total}}",
+      "confirm": "Confirmar Resposta",
+      "next": "Próxima Questão",
+      "see_results": "Ver Resultados",
+      "correct": "✨ Resposta Correta!",
+      "incorrect": "❌ Resposta Incorreta"
+    },
+    "messages": {
+      "error_comm": "Houve um erro na comunicação avançada com a IA para gerar este JSON. Tente novamente mais tarde.",
+      "try_again": "Tentar novamente",
+      "error_desc": "Falha de rede ou resposta mal formatada."
+    },
+    "prompt": "Atue como um gerador de questões para simulados. Crie 4 questões originais de nível do exame {{exam}} na matéria de {{subject}} focando no tema: {{topic}}.\n\nRetorne APENAS um array em formato JSON puro, contendo as questões. Em hipótese alguma escreva qualquer outra palavra fora das chaves do JSON. Não inclua ```json no início.\n\n[\n  {\n    \"pergunta\": \"Texto da pergunta formatado...\",\n    \"alternativas\": [\"Alternativa 1\", \"Alternativa 2\", \"Alternativa 3\", \"Alternativa 4\", \"Alternativa 5\"],\n    \"correta\": 0,\n    \"explicacao\": \"Explicação detalhada da alternativa correta.\"\n  }\n]"
+  },
+  "telemetry": {
+    "title": "Melhore o PsyMind.AI",
+    "description": "📊 Dados anônimos de uso ajudam a melhorar o PsyMind.AI.<br/><br/>🔒 Nenhuma conversa ou informação pessoal é coletada.<br/>Tudo permanece no seu dispositivo.<br/><br/>Você pode desativar isso a qualquer momento.",
+    "warning": "<strong>Aviso:</strong> A IA oferece apoio educativo e emocional básico, mas não substitui o acompanhamento de um psicólogo ou profissional de saúde mental.",
+    "accept": "Aceitar",
+    "decline": "Recusar",
+    "more_info": "Saiba mais"
+  },
+  "exams": {
+    "title": "Preparatório",
+    "close": "Fechar",
+    "back": "Voltar",
+    "categories_title": {
+      "international": "Internacionais",
+      "national": "Nacionais",
+      "regional": "Regionais",
+      "olympiads": "Olimpíadas"
+    },
+    "topics_header": "Matriz de Referência e Conteúdos",
+    "actions": {
+      "ai_plan": "Criar Plano de Estudos com IA",
+      "ai_strategy": "Estratégia de Prova",
+      "ai_judge": "Modo Preparatório (Juiz OBI)",
+      "explain_topic": "Explicar tópico",
+      "generate_quiz": "Gerar questões (Simulado)"
+    },
+    "calculator": {
+      "mode_simple": {
+        "title": "Média Simples",
+        "desc": "Já tenho minhas notas finais e quero calcular a média."
+      },
+      "mode_advanced": {
+        "title": "Por Acertos",
+        "desc": "Tenho apenas o gabarito e quero estimar minha nota."
+      },
+      "inputs": {
+        "course": "Curso Almejado (ex: Medicina)",
+        "category": "Categoria de Concorrência"
+      },
+      "subjects": {
+        "linguagens": "Linguagens",
+        "humanas": "Ciências Humanas",
+        "natureza": "Ciências da Natureza",
+        "matematica": "Matemática",
+        "redacao": "Redação"
+      },
+      "correct_labels": {
+        "linguagens": "Acertos Linguagens (0-45)",
+        "humanas": "Acertos Humanas (0-45)",
+        "natureza": "Acertos Natureza (0-45)",
+        "matematica": "Acertos Matemática (0-45)",
+        "redacao": "Nota Redação (0-1000)"
+      },
+      "ignore_redacao": "Ainda não tenho a nota da redação",
+      "result": {
+        "simple_label": "Sua Média Simples:",
+        "advanced_label": "Média Estimada (Intervalo TRI):",
+        "avg": "Média provável: ~{{val}}",
+        "warning": "A nota da Redação <strong>NÃO</strong> foi incluída neste cálculo. Esta média considera apenas as 4 áreas objetivas.",
+        "note_simple": "*Esta é uma média simples. O SiSU e ProUni podem usar pesos diferentes dependendo do curso e universidade.",
+        "note_advanced": "*Esta é uma estimativa baseada em padrões anteriores. A nota real depende do TRI (Teoria de Resposta ao Item) e da dificuldade das questões."
+      },
+      "buttons": {
+        "switch": "Trocar Modo",
+        "calc_ai": "Calcular e Analisar com IA",
+        "calc": "Calcular Média"
+      },
+      "prompts": {
+        "simple": "🎓 ANÁLISE DE VIABILIDADE SISU/PROUNI\n\n📊 MINHAS NOTAS DO ENEM:\n• Linguagens: {{linguagens}}\n• Ciências Humanas: {{humanas}}\n• Ciências da Natureza: {{natureza}}\n• Matemática: {{matematica}}\n• Redação: {{redacao}}\n\n📈 Média Simples: {{avg}}\n\n🎯 OBJETIVO:\n• Curso: {{course}}\n• Modalidade: {{category}}\n\nPor favor, me ajude com:\n\n1. 🏛️ UNIVERSIDADES VIÁVEIS\n   - Liste universidades federais/estaduais onde tenho BOA chance\n   - Mencione as notas de corte recentes\n\n2. ⚠️ OPÇÕES ARRISCADAS\n   - Universidades onde seria mais difícil, mas possível\n\n3. ⚖️ SISTEMA DE PESOS\n   - Como {{course}} costuma pesar as áreas?\n   - Qual minha nota ponderada estimada?\n\n4. 💡 ESTRATÉGIAS\n   - Devo focar em melhorar alguma área específica?\n   - Dicas para escolha de cursos no SiSU\n\n5. 🧠 APOIO EMOCIONAL\n   - Como lidar com a ansiedade da espera?\n   - Mensagem motivacional personalizada\n\nSeja realista mas encorajador! 💪",
+        "advanced": "🎯 ANÁLISE TRI - ESTIMATIVA DE DESEMPENHO\n\n📝 MEUS ACERTOS:\n• Linguagens: {{linguagens}}/45 questões\n  📉 Nota estimada: {{triLinguagensMin}} - {{triLinguagensMax}} pontos\n  \n• Humanas: {{humanas}}/45 questões\n  📉 Nota estimada: {{triHumanasMin}} - {{triHumanasMax}} pontos\n  \n• Natureza: {{natureza}}/45 questões\n  📉 Nota estimada: {{triNaturezaMin}} - {{triNaturezaMax}} pontos\n  \n• Matemática: {{matematica}}/45 questões\n  📉 Nota estimada: {{triMatematicaMin}} - {{triMatematicaMax}} pontos\n\n{{redacaoInfo}}\n\n📊 MÉDIA ESTIMADA:\n• Cenário pessimista: {{totalMin}}\n• Cenário otimista: {{totalMax}}\n• Média provável: ~{{totalAvg}}\n{{observacao}}\n\n🎯 MEU OBJETIVO:\n• Curso: {{course}}\n• Modalidade: {{category}}\n\nPreciso de uma análise completa:\n\n1. 🏛️ CHANCES REAIS\n   - Considerando o intervalo de notas, quais universidades são viáveis?\n   - Compare com notas de corte recentes\n{{impactoRedacao}}\n\n2. 📈 ANÁLISE POR ÁREA\n   - Em quais áreas fui bem?\n   - Onde posso melhorar se fizer novamente?\n\n3. ⚖️ PESOS E ESTRATÉGIA\n   - Como {{course}} pondera as áreas?\n   - Minhas áreas fortes favorecem este curso?\n\n4. 🔄 PLANO B\n   - Cursos alternativos que combinam com meu perfil de notas\n   - Opções em universidades próximas\n\n5. 💪 APOIO PSICOLÓGICO\n   - Como lidar com a incerteza da estimativa TRI?\n   - Dicas para manter a calma até o resultado oficial\n   - Mensagem motivacional baseada no meu desempenho\n\nSeja honesto sobre as chances, mas também encorajador! 🌟"
+      }
+    },
+    "prompts": {
+      "plan": "Crie um plano de estudos completo para {{exam}} - {{subject}}:\n\n📚 TÓPICOS:\n{{topics}}\n\nPor favor, forneça:\n1. Ordem ideal de estudo\n2. Tempo sugerido para cada tópico\n3. Técnicas de estudo específicas\n4. Recursos recomendados\n5. Como esse conteúdo aparece nas provas\n6. Dicas para fixação e revisão\n\nSeja prático e motivador! 💪",
+      "strategy": "Analise a estratégia de preparação para {{exam}} - {{subject}}:\n\n🎯 Como devo priorizar meus estudos?\n📊 Quais são os tópicos que mais caem?\n⚡ Técnicas de resolução rápida\n🧠 Como lidar com ansiedade pré-prova\n📝 Dicas de gestão de tempo durante o exame\n\nDê conselhos práticos e motivadores!",
+      "explain": "Explique de forma clara e didática o seguinte tópico de {{subject}} para {{exam}}:\n\n📌 {{topic}}\n\nIncluindo:\n1. Conceitos fundamentais\n2. Exemplos práticos\n3. Como aparece nas provas\n4. Dicas de memorização\n5. Erros comuns a evitar\n\nUse linguagem acessível! 📚"
+    }
+  },
+  "guided_learning": {
+    "title": "Aprendizado Guiado",
+    "tabs": {
+      "trails": "Planos de Estudo",
+      "flashcards": "Praticar Flashcards",
+      "quizzes": "Quiz Aleatório"
+    },
+    "alerts": {
+      "delete_confirm": "Deseja realmente remover esta trilha gerada pela IA?",
+      "import_success": "Trilha importada com sucesso!",
+      "import_error": "Erro ao importar. Copie um código JSON válido de trilha antes de importar.",
+      "export_success": "Trilha copiada para área de transferência! Envie para seus amigos.",
+      "export_error": "Erro ao copiar a trilha.",
+      "generate_error": "Não foi possível gerar a trilha. Tente ser mais específico no tema.",
+      "generate_catch": "Erro ao conectar com a IA."
+    },
+    "trails": {
+      "active_back": "Voltar para Trilhas",
+      "active_step": "Passo {{step}} de {{total}}",
+      "active_finished": "Concluída",
+      "completed": "Concluída"
+    },
+    "completion": {
+      "perfection_title": "Perfeição! Nenhum erro!",
+      "excellent_title": "Excelente trabalho!",
+      "continue_title": "O aprendizado é um processo contínuo!",
+      "stats": "Você acertou <strong>{{correct}}</strong> de <strong>{{total}}</strong> questões de primeira ({{percentage}}%).",
+      "you_are_awesome": "Você é incrível!",
+      "title": "Trilha Concluída!",
+      "action": "Voltar para Trilhas",
+      "quizzes_title": "Quizzes Concluídos!",
+      "retry": "Tentar Novamente"
+    },
+    "flashcard": {
+      "flip_hint": "Clique para revelar",
+      "difficulty": {
+        "fail": "Errei",
+        "hard": "Difícil",
+        "good": "Bom",
+        "easy": "Fácil"
+      },
+      "times": {
+        "30s": "30 seg",
+        "5m": "5 min",
+        "30m": "30 min",
+        "2h": "2h"
+      }
+    },
+    "quiz": {
+      "verify": "Verificar Resposta",
+      "explain_btn": "Me explique com IA ✨",
+      "explaining": "Gerando explicação...",
+      "tutor": "Tutor IA:",
+      "finish_trail": "Concluir Trilha",
+      "next_question": "Próxima Questão",
+      "see_results": "Ver Resultados"
+    },
+    "open_ended": {
+      "placeholder": "Escreva sua reflexão ou resposta aqui...",
+      "evaluate_btn": "Avaliar Resposta com IA",
+      "evaluating": "Avaliando...",
+      "skip_btn": "Pular",
+      "your_answer": "Sua Resposta:",
+      "ai_feedback": "Feedback da IA:",
+      "continue_trail": "Continuar Trilha"
+    },
+    "create": {
+      "title": "O que você deseja aprender hoje?",
+      "desc": "Descreva um tema, desafio emocional ou habilidade. Nossa inteligência artificial construirá um plano interativo (Flashcards e Quizzes) personalizado.",
+      "placeholder": "Ex: Quero uma trilha com flashcards sobre como praticar mindfulness no trabalho em 5 minutos...",
+      "btn_create": "Criar com IA",
+      "btn_generating": "Gerando Material..."
+    },
+    "explore": {
+      "title": "Explore Trilhas ou Crie a Sua",
+      "import": "Importar",
+      "activities": "{{count}} Atividades",
+      "generate": "Gerar com IA"
+    },
+    "empty_flashcards": {
+      "title": "Nenhum Flashcard Desbloqueado",
+      "desc": "Complete uma Trilha de Estudo na aba \"Planos de Estudo\" para desbloquear os flashcards para revisão."
+    },
+    "empty_quizzes": {
+      "title": "Nenhum Quiz Desbloqueado",
+      "desc": "Complete uma Trilha de Estudo na aba \"Planos de Estudo\" para desbloquear quizzes para praticar."
+    },
+    "status": {
+      "base_unlocked": "{{count}} Desbloqueados na Base",
+      "flashcard_status": "Flashcard {{current}} / {{total}}",
+      "quiz_status": "Questão {{current}} / {{total}}",
+      "quick_quiz": "Quiz Rápido Geral",
+      "practice": "Praticar Flashcards"
+    },
+    "default_trails": [
+      {
+        "id": 1,
+        "title": "Gestão de Ansiedade",
+        "icon": "psychology",
+        "description": "Aprenda a identificar e gerenciar sintomas de ansiedade.",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "O que é o reflexo de 'Luta ou Fuga'?",
+            "back": "É uma reação fisiológica automática do corpo a eventos percebidos como ameaçadores ou estressantes, ativando o sistema nervoso simpático."
+          },
+          {
+            "type": "quiz",
+            "question": "Qual a técnica de respiração mais recomendada para reduzir a ansiedade aguda?",
+            "options": [
+              {
+                "id": "A",
+                "text": "Respiração torácica rápida"
+              },
+              {
+                "id": "B",
+                "text": "Prender a respiração por 1 minuto"
+              },
+              {
+                "id": "C",
+                "text": "Respiração Diafragmática (4-7-8)"
+              },
+              {
+                "id": "D",
+                "text": "Hiperventilação"
+              }
+            ],
+            "correctOption": "C"
+          },
+          {
+            "type": "flashcard",
+            "front": "Aterramento (Grounding)",
+            "back": "Ato de trazer sua atenção para o momento presente, focando nos sentidos físicos (ex: 5 coisas que você vê, 4 que toca)."
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Comunicação Não-Violenta",
+        "icon": "forum",
+        "description": "Melhore seus relacionamentos se comunicando de forma empática.",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "Quais são os 4 componentes da CNV?",
+            "back": "1. Observação, 2. Sentimento, 3. Necessidade, 4. Pedido."
+          },
+          {
+            "type": "quiz",
+            "question": "Qual destas frases é um exemplo de 'Observação' (sem julgamento) na CNV?",
+            "options": [
+              {
+                "id": "A",
+                "text": "Você é muito irresponsável."
+              },
+              {
+                "id": "B",
+                "text": "Você nunca me escuta."
+              },
+              {
+                "id": "C",
+                "text": "Percebi que você chegou 10 minutos atrasado nas últimas reuniões."
+              },
+              {
+                "id": "D",
+                "text": "Você é sempre preguiçoso."
+              }
+            ],
+            "correctOption": "C"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Inteligência Emocional",
+        "icon": "favorite",
+        "description": "Reconheça e controle as suas próprias emoções.",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "O que é Autoconsciência?",
+            "back": "Habilidade de reconhecer e entender seus próprios humores, emoções e impulsos."
+          },
+          {
+            "type": "quiz",
+            "question": "Um pilar chave da inteligência emocional no ambiente de trabalho é:",
+            "options": [
+              {
+                "id": "A",
+                "text": "Esconder o que você sente."
+              },
+              {
+                "id": "B",
+                "text": "Empatia por colegas."
+              },
+              {
+                "id": "C",
+                "text": "Trabalhar até a exaustão."
+              },
+              {
+                "id": "D",
+                "text": "Falar mais alto que os outros."
+              }
+            ],
+            "correctOption": "B"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Mindfulness e Foco",
+        "icon": "self_improvement",
+        "description": "Técnicas de atenção plena para manter o foco no presente.",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "O que é Atenção Plena (Mindfulness)?",
+            "back": "Estado mental alcançado focando a consciência no momento presente, reconhecendo e aceitando sentimentos."
+          },
+          {
+            "type": "quiz",
+            "question": "Ao se distrair durante uma meditação, você deve:",
+            "options": [
+              {
+                "id": "A",
+                "text": "Ficar frustrado com você mesmo."
+              },
+              {
+                "id": "B",
+                "text": "Desistir e tentar outro dia."
+              },
+              {
+                "id": "C",
+                "text": "Notar a distração e gentilmente voltar o foco à respiração."
+              },
+              {
+                "id": "D",
+                "text": "Deixar sua mente vagar indefinidamente."
+              }
+            ],
+            "correctOption": "C"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Vieses Cognitivos",
+        "icon": "visibility",
+        "description": "Entenda os erros de pensamento que afetam nossas decisões.",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "Viés de Confirmação",
+            "back": "A tendência de procurar e lembrar de informações que confirmem crenças pré-existentes."
+          },
+          {
+            "type": "quiz",
+            "question": "O que é o Efeito Dunning-Kruger?",
+            "options": [
+              {
+                "id": "A",
+                "text": "Superestimar a própria habilidade em tarefas onde se tem pouca experiência."
+              },
+              {
+                "id": "B",
+                "text": "Pânico ao falar em público."
+              },
+              {
+                "id": "C",
+                "text": "Hábito de comprar coisas em promoção."
+              },
+              {
+                "id": "D",
+                "text": "Esquecer informações sob estresse."
+              }
+            ],
+            "correctOption": "A"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "Organização nos Estudos",
+        "icon": "menu_book",
+        "description": "Técnicas de gestão de tempo e planejamento escolar.",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "O que é o Método Pomodoro?",
+            "back": "Técnica de gestão de tempo que alterna blocos de foco intenso (ex: 25 min) com pausas curtas (ex: 5 min) para manter a produtividade."
+          },
+          {
+            "type": "quiz",
+            "question": "Qual a melhor forma de se preparar para uma semana com várias provas?",
+            "options": [
+              {
+                "id": "A",
+                "text": "Estudar tudo na noite anterior da prova."
+              },
+              {
+                "id": "B",
+                "text": "Criar um cronograma distribuindo as matérias ao longo da semana."
+              },
+              {
+                "id": "C",
+                "text": "Estudar apenas a matéria mais difícil."
+              },
+              {
+                "id": "D",
+                "text": "Não estudar e confiar apenas no que lembra das aulas."
+              }
+            ],
+            "correctOption": "B"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "title": "Pressão Escolar e Exames",
+        "icon": "school",
+        "description": "Estratégias para manejar o nervosismo pré-prova e evitar o 'branco' ao estudar.",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "O que causa o famoso 'branco' na hora da prova?",
+            "back": "O 'branco' geralmente é causado por um pico de ansiedade. O cérebro entende a prova como uma ameaça imediata, bloqueando o acesso à memória."
+          },
+          {
+            "type": "quiz",
+            "question": "O que fazer se você sentir que vai ter um branco durante a prova?",
+            "options": [
+              {
+                "id": "A",
+                "text": "Entrar em pânico silencioso."
+              },
+              {
+                "id": "B",
+                "text": "Fazer uma pausa, fechar os olhos, respirar fundo e beber água se possível."
+              },
+              {
+                "id": "C",
+                "text": "Responder qualquer coisa o mais rápido possível."
+              },
+              {
+                "id": "D",
+                "text": "Chorar imediatamente."
+              }
+            ],
+            "correctOption": "B"
+          },
+          {
+            "type": "flashcard",
+            "front": "Expectativas versus Realidade",
+            "back": "Muitas vezes a pressão vem da expectativa dos pais ou professores. Lembrar que uma nota ruim não define sua inteligência é fundamental para reduzir e lidar com essa cobrança excessiva."
+          }
+        ]
+      }
+    ]
+  },
+  "support": {
+    "tabs": {
+      "immediate": "Apoio Imediato",
+      "investigate": "Investigar Causas",
+      "reframing": "Reestruturação"
+    },
+    "immediate": {
+      "title": "Como você está se sentindo hoje?",
+      "desc": "Nossa IA pode sugerir exercícios e recursos baseados no seu estado emocional.",
+      "placeholder": "Ex: Estou me sentindo muito ansioso com uma prova amanhã...",
+      "analyzing": "Analisando...",
+      "receive": "Receber Apoio",
+      "chat": "Quero conversar mais sobre isso",
+      "call": "Ligar",
+      "fallbacks": {
+        "general": {
+          "msg": "Entendo que você esteja passando por isso. Aqui estão alguns recursos que podem ajudar:",
+          "res1": {
+            "title": "Respiração Guiada",
+            "desc": "Técnica 4-7-8 para acalmar"
+          },
+          "res2": {
+            "title": "Mindfulness",
+            "desc": "Exercício rápido de atenção plena"
+          }
+        },
+        "anxiety": {
+          "msg": "Parece que você está sentindo ansiedade. Vamos tentar acalmar isso juntos.",
+          "res1": {
+            "title": "Respiração Quadrada",
+            "desc": "Inspire 4s, Segure 4s, Expire 4s, Segure 4s"
+          },
+          "res2": {
+            "title": "Técnica 5-4-3-2-1",
+            "desc": "Identifique coisas ao seu redor para se aterrar"
+          }
+        },
+        "sadness": {
+          "msg": "Sinto muito que você esteja se sentindo assim. Você não está sozinho.",
+          "res1": {
+            "title": "Autocompaixão",
+            "desc": "Seja gentil consigo mesmo neste momento"
+          },
+          "res2": {
+            "title": "Conexão",
+            "desc": "Considere conversar com alguém de confiança"
+          }
+        },
+        "crisis": {
+          "msg": "Você é importante e há ajuda disponível. Por favor, entre em contato com profissionais agora.",
+          "res1": {
+            "title": "CVV - 188",
+            "desc": "Apoio Emocional 24h (Ligação Gratuita)"
+          },
+          "res2": {
+            "title": "Emergência - 192",
+            "desc": "SAMU"
+          }
+        }
+      },
+      "prompt": "Analise este sentimento: \"{{feeling}}\". Identifique a emoção principal (ansiedade, tristeza, raiva, etc) e sugira 2 técnicas rápidas de apoio emocional (1 frase cada). Formato: EMOÇÃO: [nome]\nTÉCNICA 1: [título] - [descrição]\nTÉCNICA 2: [título] - [descrição]"
+    },
+    "investigate": {
+      "step0": {
+        "title": "O que você está sentindo principalmente?",
+        "ansiedade": "Ansiedade / Nervosismo",
+        "tristeza": "Tristeza / Desânimo",
+        "cansaco": "Cansaço / Esgotamento",
+        "confusao": "Confusão / Indecisão",
+        "raiva": "Raiva / Frustração"
+      },
+      "step1": {
+        "title": "Qual área da vida isso mais afeta agora?",
+        "estudos": "Estudos / Vestibular",
+        "relacionamentos": "Relacionamentos",
+        "futuro": "Futuro / Carreira",
+        "saude": "Saúde / Corpo",
+        "naosei": "Não sei identificar"
+      },
+      "step2": {
+        "title": "Há quanto tempo você se sente assim?",
+        "hoje": "Começou hoje",
+        "semana": "Alguns dias / Uma semana",
+        "mes": "Um mês ou mais",
+        "sempre": "Parece que é sempre assim"
+      },
+      "back": "Voltar",
+      "analyzing": "Analisando suas respostas...",
+      "restart": "Nova Investigação",
+      "suggestion": "Sugestão do PsyMind:",
+      "prompt": "Analise: Emoção={{emotion}}, Contexto={{context}}, Duração={{duration}}. Forneça: TÍTULO: [nome]\nDESCRIÇÃO: [2 frases]\nCONSELHO: [1 frase prática]",
+      "fallbacks": {
+        "general": {
+          "title": "Análise Inicial",
+          "desc": "Com base no que você compartilhou, parece que você está enfrentando um momento desafiador.",
+          "advice": "Recomendamos focar em pequenas pausas e autocuidado."
+        },
+        "anxiety_studies": {
+          "title": "Ansiedade Acadêmica",
+          "desc": "É comum sentir pressão com os estudos. A ansiedade pode vir do medo de não dar conta.",
+          "advice": "Tente dividir o conteúdo em partes menores (Pomodoro) e lembre-se que seu valor não é sua nota."
+        },
+        "anxiety_future": {
+          "title": "Ansiedade Antecipatória",
+          "desc": "Preocupar-se com o futuro é natural, mas pode paralisar.",
+          "advice": "Foque no que você pode controlar hoje. O futuro é construído um dia de cada vez."
+        },
+        "sadness": {
+          "title": "Acolhimento da Tristeza",
+          "desc": "A tristeza é uma emoção válida e sinaliza que algo precisa de atenção.",
+          "advice": "Permita-se sentir sem julgamento. Escrever sobre seus sentimentos pode ajudar a processá-los."
+        },
+        "tiredness": {
+          "title": "Esgotamento Mental",
+          "desc": "Você pode estar próximo de um burnout se não descansar.",
+          "advice": "O descanso é produtivo. Desconecte-se das telas e faça algo que não exija esforço mental."
+        }
+      },
+      "chat_prompt": "Oi, PsyMind. Estou passando por um momento delicado e gostaria de desabafar. Tenho sentido {{emotion}} em relação a {{context}}. Isso tem me afetado {{duration}}. Você poderia me ouvir e me ajudar a entender melhor o que estou sentindo?"
+    },
+    "reframing": {
+      "step0": {
+        "title": "Reestruturação Cognitiva",
+        "desc": "Vamos trabalhar juntos para identificar e reestruturar pensamentos negativos.",
+        "start": "Começar"
+      },
+      "step1": {
+        "title": "Desafie seus Pensamentos",
+        "desc": "Identifique um pensamento negativo e vamos trabalhar juntos para encontrar uma perspectiva mais equilibrada.",
+        "q_situation": "Qual é a situação gatilho?",
+        "q_situ_placeholder": "Ex: Recebi uma crítica no trabalho...",
+        "q_thought": "O que você pensou automaticamente?",
+        "q_thought_placeholder": "Ex: Eu sou incompetente e vou ser demitido...",
+        "q_intensity": "Como isso faz você se sentir? (0-10)",
+        "analyze": "Analisar Pensamento",
+        "analyzing": "Analisando..."
+      },
+      "result": {
+        "title": "Análise Cognitiva",
+        "distortion": "Possível Distorção",
+        "challenge": "O Desafio",
+        "alternative": "Perspectiva Alternativa",
+        "reframe": "Novo Pensamento Sugerido",
+        "restart": "Analisar Outro Pensamento"
+      },
+      "prompt": "Analise este pensamento negativo usando TCC:\\nSituação: {{situation}}\\nPensamento: {{thought}}\\n\\nForneça:\\nDISTORÇÃO: [tipo de distorção cognitiva]\\nDESAFIO: [1 frase explicando a distorção]\\nALTERNATIVA: [1 frase com perspectiva alternativa]\\nREFORMULAÇÃO: [novo pensamento equilibrado]",
+      "fallbacks": {
+        "general": {
+          "distortion": "Generalização Excessiva ou Catastrofização",
+          "challenge": "Você está tomando um evento isolado como um padrão universal ou prevendo o pior cenário possível sem evidências concretas.",
+          "alternative": "Tente ver a situação como um evento único e não como uma definição de quem você é. Pergunte-se: 'Qual é a evidência real de que isso sempre acontecerá?'",
+          "reframe": "Em vez de pensar '{{thought}}', tente pensar: 'Embora essa situação tenha sido difícil, ela não define todo o meu futuro ou capacidade.'"
+        },
+        "all_or_nothing": {
+          "distortion": "Pensamento Tudo ou Nada",
+          "challenge": "A vida raramente é preta ou branca. O uso de 'sempre' ou 'nunca' geralmente indica uma distorção da realidade.",
+          "alternative": "Procure exceções. Houve momentos em que isso não aconteceu? Tente usar palavras como 'às vezes' ou 'frequentemente'."
+        },
+        "should_statements": {
+          "distortion": "Declarações de 'Deveria'",
+          "challenge": "O uso de 'deveria' cria culpa e frustração. Você está impondo regras rígidas a si mesmo ou aos outros.",
+          "alternative": "Substitua 'eu deveria' por 'eu gostaria' ou 'seria preferível'. Isso reduz a pressão e aumenta a aceitação."
+        }
+      }
+    },
+    "chat_feeling_prompt": "Oi, PsyMind. Estou passando por um momento delicado e gostaria de desabafar. {{feeling}}. Você poderia me ouvir e me ajudar a entender melhor o que estou sentindo?"
+  },
+  "footer": {
+    "brand_desc": "Seu companheiro de estudos e bem-estar emocional, disponível 24/7 para ajudar você a evoluir.",
+    "nav_title": "Navegação",
+    "nav_home": "Início",
+    "nav_features": "Recursos",
+    "nav_education": "Educação",
+    "legal_title": "Legal",
+    "legal_license": "Licença",
+    "legal_privacy": "Política de Privacidade",
+    "legal_terms": "Termos de Uso",
+    "legal_transparency": "Portal de Transparência",
+    "project_title": "Projeto",
+    "project_repo": "Repositório",
+    "project_contribute": "Como Contribuir",
+    "project_roadmap": "Roadmap",
+    "project_dashboard": "Dashboard",
+    "disclaimer": "O PsyMind.AI oferece apoio educativo e emocional básico. Para questões de saúde mental sérias, procure sempre ajuda profissional especializada.",
+    "legal_privacy_short": "Privacidade",
+    "legal_terms_short": "Termos",
+    "about": "Sobre"
+  },
+  "error_fallback": {
+    "title": "Ops!",
+    "message": "Ocorreu um erro ao processar sua solicitação.",
+    "subtext": "Tente recarregar a página ou tente novamente mais tarde.",
+    "details": "Detalhes técnicos",
+    "reload": "Recarregar página"
+  }
+}

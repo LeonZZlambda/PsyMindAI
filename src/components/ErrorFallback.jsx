@@ -1,6 +1,8 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const ErrorFallback = ({ error, resetErrorBoundary }) => {
+  const { t } = useTranslation();
   return (
     <div className="google-error-container" role="alert">
       <div className="google-error-content">
@@ -8,19 +10,19 @@ const ErrorFallback = ({ error, resetErrorBoundary }) => {
           <span className="material-symbols-outlined robot-icon">smart_toy</span>
           <span className="material-symbols-outlined crash-icon">error</span>
         </div>
-        <h1>Ops!</h1>
-        <p className="error-message">Ocorreu um erro ao processar sua solicitação.</p>
-        <p className="error-subtext">Tente recarregar a página ou tente novamente mais tarde.</p>
+        <h1>{t('error_fallback.title')}</h1>
+        <p className="error-message">{t("error_fallback.message")}</p>
+        <p className="error-subtext">{t("error_fallback.subtext")}</p>
         
         {error && (
           <details className="error-details">
-            <summary>Detalhes técnicos</summary>
+            <summary>{t('error_fallback.details')}</summary>
             <pre>{error.message}</pre>
           </details>
         )}
 
         <button className="google-btn" onClick={resetErrorBoundary}>
-          Recarregar página
+          {t('error_fallback.reload')}
         </button>
       </div>
       <style>{`

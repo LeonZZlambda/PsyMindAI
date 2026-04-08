@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
+import { useTranslation, Trans } from 'react-i18next';
 
 const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
   const modalRef = useRef(null);
+  const { t } = useTranslation();
   const [isClosing, setIsClosing] = useState(false);
   const [activeTab, setActiveTab] = useState(initialTab); // 'faq', 'shortcuts' or 'feedback'
   const [feedbackType, setFeedbackType] = useState('sugestao');
@@ -48,7 +50,7 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
     const file = e.target.files[0];
     if (file) {
       if (file.size > 5 * 1024 * 1024) { // 5MB limit
-        toast.error('A imagem deve ter no máximo 5MB');
+        toast.error(t('help.feedback.error_size'));
         return;
       }
       
@@ -74,8 +76,8 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
     setIsSubmitting(true);
     // Simulate API call
     setTimeout(() => {
-      toast.success('Feedback enviado com sucesso!', {
-        description: 'Obrigado por nos ajudar a melhorar o PsyMindAI.'
+      toast.success(t('help.feedback.success'), {
+        description: t('help.feedback.success_desc')
       });
       setFeedbackText('');
       setFeedbackImage(null);
@@ -117,24 +119,24 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
               className={`tab-btn ${activeTab === 'faq' ? 'active' : ''}`}
               onClick={() => setActiveTab('faq')}
             >
-              Ajuda & FAQ
+              {t('help.tabs.faq')}
             </button>
             {showShortcuts && (
               <button 
                 className={`tab-btn ${activeTab === 'shortcuts' ? 'active' : ''}`}
                 onClick={() => setActiveTab('shortcuts')}
               >
-                Atalhos
+                {t('help.tabs.shortcuts')}
               </button>
             )}
             <button 
               className={`tab-btn ${activeTab === 'feedback' ? 'active' : ''}`}
               onClick={() => setActiveTab('feedback')}
             >
-              Enviar Feedback
+              {t('help.tabs.feedback')}
             </button>
           </div>
-          <button className="close-btn" onClick={handleClose} aria-label="Fechar ajuda">
+          <button className="close-btn" onClick={handleClose} aria-label={t('help.close_aria')}>
             <span className="material-symbols-outlined">close</span>
           </button>
         </div>
@@ -143,74 +145,73 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
           {activeTab === 'faq' && (
             <>
               <div className="help-section">
-                <h3>Sobre o PsyMindAI</h3>
+                <h3>{t('help.about.title')}</h3>
                 <p className="help-text">
-                  O PsyMindAI é um assistente virtual focado em saúde mental e bem-estar. 
-                  Nosso objetivo é fornecer um espaço seguro para conversas, dicas de estudo e suporte emocional.
+                  {t('help.about.text')}
                 </p>
               </div>
 
               <div className="help-section">
-                <h3>Como usar</h3>
+                <h3>{t('help.how_to.title')}</h3>
                 <div className="help-item">
                   <span className="material-symbols-outlined help-icon">chat</span>
                   <div className="help-info">
-                    <span className="help-label">Inicie uma conversa</span>
-                    <span className="help-desc">Digite sua mensagem na caixa de texto abaixo e pressione Enter ou clique no botão de enviar.</span>
+                    <span className="help-label">{t('help.how_to.items.chat.label')}</span>
+                    <span className="help-desc">{t('help.how_to.items.chat.desc')}</span>
                   </div>
                 </div>
                 <div className="help-item">
                   <span className="material-symbols-outlined help-icon">add</span>
                   <div className="help-info">
-                    <span className="help-label">Novo Chat</span>
-                    <span className="help-desc">Use o botão "Novo chat" na barra lateral para começar um novo tópico.</span>
+                    <span className="help-label">{t('help.how_to.items.new.label')}</span>
+                    <span className="help-desc">{t('help.how_to.items.new.desc')}</span>
                   </div>
                 </div>
                 <div className="help-item">
                   <span className="material-symbols-outlined help-icon">settings</span>
                   <div className="help-info">
-                    <span className="help-label">Personalize</span>
-                    <span className="help-desc">Acesse as configurações para ajustar o tema, tamanho da fonte e opções de acessibilidade.</span>
+                    <span className="help-label">{t('help.how_to.items.settings.label')}</span>
+                    <span className="help-desc">{t('help.how_to.items.settings.desc')}</span>
                   </div>
                 </div>
                 <div className="help-item">
                   <span className="material-symbols-outlined help-icon">support_agent</span>
                   <div className="help-info">
-                    <span className="help-label">Linha de Apoio</span>
-                    <span className="help-desc">Acesse a Linha de Apoio no menu de ferramentas para suporte emocional imediato ou investigação de causas.</span>
+                    <span className="help-label">{t('help.how_to.items.support.label')}</span>
+                    <span className="help-desc">{t('help.how_to.items.support.desc')}</span>
                   </div>
                 </div>
               </div>
 
               <div className="help-section">
-                <h3>Perguntas Frequentes</h3>
+                <h3>{t('help.faq.title')}</h3>
                 <details className="faq-item">
                   <summary>
-                    <span>O PsyMindAI substitui um psicólogo?</span>
+                    <span>{t('help.faq.items.q1.question')}</span>
                     <span className="material-symbols-outlined expand-icon">expand_more</span>
                   </summary>
-                  <p>Não. O PsyMindAI é uma ferramenta de apoio e não substitui o acompanhamento profissional. Se você estiver em crise, procure ajuda profissional imediatamente.</p>
+                  <p>{t('help.faq.items.q1.answer')}</p>
                 </details>
                 <details className="faq-item">
                   <summary>
-                    <span>Minhas conversas são privadas?</span>
+                    <span>{t('help.faq.items.q2.question')}</span>
                     <span className="material-symbols-outlined expand-icon">expand_more</span>
                   </summary>
-                  <p>Sim, suas conversas são processadas localmente e priorizamos sua privacidade. Nenhuma informação pessoal é compartilhada com terceiros.</p>
+                  <p>{t('help.faq.items.q2.answer')}</p>
                 </details>
                 <details className="faq-item">
                   <summary>
-                    <span>Como funciona o Pomodoro?</span>
+                    <span>{t('help.faq.items.q3.question')}</span>
                     <span className="material-symbols-outlined expand-icon">expand_more</span>
                   </summary>
-                  <p>A técnica Pomodoro ajuda no foco. O padrão é 25 minutos de foco e 5 de pausa. Você pode ativar o timer no menu de ferramentas.</p>
+                  <p>{t('help.faq.items.q3.answer')}</p>
                 </details>
                 <details className="faq-item">
                   <summary>
-                    <span>Posso usar offline?</span>
+                    <span>{t('help.faq.items.q4.question')}</span>
                     <span className="material-symbols-outlined expand-icon">expand_more</span>
                   </summary>
-                  <p>Atualmente o PsyMindAI requer conexão com a internet para processar as respostas da inteligência artificial.</p>
+                  <p>{t('help.faq.items.q4.answer')}</p>
                 </details>
               </div>
             </>
@@ -220,13 +221,13 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
             <div className="shortcuts-section">
               <div className="feedback-header">
                 <span className="material-symbols-outlined feedback-icon">keyboard</span>
-                <h3>Atalhos de Teclado</h3>
-                <p>Agilize sua navegação com estes atalhos rápidos.</p>
+                <h3>{t('help.shortcuts.title')}</h3>
+                <p>{t('help.shortcuts.desc')}</p>
               </div>
               
               <div className="shortcuts-grid">
                 <div className="shortcut-item">
-                  <span className="shortcut-desc">Novo Chat</span>
+                  <span className="shortcut-desc">{t('help.shortcuts.items.new_chat')}</span>
                   <div className="shortcut-keys">
                     <kbd>{cmdKey}</kbd>
                     <kbd>{shiftKey}</kbd>
@@ -234,21 +235,21 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
                   </div>
                 </div>
                 <div className="shortcut-item">
-                  <span className="shortcut-desc">Configurações</span>
+                  <span className="shortcut-desc">{t('help.shortcuts.items.settings')}</span>
                   <div className="shortcut-keys">
                     <kbd>{cmdKey}</kbd>
                     <kbd>,</kbd>
                   </div>
                 </div>
                 <div className="shortcut-item">
-                  <span className="shortcut-desc">Ajuda</span>
+                  <span className="shortcut-desc">{t('help.shortcuts.items.help')}</span>
                   <div className="shortcut-keys">
                     <kbd>{cmdKey}</kbd>
                     <kbd>/</kbd>
                   </div>
                 </div>
                 <div className="shortcut-item">
-                  <span className="shortcut-desc">Ver Atalhos</span>
+                  <span className="shortcut-desc">{t('help.shortcuts.items.view_shortcuts')}</span>
                   <div className="shortcut-keys">
                     <kbd>{cmdKey}</kbd>
                     <kbd>{shiftKey}</kbd>
@@ -256,26 +257,26 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
                   </div>
                 </div>
                 <div className="shortcut-item">
-                  <span className="shortcut-desc">Focar no Chat</span>
+                  <span className="shortcut-desc">{t('help.shortcuts.items.focus_chat')}</span>
                   <div className="shortcut-keys">
                     <kbd>/</kbd>
                   </div>
                 </div>
                 <div className="shortcut-item">
-                  <span className="shortcut-desc">Enviar Mensagem</span>
+                  <span className="shortcut-desc">{t('help.shortcuts.items.send')}</span>
                   <div className="shortcut-keys">
                     <kbd>Enter</kbd>
                   </div>
                 </div>
                 <div className="shortcut-item">
-                  <span className="shortcut-desc">Quebra de Linha</span>
+                  <span className="shortcut-desc">{t('help.shortcuts.items.new_line')}</span>
                   <div className="shortcut-keys">
                     <kbd>{shiftKey}</kbd>
                     <kbd>Enter</kbd>
                   </div>
                 </div>
                 <div className="shortcut-item">
-                  <span className="shortcut-desc">Alternar Microfone</span>
+                  <span className="shortcut-desc">{t('help.shortcuts.items.mic')}</span>
                   <div className="shortcut-keys">
                     <kbd>{cmdKey}</kbd>
                     <kbd>{shiftKey}</kbd>
@@ -283,7 +284,7 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
                   </div>
                 </div>
                 <div className="shortcut-item">
-                  <span className="shortcut-desc">Anexar Arquivo</span>
+                  <span className="shortcut-desc">{t('help.shortcuts.items.attach')}</span>
                   <div className="shortcut-keys">
                     <kbd>{cmdKey}</kbd>
                     <kbd>{shiftKey}</kbd>
@@ -298,13 +299,13 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
             <div className="feedback-section">
               <div className="feedback-header">
                 <span className="material-symbols-outlined feedback-icon">rate_review</span>
-                <h3>Sua opinião é importante</h3>
-                <p>Ajude-nos a melhorar o PsyMindAI enviando suas sugestões, elogios ou reportando problemas.</p>
+                <h3>{t('help.feedback.title')}</h3>
+                <p>{t('help.feedback.desc')}</p>
               </div>
 
               <form onSubmit={handleSubmitFeedback} className="feedback-form">
                 <div className="form-group">
-                  <label>Tipo de Feedback</label>
+                  <label>{t('help.feedback.type_label')}</label>
                   <div className="feedback-types">
                     <button
                       type="button"
@@ -312,7 +313,7 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
                       onClick={() => setFeedbackType('sugestao')}
                     >
                       <span className="material-symbols-outlined">lightbulb</span>
-                      Sugestão
+                      {t('help.feedback.types.suggestion')}
                     </button>
                     <button
                       type="button"
@@ -320,7 +321,7 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
                       onClick={() => setFeedbackType('problema')}
                     >
                       <span className="material-symbols-outlined">bug_report</span>
-                      Problema
+                      {t('help.feedback.types.problem')}
                     </button>
                     <button
                       type="button"
@@ -328,33 +329,33 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
                       onClick={() => setFeedbackType('elogio')}
                     >
                       <span className="material-symbols-outlined">favorite</span>
-                      Elogio
+                      {t('help.feedback.types.praise')}
                     </button>
                   </div>
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="feedback-text">Mensagem</label>
+                  <label htmlFor="feedback-text">{t('help.feedback.message_label')}</label>
                   <textarea
                     id="feedback-text"
                     value={feedbackText}
                     onChange={(e) => setFeedbackText(e.target.value)}
-                    placeholder="Descreva seu feedback em detalhes..."
+                    placeholder={t('help.feedback.message_placeholder')}
                     rows={5}
                     required
                   />
                 </div>
 
                 <div className="form-group">
-                  <label>Anexar Imagem (Opcional)</label>
+                  <label>{t('help.feedback.image_label')}</label>
                   {!feedbackImage ? (
                     <div 
                       className="image-upload-area"
                       onClick={() => fileInputRef.current?.click()}
                     >
                       <span className="material-symbols-outlined upload-icon">add_photo_alternate</span>
-                      <span>Clique para adicionar uma imagem</span>
-                      <span className="upload-hint">JPG, PNG até 5MB</span>
+                      <span>{t('help.feedback.image_hint')}</span>
+                      <span className="upload-hint">{t('help.feedback.image_subhint')}</span>
                       <input
                         type="file"
                         ref={fileInputRef}
@@ -370,7 +371,7 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
                         type="button" 
                         className="remove-image-btn"
                         onClick={removeImage}
-                        title="Remover imagem"
+                        title={t('help.feedback.remove_image')}
                       >
                         <span className="material-symbols-outlined">close</span>
                       </button>
@@ -386,12 +387,12 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
                   {isSubmitting ? (
                     <>
                       <span className="material-symbols-outlined spin">sync</span>
-                      Enviando...
+                      {t('help.feedback.sending')}
                     </>
                   ) : (
                     <>
                       <span className="material-symbols-outlined">send</span>
-                      Enviar Feedback
+                      {t('help.feedback.send')}
                     </>
                   )}
                 </button>
@@ -402,7 +403,7 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
         
         {activeTab === 'faq' && (
           <div className="modal-footer">
-            <button className="primary-btn" onClick={handleClose}>Entendi</button>
+            <button className="primary-btn" onClick={handleClose}>{t('help.got_it')}</button>
           </div>
         )}
       </div>

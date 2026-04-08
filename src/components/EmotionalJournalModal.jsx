@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useEmotionalJournal } from '../context/EmotionalJournalContext';
 import '../styles/emotional-journal.css';
 
-const journalQuestions = [
-  { id: 'excited', question: 'O que te deixou animado no dia de hoje?', icon: 'celebration', color: '#FF9800' },
-  { id: 'irritated', question: 'O que te irritou?', icon: 'sentiment_frustrated', color: '#F44336' },
-  { id: 'frustrated', question: 'Algo te frustrou?', icon: 'sentiment_stressed', color: '#9C27B0' },
-  { id: 'proud', question: 'Quando você se sentiu bem consigo mesmo?', icon: 'emoji_events', color: '#4CAF50' }
-];
-
 const EmotionalJournalModal = ({ isOpen, onClose }) => {
+  const { t, i18n } = useTranslation();
   const { entries, addEntry, deleteEntry } = useEmotionalJournal();
   const [activeTab, setActiveTab] = useState('new');
   const [isClosing, setIsClosing] = useState(false);
@@ -19,6 +14,13 @@ const EmotionalJournalModal = ({ isOpen, onClose }) => {
     frustrated: '',
     proud: ''
   });
+
+  const journalQuestions = [
+    { id: 'excited', question: t('emotional_journal.questions.excited'), icon: 'celebration', color: '#FF9800' },
+    { id: 'irritated', question: t('emotional_journal.questions.irritated'), icon: 'sentiment_frustrated', color: '#F44336' },
+    { id: 'frustrated', question: t('emotional_journal.questions.frustrated'), icon: 'sentiment_stressed', color: '#9C27B0' },
+    { id: 'proud', question: t('emotional_journal.questions.proud'), icon: 'emoji_events', color: '#4CAF50' }
+  ];
 
   const handleClose = () => {
     setIsClosing(true);
@@ -41,7 +43,7 @@ const EmotionalJournalModal = ({ isOpen, onClose }) => {
 
   const formatDate = (isoString) => {
     const date = new Date(isoString);
-    return new Intl.DateTimeFormat('pt-BR', {
+    return new Intl.DateTimeFormat(i18n.language === 'en' ? 'en-US' : 'pt-BR', {
       day: '2-digit',
       month: 'long',
       year: 'numeric',
@@ -56,9 +58,9 @@ const EmotionalJournalModal = ({ isOpen, onClose }) => {
         <div className="modal-header">
           <h2>
             <span className="material-symbols-outlined" style={{ verticalAlign: 'middle', marginRight: '8px' }}>auto_stories</span>
-            Repertório Emocional
+            {t('emotional_journal.title')}
           </h2>
-          <button className="close-btn" onClick={handleClose} aria-label="Fechar repertório emocional">
+          <button className="close-btn" onClick={handleClose} aria-label={t('emotional_journal.close_aria')}>
             <span className="material-symbols-outlined">close</span>
           </button>
         </div>
@@ -70,13 +72,13 @@ const EmotionalJournalModal = ({ isOpen, onClose }) => {
             className={`mode-btn ${activeTab === 'new' ? 'active' : ''}`}
             onClick={() => setActiveTab('new')}
           >
-            Novo Registro
+            {t('emotional_journal.tabs.new')}
           </button>
           <button 
             className={`mode-btn ${activeTab === 'history' ? 'active' : ''}`}
             onClick={() => setActiveTab('history')}
           >
-            Histórico
+            {t('emotional_journal.tabs.history')}
           </button>
           </div>
 
@@ -84,7 +86,7 @@ const EmotionalJournalModal = ({ isOpen, onClose }) => {
             {activeTab === 'new' ? (
             <>
               <h4 style={{ textAlign: 'center', marginBottom: '1.5rem', color: 'var(--text-color)', fontWeight: 500, fontSize: '1rem' }}>
-                Amplie seu vocabulário emocional. Quanto mais você nomeia o que sente, mais fácil é comunicar-se e conectar-se.
+                {t('emotional_journal.subtitle')}
               </h4>
               <div className="journal-questions">
                 {journalQuestions.map(q => (
@@ -97,7 +99,7 @@ const EmotionalJournalModal = ({ isOpen, onClose }) => {
                     </label>
                     <textarea
                       className="journal-textarea"
-                      placeholder="Escreva sua resposta..."
+                      placeholder={t('emotional_journal.placeholder')}
                       value={responses[q.id]}
                       onChange={(e) => setResponses({ ...responses, [q.id]: e.target.value })}
                       rows={3}
@@ -112,14 +114,14 @@ const EmotionalJournalModal = ({ isOpen, onClose }) => {
                   onClick={handleSave}
                   disabled={!Object.values(responses).some(r => r.trim())}
                 >
-                  Salvar Registro
+                  {t('emotional_journal.save')}
                 </button>
               </div>
             </>
           ) : (
             <div className="journal-history">
               {entries.length === 0 ? (
-                <p className="empty-state">Nenhum registro encontrado. Comece seu diário emocional!</p>
+                <p className="empty-state">{t('emotional_journal.empty')}</p>
               ) : (
                 entries.map(entry => (
                   <div key={entry.id} className="journal-entry">
@@ -128,7 +130,7 @@ const EmotionalJournalModal = ({ isOpen, onClose }) => {
                       <button 
                         className="delete-entry-btn"
                         onClick={() => deleteEntry(entry.id)}
-                        title="Excluir registro"
+                        title={t('emotional_journal.delete_aria')}
                       >
                         <span className="material-symbols-outlined">delete</span>
                       </button>

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
 const KindnessModal = ({ isOpen, onClose }) => {
+  const { t } = useTranslation();
   const [isClosing, setIsClosing] = useState(false);
   const [act, setAct] = useState('');
   const [category, setCategory] = useState('random');
@@ -9,86 +11,49 @@ const KindnessModal = ({ isOpen, onClose }) => {
   const [completed, setCompleted] = useState(false);
 
   const categories = [
-    { id: 'random', label: 'Aleatório', icon: 'shuffle', color: '#6366f1' },
-    { id: 'stranger', label: 'Estranhos', icon: 'public', color: '#f59e0b' },
-    { id: 'family', label: 'Família/Amigos', icon: 'group', color: '#ec4899' },
-    { id: 'self', label: 'Para Você', icon: 'favorite', color: '#ef4444' },
-    { id: 'work', label: 'Trabalho/Escola', icon: 'work', color: '#06b6d4' }
+    { id: 'random', label: t('kindness.categories.random'), icon: 'shuffle', color: '#6366f1' },
+    { id: 'stranger', label: t('kindness.categories.stranger'), icon: 'public', color: '#f59e0b' },
+    { id: 'family', label: t('kindness.categories.family'), icon: 'group', color: '#ec4899' },
+    { id: 'self', label: t('kindness.categories.self'), icon: 'favorite', color: '#ef4444' },
+    { id: 'work', label: t('kindness.categories.work'), icon: 'work', color: '#06b6d4' }
   ];
-
-  const actsDatabase = {
-    stranger: [
-      "Elogie sinceramente a roupa ou acessório de alguém que você não conhece.",
-      "Segure a porta para alguém entrar ou sair.",
-      "Deixe um bilhete positivo em um livro da biblioteca ou lugar público.",
-      "Sorria e cumprimente o motorista do ônibus ou caixa do mercado.",
-      "Pague o café da pessoa atrás de você na fila (se puder)."
-    ],
-    family: [
-      "Ligue para um parente apenas para dizer que o ama.",
-      "Faça uma tarefa doméstica que não é sua responsabilidade.",
-      "Escreva uma carta de agradecimento para alguém que te ajudou no passado.",
-      "Cozinhe a refeição favorita de alguém da sua casa.",
-      "Ouça ativamente alguém sem interromper ou olhar o celular."
-    ],
-    self: [
-      "Liste 3 coisas que você gosta em si mesmo.",
-      "Tire 15 minutos para fazer algo que você ama sem culpa.",
-      "Perdoe-se por um erro cometido recentemente.",
-      "Faça uma caminhada consciente observando a natureza.",
-      "Escreva em um diário como você está se sentindo hoje."
-    ],
-    work: [
-      "Ofereça ajuda a um colega que parece sobrecarregado.",
-      "Elogie o trabalho de alguém publicamente ou para o chefe.",
-      "Traga um lanche ou doce para compartilhar com a equipe.",
-      "Deixe um post-it de encorajamento na mesa de alguém.",
-      "Agradeça a alguém por algo específico que ela fez."
-    ]
-  };
 
   const generateAct = async (selectedCategory = category) => {
     setIsLoading(true);
     setCompleted(false);
     
+    // Refresh t() bindings for prompt mapping
+    const promptMap = t('kindness.prompts', { returnObjects: true });
+    // Handle edge case where i18n object hasn't hydrated properly, falling back to english or pt.
+    const getPrompt = (id) => promptMap[id] || promptMap['random'];
+
     try {
       const { sendMessage: sendMessageToGemini } = await import('../services/chat/chatService');
-      
-      const categoryPrompts = {
-        random: 'Sugira um ato de bondade simples e prático que qualquer pessoa pode fazer hoje (1 frase).',
-        stranger: 'Sugira um ato de bondade simples para fazer a um estranho (1 frase).',
-        family: 'Sugira um ato de bondade simples para fazer a família ou amigos (1 frase).',
-        self: 'Sugira um ato de autocuidado ou autocompaixão simples (1 frase).',
-        work: 'Sugira um ato de bondade simples para fazer no trabalho ou escola (1 frase).'
-      };
-      
-      const prompt = categoryPrompts[selectedCategory] || categoryPrompts.random;
+      const prompt = getPrompt(selectedCategory);
       const result = await sendMessageToGemini(prompt, []);
       
       if (result.success) {
         setAct(result.text.trim());
       } else {
-        let pool = [];
-        if (selectedCategory === 'random') {
-          Object.values(actsDatabase).forEach(arr => pool.push(...arr));
-        } else {
-          pool = actsDatabase[selectedCategory];
-        }
-        const randomAct = pool[Math.floor(Math.random() * pool.length)];
-        setAct(randomAct);
+        fallbackAct(selectedCategory);
       }
     } catch (error) {
-      let pool = [];
-      if (selectedCategory === 'random') {
-        Object.values(actsDatabase).forEach(arr => pool.push(...arr));
-      } else {
-        pool = actsDatabase[selectedCategory];
-      }
-      const randomAct = pool[Math.floor(Math.random() * pool.length)];
-      setAct(randomAct);
+      fallbackAct(selectedCategory);
     }
     
     setIsLoading(false);
+  };
+
+  const fallbackAct = (selectedCategory) => {
+    const db = t('kindness.database', { returnObjects: true });
+    let pool = [];
+    if (selectedCategory === 'random') {
+      Object.values(db).forEach(arr => pool.push(...arr));
+    } else {
+      pool = db[selectedCategory] || db['stranger'];
+    }
+    const randomAct = pool[Math.floor(Math.random() * pool.length)];
+    setAct(randomAct);
   };
 
   useEffect(() => {
@@ -107,9 +72,7 @@ const KindnessModal = ({ isOpen, onClose }) => {
 
   const handleComplete = () => {
     setCompleted(true);
-    toast.success("Parabéns! O mundo ficou um pouco melhor.");
-    
-    // Confetti effect could be added here
+    toast.success(t('kindness.success_toast'));
   };
 
   if (!isOpen) return null;
@@ -118,7 +81,7 @@ const KindnessModal = ({ isOpen, onClose }) => {
     <div className={`modal-overlay ${isClosing ? 'closing' : ''}`} onClick={handleClose}>
       <div className="modal-content kindness-modal" onClick={e => e.stopPropagation()}>
         <div className="modal-header">
-          <h2>Atos de Bondade</h2>
+          <h2>{t('kindness.title')}</h2>
           <button className="close-btn" onClick={handleClose}>
             <span className="material-symbols-outlined">close</span>
           </button>
@@ -146,7 +109,7 @@ const KindnessModal = ({ isOpen, onClose }) => {
             {isLoading ? (
               <div className="act-loading">
                 <span className="material-symbols-outlined spin-animation">psychology</span>
-                <p style={{ color: 'var(--text-light)' }}>A IA está encontrando o ato perfeito...</p>
+                <p style={{ color: 'var(--text-light)' }}>{t('kindness.loading')}</p>
               </div>
             ) : (
               <div className={`act-card ${completed ? 'completed' : ''}`}>
@@ -155,7 +118,7 @@ const KindnessModal = ({ isOpen, onClose }) => {
                 {completed && (
                   <div className="completion-badge">
                     <span className="material-symbols-outlined">check_circle</span>
-                    Concluído
+                    {t('kindness.completed')}
                   </div>
                 )}
               </div>
@@ -169,7 +132,7 @@ const KindnessModal = ({ isOpen, onClose }) => {
               disabled={isLoading}
             >
               <span className="material-symbols-outlined">refresh</span>
-              Gerar Outro
+              {t('kindness.generate_new')}
             </button>
             
             <button 
@@ -178,7 +141,7 @@ const KindnessModal = ({ isOpen, onClose }) => {
               disabled={completed || isLoading}
             >
               <span className="material-symbols-outlined">favorite</span>
-              {completed ? 'Feito!' : 'Vou fazer isso!'}
+              {completed ? t('kindness.done') : t('kindness.will_do')}
             </button>
           </div>
         </div>

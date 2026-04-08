@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '../context/ThemeContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import SoundscapesModal from './SoundscapesModal';
@@ -9,6 +10,8 @@ const Header = ({ isSidebarOpen, toggleSidebar, isLoading, onOpenStudyStats }) =
   const { isDarkMode, toggleTheme, fontSize, reducedMotion, highContrast, colorBlindMode } = useTheme();
   const [isSoundModalOpen, setIsSoundModalOpen] = useState(false);
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
+  const { t } = useTranslation();
+  
   const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
   const cmdKey = isMac ? '⌘' : 'Ctrl';
   const shiftKey = isMac ? '⇧' : 'Shift';
@@ -20,8 +23,8 @@ const Header = ({ isSidebarOpen, toggleSidebar, isLoading, onOpenStudyStats }) =
           <button 
             className="header-btn menu-toggle" 
             onClick={toggleSidebar} 
-            title={`Abrir menu (${cmdKey} + B)`}
-            aria-label="Abrir menu lateral"
+            title={`${t('header.open_menu')} (${cmdKey} + B)`}
+            aria-label={t('header.open_menu_aria', 'Abrir menu lateral')}
           >
             <span className="material-symbols-outlined">menu</span>
           </button>
@@ -37,22 +40,22 @@ const Header = ({ isSidebarOpen, toggleSidebar, isLoading, onOpenStudyStats }) =
         <button 
           className="header-btn" 
           onClick={() => setIsSoundModalOpen(true)} 
-          title="Sons Ambientais"
-          aria-label="Abrir sons ambientais"
+          title={t('header.ambient_sounds', 'Sons Ambientais')}
+          aria-label={t('header.ambient_sounds_aria', 'Abrir sons ambientais')}
         >
           <span className="material-symbols-outlined">headphones</span>
         </button>
         <button 
           className="header-btn" 
           onClick={toggleTheme} 
-          title={isDarkMode ? `Modo claro (${cmdKey} + ${shiftKey} + L)` : `Modo escuro (${cmdKey} + ${shiftKey} + L)`}
-          aria-label={isDarkMode ? "Ativar modo claro" : "Ativar modo escuro"}
+          title={isDarkMode ? `${t('header.light_mode')} (${cmdKey} + ${shiftKey} + L)` : `${t('header.dark_mode')} (${cmdKey} + ${shiftKey} + L)`}
+          aria-label={isDarkMode ? t('header.activate_light_mode') : t('header.activate_dark_mode')}
         >
           <span className="material-symbols-outlined">
             {isDarkMode ? 'light_mode' : 'dark_mode'}
           </span>
         </button>
-        <button className="user-profile" onClick={() => setIsAccountModalOpen(true)} title="Conta do Google" aria-label="Perfil do usuário">
+        <button className="user-profile" onClick={() => setIsAccountModalOpen(true)} title={t('header.user_account')} aria-label={t('header.user_profile')}>
           <span className="material-symbols-outlined">account_circle</span>
         </button>
       </div>

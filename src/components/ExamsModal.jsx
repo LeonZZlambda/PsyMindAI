@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useChat } from '../context/ChatContext';
+import { useTranslation, Trans } from 'react-i18next';
 import JudgeModal from './JudgeModal';
 import QuizModal from './QuizModal';
 
 const EnemCalculator = ({ onClose }) => {
   const { sendMessage } = useChat();
+  const { t } = useTranslation();
   const [mode, setMode] = useState('select'); // 'select', 'simple', 'advanced'
   
   const [scores, setScores] = useState({
@@ -65,43 +67,16 @@ const EnemCalculator = ({ onClose }) => {
     setResult({ type: 'simple', value: avg });
 
     if (desiredCourse) {
-      const prompt = `🎓 ANÁLISE DE VIABILIDADE SISU/PROUNI
-
-📊 MINHAS NOTAS DO ENEM:
-• Linguagens: ${scores.linguagens}
-• Ciências Humanas: ${scores.humanas}
-• Ciências da Natureza: ${scores.natureza}
-• Matemática: ${scores.matematica}
-• Redação: ${scores.redacao}
-
-📈 Média Simples: ${avg}
-
-🎯 OBJETIVO:
-• Curso: ${desiredCourse}
-• Modalidade: ${category}
-
-Por favor, me ajude com:
-
-1. 🏛️ UNIVERSIDADES VIÁVEIS
-   - Liste universidades federais/estaduais onde tenho BOA chance
-   - Mencione as notas de corte recentes (2023/2024)
-
-2. ⚠️ OPÇÕES ARRISCADAS
-   - Universidades onde seria mais difícil, mas possível
-
-3. ⚖️ SISTEMA DE PESOS
-   - Como ${desiredCourse} costuma pesar as áreas?
-   - Qual minha nota ponderada estimada?
-
-4. 💡 ESTRATÉGIAS
-   - Devo focar em melhorar alguma área específica?
-   - Dicas para escolha de cursos no SiSU
-
-5. 🧠 APOIO EMOCIONAL
-   - Como lidar com a ansiedade da espera?
-   - Mensagem motivacional personalizada
-
-Seja realista mas encorajador! 💪`;
+      const prompt = t('exams.calculator.prompts.simple', {
+        linguagens: scores.linguagens,
+        humanas: scores.humanas,
+        natureza: scores.natureza,
+        matematica: scores.matematica,
+        redacao: scores.redacao,
+        avg: avg,
+        course: desiredCourse,
+        category: category
+      });
       
       sendMessage(prompt);
       onClose();
@@ -157,7 +132,28 @@ Seja realista mas encorajador! 💪`;
         const observacao = ignoreRedacao ? '\n💡 (Cálculo baseado apenas nas 4 áreas objetivas)' : '';
         const impactoRedacao = ignoreRedacao ? '   - Como a nota da redação pode impactar minhas chances?' : '';
         
-        const prompt = '🎯 ANÁLISE TRI - ESTIMATIVA DE DESEMPENHO\n\n📝 MEUS ACERTOS:\n• Linguagens: ' + correctAnswers.linguagens + '/45 questões\n  📉 Nota estimada: ' + triLinguagens.min + ' - ' + triLinguagens.max + ' pontos\n  \n• Humanas: ' + correctAnswers.humanas + '/45 questões\n  📉 Nota estimada: ' + triHumanas.min + ' - ' + triHumanas.max + ' pontos\n  \n• Natureza: ' + correctAnswers.natureza + '/45 questões\n  📉 Nota estimada: ' + triNatureza.min + ' - ' + triNatureza.max + ' pontos\n  \n• Matemática: ' + correctAnswers.matematica + '/45 questões\n  📉 Nota estimada: ' + triMatematica.min + ' - ' + triMatematica.max + ' pontos\n\n' + redacaoInfo + '\n\n📊 MÉDIA ESTIMADA:\n• Cenário pessimista: ' + totalMin.toFixed(2) + '\n• Cenário otimista: ' + totalMax.toFixed(2) + '\n• Média provável: ~' + totalAvg.toFixed(2) + observacao + '\n\n🎯 MEU OBJETIVO:\n• Curso: ' + desiredCourse + '\n• Modalidade: ' + category + '\n\nPreciso de uma análise completa:\n\n1. 🏛️ CHANCES REAIS\n   - Considerando o intervalo de notas, quais universidades são viáveis?\n   - Compare com notas de corte 2023/2024\n' + impactoRedacao + '\n\n2. 📈 ANÁLISE POR ÁREA\n   - Em quais áreas fui bem?\n   - Onde posso melhorar se fizer novamente?\n\n3. ⚖️ PESOS E ESTRATÉGIA\n   - Como ' + desiredCourse + ' pondera as áreas?\n   - Minhas áreas fortes favorecem este curso?\n\n4. 🔄 PLANO B\n   - Cursos alternativos que combinam com meu perfil de notas\n   - Opções em universidades próximas\n\n5. 💪 APOIO PSICOLÓGICO\n   - Como lidar com a incerteza da estimativa TRI?\n   - Dicas para manter a calma até o resultado oficial\n   - Mensagem motivacional baseada no meu desempenho\n\nSeja honesto sobre as chances, mas também encorajador! 🌟';
+        const prompt = t('exams.calculator.prompts.advanced', {
+          linguagens: correctAnswers.linguagens,
+          triLinguagensMin: triLinguagens.min,
+          triLinguagensMax: triLinguagens.max,
+          humanas: correctAnswers.humanas,
+          triHumanasMin: triHumanas.min,
+          triHumanasMax: triHumanas.max,
+          natureza: correctAnswers.natureza,
+          triNaturezaMin: triNatureza.min,
+          triNaturezaMax: triNatureza.max,
+          matematica: correctAnswers.matematica,
+          triMatematicaMin: triMatematica.min,
+          triMatematicaMax: triMatematica.max,
+          redacaoInfo: redacaoInfo,
+          totalMin: totalMin.toFixed(2),
+          totalMax: totalMax.toFixed(2),
+          totalAvg: totalAvg.toFixed(2),
+          observacao: observacao,
+          course: desiredCourse,
+          category: category,
+          impactoRedacao: impactoRedacao
+        });
         sendMessage(prompt);
         onClose();
     }
@@ -186,15 +182,15 @@ Seja realista mas encorajador! 💪`;
             <div className="calc-mode-icon">
               <span className="material-symbols-outlined">calculate</span>
             </div>
-            <h4>Média Simples</h4>
-            <p>Já tenho minhas notas finais e quero calcular a média.</p>
+            <h4>{t('exams.calculator.mode_simple.title')}</h4>
+            <p>{t('exams.calculator.mode_simple.desc')}</p>
           </div>
           <div className="calc-mode-card" onClick={() => setMode('advanced')}>
             <div className="calc-mode-icon">
               <span className="material-symbols-outlined">fact_check</span>
             </div>
-            <h4>Por Acertos</h4>
-            <p>Tenho apenas o gabarito e quero estimar minha nota.</p>
+            <h4>{t('exams.calculator.mode_advanced.title')}</h4>
+            <p>{t('exams.calculator.mode_advanced.desc')}</p>
           </div>
         </div>
       </div>
@@ -213,7 +209,7 @@ Seja realista mas encorajador! 💪`;
             placeholder=" "
             id="desiredCourse"
           />
-          <label htmlFor="desiredCourse">Curso Almejado (ex: Medicina)</label>
+          <label htmlFor="desiredCourse">{t('exams.calculator.inputs.course')}</label>
         </div>
         <div className="md-input-group full-width has-icon">
           <span className="material-symbols-outlined field-icon">category</span>
@@ -226,7 +222,7 @@ Seja realista mas encorajador! 💪`;
               <option key={cat} value={cat}>{cat}</option>
             ))}
           </select>
-          <label htmlFor="category">Categoria de Concorrência</label>
+          <label htmlFor="category">{t('exams.calculator.inputs.category')}</label>
         </div>
       </div>
 
@@ -243,7 +239,7 @@ Seja realista mas encorajador! 💪`;
                 placeholder=" "
                 id="linguagens"
               />
-              <label htmlFor="linguagens">Linguagens</label>
+              <label htmlFor="linguagens">{t('exams.calculator.subjects.linguagens')}</label>
             </div>
             <div className="md-input-group has-icon">
               <span className="material-symbols-outlined field-icon">history_edu</span>
@@ -255,7 +251,7 @@ Seja realista mas encorajador! 💪`;
                 placeholder=" "
                 id="humanas"
               />
-              <label htmlFor="humanas">Ciências Humanas</label>
+              <label htmlFor="humanas">{t('exams.calculator.subjects.humanas')}</label>
             </div>
             <div className="md-input-group has-icon">
               <span className="material-symbols-outlined field-icon">biotech</span>
@@ -267,7 +263,7 @@ Seja realista mas encorajador! 💪`;
                 placeholder=" "
                 id="natureza"
               />
-              <label htmlFor="natureza">Ciências da Natureza</label>
+              <label htmlFor="natureza">{t('exams.calculator.subjects.natureza')}</label>
             </div>
             <div className="md-input-group has-icon">
               <span className="material-symbols-outlined field-icon">calculate</span>
@@ -279,7 +275,7 @@ Seja realista mas encorajador! 💪`;
                 placeholder=" "
                 id="matematica"
               />
-              <label htmlFor="matematica">Matemática</label>
+              <label htmlFor="matematica">{t('exams.calculator.subjects.matematica')}</label>
             </div>
             <div className="md-input-group has-icon">
               <span className="material-symbols-outlined field-icon">edit_note</span>
@@ -291,7 +287,7 @@ Seja realista mas encorajador! 💪`;
                 placeholder=" "
                 id="redacao"
               />
-              <label htmlFor="redacao">Redação</label>
+              <label htmlFor="redacao">{t('exams.calculator.subjects.redacao')}</label>
             </div>
           </>
         ) : (
@@ -306,7 +302,7 @@ Seja realista mas encorajador! 💪`;
                 placeholder=" "
                 id="linguagens_correct"
               />
-              <label htmlFor="linguagens_correct">Acertos Linguagens (0-45)</label>
+              <label htmlFor="linguagens_correct">{t('exams.calculator.correct_labels.linguagens')}</label>
             </div>
             <div className="md-input-group has-icon">
               <span className="material-symbols-outlined field-icon">history_edu</span>
@@ -318,7 +314,7 @@ Seja realista mas encorajador! 💪`;
                 placeholder=" "
                 id="humanas_correct"
               />
-              <label htmlFor="humanas_correct">Acertos Humanas (0-45)</label>
+              <label htmlFor="humanas_correct">{t('exams.calculator.correct_labels.humanas')}</label>
             </div>
             <div className="md-input-group has-icon">
               <span className="material-symbols-outlined field-icon">biotech</span>
@@ -330,7 +326,7 @@ Seja realista mas encorajador! 💪`;
                 placeholder=" "
                 id="natureza_correct"
               />
-              <label htmlFor="natureza_correct">Acertos Natureza (0-45)</label>
+              <label htmlFor="natureza_correct">{t('exams.calculator.correct_labels.natureza')}</label>
             </div>
             <div className="md-input-group has-icon">
               <span className="material-symbols-outlined field-icon">calculate</span>
@@ -342,7 +338,7 @@ Seja realista mas encorajador! 💪`;
                 placeholder=" "
                 id="matematica_correct"
               />
-              <label htmlFor="matematica_correct">Acertos Matemática (0-45)</label>
+              <label htmlFor="matematica_correct">{t('exams.calculator.correct_labels.matematica')}</label>
             </div>
             <div className={`md-input-group has-icon ${ignoreRedacao ? 'disabled' : ''}`}>
               <span className="material-symbols-outlined field-icon">edit_note</span>
@@ -355,7 +351,7 @@ Seja realista mas encorajador! 💪`;
                 id="redacao_score"
                 disabled={ignoreRedacao}
               />
-              <label htmlFor="redacao_score">Nota Redação (0-1000)</label>
+              <label htmlFor="redacao_score">{t('exams.calculator.correct_labels.redacao')}</label>
             </div>
             
             <div className="checkbox-group full-width">
@@ -366,7 +362,7 @@ Seja realista mas encorajador! 💪`;
                   onChange={(e) => setIgnoreRedacao(e.target.checked)}
                 />
                 <span className="checkmark"></span>
-                <span className="checkbox-label">Ainda não tenho a nota da redação</span>
+                <span className="checkbox-label">{t('exams.calculator.ignore_redacao')}</span>
               </label>
             </div>
           </>
@@ -376,7 +372,7 @@ Seja realista mas encorajador! 💪`;
       {result && (
         <div className="calc-result" ref={resultRef}>
           <span className="label">
-            {mode === 'simple' ? 'Sua Média Simples:' : 'Média Estimada (Intervalo TRI):'}
+            {mode === 'simple' ? t('exams.calculator.result.simple_label') : t('exams.calculator.result.advanced_label')}
           </span>
           
           {mode === 'simple' ? (
@@ -388,31 +384,31 @@ Seja realista mas encorajador! 💪`;
                 <span className="range-sep">a</span>
                 <span className="range-val max">{result.range.max}</span>
               </div>
-              <span className="tri-avg-label">Média provável: ~{result.value}</span>
+              <span className="tri-avg-label">{t('exams.calculator.result.avg', { val: result.value })}</span>
             </div>
           )}
           
           {result.ignoredRedacao && (
             <div className="warning-box">
               <span className="material-symbols-outlined">warning</span>
-              <p>A nota da Redação <strong>NÃO</strong> foi incluída neste cálculo. Esta média considera apenas as 4 áreas objetivas.</p>
+              <p><Trans i18nKey="exams.calculator.result.warning">A nota da Redação <strong>NÃO</strong> foi incluída neste cálculo. Esta média considera apenas as 4 áreas objetivas.</Trans></p>
             </div>
           )}
 
           <p className="note">
             {mode === 'simple' 
-              ? '*Esta é uma média simples. O SiSU e ProUni podem usar pesos diferentes dependendo do curso e universidade.'
-              : '*Esta é uma estimativa baseada em padrões anteriores. A nota real depende do TRI (Teoria de Resposta ao Item) e da dificuldade das questões.'}
+              ? t('exams.calculator.result.note_simple')
+              : t('exams.calculator.result.note_advanced')}
           </p>
         </div>
       )}
 
       <div className="calc-actions">
         <button className="calc-btn secondary" onClick={() => { setMode('select'); setResult(null); }}>
-          Trocar Modo
+          {t('exams.calculator.buttons.switch')}
         </button>
         <button className="calc-btn primary" onClick={mode === 'simple' ? handleCalculateSimple : handleCalculateAdvanced}>
-          {desiredCourse ? 'Calcular e Analisar com IA' : 'Calcular Média'}
+          {desiredCourse ? t('exams.calculator.buttons.calc_ai') : t('exams.calculator.buttons.calc')}
         </button>
       </div>
     </div>
@@ -926,6 +922,7 @@ const getTopicsForSubject = (subjectName, examName) => {
 
 const ExamsModal = ({ isOpen, onClose }) => {
   const { sendMessage } = useChat();
+  const { t } = useTranslation();
   const [isClosing, setIsClosing] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedExam, setSelectedExam] = useState(null);
@@ -1214,8 +1211,8 @@ const ExamsModal = ({ isOpen, onClose }) => {
     <div className={`modal-overlay ${isClosing ? 'closing' : ''}`}>
       <div className="modal-content exams-modal">
         <div className="modal-header">
-          <h2>Preparatório</h2>
-          <button className="close-btn" onClick={handleClose}>
+          <h2>{t('exams.title')}</h2>
+          <button className="close-btn" onClick={handleClose} aria-label={t('exams.close')}>
             <span className="material-symbols-outlined">close</span>
           </button>
         </div>
@@ -1232,7 +1229,7 @@ const ExamsModal = ({ isOpen, onClose }) => {
                   <span className="material-symbols-outlined" style={{ color: category.color, fontSize: '32px' }}>
                     {category.icon}
                   </span>
-                  <span>{category.title}</span>
+                  <span>{t(`exams.categories_title.${category.id}`)}</span>
                 </button>
               ))}
             </div>
@@ -1243,14 +1240,14 @@ const ExamsModal = ({ isOpen, onClose }) => {
                 onClick={() => setSelectedCategory(null)}
               >
                 <span className="material-symbols-outlined">arrow_back</span>
-                Voltar
+                {t('exams.back')}
               </button>
               
               <div className="category-header-small">
                 <span className="material-symbols-outlined" style={{ color: selectedCategory.color, fontSize: '28px' }}>
                   {selectedCategory.icon}
                 </span>
-                <h3>{selectedCategory.title}</h3>
+                <h3>{t(`exams.categories_title.${selectedCategory.id}`)}</h3>
               </div>
 
               <div className="exams-list">
@@ -1277,7 +1274,7 @@ const ExamsModal = ({ isOpen, onClose }) => {
                 onClick={() => setSelectedExam(null)}
               >
                 <span className="material-symbols-outlined">arrow_back</span>
-                Voltar
+                {t('exams.back')}
               </button>
 
               <div className="exam-header-detail">
@@ -1315,12 +1312,12 @@ const ExamsModal = ({ isOpen, onClose }) => {
                 onClick={() => setSelectedSubject(null)}
               >
                 <span className="material-symbols-outlined">arrow_back</span>
-                Voltar
+                {t('exams.back')}
               </button>
 
               <div className="exam-header-detail">
                 <h3>{selectedSubject}</h3>
-                <p>Matriz de Referência e Conteúdos</p>
+                <p>{t('exams.topics_header')}</p>
               </div>
 
               <div className="exam-ai-actions">
@@ -1328,46 +1325,32 @@ const ExamsModal = ({ isOpen, onClose }) => {
                   className="ai-action-btn primary"
                   onClick={() => {
                     const topics = getTopicsForSubject(selectedSubject, selectedExam?.name);
-                    const prompt = `Crie um plano de estudos completo para ${selectedExam.name} - ${selectedSubject}:
-
-📚 TÓPICOS:
-${topics.map((t, i) => `${i + 1}. ${t}`).join('\n')}
-
-Por favor, forneça:
-1. Ordem ideal de estudo
-2. Tempo sugerido para cada tópico
-3. Técnicas de estudo específicas
-4. Recursos recomendados
-5. Como esse conteúdo aparece nas provas
-6. Dicas para fixação e revisão
-
-Seja prático e motivador! 💪`;
+                    const prompt = t('exams.prompts.plan', {
+                      exam: selectedExam.name,
+                      subject: selectedSubject,
+                      topics: topics.map((top, i) => `${i + 1}. ${top}`).join('\n')
+                    });
                     sendMessage(prompt);
                     onClose();
                   }}
                 >
                   <span className="material-symbols-outlined">auto_awesome</span>
-                  Criar Plano de Estudos com IA
+                  {t('exams.actions.ai_plan')}
                 </button>
                 
                 <button 
                   className="ai-action-btn secondary"
                   onClick={() => {
-                    const prompt = `Analise a estratégia de preparação para ${selectedExam.name} - ${selectedSubject}:
-
-🎯 Como devo priorizar meus estudos?
-📊 Quais são os tópicos que mais caem?
-⚡ Técnicas de resolução rápida
-🧠 Como lidar com ansiedade pré-prova
-📝 Dicas de gestão de tempo durante o exame
-
-Dê conselhos práticos e motivadores!`;
+                    const prompt = t('exams.prompts.strategy', {
+                      exam: selectedExam.name,
+                      subject: selectedSubject
+                    });
                     sendMessage(prompt);
                     onClose();
                   }}
                 >
                   <span className="material-symbols-outlined">psychology</span>
-                  Estratégia de Prova
+                  {t('exams.actions.ai_strategy')}
                 </button>
 
                 {selectedExam?.name === 'OBI' && (
@@ -1385,7 +1368,7 @@ Dê conselhos práticos e motivadores!`;
                     }}
                   >
                     <span className="material-symbols-outlined">terminal</span>
-                    Modo Preparatório (Juiz OBI)
+                    {t('exams.actions.ai_judge')}
                   </button>
                 )}
               </div>
@@ -1399,22 +1382,15 @@ Dê conselhos práticos e motivadores!`;
                       <button 
                         className="topic-action-btn"
                         onClick={() => {
-                          const prompt = `Explique de forma clara e didática o seguinte tópico de ${selectedSubject} para ${selectedExam.name}:
-
-📌 ${topic}
-
-Incluindo:
-1. Conceitos fundamentais
-2. Exemplos práticos
-3. Como aparece nas provas
-4. Dicas de memorização
-5. Erros comuns a evitar
-
-Use linguagem acessível! 📚`;
+                          const prompt = t('exams.prompts.explain', {
+                            exam: selectedExam.name,
+                            subject: selectedSubject,
+                            topic: topic
+                          });
                           sendMessage(prompt);
                           onClose();
                         }}
-                        title="Explicar tópico"
+                        title={t('exams.actions.explain_topic')}
                       >
                         <span className="material-symbols-outlined">school</span>
                       </button>
@@ -1428,7 +1404,7 @@ Use linguagem acessível! 📚`;
                           });
                           setShowQuiz(true);
                         }}
-                        title="Gerar questões (Simulado)"
+                        title={t('exams.actions.generate_quiz')}
                       >
                         <span className="material-symbols-outlined">quiz</span>
                       </button>

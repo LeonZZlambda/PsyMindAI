@@ -1,12 +1,15 @@
 import React from 'react';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useChat } from '../context/ChatContext';
 import { Telemetry } from '../services/analytics/telemetry';
 
 const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onAnonymousChat, onChatSelect, isNewChatAnimating, onOpenSettings, onOpenHelp }) => {
   const navigate = useNavigate();
   const { loadChat, chats = [], currentChatId, deleteChat } = useChat();
+  const { t } = useTranslation();
+  
   const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
   const cmdKey = isMac ? '⌘' : 'Ctrl';
   const shiftKey = isMac ? '⇧' : 'Shift';
@@ -21,7 +24,7 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onAnonymousChat, onChatSele
   const handleDeleteChat = (e, chatId) => {
     e.stopPropagation();
     deleteChat(chatId);
-    toast.success('Chat excluído');
+    toast.success(t('sidebar.chat_deleted'));
   };
   
   const formatDate = (dateString) => {
@@ -32,12 +35,16 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onAnonymousChat, onChatSele
     const diffHours = Math.floor(diffMs / 3600000);
     const diffDays = Math.floor(diffMs / 86400000);
     
-    if (diffMins < 1) return 'Agora';
-    if (diffMins < 60) return `${diffMins}m atrás`;
-    if (diffHours < 24) return `${diffHours}h atrás`;
-    if (diffDays === 1) return 'Ontem';
-    if (diffDays < 7) return `${diffDays}d atrás`;
-    return date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+    if (diffMins < 1) return t('sidebar.time.now');
+    if (diffMins < 60) return t('sidebar.time.minutes_ago', { count: diffMins });
+    if (diffHours < 24) return t('sidebar.time.hours_ago', { count: diffHours });
+    if (diffDays === 1) return t('sidebar.time.yesterday');
+    if (diffDays < 7) return t('sidebar.time.days_ago', { count: diffDays });
+    
+    return t('sidebar.time.date', { 
+      day: date.getDate().toString().padStart(2, '0'), 
+      month: (date.getMonth() + 1).toString().padStart(2, '0') 
+    });
   };
 
   return (
@@ -46,8 +53,8 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onAnonymousChat, onChatSele
         <button 
           className="menu-btn" 
           onClick={toggleSidebar} 
-          title="Fechar menu"
-          aria-label="Fechar menu lateral"
+          title={t('sidebar.close_menu')}
+          aria-label={t('sidebar.close_menu')}
         >
           <span className="material-symbols-outlined">menu</span>
         </button>
@@ -55,11 +62,11 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onAnonymousChat, onChatSele
       <button 
         className={`new-chat-btn ${isNewChatAnimating ? 'active' : ''}`}
         onClick={onNewChat} 
-        title={`Novo chat (${cmdKey} + ${shiftKey} + O)`}
-        aria-label="Iniciar novo chat"
+        title={`${t('sidebar.new_chat')} (${cmdKey} + ${shiftKey} + O)`}
+        aria-label={t('sidebar.new_chat')}
       >
         <span className="material-symbols-outlined">add</span>
-        <span>Novo chat</span>
+        <span>{t('sidebar.new_chat')}</span>
         {isOpen && (
           <span className="keyboard-shortcut">
             <span className="key">{cmdKey}</span>
@@ -71,8 +78,8 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onAnonymousChat, onChatSele
       <button 
         className="new-chat-btn secondary anonymous-btn"
         onClick={onAnonymousChat} 
-        title="Conversa Anônima (Nenhum histórico será salvo)"
-        aria-label="Iniciar conversa anônima"
+        title={t('sidebar.anonymous_tooltip')}
+        aria-label={t('sidebar.anonymous_chat')}
         style={{ 
           background: 'var(--card-hover)', 
           color: 'var(--text-color)',
@@ -81,11 +88,11 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onAnonymousChat, onChatSele
         }}
       >
         <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>visibility_off</span>
-        <span>Sessão Anônima</span>
+        <span>{t('sidebar.anonymous_chat')}</span>
       </button>
       
-      <div className="recent-chats" role="group" aria-label="Chats recentes">
-        {chats.length > 0 && <span className="recent-label">Recentes</span>}
+      <div className="recent-chats" role="group" aria-label={t('sidebar.recent_label')}>
+        {chats.length > 0 && <span className="recent-label">{t('sidebar.recent_label')}</span>}
         {chats.map(chat => (
           <div
             key={chat.id}
@@ -104,7 +111,7 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onAnonymousChat, onChatSele
             <button
               className="delete-chat-btn"
               onClick={(e) => handleDeleteChat(e, chat.id)}
-              aria-label="Excluir chat"
+              aria-label={t('sidebar.chat_deleted')}
             >
               <span className="material-symbols-outlined">delete</span>
             </button>
@@ -115,12 +122,12 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onAnonymousChat, onChatSele
       <div className="sidebar-footer">
         <button 
           className="sidebar-item" 
-          title={`Ajuda (${cmdKey} + /)`}
+          title={`${t('sidebar.help')} (${cmdKey} + /)`}
           onClick={() => { Telemetry.trackFeature('help', 'opened'); onOpenHelp('faq'); }}
-          aria-label="Abrir ajuda"
+          aria-label={t('sidebar.help')}
         >
           <span className="material-symbols-outlined">help</span>
-          <span>Ajuda</span>
+          <span>{t('sidebar.help')}</span>
           {isOpen && (
             <span className="keyboard-shortcut">
               <span className="key">{cmdKey}</span>
@@ -130,12 +137,12 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onAnonymousChat, onChatSele
         </button>
         <button 
           className="sidebar-item" 
-          title={`Configurações (${cmdKey} + ,)`}
+          title={`${t('sidebar.settings')} (${cmdKey} + ,)`}
           onClick={() => { Telemetry.trackFeature('settings', 'opened'); onOpenSettings(); }}
-          aria-label="Abrir configurações"
+          aria-label={t('sidebar.settings')}
         >
           <span className="material-symbols-outlined">settings</span>
-          <span>Configurações</span>
+          <span>{t('sidebar.settings')}</span>
           {isOpen && (
             <span className="keyboard-shortcut">
               <span className="key">{cmdKey}</span>

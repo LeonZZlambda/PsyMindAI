@@ -4,15 +4,17 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
+import { useTranslation, Trans } from 'react-i18next';
 import { useChat } from '../context/ChatContext';
 
 const CopyButton = ({ text }) => {
   const [copied, setCopied] = useState(false);
+  const { t } = useTranslation();
 
   const handleCopy = () => {
     navigator.clipboard.writeText(text);
     setCopied(true);
-    toast.success('Texto copiado para a área de transferência');
+    toast.success(t('chat.messages.copied'));
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -20,8 +22,8 @@ const CopyButton = ({ text }) => {
     <button 
       className="action-btn" 
       onClick={handleCopy}
-      title={copied ? "Copiado!" : "Copiar texto"}
-      aria-label="Copiar texto"
+      title={copied ? t('chat.messages.copied_short') : t('chat.messages.copy_text')}
+      aria-label={t('chat.messages.copy_text')}
     >
       <span className="material-symbols-outlined">
         {copied ? 'check' : 'content_copy'}
@@ -32,11 +34,12 @@ const CopyButton = ({ text }) => {
 
 const CodeCopyButton = ({ text }) => {
   const [copied, setCopied] = useState(false);
+  const { t } = useTranslation();
 
   const handleCopy = () => {
     navigator.clipboard.writeText(text);
     setCopied(true);
-    toast.success('Código copiado!');
+    toast.success(t('chat.messages.code_copied'));
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -44,7 +47,7 @@ const CodeCopyButton = ({ text }) => {
     <button 
       className="code-copy-btn"
       onClick={handleCopy}
-      title={copied ? "Copiado!" : "Copiar código"}
+      title={copied ? t('chat.messages.copied_short') : t('chat.messages.copy_code')}
     >
       <span className="material-symbols-outlined">
         {copied ? 'check' : 'content_copy'}
@@ -55,6 +58,7 @@ const CodeCopyButton = ({ text }) => {
 
 const ImageViewer = ({ src, alt, onClose }) => {
   const [copied, setCopied] = useState(false);
+  const { t } = useTranslation();
 
   const handleCopy = async (e) => {
     e.stopPropagation();
@@ -69,10 +73,9 @@ const ImageViewer = ({ src, alt, onClose }) => {
           })
         ]);
         setCopied(true);
-        toast.success('Imagem copiada!');
+        toast.success(t('chat.messages.image_copied'));
         setTimeout(() => setCopied(false), 2000);
       } catch (writeErr) {
-        // Fallback: Convert to PNG using Canvas (better compatibility)
         const img = new Image();
         img.crossOrigin = "anonymous";
         img.src = src;
@@ -95,12 +98,12 @@ const ImageViewer = ({ src, alt, onClose }) => {
           })
         ]);
         setCopied(true);
-        toast.success('Imagem copiada!');
+        toast.success(t('chat.messages.image_copied'));
         setTimeout(() => setCopied(false), 2000);
       }
     } catch (err) {
       console.error('Failed to copy:', err);
-      toast.error('Erro ao copiar imagem');
+      toast.error(t('chat.messages.copy_image_error'));
     }
   };
 
@@ -122,12 +125,12 @@ const ImageViewer = ({ src, alt, onClose }) => {
     >
       <div className="viewer-header">
         <div className="viewer-actions">
-          <button className="viewer-btn" onClick={handleCopy} title={copied ? "Copiado!" : "Copiar imagem"}>
+          <button className="viewer-btn" onClick={handleCopy} title={copied ? t('chat.messages.copied_short') : t('chat.messages.copy_image')}>
             <span className="material-symbols-outlined">
               {copied ? 'check' : 'content_copy'}
             </span>
           </button>
-          <button className="viewer-btn" onClick={onClose} title="Fechar">
+          <button className="viewer-btn" onClick={onClose} title={t('chat.messages.close')}>
             <span className="material-symbols-outlined">close</span>
           </button>
         </div>
@@ -148,6 +151,7 @@ const ImageViewer = ({ src, alt, onClose }) => {
 
 const MessageList = () => {
   const { messages, isTyping, setInput, isAnonymous } = useChat();
+  const { t, i18n } = useTranslation();
   const messagesEndRef = useRef(null);
   const chatContainerRef = useRef(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -193,27 +197,20 @@ const MessageList = () => {
     chatContainerRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const [loadingPhrase, setLoadingPhrase] = useState("Acessando contexto local...");
+  const loadingPhrases = t('chat.messages.loading_phrases', { returnObjects: true });
+  const [loadingPhrase, setLoadingPhrase] = useState(loadingPhrases[0]);
 
   useEffect(() => {
     let interval;
     if (isTyping) {
-      const phrases = [
-        "Puxando contexto local da sua sessão...",
-        "Analisando seus padrões de foco recentes...",
-        "Acessando histórico de humor...",
-        "Formulando abordagens cognitivas...",
-        "Avaliando estratégias de auto-regulação...",
-        "Cruzando dados do Pomodoro..."
-      ];
-      setLoadingPhrase(phrases[Math.floor(Math.random() * phrases.length)]);
+      setLoadingPhrase(loadingPhrases[Math.floor(Math.random() * loadingPhrases.length)]);
       
       interval = setInterval(() => {
-        setLoadingPhrase(phrases[Math.floor(Math.random() * phrases.length)]);
+        setLoadingPhrase(loadingPhrases[Math.floor(Math.random() * loadingPhrases.length)]);
       }, 2000);
     }
     return () => clearInterval(interval);
-  }, [isTyping]);
+  }, [isTyping, loadingPhrases]);
 
   useEffect(() => {
     if (!userScrolledUpRef.current) scrollToBottom();
@@ -240,7 +237,7 @@ const MessageList = () => {
       window.speechSynthesis.cancel();
       setSpeakingId(id);
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'pt-BR';
+      utterance.lang = i18n.language === 'en' ? 'en-US' : 'pt-BR';
       utterance.onend = () => {
         setSpeakingId(prev => prev === id ? null : prev);
       };
@@ -249,7 +246,7 @@ const MessageList = () => {
       };
       window.speechSynthesis.speak(utterance);
     } else {
-      toast.error('Seu navegador não suporta síntese de voz');
+      toast.error(t('chat.messages.speech_error'));
     }
   };
 
@@ -270,7 +267,7 @@ const MessageList = () => {
             <span className="material-symbols-outlined">psychology</span>
           </div>
           <h2>
-            <span>Olá, sou o PsyMind.AI</span>
+            <span>{t('chat.messages.welcome_title')}</span>
           </h2>
           {!isAnonymous && (
             <>
@@ -278,7 +275,7 @@ const MessageList = () => {
                 {isLoadingQuote ? (
                   <div className="daily-quote-container" style={{ opacity: 0.6 }}>
                     <span className="material-symbols-outlined quote-icon" style={{ animation: 'spin 2s linear infinite' }}>autorenew</span>
-                    <p className="daily-quote" style={{ color: 'var(--text-light)' }}>Gerando frase inspiradora...</p>
+                    <p className="daily-quote" style={{ color: 'var(--text-light)' }}>{t('chat.messages.generating_quote')}</p>
                   </div>
                 ) : (
                   <>
@@ -288,12 +285,12 @@ const MessageList = () => {
                       <span className="material-symbols-outlined quote-icon quote-end">format_quote</span>
                     </div>
                     <p className="quote-date">
-                      {new Date().toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }).replace(/^\w/, c => c.toUpperCase())}
+                      {new Date().toLocaleDateString(i18n.language === 'en' ? 'en-US' : 'pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }).replace(/^\w/, c => c.toUpperCase())}
                     </p>
                   </>
                 )}
               </div>
-              <p className="welcome-subtitle">Como posso ajudar você hoje?</p>
+              <p className="welcome-subtitle">{t('chat.messages.welcome_subtitle')}</p>
             </>
           )}
           
@@ -315,63 +312,57 @@ const MessageList = () => {
               <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
                 <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color, #e0a3ff)' }}>visibility_off</span>
               </div>
-              <h3 style={{ fontSize: '1.2rem', marginBottom: '12px', color: 'var(--text-color, #fff)' }}>Private Mode ON – No analytics – No history</h3>
+              <h3 style={{ fontSize: '1.2rem', marginBottom: '12px', color: 'var(--text-color, #fff)' }}>{t('chat.messages.anonymous_private_mode_title')}</h3>
               <p style={{ fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '12px' }}>
-                <strong>Esta conversa não aparecerá no histórico e todas as estatísticas estão pausadas.</strong>
+                <strong>{t('chat.messages.anonymous_desc_1')}</strong>
               </p>
               <p style={{ fontSize: '0.85rem', lineHeight: '1.5', opacity: 0.8 }}>
-                As conversas anônimas são descartadas ao fechar a janela e não afetam seus gráficos de produtividade. Total privacidade.
+                {t('chat.messages.anonymous_desc_2')}
               </p>
             </div>
           ) : (
             <div className="suggestions" role="group" aria-label="Sugestões de perguntas">
               <button 
                 className="suggestion" 
-                onClick={() => setInput('Estou me sentindo ansioso com as provas')}
-                aria-label="Sugestão: Estou me sentindo ansioso com as provas"
+                onClick={() => setInput(t('chat.messages.suggestions.anxiety_prompt'))}
               >
-                <strong><span className="material-symbols-outlined" aria-hidden="true">psychology_alt</span> Ansiedade com provas</strong><br />
-                <span>Como lidar com a ansiedade antes dos exames</span>
+                <strong><span className="material-symbols-outlined" aria-hidden="true">psychology_alt</span> {t('chat.messages.suggestions.anxiety_title')}</strong><br />
+                <span>{t('chat.messages.suggestions.anxiety_desc')}</span>
               </button>
               <button 
                 className="suggestion" 
-                onClick={() => setInput('Tenho dificuldade para me concentrar')}
-                aria-label="Sugestão: Tenho dificuldade para me concentrar"
+                onClick={() => setInput(t('chat.messages.suggestions.focus_prompt'))}
               >
-                <strong><span className="material-symbols-outlined" aria-hidden="true">center_focus_strong</span> Falta de concentração</strong><br />
-                <span>Estratégias para melhorar o foco nos estudos</span>
+                <strong><span className="material-symbols-outlined" aria-hidden="true">center_focus_strong</span> {t('chat.messages.suggestions.focus_title')}</strong><br />
+                <span>{t('chat.messages.suggestions.focus_desc')}</span>
               </button>
               <button 
                 className="suggestion" 
-                onClick={() => setInput('Como posso melhorar minha autoestima?')}
-                aria-label="Sugestão: Como posso melhorar minha autoestima?"
+                onClick={() => setInput(t('chat.messages.suggestions.esteem_prompt'))}
               >
-                <strong><span className="material-symbols-outlined" aria-hidden="true">auto_awesome</span> Autoestima</strong><br />
-                <span>Dicas para fortalecer a confiança em si mesmo</span>
+                <strong><span className="material-symbols-outlined" aria-hidden="true">auto_awesome</span> {t('chat.messages.suggestions.esteem_title')}</strong><br />
+                <span>{t('chat.messages.suggestions.esteem_desc')}</span>
               </button>
               <button 
                 className="suggestion" 
-                onClick={() => setInput('Quais são as melhores técnicas de estudo?')}
-                aria-label="Sugestão: Quais são as melhores técnicas de estudo?"
+                onClick={() => setInput(t('chat.messages.suggestions.techniques_prompt'))}
               >
-                <strong><span className="material-symbols-outlined" aria-hidden="true">school</span> Técnicas de Estudo</strong><br />
-                <span>Pomodoro, Flashcards e métodos eficazes</span>
+                <strong><span className="material-symbols-outlined" aria-hidden="true">school</span> {t('chat.messages.suggestions.techniques_title')}</strong><br />
+                <span>{t('chat.messages.suggestions.techniques_desc')}</span>
               </button>
               <button 
                 className="suggestion" 
-                onClick={() => setInput('Me ajude a criar um cronograma de estudos')}
-                aria-label="Sugestão: Me ajude a criar um cronograma de estudos"
+                onClick={() => setInput(t('chat.messages.suggestions.schedule_prompt'))}
               >
-                <strong><span className="material-symbols-outlined" aria-hidden="true">calendar_month</span> Planejamento</strong><br />
-                <span>Organize sua rotina e horários de estudo</span>
+                <strong><span className="material-symbols-outlined" aria-hidden="true">calendar_month</span> {t('chat.messages.suggestions.schedule_title')}</strong><br />
+                <span>{t('chat.messages.suggestions.schedule_desc')}</span>
               </button>
               <button 
                 className="suggestion" 
-                onClick={() => setInput('Como evitar o burnout nos estudos?')}
-                aria-label="Sugestão: Como evitar o burnout nos estudos?"
+                onClick={() => setInput(t('chat.messages.suggestions.burnout_prompt'))}
               >
-                <strong><span className="material-symbols-outlined" aria-hidden="true">spa</span> Descanso Mental</strong><br />
-                <span>Importância do lazer e prevenção ao burnout</span>
+                <strong><span className="material-symbols-outlined" aria-hidden="true">spa</span> {t('chat.messages.suggestions.burnout_title')}</strong><br />
+                <span>{t('chat.messages.suggestions.burnout_desc')}</span>
               </button>
             </div>
           )}
@@ -408,7 +399,7 @@ const MessageList = () => {
                             ) : (
                               <div className="message-file-generic">
                                 <span className="material-symbols-outlined">description</span>
-                                <span>{file.name || 'Arquivo'}</span>
+                                <span>{file.name || t('chat.input.file')}</span>
                               </div>
                             )}
                           </div>
@@ -449,8 +440,8 @@ const MessageList = () => {
                     <button 
                       className={`action-btn ${speakingId === index ? 'active' : ''}`}
                       onClick={() => speakMessage(message.content, index)}
-                      title={speakingId === index ? "Parar leitura" : "Ouvir mensagem"}
-                      aria-label={speakingId === index ? "Parar leitura" : "Ouvir mensagem"}
+                      title={speakingId === index ? t('chat.messages.speech_stop') : t('chat.messages.speech_play')}
+                      aria-label={speakingId === index ? t('chat.messages.speech_stop') : t('chat.messages.speech_play')}
                     >
                       <span className="material-symbols-outlined">
                         {speakingId === index ? 'stop_circle' : 'volume_up'}
@@ -504,7 +495,7 @@ const MessageList = () => {
             exit={{ opacity: 0, scale: 0.5, y: 20 }}
             whileHover={{ scale: 1.1, y: -5 }}
             whileTap={{ scale: 0.9 }}
-            title="Voltar ao topo"
+            title={t('chat.messages.scroll_top')}
           >
             <span className="material-symbols-outlined">arrow_upward</span>
           </motion.button>

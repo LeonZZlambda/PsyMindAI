@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { useTranslation } from 'react-i18next';
 import { sendMessage } from '../services/chat/chatService';
 import '../styles/quiz.css';
 
 const QuizModal = ({ isOpen, onClose, config }) => {
+  const { t } = useTranslation();
   const [isClosing, setIsClosing] = useState(false);
   const [loading, setLoading] = useState(true);
   const [questions, setQuestions] = useState([]);
@@ -36,18 +38,11 @@ const QuizModal = ({ isOpen, onClose, config }) => {
     if (!config || !config.topic) return;
     setLoading(true);
     try {
-      const prompt = `Atue como um gerador de questões para simulados. Crie 4 questões originais de nível do exame ${config.exam} na matéria de ${config.subject} focando no tema: ${config.topic}.
-
-Retorne APENAS um array em formato JSON puro, contendo as questões. Em hipótese alguma escreva qualquer outra palavra fora das chaves do JSON. Não inclua \`\`\`json no início.
-
-[
-  {
-    "pergunta": "Texto da pergunta formatado...",
-    "alternativas": ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4", "Alternativa 5"],
-    "correta": 0,
-    "explicacao": "Explicação detalhada da alternativa correta."
-  }
-]`;
+      const prompt = t('quiz.prompt', {
+        exam: config.exam,
+        subject: config.subject,
+        topic: config.topic
+      });
 
       const res = await sendMessage(prompt, []);
       
@@ -78,10 +73,10 @@ Retorne APENAS um array em formato JSON puro, contendo as questões. Em hipótes
       console.error(e);
       // Fallback in case the JSON parsing fails
       setQuestions([{
-          pergunta: "Houve um erro na comunicação avançada com a IA para gerar este JSON. Tente novamente mais tarde.",
-          alternativas: ["Tentar novamente"],
+          pergunta: t('quiz.messages.error_comm'),
+          alternativas: [t('quiz.messages.try_again')],
           correta: 0,
-          explicacao: "Falha de rede ou resposta mal formatada."
+          explicacao: t('quiz.messages.error_desc')
       }]);
     } finally {
       setLoading(false);
@@ -130,10 +125,10 @@ Retorne APENAS um array em formato JSON puro, contendo as questões. Em hipótes
       <div className="quiz-modal modal-content">
         <div className="quiz-header">
           <div className="quiz-title-area">
-            <h2>Simulado Integrado: {config?.topic}</h2>
+            <h2>{t('quiz.title', { topic: config?.topic })}</h2>
             <span className="quiz-subtitle">{config?.subject} - {config?.exam}</span>
           </div>
-          <button className="close-btn" onClick={handleClose}>
+          <button className="close-btn" onClick={handleClose} aria-label={t('quiz.close')}>
             <span className="material-symbols-outlined">close</span>
           </button>
         </div>
@@ -142,22 +137,22 @@ Retorne APENAS um array em formato JSON puro, contendo as questões. Em hipótes
           {loading ? (
              <div className="quiz-loading">
                 <span className="material-symbols-outlined rotating" style={{fontSize: '48px', color: 'var(--primary-color)'}}>psychology</span>
-                <h3>Gerando questões inéditas...</h3>
-                <p>Nossa IA está formulando o simulado pedagógico no formato de {config?.exam}.</p>
+                <h3>{t('quiz.loading.title')}</h3>
+                <p>{t('quiz.loading.desc', { exam: config?.exam })}</p>
              </div>
           ) : quizFinished ? (
              <div className="quiz-results">
                 <span className="material-symbols-outlined" style={{fontSize: '64px', color: 'gold'}}>workspace_premium</span>
-                <h2>Treinamento Concluído!</h2>
+                <h2>{t('quiz.results.title')}</h2>
                 <div className="score-display">
-                    Você acertou {score} de {questions.length} questões.
+                    {t('quiz.results.score', { score, total: questions.length })}
                 </div>
-                <button className="primary-btn" style={{marginTop: '20px'}} onClick={handleClose}>Finalizar Revisão</button>
+                <button className="primary-btn" style={{marginTop: '20px'}} onClick={handleClose}>{t('quiz.results.finish')}</button>
              </div>
           ) : (
              <div className="quiz-active">
                 <div className="quiz-progress">
-                    Questão {currentIndex + 1} de {questions.length}
+                    {t('quiz.active.progress', { current: currentIndex + 1, total: questions.length })}
                 </div>
                 
                 <div className="quiz-question markdown-content">
@@ -191,7 +186,7 @@ Retorne APENAS um array em formato JSON puro, contendo as questões. Em hipótes
 
                 {isEvaluated && (
                     <div className={`quiz-explanation ${selectedAnswer === questions[currentIndex].correta ? 'success-box' : 'error-box'}`}>
-                        <h4>{selectedAnswer === questions[currentIndex].correta ? '✨ Resposta Correta!' : '❌ Resposta Incorreta'}</h4>
+                        <h4>{selectedAnswer === questions[currentIndex].correta ? t('quiz.active.correct') : t('quiz.active.incorrect')}</h4>
                         <div className="markdown-content">
                              <ReactMarkdown>{questions[currentIndex]?.explicacao}</ReactMarkdown>
                         </div>
@@ -205,14 +200,14 @@ Retorne APENAS um array em formato JSON puro, contendo as questões. Em hipótes
                             disabled={selectedAnswer === null}
                             onClick={handleConfirm}
                         >
-                            Confirmar Resposta
+                            {t('quiz.active.confirm')}
                         </button>
                     ) : (
                         <button 
                             className="primary-btn cta" 
                             onClick={handleNext}
                         >
-                            {currentIndex + 1 === questions.length ? 'Ver Resultados' : 'Próxima Questão'}
+                            {currentIndex + 1 === questions.length ? t('quiz.active.see_results') : t('quiz.active.next')}
                             <span className="material-symbols-outlined">arrow_forward</span>
                         </button>
                     )}

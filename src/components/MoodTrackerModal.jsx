@@ -1,18 +1,11 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useMood } from '../context/MoodContext';
 import { generateMoodInsight } from '../services/tools/moodService';
 import '../styles/mood.css';
 
-const moods = [
-  { id: 'happy', label: 'Feliz', icon: 'sentiment_very_satisfied', color: '#4CAF50' },
-  { id: 'calm', label: 'Calmo', icon: 'self_improvement', color: '#009688' },
-  { id: 'focused', label: 'Focado', icon: 'center_focus_strong', color: '#2196F3' },
-  { id: 'anxious', label: 'Ansioso', icon: 'sentiment_worried', color: '#FF9800' },
-  { id: 'tired', label: 'Cansado', icon: 'bedtime', color: '#9C27B0' },
-  { id: 'sad', label: 'Triste', icon: 'sentiment_dissatisfied', color: '#607D8B' }
-];
-
 const MoodTrackerModal = ({ isOpen, onClose }) => {
+  const { t, i18n } = useTranslation();
   const { moodHistory, addMoodEntry, deleteMoodEntry } = useMood();
   const [selectedMood, setSelectedMood] = useState(null);
   const [note, setNote] = useState('');
@@ -20,6 +13,15 @@ const MoodTrackerModal = ({ isOpen, onClose }) => {
   const [aiInsight, setAiInsight] = useState('');
   const [isLoadingInsight, setIsLoadingInsight] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+
+  const moods = [
+    { id: 'happy', label: t('mood_tracker.moods.happy'), icon: 'sentiment_very_satisfied', color: '#4CAF50' },
+    { id: 'calm', label: t('mood_tracker.moods.calm'), icon: 'self_improvement', color: '#009688' },
+    { id: 'focused', label: t('mood_tracker.moods.focused'), icon: 'center_focus_strong', color: '#2196F3' },
+    { id: 'anxious', label: t('mood_tracker.moods.anxious'), icon: 'sentiment_worried', color: '#FF9800' },
+    { id: 'tired', label: t('mood_tracker.moods.tired'), icon: 'bedtime', color: '#9C27B0' },
+    { id: 'sad', label: t('mood_tracker.moods.sad'), icon: 'sentiment_dissatisfied', color: '#607D8B' }
+  ];
 
   const handleClose = () => {
     setIsClosing(true);
@@ -48,14 +50,14 @@ const MoodTrackerModal = ({ isOpen, onClose }) => {
       const insight = await generateMoodInsight(moodHistory);
       setAiInsight(insight);
     } catch (error) {
-      setAiInsight('❌ Erro ao conectar com IA. Tente novamente.');
+      setAiInsight(t('mood_tracker.ai_insight.error'));
     }
     setIsLoadingInsight(false);
   };
 
   const formatDate = (isoString) => {
     const date = new Date(isoString);
-    return new Intl.DateTimeFormat('pt-BR', {
+    return new Intl.DateTimeFormat(i18n.language === 'en' ? 'en-US' : 'pt-BR', {
       day: '2-digit',
       month: 'short',
       hour: '2-digit',
@@ -69,9 +71,9 @@ const MoodTrackerModal = ({ isOpen, onClose }) => {
         <div className="modal-header">
           <h2>
             <span className="material-symbols-outlined" style={{ verticalAlign: 'middle', marginRight: '8px' }}>mood</span>
-            Diário de Emoções
+            {t('mood_tracker.title')}
           </h2>
-          <button className="close-btn" onClick={handleClose} aria-label="Fechar diário de emoções">
+          <button className="close-btn" onClick={handleClose} aria-label={t('mood_tracker.close_aria')}>
             <span className="material-symbols-outlined">close</span>
           </button>
         </div>
@@ -82,20 +84,20 @@ const MoodTrackerModal = ({ isOpen, onClose }) => {
             className={`mode-btn ${activeTab === 'new' ? 'active' : ''}`}
             onClick={() => setActiveTab('new')}
           >
-            Novo Registro
+            {t('mood_tracker.tabs.new')}
           </button>
           <button 
             className={`mode-btn ${activeTab === 'history' ? 'active' : ''}`}
             onClick={() => setActiveTab('history')}
           >
-            Histórico
+            {t('mood_tracker.tabs.history')}
           </button>
         </div>
 
         <div className="mood-content">
           {activeTab === 'new' ? (
             <>
-              <h4 className="mood-section-title">Como você está se sentindo agora?</h4>
+              <h4 className="mood-section-title">{t('mood_tracker.question')}</h4>
               <div className="mood-grid">
                 {moods.map(mood => (
                   <button
@@ -113,21 +115,21 @@ const MoodTrackerModal = ({ isOpen, onClose }) => {
 
               <textarea
                 className="mood-note-input"
-                placeholder="Adicione uma nota sobre o que está sentindo... (opcional)"
+                placeholder={t('mood_tracker.note_placeholder')}
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
               />
 
               <div className="mood-actions">
                 <button className="primary-btn cta" onClick={handleSave} disabled={!selectedMood}>
-                  Salvar Registro
+                  {t('mood_tracker.save')}
                 </button>
               </div>
             </>
           ) : (
             <div className="history-list">
               {moodHistory.length === 0 ? (
-                <p className="empty-state">Nenhum registro encontrado.</p>
+                <p className="empty-state">{t('mood_tracker.empty')}</p>
               ) : (
                 <>
                   <button 
@@ -138,7 +140,7 @@ const MoodTrackerModal = ({ isOpen, onClose }) => {
                     <span className="material-symbols-outlined">
                       {isLoadingInsight ? 'hourglass_empty' : 'psychology'}
                     </span>
-                    {isLoadingInsight ? 'Analisando...' : 'Análise IA do Humor'}
+                    {isLoadingInsight ? t('mood_tracker.ai_insight.analyzing') : t('mood_tracker.ai_insight.button')}
                   </button>
                   
                   {aiInsight && (
@@ -156,7 +158,7 @@ const MoodTrackerModal = ({ isOpen, onClose }) => {
                     </div>
                     <div className="history-content">
                       <div className="history-header">
-                        <span className="history-mood">{entry.mood.label}</span>
+                        <span className="history-mood">{t(`mood_tracker.moods.${entry.mood.id}`, entry.mood.label)}</span>
                         <span className="history-date">{formatDate(entry.date)}</span>
                       </div>
                       {entry.note && <p className="history-note">{entry.note}</p>}
@@ -164,7 +166,7 @@ const MoodTrackerModal = ({ isOpen, onClose }) => {
                     <button 
                       className="delete-entry-btn"
                       onClick={() => deleteMoodEntry(entry.id)}
-                      title="Excluir registro"
+                      title={t('mood_tracker.delete_aria')}
                     >
                       <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>delete</span>
                     </button>

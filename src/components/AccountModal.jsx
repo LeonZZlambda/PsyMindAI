@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const AccountModal = ({ isOpen, onClose, onOpenStudyStats, initialView = 'account' }) => {
+  const { t } = useTranslation();
   const [activeView, setActiveView] = useState(initialView);
   const [profileSettings, setProfileSettings] = useState({
     responseMode: 'default',
@@ -75,7 +77,7 @@ const AccountModal = ({ isOpen, onClose, onOpenStudyStats, initialView = 'accoun
               style={{ width: '100%', display: 'flex', flexDirection: 'column' }}
             >
               <div style={{ padding: '12px', display: 'flex', justifyContent: 'flex-end', flexShrink: 0 }}>
-                <button className="close-btn" onClick={onClose} aria-label="Fechar">
+                <button className="close-btn" onClick={onClose} aria-label={t('account.close')}>
                   <span className="material-symbols-outlined">close</span>
                 </button>
               </div>
@@ -103,11 +105,11 @@ const AccountModal = ({ isOpen, onClose, onOpenStudyStats, initialView = 'accoun
                 </div>
                 
                 <h2 style={{ margin: '0 0 16px', fontSize: '1.4rem', fontWeight: 400, color: 'var(--text-color)' }}>
-                  Olá, Usuário!
+                  {t('account.greeting', { name: 'Usuário' })}
                 </h2>
                 
                 <button className="account-manage-btn">
-                  Gerenciar sua Conta
+                  {t('account.manage')}
                 </button>
               </div>
 
@@ -117,7 +119,7 @@ const AccountModal = ({ isOpen, onClose, onOpenStudyStats, initialView = 'accoun
                   className="account-menu-item"
                 >
                   <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>tune</span>
-                  Personalizar Assistente
+                  {t('account.menu.personalize')}
                 </button>
 
                 <button 
@@ -128,17 +130,17 @@ const AccountModal = ({ isOpen, onClose, onOpenStudyStats, initialView = 'accoun
                   className="account-menu-item"
                 >
                   <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>bar_chart</span>
-                  Estatísticas e Atividade
+                  {t('account.menu.stats')}
                 </button>
 
                 <button className="account-menu-item">
                   <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>add_circle</span>
-                  Adicionar outra conta
+                  {t('account.menu.add_account')}
                 </button>
 
                 <button className="account-menu-item">
                   <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>logout</span>
-                  Sair da conta
+                  {t('account.menu.logout')}
                 </button>
               </div>
               
@@ -152,9 +154,9 @@ const AccountModal = ({ isOpen, onClose, onOpenStudyStats, initialView = 'accoun
                 color: 'var(--text-color)',
                 opacity: 0.7
               }}>
-                <a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>Política de Privacidade</a>
+                <a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>{t('account.links.privacy')}</a>
                 <span>•</span>
-                <a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>Termos de Serviço</a>
+                <a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>{t('account.links.terms')}</a>
               </div>
             </motion.div>
           ) : (
@@ -171,34 +173,30 @@ const AccountModal = ({ isOpen, onClose, onOpenStudyStats, initialView = 'accoun
                   <button className="header-btn" onClick={() => setActiveView('account')} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--text-color)', display: 'flex', alignItems: 'center', padding: '0', height: 'auto' }}>
                     <span className="material-symbols-outlined">arrow_back</span>
                   </button>
-                  <h2 style={{ margin: 0, fontSize: '1.2rem' }}>Personalização</h2>
+                  <h2 style={{ margin: 0, fontSize: '1.2rem' }}>{t('account.personalization.title')}</h2>
                 </div>
               </div>
               
               <div className="settings-body" style={{ padding: '24px', overflowY: 'auto', flex: 1 }}>
-                                <div className="settings-section">
-                  <h3 style={{ fontSize: '1.2rem', marginBottom: '8px' }}>Perfil de Resposta</h3>
+                <div className="settings-section">
+                  <h3 style={{ fontSize: '1.2rem', marginBottom: '8px' }}>{t('account.personalization.profile.title')}</h3>
                   <p style={{ fontSize: '0.85rem', color: 'var(--text-color)', opacity: 0.8, marginBottom: '16px' }}>
-                    Escolha um perfil de comportamento para o assistente.
+                    {t('account.personalization.profile.desc')}
                   </p>
                   
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', marginBottom: '24px' }}>
-                    {[
-                      { id: 'default', title: 'Padrão', icon: 'smart_toy', desc: 'Equilibrado e adaptável' },
-                      { id: 'reflective', title: 'Reflexivo', icon: 'psychology', desc: 'Foco em análise emocional' },
-                      { id: 'action', title: 'Ação', icon: 'bolt', desc: 'Direto e focado em soluções' },
-                      { id: 'learning', title: 'Didático', icon: 'school', desc: 'Explicações passo a passo' },
-                      { id: 'support', title: 'Acolhimento', icon: 'volunteer_activism', desc: 'Validação e suporte emocional' }
-                    ].map(mode => (
+                    {['default', 'reflective', 'action', 'learning', 'support'].map(modeId => {
+                      const icons = { default: 'smart_toy', reflective: 'psychology', action: 'bolt', learning: 'school', support: 'volunteer_activism' };
+                      return (
                       <button
-                        key={mode.id}
+                        key={modeId}
                         type="button"
-                        onClick={() => handleChange({ target: { name: 'responseMode', type: 'text', value: mode.id }})}
+                        onClick={() => handleChange({ target: { name: 'responseMode', type: 'text', value: modeId }})}
                         style={{
                           padding: '12px',
                           borderRadius: '12px',
-                          border: profileSettings.responseMode === mode.id || (!profileSettings.responseMode && mode.id === 'default') ? '2px solid var(--primary-color)' : '1px solid var(--border-color)',
-                          background: profileSettings.responseMode === mode.id || (!profileSettings.responseMode && mode.id === 'default') ? 'var(--primary-color-alpha)' : 'transparent',
+                          border: profileSettings.responseMode === modeId || (!profileSettings.responseMode && modeId === 'default') ? '2px solid var(--primary-color)' : '1px solid var(--border-color)',
+                          background: profileSettings.responseMode === modeId || (!profileSettings.responseMode && modeId === 'default') ? 'var(--primary-color-alpha)' : 'transparent',
                           color: 'var(--text-color)',
                           cursor: 'pointer',
                           display: 'flex',
@@ -210,79 +208,79 @@ const AccountModal = ({ isOpen, onClose, onOpenStudyStats, initialView = 'accoun
                           width: '100%'
                         }}
                       >
-                        <span className="material-symbols-outlined" style={{ color: profileSettings.responseMode === mode.id || (!profileSettings.responseMode && mode.id === 'default') ? 'var(--primary-color)' : 'inherit' }}>
-                          {mode.icon}
+                        <span className="material-symbols-outlined" style={{ color: profileSettings.responseMode === modeId || (!profileSettings.responseMode && modeId === 'default') ? 'var(--primary-color)' : 'inherit' }}>
+                          {icons[modeId]}
                         </span>
                         <div>
-                          <strong style={{ display: 'block', fontSize: '0.95rem' }}>{mode.title}</strong>
-                          <span style={{ fontSize: '0.75rem', opacity: 0.7 }}>{mode.desc}</span>
+                          <strong style={{ display: 'block', fontSize: '0.95rem' }}>{t(`account.personalization.profile.modes.${modeId}.title`)}</strong>
+                          <span style={{ fontSize: '0.75rem', opacity: 0.7 }}>{t(`account.personalization.profile.modes.${modeId}.desc`)}</span>
                         </div>
                       </button>
-                    ))}
+                    )})}
                   </div>
                 </div>
 
                 <div className="settings-section" style={{ borderTop: '1px solid var(--border-color)', paddingTop: '24px' }}>
-                  <h3 style={{ fontSize: '1rem', marginBottom: '12px' }}>Ajustes Finos Opcionais</h3>
+                  <h3 style={{ fontSize: '1rem', marginBottom: '12px' }}>{t('account.personalization.fine_tuning.title')}</h3>
                   <div className="setting-item">
                     <div className="setting-info">
-                      <span className="setting-label">Estilo padrão</span>
-                      <span className="setting-desc">Defina o tom do Assistente.</span>
+                      <span className="setting-label">{t('account.personalization.fine_tuning.style.label')}</span>
+                      <span className="setting-desc">{t('account.personalization.fine_tuning.style.desc')}</span>
                     </div>
                     <select name="basicStyle" value={profileSettings.basicStyle} onChange={handleChange} className="select-input">
-                      <option value="default">Padrão</option>
-                      <option value="concise">Mais conciso</option>
-                      <option value="detailed">Mais detalhado</option>
-                      <option value="casual">Mais casual</option>
-                      <option value="formal">Mais formal</option>
+                      <option value="default">{t('account.personalization.fine_tuning.style.options.default')}</option>
+                      <option value="concise">{t('account.personalization.fine_tuning.style.options.concise')}</option>
+                      <option value="detailed">{t('account.personalization.fine_tuning.style.options.detailed')}</option>
+                      <option value="casual">{t('account.personalization.fine_tuning.style.options.casual')}</option>
+                      <option value="formal">{t('account.personalization.fine_tuning.style.options.formal')}</option>
                     </select>
                   </div>
                 </div>
 
                 <div className="settings-section">
-                  <h3 style={{ fontSize: '1rem', marginBottom: '12px' }}>Características</h3>
+                  <h3 style={{ fontSize: '1rem', marginBottom: '12px' }}>{t('account.personalization.traits.title')}</h3>
                   
                   <div className="setting-item">
                     <div className="setting-info">
-                      <span className="setting-label">Acolhedor</span>
+                      <span className="setting-label">{t('account.personalization.traits.welcoming')}</span>
                     </div>
                     <select name="welcoming" value={profileSettings.welcoming} onChange={handleChange} className="select-input">
-                      <option value="less">Menos</option>
-                      <option value="default">Padrão</option>
-                      <option value="more">Mais</option>
+                      <option value="less">{t('account.personalization.traits.levels.less')}</option>
+                      <option value="default">{t('account.personalization.traits.levels.default')}</option>
+                      <option value="more">{t('account.personalization.traits.levels.more')}</option>
                     </select>
                   </div>
 
                   <div className="setting-item">
                     <div className="setting-info">
-                      <span className="setting-label">Entusiasmado</span>
+                      <span className="setting-label">{t('account.personalization.traits.enthusiastic')}</span>
                     </div>
                     <select name="enthusiastic" value={profileSettings.enthusiastic} onChange={handleChange} className="select-input">
-                      <option value="less">Menos</option>
-                      <option value="default">Padrão</option>
-                      <option value="more">Mais</option>
+                      <option value="less">{t('account.personalization.traits.levels.less')}</option>
+                      <option value="default">{t('account.personalization.traits.levels.default')}</option>
+                      <option value="more">{t('account.personalization.traits.levels.more')}</option>
                     </select>
                   </div>
 
                   <div className="setting-item">
                     <div className="setting-info">
-                      <span className="setting-label">Listas e cabeçalhos</span>
+                      <span className="setting-label">{t('account.personalization.traits.formatting')}</span>
                     </div>
                     <select name="formatting" value={profileSettings.formatting} onChange={handleChange} className="select-input">
-                      <option value="less">Menos</option>
-                      <option value="default">Padrão</option>
-                      <option value="more">Mais</option>
+                      <option value="less">{t('account.personalization.traits.levels.less')}</option>
+                      <option value="default">{t('account.personalization.traits.levels.default')}</option>
+                      <option value="more">{t('account.personalization.traits.levels.more')}</option>
                     </select>
                   </div>
 
                   <div className="setting-item">
                     <div className="setting-info">
-                      <span className="setting-label">Emoji</span>
+                      <span className="setting-label">{t('account.personalization.traits.emojis')}</span>
                     </div>
                     <select name="emojis" value={profileSettings.emojis} onChange={handleChange} className="select-input">
-                      <option value="less">Menos</option>
-                      <option value="default">Padrão</option>
-                      <option value="more">Mais</option>
+                      <option value="less">{t('account.personalization.traits.levels.less')}</option>
+                      <option value="default">{t('account.personalization.traits.levels.default')}</option>
+                      <option value="more">{t('account.personalization.traits.levels.more')}</option>
                     </select>
                   </div>
                 </div>
@@ -290,7 +288,7 @@ const AccountModal = ({ isOpen, onClose, onOpenStudyStats, initialView = 'accoun
                 <div className="settings-section">
                   <div className="setting-item">
                     <div className="setting-info">
-                      <span className="setting-label">Respostas instantâneas</span>
+                      <span className="setting-label">{t('account.personalization.instant')}</span>
                     </div>
                     <button 
                       className={`toggle-switch ${profileSettings.instantResponses ? 'active' : ''}`}
@@ -304,12 +302,12 @@ const AccountModal = ({ isOpen, onClose, onOpenStudyStats, initialView = 'accoun
                 </div>
 
                 <div className="settings-section">
-                  <h3 style={{ fontSize: '1rem', marginBottom: '12px' }}>Instruções personalizadas</h3>
+                  <h3 style={{ fontSize: '1rem', marginBottom: '12px' }}>{t('account.personalization.custom_instructions.title')}</h3>
                   <textarea
                     name="customInstructions"
                     value={profileSettings.customInstructions}
                     onChange={handleChange}
-                    placeholder="Ex: Responda como se fosse meu irmão..."
+                    placeholder={t('account.personalization.custom_instructions.placeholder')}
                     className="material-textarea"
                     rows={4}
                   />
@@ -317,8 +315,8 @@ const AccountModal = ({ isOpen, onClose, onOpenStudyStats, initialView = 'accoun
               </div>
 
               <div className="modal-footer" style={{ padding: '16px 24px', borderTop: '1px solid var(--border-color)', display: 'flex', gap: '16px', flexShrink: 0 }}>
-                <button className="primary-btn" onClick={() => setActiveView('account')} style={{ flex: 1, padding: '0.7rem 1.5rem', fontWeight: 600, fontSize: '0.95rem' }}>Cancelar</button>
-                <button className="primary-btn cta" onClick={handleSave} style={{ flex: 1, padding: '0.7rem 1.5rem' }}>Salvar</button>
+                <button className="primary-btn" onClick={() => setActiveView('account')} style={{ flex: 1, padding: '0.7rem 1.5rem', fontWeight: 600, fontSize: '0.95rem' }}>{t('account.personalization.actions.cancel')}</button>
+                <button className="primary-btn cta" onClick={handleSave} style={{ flex: 1, padding: '0.7rem 1.5rem' }}>{t('account.personalization.actions.save')}</button>
               </div>
             </motion.div>
           )}

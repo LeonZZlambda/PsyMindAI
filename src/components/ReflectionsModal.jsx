@@ -1,39 +1,28 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useChat } from '../context/ChatContext';
 import { generateReflection, generateReflectionAnalysis } from '../services/tools/reflectionService';
 import '../styles/help.css';
 import '../styles/reflections.css';
 
-const reflectionsData = [
-  { id: 1, text: "A única maneira de fazer um excelente trabalho é amar o que você faz.", author: "Steve Jobs", category: "propósito" },
-  { id: 2, text: "Não é o que nos acontece, mas nossa reação ao que nos acontece que nos fere.", author: "Epiteto", category: "resiliência" },
-  { id: 3, text: "A felicidade não é algo pronto. Ela vem de suas próprias ações.", author: "Dalai Lama", category: "felicidade" },
-  { id: 4, text: "Conhece-te a ti mesmo e conhecerás o universo e os deuses.", author: "Sócrates", category: "autoconhecimento" },
-  { id: 5, text: "O sucesso é ir de fracasso em fracasso sem perder o entusiasmo.", author: "Winston Churchill", category: "resiliência" },
-  { id: 6, text: "Seja a mudança que você quer ver no mundo.", author: "Mahatma Gandhi", category: "propósito" },
-  { id: 7, text: "A ansiedade é a vertigem da liberdade.", author: "Søren Kierkegaard", category: "ansiedade" },
-  { id: 8, text: "O que você pensa, você se torna. O que você sente, você atrai. O que você imagina, você cria.", author: "Buda", category: "autoconhecimento" },
-  { id: 9, text: "Não deixe que o ruído da opinião alheia cale a sua própria voz interior.", author: "Steve Jobs", category: "autoestima" },
-  { id: 10, text: "A gratidão transforma o que temos em suficiente.", author: "Melody Beattie", category: "gratidão" }
-];
-
 const categories = [
-  { id: 'resiliência', label: 'Resiliência', icon: 'psychology', color: '#B8860B' }, // Goldenrod - strenght, enduring
-  { id: 'autoconhecimento', label: 'Autoconhecimento', icon: 'self_improvement', color: '#8B5CF6' }, // Purple - introspection, spiritual
-  { id: 'propósito', label: 'Propósito', icon: 'lightbulb', color: '#F59E0B' }, // Amber/Yellow - illumination, guide
-  { id: 'ansiedade', label: 'Ansiedade', icon: 'spa', color: '#3B82F6' }, // Blue - calm, cooling
-  { id: 'gratidão', label: 'Gratidão', icon: 'volunteer_activism', color: '#EC4899' }, // Pink - heartwarming, emotional
-  { id: 'autoestima', label: 'Autoestima', icon: 'favorite', color: '#EF4444' } // Red - self-love, passion
+  { id: 'resilience', icon: 'psychology', color: '#B8860B' },
+  { id: 'self_knowledge', icon: 'self_improvement', color: '#8B5CF6' },
+  { id: 'purpose', icon: 'lightbulb', color: '#F59E0B' },
+  { id: 'anxiety', icon: 'spa', color: '#3B82F6' },
+  { id: 'gratitude', icon: 'volunteer_activism', color: '#EC4899' },
+  { id: 'self_esteem', icon: 'favorite', color: '#EF4444' }
 ];
 
 const breathingTechniques = [
-  { id: '478', name: '4-7-8', description: 'Relaxamento profundo', inhale: 4, hold: 7, exhale: 8, icon: 'bedtime', color: '#6366f1' }, // Indigo - deep sleep, profound relaxation
-  { id: 'box', name: 'Box Breathing', description: 'Equilíbrio e foco', inhale: 4, hold: 4, exhale: 4, holdAfter: 4, icon: 'crop_square', color: '#3b82f6' }, // Blue - logic, balance, structure
-  { id: 'calm', name: 'Respiração Calma', description: 'Redução de ansiedade', inhale: 4, exhale: 6, icon: 'spa', color: '#10b981' }, // Green - natural, healing, anxiety relief
-  { id: 'energy', name: 'Respiração Energizante', description: 'Aumenta energia', inhale: 3, exhale: 3, icon: 'bolt', color: '#f59e0b' } // Amber - energy, sunlight, awakening
+  { id: '478', inhale: 4, hold: 7, exhale: 8, icon: 'bedtime', color: '#6366f1' },
+  { id: 'box', inhale: 4, hold: 4, exhale: 4, holdAfter: 4, icon: 'crop_square', color: '#3b82f6' },
+  { id: 'calm', inhale: 4, exhale: 6, icon: 'spa', color: '#10b981' },
+  { id: 'energy', inhale: 3, exhale: 3, icon: 'bolt', color: '#f59e0b' }
 ];
 
 const ReflectionsModal = ({ isOpen, onClose }) => {
+  const { t } = useTranslation();
   const modalRef = useRef(null);
   const { setInput } = useChat();
   const [isClosing, setIsClosing] = useState(false);
@@ -45,6 +34,10 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
   const breathingTimerRef = useRef(null);
   const [aiReflection, setAiReflection] = useState('');
   const [isLoadingReflection, setIsLoadingReflection] = useState(false);
+
+  const getReflectionsData = () => {
+    return t('reflections.default_quotes', { returnObjects: true });
+  };
 
   useEffect(() => {
     if (isOpen && activeTab === 'daily' && !currentReflection && !isLoadingReflection) {
@@ -62,11 +55,13 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
       if (reflection) {
         setCurrentReflection({ id: Date.now(), ...reflection });
       } else {
-        const random = reflectionsData[Math.floor(Math.random() * reflectionsData.length)];
+        const data = getReflectionsData();
+        const random = data[Math.floor(Math.random() * data.length)];
         setCurrentReflection(random);
       }
     } catch (error) {
-      const random = reflectionsData[Math.floor(Math.random() * reflectionsData.length)];
+      const data = getReflectionsData();
+      const random = data[Math.floor(Math.random() * data.length)];
       setCurrentReflection(random);
     }
     
@@ -81,7 +76,7 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
       const analysis = await generateReflectionAnalysis(currentReflection);
       setAiReflection(analysis);
     } catch (error) {
-      setAiReflection('❌ Erro ao conectar com IA. Tente novamente.');
+      setAiReflection(t('reflections.daily_tab.error'));
     }
     setIsLoadingReflection(false);
   };
@@ -129,7 +124,7 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
 
   const handleDiscussReflection = () => {
     if (!currentReflection) return;
-    const message = `Oi, PsyMind. Li essa frase de ${currentReflection.author}: "${currentReflection.text}". Gostaria de refletir sobre o que ela significa para o meu momento atual.`;
+    const message = t('reflections.chat_prompt', { author: currentReflection.author, text: currentReflection.text });
     setInput(message);
     handleClose();
   };
@@ -167,22 +162,22 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
               className={`tab-btn ${activeTab === 'daily' ? 'active' : ''}`}
               onClick={() => setActiveTab('daily')}
             >
-              Reflexão do Dia
+              {t('reflections.tabs.daily')}
             </button>
             <button 
               className={`tab-btn ${activeTab === 'explore' ? 'active' : ''}`}
               onClick={() => setActiveTab('explore')}
             >
-              Explorar Temas
+              {t('reflections.tabs.explore')}
             </button>
             <button 
               className={`tab-btn ${activeTab === 'breathing' ? 'active' : ''}`}
               onClick={() => { setActiveTab('breathing'); stopBreathing(); }}
             >
-              Respiração Guiada
+              {t('reflections.tabs.breathing')}
             </button>
           </div>
-          <button className="close-btn" onClick={handleClose} aria-label="Fechar">
+          <button className="close-btn" onClick={handleClose} aria-label={t('reflections.close')}>
             <span className="material-symbols-outlined">close</span>
           </button>
         </div>
@@ -193,7 +188,7 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
               {isLoadingReflection && !currentReflection ? (
                 <div className="reflection-card" style={{ textAlign: 'center', padding: '3rem' }}>
                   <span className="material-symbols-outlined reflection-icon" style={{ animation: 'spin 2s linear infinite' }}>autorenew</span>
-                  <p style={{ color: 'var(--text-light)' }}>Gerando frase inspiradora...</p>
+                  <p style={{ color: 'var(--text-light)' }}>{t('reflections.daily_tab.generating')}</p>
                 </div>
               ) : currentReflection && (
                 <>
@@ -206,15 +201,15 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
                   <div className="reflection-actions">
                     <button className="reflection-btn btn-new" onClick={() => getRandomReflection()} disabled={isLoadingReflection}>
                       <span className="material-symbols-outlined">refresh</span>
-                      Nova Frase IA
+                      {t('reflections.daily_tab.new_button')}
                     </button>
                     <button className="reflection-btn btn-ai" onClick={getAiReflection} disabled={isLoadingReflection}>
                       <span className="material-symbols-outlined">{isLoadingReflection ? 'hourglass_empty' : 'psychology'}</span>
-                      {isLoadingReflection ? 'Refletindo...' : 'Reflexão IA'}
+                      {isLoadingReflection ? t('reflections.daily_tab.ai_reflecting') : t('reflections.daily_tab.ai_button')}
                     </button>
                     <button className="reflection-btn btn-chat" onClick={handleDiscussReflection}>
                       <span className="material-symbols-outlined">chat</span>
-                      Refletir no Chat
+                      {t('reflections.daily_tab.chat_button')}
                     </button>
                   </div>
               
@@ -230,7 +225,7 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
 
           {activeTab === 'explore' && (
             <div className="explore-container">
-              <h3>Escolha um tema para refletir</h3>
+              <h3>{t('reflections.explore_tab.title')}</h3>
               <div className="categories-grid">
                 {categories.map(cat => (
                   <button 
@@ -242,7 +237,7 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
                     }}
                   >
                     <span className="material-symbols-outlined category-icon" style={{ color: cat.color }}>{cat.icon}</span>
-                    <span className="category-name">{cat.label}</span>
+                    <span className="category-name">{t(`reflections.explore_tab.categories.${cat.id}`)}</span>
                   </button>
                 ))}
               </div>
@@ -253,22 +248,22 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
             <div className="breathing-container">
               {!breathingActive ? (
                 <>
-                  <h3>Escolha uma técnica de respiração</h3>
+                  <h3>{t('reflections.breathing_tab.title')}</h3>
                   <div className="breathing-techniques">
                     {breathingTechniques.map(tech => (
                       <div key={tech.id} className="technique-card">
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
                           <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: tech.color }}>{tech.icon}</span>
-                          <h4 style={{ color: tech.color }}>{tech.name}</h4>
+                          <h4 style={{ color: tech.color }}>{t(`reflections.breathing_tab.techniques.${tech.id}.name`)}</h4>
                         </div>
-                        <p>{tech.description}</p>
+                        <p>{t(`reflections.breathing_tab.techniques.${tech.id}.desc`)}</p>
                         <button 
                           className="start-breathing-btn" 
                           onClick={() => startBreathing(tech)}
                           style={{ backgroundColor: tech.color, color: '#fff' }}
                         >
                           <span className="material-symbols-outlined">air</span>
-                          Iniciar
+                          {t('reflections.breathing_tab.start')}
                         </button>
                       </div>
                     ))}
@@ -285,13 +280,13 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
                     </div>
                   </div>
                   <div className="breathing-instruction">
-                    {breathingPhase === 'inhale' && 'Inspire'}
-                    {breathingPhase === 'hold' && 'Segure'}
-                    {breathingPhase === 'exhale' && 'Expire'}
-                    {breathingPhase === 'holdAfter' && 'Segure'}
+                    {breathingPhase === 'inhale' && t('reflections.breathing_tab.phases.inhale')}
+                    {breathingPhase === 'hold' && t('reflections.breathing_tab.phases.hold')}
+                    {breathingPhase === 'exhale' && t('reflections.breathing_tab.phases.exhale')}
+                    {breathingPhase === 'holdAfter' && t('reflections.breathing_tab.phases.holdAfter')}
                   </div>
                   <button className="stop-breathing-btn" onClick={stopBreathing}>
-                    Parar
+                    {t('reflections.breathing_tab.stop')}
                   </button>
                 </div>
               )}

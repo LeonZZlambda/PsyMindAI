@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { Telemetry } from '../services/analytics/telemetry';
 
 const StudyStatsModal = ({ isOpen, onClose }) => {
+  const { t } = useTranslation();
   // Estado real dos estudos
   const [studyLogs, setStudyLogs] = useState([]);
   const [showAddForm, setShowAddForm] = useState(false);
@@ -63,16 +65,16 @@ const StudyStatsModal = ({ isOpen, onClose }) => {
     if (!studyLogs.length) return {
       avgFocus: '0m', retention: '0%', streakWeeks: 0,
       weeklyData: [
-        { day: 'Seg', percent: 0, value: '0h', active: false },
-        { day: 'Ter', percent: 0, value: '0h', active: false },
-        { day: 'Qua', percent: 0, value: '0h', active: false },
-        { day: 'Qui', percent: 0, value: '0h', active: false },
-        { day: 'Sex', percent: 0, value: '0h', active: false },
-        { day: 'Sáb', percent: 0, value: '0h', active: false },
-        { day: 'Dom', percent: 0, value: '0h', active: false }
+        { day: t('study_stats.days.mon'), percent: 0, value: '0h', active: false },
+        { day: t('study_stats.days.tue'), percent: 0, value: '0h', active: false },
+        { day: t('study_stats.days.wed'), percent: 0, value: '0h', active: false },
+        { day: t('study_stats.days.thu'), percent: 0, value: '0h', active: false },
+        { day: t('study_stats.days.fri'), percent: 0, value: '0h', active: false },
+        { day: t('study_stats.days.sat'), percent: 0, value: '0h', active: false },
+        { day: t('study_stats.days.sun'), percent: 0, value: '0h', active: false }
       ],
       disciplines: [],
-      aiTip: "Você ainda não tem registros de estudo. Comece a registrar para receber insights!"
+      aiTip: t('study_stats.empty')
     };
 
     const today = new Date();
@@ -82,7 +84,11 @@ const StudyStatsModal = ({ isOpen, onClose }) => {
     startOfWeek.setHours(0,0,0,0);
 
     const msInDay = 24 * 60 * 60 * 1000;
-    const weekDays = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
+    const weekDays = [
+      t('study_stats.days.mon'), t('study_stats.days.tue'), t('study_stats.days.wed'), 
+      t('study_stats.days.thu'), t('study_stats.days.fri'), t('study_stats.days.sat'), 
+      t('study_stats.days.sun')
+    ];
 
     // Dias da Semana (Ritmo)
     const baseWeekly = weekDays.map((name, index) => {
@@ -135,10 +141,10 @@ const StudyStatsModal = ({ isOpen, onClose }) => {
       weeklyData,
       disciplines,
       aiTip: disciplines.length > 0 
-        ? `Sua dedicação em ${disciplines[0].topic} está ótima. Mantenha os seus ${telemetry ? telemetry.transformationScore : 'bons'} pontos de Transformação subindo e tente não sobrecarregar!`
-        : "Nenhum tópico estudado recentemente. Retome os estudos para construir sua disciplina e ganhar pontos!",
+        ? t('study_stats.ai_tip.good', { topic: disciplines[0].topic, score: telemetry ? telemetry.transformationScore : '0' })
+        : t('study_stats.ai_tip.empty'),
     };
-  }, [studyLogs, telemetry]);
+  }, [studyLogs, telemetry, t]);
 
   if (!isOpen) return null;
 
@@ -183,16 +189,16 @@ const StudyStatsModal = ({ isOpen, onClose }) => {
         <div style={{ padding: '24px', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--card-background)' }}>
           <h2 style={{ margin: 0, fontSize: '1.2rem', display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-color)' }}>
             <span className="material-symbols-outlined" style={{ color: 'var(--primary-color)' }}>school</span>
-            Dashboard de Estudos
+            {t('study_stats.title')}
           </h2>
           <div style={{ display: 'flex', gap: '12px' }}>
             <button 
               onClick={() => setShowAddForm(!showAddForm)}
               style={{ background: 'var(--primary-color)', color: '#fff', border: 'none', borderRadius: '8px', padding: '6px 12px', fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}>
               <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>add</span>
-              Sessão
+              {t('study_stats.add_session')}
             </button>
-            <button className="close-btn" onClick={onClose} aria-label="Fechar" style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-color)', display: 'flex', alignItems: 'center' }}>
+            <button className="close-btn" onClick={onClose} aria-label={t('study_stats.close')} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-color)', display: 'flex', alignItems: 'center' }}>
               <span className="material-symbols-outlined">close</span>
             </button>
           </div>
@@ -207,11 +213,11 @@ const StudyStatsModal = ({ isOpen, onClose }) => {
               style={{ overflow: 'hidden' }}
             >
               <div style={{ padding: '16px', background: 'var(--card-background)', borderRadius: '12px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                <h3 style={{ margin: 0, fontSize: '0.95rem', color: 'var(--text-color)' }}>Registrar Estudo (Dia Atual)</h3>
+                <h3 style={{ margin: 0, fontSize: '0.95rem', color: 'var(--text-color)' }}>{t('study_stats.form.title')}</h3>
                 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                   <input 
                     type="text" 
-                    placeholder="Matéria / Tópico" 
+                    placeholder={t('study_stats.form.topic_placeholder')} 
                     value={newLogTopic}
                     onChange={(e) => setNewLogTopic(e.target.value)}
                     style={{ flex: 1, padding: '10px', borderRadius: '8px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-color)' }}
@@ -221,17 +227,14 @@ const StudyStatsModal = ({ isOpen, onClose }) => {
                     onChange={(e) => setNewLogMinutes(e.target.value)}
                     style={{ width: '120px', padding: '10px', borderRadius: '8px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-color)' }}
                   >
-                    <option value="15">15 min</option>
-                    <option value="30">30 min</option>
-                    <option value="45">45 min</option>
-                    <option value="60">1 hora</option>
-                    <option value="90">1h 30m</option>
-                    <option value="120">2 horas</option>
+                    {['15', '30', '45', '60', '90', '120'].map(val => (
+                      <option key={val} value={val}>{t(`study_stats.form.durations.${val}`)}</option>
+                    ))}
                   </select>
                   <button 
                     onClick={handleAddLog}
                     style={{ padding: '10px 16px', borderRadius: '8px', border: 'none', background: 'var(--primary-color)', color: '#fff', cursor: 'pointer', fontWeight: 'bold' }}>
-                    Salvar
+                    {t('study_stats.form.save')}
                   </button>
                 </div>
               </div>
@@ -242,32 +245,32 @@ const StudyStatsModal = ({ isOpen, onClose }) => {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '16px' }}>
             <div style={{ background: 'var(--card-hover)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-color)', textAlign: 'center' }}>
               <span className="material-symbols-outlined" style={{ fontSize: '28px', color: '#4CAF50', marginBottom: '8px' }}>psychology</span>
-              <h3 style={{ margin: '0 0 4px 0', fontSize: '0.85rem', color: 'var(--text-light)' }}>Foco Médio</h3>
+              <h3 style={{ margin: '0 0 4px 0', fontSize: '0.85rem', color: 'var(--text-light)' }}>{t('study_stats.metrics.avg_focus')}</h3>
               <p style={{ margin: 0, fontSize: '1.4rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{computedStats.avgFocus}</p>
             </div>
             
             <div style={{ background: 'var(--card-hover)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-color)', textAlign: 'center' }}>
               <span className="material-symbols-outlined" style={{ fontSize: '28px', color: '#2196F3', marginBottom: '8px' }}>timeline</span>
-              <h3 style={{ margin: '0 0 4px 0', fontSize: '0.85rem', color: 'var(--text-light)' }}>Sessões no App</h3>
+              <h3 style={{ margin: '0 0 4px 0', fontSize: '0.85rem', color: 'var(--text-light)' }}>{t('study_stats.metrics.sessions')}</h3>
               <p style={{ margin: 0, fontSize: '1.4rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{telemetry ? telemetry.totalSessions : '--'}</p>
             </div>
             
             <div style={{ background: 'var(--card-hover)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-color)', textAlign: 'center' }}>
               <span className="material-symbols-outlined" style={{ fontSize: '28px', color: 'var(--primary-color)', marginBottom: '8px' }}>psychology_alt</span>
-              <h3 style={{ margin: '0 0 4px 0', fontSize: '0.85rem', color: 'var(--text-light)' }}>Transformação</h3>
+              <h3 style={{ margin: '0 0 4px 0', fontSize: '0.85rem', color: 'var(--text-light)' }}>{t('study_stats.metrics.transformation')}</h3>
               <p style={{ margin: 0, fontSize: '1.4rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{telemetry ? telemetry.transformationScore : '--'}</p>
             </div>
             
             <div style={{ background: 'var(--card-hover)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-color)', textAlign: 'center' }}>
               <span className="material-symbols-outlined" style={{ fontSize: '28px', color: '#FF9800', marginBottom: '8px' }}>local_fire_department</span>
-              <h3 style={{ margin: '0 0 4px 0', fontSize: '0.85rem', color: 'var(--text-light)' }}>Dias Ativos</h3>
+              <h3 style={{ margin: '0 0 4px 0', fontSize: '0.85rem', color: 'var(--text-light)' }}>{t('study_stats.metrics.active_days')}</h3>
               <p style={{ margin: 0, fontSize: '1.4rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{telemetry ? telemetry.daysActive : '--'}</p>
             </div>
           </div>
 
           {/* Gráfico de Horas de Estudo */}
           <div style={{ background: 'var(--card-hover)', padding: '20px', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
-            <h3 style={{ margin: '0 0 16px 0', fontSize: '1rem', color: 'var(--text-color)' }}>Ritmo Semanal</h3>
+            <h3 style={{ margin: '0 0 16px 0', fontSize: '1rem', color: 'var(--text-color)' }}>{t('study_stats.charts.weekly_title')}</h3>
             <div style={{ display: 'flex', justifyContent: 'center', width: '100%', overflowX: 'auto', paddingBottom: '8px' }}>
               <div style={{ minWidth: '400px', width: '100%', position: 'relative' }}>
                 <svg width="100%" viewBox={`0 0 ${chartWidth} ${chartHeight}`} style={{ overflow: 'visible' }}>
@@ -356,7 +359,7 @@ const StudyStatsModal = ({ isOpen, onClose }) => {
 
           {/* Tópicos Mais Estudados e Insights */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <h3 style={{ margin: 0, fontSize: '1rem', color: 'var(--text-color)' }}>Foco por Disciplina</h3>
+            <h3 style={{ margin: 0, fontSize: '1rem', color: 'var(--text-color)' }}>{t('study_stats.charts.discipline_title')}</h3>
             
             <div style={{ background: 'var(--card-hover)', padding: '20px', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
               
@@ -377,7 +380,7 @@ const StudyStatsModal = ({ isOpen, onClose }) => {
               <div style={{ marginTop: '20px', padding: '12px', background: 'var(--user-msg-bg)', borderRadius: '8px', display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
                 <span className="material-symbols-outlined" style={{ color: 'var(--primary-color)', fontSize: '20px' }}>lightbulb</span>
                 <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-color)', lineHeight: '1.4' }}>
-                  <strong>Dica da IA:</strong> {computedStats.aiTip}
+                  <strong>{t('study_stats.ai_tip.label')}</strong> {computedStats.aiTip}
                 </p>
               </div>
 

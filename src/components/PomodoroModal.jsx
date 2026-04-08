@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { usePomodoro } from '../context/PomodoroContext';
 import { generatePomodoroTip } from '../services/tools/pomodoroService';
 
@@ -12,6 +13,7 @@ const PomodoroModal = ({ isOpen, onClose }) => {
     resetTimer, 
     changeMode 
   } = usePomodoro();
+  const { t } = useTranslation();
 
   const [isClosing, setIsClosing] = useState(false);
   const [aiTip, setAiTip] = useState('');
@@ -35,7 +37,7 @@ const PomodoroModal = ({ isOpen, onClose }) => {
       const tip = await generatePomodoroTip(mode);
       setAiTip(tip);
     } catch (error) {
-      setAiTip('❌ Erro ao conectar com IA. Tente novamente.');
+      setAiTip(t('pomodoro.error'));
     }
     setIsLoadingTip(false);
   };
@@ -78,7 +80,7 @@ const PomodoroModal = ({ isOpen, onClose }) => {
     <div className={`modal-overlay ${isClosing ? 'closing' : ''}`} onClick={handleClose}>
       <div className="modal-content pomodoro-modal" onClick={e => e.stopPropagation()}>
         <div className="modal-header">
-          <h2>Pomodoro</h2>
+          <h2>{t('pomodoro.title')}</h2>
           <button className="close-btn" onClick={handleClose}>
             <span className="material-symbols-outlined">close</span>
           </button>
@@ -125,7 +127,7 @@ const PomodoroModal = ({ isOpen, onClose }) => {
             <button 
               className="control-btn reset-control"
               onClick={resetTimer}
-              title="Reiniciar"
+              title={t('pomodoro.restart')}
             >
               <span className="material-symbols-outlined">refresh</span>
             </button>
@@ -155,7 +157,7 @@ const PomodoroModal = ({ isOpen, onClose }) => {
               <span className="material-symbols-outlined">
                 {isLoadingTip ? 'hourglass_empty' : 'psychology'}
               </span>
-              {isLoadingTip ? 'Gerando...' : (mode === 'focus' ? 'Dica de Foco IA' : 'Sugestão de Pausa IA')}
+              {isLoadingTip ? t('pomodoro.generating') : (mode === 'focus' ? t('pomodoro.focus_tip') : t('pomodoro.break_tip'))}
             </button>
             
             {aiTip && (
