@@ -153,6 +153,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
   const [isEvaluating, setIsEvaluating] = useState(false);
 
   // SRS Filter for Flashcards Tab
+  // eslint-disable-next-line react-hooks/purity
   const now = Date.now();
   // Flashcards that are due or haven't been reviewed
   const baseFlashcards = trails.filter(t => completedTrails[t.id]).flatMap(t => t.content.filter(c => c.type === "flashcard"));
@@ -171,15 +172,19 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
     // Fisher-Yates pra ordem real das questões sem alterar os originais do 'trails'
     const shuffled = [...pool];
     for (let i = shuffled.length - 1; i > 0; i--) {
+      // eslint-disable-next-line react-hooks/purity
       const j = Math.floor(Math.random() * (i + 1));
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
 
     // Adiciona algumas questões duplicadas aleatoriamente
     if (shuffled.length >= 3) {
+      // eslint-disable-next-line react-hooks/purity
       const dupCount = Math.floor(Math.random() * 3) + 1;
       for (let k = 0; k < dupCount; k++) {
+         // eslint-disable-next-line react-hooks/purity
          const randomPoolItem = pool[Math.floor(Math.random() * pool.length)];
+         // eslint-disable-next-line react-hooks/purity
          shuffled.splice(Math.floor(Math.random() * shuffled.length), 0, randomPoolItem);
       }
     }
@@ -190,20 +195,22 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
         // Deep copy das opções para não mutar o objeto de trails original
         const opts = q.options.map(o => ({ ...o }));
         for (let i = opts.length - 1; i > 0; i--) {
-           const j = Math.floor(Math.random() * (i + 1));
-           [opts[i], opts[j]] = [opts[j], opts[i]];
-        }
-        
-        const ids = ["A", "B", "C", "D", "E", "F"];
-        let newCorrectID = "A";
-        opts.forEach((o, i) => {
-           if (o.text === correctText) newCorrectID = ids[i];
-           o.id = ids[i];
-        });
+            // eslint-disable-next-line react-hooks/purity
+            const j = Math.floor(Math.random() * (i + 1));
+            [opts[i], opts[j]] = [opts[j], opts[i]];
+         }
+         
+         const ids = ["A", "B", "C", "D", "E", "F"];
+         let newCorrectID = "A";
+         opts.forEach((o, i) => {
+            if (o.text === correctText) newCorrectID = ids[i];
+            o.id = ids[i];
+         });
 
-        return {
-           ...q,
-           _uid: `quiz_${idx}_${Math.random().toString(36).substring(2, 9)}`, // UID para React renderizar
+         return {
+            ...q,
+            // eslint-disable-next-line react-hooks/purity
+            _uid: `quiz_${idx}_${Math.random().toString(36).substring(2, 9)}`, // UID para React renderizar
            options: opts,
            correctOption: newCorrectID
         };
@@ -218,6 +225,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
   const handleSrsAction = (flashcard, difficulty, isTrailMode) => {
     // difficulty: 0 (Errei), 1 (Difícil), 2 (Bom), 3 (Fácil)
     const intervals = [1000 * 30, 1000 * 60 * 5, 1000 * 60 * 30, 1000 * 60 * 60 * 2]; // Reduced intervals: 30s, 5m, 30m, 2h
+    // eslint-disable-next-line react-hooks/purity
     const now = Date.now();
     const nextReview = now + intervals[difficulty];
     const newSrs = { ...srsData, [flashcard.front]: { nextReview, difficulty } };
@@ -236,7 +244,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
     if (isTrailMode) nextTrailStep();
     else setCurrentFlashcard((prev) => (prev + 1) % Math.max(1, ALL_FLASHCARDS.length - 1 || 1));
   };
-  const handleNextFlashcard = () => { setIsFlipped(false); setCurrentFlashcard((prev) => (prev + 1) % Math.max(1, ALL_FLASHCARDS.length)); };
+  // const handleNextFlashcard = () => { setIsFlipped(false); setCurrentFlashcard((prev) => (prev + 1) % Math.max(1, ALL_FLASHCARDS.length)); };
   
   const currentStep = activeTrailContent ? activeTrailContent[trailStepIndex] : null;
 
@@ -467,7 +475,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
                          Feedback da IA:
                       </div>
                       <div className="markdown-body">
-                         <ReactMarkdown components={{ p: ({node, ...props}) => <p style={{ margin: '0 0 8px 0', lineHeight: '1.5' }} {...props} /> }}>
+                         <ReactMarkdown components={{ p: ({node: _node, ...props}) => <p style={{ margin: '0 0 8px 0', lineHeight: '1.5' }} {...props} /> }}>
                             {discursiveFeedback}
                          </ReactMarkdown>
                       </div>
@@ -529,7 +537,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
                        Tutor IA:
                     </div>
                     <div className="markdown-body">
-                       <ReactMarkdown components={{ p: ({node, ...props}) => <p style={{ margin: '0 0 8px 0' }} {...props} /> }}>
+                        <ReactMarkdown components={{ p: ({node: _node, ...props}) => <p style={{ margin: '0 0 8px 0' }} {...props} /> }}>
                           {aiExplanation}
                        </ReactMarkdown>
                     </div>

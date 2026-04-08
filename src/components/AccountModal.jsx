@@ -14,19 +14,22 @@ const AccountModal = ({ isOpen, onClose, onOpenStudyStats, initialView = 'accoun
     customInstructions: ''
   });
 
+  // Reset view when closing
   useEffect(() => {
-    if (isOpen) {
-      setActiveView(initialView);
+    if (!isOpen) {
+      setTimeout(() => setActiveView(initialView), 300);
+    } else {
       const saved = localStorage.getItem('psymind_user_profile');
       if (saved) {
         try {
+          // eslint-disable-next-line react-hooks/set-state-in-effect
           setProfileSettings(JSON.parse(saved));
         } catch (e) {
           console.error('Error parsing profile settings', e);
         }
       }
     }
-  }, [isOpen]);
+  }, [isOpen, initialView]);
 
   const handleSave = () => {
     localStorage.setItem('psymind_user_profile', JSON.stringify(profileSettings));

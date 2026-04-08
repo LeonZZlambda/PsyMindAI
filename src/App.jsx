@@ -58,7 +58,7 @@ function App() {
   const publicRoutes = ['/', '/roadmap', '/contribute', '/style-guide', '/privacy', '/terms', '/analytics', '/transparency']
   const isPublicPage = publicRoutes.includes(location.pathname)
   
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(() => typeof window !== 'undefined' ? window.innerWidth > 768 : true)
   const [isUserProfileOpen, setIsUserProfileOpen] = useState(false)
   const [isSettingsOpen, setIsSettingsOpen] = useState(false)
   const [isHelpOpen, setIsHelpOpen] = useState(false)
@@ -75,26 +75,9 @@ function App() {
   
   const inputRef = useRef(null)
 
-  // Handle initial sidebar state for mobile
+  // Initial tracking
   useEffect(() => {
     Telemetry.init();
-
-    const handleResize = () => {
-      if (window.innerWidth <= 768) {
-        setIsSidebarOpen(false);
-      } else {
-        setIsSidebarOpen(true);
-      }
-    };
-
-    // Set initial state
-    if (window.innerWidth <= 768) {
-      setIsSidebarOpen(false);
-    }
-
-    // Optional: Listen for resize events if we want dynamic behavior
-    // window.addEventListener('resize', handleResize);
-    // return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const handleNewChat = useCallback(() => {
