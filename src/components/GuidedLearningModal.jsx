@@ -391,8 +391,8 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
                          <span className="material-symbols-outlined">rate_review</span>
                          {isEvaluating ? t("guided_learning.open_ended.evaluating") : t("guided_learning.open_ended.evaluate_btn")}
                       </button>
-               <button className="secondary-btn skip-btn" onClick={isTrail ? nextTrailStep : null}>
-                  Pular
+               <button type="button" className="secondary-btn skip-btn" onClick={isTrail ? nextTrailStep : null}>
+                  {t("guided_learning.open_ended.skip_btn")}
                </button>
                    </div>
                  </>
@@ -478,8 +478,8 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
          
          <div className="quiz-footer" style={{ marginTop: '16px', display: 'flex', justifyContent: 'flex-end' }}>
             {!quizSubmitted ? (
-               <button className="primary-btn cta" disabled={!selectedOption} onClick={handleQuizSubmit}>
-                  Verificar Resposta
+               <button type="button" className="primary-btn cta" disabled={!selectedOption} onClick={handleQuizSubmit}>
+                  {t("guided_learning.quiz.verify")}
                </button>
             ) : (
                <button className="primary-btn cta" onClick={isTrail ? nextTrailStep : handleNextQuiz}>
@@ -589,7 +589,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
           <motion.div className="learning-modal" onClick={(e) => e.stopPropagation()} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}>
              <div className="learning-header">
                 <h2><span className="material-symbols-outlined learning-header-icon">school</span> {t("guided_learning.title")}</h2>
-                <button className="close-btn" onClick={onClose} aria-label="Fechar"><span className="material-symbols-outlined">close</span></button>
+                <button type="button" className="close-btn" onClick={onClose} aria-label={t('guided_learning.aria.close')}><span className="material-symbols-outlined">close</span></button>
              </div>
 
              {selectedTrail ? (
@@ -711,12 +711,12 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
                                                 </div>
                                                 {trail.isAiGenerated ? (
                                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                                                      <button className="icon-btn" aria-label="Iniciar trilha"><span className="material-symbols-outlined">play_arrow</span></button>
-                                                      <button className="icon-btn" onClick={(e) => { e.stopPropagation(); handleExportTrail(trail); }} aria-label="Exportar trilha" style={{ color: 'var(--primary-color)' }}><span className="material-symbols-outlined">ios_share</span></button>
-                                                      <button className="icon-btn" onClick={(e) => handleDeleteTrail(e, trail.id)} aria-label="Excluir trilha" style={{ color: 'var(--error-color, #ef4444)' }}><span className="material-symbols-outlined">delete</span></button>
+                                                      <button type="button" className="icon-btn" aria-label={t('guided_learning.aria.start_trail')}><span className="material-symbols-outlined">play_arrow</span></button>
+                                                      <button type="button" className="icon-btn" onClick={(e) => { e.stopPropagation(); handleExportTrail(trail); }} aria-label={t('guided_learning.aria.export_trail')} style={{ color: 'var(--primary-color)' }}><span className="material-symbols-outlined">ios_share</span></button>
+                                                      <button type="button" className="icon-btn" onClick={(e) => handleDeleteTrail(e, trail.id)} aria-label={t('guided_learning.aria.delete_trail')} style={{ color: 'var(--error-color, #ef4444)' }}><span className="material-symbols-outlined">delete</span></button>
                                                    </div>
                                                 ) : (
-                                                   <button className="icon-btn" aria-label="Iniciar trilha"><span className="material-symbols-outlined">play_arrow</span></button>
+                                                   <button type="button" className="icon-btn" aria-label={t('guided_learning.aria.start_trail')}><span className="material-symbols-outlined">play_arrow</span></button>
                                                 )}
                                              </div>
                                           );

@@ -48,7 +48,7 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onAnonymousChat, onChatSele
   };
 
   return (
-    <aside className={`sidebar ${!isOpen ? 'closed' : ''}`} aria-label="Menu lateral">
+    <aside className={`sidebar ${!isOpen ? 'closed' : ''}`} aria-label={t('sidebar.menu_aria')}>
       <div className="sidebar-header">
         <button 
           className="menu-btn" 

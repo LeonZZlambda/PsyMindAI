@@ -13,6 +13,26 @@
   color: var(--text-color);
 }
 
+.judge-modal .modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  flex-shrink: 0;
+}
+
+.judge-modal .modal-header h2 {
+  flex: 1;
+  margin: 0;
+  min-width: 0;
+  font-size: 1.25rem;
+}
+
+.judge-header-actions {
+  flex-shrink: 0;
+}
+
 .judge-body {
   display: flex;
   flex: 1;

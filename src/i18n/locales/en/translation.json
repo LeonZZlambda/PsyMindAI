@@ -70,6 +70,9 @@
       },
       "terms": "Distributed under the <1>Creative Commons BY-SA 4.0</1> license, allowing sharing and adaptation with appropriate credit.",
       "read_full": "Read full license"
+    },
+    "nav": {
+      "start": "Start"
     }
   },
   "api": {
@@ -87,6 +90,10 @@
       "service_fallback": "We couldn't finish this action right now. Please try again shortly."
     }
   },
+  "common": {
+    "close": "Close",
+    "close_modal": "Close modal"
+  },
   "sidebar": {
     "new_chat": "New chat",
     "anonymous_chat": "Anonymous Session",
@@ -96,6 +103,7 @@
     "help": "Help",
     "settings": "Settings",
     "close_menu": "Close sidebar",
+    "menu_aria": "Side menu",
     "time": {
       "now": "Just now",
       "minutes_ago": "{{count}}m ago",
@@ -106,6 +114,8 @@
     }
   },
   "settings": {
+    "title": "Settings",
+    "close_aria": "Close settings",
     "appearance": {
       "title": "Appearance",
       "language": {
@@ -114,7 +124,115 @@
         "pt": "Português (Brasil)",
         "en": "English (US)"
       }
+    },
+    "theme": {
+      "follow_system": {
+        "label": "Use system theme",
+        "desc": "Match light or dark mode from your device settings",
+        "aria": "Toggle use system theme"
+      },
+      "dark": {
+        "label": "Dark theme",
+        "desc": "Easier on the eyes in low light",
+        "aria": "Toggle dark theme"
+      }
+    },
+    "font": {
+      "label": "Font size",
+      "desc": "Increase text size for readability",
+      "aria_group": "Choose font size",
+      "normal": "Normal",
+      "large": "Large"
+    },
+    "accessibility": {
+      "title": "Accessibility",
+      "reduced_motion": {
+        "label": "Reduce motion",
+        "desc": "Minimize animations and transitions",
+        "aria": "Toggle reduced motion"
+      },
+      "high_contrast": {
+        "label": "High contrast",
+        "desc": "Stronger color contrast for visibility",
+        "aria": "Toggle high contrast"
+      },
+      "dyslexic_font": {
+        "label": "Dyslexia-friendly font",
+        "desc": "Use OpenDyslexic-style spacing and font where available",
+        "aria": "Toggle dyslexia-friendly font"
+      },
+      "colorblind": {
+        "label": "Color vision modes",
+        "desc": "Adjust colors for different types of color vision",
+        "aria_select": "Select color vision mode",
+        "none": "None",
+        "protanopia": "Protanopia (red)",
+        "deuteranopia": "Deuteranopia (green)",
+        "tritanopia": "Tritanopia (blue)",
+        "achromatopsia": "Achromatopsia (monochrome)"
+      }
+    },
+    "integration": {
+      "title": "Integration",
+      "import": {
+        "label": "Import context",
+        "desc": "Bring information from other AI assistants to personalize PsyMind.",
+        "button": "Import"
+      }
+    },
+    "privacy": {
+      "title": "Data & privacy"
+    },
+    "api_key": {
+      "label": "Gemini API key",
+      "desc": "Use your own API key to power the assistant",
+      "placeholder": "AIzaSy...",
+      "save": "Save",
+      "remove_title": "Remove stored API key",
+      "remove_toast": "API key removed from this device.",
+      "tooltip": "Your key is stored locally in your browser with basic obfuscation."
+    },
+    "usage_analytics": {
+      "label": "Send anonymous analytics",
+      "desc": "Help improve the app with basic usage stats. No chat content is collected.",
+      "aria": "Toggle telemetry"
+    },
+    "history": {
+      "label": "Clear chat history",
+      "desc": "Delete all saved conversations on this device",
+      "clear": "Clear all",
+      "confirm": "Delete all chat history? This cannot be undone.",
+      "success_toast": "Chat history cleared."
+    },
+    "toasts": {
+      "telemetry_on": "Anonymous analytics enabled.",
+      "telemetry_off": "Anonymous analytics disabled.",
+      "api_saved": "API key saved."
     }
+  },
+  "import_context": {
+    "title": "Import context",
+    "close_aria": "Close import dialog",
+    "intro": "Bring what other AI assistants know about you into PsyMind for richer, more personalized replies.",
+    "step1_label": "1. Request the summary",
+    "step1_desc": "Copy the prompt below and send it to your current assistant (ChatGPT, Claude, Gemini, etc.) so it can summarize what it knows about you.",
+    "copy_prompt": "Copy prompt",
+    "step2_label": "2. Paste the reply here",
+    "step2_desc": "Paste the generated summary so PsyMind can learn your preferences.",
+    "placeholder": "Paste the exported profile here...",
+    "save": "Save context",
+    "footer_note": "ZIP upload of chats may be added later. What you paste here helps PsyMind understand your preferences.",
+    "toast_prompt_copied": "Prompt copied to clipboard.",
+    "toast_saved": "Context saved. PsyMind will use these preferences.",
+    "prompt": "You are helping me import context from one AI assistant into another. Your job is to analyze our past conversations and summarize what you know about me.\n\nIn your answer, avoid first-person pronouns (I, me, my) and second-person pronouns (you, your). Instead use \"the user\" or another neutral term.\n\nPreserve the user's wording verbatim when possible, especially for instructions and preferences.\n\nCategories (answer in this order):\n1. Demographics: how I like to be addressed, occupation, education, and where I live.\n2. Interests and preferences: things I actively engage with over time, not one-off purchases.\n3. Relationships: confirmed long-term relationships.\n4. Events, projects, and plans: recent meaningful activities.\n5. Instructions: explicit rules I asked you to follow (\"always do X\", \"never do Y\", behavior corrections). Only from stored memory data, not casual chat.\n\nFormat:\nSplit the answer into labeled sections for each category. Include short quotes from my messages as evidence when possible, like:\nThe user's name is <name>.\n– Evidence: the user said \"call me <name>\". Date: [YYYY-MM-DD].\n\nOutput:\n– Present the final summary as a single text block."
+  },
+  "analytics_page": {
+    "alerts": {
+      "api_key": "Set your Gemini API key in Settings (or chat) before continuing.",
+      "insufficient_data": "Not enough data to generate the analysis yet. Try using the journal or study tools more often.",
+      "connection_failed": "Could not reach the AI for meta-analysis."
+    },
+    "back_home": "Back to home"
   },
   "header": {
     "open_menu": "Open menu",
@@ -169,6 +287,7 @@
       "copy_image_error": "Error copying image",
       "copy_image": "Copy image",
       "close": "Close",
+      "suggestions_aria": "Suggested prompts",
       "welcome_title": "Hello, I'm PsyMind.AI",
       "welcome_subtitle": "How can I help you today?",
       "generating_quote": "Generating inspiring quote...",
@@ -768,8 +887,32 @@
       "explain": "Clearly and didactically explain the following topic of {{subject}} for {{exam}}:\n\n📌 {{topic}}\n\nIncluding:\n1. Fundamental concepts\n2. Practical examples\n3. How it appears on exams\n4. Memorization tips\n5. Common mistakes to avoid\n\nUse accessible language! 📚"
     }
   },
+  "judge": {
+    "title": "Judge mode — Prep",
+    "close_aria": "Close judge mode",
+    "loading_challenge": "Drafting a fresh challenge for you...",
+    "loading_eval": "The judge is reviewing your submission (simulated)...",
+    "submit": "Submit",
+    "retry": "New challenge",
+    "default_subject": "Programming",
+    "code_placeholder": "Write your {{language}} source code here...\n\n// Read all input (scanf/cin/input) and print answers in the required format (printf/cout/print).",
+    "errors": {
+      "generate_failed": "Could not generate the challenge. Tap **New challenge** or try again shortly.",
+      "internal": "Internal error while generating the challenge. Please try again.",
+      "eval_failed": "Could not complete the evaluation.",
+      "submit_failed": "Error submitting to the judge."
+    },
+    "prompt_generate": "Act EXCLUSIVELY as an automatic judge for the Brazilian Informatics Olympiad (OBI). Do not offer mental health counseling; only generate a competitive programming problem.\n\nTask: create an ORIGINAL problem suitable for the {{subject}} track of {{examName}}, focusing on: {{topics}}.\n\nRequired Markdown structure:\n## 🏆 Original Problem Title\n**Description:** (Short story/context)\n**Task:** What the contestant must compute.\n**Input:** (Exact input format)\n**Output:** (Exact output format, including newlines)\n**Examples:** (At least two real stdin/stdout examples)\n**Constraints & scoring:** (Limits and complexity for full score).",
+    "prompt_evaluate_lead": "Act EXCLUSIVELY as an automatic programming contest grader. Rigorously evaluate the submission below written in **{{language}}**.\n\nInstructions (answer in clear Markdown):\n1. **Compilation**: Does the code look syntactically valid?\n2. **Test cases**: Mentally simulate inputs, including edge cases.\n3. **Complexity**: Analyze time and space Big-O.\n4. **Verdict**: A prominent final verdict in ALL CAPS: ACCEPTED ✅, WRONG ANSWER ❌, TIME LIMIT EXCEEDED ⏳, RUNTIME ERROR 💥, or COMPILATION ERROR 🚨.\n5. **Score**: Assign a score from 0 to 100.\n6. Explain why, point to likely problematic lines, or suggest optimizations. Be fair and critical like a judge.\n"
+  },
   "guided_learning": {
     "title": "Guided Learning",
+    "aria": {
+      "close": "Close",
+      "start_trail": "Start trail",
+      "export_trail": "Export trail",
+      "delete_trail": "Delete trail"
+    },
     "tabs": {
       "trails": "Study Paths",
       "flashcards": "Practice Flashcards",
@@ -1321,5 +1464,30 @@
     "subtext": "Try reloading the page or try again later.",
     "details": "Technical details",
     "reload": "Reload page"
+  }
+  ,
+  "contributing": {
+    "title": "How to Contribute",
+    "intro": "Thank you for contributing to PsyMind.AI. This section explains how you can help, including translations.",
+    "translate": "Translation",
+    "translation_details": "To contribute translations, add missing keys to this file and submit a PR with updates.",
+    "steps": {
+      "step1": "Fork the repository",
+      "step2": "Create a descriptive branch",
+      "step3": "Translate missing strings",
+      "step4": "Open a PR with test instructions"
+    }
+  },
+  "style_guide": {
+    "title": "Style Guide",
+    "intro": "Guidelines for UI wording, tone, typography, and component usage."
+  },
+  "roadmap": {
+    "title": "Roadmap",
+    "intro": "Overview of planned features and milestones."
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "intro": "Overview page showing key metrics and insights."
   }
 }

@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '../context/ThemeContext';
 import AccountModal from './AccountModal';
 
 const LandingHeader = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { isDarkMode, toggleTheme, fontSize, reducedMotion, highContrast, colorBlindMode } = useTheme();
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
@@ -34,8 +36,8 @@ const LandingHeader = () => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: 0.3 }}
-            title={isDarkMode ? "Modo claro" : "Modo escuro"}
-            aria-label={isDarkMode ? "Ativar modo claro" : "Ativar modo escuro"}
+            title={isDarkMode ? t('header.light_mode') : t('header.dark_mode')}
+            aria-label={isDarkMode ? t('header.activate_light_mode') : t('header.activate_dark_mode')}
           >
             <span className="material-symbols-outlined">
               {isDarkMode ? 'light_mode' : 'dark_mode'}
@@ -48,8 +50,8 @@ const LandingHeader = () => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: 0.4 }}
-            title="Conta do Google" 
-            aria-label="Perfil do usuário"
+            title={t('header.user_account')} 
+            aria-label={t('header.user_profile')}
           >
             <span className="material-symbols-outlined">account_circle</span>
           </motion.button>
@@ -63,7 +65,7 @@ const LandingHeader = () => {
             whileTap={{ scale: 0.95 }}
             transition={{ duration: 0.3, delay: 0.5 }}
           >
-            Começar
+            {t('landing.nav.start')}
           </motion.button>
         </div>
       </div>

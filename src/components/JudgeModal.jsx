@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import { sendMessage } from '../services/chat/chatService';
+import { SYSTEM_PROMPTS } from '../services/prompts/systemPrompts';
 import Editor from 'react-simple-code-editor';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-c';
@@ -10,7 +12,13 @@ import 'prismjs/components/prism-java';
 import 'prismjs/themes/prism-tomorrow.css';
 import '../styles/judge.css';
 
+const judgeSendOptions = {
+  systemPrompt: SYSTEM_PROMPTS.OBI_JUDGE,
+  skipMemoryUpdate: true
+};
+
 const JudgeModal = ({ isOpen, onClose, config }) => {
+  const { t } = useTranslation();
   const [isClosing, setIsClosing] = useState(false);
   const [loading, setLoading] = useState(true);
   const [evaluating, setEvaluating] = useState(false);
@@ -18,6 +26,13 @@ const JudgeModal = ({ isOpen, onClose, config }) => {
   const [code, setCode] = useState('');
   const [language, setLanguage] = useState('C++');
   const [result, setResult] = useState('');
+  const [genTick, setGenTick] = useState(0);
+
+  const configKey = useMemo(() => {
+    if (!config) return null;
+    const topics = config.topics || [];
+    return [config.subject, config.examName, topics.join('\n')].join('\0');
+  }, [config]);
 
   const handleClose = () => {
     setIsClosing(true);
@@ -27,79 +42,64 @@ const JudgeModal = ({ isOpen, onClose, config }) => {
       setChallengeText('');
       setCode('');
       setResult('');
+      setGenTick(0);
     }, 300);
   };
 
   useEffect(() => {
-    if (isOpen && config && !challengeText) {
-      generateChallenge();
-    }
-  }, [isOpen, config, challengeText]);
+    if (!isOpen || !configKey) return undefined;
 
-  const generateChallenge = async () => {
+    let cancelled = false;
     setLoading(true);
-    const { subject, examName, topics } = config;
-    
-    const prompt = `Atue EXCLUSIVAMENTE como um Juiz Automático da OBI (Olimpíada Brasileira de Informática). Não dê conselhos de saúde mental. Aja apenas como um gerador de problemas de programação competitiva.
-    
-Desafio: Crie um problema INÉDITO de programação competitiva aplicável para a seletiva de ${subject || 'Programação'} do ${examName || 'OBI'}, focando em: ${(topics || []).join(', ')}.
+    setChallengeText('');
+    setResult('');
 
-Estrutura obrigatória em Markdown:
-## 🏆 Nome do Problema Inédito
-**Descrição:** (Uma historinha)
-**A Tarefa:** O que o competidor tem que fazer.
-**Entrada:** (Formato da entrada real)
-**Saída:** (Formato da saída esperada com quebra de linha)
-**Exemplos:** (Pelo menos dois casos reais de stdin/stdout)
-**Restrições e Pontuação:** (Limites de variáveis e complexidade computacional para atingir 100 pontos).
-`;
+    const subject = config.subject || t('judge.default_subject');
+    const examName = config.examName || 'OBI';
+    const topics = (config.topics || []).join(', ');
+    const prompt = t('judge.prompt_generate', { subject, examName, topics });
 
-    try {
-      const res = await sendMessage(prompt, []);
-      if (res.success) {
-        setChallengeText(res.text);
-      } else {
-        setChallengeText("Falha ao gerar o desafio. Tente novamente.");
+    (async () => {
+      try {
+        const res = await sendMessage(prompt, [], judgeSendOptions);
+        if (cancelled) return;
+        if (res.success) {
+          setChallengeText(res.text);
+        } else {
+          setChallengeText(t('judge.errors.generate_failed'));
+        }
+      } catch {
+        if (!cancelled) setChallengeText(t('judge.errors.internal'));
+      } finally {
+        if (!cancelled) setLoading(false);
       }
-    } catch {
-      setChallengeText("Erro interno.");
-    } finally {
-      setLoading(false);
-    }
-  };
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isOpen, configKey, genTick, config, t]);
+
+  const handleRegenerate = useCallback(() => {
+    setGenTick((n) => n + 1);
+  }, []);
 
   const submitCode = async () => {
     if (!code.trim()) return;
     setEvaluating(true);
-    
-    const prompt = `Atue EXCLUSIVAMENTE como Corretor Automático de Maratona. Avalie rigorosamente a seguinte submissão em ${language}.
-    
-[DESAFIO]
-${challengeText}
 
-[CÓDIGO DO ALUNO]
-\`\`\`${language.toLowerCase()}
-${code}
-\`\`\`
-
-Instruções para a Avaliação (Responda em Markdown claro):
-1. **Compilação**: Avalie mentalmente se o código compila corretamente (sintaxe).
-2. **Bateria de Testes Secrtos**: Simule testes mentais, com casos borda.
-3. **Complexidade**: Analise estruturalmente a notação Big-O do Tempo e Espaço.
-4. **Veredito Oficial**: Dê um Veredito final em caixa alta bem visível: ACCEPTED ✅, WRONG ANSWER ❌, TIME LIMIT EXCEEDED ⏳, RUNTIME ERROR 💥 ou COMPILATION ERROR 🚨.
-5. **Score**: Atribua nota de 0 a 100.
-6. Dê feedback do porquê, aponte a linha onde pode estar errado, ou recomende otimizações. Seja justo e crítico como um juiz.
-`;
+    const lead = t('judge.prompt_evaluate_lead', { language });
+    const prompt = `${lead}\n[CHALLENGE]\n${challengeText}\n\n[STUDENT_CODE]\n\`\`\`${language}\n${code}\n\`\`\`\n`;
 
     try {
-      const res = await sendMessage(prompt, []);
+      const res = await sendMessage(prompt, [], judgeSendOptions);
       if (res.success) {
         setResult(res.text);
       } else {
-        setResult("Falha na avaliação.");
+        setResult(t('judge.errors.eval_failed'));
       }
     } catch {
-      setResult("Erro ao submeter ao juiz.");
+      setResult(t('judge.errors.submit_failed'));
     } finally {
       setEvaluating(false);
     }
@@ -113,11 +113,23 @@ Instruções para a Avaliação (Responda em Markdown claro):
         <div className="modal-header" style={{borderBottom: '1px solid var(--border-color)', marginBottom: 0}}>
           <h2>
             <span className="material-symbols-outlined" style={{verticalAlign: 'middle', marginRight: '8px'}}>terminal</span>
-            Modo Juiz - Preparatório
+            {t('judge.title')}
           </h2>
-          <button className="close-btn" onClick={handleClose}>
-            <span className="material-symbols-outlined">close</span>
-          </button>
+          <div className="judge-header-actions" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <button
+              type="button"
+              className="run-btn"
+              onClick={handleRegenerate}
+              disabled={loading || evaluating}
+              style={{ fontSize: '13px' }}
+            >
+              <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>refresh</span>
+              {t('judge.retry')}
+            </button>
+            <button type="button" className="close-btn" onClick={handleClose} aria-label={t('judge.close_aria')}>
+              <span className="material-symbols-outlined">close</span>
+            </button>
+          </div>
         </div>
 
         <div className="judge-body">
@@ -125,7 +137,7 @@ Instruções para a Avaliação (Responda em Markdown claro):
             {loading ? (
               <div className="eval-loading">
                 <span className="material-symbols-outlined rotating">autorenew</span>
-                <p>Formulando desafio inédito para você...</p>
+                <p>{t('judge.loading_challenge')}</p>
               </div>
             ) : (
               <div className="markdown-content">
@@ -153,7 +165,7 @@ Instruções para a Avaliação (Responda em Markdown claro):
                 disabled={evaluating || loading || !code.trim()}
               >
                 <span className="material-symbols-outlined" style={{fontSize: '18px'}}>play_arrow</span>
-                Submeter
+                {t('judge.submit')}
               </button>
             </div>
             
@@ -174,7 +186,7 @@ Instruções para a Avaliação (Responda em Markdown claro):
                 }}
                 padding={16}
                 className="code-editor"
-                placeholder={`Escreva seu código fonte em ${language} aqui...\n\n// Lembre-se de ler todos os inputs (scanf/cin/input) e imprimir as respostas formatadas (printf/cout/print).`}
+                placeholder={t('judge.code_placeholder', { language })}
                 style={{
                   fontFamily: '"Fira Code", monospace, "SFMono-Regular", Consolas, "Liberation Mono", Menlo',
                   fontSize: 14,
@@ -189,7 +201,7 @@ Instruções para a Avaliação (Responda em Markdown claro):
                 {evaluating ? (
                   <div className="eval-loading">
                     <span className="material-symbols-outlined rotating">hourglass_empty</span>
-                    <p>O Juiz está executando os casos de teste secreto na nuvem...</p>
+                    <p>{t('judge.loading_eval')}</p>
                   </div>
                 ) : (
                   <div className="markdown-content">

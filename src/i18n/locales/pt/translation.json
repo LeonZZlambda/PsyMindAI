@@ -70,6 +70,9 @@
       },
       "terms": "Distribuído sob a licença <1>Creative Commons BY-SA 4.0</1>, permitindo o compartilhamento e adaptação com os devidos créditos.",
       "read_full": "Ler licença completa"
+    },
+    "nav": {
+      "start": "Começar"
     }
   },
   "api": {
@@ -87,6 +90,10 @@
       "service_fallback": "Não foi possível concluir esta ação no momento. Tente de novo em instantes."
     }
   },
+  "common": {
+    "close": "Fechar",
+    "close_modal": "Fechar modal"
+  },
   "sidebar": {
     "new_chat": "Novo chat",
     "anonymous_chat": "Sessão Anônima",
@@ -96,6 +103,7 @@
     "help": "Ajuda",
     "settings": "Configurações",
     "close_menu": "Fechar menu lateral",
+    "menu_aria": "Menu lateral",
     "time": {
       "now": "Agora",
       "minutes_ago": "{{count}}m atrás",
@@ -106,6 +114,8 @@
     }
   },
   "settings": {
+    "title": "Configurações",
+    "close_aria": "Fechar configurações",
     "appearance": {
       "title": "Aparência",
       "language": {
@@ -114,7 +124,115 @@
         "pt": "Português (Brasil)",
         "en": "English (US)"
       }
+    },
+    "theme": {
+      "follow_system": {
+        "label": "Seguir tema do sistema",
+        "desc": "Ajustar automaticamente com base nas configurações do seu dispositivo",
+        "aria": "Alternar seguir tema do sistema"
+      },
+      "dark": {
+        "label": "Tema escuro",
+        "desc": "Ajustar a aparência para ambientes com pouca luz",
+        "aria": "Alternar tema escuro"
+      }
+    },
+    "font": {
+      "label": "Tamanho da fonte",
+      "desc": "Aumentar o tamanho do texto para melhor leitura",
+      "aria_group": "Escolha o tamanho da fonte",
+      "normal": "Normal",
+      "large": "Grande"
+    },
+    "accessibility": {
+      "title": "Acessibilidade",
+      "reduced_motion": {
+        "label": "Reduzir movimento",
+        "desc": "Minimizar animações e transições na interface",
+        "aria": "Alternar redução de movimento"
+      },
+      "high_contrast": {
+        "label": "Alto contraste",
+        "desc": "Aumentar o contraste das cores para melhor visibilidade",
+        "aria": "Alternar alto contraste"
+      },
+      "dyslexic_font": {
+        "label": "Fonte para dislexia",
+        "desc": "Usar fontes amigáveis (OpenDyslexic) e aumentar espaçamento",
+        "aria": "Alternar fonte para dislexia"
+      },
+      "colorblind": {
+        "label": "Modo daltonismo",
+        "desc": "Ajustar cores para diferentes tipos de visão",
+        "aria_select": "Selecionar modo de daltonismo",
+        "none": "Nenhum",
+        "protanopia": "Protanopia (vermelho)",
+        "deuteranopia": "Deuteranopia (verde)",
+        "tritanopia": "Tritanopia (azul)",
+        "achromatopsia": "Acromatopsia (monocromático)"
+      }
+    },
+    "integration": {
+      "title": "Integração",
+      "import": {
+        "label": "Importar contexto",
+        "desc": "Transfira as informações de outras IAs para personalizar sua experiência.",
+        "button": "Importar"
+      }
+    },
+    "privacy": {
+      "title": "Dados e privacidade"
+    },
+    "api_key": {
+      "label": "Chave da API Gemini",
+      "desc": "Insira sua própria API key para usar o sistema",
+      "placeholder": "AIzaSy...",
+      "save": "Salvar",
+      "remove_title": "Remover API key armazenada",
+      "remove_toast": "Chave removida do dispositivo.",
+      "tooltip": "Sua chave é armazenada com ofuscação apenas no armazenamento local do seu navegador."
+    },
+    "usage_analytics": {
+      "label": "Enviar dados anônimos (analytics)",
+      "desc": "Ajude a melhorar o app compartilhando uso básico. Nenhuma mensagem é lida.",
+      "aria": "Alternar envio de telemetria"
+    },
+    "history": {
+      "label": "Limpar histórico",
+      "desc": "Apagar todas as conversas salvas neste dispositivo",
+      "clear": "Limpar tudo",
+      "confirm": "Tem certeza de que deseja apagar todo o histórico?",
+      "success_toast": "Histórico apagado com sucesso."
+    },
+    "toasts": {
+      "telemetry_on": "Rastreamento anônimo habilitado.",
+      "telemetry_off": "Rastreamento anônimo desativado.",
+      "api_saved": "Chave da API salva com sucesso."
     }
+  },
+  "import_context": {
+    "title": "Importar contexto",
+    "close_aria": "Fechar modal de importação",
+    "intro": "Transfira as informações que outras inteligências artificiais conhecem sobre você para tornar suas próximas interações no PsyMind mais ricas e personalizadas.",
+    "step1_label": "1. Solicite o contexto",
+    "step1_desc": "Copie o prompt abaixo e envie para o seu assistente de IA atual (ChatGPT, Claude, Gemini, etc.) para que ele gere um resumo sobre você.",
+    "copy_prompt": "Copiar prompt",
+    "step2_label": "2. Cole a resposta aqui",
+    "step2_desc": "Insira as informações geradas pela sua outra IA para que o PsyMind passe a conhecer suas preferências.",
+    "placeholder": "Cole o perfil exportado aqui...",
+    "save": "Salvar contexto",
+    "footer_note": "O upload de conversas via ZIP pode ser incluído futuramente. As informações que você adicionar ajudam o PsyMind a compreender melhor suas preferências.",
+    "toast_prompt_copied": "Prompt copiado para a área de transferência.",
+    "toast_saved": "Contexto salvo. O PsyMind passará a usar essas preferências.",
+    "prompt": "Você está me ajudando a importar o contexto de um assistente de IA para outro. Seu trabalho é analisar nossas conversas anteriores e resumir o que você sabe sobre mim.\n\nNa resposta, evite usar pronomes na primeira pessoa (eu, meu, minha, me) e na segunda pessoa (você, seu, sua). Em vez disso, use \"o usuário\" ou outro termo neutro para se referir ao indivíduo com essas características.\n\nPreserve as palavras do usuário ao pé da letra sempre que possível, especialmente para instruções e preferências.\n\nCategorias (resposta nesta ordem):\n1. Informações demográficas: como gosto que me chamem, profissão, formação acadêmica e local onde moro.\n2. Interesses e preferências: coisas com que me envolvo de modo ativo e contínuo, não apenas um objeto que eu tenho ou uma compra que fiz uma vez.\n3. Relacionamentos: relacionamentos confirmados e de longo prazo.\n4. Eventos, projetos e planos: um registro de atividades recentes e significativas.\n5. Instruções: regras que pedi explicitamente para você seguir, como \"sempre faça X\", \"nunca faça Y\" e correções no seu comportamento. Inclua apenas regras de dados de memória armazenados, não de conversas.\n\nFormato:\nDivida o conteúdo em seções rotuladas usando as categorias acima. Tente incluir citações de comandos meus que justifiquem cada resposta. Estruture cada item usando este formato:\nO nome do usuário é <name>.\n– Evidência: o usuário disse \"me chame de <name>\". Data: [YYYY-MM-DD].\n\nSaída:\n– Formate o resumo da resposta final como um bloco de texto."
+  },
+  "analytics_page": {
+    "alerts": {
+      "api_key": "Configure a chave da API do Gemini em Configurações (ou no chat) antes de continuar.",
+      "insufficient_data": "Não há dados suficientes para gerar a análise. Tente usar o diário ou as ferramentas de estudo com mais frequência.",
+      "connection_failed": "Falha ao conectar com a IA para a meta-análise."
+    },
+    "back_home": "Voltar ao início"
   },
   "header": {
     "open_menu": "Abrir menu",
@@ -169,6 +287,7 @@
       "copy_image_error": "Erro ao copiar imagem",
       "copy_image": "Copiar imagem",
       "close": "Fechar",
+      "suggestions_aria": "Sugestões de perguntas",
       "welcome_title": "Olá, sou o PsyMind.AI",
       "welcome_subtitle": "Como posso ajudar você hoje?",
       "generating_quote": "Gerando frase inspiradora...",
@@ -768,8 +887,32 @@
       "explain": "Explique de forma clara e didática o seguinte tópico de {{subject}} para {{exam}}:\n\n📌 {{topic}}\n\nIncluindo:\n1. Conceitos fundamentais\n2. Exemplos práticos\n3. Como aparece nas provas\n4. Dicas de memorização\n5. Erros comuns a evitar\n\nUse linguagem acessível! 📚"
     }
   },
+  "judge": {
+    "title": "Modo Juiz — Preparatório",
+    "close_aria": "Fechar modo juiz",
+    "loading_challenge": "Formulando desafio inédito para você...",
+    "loading_eval": "O juiz está analisando sua submissão (simulação)...",
+    "submit": "Submeter",
+    "retry": "Gerar outro desafio",
+    "default_subject": "Programação",
+    "code_placeholder": "Escreva seu código em {{language}} aqui...\n\n// Leia toda a entrada (scanf/cin/input) e imprima no formato pedido (printf/cout/print).",
+    "errors": {
+      "generate_failed": "Não foi possível gerar o desafio. Use **Gerar outro desafio** ou tente de novo em instantes.",
+      "internal": "Erro interno ao gerar o desafio. Tente novamente.",
+      "eval_failed": "Não foi possível concluir a avaliação.",
+      "submit_failed": "Erro ao enviar para o juiz."
+    },
+    "prompt_generate": "Atue EXCLUSIVAMENTE como Juiz Automático da OBI (Olimpíada Brasileira de Informática). Não ofereça aconselhamento de saúde mental; limite-se a gerar um problema de programação competitiva.\n\nTarefa: crie um problema INÉDITO aplicável à seletiva de {{subject}} da prova {{examName}}, com foco em: {{topics}}.\n\nEstrutura obrigatória em Markdown:\n## 🏆 Nome do Problema Inédito\n**Descrição:** (Uma historinha curta)\n**A Tarefa:** O que o competidor deve fazer.\n**Entrada:** (Formato exato da entrada)\n**Saída:** (Formato exato da saída, incluindo quebras de linha)\n**Exemplos:** (Pelo menos dois exemplos reais de stdin/stdout)\n**Restrições e Pontuação:** (Limites e complexidade para 100 pontos).",
+    "prompt_evaluate_lead": "Atue EXCLUSIVAMENTE como Corretor Automático de maratona de programação. Avalie com rigor a submissão abaixo na linguagem **{{language}}**.\n\nInstruções (responda em Markdown claro):\n1. **Compilação**: O código parece sintaticamente válido?\n2. **Casos de teste**: Simule mentalmente entradas, incluindo bordas.\n3. **Complexidade**: Analise tempo e espaço em notação Big-O.\n4. **Veredito**: Um veredito final bem visível em caixa alta: ACCEPTED ✅, WRONG ANSWER ❌, TIME LIMIT EXCEEDED ⏳, RUNTIME ERROR 💥 ou COMPILATION ERROR 🚨.\n5. **Nota**: Atribua uma pontuação de 0 a 100.\n6. Explique o porquê, aponte possíveis linhas problemáticas ou sugira otimizações. Seja justo e crítico como um juiz.\n"
+  },
   "guided_learning": {
     "title": "Aprendizado Guiado",
+    "aria": {
+      "close": "Fechar",
+      "start_trail": "Iniciar trilha",
+      "export_trail": "Exportar trilha",
+      "delete_trail": "Excluir trilha"
+    },
     "tabs": {
       "trails": "Planos de Estudo",
       "flashcards": "Praticar Flashcards",
@@ -1321,5 +1464,30 @@
     "subtext": "Tente recarregar a página ou tente novamente mais tarde.",
     "details": "Detalhes técnicos",
     "reload": "Recarregar página"
+  }
+  ,
+  "contributing": {
+    "title": "Como Contribuir",
+    "intro": "Obrigado por contribuir para PsyMind.AI. Esta seção explica como você pode ajudar, incluindo traduções.",
+    "translate": "Tradução",
+    "translation_details": "Para contribuir com traduções, adicione as chaves ausentes neste arquivo e envie um PR com as atualizações.",
+    "steps": {
+      "step1": "Fazer fork do repositório",
+      "step2": "Criar uma branch descritiva",
+      "step3": "Traduzir as strings faltantes",
+      "step4": "Abrir PR com instruções de teste"
+    }
+  },
+  "style_guide": {
+    "title": "Guia de Estilo",
+    "intro": "Diretrizes para nomenclatura, tom de voz, tipografia e componentes usados na interface."
+  },
+  "roadmap": {
+    "title": "Roadmap",
+    "intro": "Visão geral das funcionalidades planejadas e marcos."
+  },
+  "dashboard": {
+    "title": "Painel",
+    "intro": "Visão geral com métricas-chave e insights."
   }
 }

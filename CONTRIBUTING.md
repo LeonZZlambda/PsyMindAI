@@ -34,6 +34,7 @@ There is currently no automated test suite. If you add tests, include instructio
 
 Please include in your PR:
 
+- Traduções: se você estiver contribuindo com traduções da UI, inclua as novas chaves nos arquivos de tradução (pt/translation.json e en/translation.json) e descreva no PR o que foi traduzido.
 - A short description of the issue or feature
 - Steps to test locally
 - Checklist:

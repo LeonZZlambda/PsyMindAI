@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { Telemetry } from '../services/analytics/telemetry';
@@ -10,6 +11,7 @@ import ScrollToTopButton from '../components/ScrollToTopButton';
 import LandingHeader from '../components/LandingHeader';
 
 const AnalyticsPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { isDarkMode, toggleTheme } = useTheme();
   
@@ -29,7 +31,7 @@ const AnalyticsPage = () => {
 
   const handleGenerateInsight = async () => {
     if (!defaultConfig.isConfigured()) {
-      alert("Você precisa configurar a chave de API do Gemini no Chat/Configurações primeiro.");
+      alert(t('analytics_page.alerts.api_key'));
       return;
     }
     setIsGeneratingInsight(true);
@@ -38,10 +40,10 @@ const AnalyticsPage = () => {
       if (insight && insight.pattern && insight.suggestion) {
         setMetaInsight(insight);
       } else {
-        alert("Não houve dados suficientes para gerar a análise (tente estudar ou usar o diário mais vezes).");
+        alert(t('analytics_page.alerts.insufficient_data'));
       }
     } catch (e) {
-      alert("Falha ao se conectar com a IA para meta-análise.");
+      alert(t('analytics_page.alerts.connection_failed'));
     } finally {
       setIsGeneratingInsight(false);
     }
@@ -106,7 +108,7 @@ const AnalyticsPage = () => {
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '40px', flexWrap: 'wrap', gap: '15px' }}>
             <button className="secondary-btn" onClick={() => navigate('/')} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span className="material-symbols-outlined">arrow_back</span>
-              Voltar ao Início
+              {t('analytics_page.back_home')}
             </button>
 
             <div style={{ display: 'flex', background: 'var(--hover-color)', padding: '4px', borderRadius: '20px' }}>

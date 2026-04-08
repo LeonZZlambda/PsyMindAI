@@ -593,7 +593,7 @@ const SupportModal = ({ isOpen, onClose }) => {
               onClick={() => setActiveTab('reframing')}
             >{t("support.tabs.reframing")}</button>
           </div>
-          <button className="close-btn" onClick={handleClose} aria-label="Fechar">
+          <button className="close-btn" onClick={handleClose} aria-label={t('common.close')}>
             <span className="material-symbols-outlined">close</span>
           </button>
         </div>

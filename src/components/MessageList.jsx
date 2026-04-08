@@ -321,7 +321,7 @@ const MessageList = () => {
               </p>
             </div>
           ) : (
-            <div className="suggestions" role="group" aria-label="Sugestões de perguntas">
+            <div className="suggestions" role="group" aria-label={t('chat.messages.suggestions_aria')}>
               <button 
                 className="suggestion" 
                 onClick={() => setInput(t('chat.messages.suggestions.anxiety_prompt'))}

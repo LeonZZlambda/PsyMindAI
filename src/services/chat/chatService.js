@@ -12,14 +12,17 @@ export function setApiKey(apiKey) {
   geminiClient = new GeminiClient(apiKey);
 }
 
-export async function sendMessage(message, history = []) {
+export async function sendMessage(message, history = [], options = {}) {
   if (!geminiClient.isConfigured()) {
     return createErrorResponse(ERROR_TYPES.API_KEY_MISSING);
   }
 
+  const systemPrompt = options.systemPrompt ?? SYSTEM_PROMPTS.PSYMIND;
+  const skipMemoryUpdate = options.skipMemoryUpdate === true;
+
   try {
     const contents = [
-      ...formatHistoryForGemini(history, SYSTEM_PROMPTS.PSYMIND),
+      ...formatHistoryForGemini(history, systemPrompt),
       { role: 'user', parts: [{ text: message }] }
     ];
 
@@ -36,7 +39,11 @@ export async function sendMessage(message, history = []) {
 
     // Async trigger: atualiza memória de longo prazo em background a cada 5 mensagens
     // Isso cumpre os "padrões do usuário" e "histórico interpretado"
-    if (history.length > 2 && (history.length + 1) % 5 === 0) {
+    if (
+      !skipMemoryUpdate &&
+      history.length > 2 &&
+      (history.length + 1) % 5 === 0
+    ) {
        updateLongTermMemory([...history, { type: 'user', content: message }, { type: 'ai', content: response.text }]).catch(console.error);
     }
 
