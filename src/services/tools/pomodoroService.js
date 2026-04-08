@@ -1,3 +1,4 @@
+import i18n from '../../i18n/config';
 import { sendMessage } from '../chat/chatService';
 
 export async function generatePomodoroTip(mode) {
@@ -8,5 +9,5 @@ export async function generatePomodoroTip(mode) {
   };
 
   const result = await sendMessage(prompts[mode] || prompts.focus, []);
-  return result.success ? result.text : result.userMessage || '⚠️ Não foi possível gerar dica no momento.';
+  return result.success ? result.text : result.userMessage || i18n.t('api.errors.service_fallback');
 }

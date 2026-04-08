@@ -1,3 +1,4 @@
+import i18n from '../../i18n/config';
 import { sendMessage } from '../chat/chatService';
 
 export async function generateMoodInsight(moodHistory) {
@@ -7,5 +8,5 @@ export async function generateMoodInsight(moodHistory) {
   const prompt = `Baseado nos últimos registros emocionais de um estudante (${recentMoods}), dê uma breve reflexão empática (2-3 frases) e uma sugestão prática.`;
   
   const result = await sendMessage(prompt, []);
-  return result.success ? result.text : result.userMessage || '⚠️ Não foi possível gerar análise no momento.';
+  return result.success ? result.text : result.userMessage || i18n.t('api.errors.service_fallback');
 }

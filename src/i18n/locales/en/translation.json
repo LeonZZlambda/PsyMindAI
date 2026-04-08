@@ -72,6 +72,21 @@
       "read_full": "Read full license"
     }
   },
+  "api": {
+    "errors": {
+      "API_KEY_MISSING": "🔑 To chat with you at full strength, I need an API key set in your .env file.",
+      "INVALID_KEY": "🔑 Oops — your API key may have expired or be invalid. Try creating a new one at https://aistudio.google.com/app/apikey 💜",
+      "RATE_LIMIT": "Sorry! 💜 I'm handling a lot of messages right now. Could you wait a moment and try again?",
+      "FORBIDDEN": "🚫 Your current API key may be missing the required permissions. Please check the configuration. 💜",
+      "NOT_FOUND": "❌ Something went wrong — the AI model I'm trying to use wasn't found in the configuration.",
+      "SERVER_ERROR": "⚠️ My systems seem temporarily unstable. Please try again in a few moments.",
+      "UNAVAILABLE": "🔧 The service is temporarily unavailable. Shall we try again shortly?",
+      "EMPTY_RESPONSE": "I didn't get a complete response from the AI this time. Could you send your message again?",
+      "NETWORK": "There seems to be a connection problem with the internet or the service. Check your network and try again.",
+      "UNKNOWN": "Sorry — I couldn't connect just now while processing a lot at once! 💜 Please send your message again in a few moments.",
+      "service_fallback": "We couldn't finish this action right now. Please try again shortly."
+    }
+  },
   "sidebar": {
     "new_chat": "New chat",
     "anonymous_chat": "Anonymous Session",
@@ -139,6 +154,10 @@
         "helpline": "Helpline",
         "learning": "Guided Learning"
       }
+    },
+    "errors": {
+      "demo_mode": "🤖 **Demo mode** — Set your Gemini API key in the .env file\n\nHi! I'm PsyMind.AI, built with **Google Gemini**. I'm here to help you understand your emotions and behavior through scientific psychology.\n\nHow can I support you today? 💜",
+      "limited_continue": "💬 You can keep chatting, but replies will be limited until the issue is fixed."
     },
     "messages": {
       "copied": "Text copied to clipboard",

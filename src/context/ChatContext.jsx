@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from './ThemeContext';
 import { sendMessage as sendMessageToGemini, isConfigured as isGeminiConfigured, generateTitle as generateChatTitle } from '../services/chat/chatService';
 import { loadChats, saveChats, createChat, updateChat } from '../services/storage/chatStorage';
@@ -16,6 +17,7 @@ export const useChat = () => {
 };
 
 export const ChatProvider = ({ children }) => {
+  const { t } = useTranslation();
   const { reducedMotion } = useTheme();
   const [chats, setChats] = useState([]);
   const [chatsLoaded, setChatsLoaded] = useState(false);
@@ -100,15 +102,22 @@ export const ChatProvider = ({ children }) => {
         fullResponse = result.text;
       } else {
         // Para erros técnicos como RATE_LIMIT, UNKNOWN, conexões e servidor, envia uma mensagem simpática e direta
-        const backendErrors = ['RATE_LIMIT', 'UNKNOWN', 'SERVER_ERROR', 'UNAVAILABLE'];
+        const backendErrors = [
+          'RATE_LIMIT',
+          'UNKNOWN',
+          'SERVER_ERROR',
+          'UNAVAILABLE',
+          'NETWORK',
+          'EMPTY_RESPONSE'
+        ];
         if (backendErrors.includes(result.error)) {
            fullResponse = result.userMessage;
         } else {
-           fullResponse = `${result.userMessage}\n\n💬 Você pode continuar conversando, mas as respostas serão limitadas até resolver o problema.`;
+           fullResponse = `${result.userMessage}\n\n${t('chat.errors.limited_continue')}`;
         }
       }
     } else {
-      fullResponse = '🤖 **Modo Demonstração** - Configure sua API Key do Gemini no arquivo .env\n\nOlá! Sou o PsyMind.AI, desenvolvido com **Google Gemini**. Estou aqui para te ajudar a compreender suas emoções e comportamentos através da psicologia científica.\n\nComo posso te apoiar hoje? 💜';
+      fullResponse = t('chat.errors.demo_mode');
     }
     
     setTimeout(() => {
@@ -172,7 +181,7 @@ export const ChatProvider = ({ children }) => {
       streamTimeoutRef.current = streamer;
       streamer.start();
     }, 800);
-  }, [messages, reducedMotion, currentChatId, chats, isAnonymous]);
+  }, [messages, reducedMotion, currentChatId, chats, isAnonymous, t]);
 
   const stopStreaming = useCallback(() => {
     if (streamTimeoutRef.current) {

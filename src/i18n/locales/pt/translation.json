@@ -72,6 +72,21 @@
       "read_full": "Ler licença completa"
     }
   },
+  "api": {
+    "errors": {
+      "API_KEY_MISSING": "🔑 Para que eu possa conversar com você com todo o meu potencial, preciso que uma API Key seja configurada no arquivo .env.",
+      "INVALID_KEY": "🔑 Ops, parece que a chave de acesso (API Key) expirou ou é inválida. Que tal gerar uma nova em https://aistudio.google.com/app/apikey ? 💜",
+      "RATE_LIMIT": "Desculpe! 💜 Eu estou um pouco sobrecarregada agora com muitas mensagens. Você se importa de aguardar um momentinho e tentar novamente?",
+      "FORBIDDEN": "🚫 Ah, a API Key atual parece estar sem as permissões necessárias. Você poderia verificar a configuração? 💜",
+      "NOT_FOUND": "❌ Ops, ocorreu um problema e o modelo de IA que estou tentando acessar não foi encontrado nas configurações.",
+      "SERVER_ERROR": "⚠️ Eita, parece que meus sistemas estão passando por uma instabilidade temporária. Tente novamente em instantes.",
+      "UNAVAILABLE": "🔧 Meu serviço está temporariamente indisponível. Vamos tentar de novo em instantes?",
+      "EMPTY_RESPONSE": "Não recebi uma resposta completa da IA desta vez. Pode enviar sua mensagem de novo?",
+      "NETWORK": "Parece que houve um problema de conexão com a internet ou com o serviço. Verifique sua rede e tente novamente.",
+      "UNKNOWN": "Desculpe, eu não consegui me conectar agora, estava processando muita informação ao mesmo tempo! 💜 Tente me enviar sua mensagem de novo em alguns instantes.",
+      "service_fallback": "Não foi possível concluir esta ação no momento. Tente de novo em instantes."
+    }
+  },
   "sidebar": {
     "new_chat": "Novo chat",
     "anonymous_chat": "Sessão Anônima",
@@ -139,6 +154,10 @@
         "helpline": "Linha de Apoio",
         "learning": "Aprendizado Guiado"
       }
+    },
+    "errors": {
+      "demo_mode": "🤖 **Modo Demonstração** — Configure sua API Key do Gemini no arquivo .env\n\nOlá! Sou o PsyMind.AI, desenvolvido com **Google Gemini**. Estou aqui para te ajudar a compreender suas emoções e comportamentos através da psicologia científica.\n\nComo posso te apoiar hoje? 💜",
+      "limited_continue": "💬 Você pode continuar conversando, mas as respostas serão limitadas até resolver o problema."
     },
     "messages": {
       "copied": "Texto copiado para a área de transferência",

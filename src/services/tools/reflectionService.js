@@ -1,3 +1,4 @@
+import i18n from '../../i18n/config';
 import { sendMessage } from '../chat/chatService';
 
 export async function generateReflection(category = null) {
@@ -23,5 +24,5 @@ export async function generateReflectionAnalysis(reflection) {
   const prompt = `Sobre a frase "${reflection.text}" de ${reflection.author}, escreva uma breve reflexão (2-3 frases) de como um estudante pode aplicar isso no dia a dia.`;
   
   const result = await sendMessage(prompt, []);
-  return result.success ? result.text : result.userMessage || '⚠️ Não foi possível gerar reflexão no momento.';
+  return result.success ? result.text : result.userMessage || i18n.t('api.errors.service_fallback');
 }
