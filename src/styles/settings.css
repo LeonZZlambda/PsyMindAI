@@ -6,24 +6,31 @@
 }
 
 .settings-section {
-  margin-bottom: 2rem;
+  margin-bottom: 24px;
 }
 
 .settings-section h3 {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--text-light);
-  margin: 0 0 1rem 0;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin: 0 0 12px 16px;
+  text-transform: none;
+  letter-spacing: normal;
 }
 
 .setting-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1.5rem;
+  margin-bottom: 8px;
+  padding: 16px 20px;
   gap: 1rem;
+  background-color: rgba(0, 0, 0, 0.04);
+  border-radius: 24px;
+}
+
+.app.dark .setting-item {
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 .setting-item.disabled {
@@ -37,15 +44,17 @@
 
 .setting-label {
   display: block;
-  font-size: 1rem;
+  font-size: 1.05rem;
+  font-weight: 500;
   color: var(--text-color);
   margin-bottom: 0.25rem;
 }
 
 .setting-desc {
   display: block;
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   color: var(--text-light);
+  line-height: 1.4;
 }
 
 /* Font Size Controls */
@@ -307,4 +316,108 @@
   visibility: visible;
   opacity: 1;
   right: calc(100% + 12px);
+}
+
+/* API Key Input Group */
+.api-key-input-group {
+  display: flex;
+  gap: 8px;
+  width: auto;
+  max-width: 100%;
+}
+
+.api-key-input {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 24px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-color);
+  color: var(--text-color);
+  min-width: 200px; /* Prevents input from becoming too small on resize */
+}
+
+.api-key-save-btn {
+  padding: 8px 24px;
+  border-radius: 24px;
+  border: none;
+  background: var(--primary-color);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app.dark .api-key-save-btn {
+  color: #001d35; /* Dark navy text for high contrast on light teal background */
+  font-weight: 600;
+}
+
+.api-key-delete-btn {
+  padding: 8px 16px;
+  border-radius: 24px;
+  border: 1px solid var(--error-color, #ff4c4c);
+  background: transparent;
+  color: var(--error-color, #ff4c4c);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.api-key-tooltip-wrapper {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: var(--text-color-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  width: 100%;
+}
+
+/* Mobile Settings Refinements */
+@media (max-width: 480px) {
+  .settings-body {
+    padding: 0 1rem 1.5rem;
+  }
+  
+  .setting-item {
+    padding: 14px 16px;
+    gap: 12px;
+    flex-wrap: wrap; /* Helps handle very squeezed elements */
+  }
+
+  .setting-label {
+    font-size: 0.95rem;
+  }
+
+  .api-key-input-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .api-key-input {
+    width: 100%;
+  }
+
+  .api-key-save-btn, .api-key-delete-btn {
+    width: 100%;
+  }
+  
+  .font-size-controls {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  
+  .font-btn {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .danger-btn {
+    width: 100%;
+    justify-content: center;
+  }
 }

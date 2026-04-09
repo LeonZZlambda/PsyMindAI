@@ -263,15 +263,19 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
 
           <div className="settings-section">
             <h3>{t('settings.integration.title')}</h3>
-            <div className="setting-item" style={{ marginTop: '10px' }}>
-              <div className="setting-info">
+            <div className="setting-item" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '12px' }}>
+              <div className="setting-info" style={{ width: '100%' }}>
                 <span className="setting-label">{t('settings.integration.import.label')}</span>
                 <span className="setting-desc">{t('settings.integration.import.desc')}</span>
               </div>
-              <button className="secondary-btn" onClick={() => {
-                onClose();
-                onOpenImportContext();
-              }}>
+              <button 
+                className="secondary-btn" 
+                style={{ width: '100%', justifyContent: 'center' }} 
+                onClick={() => {
+                  onClose();
+                  onOpenImportContext();
+                }}
+              >
                 <span className="material-symbols-outlined" style={{ fontSize: '18px', marginRight: '6px' }}>cloud_download</span>
                 {t('settings.integration.import.button')}
               </button>
@@ -281,39 +285,38 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
           <div className="settings-section">
             <h3>{t('settings.privacy.title')}</h3>
             
-            <div className="setting-item">
-              <div className="setting-info">
+            <div className="setting-item" style={{ alignItems: 'flex-start', flexDirection: 'column' }}>
+              <div className="setting-info" style={{ flex: '1 1 0%', width: '100%' }}>
                 <span className="setting-label">{t('settings.api_key.label')}</span>
                 <span className="setting-desc">{t('settings.api_key.desc')}</span>
               </div>
-              <div className="api-key-input-group" style={{ display: 'flex', gap: '8px', marginTop: '10px' }}>
-                <input 
-                  type="password"
-                  className="input-field"
-                  placeholder={t('settings.api_key.placeholder')}
-                  value={apiKey}
-                  onChange={(e) => setApiKey(e.target.value)}
-                  style={{ flex: 1, padding: '8px', borderRadius: '4px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-color)' }}
-                />
-                <button className="primary-btn" onClick={handleSaveApiKey} style={{ padding: '8px 16px', borderRadius: '4px', border: 'none', background: 'var(--primary-color)', color: '#fff', cursor: 'pointer' }}>
-                  {t('settings.api_key.save')}
-                </button>
-                {apiKey && (
-                  <button 
-                    onClick={() => {
-                      setApiKey('');
-                      updateApiKey('');
-                      toast.success(t('settings.api_key.remove_toast'));
-                    }} 
-                    style={{ padding: '8px 12px', borderRadius: '4px', border: '1px solid var(--error-color, #ff4c4c)', background: 'transparent', color: 'var(--error-color, #ff4c4c)', cursor: 'pointer' }}
-                    title={t('settings.api_key.remove_title')}
-                    type="button"
-                  >
-                    <span className="material-symbols-outlined" style={{ fontSize: '1.2rem', verticalAlign: 'middle' }}>delete</span>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '8px', width: '100%' }}>
+                <div className="api-key-input-group" style={{ margin: 0, width: '100%' }}>
+                  <input 
+                    type="password"
+                    className="input-field api-key-input"
+                    placeholder={t('settings.api_key.placeholder')}
+                    value={apiKey}
+                    onChange={(e) => setApiKey(e.target.value)}
+                  />
+                  <button className="primary-btn api-key-save-btn" onClick={handleSaveApiKey}>
+                    {t('settings.api_key.save')}
                   </button>
-                )}
-              </div>
-              <div style={{ marginTop: '8px', fontSize: '0.8rem', color: 'var(--text-color-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '4px' }}>
+                  {apiKey && (
+                    <button 
+                      onClick={() => {
+                        setApiKey('');
+                        updateApiKey('');
+                        toast.success(t('settings.api_key.remove_toast'));
+                      }} 
+                      className="api-key-delete-btn"
+                      title={t('settings.api_key.remove_title')}
+                      type="button"
+                    >
+                      <span className="material-symbols-outlined" style={{ fontSize: '1.2rem' }}>delete</span>
+                    </button>
+                  )}
+                </div>
                 <div className="settings-tooltip-container" style={{ margin: 0 }}>
                   <span className="material-symbols-outlined" style={{ fontSize: '1.2rem', color: 'var(--primary-color)', cursor: 'help' }}>lock</span>
                   <div className="tooltip-text">
@@ -323,7 +326,7 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
               </div>
             </div>
 
-            <div className="setting-item" style={{ marginTop: '20px' }}>
+            <div className="setting-item" >
               <div className="setting-info">
                 <span className="setting-label">{t('settings.usage_analytics.label')}</span>
                 <span className="setting-desc" style={{ fontSize: '0.85rem' }}>{t('settings.usage_analytics.desc')}</span>
@@ -339,7 +342,7 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
               </button>
             </div>
 
-            <div className="setting-item" style={{ marginTop: '20px' }}>
+            <div className="setting-item" >
               <div className="setting-info">
                 <span className="setting-label">{t('settings.history.label')}</span>
                 <span className="setting-desc">{t('settings.history.desc')}</span>
