@@ -1,94 +1,5 @@
-/* Settings Modal */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  backdrop-filter: blur(4px);
-  animation: fadeIn 0.2s ease-out;
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
-  box-sizing: border-box;
-}
-
-.modal-content {
-  background: var(--card-background);
-  border-radius: 28px;
-  width: 90%;
-  max-width: 560px;
-  max-height: 90dvh;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
-  animation: slideUp 0.3s cubic-bezier(0.2, 0, 0, 1);
-}
-
-@media (max-width: 768px) {
-  .modal-content {
-    width: 92%;
-    max-height: 85dvh;
-  }
-}
-
-.modal-overlay.closing {
-  animation: fadeOut 0.3s ease-in forwards;
-}
-
-.modal-overlay.closing .modal-content {
-  animation: slideDown 0.3s cubic-bezier(0.4, 0, 1, 1) forwards;
-}
-
-.modal-header {
-  padding: 1.5rem 1.5rem 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-shrink: 0;
-  gap: 0.5rem;
-  min-width: 0;
-}
-
-.modal-header h2 {
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: var(--text-color);
-}
-
-.close-btn {
-  background: transparent;
-  border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: var(--text-light);
-  transition: background 0.2s ease;
-}
-
-.close-btn:hover {
-  background: rgba(0, 0, 0, 0.05);
-}
-
-.modal-footer {
-  padding: 1rem 1.5rem 1.5rem;
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-  flex-shrink: 0;
-}
-
-.settings-body,
-.modal-body {
+/* Settings Modal Specifics */
+.settings-body {
   padding: 0 1.5rem 1.5rem;
   overflow-y: auto;
   flex: 1;
@@ -164,25 +75,6 @@
 }
 
 /* Dark Mode Settings */
-.app.dark .modal-content {
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
-}
-
-.app.dark .modal-header {
-  border-bottom-color: #444746;
-}
-
-
-
-
-
-.app.dark .close-btn:hover {
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.app.dark .close-btn {
-  color: var(--text-light);
-}
 
 .app.dark .font-size-controls {
   background: #282a2c;

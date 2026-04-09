@@ -1611,39 +1611,3 @@ kbd {
   filter: brightness(1.1);
 }
 
-/* Modal Close Button - Explicit styling */
-.modal-close-btn {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  transition: all 0.2s ease;
-  color: var(--text-light);
-  flex-shrink: 0;
-}
-
-.modal-close-btn:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-.modal-close-btn:active {
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-.app.dark .modal-close-btn {
-  color: #e8eaed;
-}
-
-.app.dark .modal-close-btn:hover {
-  background-color: rgba(255, 255, 255, 0.12);
-}
-
-.app.dark .modal-close-btn:active {
-  background-color: rgba(255, 255, 255, 0.18);
-}
