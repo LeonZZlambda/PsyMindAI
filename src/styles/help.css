@@ -10,10 +10,12 @@
 }
 
 .help-section h3 {
-  font-size: 1.25rem;
-  font-weight: 500;
-  color: var(--text-color);
-  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin: 0 0 12px 16px;
+  text-transform: none;
+  letter-spacing: normal;
 }
 
 
@@ -31,18 +33,25 @@
 
 .help-item {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 1rem;
-  padding: 0.5rem 0;
-  margin-bottom: 0.5rem;
+  padding: 16px 20px;
+  margin-bottom: 8px;
+  background-color: rgba(0, 0, 0, 0.04);
+  border-radius: 24px;
+}
+
+.app.dark .help-item {
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 .help-icon {
   color: var(--primary-color);
-  font-size: 24px;
-  padding: 8px;
-  background: var(--primary-background-light);
+  font-size: 28px;
+  padding: 10px;
+  background: rgba(var(--primary-rgb, 0,0,0), 0.08); /* slight tint instead */
   border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .app.dark .help-icon {
@@ -79,17 +88,19 @@
 /* FAQ Accordion - Material Style */
 .faq-item {
   border: none;
-  border-bottom: 1px solid #e0e3e1;
-  margin-bottom: 0;
-  border-radius: 0;
+  margin-bottom: 8px;
+  padding: 0 20px;
+  background-color: rgba(0, 0, 0, 0.04);
+  border-radius: 24px;
+  overflow: hidden; /* For expanding smoothly */
 }
 
 .app.dark .faq-item {
-  border-bottom-color: var(--border-color);
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 .faq-item:last-child {
-  border-bottom: none;
+  margin-bottom: 0;
 }
 
 .faq-item summary {
@@ -317,7 +328,7 @@
   gap: 0.5rem;
   padding: 0.75rem;
   border: 1px solid var(--border-color);
-  border-radius: 8px;
+  border-radius: 24px;
   background: transparent;
   color: var(--text-light);
   cursor: pointer;
@@ -358,7 +369,7 @@ textarea#feedback-text {
   width: 100%;
   padding: 1rem;
   border: 1px solid var(--border-color);
-  border-radius: 8px;
+  border-radius: 16px;
   background: transparent;
   color: var(--text-color);
   font-family: inherit;
@@ -815,15 +826,14 @@ textarea#feedback-text:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem;
-  background-color: rgba(0, 0, 0, 0.02);
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
+  padding: 16px 20px;
+  background-color: rgba(0, 0, 0, 0.04);
+  border-radius: 20px;
+  border: none;
 }
 
 .app.dark .shortcut-item {
-  background-color: rgba(255, 255, 255, 0.02);
-  border-color: var(--border-color);
+  background-color: rgba(255, 255, 255, 0.05); /* Same as settings */
 }
 
 .shortcut-desc {
