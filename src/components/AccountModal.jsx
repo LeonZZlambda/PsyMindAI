@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import BaseModal from './BaseModal';
 
 const AccountModal = ({ isOpen, onClose, onOpenStudyStats, initialView = 'account' }) => {
   const { t } = useTranslation();
@@ -34,6 +33,32 @@ const AccountModal = ({ isOpen, onClose, onOpenStudyStats, initialView = 'accoun
     }
   }, [isOpen, initialView]);
 
+  // ESC key to close
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    // Handle clicks outside the modal
+    const handleClickOutside = (e) => {
+      const accountModal = document.querySelector('.account-modal-overlay');
+      if (accountModal && !accountModal.contains(e.target)) {
+        onClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen, onClose]);
+
   const handleSave = () => {
     localStorage.setItem('psymind_user_profile', JSON.stringify(profileSettings));
     setActiveView('account');
@@ -48,13 +73,17 @@ const AccountModal = ({ isOpen, onClose, onOpenStudyStats, initialView = 'accoun
   };
 
   return (
-    <BaseModal
-      isOpen={isOpen}
-      onClose={onClose}
-      title={null}
-      closeButton={false}
-    >
-      <div className="account-modal-content">
+    <AnimatePresence mode="wait">
+      {isOpen && (
+        <motion.div
+          key="account-modal"
+          className="account-modal-overlay"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.95 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          >
+          <div className="account-modal-content">
         <AnimatePresence mode="wait">
           {activeView === 'account' ? (
             <motion.div 
@@ -157,7 +186,7 @@ const AccountModal = ({ isOpen, onClose, onOpenStudyStats, initialView = 'accoun
               transition={{ duration: 0.2 }}
               style={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0, width: '100%' }}
             >
-              <div className="modal-header" style={{ padding: '16px 24px', borderBottom: '1px solid var(--border-color)', flexShrink: 0 }}>
+              <div style={{ padding: '16px 24px', borderBottom: '1px solid var(--border-color)', flexShrink: 0 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                   <button className="header-btn" onClick={() => setActiveView('account')} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--text-color)', display: 'flex', alignItems: 'center', padding: '0', height: 'auto' }}>
                     <span className="material-symbols-outlined">arrow_back</span>
@@ -303,15 +332,17 @@ const AccountModal = ({ isOpen, onClose, onOpenStudyStats, initialView = 'accoun
                 </div>
               </div>
 
-              <div className="modal-footer" style={{ padding: '16px 24px', borderTop: '1px solid var(--border-color)', display: 'flex', gap: '16px', flexShrink: 0 }}>
+              <div style={{ padding: '16px 24px', borderTop: '1px solid var(--border-color)', display: 'flex', gap: '16px', flexShrink: 0 }}>
                 <button className="primary-btn" onClick={() => setActiveView('account')} style={{ flex: 1, padding: '0.7rem 1.5rem', fontWeight: 600, fontSize: '0.95rem' }}>{t('account.personalization.actions.cancel')}</button>
                 <button className="primary-btn cta" onClick={handleSave} style={{ flex: 1, padding: '0.7rem 1.5rem' }}>{t('account.personalization.actions.save')}</button>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
-    </BaseModal>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 

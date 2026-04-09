@@ -200,18 +200,27 @@
 }
 
 .account-modal-overlay {
+  position: fixed !important;
+  top: 80px !important;
+  right: 24px !important;
   background: transparent !important;
-  backdrop-filter: none !important;
-  align-items: flex-start !important;
-  justify-content: flex-end !important;
-  padding: 70px 24px !important;
+  width: auto !important;
+  height: auto !important;
+  z-index: 1000 !important;
+  display: block !important;
 }
 
 .account-modal-content {
   width: 380px !important;
   max-height: calc(100vh - 100px) !important;
   padding: 0 !important;
-    padding-bottom: env(safe-area-inset-bottom) !important;
+  padding-bottom: env(safe-area-inset-bottom) !important;
+  background: var(--card-background) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2) !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 .account-menu-item {
@@ -256,21 +265,27 @@
 
 @media (max-width: 768px) {
   .account-modal-overlay {
-    align-items: center !important;
-    justify-content: center !important;
-    padding: 24px !important;
-    background: rgba(0, 0, 0, 0.4) !important;
-    backdrop-filter: blur(4px) !important;
+    position: fixed !important;
+    top: auto !important;
+    right: auto !important;
+    left: 50% !important;
+    bottom: 24px !important;
+    transform: translateX(-50%) !important;
+    background: transparent !important;
+    width: auto !important;
+    height: auto !important;
   }
   
   .account-modal-content {
-    width: 100% !important;
-    margin: 0 auto !important;
+    width: 90vw !important;
+    max-width: 380px !important;
     max-height: 85dvh !important;
-    overflow-y: hidden !important;
-    padding-bottom: 0 !important;
-    border-radius: 28px !important;
-    box-shadow: 0 12px 32px rgba(0,0,0,0.3) !important;
+    padding: 0 !important;
+    padding-bottom: env(safe-area-inset-bottom) !important;
+    overflow-y: auto !important;
+    background: var(--card-background) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2) !important;
   }
 }
 

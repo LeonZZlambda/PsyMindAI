@@ -2,13 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
-import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useChat } from '../context/ChatContext';
 import { usePomodoro } from '../context/PomodoroContext';
-import PomodoroModal from './PomodoroModal';
-import KindnessModal from './KindnessModal';
-import ExamsModal from './ExamsModal';
+import { useModal } from '../context/ModalContext';
 import { Telemetry } from '../services/analytics/telemetry';
 
 const ImagePreview = ({ file }) => {
@@ -30,19 +27,16 @@ const ImagePreview = ({ file }) => {
   return <img src={url} alt={safeName} />;
 };
 
-const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections, onOpenMoodTracker, onOpenEmotionalJournal, onOpenGuidedLearning }) => {
-  const navigate = useNavigate();
+const InputArea = ({ inputRef, onOpenSupport, onOpenReflections, onOpenMoodTracker, onOpenEmotionalJournal, onOpenGuidedLearning }) => {
   const { input, setInput, sendMessage, isTyping, isStreaming, stopStreaming } = useChat();
   const { isActive: pomodoroIsActive, mode: pomodoroMode, timeLeft: pomodoroTimeLeft } = usePomodoro();
   const { t } = useTranslation();
+  const { toggleModal } = useModal();
   
   const [isListening, setIsListening] = useState(false);
   const [recognition, setRecognition] = useState(null);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [showToolsMenu, setShowToolsMenu] = useState(false);
-  const [showPomodoro, setShowPomodoro] = useState(false);
-  const [showKindness, setShowKindness] = useState(false);
-  const [showExamsModal, setShowExamsModal] = useState(false);
   const fileInputRef = useRef(null);
   const toolsMenuRef = useRef(null);
 
@@ -75,17 +69,17 @@ const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections, onO
   const handleToolClick = (tool) => {
     Telemetry.trackFeature(tool.id || tool.label, 'opened');
     if (tool.id === 'pomodoro') {
-      setShowPomodoro(true);
+      toggleModal('pomodoroModal');
       setShowToolsMenu(false);
       return;
     }
     if (tool.id === 'kindness') {
-      setShowKindness(true);
+      toggleModal('kindnessModal');
       setShowToolsMenu(false);
       return;
     }
     if (tool.id === 'vestibulares') {
-      setShowExamsModal(true);
+      toggleModal('examsModal');
       setShowToolsMenu(false);
       return;
     }
@@ -387,24 +381,6 @@ const InputArea = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections, onO
         </a>
       </p>
       <AnimatePresence>
-        {showPomodoro && (
-          <PomodoroModal 
-            isOpen={showPomodoro} 
-            onClose={() => setShowPomodoro(false)}
-          />
-        )}
-        {showKindness && (
-          <KindnessModal 
-            isOpen={showKindness} 
-            onClose={() => setShowKindness(false)}
-          />
-        )}
-        {showExamsModal && (
-          <ExamsModal 
-            isOpen={showExamsModal} 
-            onClose={() => setShowExamsModal(false)}
-          />
-        )}
       </AnimatePresence>
     </footer>
   );

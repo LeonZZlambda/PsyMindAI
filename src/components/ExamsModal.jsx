@@ -933,14 +933,10 @@ const ExamsModal = ({ isOpen, onClose }) => {
   const [quizConfig, setQuizConfig] = useState(null);
 
   const handleClose = () => {
-    setIsClosing(true);
-    setTimeout(() => {
-      onClose();
-      setIsClosing(false);
-      setSelectedCategory(null);
-      setSelectedExam(null);
-      setSelectedSubject(null);
-    }, 300);
+    onClose();
+    setSelectedCategory(null);
+    setSelectedExam(null);
+    setSelectedSubject(null);
   };
 
   useEffect(() => {

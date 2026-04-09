@@ -21,7 +21,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
     }
   });
 
-  const trails = useMemo(() => [...customTrails, ...DEFAULT_TRAILS], [customTrails]);
+  const trails = useMemo(() => [...customTrails, ...DEFAULT_TRAILS], [customTrails, DEFAULT_TRAILS]);
 
   useEffect(() => {
     localStorage.setItem('psy_mind_custom_trails', JSON.stringify(customTrails));
@@ -140,7 +140,6 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
 
          return {
             ...q,
-            // eslint-disable-next-line react-hooks/purity
             _uid: `quiz_${idx}_${crypto.randomUUID()}`, // UID para React renderizar
            options: opts,
            correctOption: newCorrectID
@@ -406,7 +405,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
                          {t("guided_learning.open_ended.ai_feedback")}
                       </div>
                       <div className="markdown-body">
-                         <ReactMarkdown components={{ p: ({node: _node, ...props}) => <p style={{ margin: '0 0 8px 0', lineHeight: '1.5' }} {...props} /> }}>
+                         <ReactMarkdown components={{ p: ({ ...props}) => <p style={{ margin: '0 0 8px 0', lineHeight: '1.5' }} {...props} /> }}>
                             {discursiveFeedback}
                          </ReactMarkdown>
                       </div>
@@ -468,7 +467,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
                        {t("guided_learning.quiz.tutor")}
                     </div>
                     <div className="markdown-body">
-                        <ReactMarkdown components={{ p: ({node: _node, ...props}) => <p style={{ margin: '0 0 8px 0' }} {...props} /> }}>
+                        <ReactMarkdown components={{ p: ({ ...props}) => <p style={{ margin: '0 0 8px 0' }} {...props} /> }}>
                           {aiExplanation}
                        </ReactMarkdown>
                     </div>

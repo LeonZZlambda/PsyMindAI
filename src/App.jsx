@@ -36,6 +36,7 @@ import ErrorFallback from './components/ErrorFallback'
 import TelemetryConsent from './components/TelemetryConsent'
 import { useTheme } from './context/ThemeContext'
 import { useChat } from './context/ChatContext'
+import { useModal } from './context/ModalContext'
 import { Telemetry } from './services/analytics/telemetry'
 
 // Lazy load modals to improve initial load performance
@@ -54,22 +55,12 @@ const GuidedLearningModal = lazy(() => import('./components/GuidedLearningModal'
 function App() {
   const { isDarkMode, fontSize, reducedMotion, highContrast, dyslexicFont, colorBlindMode, toggleTheme } = useTheme()
   const { clearHistory, setInput, isLoading, startAnonymousChat } = useChat()
+  const { openModals, toggleModal } = useModal()
   const location = useLocation()
   const publicRoutes = ['/', '/roadmap', '/contribute', '/style-guide', '/privacy', '/terms', '/analytics', '/transparency']
   const isPublicPage = publicRoutes.includes(location.pathname)
   
   const [isSidebarOpen, setIsSidebarOpen] = useState(() => typeof window !== 'undefined' ? window.innerWidth > 768 : true)
-  const [isUserProfileOpen, setIsUserProfileOpen] = useState(false)
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false)
-  const [isHelpOpen, setIsHelpOpen] = useState(false)
-  const [isSupportOpen, setIsSupportOpen] = useState(false)
-  const [isReflectionsOpen, setIsReflectionsOpen] = useState(false)
-  const [isMoodTrackerOpen, setIsMoodTrackerOpen] = useState(false)
-  const [isEmotionalJournalOpen, setIsEmotionalJournalOpen] = useState(false)
-  const [isImportContextOpen, setIsImportContextOpen] = useState(false)
-  const [isStudyStatsOpen, setIsStudyStatsOpen] = useState(false)
-  const [isGuidedLearningOpen, setIsGuidedLearningOpen] = useState(false)
-
   const [isNewChatAnimating, setIsNewChatAnimating] = useState(false)
   const [helpInitialTab, setHelpInitialTab] = useState('faq')
   
@@ -134,21 +125,21 @@ function App() {
       // Settings: Command + ,
       if (metaKey && e.key === ',') {
         e.preventDefault();
-        setIsSettingsOpen(true);
+        toggleModal('settingsModal');
       }
 
       // Help: Command + /
       if (metaKey && e.key === '/') {
         e.preventDefault();
         setHelpInitialTab('faq');
-        setIsHelpOpen(true);
+        toggleModal('helpModal');
       }
 
       // Shortcuts: Command + Shift + / (or ?)
       if (metaKey && (e.key === '?' || (e.shiftKey && e.key === '/'))) {
         e.preventDefault();
         setHelpInitialTab('shortcuts');
-        setIsHelpOpen(true);
+        toggleModal('helpModal');
       }
 
       // Focus Input: /
@@ -162,7 +153,7 @@ function App() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handleNewChat]);
+  }, [handleNewChat, toggleModal, toggleTheme, setHelpInitialTab]);
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => window.location.reload()}>
@@ -194,11 +185,11 @@ function App() {
               onAnonymousChat={handleAnonymousChat}
               onChatSelect={handleChatSelect}
               isNewChatAnimating={isNewChatAnimating}
-              onOpenSettings={() => setIsSettingsOpen(true)}
-              onOpenImportContext={() => setIsImportContextOpen(true)}
+              onOpenSettings={() => toggleModal('settingsModal')}
+              onOpenImportContext={() => toggleModal('importContextModal')}
               onOpenHelp={(tab) => {
                 setHelpInitialTab(tab || 'faq');
-                setIsHelpOpen(true);
+                toggleModal('helpModal');
               }}
             />
             {isSidebarOpen && (
@@ -219,7 +210,7 @@ function App() {
                 isSidebarOpen={isSidebarOpen} 
                 toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
                 isLoading={isLoading}
-                onOpenStudyStats={() => setIsStudyStatsOpen(true)}
+                onOpenStudyStats={() => toggleModal('studyStatsModal')}
               />
             </>
           )}
@@ -240,13 +231,13 @@ function App() {
                   inputRef={inputRef} 
                   onOpenHelp={() => {
                     setHelpInitialTab('faq');
-                    setIsHelpOpen(true);
+                    toggleModal('helpModal');
                   }}
-                  onOpenSupport={() => setIsSupportOpen(true)}
-                  onOpenReflections={() => setIsReflectionsOpen(true)}
-                  onOpenMoodTracker={() => setIsMoodTrackerOpen(true)}
-                  onOpenEmotionalJournal={() => setIsEmotionalJournalOpen(true)}
-                  onOpenGuidedLearning={() => setIsGuidedLearningOpen(true)}
+                  onOpenSupport={() => toggleModal('supportModal')}
+                  onOpenReflections={() => toggleModal('reflectionsModal')}
+                  onOpenMoodTracker={() => toggleModal('moodTrackerModal')}
+                  onOpenEmotionalJournal={() => toggleModal('emotionalJournalModal')}
+                  onOpenGuidedLearning={() => toggleModal('guidedLearningModal')}
                 />
               } 
             />
@@ -255,78 +246,78 @@ function App() {
         </div>
 
         <Suspense fallback={null}>
-          {isUserProfileOpen && (
+          {openModals.accountModal && (
             <AccountModal
-              isOpen={isUserProfileOpen}
-              onClose={() => setIsUserProfileOpen(false)}
-              onOpenStudyStats={() => setIsStudyStatsOpen(true)}
+              isOpen={openModals.accountModal}
+              onClose={() => toggleModal('accountModal')}
+              onOpenStudyStats={() => toggleModal('studyStatsModal')}
               initialView="personalization"
             />
           )}
-          {isSettingsOpen && (
+          {openModals.settingsModal && (
             <SettingsModal 
-              isOpen={isSettingsOpen} 
-              onClose={() => setIsSettingsOpen(false)}
-              onOpenImportContext={() => setIsImportContextOpen(true)}
+              isOpen={openModals.settingsModal} 
+              onClose={() => toggleModal('settingsModal')}
+              onOpenImportContext={() => toggleModal('importContextModal')}
             />
           )}
 
-          {isHelpOpen && (
+          {openModals.helpModal && (
             <HelpModal 
-              isOpen={isHelpOpen} 
-              onClose={() => setIsHelpOpen(false)} 
+              isOpen={openModals.helpModal} 
+              onClose={() => toggleModal('helpModal')} 
               initialTab={helpInitialTab}
             />
           )}
 
-          {isSupportOpen && (
+          {openModals.supportModal && (
             <SupportModal 
-              isOpen={isSupportOpen} 
-              onClose={() => setIsSupportOpen(false)} 
+              isOpen={openModals.supportModal} 
+              onClose={() => toggleModal('supportModal')} 
             />
           )}
 
-          {isReflectionsOpen && (
+          {openModals.reflectionsModal && (
             <ReflectionsModal 
-              isOpen={isReflectionsOpen} 
-              onClose={() => setIsReflectionsOpen(false)} 
+              isOpen={openModals.reflectionsModal} 
+              onClose={() => toggleModal('reflectionsModal')} 
             />
           )}
 
-          {isMoodTrackerOpen && (
+          {openModals.moodTrackerModal && (
             <MoodTrackerModal 
-              isOpen={isMoodTrackerOpen} 
-              onClose={() => setIsMoodTrackerOpen(false)} 
+              isOpen={openModals.moodTrackerModal} 
+              onClose={() => toggleModal('moodTrackerModal')} 
             />
           )}
 
-          {isEmotionalJournalOpen && (
+          {openModals.emotionalJournalModal && (
             <EmotionalJournalModal 
-              isOpen={isEmotionalJournalOpen} 
-              onClose={() => setIsEmotionalJournalOpen(false)} 
+              isOpen={openModals.emotionalJournalModal} 
+              onClose={() => toggleModal('emotionalJournalModal')} 
             />
           )}
 
-          {isImportContextOpen && (
+          {openModals.importContextModal && (
             <ImportContextModal 
-              isOpen={isImportContextOpen} 
-              onClose={() => setIsImportContextOpen(false)} 
+              isOpen={openModals.importContextModal} 
+              onClose={() => toggleModal('importContextModal')} 
             />
           )}
 
           <AnimatePresence>
-            {isStudyStatsOpen && (
+            {openModals.studyStatsModal && (
               <StudyStatsModal 
-                isOpen={isStudyStatsOpen} 
-                onClose={() => setIsStudyStatsOpen(false)} 
+                isOpen={openModals.studyStatsModal} 
+                onClose={() => toggleModal('studyStatsModal')} 
               />
             )}
           </AnimatePresence>
           <AnimatePresence>
-            {isGuidedLearningOpen && (
+            {openModals.guidedLearningModal && (
               <GuidedLearningModal
-                isOpen={isGuidedLearningOpen}
-                onClose={() => setIsGuidedLearningOpen(false)}
+                isOpen={openModals.guidedLearningModal}
+                onClose={() => toggleModal('guidedLearningModal')}
               />
             )}
           </AnimatePresence>
