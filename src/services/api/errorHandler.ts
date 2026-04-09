@@ -1,5 +1,5 @@
-import { i18n } from '@/i18n/config';
-import { Telemetry } from '@/services/analytics/telemetry';
+import i18n from '../../i18n/config';
+import { Telemetry } from '../analytics/telemetry';
 
 /**
  * Error type constants for API error categorization
@@ -8,12 +8,12 @@ export enum ErrorType {
   API_KEY_MISSING = 'API_KEY_MISSING',
   INVALID_KEY = 'INVALID_KEY',
   RATE_LIMIT = 'RATE_LIMIT',
-  CONTEXT_LENGTH_EXCEEDED = 'CONTEXT_LENGTH_EXCEEDED',
-  SAFETY_FILTER = 'SAFETY_FILTER',
-  NETWORK = 'NETWORK',
-  TIMEOUT = 'TIMEOUT',
+  FORBIDDEN = 'FORBIDDEN',
+  NOT_FOUND = 'NOT_FOUND',
+  SERVER_ERROR = 'SERVER_ERROR',
+  UNAVAILABLE = 'UNAVAILABLE',
   EMPTY_RESPONSE = 'EMPTY_RESPONSE',
-  SERVICE_UNAVAILABLE = 'SERVICE_UNAVAILABLE',
+  NETWORK = 'NETWORK',
   UNKNOWN = 'UNKNOWN'
 }
 
@@ -22,13 +22,15 @@ export enum ErrorType {
  */
 const HTTP_ERROR_MAP: Record<number, ErrorType> = {
   400: ErrorType.INVALID_KEY,
-  401: ErrorType.API_KEY_MISSING,
-  403: ErrorType.INVALID_KEY,
+  401: ErrorType.INVALID_KEY,
+  403: ErrorType.FORBIDDEN,
+  404: ErrorType.NOT_FOUND,
+  408: ErrorType.UNAVAILABLE,
   429: ErrorType.RATE_LIMIT,
-  500: ErrorType.SERVICE_UNAVAILABLE,
-  502: ErrorType.SERVICE_UNAVAILABLE,
-  503: ErrorType.SERVICE_UNAVAILABLE,
-  504: ErrorType.TIMEOUT
+  500: ErrorType.SERVER_ERROR,
+  502: ErrorType.SERVER_ERROR,
+  503: ErrorType.UNAVAILABLE,
+  504: ErrorType.UNAVAILABLE
 };
 
 /**
@@ -39,6 +41,16 @@ export interface ApiError {
   code: number | null;
   message: string;
   details: string | undefined;
+}
+
+/**
+ * Error response sent to client
+ */
+export interface ErrorResponse {
+  success: false;
+  error: ErrorType;
+  userMessage: string;
+  details: string | null | undefined;
 }
 
 /**
@@ -74,16 +86,16 @@ interface ErrorObject {
  */
 function translateErrorType(errorType: ErrorType): string {
   const translations: Record<ErrorType, string> = {
-    [ErrorType.API_KEY_MISSING]: i18n.t('errors.apiKeyMissing'),
-    [ErrorType.INVALID_KEY]: i18n.t('errors.invalidKey'),
-    [ErrorType.RATE_LIMIT]: i18n.t('errors.rateLimit'),
-    [ErrorType.CONTEXT_LENGTH_EXCEEDED]: i18n.t('errors.contextLengthExceeded'),
-    [ErrorType.SAFETY_FILTER]: i18n.t('errors.safetyFilter'),
-    [ErrorType.NETWORK]: i18n.t('errors.network'),
-    [ErrorType.TIMEOUT]: i18n.t('errors.timeout'),
-    [ErrorType.EMPTY_RESPONSE]: i18n.t('errors.emptyResponse'),
-    [ErrorType.SERVICE_UNAVAILABLE]: i18n.t('errors.serviceUnavailable'),
-    [ErrorType.UNKNOWN]: i18n.t('errors.unknown')
+    [ErrorType.API_KEY_MISSING]: i18n.t('api.errors.API_KEY_MISSING'),
+    [ErrorType.INVALID_KEY]: i18n.t('api.errors.INVALID_KEY'),
+    [ErrorType.RATE_LIMIT]: i18n.t('api.errors.RATE_LIMIT'),
+    [ErrorType.FORBIDDEN]: i18n.t('api.errors.FORBIDDEN'),
+    [ErrorType.NOT_FOUND]: i18n.t('api.errors.NOT_FOUND'),
+    [ErrorType.SERVER_ERROR]: i18n.t('api.errors.SERVER_ERROR'),
+    [ErrorType.UNAVAILABLE]: i18n.t('api.errors.UNAVAILABLE'),
+    [ErrorType.EMPTY_RESPONSE]: i18n.t('api.errors.EMPTY_RESPONSE'),
+    [ErrorType.NETWORK]: i18n.t('api.errors.NETWORK'),
+    [ErrorType.UNKNOWN]: i18n.t('api.errors.UNKNOWN')
   };
 
   return translations[errorType] || 'Erro desconhecido';
@@ -208,6 +220,21 @@ export function parseError(error: unknown): ApiError {
     type: errorType,
     code: errorCode,
     message: translateErrorType(errorType),
+    details
+  };
+}
+
+/**
+ * Creates a standardized error response object
+ */
+export function createErrorResponse(
+  errorType: ErrorType,
+  details: string | null | undefined = null
+): ErrorResponse {
+  return {
+    success: false,
+    error: errorType,
+    userMessage: translateErrorType(errorType),
     details
   };
 }

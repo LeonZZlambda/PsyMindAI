@@ -1,20 +1,71 @@
 import { GeminiClient } from '../api/providers/geminiClient';
-import { parseError, createErrorResponse, ERROR_TYPES } from '../api/errorHandler';
+import { parseError, createErrorResponse, ErrorType, type ErrorResponse, type ApiError } from '../api/errorHandler';
 import { withRetry } from '../api/retryHandler';
 import { SYSTEM_PROMPTS } from '../prompts/systemPrompts';
 import { formatHistoryForGemini } from './messageFormatter';
 import { defaultConfig } from '../config/apiConfig';
+import type { ChatMessage } from '@/types/storage';
 
 let geminiClient = new GeminiClient(defaultConfig.getApiKey());
 
-export function setApiKey(apiKey) {
+/**
+ * Message sending options
+ */
+export interface SendMessageOptions {
+  systemPrompt?: string;
+  skipMemoryUpdate?: boolean;
+}
+
+/**
+ * Successful message response
+ */
+export interface SendMessageSuccess {
+  success: true;
+  text: string;
+}
+
+/**
+ * Message response - either success or error
+ */
+export type SendMessageResponse = SendMessageSuccess | ErrorResponse;
+
+/**
+ * Meta insight about user patterns
+ */
+export interface MetaInsight {
+  pattern: string;
+  suggestion: string;
+}
+
+/**
+ * Long-term memory structure
+ */
+export interface LongTermMemory {
+  padroesDeAprendizagem: string[];
+  estadoEmocionalComum: string[];
+  desafiosRecorrentes: string[];
+  interessesETracos: string[];
+}
+
+/**
+ * Sets the API key for Gemini client
+ */
+export function setApiKey(apiKey: string): void {
   defaultConfig.setApiKey(apiKey);
   geminiClient = new GeminiClient(apiKey);
 }
 
-export async function sendMessage(message, history = [], options = {}) {
+/**
+ * Sends a message to Gemini and returns the response
+ * Handles memory updates asynchronously every 5 messages
+ */
+export async function sendMessage(
+  message: string,
+  history: ChatMessage[] = [],
+  options: SendMessageOptions = {}
+): Promise<SendMessageResponse> {
   if (!geminiClient.isConfigured()) {
-    return createErrorResponse(ERROR_TYPES.API_KEY_MISSING);
+    return createErrorResponse(ErrorType.API_KEY_MISSING);
   }
 
   const systemPrompt = options.systemPrompt ?? SYSTEM_PROMPTS.PSYMIND;
@@ -37,14 +88,14 @@ export async function sendMessage(message, history = [], options = {}) {
       throw new Error('EMPTY_RESPONSE');
     }
 
-    // Async trigger: atualiza memória de longo prazo em background a cada 5 mensagens
-    // Isso cumpre os "padrões do usuário" e "histórico interpretado"
+    // Async trigger: updates long-term memory in background every 5 messages
+    // This captures "user patterns" and "interpreted history"
     if (
       !skipMemoryUpdate &&
       history.length > 2 &&
       (history.length + 1) % 5 === 0
     ) {
-       updateLongTermMemory([...history, { type: 'user', content: message }, { type: 'ai', content: response.text }]).catch(console.error);
+      updateLongTermMemory([...history, { type: 'user', content: message }, { type: 'ai', content: response.text }]).catch(console.error);
     }
 
     return {
@@ -58,17 +109,22 @@ export async function sendMessage(message, history = [], options = {}) {
   }
 }
 
-export async function generateTitle(text) {
-  // Para evitar esgotar a cota da API (erro 429), o título agora é retornado localmente 
-  // usando o conteúdo da primeira mensagem sem fazer requisições secundárias pesadas ao Gemini.
+/**
+ * Generates a chat title from the first message
+ * Truncates to 40 characters to avoid excessive API calls
+ */
+export async function generateTitle(text: string): Promise<string> {
   return text.trim().slice(0, 40) + (text.length > 40 ? '...' : '');
 }
 
-export async function updateLongTermMemory(history) {
-  if (!geminiClient.isConfigured() || history.length < 5) return null; // Evitar custo excessivo e precisar de volume
+/**
+ * Updates long-term memory based on conversation history
+ * Analyzes patterns and enriches stored memory object
+ */
+export async function updateLongTermMemory(history: ChatMessage[]): Promise<LongTermMemory | null> {
+  if (!geminiClient.isConfigured() || history.length < 5) return null;
 
   try {
-    // Extrai memória de longo prazo analisando o histórico
     const oldMemory = localStorage.getItem('psymind_longterm_memory') || '{}';
     const memoryPrompt = `Você é um psicólogo e educador. Analise este recente trecho de conversa do usuário e atualize a memória de longo prazo existente.
 Memória atual: ${oldMemory}
@@ -93,7 +149,7 @@ Sem markdown de conversação, apenas o JSON válido.`;
 
     if (response?.text) {
       const jsonStr = response.text.replace(/```json|```/gi, '').trim();
-      const parsed = JSON.parse(jsonStr);
+      const parsed = JSON.parse(jsonStr) as LongTermMemory;
       localStorage.setItem('psymind_longterm_memory', JSON.stringify(parsed));
       return parsed;
     }
@@ -103,7 +159,11 @@ Sem markdown de conversação, apenas o JSON válido.`;
   return null;
 }
 
-export async function generateMetaInsight() {
+/**
+ * Generates a meta insight about user patterns from accumulated data
+ * Correlates mood, study habits, and usage patterns
+ */
+export async function generateMetaInsight(): Promise<MetaInsight | null> {
   if (!geminiClient.isConfigured()) return null;
 
   try {
@@ -133,7 +193,7 @@ Não use crases, markdown, nem explique o raciocínio fora do JSON. Apenas as ch
 
     if (response?.text) {
       const jsonStr = response.text.replace(/```json|```/gi, '').trim();
-      return JSON.parse(jsonStr);
+      return JSON.parse(jsonStr) as MetaInsight;
     }
   } catch (error) {
     console.error('Erro na criação do Meta Insight:', error);
@@ -141,6 +201,9 @@ Não use crases, markdown, nem explique o raciocínio fora do JSON. Apenas as ch
   return null;
 }
 
-export function isConfigured() {
+/**
+ * Checks if Gemini API is configured
+ */
+export function isConfigured(): boolean {
   return defaultConfig.isConfigured();
 }
