@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 import { useTranslation, Trans } from 'react-i18next';
+import BaseModal from './BaseModal';
 
 const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
-  const modalRef = useRef(null);
   const { t } = useTranslation();
-  const [isClosing, setIsClosing] = useState(false);
   const [activeTab, setActiveTab] = useState(initialTab); // 'faq', 'shortcuts' or 'feedback'
   const [feedbackType, setFeedbackType] = useState('sugestao');
   const [feedbackText, setFeedbackText] = useState('');
@@ -31,20 +30,6 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
   useEffect(() => {
     setActiveTab(initialTab);
   }, [initialTab]);
-
-  const handleClose = () => {
-    setIsClosing(true);
-    setTimeout(() => {
-      setIsClosing(false);
-      onClose();
-      setTimeout(() => {
-        setActiveTab(initialTab);
-        setFeedbackText('');
-        setFeedbackImage(null);
-        setFeedbackType('sugestao');
-      }, 100);
-    }, 300);
-  };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -82,39 +67,17 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
       setFeedbackText('');
       setFeedbackImage(null);
       setIsSubmitting(false);
-      handleClose();
+      onClose();
     }, 1500);
   };
 
-  // Close on Escape key
-  useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === 'Escape') handleClose();
-    };
-    
-    if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
-      modalRef.current?.focus();
-    }
-    
-    return () => document.removeEventListener('keydown', handleEscape);
-  }, [isOpen]);
-
-  if (!isOpen) return null;
-
   return (
-    <div className={`modal-overlay ${isClosing ? 'closing' : ''}`} onClick={handleClose}>
-      <div 
-        className={`modal-content ${isClosing ? 'closing' : ''}`}
-        onClick={e => e.stopPropagation()} 
-        role="dialog" 
-        aria-modal="true" 
-        aria-labelledby="help-title"
-        ref={modalRef}
-        tabIndex="-1"
-      >
-        <div className="modal-header with-tabs">
-          <div className="modal-tabs">
+    <BaseModal
+      isOpen={isOpen}
+      onClose={onClose}
+    >
+      <div className="modal-header with-tabs">
+        <div className="modal-tabs">
             <button 
               className={`tab-btn ${activeTab === 'faq' ? 'active' : ''}`}
               onClick={() => setActiveTab('faq')}
@@ -136,10 +99,10 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
               {t('help.tabs.feedback')}
             </button>
           </div>
-          <button className="close-btn" onClick={handleClose} aria-label={t('help.close_aria')}>
-            <span className="material-symbols-outlined">close</span>
-          </button>
-        </div>
+        <button className="modal-close-btn" onClick={onClose} aria-label="Close modal">
+          <span className="material-symbols-outlined">close</span>
+        </button>
+      </div>
         
         <div className="help-body">
           {activeTab === 'faq' && (
@@ -403,11 +366,10 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
         
         {activeTab === 'faq' && (
           <div className="modal-footer">
-            <button className="primary-btn" onClick={handleClose}>{t('help.got_it')}</button>
+            <button className="primary-btn" onClick={onClose}>{t('help.got_it')}</button>
           </div>
         )}
-      </div>
-    </div>
+        </BaseModal>
   );
 };
 

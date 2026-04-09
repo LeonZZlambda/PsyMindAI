@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useChat } from '../context/ChatContext';
+import BaseModal from './BaseModal';
 import { generateReflection, generateReflectionAnalysis } from '../services/tools/reflectionService';
 import '../styles/help.css';
 import '../styles/reflections.css';
@@ -23,9 +24,7 @@ const breathingTechniques = [
 
 const ReflectionsModal = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
-  const modalRef = useRef(null);
   const { setInput } = useChat();
-  const [isClosing, setIsClosing] = useState(false);
   const [activeTab, setActiveTab] = useState('daily'); // 'daily', 'explore', or 'breathing'
   const [currentReflection, setCurrentReflection] = useState(null);
   const [breathingActive, setBreathingActive] = useState(false);
@@ -84,11 +83,7 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
   const handleClose = () => {
     if (breathingTimerRef.current) clearTimeout(breathingTimerRef.current);
     setBreathingActive(false);
-    setIsClosing(true);
-    setTimeout(() => {
-      setIsClosing(false);
-      onClose();
-    }, 300);
+    onClose();
   };
 
   const startBreathing = (technique) => {
@@ -129,33 +124,12 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
     handleClose();
   };
 
-  // Close on Escape key
-  useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === 'Escape') handleClose();
-    };
-    
-    if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
-      modalRef.current?.focus();
-    }
-    
-    return () => document.removeEventListener('keydown', handleEscape);
-  }, [isOpen]);
-
-  if (!isOpen) return null;
-
   return (
-    <div className={`modal-overlay ${isClosing ? 'closing' : ''}`} onClick={handleClose}>
-      <div 
-        className={`modal-content ${isClosing ? 'closing' : ''}`}
-        onClick={e => e.stopPropagation()} 
-        role="dialog" 
-        aria-modal="true" 
-        aria-labelledby="reflections-title"
-        ref={modalRef}
-        tabIndex="-1"
-      >
+    <BaseModal
+      isOpen={isOpen}
+      onClose={handleClose}
+    >
+      <div className="reflections-modal-content">
         <div className="modal-header with-tabs">
           <div className="modal-tabs">
             <button 
@@ -177,7 +151,7 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
               {t('reflections.tabs.breathing')}
             </button>
           </div>
-          <button className="close-btn" onClick={handleClose} aria-label={t('reflections.close')}>
+          <button className="modal-close-btn" onClick={handleClose} aria-label="Close modal">
             <span className="material-symbols-outlined">close</span>
           </button>
         </div>
@@ -294,7 +268,7 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
           )}
         </div>
       </div>
-    </div>
+    </BaseModal>
   );
 };
 

@@ -187,10 +187,12 @@
 }
 
 .subjects-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  justify-items: center;
   gap: 12px;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .subject-card {
@@ -204,7 +206,7 @@
   text-align: center;
   gap: 8px;
   transition: all 0.2s;
-  flex: 1 1 140px;
+  width: 100%;
   max-width: 180px;
 }
 

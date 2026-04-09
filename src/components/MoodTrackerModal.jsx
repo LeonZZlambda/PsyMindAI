@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMood } from '../context/MoodContext';
 import { generateMoodInsight } from '../services/tools/moodService';
+import BaseModal from './BaseModal';
 import '../styles/mood.css';
 
 const MoodTrackerModal = ({ isOpen, onClose }) => {
@@ -12,7 +13,6 @@ const MoodTrackerModal = ({ isOpen, onClose }) => {
   const [activeTab, setActiveTab] = useState('new'); // 'new' or 'history'
   const [aiInsight, setAiInsight] = useState('');
   const [isLoadingInsight, setIsLoadingInsight] = useState(false);
-  const [isClosing, setIsClosing] = useState(false);
 
   const moods = [
     { id: 'happy', label: t('mood_tracker.moods.happy'), icon: 'sentiment_very_satisfied', color: '#4CAF50' },
@@ -22,14 +22,6 @@ const MoodTrackerModal = ({ isOpen, onClose }) => {
     { id: 'tired', label: t('mood_tracker.moods.tired'), icon: 'bedtime', color: '#9C27B0' },
     { id: 'sad', label: t('mood_tracker.moods.sad'), icon: 'sentiment_dissatisfied', color: '#607D8B' }
   ];
-
-  const handleClose = () => {
-    setIsClosing(true);
-    setTimeout(() => {
-      setIsClosing(false);
-      onClose();
-    }, 300);
-  };
 
   if (!isOpen) return null;
 
@@ -66,35 +58,23 @@ const MoodTrackerModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className={`modal-overlay ${isClosing ? 'closing' : ''}`} onClick={handleClose}>
-      <div className={`modal-content mood-modal ${isClosing ? 'closing' : ''}`} onClick={e => e.stopPropagation()}>
-        <div className="modal-header">
-          <h2>
-            <span className="material-symbols-outlined" style={{ verticalAlign: 'middle', marginRight: '8px' }}>mood</span>
-            {t('mood_tracker.title')}
-          </h2>
-          <button className="close-btn" onClick={handleClose} aria-label={t('mood_tracker.close_aria')}>
-            <span className="material-symbols-outlined">close</span>
-          </button>
-        </div>
+    <BaseModal isOpen={isOpen} onClose={onClose} title={t('mood_tracker.title')}>
+      <div className="pomodoro-modes" style={{ marginBottom: '1.5rem' }}>
+        <button 
+          className={`mode-btn ${activeTab === 'new' ? 'active' : ''}`}
+          onClick={() => setActiveTab('new')}
+        >
+          {t('mood_tracker.tabs.new')}
+        </button>
+        <button 
+          className={`mode-btn ${activeTab === 'history' ? 'active' : ''}`}
+          onClick={() => setActiveTab('history')}
+        >
+          {t('mood_tracker.tabs.history')}
+        </button>
+      </div>
 
-        <div className="modal-body">
-          <div className="pomodoro-modes" style={{ marginBottom: '1.5rem' }}>
-            <button 
-            className={`mode-btn ${activeTab === 'new' ? 'active' : ''}`}
-            onClick={() => setActiveTab('new')}
-          >
-            {t('mood_tracker.tabs.new')}
-          </button>
-          <button 
-            className={`mode-btn ${activeTab === 'history' ? 'active' : ''}`}
-            onClick={() => setActiveTab('history')}
-          >
-            {t('mood_tracker.tabs.history')}
-          </button>
-        </div>
-
-        <div className="mood-content">
+      <div className="mood-content">
           {activeTab === 'new' ? (
             <>
               <h4 className="mood-section-title">{t('mood_tracker.question')}</h4>
@@ -176,10 +156,8 @@ const MoodTrackerModal = ({ isOpen, onClose }) => {
               )}
             </div>
           )}
-        </div>
-        </div>
       </div>
-    </div>
+    </BaseModal>
   );
 };
 

@@ -8,6 +8,7 @@ import { Telemetry } from '../services/analytics/telemetry';
 
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
+import BaseModal from './BaseModal';
 
 const CustomSelect = ({ value, options, onChange, ariaLabel }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -79,8 +80,6 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
   } = useTheme();
   const { clearHistory } = useChat();
   
-  const modalRef = useRef(null);
-  const [isClosing, setIsClosing] = useState(false);
   const [apiKey, setApiKey] = useState(defaultConfig.getApiKey() || '');
   const [telemetryOptIn, setTelemetryOptIn] = useState(Telemetry.isOptedIn());
 
@@ -98,14 +97,6 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
     toast.success(t('settings.toasts.api_saved'));
   };
 
-  const handleClose = () => {
-    setIsClosing(true);
-    setTimeout(() => {
-      setIsClosing(false);
-      onClose();
-    }, 300);
-  };
-
   const handleClearHistory = () => {
     if (window.confirm(t('settings.history.confirm'))) {
       clearHistory();
@@ -113,39 +104,13 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
     }
   };
 
-  useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === 'Escape') handleClose();
-    };
-    
-    if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
-      modalRef.current?.focus();
-    }
-    
-    return () => document.removeEventListener('keydown', handleEscape);
-  }, [isOpen]);
-
-  if (!isOpen) return null;
-
   return (
-    <div className={`modal-overlay ${isClosing ? 'closing' : ''}`} onClick={handleClose}>
-      <div 
-        className={`modal-content ${isClosing ? 'closing' : ''}`}
-        onClick={e => e.stopPropagation()} 
-        role="dialog" 
-        aria-modal="true" 
-        aria-labelledby="settings-title"
-        ref={modalRef}
-        tabIndex="-1"
-      >
-        <div className="modal-header">
-          <h2 id="settings-title">{t('settings.title')}</h2>
-          <button className="close-btn" onClick={handleClose} aria-label={t('settings.close_aria')}>
-            <span className="material-symbols-outlined">close</span>
-          </button>
-        </div>
-        
+    <BaseModal
+      isOpen={isOpen}
+      onClose={onClose}
+      title={t('settings.title')}
+      closeAriaLabel={t('settings.close_aria')}
+    >
         <div className="settings-body">
           <div className="settings-section">
             <h3>{t('settings.appearance.title')}</h3>
@@ -386,8 +351,7 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
 
           </div>
         </div>
-      </div>
-    </div>
+    </BaseModal>
   );
 };
 

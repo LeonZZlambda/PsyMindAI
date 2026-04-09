@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
+import BaseModal from './BaseModal';
 
 const KindnessModal = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
-  const [isClosing, setIsClosing] = useState(false);
   const [act, setAct] = useState('');
   const [category, setCategory] = useState('random');
   const [isLoading, setIsLoading] = useState(false);
@@ -75,18 +75,13 @@ const KindnessModal = ({ isOpen, onClose }) => {
     toast.success(t('kindness.success_toast'));
   };
 
-  if (!isOpen) return null;
-
   return (
-    <div className={`modal-overlay ${isClosing ? 'closing' : ''}`} onClick={handleClose}>
-      <div className="modal-content kindness-modal" onClick={e => e.stopPropagation()}>
-        <div className="modal-header">
-          <h2>{t('kindness.title')}</h2>
-          <button className="close-btn" onClick={handleClose}>
-            <span className="material-symbols-outlined">close</span>
-          </button>
-        </div>
-        
+    <BaseModal
+      isOpen={isOpen}
+      onClose={onClose}
+      title={t('kindness.title')}
+    >
+      <div className="kindness-modal-content">
         <div className="modal-body kindness-body">
           <div className="kindness-categories">
             {categories.map(cat => (
@@ -146,7 +141,7 @@ const KindnessModal = ({ isOpen, onClose }) => {
           </div>
         </div>
       </div>
-    </div>
+    </BaseModal>
   );
 };
 

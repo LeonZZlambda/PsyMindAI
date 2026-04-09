@@ -9,24 +9,27 @@ import { PomodoroProvider } from './context/PomodoroContext'
 import { SoundProvider } from './context/SoundContext'
 import { MoodProvider } from './context/MoodContext'
 import { EmotionalJournalProvider } from './context/EmotionalJournalContext'
+import { ModalProvider } from './context/ModalContext'
 import { BrowserRouter } from 'react-router-dom'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      <ThemeProvider>
-        <ChatProvider>
-          <PomodoroProvider>
-            <SoundProvider>
-              <MoodProvider>
-                <EmotionalJournalProvider>
-                  <App />
-                </EmotionalJournalProvider>
-              </MoodProvider>
-            </SoundProvider>
-          </PomodoroProvider>
-        </ChatProvider>
-      </ThemeProvider>
+      <ModalProvider>
+        <ThemeProvider>
+          <ChatProvider>
+            <PomodoroProvider>
+              <SoundProvider>
+                <MoodProvider>
+                  <EmotionalJournalProvider>
+                    <App />
+                  </EmotionalJournalProvider>
+                </MoodProvider>
+              </SoundProvider>
+            </PomodoroProvider>
+          </ChatProvider>
+        </ThemeProvider>
+      </ModalProvider>
     </BrowserRouter>
   </StrictMode>,
 )

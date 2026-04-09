@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useEmotionalJournal } from '../context/EmotionalJournalContext';
+import BaseModal from './BaseModal';
 import '../styles/emotional-journal.css';
 
 const EmotionalJournalModal = ({ isOpen, onClose }) => {
   const { t, i18n } = useTranslation();
   const { entries, addEntry, deleteEntry } = useEmotionalJournal();
   const [activeTab, setActiveTab] = useState('new');
-  const [isClosing, setIsClosing] = useState(false);
   const [responses, setResponses] = useState({
     excited: '',
     irritated: '',
@@ -21,16 +21,6 @@ const EmotionalJournalModal = ({ isOpen, onClose }) => {
     { id: 'frustrated', question: t('emotional_journal.questions.frustrated'), icon: 'sentiment_stressed', color: '#9C27B0' },
     { id: 'proud', question: t('emotional_journal.questions.proud'), icon: 'emoji_events', color: '#4CAF50' }
   ];
-
-  const handleClose = () => {
-    setIsClosing(true);
-    setTimeout(() => {
-      setIsClosing(false);
-      onClose();
-    }, 300);
-  };
-
-  if (!isOpen) return null;
 
   const handleSave = () => {
     const hasContent = Object.values(responses).some(r => r.trim());
@@ -53,21 +43,17 @@ const EmotionalJournalModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className={`modal-overlay ${isClosing ? 'closing' : ''}`} onClick={handleClose}>
-      <div className="modal-content emotional-journal-modal" onClick={e => e.stopPropagation()}>
-        <div className="modal-header">
-          <h2>
-            <span className="material-symbols-outlined" style={{ verticalAlign: 'middle', marginRight: '8px' }}>auto_stories</span>
-            {t('emotional_journal.title')}
-          </h2>
-          <button className="close-btn" onClick={handleClose} aria-label={t('emotional_journal.close_aria')}>
-            <span className="material-symbols-outlined">close</span>
-          </button>
-        </div>
-
-        <div className="modal-body">
-
-          <div className="pomodoro-modes" style={{ marginBottom: '1.5rem' }}>
+    <BaseModal
+      isOpen={isOpen}
+      onClose={onClose}
+      title={
+        <span>
+          <span className="material-symbols-outlined" style={{ verticalAlign: 'middle', marginRight: '8px' }}>auto_stories</span>
+          {t('emotional_journal.title')}
+        </span>
+      }
+    >
+      <div className="pomodoro-modes" style={{ marginBottom: '1.5rem' }}>
           <button 
             className={`mode-btn ${activeTab === 'new' ? 'active' : ''}`}
             onClick={() => setActiveTab('new')}
@@ -153,10 +139,8 @@ const EmotionalJournalModal = ({ isOpen, onClose }) => {
               )}
             </div>
           )}
-          </div>
         </div>
-      </div>
-    </div>
+    </BaseModal>
   );
 };
 

@@ -23,9 +23,29 @@
 .dark .primary-btn:disabled { background: var(--card-background); border: 1px solid var(--border-color); color: var(--text-light); }
 
 /* Trails */
-.trails-header, .flashcards-header, .quizzes-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
-.trails-header h3, .flashcards-header h3, .quizzes-header h3 { margin: 0; color: var(--text-color); font-size: 1.25rem; }
-.trails-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.trails-header, .flashcards-header, .quizzes-header { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  flex-wrap: wrap; 
+  gap: 12px; 
+}
+.trails-header h3, .flashcards-header h3, .quizzes-header h3 { 
+  margin: 0; 
+  color: var(--text-color); 
+  font-size: 1.25rem; 
+}
+.trails-grid { 
+  display: grid; 
+  grid-template-columns: 1fr;
+  gap: 16px; 
+}
+
+@media (min-width: 600px) {
+  .trails-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
 .trail-card { background: var(--card-background); border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; display: flex; align-items: center; gap: 16px; transition: transform 0.2s, box-shadow 0.2s; }
 .trail-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
 .trail-card-icon { width: 48px; height: 48px; border-radius: 12px; background: rgba(14, 165, 233, 0.1); color: var(--primary-color); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -48,15 +68,50 @@
 .watermark { position: absolute; font-size: 120px !important; color: var(--border-color); opacity: 0.3; z-index: 0; }
 .flip-hint { position: absolute; bottom: 20px; font-size: 0.9rem; color: var(--text-light); }
 .flashcard-actions { position: absolute; bottom: 20px; display: flex; gap: 10px; z-index: 2; }
-.difficulty-btn { padding: 8px 16px; border-radius: 20px; border: none; font-weight: 600; cursor: pointer; transition: transform 0.2s; color: white; }
+.difficulty-btn { 
+  padding: 10px 12px; 
+  border-radius: 12px; 
+  border: none; 
+  font-weight: 600; 
+  cursor: pointer; 
+  transition: transform 0.2s; 
+  color: white;
+  font-size: 0.75rem;
+  min-width: 70px;
+}
+
 .difficulty-btn:hover { transform: scale(1.05); }
 .difficulty-btn.easy { background: #10b981; }
 .difficulty-btn.medium { background: #f59e0b; }
 .difficulty-btn.hard { background: #ef4444; }
 
+@media (min-width: 600px) {
+  .difficulty-btn {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    min-width: auto;
+  }
+}
+
 /* Quizzes */
 .quizzes-container { align-items: center; }
-.quiz-card { width: 100%; max-width: 600px; background: var(--card-background); border: 1px solid var(--border-color); border-radius: 16px; padding: 30px; margin-top: 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+.quiz-card { 
+  width: 100%; 
+  max-width: 600px; 
+  background: var(--card-background); 
+  border: 1px solid var(--border-color); 
+  border-radius: 16px; 
+  padding: 20px; 
+  margin-top: 20px; 
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06); 
+}
+
+@media (min-width: 600px) {
+  .quiz-card {
+    padding: 30px;
+  }
+}
 .quiz-question { font-size: 1.25rem; color: var(--text-color); margin: 0 0 24px 0; line-height: 1.5; }
 .quiz-options { display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; }
 .quiz-option { display: flex; align-items: center; gap: 16px; padding: 16px; background: var(--background-color); border: 2px solid var(--border-color); border-radius: 12px; color: var(--text-color); font-size: 1rem; text-align: left; cursor: pointer; transition: all 0.2s; position: relative; }
@@ -71,7 +126,33 @@
 .result-icon { position: absolute; right: 16px; font-size: 24px; }
 .quiz-option.correct .result-icon { color: #10b981; }
 .quiz-option.wrong .result-icon { color: #ef4444; }
-.quiz-footer { display: flex; justify-content: flex-end; }
+.quiz-footer { 
+  display: flex; 
+  flex-direction: column;
+  gap: 10px;
+  justify-content: flex-end; 
+  width: 100%;
+  margin-top: 20px;
+}
+
+.quiz-footer button {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  border-radius: 20px;
+}
+
+@media (min-width: 600px) {
+  .quiz-footer { 
+    flex-direction: row;
+    gap: 12px;
+  }
+
+  .quiz-footer button {
+    width: auto;
+    padding: 10px 24px;
+  }
+}
 .learning-progress-status {
    display: flex;
    justify-content: space-between;

@@ -75,6 +75,15 @@
   50% { opacity: 0; }
 }
 
+/* Spin Animation Class */
+.spin-animation {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  animation: spin-slow 2s linear infinite;
+  transform-origin: center;
+}
+
 /* View Transitions */
 ::view-transition-old(root),
 ::view-transition-new(root) {

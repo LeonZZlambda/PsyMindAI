@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useTranslation, Trans } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
 import ReactMarkdown from 'react-markdown';
+import BaseModal from './BaseModal';
 import { generateLearningTrail, explainQuizError, evaluateOpenEnded } from "../services/tools/learningService";
 import "../styles/learning.css";
 import "../styles/ai-learning.css";
@@ -476,7 +477,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
             </div>
          )}
          
-         <div className="quiz-footer" style={{ marginTop: '16px', display: 'flex', justifyContent: 'flex-end' }}>
+         <div className="quiz-footer" style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '10px', justifyContent: 'flex-end' }}>
             {!quizSubmitted ? (
                <button type="button" className="primary-btn cta" disabled={!selectedOption} onClick={handleQuizSubmit}>
                   {t("guided_learning.quiz.verify")}
@@ -577,26 +578,21 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
   }
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div 
-          className="learning-modal-overlay" 
-          onClick={onClose}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          <motion.div className="learning-modal" onClick={(e) => e.stopPropagation()} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}>
-             <div className="learning-header">
-                <h2><span className="material-symbols-outlined learning-header-icon">school</span> {t("guided_learning.title")}</h2>
-                <button type="button" className="close-btn" onClick={onClose} aria-label={t('guided_learning.aria.close')}><span className="material-symbols-outlined">close</span></button>
-             </div>
-
-             {selectedTrail ? (
-                <div className="learning-content">
-                   <div className="trail-active-header">
-                      <div className="trail-active-header-left">
-                     <button className="trail-active-back-btn" onClick={closeTrail}>
+    <BaseModal
+      isOpen={isOpen}
+      onClose={onClose}
+      title={
+        <span>
+          <span className="material-symbols-outlined learning-header-icon">school</span> 
+          {t("guided_learning.title")}
+        </span>
+      }
+    >
+      {selectedTrail ? (
+        <div className="learning-content">
+          <div className="trail-active-header">
+            <div className="trail-active-header-left">
+              <button className="trail-active-back-btn" onClick={closeTrail}>
                         <span className="material-symbols-outlined" style={{marginRight: '8px'}}>arrow_back</span> {t("guided_learning.trails.active_back")}
                      </button>
                      <h3 className="trail-active-title">
@@ -790,9 +786,6 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
                </div>
             </>
          )}
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+    </BaseModal>
   );
 }

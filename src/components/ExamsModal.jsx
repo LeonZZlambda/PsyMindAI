@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useChat } from '../context/ChatContext';
 import { useTranslation, Trans } from 'react-i18next';
+import BaseModal from './BaseModal';
 import JudgeModal from './JudgeModal';
 import QuizModal from './QuizModal';
 
@@ -923,7 +924,6 @@ const getTopicsForSubject = (subjectName, examName) => {
 const ExamsModal = ({ isOpen, onClose }) => {
   const { sendMessage } = useChat();
   const { t } = useTranslation();
-  const [isClosing, setIsClosing] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedExam, setSelectedExam] = useState(null);
   const [selectedSubject, setSelectedSubject] = useState(null);
@@ -1205,19 +1205,13 @@ const ExamsModal = ({ isOpen, onClose }) => {
     setSelectedSubject(subject);
   };
 
-  if (!isOpen) return null;
-
   return (
-    <div className={`modal-overlay ${isClosing ? 'closing' : ''}`}>
-      <div className="modal-content exams-modal">
-        <div className="modal-header">
-          <h2>{t('exams.title')}</h2>
-          <button className="close-btn" onClick={handleClose} aria-label={t('exams.close')}>
-            <span className="material-symbols-outlined">close</span>
-          </button>
-        </div>
-
-        <div className="exams-body">
+    <BaseModal
+      isOpen={isOpen}
+      onClose={onClose}
+      title={t('exams.title')}
+    >
+      <div className="exams-body">
           {!selectedCategory ? (
             <div className="exams-categories-grid">
               {categories.map((category) => (
@@ -1415,7 +1409,6 @@ const ExamsModal = ({ isOpen, onClose }) => {
             </div>
           )}
         </div>
-      </div>
       
       {showJudge && (
         <JudgeModal 
@@ -1432,7 +1425,7 @@ const ExamsModal = ({ isOpen, onClose }) => {
           config={quizConfig} 
         />
       )}
-    </div>
+    </BaseModal>
   );
 };
 

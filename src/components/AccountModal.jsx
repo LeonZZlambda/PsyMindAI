@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import BaseModal from './BaseModal';
 
 const AccountModal = ({ isOpen, onClose, onOpenStudyStats, initialView = 'account' }) => {
   const { t } = useTranslation();
@@ -47,25 +48,13 @@ const AccountModal = ({ isOpen, onClose, onOpenStudyStats, initialView = 'accoun
   };
 
   return (
-    <motion.div 
-      className="modal-overlay account-modal-overlay" 
-      onClick={onClose} 
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+    <BaseModal
+      isOpen={isOpen}
+      onClose={onClose}
+      title={null}
+      closeButton={false}
     >
-      <motion.div 
-        className="modal-content account-modal-content"
-        onClick={(e) => e.stopPropagation()}
-        initial={{ opacity: 0, scale: 0.95, y: -20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.95, y: -20 }}
-        style={{
-          overflow: 'hidden',
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
+      <div className="account-modal-content">
         <AnimatePresence mode="wait">
           {activeView === 'account' ? (
             <motion.div 
@@ -321,8 +310,8 @@ const AccountModal = ({ isOpen, onClose, onOpenStudyStats, initialView = 'accoun
             </motion.div>
           )}
         </AnimatePresence>
-      </motion.div>
-    </motion.div>
+      </div>
+    </BaseModal>
   );
 };
 

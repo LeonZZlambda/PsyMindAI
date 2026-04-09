@@ -1,15 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useChat } from '../context/ChatContext';
 import { useTheme } from '../context/ThemeContext';
 import { useTranslation } from 'react-i18next';
+import BaseModal from './BaseModal';
 import '../styles/help.css';
 
 const SupportModal = ({ isOpen, onClose }) => {
-  const modalRef = useRef(null);
   const { setInput } = useChat();
   const { isDarkMode, reducedMotion } = useTheme();
-  const [isClosing, setIsClosing] = useState(false);
-    const [activeTab, setActiveTab] = useState('immediate');
+  const [activeTab, setActiveTab] = useState('immediate');
   const { t } = useTranslation(); // 'immediate', 'investigate', 'reframing'
   
   // Immediate Support State
@@ -70,33 +69,11 @@ const SupportModal = ({ isOpen, onClose }) => {
     }
   }, [isInputFocused, reducedMotion]);
 
-  const handleClose = () => {
-    setIsClosing(true);
-    setTimeout(() => {
-      setIsClosing(false);
-      onClose();
-      // Reset states on close
-      setTimeout(() => {
-        setActiveTab('immediate');
-        setFeelingInput('');
-        setAiResponse(null);
-        setInvestigationStep(0);
-        setInvestigationData({ emotion: '', context: '', duration: '' });
-        setInvestigationResult(null);
-        setReframingStep(0);
-        setReframingData({ thought: '', distortion: '', challenge: '', alternative: '' });
-        setReframingResult(null);
-      }, 100);
-    }, 300);
-  };
-
   useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (!isOpen) return;
+    if (!isOpen) return;
 
-      if (e.key === 'Escape') {
-        handleClose();
-      } else if (e.key === 'Tab') {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Tab') {
         e.preventDefault();
         setActiveTab(prev => prev === 'immediate' ? 'investigate' : 'immediate');
       }
@@ -551,35 +528,15 @@ const SupportModal = ({ isOpen, onClose }) => {
     );
   };
 
-  // Close on Escape key
-  useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === 'Escape') handleClose();
-    };
-    
-    if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
-      modalRef.current?.focus();
-    }
-    
-    return () => document.removeEventListener('keydown', handleEscape);
-  }, [isOpen]);
-
-  if (!isOpen) return null;
 
   return (
-    <div className={`modal-overlay ${isClosing ? 'closing' : ''}`} onClick={handleClose}>
-      <div 
-        className={`modal-content ${isClosing ? 'closing' : ''}`}
-        onClick={e => e.stopPropagation()} 
-        role="dialog" 
-        aria-modal="true" 
-        aria-labelledby="support-title"
-        ref={modalRef}
-        tabIndex="-1"
-      >
-        <div className="modal-header with-tabs">
-          <div className="modal-tabs">
+    <BaseModal
+      isOpen={isOpen}
+      onClose={onClose}
+      closeButton={false}
+    >
+      <div className="modal-header with-tabs">
+        <div className="modal-tabs">
             <button 
               className={`tab-btn ${activeTab === 'immediate' ? 'active' : ''}`}
               onClick={() => setActiveTab('immediate')}
@@ -593,9 +550,6 @@ const SupportModal = ({ isOpen, onClose }) => {
               onClick={() => setActiveTab('reframing')}
             >{t("support.tabs.reframing")}</button>
           </div>
-          <button className="close-btn" onClick={handleClose} aria-label={t('common.close')}>
-            <span className="material-symbols-outlined">close</span>
-          </button>
         </div>
         
         <div className="help-body">
@@ -812,8 +766,7 @@ const SupportModal = ({ isOpen, onClose }) => {
             </div>
           )}
         </div>
-      </div>
-    </div>
+      </BaseModal>
   );
 };
 
