@@ -4,6 +4,8 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 
 import ptTranslation from './locales/pt/translation.json';
 import enTranslation from './locales/en/translation.json';
+import ptQuotes from './locales/pt/quotes.json';
+import enQuotes from './locales/en/quotes.json';
 
 i18n
   .use(LanguageDetector)
@@ -12,9 +14,11 @@ i18n
     resources: {
       pt: {
         translation: ptTranslation,
+        quotes: ptQuotes,
       },
       en: {
         translation: enTranslation,
+        quotes: enQuotes,
       },
     },
     fallbackLng: 'pt',

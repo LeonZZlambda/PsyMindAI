@@ -192,18 +192,8 @@ const MessageList = () => {
 
   useEffect(() => {
     const generateDailyQuote = () => {
-      const quotes = [
-        "O sucesso é a soma de pequenos esforços repetidos dia após dia. — Robert Collier",
-        "A persistência é o caminho do êxito. — Charles Chaplin",
-        "Estudar não é uma obrigação, é uma porta para o mundo. — Corinna",
-        "Nossa maior fraqueza está em desistir. — Thomas Edison",
-        "O conhecimento é o único tesouro que não pode ser roubado. — Autor Desconhecido",
-        "Acredite que você pode e você já estará no meio do caminho. — Theodore Roosevelt",
-        "Sempre parece impossível até que seja feito. — Nelson Mandela",
-        "Não existe elevador para o sucesso, você precisa usar as escadas. — Autor Desconhecido",
-        "O futuro pertence àqueles que acreditam na beleza de seus sonhos. — Eleanor Roosevelt",
-        "Educação é a arma mais poderosa que você pode usar para mudar o mundo. — Nelson Mandela"
-      ];
+      const quotes = t('quotes:daily_quotes', { returnObjects: true });
+      if (!Array.isArray(quotes) || quotes.length === 0) return;
       
       const randomIndex = Math.floor(Math.random() * quotes.length);
       setDailyQuote(quotes[randomIndex]);
@@ -211,7 +201,7 @@ const MessageList = () => {
     };
     
     generateDailyQuote();
-  }, []);
+  }, [t]);
 
   const userScrolledUpRef = useRef(false);
   const isAutoScrollingRef = useRef(false);
