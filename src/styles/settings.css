@@ -111,18 +111,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.75rem;
-  padding: 1rem 1.25rem;
-  background: var(--card-background);
-  border: 1px solid var(--border-color);
-  border-radius: 16px;
+  margin-bottom: 1.5rem;
   gap: 1rem;
-  transition: background-color 0.25s, box-shadow 0.25s;
-}
-
-.setting-item:hover {
-  background-color: var(--hover-color);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .setting-item.disabled {
@@ -210,107 +200,18 @@
 }
 
 .account-modal-overlay {
-  position: fixed !important;
-  top: 80px !important;
-  right: 24px !important;
   background: transparent !important;
-  width: auto !important;
-  height: auto !important;
-  z-index: 1000 !important;
-  display: block !important;
+  backdrop-filter: none !important;
+  align-items: flex-start !important;
+  justify-content: flex-end !important;
+  padding: 70px 24px !important;
 }
 
 .account-modal-content {
-  width: 400px !important;
+  width: 380px !important;
   max-height: calc(100vh - 100px) !important;
   padding: 0 !important;
-  padding-bottom: env(safe-area-inset-bottom) !important;
-  background: var(--card-background) !important;
-  border-radius: 28px !important;
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.25) !important;
-  overflow: hidden !important;
-  display: flex !important;
-  flex-direction: column !important;
-}
-
-.account-modal-body {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.account-modal-header {
-  padding: 16px;
-  display: flex;
-  justify-content: flex-end;
-  flex-shrink: 0;
-}
-
-.account-profile-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 24px 24px;
-}
-
-.account-email {
-  margin: 0 0 16px;
-  font-size: 0.9rem;
-  color: var(--text-color);
-  opacity: 0.8;
-}
-
-.account-avatar-circle {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: var(--primary-color);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 16px;
-}
-
-.account-avatar-icon {
-  font-size: 40px;
-}
-
-.account-greeting {
-  margin: 0 0 16px;
-  font-size: 1.4rem;
-  font-weight: 400;
-  color: var(--text-color);
-}
-
-.account-menu-list {
-  border-top: 1px solid var(--border-color);
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.account-links-footer {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  padding: 16px;
-  border-top: 1px solid var(--border-color);
-  font-size: 0.8rem;
-  color: var(--text-color);
-  opacity: 0.7;
-}
-
-.account-links-footer a {
-  color: inherit;
-  text-decoration: none;
-  transition: opacity 0.2s;
-}
-
-.account-links-footer a:hover {
-  opacity: 1;
-  text-decoration: underline;
+    padding-bottom: env(safe-area-inset-bottom) !important;
 }
 
 .account-menu-item {
@@ -355,27 +256,21 @@
 
 @media (max-width: 768px) {
   .account-modal-overlay {
-    position: fixed !important;
-    top: auto !important;
-    right: auto !important;
-    left: 50% !important;
-    bottom: 24px !important;
-    transform: translateX(-50%) !important;
-    background: transparent !important;
-    width: auto !important;
-    height: auto !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 24px !important;
+    background: rgba(0, 0, 0, 0.4) !important;
+    backdrop-filter: blur(4px) !important;
   }
   
   .account-modal-content {
-    width: 90vw !important;
-    max-width: 380px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
     max-height: 85dvh !important;
-    padding: 0 !important;
-    padding-bottom: env(safe-area-inset-bottom) !important;
-    overflow-y: auto !important;
-    background: var(--card-background) !important;
+    overflow-y: hidden !important;
+    padding-bottom: 0 !important;
     border-radius: 28px !important;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.3) !important;
   }
 }
 
