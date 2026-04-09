@@ -1425,235 +1425,29 @@ body.dark .exam-favorite-btn.is-favorite {
   border-color: rgba(245, 158, 11, 0.3);
 }
 
-
-
-
-
-
-
-.topics-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+/* OBI/IB/ENEM/Outros - Computer Science */
+.subject-computer-science .subject-icon-wrapper {
+  background: #4285f4;
+  color: #fff;
+}
+.subject-computer-science:hover .subject-icon-wrapper {
+  background: #174ea6;
 }
 
-.topic-item {
-  display: flex;
-  align-items: center;
-  padding: 16px;
-  background: var(--secondary-color);
-  border-radius: 12px;
-  border: 1px solid var(--border-color);
-  gap: 16px;
-  transition: all 0.2s ease;
+/* IB - Literature */
+.subject-literature .subject-icon-wrapper {
+  background: #8e24aa;
+  color: #fff;
+}
+.subject-literature:hover .subject-icon-wrapper {
+  background: #5e1672;
 }
 
-.topic-item:hover {
-  border-color: var(--primary-color);
-  transform: translateX(4px);
+/* IB - Humanities */
+.subject-humanities .subject-icon-wrapper {
+  background: #ff7043;
+  color: #fff;
 }
-
-.topic-item.completed {
-  background: var(--card-background);
-  opacity: 0.8;
-}
-
-
-
-.topic-text {
-  flex: 1;
-  color: var(--text-color);
-  transition: all 0.2s ease;
-}
-
-.topic-text.completed {
-  text-decoration: line-through;
-  color: var(--text-light);
-}
-
-.topic-actions {
-  display: flex;
-  gap: 8px;
-}
-
-.parent-cat-badge {
-  font-size: 0.75rem;
-  padding: 4px 8px;
-  background: var(--card-background);
-  border-radius: 6px;
-  color: var(--text-light);
-  font-weight: 500;
-}
-
-/* Additional Refactored Classes for consistency */
-
-.search-results-title {
-  margin-bottom: 16px;
-  color: var(--text-light);
-  font-size: 1rem;
-  font-weight: 500;
-}
-
-.category-browse-title {
-  margin-bottom: 12px;
-  color: var(--text-color);
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
-.search-result-tags {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-
-/* Material Symbols fixes for breadcrumbs and lists */
-.exams-breadcrumbs .material-symbols-outlined {
-  font-size: 16px;
-}
-
-.exams-breadcrumbs .material-symbols-outlined:first-child {
-  font-size: 18px;
-}
-
-/* --- Refactored Topic Checkbox Design --- */
-.topic-checkbox-btn {
-  background: transparent;
-  border: none;
-  padding: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  border-radius: 50%;
-}
-
-.topic-check-icon {
-  font-size: 26px;
-  font-variation-settings: "FILL" 0, "wght" 300;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  color: var(--text-light);
-  opacity: 0.7;
-}
-
-.topic-checkbox-btn:hover:not(.completed) .topic-check-icon {
-  font-variation-settings: "FILL" 0, "wght" 400;
-  color: var(--primary-color);
-  opacity: 1;
-  transform: scale(1.1);
-}
-
-.topic-checkbox-btn.completed .topic-check-icon {
-  font-variation-settings: "FILL" 1, "wght" 400;
-  color: var(--primary-color);
-  opacity: 1;
-  transform: scale(1.05); /* Slight pop when checked */
-}
-
-/* Ensure focus outlining works well */
-.topic-checkbox-btn:focus-visible {
-  outline: 2px solid var(--primary-color);
-  outline-offset: 2px;
-}
-
-/* Dark Mode enhancements for unchecked checkbox */
-body.dark .topic-checkbox-btn:not(.completed) .topic-check-icon {
-  color: var(--text-light);
-  opacity: 0.6;
-}
-
-body.dark .topic-checkbox-btn:hover:not(.completed) .topic-check-icon {
-  opacity: 1;
-  color: var(--primary-color);
-  box-shadow: none; /* remove default if any */
-}
-
-/* === EXAM HEADER MAIN (Perfectly Centered & Standardized) === */
-.exam-header-main {
-  display: grid;
-  grid-template-columns: 48px 1fr 48px; /* Left spacer, center text, right button */
-  align-items: center;
-  padding: 24px 16px;
-  background: var(--secondary-color);
-  border-radius: 12px;
-  margin-bottom: 24px;
-}
-
-.exam-header-text {
-  grid-column: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  width: 100%;
-}
-
-.exam-detail-title {
-  margin: 0 0 4px 0;
-  color: var(--text-color);
-  font-size: 1.35rem;
-  font-weight: 600;
-  text-align: center;
-}
-
-.exam-detail-desc {
-  margin: 0;
-  color: var(--text-light);
-  font-size: 0.95rem;
-  text-align: center;
-}
-
-/* === FAVORITE BUTTON PROPER HANDLING === */
-.exam-header-favorite-btn {
-  grid-column: 3;
-  justify-self: end;
-  align-self: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-/* Smooth Icon scale instead of Button scale */
-.star-icon-header {
-  font-size: 28px;
-  font-variation-settings: "FILL" 0, "wght" 300;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  color: var(--text-light);
-}
-
-/* Hover effects */
-.exam-header-favorite-btn:not(.is-favorite):hover .star-icon-header {
-  font-variation-settings: "FILL" 0, "wght" 400;
-  color: var(--primary-color);
-  transform: scale(1.15);
-}
-
-/* Checked favorite */
-.exam-header-favorite-btn.is-favorite .star-icon-header {
-  font-variation-settings: "FILL" 1, "wght" 400;
-  color: #f59e0b; /* Stand out yellow core */
-}
-
-/* Checked favorite hover */
-.exam-header-favorite-btn.is-favorite:hover .star-icon-header {
-  transform: scale(1.15);
-}
-
-/* Dark Theme Adjustments (just mapping default light to our theme specifics) */
-body.dark .exam-header-favorite-btn:not(.is-favorite) .star-icon-header {
-  color: var(--text-light);
-}
-
-body.dark .exam-header-favorite-btn:not(.is-favorite):hover .star-icon-header {
-  color: var(--primary-color);
-}
-
-body.dark .exam-header-favorite-btn:focus-visible {
-  outline: 2px solid var(--primary-color);
+.subject-humanities:hover .subject-icon-wrapper {
+  background: #d84315;
 }
