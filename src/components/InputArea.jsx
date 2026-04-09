@@ -69,17 +69,17 @@ const InputArea = ({ inputRef, onOpenSupport, onOpenReflections, onOpenMoodTrack
   const handleToolClick = (tool) => {
     Telemetry.trackFeature(tool.id || tool.label, 'opened');
     if (tool.id === 'pomodoro') {
-      toggleModal('pomodoroModal');
+      toggleModal('pomodoro');
       setShowToolsMenu(false);
       return;
     }
     if (tool.id === 'kindness') {
-      toggleModal('kindnessModal');
+      toggleModal('kindness');
       setShowToolsMenu(false);
       return;
     }
     if (tool.id === 'vestibulares') {
-      toggleModal('examsModal');
+      toggleModal('exams');
       setShowToolsMenu(false);
       return;
     }

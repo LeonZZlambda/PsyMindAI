@@ -12,6 +12,12 @@ const EmotionalJournalModal = lazy(() => import('./EmotionalJournalModal'));
 const ImportContextModal = lazy(() => import('./ImportContextModal'));
 const StudyStatsModal = lazy(() => import('./StudyStatsModal'));
 const GuidedLearningModal = lazy(() => import('./GuidedLearningModal'));
+const PomodoroModal = lazy(() => import('./PomodoroModal'));
+const ExamsModal = lazy(() => import('./ExamsModal'));
+const KindnessModal = lazy(() => import('./KindnessModal'));
+const JudgeModal = lazy(() => import('./JudgeModal'));
+const QuizModal = lazy(() => import('./QuizModal'));
+const SoundscapesModal = lazy(() => import('./SoundscapesModal'));
 
 /**
  * ModalRenderer Component
@@ -109,6 +115,66 @@ export const ModalRenderer = ({ openModals, toggleModal, helpInitialTab = 'faq' 
           <GuidedLearningModal
             isOpen={openModals.guidedLearningModal}
             onClose={() => toggleModal('guidedLearningModal')}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Pomodoro Modal */}
+      <AnimatePresence>
+        {openModals.pomodoro && (
+          <PomodoroModal
+            isOpen={openModals.pomodoro}
+            onClose={() => toggleModal('pomodoro')}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Exams Modal */}
+      <AnimatePresence>
+        {openModals.exams && (
+          <ExamsModal
+            isOpen={openModals.exams}
+            onClose={() => toggleModal('exams')}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Kindness Modal */}
+      <AnimatePresence>
+        {openModals.kindness && (
+          <KindnessModal
+            isOpen={openModals.kindness}
+            onClose={() => toggleModal('kindness')}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Judge Modal */}
+      <AnimatePresence>
+        {openModals.judge && (
+          <JudgeModal
+            isOpen={openModals.judge}
+            onClose={() => toggleModal('judge')}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Quiz Modal */}
+      <AnimatePresence>
+        {openModals.quiz && (
+          <QuizModal
+            isOpen={openModals.quiz}
+            onClose={() => toggleModal('quiz')}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Soundscapes Modal */}
+      <AnimatePresence>
+        {openModals.soundscapes && (
+          <SoundscapesModal
+            isOpen={openModals.soundscapes}
+            onClose={() => toggleModal('soundscapes')}
           />
         )}
       </AnimatePresence>
