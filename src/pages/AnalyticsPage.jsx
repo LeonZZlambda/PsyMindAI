@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
+import '../styles/roadmap.css';
 import { Telemetry } from '../services/analytics/telemetry';
 import { generateMetaInsight } from '../services/chat/chatService';
 import { defaultConfig } from '../services/config/apiConfig';

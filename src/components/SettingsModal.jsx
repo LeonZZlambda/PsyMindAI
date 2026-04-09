@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import '../styles/settings.css';
 import { toast } from 'sonner';
 import { useTheme } from '../context/ThemeContext';
 import { useChat } from '../context/ChatContext';

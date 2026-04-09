@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import '../styles/help.css';
 import { toast } from 'sonner';
 import { useTranslation, Trans } from 'react-i18next';
 import BaseModal from './BaseModal';

@@ -1,9 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
+import '../styles/exams.css';
 import { useChat } from '../context/ChatContext';
 import { useTranslation, Trans } from 'react-i18next';
 import BaseModal from './BaseModal';
-import JudgeModal from './JudgeModal';
-import QuizModal from './QuizModal';
+
+const JudgeModal = lazy(() => import('./JudgeModal'));
+const QuizModal = lazy(() => import('./QuizModal'));
 
 const EnemCalculator = ({ onClose }) => {
   const { sendMessage } = useChat();
@@ -1407,19 +1409,23 @@ const ExamsModal = ({ isOpen, onClose }) => {
         </div>
       
       {showJudge && (
-        <JudgeModal 
-          isOpen={showJudge} 
-          onClose={() => setShowJudge(false)} 
-          config={judgeConfig} 
-        />
+        <Suspense fallback={null}>
+          <JudgeModal 
+            isOpen={showJudge} 
+            onClose={() => setShowJudge(false)} 
+            config={judgeConfig} 
+          />
+        </Suspense>
       )}
 
       {showQuiz && (
-        <QuizModal 
-          isOpen={showQuiz} 
-          onClose={() => setShowQuiz(false)} 
-          config={quizConfig} 
-        />
+        <Suspense fallback={null}>
+          <QuizModal 
+            isOpen={showQuiz} 
+            onClose={() => setShowQuiz(false)} 
+            config={quizConfig} 
+          />
+        </Suspense>
       )}
     </BaseModal>
   );

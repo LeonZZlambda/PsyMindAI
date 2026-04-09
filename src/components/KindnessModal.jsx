@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../styles/kindness.css';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import BaseModal from './BaseModal';

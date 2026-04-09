@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
+import '../styles/header.css';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../context/ThemeContext';
 import { motion, AnimatePresence } from 'framer-motion';
-import SoundscapesModal from './SoundscapesModal';
-import AccountModal from './AccountModal';
+
+const SoundscapesModal = lazy(() => import('./SoundscapesModal'));
+const AccountModal = lazy(() => import('./AccountModal'));
 
 const Header = ({ isSidebarOpen, toggleSidebar, isLoading, onOpenStudyStats }) => {
   const { isDarkMode, toggleTheme, fontSize, reducedMotion, highContrast, colorBlindMode } = useTheme();
@@ -55,7 +57,7 @@ const Header = ({ isSidebarOpen, toggleSidebar, isLoading, onOpenStudyStats }) =
             {isDarkMode ? 'light_mode' : 'dark_mode'}
           </span>
         </button>
-        <button className="user-profile" onClick={() => setIsAccountModalOpen(true)} title={t('header.user_account')} aria-label={t('header.user_profile')}>
+        <button className="user-profile" onClick={(e) => { e.stopPropagation(); setIsAccountModalOpen(prev => !prev); }} title={t('header.user_account')} aria-label={t('header.user_profile')}>
           <span className="material-symbols-outlined">account_circle</span>
         </button>
       </div>
@@ -73,26 +75,26 @@ const Header = ({ isSidebarOpen, toggleSidebar, isLoading, onOpenStudyStats }) =
       
       {isSoundModalOpen && createPortal(
         <div className={`app ${isDarkMode ? 'dark' : ''} ${fontSize === 'large' ? 'font-large' : ''} ${reducedMotion ? 'reduced-motion' : ''} ${highContrast ? 'high-contrast' : ''} color-blind-${colorBlindMode}`} style={{ display: 'contents' }}>
-          <SoundscapesModal
-            isOpen={isSoundModalOpen}
-            onClose={() => setIsSoundModalOpen(false)}
-          />
+          <Suspense fallback={null}>
+            <SoundscapesModal
+              isOpen={isSoundModalOpen}
+              onClose={() => setIsSoundModalOpen(false)}
+            />
+          </Suspense>
         </div>,
         document.body
       )}
 
       {createPortal(
-        <AnimatePresence>
-          {isAccountModalOpen && (
-            <div className={`app ${isDarkMode ? 'dark' : ''} ${fontSize === 'large' ? 'font-large' : ''} ${reducedMotion ? 'reduced-motion' : ''} ${highContrast ? 'high-contrast' : ''} color-blind-${colorBlindMode}`} style={{ display: 'contents' }}>
-              <AccountModal
-                isOpen={isAccountModalOpen}
-                onClose={() => setIsAccountModalOpen(false)}
-                onOpenStudyStats={onOpenStudyStats}
-              />
-            </div>
-          )}
-        </AnimatePresence>,
+        <div className={`app ${isDarkMode ? 'dark' : ''} ${fontSize === 'large' ? 'font-large' : ''} ${reducedMotion ? 'reduced-motion' : ''} ${highContrast ? 'high-contrast' : ''} color-blind-${colorBlindMode}`} style={{ display: 'contents' }} onClick={(e) => e.stopPropagation()}>
+          <Suspense fallback={null}>
+            <AccountModal
+              isOpen={isAccountModalOpen}
+              onClose={() => setIsAccountModalOpen(false)}
+              onOpenStudyStats={onOpenStudyStats}
+            />
+          </Suspense>
+        </div>,
         document.body
       )}
     </header>

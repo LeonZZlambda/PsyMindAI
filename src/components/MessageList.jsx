@@ -1,11 +1,12 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
+import '../styles/chat.css';
 import ReactMarkdown from 'react-markdown';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
 import { useTranslation, Trans } from 'react-i18next';
 import { useChat } from '../context/ChatContext';
+import Prism from 'prismjs';
+import 'prismjs/themes/prism-tomorrow.css';
 
 const CopyButton = ({ text }) => {
   const [copied, setCopied] = useState(false);
@@ -160,6 +161,34 @@ const MessageList = () => {
   const [dailyQuote, setDailyQuote] = useState('');
   const [isLoadingQuote, setIsLoadingQuote] = useState(true);
   const [speakingId, setSpeakingId] = useState(null);
+
+  const loadedPrismLanguagesRef = useRef(new Set());
+  const [prismLangTick, setPrismLangTick] = useState(0);
+
+  const normalizeLang = useCallback((lang) => {
+    const l = String(lang || '').toLowerCase();
+    if (l === 'js') return 'javascript';
+    if (l === 'ts') return 'typescript';
+    if (l === 'py') return 'python';
+    if (l === 'sh' || l === 'shell') return 'bash';
+    if (l === 'yml') return 'yaml';
+    return l;
+  }, []);
+
+  const ensurePrismLanguage = useCallback(async (rawLang) => {
+    const lang = normalizeLang(rawLang);
+    if (!lang) return;
+    if (Prism.languages[lang]) return;
+    if (loadedPrismLanguagesRef.current.has(lang)) return;
+
+    loadedPrismLanguagesRef.current.add(lang);
+    try {
+      await import(`prismjs/components/prism-${lang}.js`);
+      setPrismLangTick((x) => x + 1);
+    } catch {
+      // Ignore unknown languages; we'll render plain text.
+    }
+  }, [normalizeLang]);
 
   useEffect(() => {
     const generateDailyQuote = () => {
@@ -410,22 +439,30 @@ const MessageList = () => {
                       components={{
                         code({node, inline, className, children, ...props}) {
                           const match = /language-(\w+)/.exec(className || '')
-                          return !inline && match ? (
-                            <div className="code-block-wrapper">
-                              <div className="code-block-header">
-                                <span>{match[1]}</span>
-                                <CodeCopyButton text={String(children).replace(/\n$/, '')} />
+                          if (!inline && match) {
+                            const lang = match[1];
+                            ensurePrismLanguage(lang);
+                            const normalized = normalizeLang(lang);
+                            const codeText = String(children).replace(/\n$/, '');
+                            const grammar = Prism.languages[normalized];
+                            const highlighted = grammar ? Prism.highlight(codeText, grammar, normalized) : null;
+                            return (
+                              <div className="code-block-wrapper">
+                                <div className="code-block-header">
+                                  <span>{lang}</span>
+                                  <CodeCopyButton text={codeText} />
+                                </div>
+                                <pre className={`language-${normalized || ''}`} {...props}>
+                                  {highlighted ? (
+                                    <code dangerouslySetInnerHTML={{ __html: highlighted }} />
+                                  ) : (
+                                    <code>{codeText}</code>
+                                  )}
+                                </pre>
                               </div>
-                              <SyntaxHighlighter
-                                style={vscDarkPlus}
-                                language={match[1]}
-                                PreTag="div"
-                                {...props}
-                              >
-                                {String(children).replace(/\n$/, '')}
-                              </SyntaxHighlighter>
-                            </div>
-                          ) : (
+                            )
+                          }
+                          return (
                             <code className={className} {...props}>
                               {children}
                             </code>

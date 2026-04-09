@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/sidebar.css';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';

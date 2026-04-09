@@ -92,37 +92,24 @@ const AccountModal = ({ isOpen, onClose, onOpenStudyStats, initialView = 'accoun
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: -20, opacity: 0 }}
               transition={{ duration: 0.2 }}
-              style={{ width: '100%', display: 'flex', flexDirection: 'column' }}
+              className="account-modal-body"
             >
-              <div style={{ padding: '12px', display: 'flex', justifyContent: 'flex-end', flexShrink: 0 }}>
+              <div className="account-modal-header">
                 <button className="close-btn" onClick={onClose} aria-label={t('account.close')}>
                   <span className="material-symbols-outlined">close</span>
                 </button>
               </div>
               
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '0 24px 20px' }}>
-                <p style={{ margin: '0 0 16px', fontSize: '0.9rem', color: 'var(--text-color)', opacity: 0.8 }}>
+              <div className="account-profile-box">
+                <p className="account-email">
                   usuario@exemplo.com
                 </p>
                 
-                <div 
-                  className="user-avatar" 
-                  style={{ 
-                    width: '80px', 
-                    height: '80px', 
-                    borderRadius: '50%', 
-                    background: 'var(--primary-color)',
-                    color: '#ffffff',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginBottom: '16px'
-                  }}
-                >
-                  <span className="material-symbols-outlined" style={{ fontSize: '40px' }}>account_circle</span>
+                <div className="user-avatar account-avatar-circle">
+                  <span className="material-symbols-outlined account-avatar-icon">account_circle</span>
                 </div>
                 
-                <h2 style={{ margin: '0 0 16px', fontSize: '1.4rem', fontWeight: 400, color: 'var(--text-color)' }}>
+                <h2 className="account-greeting">
                   {t('account.greeting', { name: 'Usuário' })}
                 </h2>
                 
@@ -131,12 +118,12 @@ const AccountModal = ({ isOpen, onClose, onOpenStudyStats, initialView = 'accoun
                 </button>
               </div>
 
-              <div style={{ borderTop: '1px solid var(--border-color)', padding: '8px' }}>
+              <div className="account-menu-list">
                 <button 
                   onClick={() => setActiveView('personalization')}
                   className="account-menu-item"
                 >
-                  <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>tune</span>
+                  <span className="material-symbols-outlined">tune</span>
                   {t('account.menu.personalize')}
                 </button>
 
@@ -147,34 +134,25 @@ const AccountModal = ({ isOpen, onClose, onOpenStudyStats, initialView = 'accoun
                   }}
                   className="account-menu-item"
                 >
-                  <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>bar_chart</span>
+                  <span className="material-symbols-outlined">bar_chart</span>
                   {t('account.menu.stats')}
                 </button>
 
                 <button className="account-menu-item">
-                  <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>add_circle</span>
+                  <span className="material-symbols-outlined">add_circle</span>
                   {t('account.menu.add_account')}
                 </button>
 
                 <button className="account-menu-item">
-                  <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>logout</span>
+                  <span className="material-symbols-outlined">logout</span>
                   {t('account.menu.logout')}
                 </button>
               </div>
               
-              <div style={{ 
-                display: 'flex', 
-                justifyContent: 'center', 
-                gap: '16px', 
-                padding: '16px', 
-                borderTop: '1px solid var(--border-color)',
-                fontSize: '0.8rem',
-                color: 'var(--text-color)',
-                opacity: 0.7
-              }}>
-                <a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>{t('account.links.privacy')}</a>
+              <div className="account-links-footer">
+                <a href="#">{t('account.links.privacy')}</a>
                 <span>•</span>
-                <a href="#" style={{ color: 'inherit', textDecoration: 'none' }}>{t('account.links.terms')}</a>
+                <a href="#">{t('account.links.terms')}</a>
               </div>
             </motion.div>
           ) : (

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../styles/pomodoro.css';
 import { useTranslation } from 'react-i18next';
 import { usePomodoro } from '../context/PomodoroContext';
 import { generatePomodoroTip } from '../services/tools/pomodoroService';

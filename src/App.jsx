@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, Suspense } from 'react'
+import { useState, useEffect, useRef, useCallback, Suspense, lazy } from 'react'
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { Toaster } from 'sonner'
 import { ErrorBoundary } from 'react-error-boundary'
@@ -8,19 +8,7 @@ import './styles/base.css'
 import './styles/animations.css'
 import './styles/layout.css'
 import './styles/components.css'
-import './styles/sidebar.css'
-import './styles/header.css'
-import './styles/chat.css'
-import './styles/settings.css'
-import './styles/pomodoro.css'
-import './styles/kindness.css'
-import './styles/help.css'
-import './styles/roadmap.css'
-import './styles/contribute.css'
-import './styles/exams.css'
-import './styles/landing.css'
 import './styles/accessibility.css'
-import './styles/emotional-journal.css'
 import Sidebar from './components/Sidebar'
 import Header from './components/Header'
 import ErrorFallback from './components/ErrorFallback'
@@ -28,19 +16,20 @@ import TelemetryConsent from './components/TelemetryConsent'
 import AppRoutes from './components/AppRoutes'
 import ModalRenderer from './components/ModalRenderer'
 import useKeyboardShortcuts from './components/KeyboardShortcuts'
-import ChatPage from './pages/ChatPage'
-import LandingPage from './pages/LandingPage'
-import RoadmapPage from './pages/RoadmapPage'
-import ContributePage from './pages/ContributePage'
-import StyleGuidePage from './pages/StyleGuidePage'
-import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
-import TermsOfUsePage from './pages/TermsOfUsePage'
-import TransparencyPage from './pages/TransparencyPage'
-import AnalyticsPage from './pages/AnalyticsPage'
 import { useTheme } from './context/ThemeContext'
 import { useChat } from './context/ChatContext'
 import { useModal } from './context/ModalContext'
 import { Telemetry } from './services/analytics/telemetry'
+
+const ChatPage = lazy(() => import('./pages/ChatPage'))
+const LandingPage = lazy(() => import('./pages/LandingPage'))
+const RoadmapPage = lazy(() => import('./pages/RoadmapPage'))
+const ContributePage = lazy(() => import('./pages/ContributePage'))
+const StyleGuidePage = lazy(() => import('./pages/StyleGuidePage'))
+const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'))
+const TermsOfUsePage = lazy(() => import('./pages/TermsOfUsePage'))
+const TransparencyPage = lazy(() => import('./pages/TransparencyPage'))
+const AnalyticsPage = lazy(() => import('./pages/AnalyticsPage'))
 
 
 function App() {
@@ -163,39 +152,38 @@ function App() {
             </>
           )}
           
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/roadmap" element={<RoadmapPage />} />
-            <Route path="/analytics" element={<AnalyticsPage />} />
-            <Route path="/transparency" element={<TransparencyPage />} />
-            <Route path="/contribute" element={<ContributePage />} />
-            <Route path="/style-guide" element={<StyleGuidePage />} />
-            <Route path="/privacy" element={<PrivacyPolicyPage />} />
-            <Route path="/terms" element={<TermsOfUsePage />} />
-            <Route 
-              path="/chat" 
-              element={
-                <ChatPage 
-                  inputRef={inputRef} 
-                  onOpenHelp={() => {
-                    setHelpInitialTab('faq');
-                    toggleModal('helpModal');
-                  }}
-                  onOpenSupport={() => toggleModal('supportModal')}
-                  onOpenReflections={() => toggleModal('reflectionsModal')}
-                  onOpenMoodTracker={() => toggleModal('moodTrackerModal')}
-                  onOpenEmotionalJournal={() => toggleModal('emotionalJournalModal')}
-                  onOpenGuidedLearning={() => toggleModal('guidedLearningModal')}
-                />
-              } 
-            />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
+          <Suspense fallback={null}>
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/roadmap" element={<RoadmapPage />} />
+              <Route path="/analytics" element={<AnalyticsPage />} />
+              <Route path="/transparency" element={<TransparencyPage />} />
+              <Route path="/contribute" element={<ContributePage />} />
+              <Route path="/style-guide" element={<StyleGuidePage />} />
+              <Route path="/privacy" element={<PrivacyPolicyPage />} />
+              <Route path="/terms" element={<TermsOfUsePage />} />
+              <Route 
+                path="/chat" 
+                element={
+                  <ChatPage 
+                    inputRef={inputRef} 
+                    onOpenHelp={() => {
+                      setHelpInitialTab('faq');
+                      toggleModal('helpModal');
+                    }}
+                    onOpenSupport={() => toggleModal('supportModal')}
+                    onOpenReflections={() => toggleModal('reflectionsModal')}
+                    onOpenMoodTracker={() => toggleModal('moodTrackerModal')}
+                    onOpenEmotionalJournal={() => toggleModal('emotionalJournalModal')}
+                    onOpenGuidedLearning={() => toggleModal('guidedLearningModal')}
+                  />
+                } 
+              />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </Suspense>
         </div>
 
-        <Suspense fallback={null}>
-
-        </Suspense>
         <ModalRenderer 
           openModals={openModals}
           toggleModal={toggleModal}
