@@ -201,6 +201,106 @@ body.dark .meu-componente { background: #333; }
           </div>
         </section>
 
+        <section className="sg-section">
+          <h2><span className="material-symbols-outlined">inventory_2</span> Biblioteca de Componentes</h2>
+          <p>O PsyMind.AI implementa um sistema de componentes reutilizáveis e modularizados para garantir consistência e escalabilidade.</p>
+          
+          <div className="sg-subsection">
+            <h3>🎯 BaseModal - Wrapper Universal</h3>
+            <p>Componente wrapper que encapsula a lógica comum de modais (animações, ESC key, click-outside close).</p>
+            <pre className="sg-code">
+{`// Componentes que usam BaseModal
+<MoodTrackerModal> → usa BaseModal
+<SettingsModal> → usa BaseModal
+<HelpModal> → usa BaseModal
+<SupportModal> → usa BaseModal
+<ReflectionsModal> → usa BaseModal
+<EmotionalJournalModal> → usa BaseModal
+<ExamsModal> → usa BaseModal
+<GuidedLearningModal> → usa BaseModal
+<KindnessModal> → usa BaseModal
+
+// AccountModal é a EXCEÇÃO
+<AccountModal> → estrutura própria (dropdown style)
+`}
+            </pre>
+          </div>
+
+          <div className="sg-subsection">
+            <h3>🪝 Custom Hooks Reutilizáveis</h3>
+            <p>Hooks para lógica compartilhada entre componentes:</p>
+            <ul>
+              <li><strong>useModalAnimation()</strong> - Gerencia entrada/saída com Framer Motion</li>
+              <li><strong>useEscapeKey()</strong> - Listener de ESC key centralizado</li>
+              <li><strong>usePlatform()</strong> - Detecção Mac/Windows para shortcuts</li>
+              <li><strong>useStorageKey()</strong> - Constantes de localStorage centralizadas</li>
+              <li><strong>useKeyboardShortcuts()</strong> - Atalhos de teclado globais</li>
+            </ul>
+          </div>
+
+          <div className="sg-subsection">
+            <h3>🎨 Context Providers (Estado Global)</h3>
+            <p>Gerenciadores de estado centralizados:</p>
+            <ul>
+              <li><strong>ThemeContext</strong> - Tema (light/dark), font size, accessibility</li>
+              <li><strong>ChatContext</strong> - Histórico de chat, mensagens</li>
+              <li><strong>ModalContext</strong> - Estado de todos os modais</li>
+              <li><strong>MoodContext</strong> - Histórico de sentimentos</li>
+              <li><strong>PomodoroContext</strong> - Sessões Pomodoro</li>
+              <li><strong>SoundContext</strong> - Soundscape settings</li>
+            </ul>
+          </div>
+
+          <div className="sg-subsection">
+            <h3>📦 Service Layer - Isolamento de Lógica</h3>
+            <p>Camada de negócio separada da UI:</p>
+            <pre className="sg-code">
+{`services/
+├── api/               → Gemini API client, retry logic, error handling
+├── chat/              → Message formatting, chat orchestration
+├── storage/           → Persistence (localStorage adapter pattern)
+├── analytics/         → Telemetry, metrics
+├── tools/             → Pomodoro, Mood, Reflection services
+├── config/            → API config, system prompts
+└── prompts/           → System prompts logic
+`}
+            </pre>
+          </div>
+
+          <div className="sg-subsection">
+            <h3>🧪 Testing Patterns</h3>
+            <p>Testes unitários para serviços críticos:</p>
+            <ul>
+              <li><strong>chatService.test.js</strong> - sendMessage, generateTitle, updateLongTermMemory</li>
+              <li><strong>chatStorage.test.js</strong> - loadChats, saveChats, createChat, updateChat</li>
+            </ul>
+            <p>Para rodar: <code>npm test -- src/services/[service]/[service].test.js</code></p>
+          </div>
+
+          <div className="sg-subsection">
+            <h3>🎯 Padrões de Modularização</h3>
+            <ul>
+              <li><strong>Feature-based CSS</strong> - Cada feature tem seu arquivo CSS isolado</li>
+              <li><strong>Lazy Loading</strong> - Modais são lazy-loaded com React.lazy + Suspense</li>
+              <li><strong>Storage Adapter Pattern</strong> - Fácil trocar de localStorage para Database</li>
+              <li><strong>Error Boundary</strong> - Tratamento de erros em componentes</li>
+              <li><strong>Keyboard Shortcuts</strong> - Centralizados em useKeyboardShortcuts</li>
+              <li><strong>Modal Renderer</strong> - Renderização de todos os modais em um lugar</li>
+            </ul>
+          </div>
+
+          <div className="sg-subsection">
+            <h3>🔧 Refatoração App.jsx</h3>
+            <p>O arquivo App.jsx foi dividido em componentes menores para melhor manutenção:</p>
+            <ul>
+              <li><strong>KeyboardShortcuts.jsx</strong> - Hook com toda lógica de atalhos</li>
+              <li><strong>ModalRenderer.jsx</strong> - Renderização centralizada de modais</li>
+              <li><strong>AppRoutes.jsx</strong> - Definição de todas as rotas com suas props</li>
+            </ul>
+            <p>Resultado: <strong>App.jsx reduzido de 400+ LOC para ~150 LOC</strong></p>
+          </div>
+        </section>
+
         <div className="sg-actions">
            <button className="primary-btn cta" onClick={() => navigate('/contribute')}>
               <span className="material-symbols-outlined">arrow_back</span>

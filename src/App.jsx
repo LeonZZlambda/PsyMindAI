@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef, useCallback, Suspense, lazy } from 'react'
+import { useState, useEffect, useRef, useCallback, Suspense } from 'react'
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { Toaster } from 'sonner'
 import { ErrorBoundary } from 'react-error-boundary'
-import { AnimatePresence, motion, MotionConfig } from 'framer-motion'
+import { motion, MotionConfig } from 'framer-motion'
 import './styles/variables.css'
 import './styles/base.css'
 import './styles/animations.css'
@@ -23,6 +23,11 @@ import './styles/accessibility.css'
 import './styles/emotional-journal.css'
 import Sidebar from './components/Sidebar'
 import Header from './components/Header'
+import ErrorFallback from './components/ErrorFallback'
+import TelemetryConsent from './components/TelemetryConsent'
+import AppRoutes from './components/AppRoutes'
+import ModalRenderer from './components/ModalRenderer'
+import useKeyboardShortcuts from './components/KeyboardShortcuts'
 import ChatPage from './pages/ChatPage'
 import LandingPage from './pages/LandingPage'
 import RoadmapPage from './pages/RoadmapPage'
@@ -32,24 +37,10 @@ import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
 import TermsOfUsePage from './pages/TermsOfUsePage'
 import TransparencyPage from './pages/TransparencyPage'
 import AnalyticsPage from './pages/AnalyticsPage'
-import ErrorFallback from './components/ErrorFallback'
-import TelemetryConsent from './components/TelemetryConsent'
 import { useTheme } from './context/ThemeContext'
 import { useChat } from './context/ChatContext'
 import { useModal } from './context/ModalContext'
 import { Telemetry } from './services/analytics/telemetry'
-
-// Lazy load modals to improve initial load performance
-const AccountModal = lazy(() => import('./components/AccountModal'))
-const SettingsModal = lazy(() => import('./components/SettingsModal'))
-const HelpModal = lazy(() => import('./components/HelpModal'))
-const SupportModal = lazy(() => import('./components/SupportModal'))
-const ReflectionsModal = lazy(() => import('./components/ReflectionsModal'))
-const MoodTrackerModal = lazy(() => import('./components/MoodTrackerModal'))
-const EmotionalJournalModal = lazy(() => import('./components/EmotionalJournalModal'))
-const ImportContextModal = lazy(() => import('./components/ImportContextModal'))
-const StudyStatsModal = lazy(() => import('./components/StudyStatsModal'))
-const GuidedLearningModal = lazy(() => import('./components/GuidedLearningModal'))
 
 
 function App() {
@@ -99,61 +90,18 @@ function App() {
     }
   }, [])
 
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
-      const metaKey = isMac ? e.metaKey : e.ctrlKey;
-
-      // New Chat: Shift + Command + O
-      if (metaKey && e.shiftKey && e.key.toLowerCase() === 'o') {
-        e.preventDefault();
-        handleNewChat();
-      }
-
-      // Toggle Sidebar: Command + B
-      if (metaKey && e.key.toLowerCase() === 'b') {
-        e.preventDefault();
-        setIsSidebarOpen(prev => !prev);
-      }
-
-      // Toggle Theme: Command + Shift + L
-      if (metaKey && e.shiftKey && e.key.toLowerCase() === 'l') {
-        e.preventDefault();
-        toggleTheme();
-      }
-
-      // Settings: Command + ,
-      if (metaKey && e.key === ',') {
-        e.preventDefault();
-        toggleModal('settingsModal');
-      }
-
-      // Help: Command + /
-      if (metaKey && e.key === '/') {
-        e.preventDefault();
-        setHelpInitialTab('faq');
-        toggleModal('helpModal');
-      }
-
-      // Shortcuts: Command + Shift + / (or ?)
-      if (metaKey && (e.key === '?' || (e.shiftKey && e.key === '/'))) {
-        e.preventDefault();
-        setHelpInitialTab('shortcuts');
-        toggleModal('helpModal');
-      }
-
-      // Focus Input: /
-      if (e.key === '/' && !metaKey && !e.ctrlKey && !e.altKey && 
-          document.activeElement.tagName !== 'INPUT' && 
-          document.activeElement.tagName !== 'TEXTAREA') {
-        e.preventDefault();
-        inputRef.current?.focus();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handleNewChat, toggleModal, toggleTheme, setHelpInitialTab]);
+  // Setup keyboard shortcuts
+  useKeyboardShortcuts({
+    onNewChat: handleNewChat,
+    onToggleSidebar: () => setIsSidebarOpen(prev => !prev),
+    onToggleTheme: toggleTheme,
+    onOpenSettings: () => toggleModal('settingsModal'),
+    onOpenHelp: (tab) => {
+      setHelpInitialTab(tab || 'faq');
+      toggleModal('helpModal');
+    },
+    inputRef
+  })
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => window.location.reload()}>
@@ -246,82 +194,13 @@ function App() {
         </div>
 
         <Suspense fallback={null}>
-          {openModals.accountModal && (
-            <AccountModal
-              isOpen={openModals.accountModal}
-              onClose={() => toggleModal('accountModal')}
-              onOpenStudyStats={() => toggleModal('studyStatsModal')}
-              initialView="personalization"
-            />
-          )}
-          {openModals.settingsModal && (
-            <SettingsModal 
-              isOpen={openModals.settingsModal} 
-              onClose={() => toggleModal('settingsModal')}
-              onOpenImportContext={() => toggleModal('importContextModal')}
-            />
-          )}
 
-          {openModals.helpModal && (
-            <HelpModal 
-              isOpen={openModals.helpModal} 
-              onClose={() => toggleModal('helpModal')} 
-              initialTab={helpInitialTab}
-            />
-          )}
-
-          {openModals.supportModal && (
-            <SupportModal 
-              isOpen={openModals.supportModal} 
-              onClose={() => toggleModal('supportModal')} 
-            />
-          )}
-
-          {openModals.reflectionsModal && (
-            <ReflectionsModal 
-              isOpen={openModals.reflectionsModal} 
-              onClose={() => toggleModal('reflectionsModal')} 
-            />
-          )}
-
-          {openModals.moodTrackerModal && (
-            <MoodTrackerModal 
-              isOpen={openModals.moodTrackerModal} 
-              onClose={() => toggleModal('moodTrackerModal')} 
-            />
-          )}
-
-          {openModals.emotionalJournalModal && (
-            <EmotionalJournalModal 
-              isOpen={openModals.emotionalJournalModal} 
-              onClose={() => toggleModal('emotionalJournalModal')} 
-            />
-          )}
-
-          {openModals.importContextModal && (
-            <ImportContextModal 
-              isOpen={openModals.importContextModal} 
-              onClose={() => toggleModal('importContextModal')} 
-            />
-          )}
-
-          <AnimatePresence>
-            {openModals.studyStatsModal && (
-              <StudyStatsModal 
-                isOpen={openModals.studyStatsModal} 
-                onClose={() => toggleModal('studyStatsModal')} 
-              />
-            )}
-          </AnimatePresence>
-          <AnimatePresence>
-            {openModals.guidedLearningModal && (
-              <GuidedLearningModal
-                isOpen={openModals.guidedLearningModal}
-                onClose={() => toggleModal('guidedLearningModal')}
-              />
-            )}
-          </AnimatePresence>
         </Suspense>
+        <ModalRenderer 
+          openModals={openModals}
+          toggleModal={toggleModal}
+          helpInitialTab={helpInitialTab}
+        />
         <TelemetryConsent />
         </div>
       </MotionConfig>
