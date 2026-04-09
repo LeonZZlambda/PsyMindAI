@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import "../styles/settings.css";
-
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
