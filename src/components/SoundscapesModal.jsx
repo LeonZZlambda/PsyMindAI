@@ -1,11 +1,13 @@
 import React, { useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSound } from '../context/SoundContext';
+import { useModalAnimation } from '../hooks';
 import '../styles/soundscapes.css';
 
 const SoundscapesModal = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
   const { isPlaying, currentSound, volume, toggleSound, changeSound, setVolume } = useSound();
+  const [isClosing, handleClose] = useModalAnimation(onClose);
   const modalRef = useRef(null);
 
   const sounds = [
@@ -16,7 +18,7 @@ const SoundscapesModal = ({ isOpen, onClose }) => {
 
   useEffect(() => {
     const handleEscape = (e) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') handleClose();
     };
     if (isOpen) {
       document.addEventListener('keydown', handleEscape);
@@ -26,16 +28,22 @@ const SoundscapesModal = ({ isOpen, onClose }) => {
       }
     }
     return () => document.removeEventListener('keydown', handleEscape);
-  }, [isOpen, onClose]);
+  }, [isOpen, handleClose]);
 
-  if (!isOpen) return null;
+  if (!isOpen && !isClosing) return null;
   
   const currentSoundData = sounds.find(s => s.id === currentSound);
 
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) {
+      handleClose();
+    }
+  };
+
   return (
-    <div className="modal-overlay" onClick={onClose}>
+    <div className={`modal-overlay ${isClosing ? 'closing' : ''}`} onClick={handleOverlayClick}>
       <div
-        className="modal-content"
+        className={`modal-content ${isClosing ? 'closing' : ''}`}
         onClick={e => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -48,7 +56,7 @@ const SoundscapesModal = ({ isOpen, onClose }) => {
             <span className="material-symbols-outlined" style={{ color: 'var(--primary-color)' }}>headphones</span>
             <h2 id="soundscapes-title" style={{ margin: 0, fontSize: '1.25rem', fontWeight: 500 }}>{t('soundscapes.title')}</h2>
           </div>
-          <button className="close-btn" onClick={onClose} aria-label={t('soundscapes.close')}>
+          <button className="close-btn" onClick={handleClose} aria-label={t('soundscapes.close')}>
             <span className="material-symbols-outlined">close</span>
           </button>
         </div>
