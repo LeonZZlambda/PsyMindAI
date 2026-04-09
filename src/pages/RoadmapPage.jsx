@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import Footer from '../components/Footer';
@@ -9,54 +10,9 @@ import LandingHeader from '../components/LandingHeader';
 const RoadmapPage = () => {
   const navigate = useNavigate();
   const { isDarkMode, toggleTheme } = useTheme();
+  const { t } = useTranslation();
 
-  const roadmapItems = [
-    {
-      quarter: 'Q4 2025',
-      status: 'completed',
-      title: 'Lançamento Beta',
-      items: [
-        'Interface de Chat Intuitiva',
-        'Integração com IA Generativa',
-        'Modo Escuro/Claro',
-        'Suporte a Comandos de Voz'
-      ]
-    },
-    {
-      quarter: 'Q1 2026',
-      status: 'in-progress',
-      title: 'Expansão de Recursos',
-      items: [
-        'Sistema de Simulados Integrados (Quizzes)',
-        'Modo Juiz Competitivo (C, C++, Python)',
-        'Integração Interativa de Olimpíadas e Vestibulares',
-        'Módulo de Pomodoro Avançado',
-        'Histórico de Conversas Persistente'
-      ]
-    },
-    {
-      quarter: 'Q2 2026',
-      status: 'planned',
-      title: 'Comunidade e Conteúdo',
-      items: [
-        'Fórum de Estudantes',
-        'Curadoria de Conteúdos Educativos',
-        'Integração com Google Calendar',
-        'App Mobile (iOS/Android)'
-      ]
-    },
-    {
-      quarter: 'Q3 2026',
-      status: 'planned',
-      title: 'Personalização Avançada',
-      items: [
-        'Tutores de IA Personalizáveis',
-        'Dashboard de Estatísticas de Estudo',
-        'Gamificação e Conquistas',
-        'API Pública para Desenvolvedores'
-      ]
-    }
-  ];
+  const roadmapItems = t('roadmap_page.phases', { returnObjects: true });
 
   return (
     <motion.div 
@@ -70,8 +26,8 @@ const RoadmapPage = () => {
 
       <main className="roadmap-content">
         <div className="roadmap-header">
-          <h1>Roadmap do Produto</h1>
-          <p>Acompanhe nossa jornada e veja o que estamos construindo para o futuro da educação emocional.</p>
+          <h1>{t('roadmap_page.title')}</h1>
+          <p>{t('roadmap_page.subtitle')}</p>
         </div>
 
         <div className="roadmap-timeline">
@@ -86,10 +42,10 @@ const RoadmapPage = () => {
               <div className="card-status-indicator">
                 <span className="material-symbols-outlined">
                   {phase.status === 'completed' ? 'check_circle' : 
-                   phase.status === 'in-progress' ? 'pending' : 'schedule'}
+                   phase.status === 'in_progress' ? 'pending' : 'schedule'}
                 </span>
-                <span>{phase.status === 'completed' ? 'Concluído' : 
-                       phase.status === 'in-progress' ? 'Em Desenvolvimento' : 'Planejado'}</span>
+                <span>{phase.status === 'completed' ? t('roadmap_page.statuses.completed') : 
+                       phase.status === 'in_progress' ? t('roadmap_page.statuses.in_progress') : t('roadmap_page.statuses.planned')}</span>
               </div>
               <div className="card-header">
                 <span className="quarter-badge">{phase.quarter}</span>

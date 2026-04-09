@@ -96,8 +96,8 @@ const AnalyticsPage = () => {
 
       <main className="roadmap-content" style={{ maxWidth: '800px', margin: '0 auto', paddingBottom: '80px', width: '100%', boxSizing: 'border-box' }}>
         <div className="roadmap-header">
-          <h1>Dashboard de <span className="gradient-text">Uso</span></h1>
-          <p>Acompanhe a evolução global da nossa comunidade e o seu progresso pessoal.</p>
+          <h1>{t('analytics_page.title')} <span className="gradient-text">Dashboard</span></h1>
+          <p>{t('analytics_page.subtitle')}</p>
         </div>
 
         <motion.div
@@ -120,7 +120,7 @@ const AnalyticsPage = () => {
                   border: 'none', padding: '8px 16px', borderRadius: '16px', cursor: 'pointer', fontWeight: '500', transition: 'all 0.2s ease'
                 }}
               >
-                Visão Geral
+                {t('analytics_page.tabs.global')}
               </button>
               <button 
                 onClick={() => setViewMode('local')}
@@ -130,7 +130,7 @@ const AnalyticsPage = () => {
                   border: 'none', padding: '8px 16px', borderRadius: '16px', cursor: 'pointer', fontWeight: '500', transition: 'all 0.2s ease'
                 }}
               >
-                Meu Uso
+                {t('analytics_page.tabs.personal')}
               </button>
             </div>
           </div>
@@ -139,28 +139,28 @@ const AnalyticsPage = () => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
               <div style={{ background: 'var(--hover-color)', padding: '16px', borderRadius: '12px', fontSize: '0.9rem', color: 'var(--text-light)', display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <span className="material-symbols-outlined" style={{ color: 'var(--primary-color)' }}>warning</span>
-                ⚠️ <strong>Aviso de Mock-up:</strong> Esta é uma demonstração ilustrativa. Como o aplicativo roda 100% no seu dispositivo (sem backend), estes dados globais são simulados. No futuro, representarão a comunidade real.
+                {t('analytics_page.mockup_warning')}
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '20px' }}>
                 <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
                   <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>group</span>
-                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>Usuários Ativos</span>
+                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{t('analytics_page.metrics.active_users')}</span>
                   <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{globalStats.activeUsers}</span>
                 </div>
                 <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
                   <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>timer</span>
-                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>Média de Sessão</span>
+                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{t('analytics_page.metrics.avg_session')}</span>
                   <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{globalStats.avgSessionMinutes} min</span>
                 </div>
                 <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
                   <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>psychology_alt</span>
-                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>Pontos de Transformação</span>
+                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{t('analytics_page.metrics.transformation_score')}</span>
                   <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{globalStats.transformationScore}</span>
                 </div>
                 <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
                   <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>history</span>
-                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>Sessões Totais</span>
+                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{t('analytics_page.metrics.total_sessions')}</span>
                   <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{globalStats.totalSessions}</span>
                 </div>
               </div>
@@ -168,7 +168,7 @@ const AnalyticsPage = () => {
               <div style={{ background: 'var(--card-background)', padding: '30px', borderRadius: '16px', border: '1px solid var(--border-color)' }}>
                 <h3 style={{ marginBottom: '25px', color: 'var(--text-color)', display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <span className="material-symbols-outlined" style={{ color: 'var(--primary-color)' }}>bar_chart</span>
-                  Top 5 Ferramentas (Comunidade)
+                  {t('analytics_page.charts.top_features_community')}
                 </h3>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
                     {globalStats.topFeatures.map((item, idx) => (
@@ -198,8 +198,8 @@ const AnalyticsPage = () => {
             !Telemetry.isOptedIn() ? (
               <div style={{ textAlign: 'center', padding: '60px 20px', background: 'var(--card-background)', borderRadius: '16px', border: '1px solid var(--border-color)' }}>
                 <span className="material-symbols-outlined" style={{ fontSize: '64px', color: 'var(--text-light)' }}>visibility_off</span>
-                <h3 style={{ marginTop: '20px', marginBottom: '10px', color: 'var(--text-color)' }}>Telemetria Pessoal Desativada</h3>
-                <p style={{ color: 'var(--text-light)' }}>O modo de gravação anônima está desligado nas Configuracões.<br/>Ative-o para habilitar gráficos interativos do seu acompanhamento de jornada.</p>
+                <h3 style={{ marginTop: '20px', marginBottom: '10px', color: 'var(--text-color)' }}>{t('analytics_page.alerts.telemetry_disabled').split('.')[0]}</h3>
+                <p style={{ color: 'var(--text-light)' }}>{t('analytics_page.alerts.telemetry_disabled').split('.').slice(1).join('.')}</p>
               </div>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
@@ -210,10 +210,10 @@ const AnalyticsPage = () => {
                     <div>
                       <h3 style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-color)', margin: 0 }}>
                         <span className="material-symbols-outlined" style={{ color: 'var(--primary-color)' }}>psychology</span>
-                        Modo Meta: Análise de Padrão (IA)
+                        {t('analytics_page.meta_analysis.title')}
                       </h3>
                       <p style={{ margin: '8px 0 0 0', fontSize: '0.9rem', color: 'var(--text-light)' }}>
-                        Deixe a inteligência artificial revisar passivamente cruzamentos entre seus focos, humores e sessões para te dar dicas ativas.
+                        {t('analytics_page.meta_analysis.description')}
                       </p>
                     </div>
                     {!metaInsight && (
@@ -223,7 +223,7 @@ const AnalyticsPage = () => {
                         disabled={isGeneratingInsight}
                         style={{ padding: '10px 20px', fontSize: '0.9rem' }}
                       >
-                        {isGeneratingInsight ? 'Analisando dados...' : 'Gerar Auto-Reflexão'}
+                        {isGeneratingInsight ? t('analytics_page.meta_analysis.generating') : t('analytics_page.meta_analysis.button')}
                       </button>
                     )}
                   </div>
@@ -235,18 +235,18 @@ const AnalyticsPage = () => {
                       style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '12px', marginTop: '10px' }}
                     >
                       <div style={{ marginBottom: '15px' }}>
-                        <strong style={{ color: 'var(--text-color)', display: 'block', marginBottom: '4px' }}>🧠 Padrão Observado:</strong>
+                        <strong style={{ color: 'var(--text-color)', display: 'block', marginBottom: '4px' }}>{t('analytics_page.meta_analysis.pattern_label')}</strong>
                         <span style={{ color: 'var(--text-light)', fontSize: '0.95rem' }}>{metaInsight.pattern}</span>
                       </div>
                       <div>
-                        <strong style={{ color: 'var(--primary-color)', display: 'block', marginBottom: '4px' }}>⚡ Sugestão:</strong>
+                        <strong style={{ color: 'var(--primary-color)', display: 'block', marginBottom: '4px' }}>{t('analytics_page.meta_analysis.suggestion_label')}</strong>
                         <span style={{ color: 'var(--text-light)', fontSize: '0.95rem' }}>{metaInsight.suggestion}</span>
                       </div>
                       <button 
                         onClick={handleGenerateInsight}
                         style={{ background: 'transparent', border: 'none', color: 'var(--text-light)', fontSize: '0.8rem', marginTop: '15px', cursor: 'pointer', textDecoration: 'underline', padding: 0 }}
                       >
-                        Gerar nova reflexão
+                        {t('analytics_page.meta_analysis.generate_new')}
                       </button>
                     </motion.div>
                   )}
@@ -255,22 +255,22 @@ const AnalyticsPage = () => {
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '20px' }}>
                 <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
                   <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>psychology_alt</span>
-                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>Transformação (Ganhos)</span>
+                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{t('analytics_page.metrics.transformation_score')}</span>
                   <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{derived.transformationScore} pts</span>
                 </div>
                 <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
                   <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>timer</span>
-                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>Média de Sessão</span>
+                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{t('analytics_page.metrics.avg_session')}</span>
                   <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{derived.avgSessionMinutes} min</span>
                 </div>
                 <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
                   <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>calendar_month</span>
-                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>Retenção Sim.</span>
+                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{t('analytics_page.metrics.retention')}</span>
                   <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{derived.daysActive} dias</span>
                 </div>
                 <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
                   <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>error</span>
-                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>Taxa de Falhas</span>
+                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{t('analytics_page.metrics.error_count')}</span>
                   <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{derived.errorCount} erros</span>
                 </div>
               </div>
@@ -279,7 +279,7 @@ const AnalyticsPage = () => {
               <div style={{ background: 'var(--card-background)', padding: '30px', borderRadius: '16px', border: '1px solid var(--border-color)' }}>
                 <h3 style={{ marginBottom: '25px', color: 'var(--text-color)', display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <span className="material-symbols-outlined" style={{ color: 'var(--primary-color)' }}>bar_chart</span>
-                  Top 5 Ferramentas Utilizadas
+                  {t('analytics_page.charts.top_features_personal')}
                 </h3>
                 
                 {chartData.length > 0 ? (

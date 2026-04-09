@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import Footer from '../components/Footer';
@@ -9,6 +10,9 @@ import LandingHeader from '../components/LandingHeader';
 const ContributePage = () => {
   const navigate = useNavigate();
   const { isDarkMode, toggleTheme } = useTheme();
+  const { t } = useTranslation();
+
+  const contributeCards = t('contribute_page.cards', { returnObjects: true });
 
   return (
     <motion.div 
@@ -22,95 +26,57 @@ const ContributePage = () => {
 
       <main className="contribute-content">
         <div className="contribute-header">
-          <h1>Como Contribuir</h1>
-          <p>O PsyMind.AI é um projeto open-source e adoraríamos ter sua ajuda para torná-lo ainda melhor.</p>
+          <h1>{t('contribute_page.title')}</h1>
+          <p>{t('contribute_page.subtitle')}</p>
         </div>
 
         <div className="contribute-grid">
-          <motion.div 
-            className="contribute-card"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-          >
-            <div className="icon-box code">
-              <span className="material-symbols-outlined">code</span>
-            </div>
-            <h3>Desenvolvimento</h3>
-            <p>Encontrou um bug ou quer adicionar uma nova funcionalidade? Confira nossas issues no GitHub ou abra um Pull Request.</p>
-            <a href="https://github.com/LeonZZlambda/PsyMindAI" target="_blank" rel="noopener noreferrer" className="text-link">
-              Ir para o GitHub <span className="material-symbols-outlined">arrow_forward</span>
-            </a>
-          </motion.div>
-
-          <motion.div 
-            className="contribute-card"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-          >
-            <div className="icon-box design">
-              <span className="material-symbols-outlined">palette</span>
-            </div>
-            <h3>Design & UX</h3>
-            <p>Ajude-nos a melhorar a experiência do usuário. Sugestões de design e melhorias de interface são sempre bem-vindas.</p>
-            <a 
-               href="#" 
-               className="text-link"
-               onClick={(e) => { e.preventDefault(); navigate('/style-guide'); }}
+          {contributeCards.map((card, idx) => (
+            <motion.div 
+              key={idx}
+              className="contribute-card"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: (idx + 1) * 0.1 }}
             >
-              Ver Guia de Estilo <span className="material-symbols-outlined">arrow_forward</span>
-            </a>
-          </motion.div>
-
-          <motion.div 
-            className="contribute-card"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            <div className="icon-box docs">
-              <span className="material-symbols-outlined">menu_book</span>
-            </div>
-            <h3>Documentação</h3>
-            <p>Uma boa documentação é essencial. Ajude-nos a melhorar nossos guias, README e tutoriais para novos usuários.</p>
-            <a href="#" className="text-link">
-              Contribuir na Wiki <span className="material-symbols-outlined">arrow_forward</span>
-            </a>
-          </motion.div>
+              <div className={`icon-box ${card.icon}`}>
+                <span className="material-symbols-outlined">{card.icon}</span>
+              </div>
+              <h3>{card.title}</h3>
+              <p>{card.description}</p>
+              <a 
+                href={idx === 0 ? "https://github.com/LeonZZlambda/PsyMindAI" : "#"}
+                target={idx === 0 ? "_blank" : undefined}
+                rel={idx === 0 ? "noopener noreferrer" : undefined}
+                className="text-link"
+                onClick={(e) => {
+                  if (idx === 1) {
+                    e.preventDefault();
+                    navigate('/style-guide');
+                  } else if (idx === 3) {
+                    e.preventDefault();
+                    window.open('https://github.com/LeonZZlambda/PsyMindAI/tree/main/src/i18n', '_blank');
+                  }
+                }}
+              >
+                {card.link_text} <span className="material-symbols-outlined">arrow_forward</span>
+              </a>
+            </motion.div>
+          ))}
         </div>
 
         <div className="steps-section">
-          <h2>Passo a Passo para Contribuir</h2>
+          <h2>{t('contribute_page.steps.title')}</h2>
           <div className="steps-list">
-            <div className="step-item">
-              <div className="step-number">1</div>
-              <div className="step-text">
-                <h4>Faça um Fork</h4>
-                <p>Crie uma cópia do repositório na sua conta do GitHub.</p>
+            {t('contribute_page.steps.items', { returnObjects: true }).map((step, idx) => (
+              <div key={idx} className="step-item">
+                <div className="step-number">{step.number}</div>
+                <div className="step-text">
+                  <h4>{step.title}</h4>
+                  <p>{step.description}</p>
+                </div>
               </div>
-            </div>
-            <div className="step-item">
-              <div className="step-number">2</div>
-              <div className="step-text">
-                <h4>Crie uma Branch</h4>
-                <p>Use <code>git checkout -b feature/minha-feature</code> para trabalhar.</p>
-              </div>
-            </div>
-            <div className="step-item">
-              <div className="step-number">3</div>
-              <div className="step-text">
-                <h4>Commit & Push</h4>
-                <p>Faça seus commits e envie para o seu fork.</p>
-              </div>
-            </div>
-            <div className="step-item">
-              <div className="step-number">4</div>
-              <div className="step-text">
-                <h4>Abra um Pull Request</h4>
-                <p>Descreva suas mudanças e aguarde a revisão da equipe.</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </main>

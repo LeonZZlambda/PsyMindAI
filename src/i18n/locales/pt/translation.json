@@ -227,12 +227,154 @@
     "prompt": "Você está me ajudando a importar o contexto de um assistente de IA para outro. Seu trabalho é analisar nossas conversas anteriores e resumir o que você sabe sobre mim.\n\nNa resposta, evite usar pronomes na primeira pessoa (eu, meu, minha, me) e na segunda pessoa (você, seu, sua). Em vez disso, use \"o usuário\" ou outro termo neutro para se referir ao indivíduo com essas características.\n\nPreserve as palavras do usuário ao pé da letra sempre que possível, especialmente para instruções e preferências.\n\nCategorias (resposta nesta ordem):\n1. Informações demográficas: como gosto que me chamem, profissão, formação acadêmica e local onde moro.\n2. Interesses e preferências: coisas com que me envolvo de modo ativo e contínuo, não apenas um objeto que eu tenho ou uma compra que fiz uma vez.\n3. Relacionamentos: relacionamentos confirmados e de longo prazo.\n4. Eventos, projetos e planos: um registro de atividades recentes e significativas.\n5. Instruções: regras que pedi explicitamente para você seguir, como \"sempre faça X\", \"nunca faça Y\" e correções no seu comportamento. Inclua apenas regras de dados de memória armazenados, não de conversas.\n\nFormato:\nDivida o conteúdo em seções rotuladas usando as categorias acima. Tente incluir citações de comandos meus que justifiquem cada resposta. Estruture cada item usando este formato:\nO nome do usuário é <name>.\n– Evidência: o usuário disse \"me chame de <name>\". Data: [YYYY-MM-DD].\n\nSaída:\n– Formate o resumo da resposta final como um bloco de texto."
   },
   "analytics_page": {
+    "title": "Dashboard de Uso",
+    "subtitle": "Acompanhe a evolução global da nossa comunidade e o seu progresso pessoal.",
+    "back_home": "Voltar ao início",
+    "tabs": {
+      "global": "Visão Geral",
+      "personal": "Meu Uso"
+    },
+    "mockup_warning": "⚠️ Aviso de Mockup: Esta é uma demonstração ilustrativa. Como o aplicativo roda 100% no seu dispositivo (sem backend), estes dados globais são simulados. No futuro, representarão a comunidade real.",
     "alerts": {
       "api_key": "Configure a chave da API do Gemini em Configurações (ou no chat) antes de continuar.",
       "insufficient_data": "Não há dados suficientes para gerar a análise. Tente usar o diário ou as ferramentas de estudo com mais frequência.",
-      "connection_failed": "Falha ao conectar com a IA para a meta-análise."
+      "connection_failed": "Falha ao conectar com a IA para a meta-análise.",
+      "telemetry_disabled": "Telemetria pessoal desativada. O registro de analytics está desligado em Configurações. Ative-o para desbloquear gráficos interativos do seu acompanhamento de jornada."
     },
-    "back_home": "Voltar ao início"
+    "metrics": {
+      "active_users": "Usuários Ativos",
+      "total_sessions": "Sessões Totais",
+      "avg_session": "Média de Sessão",
+      "transformation_score": "Pontos de Transformação",
+      "retention": "Retenção Semanal",
+      "error_count": "Taxa de Falhas"
+    },
+    "charts": {
+      "top_features_community": "Top 5 Ferramentas (Comunidade)",
+      "top_features_personal": "Top 5 Ferramentas Utilizadas"
+    },
+    "meta_analysis": {
+      "title": "Modo Meta: Análise de Padrão (IA)",
+      "description": "Deixe a inteligência artificial revisar passivamente cruzamentos entre seus focos, humores e sessões para te dar dicas ativas.",
+      "button": "Gerar Auto-Reflexão",
+      "generating": "Analisando dados...",
+      "pattern_label": "🧠 Padrão Observado:",
+      "suggestion_label": "⚡ Sugestão:",
+      "generate_new": "Gerar nova reflexão"
+    }
+  },
+  "roadmap_page": {
+    "title": "Roadmap do Produto",
+    "subtitle": "Acompanhe nossa jornada e veja o que estamos construindo para o futuro da educação emocional.",
+    "back_home": "Voltar ao início",
+    "statuses": {
+      "completed": "Concluído",
+      "in_progress": "Em Desenvolvimento",
+      "planned": "Planejado"
+    },
+    "phases": [
+      {
+        "quarter": "Q4 2025",
+        "status": "completed",
+        "title": "Lançamento Beta",
+        "items": [
+          "Interface de Chat Intuitiva",
+          "Integração com IA Generativa",
+          "Modo Escuro/Claro",
+          "Suporte a Comandos de Voz"
+        ]
+      },
+      {
+        "quarter": "Q1 2026",
+        "status": "in_progress",
+        "title": "Expansão de Recursos",
+        "items": [
+          "Sistema de Simulados Integrados (Quizzes)",
+          "Modo Juiz Competitivo (C, C++, Python)",
+          "Integração Interativa de Olimpíadas e Vestibulares",
+          "Módulo de Pomodoro Avançado",
+          "Histórico de Conversas Persistente"
+        ]
+      },
+      {
+        "quarter": "Q2 2026",
+        "status": "planned",
+        "title": "Comunidade e Conteúdo",
+        "items": [
+          "Fórum de Estudantes",
+          "Curadoria de Conteúdos Educativos",
+          "Integração com Google Calendar",
+          "App Mobile (iOS/Android)"
+        ]
+      },
+      {
+        "quarter": "Q3 2026",
+        "status": "planned",
+        "title": "Personalização Avançada",
+        "items": [
+          "Tutores de IA Personalizáveis",
+          "Dashboard de Estatísticas de Estudo",
+          "Gamificação e Conquistas",
+          "API Pública para Desenvolvedores"
+        ]
+      }
+    ]
+  },
+  "contribute_page": {
+    "title": "Como Contribuir",
+    "subtitle": "O PsyMind.AI é um projeto open-source e adoraríamos ter sua ajuda para torná-lo ainda melhor.",
+    "back_home": "Voltar ao início",
+    "cards": [
+      {
+        "icon": "code",
+        "title": "Desenvolvimento",
+        "description": "Encontrou um bug ou quer adicionar uma nova funcionalidade? Confira nossas issues no GitHub ou abra um Pull Request.",
+        "link_text": "Ir para o GitHub"
+      },
+      {
+        "icon": "palette",
+        "title": "Design & UX",
+        "description": "Ajude-nos a melhorar a experiência do usuário. Sugestões de design e melhorias de interface são sempre bem-vindas.",
+        "link_text": "Ver Guia de Estilo"
+      },
+      {
+        "icon": "menu_book",
+        "title": "Documentação",
+        "description": "Uma boa documentação é essencial. Ajude-nos a melhorar nossos guias, README e tutoriais para novos usuários.",
+        "link_text": "Contribuir na Wiki"
+      },
+      {
+        "icon": "language",
+        "title": "Tradução",
+        "description": "Ajude a tornar o PsyMind.AI acessível para mais pessoas traduzindo a interface para diferentes idiomas.",
+        "link_text": "Ajudar com Tradução"
+      }
+    ],
+    "steps": {
+      "title": "Passo a Passo para Contribuir",
+      "items": [
+        {
+          "number": "1",
+          "title": "Faça um Fork",
+          "description": "Crie uma cópia do repositório na sua conta do GitHub."
+        },
+        {
+          "number": "2",
+          "title": "Crie uma Branch",
+          "description": "Use git checkout -b feature/minha-feature para trabalhar."
+        },
+        {
+          "number": "3",
+          "title": "Commit & Push",
+          "description": "Faça seus commits e envie para o seu fork."
+        },
+        {
+          "number": "4",
+          "title": "Abra um Pull Request",
+          "description": "Descreva suas mudanças e aguarde a revisão da equipe."
+        }
+      ]
+    }
   },
   "header": {
     "open_menu": "Abrir menu",

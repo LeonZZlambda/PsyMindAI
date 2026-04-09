@@ -227,12 +227,154 @@
     "prompt": "You are helping me import context from one AI assistant into another. Your job is to analyze our past conversations and summarize what you know about me.\n\nIn your answer, avoid first-person pronouns (I, me, my) and second-person pronouns (you, your). Instead use \"the user\" or another neutral term.\n\nPreserve the user's wording verbatim when possible, especially for instructions and preferences.\n\nCategories (answer in this order):\n1. Demographics: how I like to be addressed, occupation, education, and where I live.\n2. Interests and preferences: things I actively engage with over time, not one-off purchases.\n3. Relationships: confirmed long-term relationships.\n4. Events, projects, and plans: recent meaningful activities.\n5. Instructions: explicit rules I asked you to follow (\"always do X\", \"never do Y\", behavior corrections). Only from stored memory data, not casual chat.\n\nFormat:\nSplit the answer into labeled sections for each category. Include short quotes from my messages as evidence when possible, like:\nThe user's name is <name>.\n– Evidence: the user said \"call me <name>\". Date: [YYYY-MM-DD].\n\nOutput:\n– Present the final summary as a single text block."
   },
   "analytics_page": {
+    "title": "Usage Dashboard",
+    "subtitle": "Track the global evolution of our community and your personal progress.",
+    "back_home": "Back to home",
+    "tabs": {
+      "global": "Global View",
+      "personal": "My Usage"
+    },
+    "mockup_warning": "⚠️ Mockup Warning: This is an illustrative demonstration. Since the app runs 100% on your device (no backend), these global data are simulated. In the future, they will represent the real community.",
     "alerts": {
       "api_key": "Set your Gemini API key in Settings (or chat) before continuing.",
       "insufficient_data": "Not enough data to generate the analysis yet. Try using the journal or study tools more often.",
-      "connection_failed": "Could not reach the AI for meta-analysis."
+      "connection_failed": "Could not reach the AI for meta-analysis.",
+      "telemetry_disabled": "Personal telemetry disabled. Analytics recording is off in Settings. Enable it to unlock interactive charts for tracking your learning journey."
     },
-    "back_home": "Back to home"
+    "metrics": {
+      "active_users": "Active Users",
+      "total_sessions": "Total Sessions",
+      "avg_session": "Average Session",
+      "transformation_score": "Transformation Points",
+      "retention": "Weekly Retention",
+      "error_count": "Error Rate"
+    },
+    "charts": {
+      "top_features_community": "Top 5 Features (Community)",
+      "top_features_personal": "Top 5 Features Used"
+    },
+    "meta_analysis": {
+      "title": "Meta Mode: Pattern Analysis (AI)",
+      "description": "Let artificial intelligence passively review crossovers between your focus, moods, and sessions to give you active tips.",
+      "button": "Generate Self-Reflection",
+      "generating": "Analyzing data...",
+      "pattern_label": "🧠 Observed Pattern:",
+      "suggestion_label": "⚡ Suggestion:",
+      "generate_new": "Generate new reflection"
+    }
+  },
+  "roadmap_page": {
+    "title": "Product Roadmap",
+    "subtitle": "Follow our journey and see what we're building for the future of emotional education.",
+    "back_home": "Back to home",
+    "statuses": {
+      "completed": "Completed",
+      "in_progress": "In Development",
+      "planned": "Planned"
+    },
+    "phases": [
+      {
+        "quarter": "Q4 2025",
+        "status": "completed",
+        "title": "Beta Launch",
+        "items": [
+          "Intuitive Chat Interface",
+          "Generative AI Integration",
+          "Dark/Light Mode",
+          "Voice Command Support"
+        ]
+      },
+      {
+        "quarter": "Q1 2026",
+        "status": "in_progress",
+        "title": "Feature Expansion",
+        "items": [
+          "Integrated Quizzes System",
+          "Competitive Judge Mode (C, C++, Python)",
+          "Olympiad and College Exam Interactive Integration",
+          "Advanced Pomodoro Module",
+          "Persistent Chat History"
+        ]
+      },
+      {
+        "quarter": "Q2 2026",
+        "status": "planned",
+        "title": "Community and Content",
+        "items": [
+          "Student Forum",
+          "Educational Content Curation",
+          "Google Calendar Integration",
+          "Mobile App (iOS/Android)"
+        ]
+      },
+      {
+        "quarter": "Q3 2026",
+        "status": "planned",
+        "title": "Advanced Personalization",
+        "items": [
+          "Customizable AI Tutors",
+          "Study Statistics Dashboard",
+          "Gamification and Achievements",
+          "Public API for Developers"
+        ]
+      }
+    ]
+  },
+  "contribute_page": {
+    "title": "How to Contribute",
+    "subtitle": "PsyMind.AI is an open-source project and we'd love your help to make it even better.",
+    "back_home": "Back to home",
+    "cards": [
+      {
+        "icon": "code",
+        "title": "Development",
+        "description": "Found a bug or want to add a new feature? Check out our issues on GitHub or open a Pull Request.",
+        "link_text": "Go to GitHub"
+      },
+      {
+        "icon": "palette",
+        "title": "Design & UX",
+        "description": "Help us improve user experience. Design suggestions and interface improvements are always welcome.",
+        "link_text": "View Style Guide"
+      },
+      {
+        "icon": "menu_book",
+        "title": "Documentation",
+        "description": "Good documentation is essential. Help us improve our guides, README and tutorials for new users.",
+        "link_text": "Contribute on Wiki"
+      },
+      {
+        "icon": "language",
+        "title": "Translation",
+        "description": "Help make PsyMind.AI accessible to more people by translating the interface into different languages.",
+        "link_text": "Help with Translation"
+      }
+    ],
+    "steps": {
+      "title": "Step by Step to Contribute",
+      "items": [
+        {
+          "number": "1",
+          "title": "Fork the Repository",
+          "description": "Create a copy of the repository in your GitHub account."
+        },
+        {
+          "number": "2",
+          "title": "Create a Branch",
+          "description": "Use git checkout -b feature/my-feature to work."
+        },
+        {
+          "number": "3",
+          "title": "Commit & Push",
+          "description": "Make your commits and push to your fork."
+        },
+        {
+          "number": "4",
+          "title": "Open a Pull Request",
+          "description": "Describe your changes and wait for team review."
+        }
+      ]
+    }
   },
   "header": {
     "open_menu": "Open menu",
