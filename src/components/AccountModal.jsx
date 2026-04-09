@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import '../styles/settings.css';
 
 const AccountModal = ({ isOpen, onClose, onOpenStudyStats, initialView = 'account' }) => {
   const { t } = useTranslation();
@@ -43,19 +44,9 @@ const AccountModal = ({ isOpen, onClose, onOpenStudyStats, initialView = 'accoun
       }
     };
 
-    // Handle clicks outside the modal
-    const handleClickOutside = (e) => {
-      const accountModal = document.querySelector('.account-modal-overlay');
-      if (accountModal && !accountModal.contains(e.target)) {
-        onClose();
-      }
-    };
-
     document.addEventListener('keydown', handleKeyDown);
-    document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
-      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isOpen, onClose]);
 
@@ -72,18 +63,25 @@ const AccountModal = ({ isOpen, onClose, onOpenStudyStats, initialView = 'accoun
     }));
   };
 
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
     <AnimatePresence mode="wait">
       {isOpen && (
         <motion.div
           key="account-modal"
-          className="account-modal-overlay"
+          className="modal-overlay account-modal-overlay"
+          onClick={handleOverlayClick}
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
           >
-          <div className="account-modal-content">
+          <div className="modal-content account-modal-content" onClick={e => e.stopPropagation()}>
         <AnimatePresence mode="wait">
           {activeView === 'account' ? (
             <motion.div 
