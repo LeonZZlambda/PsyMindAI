@@ -62,13 +62,7 @@ const KindnessModal = ({ isOpen, onClose }) => {
     }
   }, [isOpen]);
 
-  const handleClose = () => {
-    setIsClosing(true);
-    setTimeout(() => {
-      setIsClosing(false);
-      onClose();
-    }, 300);
-  };
+
 
   const handleComplete = () => {
     setCompleted(true);

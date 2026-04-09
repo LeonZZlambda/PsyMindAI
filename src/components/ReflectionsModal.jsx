@@ -117,44 +117,52 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
     };
   }, []);
 
+  const handleCloseInternal = () => {
+    if (breathingTimerRef.current) clearTimeout(breathingTimerRef.current);
+    setBreathingActive(false);
+  };
+
   const handleDiscussReflection = () => {
     if (!currentReflection) return;
     const message = t('reflections.chat_prompt', { author: currentReflection.author, text: currentReflection.text });
     setInput(message);
-    handleClose();
+    const closeBtn = document.querySelector('.reflections-modal-close-trigger');
+    if (closeBtn) closeBtn.click();
+    else onClose();
   };
 
   return (
     <BaseModal
       isOpen={isOpen}
-      onClose={handleClose}
+      onClose={onClose}
     >
-      <div className="reflections-modal-content">
-        <div className="modal-header with-tabs">
-          <div className="modal-tabs">
-            <button 
-              className={`tab-btn ${activeTab === 'daily' ? 'active' : ''}`}
-              onClick={() => setActiveTab('daily')}
-            >
-              {t('reflections.tabs.daily')}
-            </button>
-            <button 
-              className={`tab-btn ${activeTab === 'explore' ? 'active' : ''}`}
-              onClick={() => setActiveTab('explore')}
-            >
-              {t('reflections.tabs.explore')}
-            </button>
-            <button 
-              className={`tab-btn ${activeTab === 'breathing' ? 'active' : ''}`}
-              onClick={() => { setActiveTab('breathing'); stopBreathing(); }}
-            >
-              {t('reflections.tabs.breathing')}
+      {({ handleClose }) => (
+        <div className="reflections-modal-content">
+          <div className="modal-header with-tabs">
+            <div className="modal-tabs">
+              <button 
+                className={`tab-btn ${activeTab === 'daily' ? 'active' : ''}`}
+                onClick={() => setActiveTab('daily')}
+              >
+                {t('reflections.tabs.daily')}
+              </button>
+              <button 
+                className={`tab-btn ${activeTab === 'explore' ? 'active' : ''}`}
+                onClick={() => setActiveTab('explore')}
+              >
+                {t('reflections.tabs.explore')}
+              </button>
+              <button 
+                className={`tab-btn ${activeTab === 'breathing' ? 'active' : ''}`}
+                onClick={() => { setActiveTab('breathing'); stopBreathing(); }}
+              >
+                {t('reflections.tabs.breathing')}
+              </button>
+            </div>
+            <button className="modal-close-btn reflections-modal-close-trigger" onClick={() => { handleCloseInternal(); handleClose(); }} aria-label="Close modal">
+              <span className="material-symbols-outlined">close</span>
             </button>
           </div>
-          <button className="modal-close-btn" onClick={handleClose} aria-label="Close modal">
-            <span className="material-symbols-outlined">close</span>
-          </button>
-        </div>
         
         <div className="help-body">
           {activeTab === 'daily' && (
@@ -268,6 +276,7 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
           )}
         </div>
       </div>
+      )}
     </BaseModal>
   );
 };

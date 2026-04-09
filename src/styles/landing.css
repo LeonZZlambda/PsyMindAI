@@ -421,9 +421,15 @@
 
 .info-cards-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
   margin: 2rem 0;
+}
+
+@media (max-width: 768px) {
+  .info-cards-container {
+    grid-template-columns: 1fr;
+  }
 }
 
 .info-card {
@@ -545,6 +551,16 @@
   color: var(--gradient-end);
 }
 
+.app.dark .info-content {
+  background: var(--card-background);
+  border-color: var(--border-color);
+}
+
+.app.dark .educational-focus .info-content,
+.app.dark .license-info .info-content {
+  background: var(--card-background);
+}
+
 .info-icon {
   font-size: 48px;
   margin-bottom: 1.5rem;
@@ -573,10 +589,10 @@
 
 /* Removed old list styles as they are replaced by cards */
 
-.license-description {
-  font-size: 1rem !important;
+.info-content .license-description {
+  font-size: 1rem;
   opacity: 0.9;
-  margin-bottom: 2rem !important;
+  margin-bottom: 2rem;
 }
 
 .license-link {
@@ -601,9 +617,9 @@
   font-size: 18px;
 }
 
-.landing-footer {
+.app .landing-footer {
   background: #f2f2f2; /* Google Footer Gray */
-  padding: 3rem 2rem 1.5rem !important;
+  padding: 3rem 2rem 1.5rem;
   margin-top: auto;
   color: #3c4043;
   font-size: 14px;
@@ -810,8 +826,8 @@
 }
 
 @media (max-width: 768px) {
-  .landing-footer {
-    padding: 3rem 1.5rem 6rem !important; /* Extra bottom padding for mobile nav if needed */
+  .app .landing-footer {
+    padding: 3rem 1.5rem 6rem; /* Extra bottom padding for mobile nav if needed */
     text-align: left;
   }
 
@@ -1187,8 +1203,8 @@
     margin-bottom: 0;
   }
   
-  .landing-footer {
-    padding-bottom: 2rem !important;
+  .app .landing-footer {
+    padding-bottom: 2rem;
   }
 }
 /* Gemini Integration Section */

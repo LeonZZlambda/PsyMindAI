@@ -1,6 +1,6 @@
 /* Exams Modal Styles */
 .exams-modal {
-  max-width: 600px;
+  max-width: 800px;
   width: 90%;
   padding: 0;
   display: flex;
@@ -187,48 +187,51 @@
 }
 
 .subjects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  justify-items: center;
-  gap: 12px;
-  max-width: 800px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  max-width: 560px;
   margin: 0 auto;
 }
 
 .subject-card {
-  background: var(--background-color);
+  background: var(--card-background);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 16px;
+  border-radius: 24px;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 8px;
-  transition: all 0.2s;
-  width: 100%;
-  max-width: 180px;
+  gap: 0.75rem;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease, background 0.2s ease;
+  flex: none;
+  width: 160px;
+  height: 160px;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
 .subject-card:hover {
   background: var(--hover-color);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transform: translateY(-4px);
 }
 
 .subject-icon-wrapper {
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
   transition: all 0.2s;
 }
 
 .subject-card .material-symbols-outlined {
-  font-size: 24px;
+  font-size: 28px;
   color: inherit;
 }
 
@@ -369,9 +372,10 @@
 }
 
 .subject-card span {
-  font-size: 0.85rem;
-  color: #444746;
+  font-size: 1.05rem;
+  color: var(--text-color);
   font-weight: 500;
+  margin-top: 0.25rem;
 }
 
 /* Dark Mode Subject Colors */
@@ -434,10 +438,11 @@
 .app.dark .exam-category-btn:hover,
 .app.dark .subject-card:hover {
   background: var(--hover-color);
+  border-color: var(--primary-color);
 }
 
 .app.dark .exam-category-btn > span:not(.material-symbols-outlined) {
-  color: #e3e3e3;
+  color: var(--text-color);
 }
 
 .app.dark .back-btn {
@@ -487,20 +492,16 @@
   color: #c4c7c5;
 }
 
-.app.dark .subject-card {
-  background: #2d2e30;
-  border-color: #444746;
-}
+/* Removed deprecated custom dark mode overrides for subject-card */
 
-.app.dark .subject-card:hover {
-  background: #3c4043;
-}
-
-.app.dark .subject-card span {
-  color: #e3e3e3;
-}
-
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+  .subjects-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+  .subject-card {
+    /* Mantenha o tamanho restrito no mobile conforme solicitado */
+  }
   .exams-categories-grid {
     grid-template-columns: 1fr;
   }

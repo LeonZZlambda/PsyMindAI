@@ -22,8 +22,8 @@
 }
 
 .user-profile {
-  width: 48px;
-  height: 48px;
+  width: 3rem;
+  height: 3rem;
   border-radius: 50%;
   overflow: hidden;
   display: flex;
@@ -37,7 +37,7 @@
 }
 
 .user-profile:hover {
-  background: rgba(0,0,0,0.05);
+  background: var(--hover-color);
 }
 
 .logo {
@@ -47,17 +47,17 @@
 }
 
 .logo-icon {
-  width: 32px;
-  height: 32px;
+  width: 2rem;
+  height: 2rem;
   background: transparent;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .logo-icon .material-symbols-outlined {
-  font-size: 32px;
+  font-size: 2rem;
   background: linear-gradient(135deg, #009688, #4285f4, #7c4dff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -78,12 +78,12 @@
 }
 
 .header-btn {
-  width: 48px;
-  height: 48px;
+  width: 3rem;
+  height: 3rem;
   border-radius: 50%;
   border: none;
   background: transparent;
-  color: var(--text-light);
+  color: var(--text-color);
   cursor: pointer;
   transition: background-color 0.2s cubic-bezier(0.2, 0, 0, 1);
   display: flex;
@@ -92,43 +92,19 @@
 }
 
 .header-btn:hover {
-  background-color: rgba(68, 71, 70, 0.08);
+  background-color: var(--hover-color);
 }
 
 .header-btn:active {
-  background-color: rgba(68, 71, 70, 0.12);
-}
-
-/* Dark Mode Header */
-.app.dark .header {
-  background: transparent;
-}
-
-
-
-.app.dark .user-profile:hover {
-  background: rgba(255,255,255,0.05);
-}
-
-.app.dark .logo h1 {
-  color: #e3e3e3;
-}
-
-.app.dark .header-btn {
-  background: transparent;
-  color: #e3e3e3;
-}
-
-.app.dark .header-btn:hover {
-  background-color: rgba(227, 227, 227, 0.08);
+  background-color: var(--hover-color);
 }
 
 /* Fix for header visibility on smaller desktop screens - Landing Page Style */
 @media (max-width: 1200px) {
-  .header {
-    display: flex !important;
-    opacity: 1 !important;
-    visibility: visible !important;
+  .app .header {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
     z-index: 100;
     width: 100%;
     
@@ -152,14 +128,14 @@
 }
 
 @media (max-width: 768px) {
-  .header {
+  .app .header {
     padding: 0.625rem 0.75rem;
     padding-top: calc(0.625rem + env(safe-area-inset-top));
   }
 
   .header-btn {
-    width: 44px;
-    height: 44px;
+    width: 2.75rem;
+    height: 2.75rem;
   }
 
   .logo h1 { font-size: 1.125rem; }

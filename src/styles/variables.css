@@ -24,6 +24,20 @@
   --shadow-color: rgba(60, 64, 67, 0.3); /* Material Shadow */
   --hover-color: rgba(0, 0, 0, 0.05);
   
+  /* Semantic Colors */
+  --danger-color: #d93025;
+  --danger-bg: #fff0f0;
+  --success-color: #0d652d;
+  --success-bg: #e6f4ea;
+  --warning-color: #e37400;
+  --warning-bg: #fef7e0;
+  --info-color: #1a73e8;
+  --info-bg: #e8f0fe;
+  
+  /* UI Elements */
+  --toggle-bg: #e3e3e3;
+  --overlay-bg: rgba(0, 0, 0, 0.4);
+  
   /* Gradients: Brain/Mind (Teal -> Indigo) */
   --gradient-start: #00796B;
   --gradient-mid: #1976D2;
@@ -54,6 +68,20 @@ body.dark, .app.dark {
   --border-color: #5F6368; /* Google Grey 700 */
   --shadow-color: rgba(0, 0, 0, 0.5);
   --hover-color: rgba(255, 255, 255, 0.05);
+
+  /* Semantic Colors - Dark Mode */
+  --danger-color: #ffb4ab;
+  --danger-bg: #390c0c;
+  --success-color: #81c995;
+  --success-bg: #0f5223;
+  --warning-color: #fdd663;
+  --warning-bg: #40300a;
+  --info-color: #8ab4f8;
+  --info-bg: #0a1f3f;
+  
+  /* UI Elements - Dark Mode */
+  --toggle-bg: var(--border-color);
+  --overlay-bg: rgba(0, 0, 0, 0.7);
   
   /* Gradients: Adjusted for Dark Mode */
   --gradient-start: #80CBC4;

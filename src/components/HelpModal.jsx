@@ -67,7 +67,11 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
       setFeedbackText('');
       setFeedbackImage(null);
       setIsSubmitting(false);
-      onClose();
+      
+      // Attempt to trigger animation close
+      const closeBtn = document.querySelector('.help-modal-close-trigger');
+      if (closeBtn) closeBtn.click();
+      else onClose();
     }, 1500);
   };
 
@@ -76,35 +80,37 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
       isOpen={isOpen}
       onClose={onClose}
     >
-      <div className="modal-header with-tabs">
-        <div className="modal-tabs">
-            <button 
-              className={`tab-btn ${activeTab === 'faq' ? 'active' : ''}`}
-              onClick={() => setActiveTab('faq')}
-            >
-              {t('help.tabs.faq')}
-            </button>
-            {showShortcuts && (
+      {({ handleClose }) => (
+        <>
+          <div className="modal-header with-tabs">
+            <div className="modal-tabs">
               <button 
-                className={`tab-btn ${activeTab === 'shortcuts' ? 'active' : ''}`}
-                onClick={() => setActiveTab('shortcuts')}
+                className={`tab-btn ${activeTab === 'faq' ? 'active' : ''}`}
+                onClick={() => setActiveTab('faq')}
               >
-                {t('help.tabs.shortcuts')}
+                {t('help.tabs.faq')}
               </button>
-            )}
-            <button 
-              className={`tab-btn ${activeTab === 'feedback' ? 'active' : ''}`}
-              onClick={() => setActiveTab('feedback')}
-            >
-              {t('help.tabs.feedback')}
+              {showShortcuts && (
+                <button 
+                  className={`tab-btn ${activeTab === 'shortcuts' ? 'active' : ''}`}
+                  onClick={() => setActiveTab('shortcuts')}
+                >
+                  {t('help.tabs.shortcuts')}
+                </button>
+              )}
+              <button 
+                className={`tab-btn ${activeTab === 'feedback' ? 'active' : ''}`}
+                onClick={() => setActiveTab('feedback')}
+              >
+                {t('help.tabs.feedback')}
+              </button>
+            </div>
+            <button className="modal-close-btn help-modal-close-trigger" onClick={handleClose} aria-label="Close modal">
+              <span className="material-symbols-outlined">close</span>
             </button>
           </div>
-        <button className="modal-close-btn" onClick={onClose} aria-label="Close modal">
-          <span className="material-symbols-outlined">close</span>
-        </button>
-      </div>
-        
-        <div className="help-body">
+          
+          <div className="help-body">
           {activeTab === 'faq' && (
             <>
               <div className="help-section">
@@ -366,10 +372,12 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
         
         {activeTab === 'faq' && (
           <div className="modal-footer">
-            <button className="primary-btn" onClick={onClose}>{t('help.got_it')}</button>
+            <button className="primary-btn" onClick={handleClose}>{t('help.got_it')}</button>
           </div>
         )}
-        </BaseModal>
+        </>
+      )}
+    </BaseModal>
   );
 };
 

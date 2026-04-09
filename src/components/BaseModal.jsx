@@ -68,7 +68,9 @@ export const BaseModal = ({
         )}
 
         {/* Conteúdo do modal */}
-        <div className="modal-body">{children}</div>
+        <div className="modal-body">
+          {typeof children === 'function' ? children({ handleClose }) : children}
+        </div>
       </div>
     </div>
   );

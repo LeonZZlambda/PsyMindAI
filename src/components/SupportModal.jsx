@@ -340,13 +340,17 @@ const SupportModal = ({ isOpen, onClose }) => {
     const message = t('support.investigate.chat_prompt', { emotion, context, duration });
     
     setInput(message);
-    handleClose();
+    const closeBtn = document.querySelector('.support-modal-close-trigger');
+    if (closeBtn) closeBtn.click();
+    else onClose();
   };
 
   const handleTalkAboutFeeling = () => {
     const message = t('support.chat_feeling_prompt', { feeling: feelingInput });
     setInput(message);
-    handleClose();
+    const closeBtn = document.querySelector('.support-modal-close-trigger');
+    if (closeBtn) closeBtn.click();
+    else onClose();
   };
 
   const handleReframingSubmit = async (e) => {
@@ -535,24 +539,29 @@ const SupportModal = ({ isOpen, onClose }) => {
       onClose={onClose}
       closeButton={false}
     >
-      <div className="modal-header with-tabs">
-        <div className="modal-tabs">
-            <button 
-              className={`tab-btn ${activeTab === 'immediate' ? 'active' : ''}`}
-              onClick={() => setActiveTab('immediate')}
-            >{t("support.tabs.immediate")} </button>
-            <button 
-              className={`tab-btn ${activeTab === 'investigate' ? 'active' : ''}`}
-              onClick={() => setActiveTab('investigate')}
-            >{t("support.tabs.investigate")}</button>
-            <button 
-              className={`tab-btn ${activeTab === 'reframing' ? 'active' : ''}`}
-              onClick={() => setActiveTab('reframing')}
-            >{t("support.tabs.reframing")}</button>
+      {({ handleClose }) => (
+        <>
+          <div className="modal-header with-tabs">
+            <div className="modal-tabs">
+              <button 
+                className={`tab-btn ${activeTab === 'immediate' ? 'active' : ''}`}
+                onClick={() => setActiveTab('immediate')}
+              >{t("support.tabs.immediate")} </button>
+              <button 
+                className={`tab-btn ${activeTab === 'investigate' ? 'active' : ''}`}
+                onClick={() => setActiveTab('investigate')}
+              >{t("support.tabs.investigate")}</button>
+              <button 
+                className={`tab-btn ${activeTab === 'reframing' ? 'active' : ''}`}
+                onClick={() => setActiveTab('reframing')}
+              >{t("support.tabs.reframing")}</button>
+            </div>
+            <button className="modal-close-btn support-modal-close-trigger" onClick={handleClose} aria-label="Close modal">
+              <span className="material-symbols-outlined">close</span>
+            </button>
           </div>
-        </div>
-        
-        <div className="help-body">
+          
+          <div className="help-body">
           {activeTab === 'immediate' && (
             <div className="support-section">
               <div className="support-hero">
@@ -766,7 +775,9 @@ const SupportModal = ({ isOpen, onClose }) => {
             </div>
           )}
         </div>
-      </BaseModal>
+        </>
+      )}
+    </BaseModal>
   );
 };
 
