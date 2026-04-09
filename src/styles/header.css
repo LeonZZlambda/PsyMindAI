@@ -100,7 +100,7 @@
 }
 
 /* Fix for header visibility on smaller desktop screens - Landing Page Style */
-@media (max-width: 1380px) {
+@media (max-width: 1390px) {
   .app .header {
     display: flex;
     opacity: 1;
