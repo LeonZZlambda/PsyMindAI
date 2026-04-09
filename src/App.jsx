@@ -97,22 +97,22 @@ function App() {
     <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => window.location.reload()}>
       <MotionConfig reducedMotion={reducedMotion ? "always" : "user"}>
         <div className={`app ${isDarkMode ? 'dark' : ''} ${fontSize === 'large' ? 'font-large' : ''} ${reducedMotion ? 'reduced-motion' : ''} ${highContrast ? 'high-contrast' : ''} ${dyslexicFont ? 'dyslexic-font' : ''} color-blind-${colorBlindMode}`}>
-          <Toaster 
-          position="bottom-center" 
-          toastOptions={{
-            style: {
-              background: isDarkMode ? '#e8eaed' : '#202124',
-              color: isDarkMode ? '#202124' : '#e8eaed',
-              border: 'none',
-              borderRadius: '4px',
-              fontFamily: "'Google Sans', Roboto, sans-serif",
-              fontSize: '14px',
-              padding: '14px 24px',
-              gap: '12px',
-              boxShadow: '0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12)'
-            },
-          }}
-        />
+          <Toaster
+            position="bottom-center"
+            toastOptions={{
+              style: {
+                background: isDarkMode ? '#202124' : '#e8eaed',
+                color: isDarkMode ? '#e8eaed' : '#202124',
+                border: 'none',
+                borderRadius: '4px',
+                fontFamily: "'Google Sans', Roboto, sans-serif",
+                fontSize: '14px',
+                padding: '14px 24px',
+                gap: '12px',
+                boxShadow: '0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12)'
+              }
+            }}
+          />
         
         {!isPublicPage && (
           <>
