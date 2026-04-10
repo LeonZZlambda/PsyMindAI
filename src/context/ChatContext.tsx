@@ -105,7 +105,10 @@ export const ChatProvider = ({ children }: { children: ReactNode }): JSX.Element
 
       let chatId = currentChatId;
       if (!chatId) {
-        chatId = Date.now().toString();
+        // Use crypto.randomUUID when available in the browser, fallback to timestamp
+        chatId = (typeof crypto !== 'undefined' && typeof (crypto as any).randomUUID === 'function')
+          ? (crypto as any).randomUUID()
+          : Date.now().toString();
         const tempTitle = isAnonymous ? 'Modo Anônimo' : text.slice(0, 40) + (text.length > 40 ? '...' : '');
         const newChat = createChat(chatId, tempTitle, [userMessage]);
         if (isAnonymous) (newChat as any).isAnonymous = true;

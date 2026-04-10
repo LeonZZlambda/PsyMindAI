@@ -1,4 +1,5 @@
 import { GeminiClient } from '../api/providers/geminiClient';
+import { z } from 'zod';
 import { parseError, createErrorResponse, ErrorType, type ErrorResponse, type ApiError } from '../api/errorHandler';
 import { withRetry } from '../api/retryHandler';
 import { SYSTEM_PROMPTS } from '../prompts/systemPrompts';
@@ -46,6 +47,19 @@ export interface LongTermMemory {
   desafiosRecorrentes: string[];
   interessesETracos: string[];
 }
+
+// Runtime schemas for validating LLM JSON outputs
+const LongTermMemorySchema = z.object({
+  padroesDeAprendizagem: z.array(z.string()),
+  estadoEmocionalComum: z.array(z.string()),
+  desafiosRecorrentes: z.array(z.string()),
+  interessesETracos: z.array(z.string())
+});
+
+const MetaInsightSchema = z.object({
+  pattern: z.string(),
+  suggestion: z.string()
+});
 
 /**
  * Sets the API key for Gemini client
@@ -149,9 +163,20 @@ Sem markdown de conversação, apenas o JSON válido.`;
 
     if (response?.text) {
       const jsonStr = response.text.replace(/```json|```/gi, '').trim();
-      const parsed = JSON.parse(jsonStr) as LongTermMemory;
-      localStorage.setItem('psymind_longterm_memory', JSON.stringify(parsed));
-      return parsed;
+      try {
+        const parsedObj = JSON.parse(jsonStr);
+        const validated = LongTermMemorySchema.safeParse(parsedObj);
+        if (!validated.success) {
+          console.error('Invalid LongTermMemory schema from LLM', validated.error);
+          return null;
+        }
+        const parsed = validated.data;
+        localStorage.setItem('psymind_longterm_memory', JSON.stringify(parsed));
+        return parsed;
+      } catch (e) {
+        console.error('Failed to parse LLM JSON for long-term memory:', e);
+        return null;
+      }
     }
   } catch (error) {
     console.error('Erro na consolidação de memória:', error);
@@ -193,7 +218,18 @@ Não use crases, markdown, nem explique o raciocínio fora do JSON. Apenas as ch
 
     if (response?.text) {
       const jsonStr = response.text.replace(/```json|```/gi, '').trim();
-      return JSON.parse(jsonStr) as MetaInsight;
+      try {
+        const parsedObj = JSON.parse(jsonStr);
+        const validated = MetaInsightSchema.safeParse(parsedObj);
+        if (!validated.success) {
+          console.error('Invalid MetaInsight schema from LLM', validated.error);
+          return null;
+        }
+        return validated.data;
+      } catch (e) {
+        console.error('Failed to parse LLM JSON for meta insight:', e);
+        return null;
+      }
     }
   } catch (error) {
     console.error('Erro na criação do Meta Insight:', error);

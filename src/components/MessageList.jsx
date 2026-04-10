@@ -193,13 +193,54 @@ const MessageList = () => {
   useEffect(() => {
     const generateDailyQuote = () => {
       const quotes = t('quotes:daily_quotes', { returnObjects: true });
-      if (!Array.isArray(quotes) || quotes.length === 0) return;
-      
-      const randomIndex = Math.floor(Math.random() * quotes.length);
-      setDailyQuote(quotes[randomIndex]);
+      if (!Array.isArray(quotes) || quotes.length === 0) {
+        setDailyQuote('');
+        setIsLoadingQuote(false);
+        return;
+      }
+
+      const dateKey = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+      const storageKey = `psy:dailyQuote:${i18n.language}:${dateKey}`;
+
+      try {
+        const stored = localStorage.getItem(storageKey);
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (typeof parsed === 'string') {
+            setDailyQuote(parsed);
+            setIsLoadingQuote(false);
+            return;
+          }
+          if (parsed && parsed.quote && quotes.includes(parsed.quote)) {
+            setDailyQuote(parsed.quote);
+            setIsLoadingQuote(false);
+            return;
+          }
+        }
+      } catch (e) {
+        // ignore storage parse errors
+      }
+
+      // deterministic selection based on date + language
+      const seedKey = `${i18n.language}:${dateKey}`;
+      let hash = 0;
+      for (let i = 0; i < seedKey.length; i++) {
+        hash = (hash << 5) - hash + seedKey.charCodeAt(i);
+        hash |= 0; // convert to 32bit int
+      }
+      const index = Math.abs(hash) % quotes.length;
+      const selected = quotes[index];
+
+      try {
+        localStorage.setItem(storageKey, JSON.stringify({ quote: selected }));
+      } catch (e) {
+        // ignore storage write errors
+      }
+
+      setDailyQuote(selected);
       setIsLoadingQuote(false);
     };
-    
+
     generateDailyQuote();
   }, [t]);
 
