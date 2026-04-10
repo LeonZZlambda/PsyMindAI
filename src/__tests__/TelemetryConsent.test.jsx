@@ -1,9 +1,8 @@
 import React from 'react'
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor, cleanup } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
-import '@testing-library/jest-dom'
-import { vi } from 'vitest'
+import { describe, it, expect, vi, afterEach } from 'vitest'
 
 // Mock i18n to simplify rendering
 vi.mock('react-i18next', () => ({
@@ -11,29 +10,44 @@ vi.mock('react-i18next', () => ({
   Trans: ({ children }) => <>{children}</>
 }))
 
-// Provide a mock Telemetry object
-const TelemetryMock = {
-  setOptIn: vi.fn(),
-  init: vi.fn()
-}
-vi.mock('../services/analytics/telemetry', () => ({ Telemetry: TelemetryMock }))
-
-import TelemetryConsent from '../components/TelemetryConsent.jsx'
+// Mock telemetry module with factory (avoid referencing hoisted variables)
+vi.mock('../services/analytics/telemetry', () => {
+  return {
+    Telemetry: {
+      setOptIn: vi.fn(),
+      init: vi.fn()
+    }
+  }
+})
 
 describe('TelemetryConsent', () => {
-  beforeEach(() => {
-    localStorage.removeItem('psymind_telemetry_optin')
-    TelemetryMock.setOptIn.mockClear()
-    TelemetryMock.init.mockClear()
-  })
-
   afterEach(() => {
+    cleanup()
     vi.useRealTimers()
   })
 
   it('shows consent toast after delay and accepts', async () => {
-    vi.useFakeTimers()
     const user = userEvent.setup()
+
+    // Ensure a working localStorage for this test (some node flags can break it)
+    if (!globalThis.localStorage || typeof globalThis.localStorage.getItem !== 'function') {
+      let _s = {};
+      globalThis.localStorage = {
+        getItem: (k) => (_s.hasOwnProperty(k) ? _s[k] : null),
+        setItem: (k, v) => { _s[k] = String(v); },
+        removeItem: (k) => { delete _s[k]; },
+        clear: () => { _s = {}; }
+      };
+    }
+    // Ensure no prior choice
+    localStorage.removeItem('psymind_telemetry_optin')
+
+    const telemetry = await import('../services/analytics/telemetry')
+    const TelemetryMock = telemetry.Telemetry
+    TelemetryMock.setOptIn.mockClear()
+    TelemetryMock.init.mockClear()
+
+    const { default: TelemetryConsent } = await import('../components/TelemetryConsent.jsx')
 
     render(
       <MemoryRouter>
@@ -41,13 +55,10 @@ describe('TelemetryConsent', () => {
       </MemoryRouter>
     )
 
-    // advance timers to show the toast
-    vi.advanceTimersByTime(2000)
-
-    await waitFor(() => expect(screen.getByRole('dialog')).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByRole('dialog')).toBeTruthy())
 
     const accept = screen.getByRole('button', { name: 'telemetry.accept' })
-    expect(accept).toBeInTheDocument()
+    expect(accept).toBeTruthy()
 
     // accept should call Telemetry.setOptIn(true)
     await user.click(accept)
@@ -55,8 +66,26 @@ describe('TelemetryConsent', () => {
   })
 
   it('closes on Escape and calls decline', async () => {
-    vi.useFakeTimers()
     const user = userEvent.setup()
+
+    // Ensure a working localStorage for this test
+    if (!globalThis.localStorage || typeof globalThis.localStorage.getItem !== 'function') {
+      let _s = {};
+      globalThis.localStorage = {
+        getItem: (k) => (_s.hasOwnProperty(k) ? _s[k] : null),
+        setItem: (k, v) => { _s[k] = String(v); },
+        removeItem: (k) => { delete _s[k]; },
+        clear: () => { _s = {}; }
+      };
+    }
+    // Ensure no prior choice
+    localStorage.removeItem('psymind_telemetry_optin')
+
+    const telemetry = await import('../services/analytics/telemetry')
+    const TelemetryMock = telemetry.Telemetry
+    TelemetryMock.setOptIn.mockClear()
+
+    const { default: TelemetryConsent } = await import('../components/TelemetryConsent.jsx')
 
     render(
       <MemoryRouter>
@@ -64,8 +93,7 @@ describe('TelemetryConsent', () => {
       </MemoryRouter>
     )
 
-    vi.advanceTimersByTime(2000)
-    await waitFor(() => expect(screen.getByRole('dialog')).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByRole('dialog')).toBeTruthy())
 
     // Press Escape to decline
     await user.keyboard('{Escape}')
