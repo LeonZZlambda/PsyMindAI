@@ -1,4 +1,5 @@
 import { GeminiClient } from '../api/providers/geminiClient';
+import logger from '../../utils/logger';
 import { z } from 'zod';
 import { parseError, createErrorResponse, ErrorType, type ErrorResponse, type ApiError } from '../api/errorHandler';
 import { withRetry } from '../api/retryHandler';
@@ -117,7 +118,7 @@ export async function sendMessage(
       text: response.text
     };
   } catch (error) {
-    console.error('Erro Gemini:', error);
+    logger.error('Erro Gemini:', error);
     const parsedError = parseError(error);
     return createErrorResponse(parsedError.type, parsedError.details);
   }
@@ -167,19 +168,19 @@ Sem markdown de conversação, apenas o JSON válido.`;
         const parsedObj = JSON.parse(jsonStr);
         const validated = LongTermMemorySchema.safeParse(parsedObj);
         if (!validated.success) {
-          console.error('Invalid LongTermMemory schema from LLM', validated.error);
+          logger.error('Invalid LongTermMemory schema from LLM', validated.error);
           return null;
         }
         const parsed = validated.data;
         localStorage.setItem('psymind_longterm_memory', JSON.stringify(parsed));
         return parsed;
       } catch (e) {
-        console.error('Failed to parse LLM JSON for long-term memory:', e);
+        logger.error('Failed to parse LLM JSON for long-term memory:', e);
         return null;
       }
     }
   } catch (error) {
-    console.error('Erro na consolidação de memória:', error);
+    logger.error('Erro na consolidação de memória:', error);
   }
   return null;
 }
@@ -222,17 +223,17 @@ Não use crases, markdown, nem explique o raciocínio fora do JSON. Apenas as ch
         const parsedObj = JSON.parse(jsonStr);
         const validated = MetaInsightSchema.safeParse(parsedObj);
         if (!validated.success) {
-          console.error('Invalid MetaInsight schema from LLM', validated.error);
+          logger.error('Invalid MetaInsight schema from LLM', validated.error);
           return null;
         }
         return validated.data;
       } catch (e) {
-        console.error('Failed to parse LLM JSON for meta insight:', e);
+        logger.error('Failed to parse LLM JSON for meta insight:', e);
         return null;
       }
     }
   } catch (error) {
-    console.error('Erro na criação do Meta Insight:', error);
+    logger.error('Erro na criação do Meta Insight:', error);
   }
   return null;
 }

@@ -7,6 +7,7 @@ import { useChat } from '../context/ChatContext';
 import { usePomodoro } from '../context/PomodoroContext';
 import { useModal } from '../context/ModalContext';
 import { Telemetry } from '../services/analytics/telemetry';
+import logger from '../utils/logger';
 
 const ImagePreview = ({ file }) => {
   const [url, setUrl] = useState('');
@@ -134,7 +135,7 @@ const InputArea = ({ inputRef, onOpenSupport, onOpenReflections, onOpenMoodTrack
       };
 
       recognitionInstance.onerror = (event) => {
-        console.error('Speech recognition error', event.error);
+        logger.error('Speech recognition error', event.error);
         setIsListening(false);
       };
 

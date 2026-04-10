@@ -7,6 +7,8 @@ import { useTranslation, Trans } from 'react-i18next';
 import { useChat } from '../context/ChatContext';
 import Prism from 'prismjs';
 import 'prismjs/themes/prism-tomorrow.css';
+import DOMPurify from 'dompurify';
+import logger from '../utils/logger';
 
 const CopyButton = ({ text }) => {
   const [copied, setCopied] = useState(false);
@@ -63,49 +65,49 @@ const ImageViewer = ({ src, alt, onClose }) => {
 
   const handleCopy = async (e) => {
     e.stopPropagation();
-    try {
-      const response = await fetch(src);
-      const blob = await response.blob();
-      
-      try {
-        await navigator.clipboard.write([
-          new ClipboardItem({
-            [blob.type]: blob
-          })
-        ]);
-        setCopied(true);
-        toast.success(t('chat.messages.image_copied'));
-        setTimeout(() => setCopied(false), 2000);
-      } catch (writeErr) {
-        const img = new Image();
-        img.crossOrigin = "anonymous";
-        img.src = src;
-        await new Promise((resolve, reject) => {
-          img.onload = resolve;
-          img.onerror = reject;
-        });
+        try {
+          const response = await fetch(src);
+          const blob = await response.blob();
 
-        const canvas = document.createElement('canvas');
-        canvas.width = img.naturalWidth;
-        canvas.height = img.naturalHeight;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0);
+          try {
+            await navigator.clipboard.write([
+              new ClipboardItem({
+                [blob.type]: blob
+              })
+            ]);
+            setCopied(true);
+            toast.success(t('chat.messages.image_copied'));
+            setTimeout(() => setCopied(false), 2000);
+          } catch (writeErr) {
+            const img = new Image();
+            img.crossOrigin = "anonymous";
+            img.src = src;
+            await new Promise((resolve, reject) => {
+              img.onload = resolve;
+              img.onerror = reject;
+            });
 
-        const pngBlob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
-        
-        await navigator.clipboard.write([
-          new ClipboardItem({
-            'image/png': pngBlob
-          })
-        ]);
-        setCopied(true);
-        toast.success(t('chat.messages.image_copied'));
-        setTimeout(() => setCopied(false), 2000);
-      }
-    } catch (err) {
-      console.error('Failed to copy:', err);
-      toast.error(t('chat.messages.copy_image_error'));
-    }
+            const canvas = document.createElement('canvas');
+            canvas.width = img.naturalWidth;
+            canvas.height = img.naturalHeight;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+
+            const pngBlob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+
+            await navigator.clipboard.write([
+              new ClipboardItem({
+                'image/png': pngBlob
+              })
+            ]);
+            setCopied(true);
+            toast.success(t('chat.messages.image_copied'));
+            setTimeout(() => setCopied(false), 2000);
+          }
+        } catch (err) {
+          logger.error('Failed to copy:', err);
+          toast.error(t('chat.messages.copy_image_error'));
+        }
   };
 
   useEffect(() => {
@@ -485,10 +487,10 @@ const MessageList = () => {
                                 </div>
                                 <pre className={`language-${normalized || ''}`} {...props}>
                                   {highlighted ? (
-                                    <code dangerouslySetInnerHTML={{ __html: highlighted }} />
-                                  ) : (
-                                    <code>{codeText}</code>
-                                  )}
+                                          <code dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(highlighted) }} />
+                                        ) : (
+                                          <code>{codeText}</code>
+                                        )}
                                 </pre>
                               </div>
                             )
