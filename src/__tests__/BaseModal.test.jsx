@@ -1,8 +1,7 @@
 import React from 'react'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import '@testing-library/jest-dom'
-import { vi } from 'vitest'
+import { describe, it, expect, vi, afterEach } from 'vitest'
 
 import BaseModal from '../components/BaseModal.jsx'
 
@@ -12,7 +11,6 @@ describe('BaseModal accessibility and focus behavior', () => {
   })
 
   it('focuses close button on open, traps focus, Escape closes and restores focus', async () => {
-    vi.useFakeTimers()
     const user = userEvent.setup()
 
     function Wrapper() {
@@ -39,7 +37,7 @@ describe('BaseModal accessibility and focus behavior', () => {
 
     // close button should get focus
     const closeBtn = await screen.findByLabelText('Close Test Modal')
-    expect(document.activeElement).toBe(closeBtn)
+    await waitFor(() => expect(document.activeElement).toBe(closeBtn), { timeout: 500 })
 
     // Tab -> inside button
     await user.tab()
@@ -51,8 +49,8 @@ describe('BaseModal accessibility and focus behavior', () => {
 
     // Escape to close (onClose runs after 300ms animation)
     await user.keyboard('{Escape}')
-    vi.advanceTimersByTime(300)
-
-    await waitFor(() => expect(document.activeElement).toBe(outside))
+    // wait for animation and focus restoration
+    await new Promise((r) => setTimeout(r, 350))
+    await waitFor(() => expect(document.activeElement).toBe(outside), { timeout: 1000 })
   })
 })

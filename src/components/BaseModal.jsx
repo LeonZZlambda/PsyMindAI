@@ -28,17 +28,13 @@ export const BaseModal = ({
   // ESC key fecha o modal
   useEscapeKey(handleClose, isOpen);
 
-  // Se não está aberto e não está fechando, não renderiza nada
-  if (!isOpen && !isClosing) return null;
-
-  // Focus management
+  // Focus management (declare refs before early returns to keep hooks order stable)
   const contentRef = useRef(null)
   const closeBtnRef = useRef(null)
   const prevActiveRef = useRef(null)
 
   const titleIdRef = useRef(`modal-title-${Math.random().toString(36).slice(2, 9)}`)
   const bodyIdRef = useRef(`modal-body-${Math.random().toString(36).slice(2, 9)}`)
-
   useEffect(() => {
     if (isOpen) {
       prevActiveRef.current = document.activeElement
@@ -80,6 +76,9 @@ export const BaseModal = ({
       }
     }
   }, [isOpen])
+
+  // Se não está aberto e não está fechando, não renderiza nada
+  if (!isOpen && !isClosing) return null;
 
   const handleOverlayClick = (e) => {
     // Fecha apenas ao clicar no overlay, não no conteúdo
