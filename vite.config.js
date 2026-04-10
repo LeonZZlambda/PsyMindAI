@@ -4,6 +4,13 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vite.dev/config/
 export default defineConfig({
+  // Ensure certain i18n libs are pre-bundled / not externalized by SSR/PWA builds
+  optimizeDeps: {
+    include: ['react-i18next', 'i18next']
+  },
+  ssr: {
+    noExternal: ['react-i18next', 'i18next']
+  },
   plugins: [
     react(),
     VitePWA({
