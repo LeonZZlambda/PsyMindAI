@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode, Dispatch, SetStateAction } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode, Dispatch, SetStateAction } from 'react';
 import { loadSetting, saveSetting, loadBooleanSetting } from '../services/storage/settingsStorage';
 import { animateThemeTransition } from '../utils/themeTransition';
 
@@ -58,7 +58,7 @@ export const useTheme = (): ThemeContextValue => {
   return context;
 };
 
-export const ThemeProvider = ({ children }: { children: ReactNode }): JSX.Element => {
+export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [themeMode, setThemeMode] = useState<ThemeMode>(() => 
     (loadSetting('themeMode', 'system') as ThemeMode)
   );
@@ -117,8 +117,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }): JSX.Elemen
   }, [colorBlindMode]);
 
   const isDarkMode = themeMode === 'system' ? systemIsDark : themeMode === 'dark';
-
-  const toggleTheme = async (e: React.MouseEvent<HTMLElement>): Promise<void> => {
+  const toggleTheme = async (e?: React.MouseEvent<HTMLElement>): Promise<void> => {
     await animateThemeTransition(
       e,
       () => {

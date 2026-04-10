@@ -1,58 +1,80 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useEffect, useMemo, useState } from 'react';
+import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Telemetry } from '../services/analytics/telemetry';
 
-const StudyStatsModal = ({ isOpen, onClose }) => {
+type StudyLog = {
+  date: string;
+  minutes: number;
+  topic: string;
+};
+
+type TelemetryMetrics = {
+  totalSessions?: number;
+  transformationScore?: number | string;
+  daysActive?: number;
+};
+
+type Props = {
+  isOpen: boolean;
+  onClose: () => void;
+};
+
+const StudyStatsModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
-  // Estado real dos estudos
-  const [studyLogs, setStudyLogs] = useState([]);
+
+  const [studyLogs, setStudyLogs] = useState<StudyLog[]>([]);
   const [showAddForm, setShowAddForm] = useState(false);
   const [newLogTopic, setNewLogTopic] = useState('');
   const [newLogMinutes, setNewLogMinutes] = useState('30');
-  
-  // Telemetry Stats
-  const [telemetry, setTelemetry] = useState(null);
+  const [telemetry, setTelemetry] = useState<TelemetryMetrics | null>(null);
 
   useEffect(() => {
-    if (isOpen) {
-      if (Telemetry.isOptedIn()) {
+    if (!isOpen) return;
+
+    if (Telemetry.isOptedIn && Telemetry.isOptedIn()) {
+      if (Telemetry.getDerivedMetrics) {
         setTelemetry(Telemetry.getDerivedMetrics());
       }
-      const stored = localStorage.getItem('psymind_study_logs');
-      if (stored) {
-        try {
-          setStudyLogs(JSON.parse(stored));
-        } catch (e) {
-          console.error("Error parsing study logs", e);
-        }
-      } else {
-        // Dados de exemplo se for primeiro acesso
-        const today = new Date();
-        const yDay = new Date(today); yDay.setDate(today.getDate() - 1);
-        const yyDay = new Date(today); yyDay.setDate(today.getDate() - 2);
-        
-        const initialLogs = [
-          { date: yyDay.toISOString(), minutes: 120, topic: 'Matemática Financeira' },
-          { date: yDay.toISOString(), minutes: 180, topic: 'História do Brasil' },
-          { date: today.toISOString(), minutes: 240, topic: 'Matemática Financeira' },
-          { date: today.toISOString(), minutes: 60, topic: 'Redação' }
-        ];
-        setStudyLogs(initialLogs);
-        localStorage.setItem('psymind_study_logs', JSON.stringify(initialLogs));
+    }
+
+    const stored = localStorage.getItem('psymind_study_logs');
+    if (stored) {
+      try {
+        setStudyLogs(JSON.parse(stored));
+      } catch (e) {
+        // ignore parse errors and continue with empty/default data
+        // eslint-disable-next-line no-console
+        console.error('Error parsing study logs', e);
       }
+    } else {
+      const today = new Date();
+      const yDay = new Date(today);
+      yDay.setDate(today.getDate() - 1);
+      const yyDay = new Date(today);
+      yyDay.setDate(today.getDate() - 2);
+
+      const initialLogs: StudyLog[] = [
+        { date: yyDay.toISOString(), minutes: 120, topic: 'Matemática Financeira' },
+        { date: yDay.toISOString(), minutes: 180, topic: 'História do Brasil' },
+        { date: today.toISOString(), minutes: 240, topic: 'Matemática Financeira' },
+        { date: today.toISOString(), minutes: 60, topic: 'Redação' }
+      ];
+
+      setStudyLogs(initialLogs);
+      localStorage.setItem('psymind_study_logs', JSON.stringify(initialLogs));
     }
   }, [isOpen]);
 
   const handleAddLog = () => {
     if (!newLogTopic.trim() || !newLogMinutes) return;
-    
-    const log = {
+
+    const log: StudyLog = {
       date: new Date().toISOString(),
       minutes: parseInt(newLogMinutes, 10),
       topic: newLogTopic.trim()
     };
-    
+
     const updated = [...studyLogs, log];
     setStudyLogs(updated);
     localStorage.setItem('psymind_study_logs', JSON.stringify(updated));
@@ -60,53 +82,55 @@ const StudyStatsModal = ({ isOpen, onClose }) => {
     setShowAddForm(false);
   };
 
-  // Cálculos dinâmicos
   const computedStats = useMemo(() => {
-    if (!studyLogs.length) return {
-      avgFocus: '0m', retention: '0%', streakWeeks: 0,
-      weeklyData: [
-        { day: t('study_stats.days.mon'), percent: 0, value: '0h', active: false },
-        { day: t('study_stats.days.tue'), percent: 0, value: '0h', active: false },
-        { day: t('study_stats.days.wed'), percent: 0, value: '0h', active: false },
-        { day: t('study_stats.days.thu'), percent: 0, value: '0h', active: false },
-        { day: t('study_stats.days.fri'), percent: 0, value: '0h', active: false },
-        { day: t('study_stats.days.sat'), percent: 0, value: '0h', active: false },
-        { day: t('study_stats.days.sun'), percent: 0, value: '0h', active: false }
-      ],
-      disciplines: [],
-      aiTip: t('study_stats.empty')
-    };
+    if (!studyLogs.length) {
+      return {
+        avgFocus: '0m',
+        retention: '0%',
+        streakWeeks: 0,
+        weeklyData: [
+          { day: t('study_stats.days.mon'), percent: 0, value: '0h', active: false },
+          { day: t('study_stats.days.tue'), percent: 0, value: '0h', active: false },
+          { day: t('study_stats.days.wed'), percent: 0, value: '0h', active: false },
+          { day: t('study_stats.days.thu'), percent: 0, value: '0h', active: false },
+          { day: t('study_stats.days.fri'), percent: 0, value: '0h', active: false },
+          { day: t('study_stats.days.sat'), percent: 0, value: '0h', active: false },
+          { day: t('study_stats.days.sun'), percent: 0, value: '0h', active: false }
+        ],
+        disciplines: [],
+        aiTip: t('study_stats.empty')
+      };
+    }
 
     const today = new Date();
-    const dayOfWeek = today.getDay(); // 0 is Sunday, 1 is Monday...
+    const dayOfWeek = today.getDay();
     const startOfWeek = new Date(today);
     startOfWeek.setDate(today.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1));
-    startOfWeek.setHours(0,0,0,0);
+    startOfWeek.setHours(0, 0, 0, 0);
 
     const msInDay = 24 * 60 * 60 * 1000;
     const weekDays = [
-      t('study_stats.days.mon'), t('study_stats.days.tue'), t('study_stats.days.wed'), 
-      t('study_stats.days.thu'), t('study_stats.days.fri'), t('study_stats.days.sat'), 
+      t('study_stats.days.mon'), t('study_stats.days.tue'), t('study_stats.days.wed'),
+      t('study_stats.days.thu'), t('study_stats.days.fri'), t('study_stats.days.sat'),
       t('study_stats.days.sun')
     ];
 
-    // Dias da Semana (Ritmo)
     const baseWeekly = weekDays.map((name, index) => {
       const dayStart = new Date(startOfWeek.getTime() + index * msInDay);
       const dayEnd = new Date(dayStart.getTime() + msInDay);
-      
+
       const dayMins = studyLogs
         .filter(l => {
           const d = new Date(l.date);
           return d >= dayStart && d < dayEnd;
         })
         .reduce((acc, l) => acc + l.minutes, 0);
-        
+
       const isToday = index === (dayOfWeek === 0 ? 6 : dayOfWeek - 1);
       return {
         day: name,
         minutes: dayMins,
-        value: dayMins >= 60 ? `${Math.floor(dayMins/60)}h${dayMins%60>0 ? ` ${dayMins%60}m`:''}` : `${dayMins}m`,
+        value: dayMins >= 60 ? `${Math.floor(dayMins / 60)}h${dayMins % 60 > 0 ? ` ${dayMins % 60}m` : ''}` : `${dayMins}m`,
         active: isToday
       };
     });
@@ -117,8 +141,7 @@ const StudyStatsModal = ({ isOpen, onClose }) => {
       percent: Math.min((d.minutes / maxMins) * 100, 100)
     }));
 
-    // Disciplinas
-    const discMap = {};
+    const discMap: Record<string, number> = {};
     let totalMins = 0;
     studyLogs.forEach(l => {
       discMap[l.topic] = (discMap[l.topic] || 0) + l.minutes;
@@ -131,24 +154,24 @@ const StudyStatsModal = ({ isOpen, onClose }) => {
       minutes: mins,
       percent: Math.round((mins / totalMins) * 100),
       color: defaultColors[i % defaultColors.length]
-    })).sort((a,b) => b.percent - a.percent);
+    })).sort((a, b) => b.percent - a.percent);
 
     const avgFocusValue = Math.round(totalMins / studyLogs.length);
-    const avgFocusStr = avgFocusValue >= 60 ? `${Math.floor(avgFocusValue/60)}h${avgFocusValue%60>0 ? ` ${avgFocusValue%60}m`:''}` : `${avgFocusValue}m`;
+    const avgFocusStr = avgFocusValue >= 60 ? `${Math.floor(avgFocusValue / 60)}h${avgFocusValue % 60 > 0 ? ` ${avgFocusValue % 60}m` : ''}` : `${avgFocusValue}m`;
 
     return {
       avgFocus: avgFocusStr,
       weeklyData,
       disciplines,
-      aiTip: disciplines.length > 0 
+      aiTip: disciplines.length > 0
         ? t('study_stats.ai_tip.good', { topic: disciplines[0].topic, score: telemetry ? telemetry.transformationScore : '0' })
-        : t('study_stats.ai_tip.empty'),
+        : t('study_stats.ai_tip.empty')
     };
   }, [studyLogs, telemetry, t]);
 
   if (!isOpen) return null;
 
-  const { weeklyData, disciplines } = computedStats;
+  const { weeklyData, disciplines } = computedStats as any;
 
   const chartWidth = 500;
   const chartHeight = 160;
@@ -156,24 +179,24 @@ const StudyStatsModal = ({ isOpen, onClose }) => {
   const paddingTop = 30;
   const paddingBottom = 40;
 
-  const points = weeklyData.map((d, i) => {
+  const points = weeklyData.map((d: any, i: number) => {
     const x = paddingX + (i * ((chartWidth - paddingX * 2) / (weeklyData.length - 1)));
     const y = chartHeight - paddingBottom - (d.percent / 100) * (chartHeight - paddingTop - paddingBottom);
     return { x, y, ...d };
   });
 
-  const polylinePoints = points.map(p => `${p.x},${p.y}`).join(' ');
-  const polygonPoints = `${Math.min(...points.map(p=>p.x))},${chartHeight - paddingBottom} ${polylinePoints} ${Math.max(...points.map(p=>p.x))},${chartHeight - paddingBottom}`;
+  const polylinePoints = points.map((p: any) => `${p.x},${p.y}`).join(' ');
+  const polygonPoints = `${Math.min(...points.map((p: any) => p.x))},${chartHeight - paddingBottom} ${polylinePoints} ${Math.max(...points.map((p: any) => p.x))},${chartHeight - paddingBottom}`;
 
   return (
-    <motion.div 
-      className="modal-overlay" 
-      onClick={onClose} 
+    <motion.div
+      className="modal-overlay"
+      onClick={onClose}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <motion.div 
+      <motion.div
         className="modal-content"
         onClick={(e) => e.stopPropagation()}
         initial={{ opacity: 0, scale: 0.95, y: -20 }}
@@ -192,7 +215,7 @@ const StudyStatsModal = ({ isOpen, onClose }) => {
             {t('study_stats.title')}
           </h2>
           <div style={{ display: 'flex', gap: '12px' }}>
-            <button 
+            <button
               onClick={() => setShowAddForm(!showAddForm)}
               style={{ background: 'var(--primary-color)', color: '#fff', border: 'none', borderRadius: '8px', padding: '6px 12px', fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}>
               <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>add</span>
@@ -206,7 +229,7 @@ const StudyStatsModal = ({ isOpen, onClose }) => {
 
         <div style={{ padding: '24px', overflowY: 'auto', flex: 1, display: 'flex', flexDirection: 'column', gap: '24px', background: 'var(--bg-color)' }}>
           {showAddForm && (
-            <motion.div 
+            <motion.div
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
@@ -215,14 +238,14 @@ const StudyStatsModal = ({ isOpen, onClose }) => {
               <div style={{ padding: '16px', background: 'var(--card-background)', borderRadius: '12px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 <h3 style={{ margin: 0, fontSize: '0.95rem', color: 'var(--text-color)' }}>{t('study_stats.form.title')}</h3>
                 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                  <input 
-                    type="text" 
-                    placeholder={t('study_stats.form.topic_placeholder')} 
+                  <input
+                    type="text"
+                    placeholder={t('study_stats.form.topic_placeholder')}
                     value={newLogTopic}
                     onChange={(e) => setNewLogTopic(e.target.value)}
                     style={{ flex: 1, padding: '10px', borderRadius: '8px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-color)' }}
                   />
-                  <select 
+                  <select
                     value={newLogMinutes}
                     onChange={(e) => setNewLogMinutes(e.target.value)}
                     style={{ width: '120px', padding: '10px', borderRadius: '8px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-color)' }}
@@ -231,7 +254,7 @@ const StudyStatsModal = ({ isOpen, onClose }) => {
                       <option key={val} value={val}>{t(`study_stats.form.durations.${val}`)}</option>
                     ))}
                   </select>
-                  <button 
+                  <button
                     onClick={handleAddLog}
                     style={{ padding: '10px 16px', borderRadius: '8px', border: 'none', background: 'var(--primary-color)', color: '#fff', cursor: 'pointer', fontWeight: 'bold' }}>
                     {t('study_stats.form.save')}
@@ -241,26 +264,25 @@ const StudyStatsModal = ({ isOpen, onClose }) => {
             </motion.div>
           )}
 
-          {/* Métricas Principais */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '16px' }}>
             <div style={{ background: 'var(--card-hover)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-color)', textAlign: 'center' }}>
               <span className="material-symbols-outlined" style={{ fontSize: '28px', color: '#4CAF50', marginBottom: '8px' }}>psychology</span>
               <h3 style={{ margin: '0 0 4px 0', fontSize: '0.85rem', color: 'var(--text-light)' }}>{t('study_stats.metrics.avg_focus')}</h3>
-              <p style={{ margin: 0, fontSize: '1.4rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{computedStats.avgFocus}</p>
+              <p style={{ margin: 0, fontSize: '1.4rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{(computedStats as any).avgFocus}</p>
             </div>
-            
+
             <div style={{ background: 'var(--card-hover)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-color)', textAlign: 'center' }}>
               <span className="material-symbols-outlined" style={{ fontSize: '28px', color: '#2196F3', marginBottom: '8px' }}>timeline</span>
               <h3 style={{ margin: '0 0 4px 0', fontSize: '0.85rem', color: 'var(--text-light)' }}>{t('study_stats.metrics.sessions')}</h3>
               <p style={{ margin: 0, fontSize: '1.4rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{telemetry ? telemetry.totalSessions : '--'}</p>
             </div>
-            
+
             <div style={{ background: 'var(--card-hover)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-color)', textAlign: 'center' }}>
               <span className="material-symbols-outlined" style={{ fontSize: '28px', color: 'var(--primary-color)', marginBottom: '8px' }}>psychology_alt</span>
               <h3 style={{ margin: '0 0 4px 0', fontSize: '0.85rem', color: 'var(--text-light)' }}>{t('study_stats.metrics.transformation')}</h3>
               <p style={{ margin: 0, fontSize: '1.4rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{telemetry ? telemetry.transformationScore : '--'}</p>
             </div>
-            
+
             <div style={{ background: 'var(--card-hover)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-color)', textAlign: 'center' }}>
               <span className="material-symbols-outlined" style={{ fontSize: '28px', color: '#FF9800', marginBottom: '8px' }}>local_fire_department</span>
               <h3 style={{ margin: '0 0 4px 0', fontSize: '0.85rem', color: 'var(--text-light)' }}>{t('study_stats.metrics.active_days')}</h3>
@@ -268,7 +290,6 @@ const StudyStatsModal = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* Gráfico de Horas de Estudo */}
           <div style={{ background: 'var(--card-hover)', padding: '20px', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
             <h3 style={{ margin: '0 0 16px 0', fontSize: '1rem', color: 'var(--text-color)' }}>{t('study_stats.charts.weekly_title')}</h3>
             <div style={{ display: 'flex', justifyContent: 'center', width: '100%', overflowX: 'auto', paddingBottom: '8px' }}>
@@ -280,8 +301,7 @@ const StudyStatsModal = ({ isOpen, onClose }) => {
                       <stop offset="100%" stopColor="var(--primary-color)" stopOpacity="0.01" />
                     </linearGradient>
                   </defs>
-                  
-                  {/* Linhas de grade sutis (horizontal) */}
+
                   {[0, 25, 50, 75, 100].map(percent => {
                     const y = chartHeight - paddingBottom - (percent / 100) * (chartHeight - paddingTop - paddingBottom);
                     return (
@@ -289,36 +309,32 @@ const StudyStatsModal = ({ isOpen, onClose }) => {
                     );
                   })}
 
-                  {/* Preenchimento de Gradiente */}
-                  <motion.polygon 
-                    points={polygonPoints} 
+                  <motion.polygon
+                    points={polygonPoints}
                     fill="url(#chartGradient)"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
                   />
 
-                  {/* Linha principal */}
-                  <motion.polyline 
-                    points={polylinePoints} 
-                    fill="none" 
-                    stroke="var(--primary-color)" 
-                    strokeWidth="3" 
+                  <motion.polyline
+                    points={polylinePoints}
+                    fill="none"
+                    stroke="var(--primary-color)"
+                    strokeWidth="3"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     initial={{ pathLength: 0 }}
                     animate={{ pathLength: 1 }}
-                    transition={{ duration: 0.8, ease: "easeInOut" }}
+                    transition={{ duration: 0.8, ease: 'easeInOut' }}
                   />
 
-                  {/* Pontos de dados */}
-                  {points.map((p, i) => (
+                  {points.map((p: any, i: number) => (
                     <g key={i}>
-                      {/* Círculo do ponto */}
-                      <motion.circle 
-                        cx={p.x} cy={p.y} r={p.active ? 6 : 4} 
-                        fill={p.active ? "var(--bg-color)" : "var(--primary-color)"} 
-                        stroke="var(--primary-color)" 
+                      <motion.circle
+                        cx={p.x} cy={p.y} r={p.active ? 6 : 4}
+                        fill={p.active ? 'var(--bg-color)' : 'var(--primary-color)'}
+                        stroke='var(--primary-color)'
                         strokeWidth={p.active ? 3 : 0}
                         style={{ zIndex: 10 }}
                         initial={{ scale: 0 }}
@@ -326,13 +342,12 @@ const StudyStatsModal = ({ isOpen, onClose }) => {
                         transition={{ duration: 0.3, delay: 0.4 + i * 0.05 }}
                       />
 
-                      {/* Rótulo de valor em cima */}
-                      <motion.text 
-                        x={p.x} y={p.y - 12} 
-                        textAnchor="middle" 
-                        fontSize="11" 
-                        fill={p.active ? "var(--text-color)" : "var(--text-light)"}
-                        fontWeight={p.active ? "bold" : "normal"}
+                      <motion.text
+                        x={p.x} y={p.y - 12}
+                        textAnchor="middle"
+                        fontSize="11"
+                        fill={p.active ? 'var(--text-color)' : 'var(--text-light)'}
+                        fontWeight={p.active ? 'bold' : 'normal'}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.3, delay: 0.6 + i * 0.05 }}
@@ -340,13 +355,12 @@ const StudyStatsModal = ({ isOpen, onClose }) => {
                         {p.value}
                       </motion.text>
 
-                      {/* Rótulo do dia da semana embaixo */}
-                      <text 
-                        x={p.x} y={chartHeight - paddingBottom + 24} 
-                        textAnchor="middle" 
-                        fontSize="12" 
-                        fill={p.active ? "var(--primary-color)" : "var(--text-light)"}
-                        fontWeight={p.active ? "bold" : "normal"}
+                      <text
+                        x={p.x} y={chartHeight - paddingBottom + 24}
+                        textAnchor="middle"
+                        fontSize="12"
+                        fill={p.active ? 'var(--primary-color)' : 'var(--text-light)'}
+                        fontWeight={p.active ? 'bold' : 'normal'}
                       >
                         {p.day}
                       </text>
@@ -357,14 +371,12 @@ const StudyStatsModal = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* Tópicos Mais Estudados e Insights */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <h3 style={{ margin: 0, fontSize: '1rem', color: 'var(--text-color)' }}>{t('study_stats.charts.discipline_title')}</h3>
-            
+
             <div style={{ background: 'var(--card-hover)', padding: '20px', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
-              
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                {disciplines.map((item, i) => (
+                {disciplines.map((item: any, i: number) => (
                   <div key={i}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.85rem' }}>
                       <span style={{ color: 'var(--text-color)', fontWeight: '500' }}>{item.topic}</span>
@@ -376,11 +388,11 @@ const StudyStatsModal = ({ isOpen, onClose }) => {
                   </div>
                 ))}
               </div>
-              
+
               <div style={{ marginTop: '20px', padding: '12px', background: 'var(--user-msg-bg)', borderRadius: '8px', display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
                 <span className="material-symbols-outlined" style={{ color: 'var(--primary-color)', fontSize: '20px' }}>lightbulb</span>
                 <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-color)', lineHeight: '1.4' }}>
-                  <strong>{t('study_stats.ai_tip.label')}</strong> {computedStats.aiTip}
+                  <strong>{t('study_stats.ai_tip.label')}</strong> {(computedStats as any).aiTip}
                 </p>
               </div>
 

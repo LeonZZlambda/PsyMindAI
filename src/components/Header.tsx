@@ -1,22 +1,29 @@
-import React, { useState, lazy, Suspense } from 'react';
-import '../styles/header.css';
-import { createPortal } from 'react-dom';
-import { useTranslation } from 'react-i18next';
-import { useTheme } from '../context/ThemeContext';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, lazy, Suspense } from 'react'
+import '../styles/header.css'
+import { createPortal } from 'react-dom'
+import { useTranslation } from 'react-i18next'
+import { useTheme } from '../context/ThemeContext'
+import { motion, AnimatePresence } from 'framer-motion'
 
-const SoundscapesModal = lazy(() => import('./SoundscapesModal'));
-const AccountModal = lazy(() => import('./AccountModal'));
+const SoundscapesModal = lazy(() => import('./SoundscapesModal'))
+const AccountModal = lazy(() => import('./AccountModal'))
 
-const Header = ({ isSidebarOpen, toggleSidebar, isLoading, onOpenStudyStats }) => {
-  const { isDarkMode, toggleTheme, fontSize, reducedMotion, highContrast, colorBlindMode } = useTheme();
-  const [isSoundModalOpen, setIsSoundModalOpen] = useState(false);
-  const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
-  const { t } = useTranslation();
+interface HeaderProps {
+  isSidebarOpen: boolean;
+  toggleSidebar: () => void;
+  isLoading?: boolean;
+  onOpenStudyStats?: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ isSidebarOpen, toggleSidebar, isLoading, onOpenStudyStats }) => {
+  const { isDarkMode, toggleTheme, fontSize, reducedMotion, highContrast, colorBlindMode } = useTheme()
+  const [isSoundModalOpen, setIsSoundModalOpen] = useState(false)
+  const [isAccountModalOpen, setIsAccountModalOpen] = useState(false)
+  const { t } = useTranslation()
   
-  const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
-  const cmdKey = isMac ? '⌘' : 'Ctrl';
-  const shiftKey = isMac ? '⇧' : 'Shift';
+  const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform)
+  const cmdKey = isMac ? '⌘' : 'Ctrl'
+  const shiftKey = isMac ? '⇧' : 'Shift'
 
   return (
     <header className="header">
@@ -49,7 +56,7 @@ const Header = ({ isSidebarOpen, toggleSidebar, isLoading, onOpenStudyStats }) =
         </button>
         <button 
           className="header-btn" 
-          onClick={toggleTheme} 
+          onClick={toggleTheme as any} 
           title={isDarkMode ? `${t('header.light_mode')} (${cmdKey} + ${shiftKey} + L)` : `${t('header.dark_mode')} (${cmdKey} + ${shiftKey} + L)`}
           aria-label={isDarkMode ? t('header.activate_light_mode') : t('header.activate_dark_mode')}
         >
@@ -98,7 +105,7 @@ const Header = ({ isSidebarOpen, toggleSidebar, isLoading, onOpenStudyStats }) =
         document.body
       )}
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

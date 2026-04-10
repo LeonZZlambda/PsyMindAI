@@ -27,7 +27,7 @@ export const useSound = (): SoundContextValue => {
   return context;
 };
 
-export const SoundProvider = ({ children }: { children: ReactNode }): JSX.Element => {
+export const SoundProvider = ({ children }: { children: ReactNode }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSound, setCurrentSound] = useState<SoundType>('rain');
   const [volume, setVolume] = useState(0.5);

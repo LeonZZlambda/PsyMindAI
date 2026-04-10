@@ -1,38 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
-const ScrollToTopButton = () => {
-  const [showScrollTop, setShowScrollTop] = useState(false);
+const ScrollToTopButton: React.FC = () => {
+  const [showScrollTop, setShowScrollTop] = useState(false)
 
   useEffect(() => {
-    const scrollContainer = document.querySelector('.landing-wrapper');
+    const scrollContainer = document.querySelector('.landing-wrapper') as HTMLElement | null
     
     const handleScroll = () => {
       if (scrollContainer && scrollContainer.scrollTop > 300) {
-        setShowScrollTop(true);
+        setShowScrollTop(true)
       } else {
-        setShowScrollTop(false);
+        setShowScrollTop(false)
       }
-    };
+    }
 
     if (scrollContainer) {
-      scrollContainer.addEventListener('scroll', handleScroll);
-      handleScroll();
+      scrollContainer.addEventListener('scroll', handleScroll)
+      handleScroll()
     }
 
     return () => {
-      if (scrollContainer) {
-        scrollContainer.removeEventListener('scroll', handleScroll);
-      }
-    };
-  }, []);
+      if (scrollContainer) scrollContainer.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   const scrollToTop = () => {
-    const scrollContainer = document.querySelector('.landing-wrapper');
+    const scrollContainer = document.querySelector('.landing-wrapper') as HTMLElement | null
     if (scrollContainer) {
-      scrollContainer.scrollTo({ top: 0, behavior: 'smooth' });
+      scrollContainer.scrollTo({ top: 0, behavior: 'smooth' })
     }
-  };
+  }
 
   return (
     <AnimatePresence>
@@ -51,7 +49,7 @@ const ScrollToTopButton = () => {
         </motion.button>
       )}
     </AnimatePresence>
-  );
-};
+  )
+}
 
-export default ScrollToTopButton;
+export default ScrollToTopButton

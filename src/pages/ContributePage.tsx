@@ -1,19 +1,19 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
-import { useTheme } from '../context/ThemeContext';
-import '../styles/contribute.css';
-import Footer from '../components/Footer';
-import ScrollToTopButton from '../components/ScrollToTopButton';
-import LandingHeader from '../components/LandingHeader';
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { motion } from 'framer-motion'
+import { useTheme } from '../context/ThemeContext'
+import '../styles/contribute.css'
+import Footer from '../components/Footer'
+import ScrollToTopButton from '../components/ScrollToTopButton'
+import LandingHeader from '../components/LandingHeader'
 
-const ContributePage = () => {
-  const navigate = useNavigate();
-  const { isDarkMode, toggleTheme } = useTheme();
-  const { t } = useTranslation();
+const ContributePage: React.FC = () => {
+  const navigate = useNavigate()
+  const { isDarkMode, toggleTheme } = useTheme()
+  const { t } = useTranslation()
 
-  const contributeCards = t('contribute_page.cards', { returnObjects: true });
+  const contributeCards = t('contribute_page.cards', { returnObjects: true }) as any[]
 
   return (
     <motion.div 
@@ -52,11 +52,11 @@ const ContributePage = () => {
                 className="text-link"
                 onClick={(e) => {
                   if (idx === 1) {
-                    e.preventDefault();
-                    navigate('/style-guide');
+                    e.preventDefault()
+                    navigate('/style-guide')
                   } else if (idx === 3) {
-                    e.preventDefault();
-                    window.open('https://github.com/LeonZZlambda/PsyMindAI/tree/main/src/i18n', '_blank');
+                    e.preventDefault()
+                    window.open('https://github.com/LeonZZlambda/PsyMindAI/tree/main/src/i18n', '_blank')
                   }
                 }}
               >
@@ -69,7 +69,7 @@ const ContributePage = () => {
         <div className="steps-section">
           <h2>{t('contribute_page.steps.title')}</h2>
           <div className="steps-list">
-            {t('contribute_page.steps.items', { returnObjects: true }).map((step, idx) => (
+            {(t('contribute_page.steps.items', { returnObjects: true }) as any[]).map((step: any, idx: number) => (
               <div key={idx} className="step-item">
                 <div className="step-number">{step.number}</div>
                 <div className="step-text">
@@ -85,7 +85,7 @@ const ContributePage = () => {
       <Footer />
       <ScrollToTopButton />
     </motion.div>
-  );
-};
+  )
+}
 
-export default ContributePage;
+export default ContributePage

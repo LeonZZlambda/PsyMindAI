@@ -8,11 +8,12 @@ import { usePomodoro } from '../context/PomodoroContext';
 import { useModal } from '../context/ModalContext';
 import { Telemetry } from '../services/analytics/telemetry';
 import logger from '../utils/logger';
+import type { FileAttachment } from '@/types/storage';
 
-const ImagePreview = ({ file }) => {
-  const [url, setUrl] = useState('');
+const ImagePreview: React.FC<{ file: File }> = ({ file }) => {
+  const [url, setUrl] = useState<string>('');
   useEffect(() => {
-    let objectUrl;
+    let objectUrl: string | undefined;
     try {
       objectUrl = URL.createObjectURL(file);
       setUrl(objectUrl);
@@ -24,30 +25,40 @@ const ImagePreview = ({ file }) => {
     };
   }, [file]);
   if (!url) return null;
-  const safeName = typeof file.name === 'string' ? file.name : 'image';
+  const safeName = typeof (file as any).name === 'string' ? (file as any).name : 'image';
   return <img src={url} alt={safeName} />;
 };
 
-const InputArea = ({ inputRef, onOpenSupport, onOpenReflections, onOpenMoodTracker, onOpenEmotionalJournal, onOpenGuidedLearning }) => {
+interface InputAreaProps {
+  inputRef?: React.RefObject<HTMLInputElement | HTMLTextAreaElement | null>
+  onOpenHelp?: () => void
+  onOpenSupport?: () => void
+  onOpenReflections?: () => void
+  onOpenMoodTracker?: () => void
+  onOpenEmotionalJournal?: () => void
+  onOpenGuidedLearning?: () => void
+}
+
+const InputArea: React.FC<InputAreaProps> = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections, onOpenMoodTracker, onOpenEmotionalJournal, onOpenGuidedLearning }) => {
   const { input, setInput, sendMessage, isTyping, isStreaming, stopStreaming } = useChat();
   const { isActive: pomodoroIsActive, mode: pomodoroMode, timeLeft: pomodoroTimeLeft } = usePomodoro();
   const { t } = useTranslation();
   const { toggleModal } = useModal();
   
   const [isListening, setIsListening] = useState(false);
-  const [recognition, setRecognition] = useState(null);
-  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [recognition, setRecognition] = useState<any>(null);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [showToolsMenu, setShowToolsMenu] = useState(false);
-  const fileInputRef = useRef(null);
-  const toolsMenuRef = useRef(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const toolsMenuRef = useRef<HTMLDivElement | null>(null);
 
   const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
   const cmdKey = isMac ? '⌘' : 'Ctrl';
   const shiftKey = isMac ? '⇧' : 'Shift';
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (toolsMenuRef.current && !toolsMenuRef.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (toolsMenuRef.current && !toolsMenuRef.current.contains(event.target as Node)) {
         setShowToolsMenu(false);
       }
     };
@@ -67,7 +78,7 @@ const InputArea = ({ inputRef, onOpenSupport, onOpenReflections, onOpenMoodTrack
     { id: 'learning', icon: 'menu_book', label: t('chat.input.tools.learning') }
   ];
 
-  const handleToolClick = (tool) => {
+  const handleToolClick = (tool: any) => {
     Telemetry.trackFeature(tool.id || tool.label, 'opened');
     if (tool.id === 'pomodoro') {
       toggleModal('pomodoro');
@@ -113,7 +124,7 @@ const InputArea = ({ inputRef, onOpenSupport, onOpenReflections, onOpenMoodTrack
     setShowToolsMenu(false);
   };
 
-  const formatTime = (seconds) => {
+  const formatTime = (seconds?: number) => {
     if (seconds === undefined) return '';
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -122,19 +133,20 @@ const InputArea = ({ inputRef, onOpenSupport, onOpenReflections, onOpenMoodTrack
 
   useEffect(() => {
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      // @ts-ignore
+      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
       const recognitionInstance = new SpeechRecognition();
       recognitionInstance.continuous = false;
       recognitionInstance.interimResults = false;
-      recognitionInstance.lang = 'pt-BR'; // It might be beneficial to hook this to i18n.language later
+      recognitionInstance.lang = 'pt-BR';
 
-      recognitionInstance.onresult = (event) => {
+      recognitionInstance.onresult = (event: any) => {
         const transcript = event.results[0][0].transcript;
-        setInput((prev) => (prev ? prev + ' ' + transcript : transcript));
+        setInput((prev: string) => (prev ? prev + ' ' + transcript : transcript));
         setIsListening(false);
       };
 
-      recognitionInstance.onerror = (event) => {
+      recognitionInstance.onerror = (event: any) => {
         logger.error('Speech recognition error', event.error);
         setIsListening(false);
       };
@@ -162,8 +174,8 @@ const InputArea = ({ inputRef, onOpenSupport, onOpenReflections, onOpenMoodTrack
     fileInputRef.current?.click();
   };
 
-  const handleFileChange = (e) => {
-    const files = Array.from(e.target.files);
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
     if (files && files.length > 0) {
       setSelectedFiles(prev => [...prev, ...files]);
     }
@@ -172,32 +184,32 @@ const InputArea = ({ inputRef, onOpenSupport, onOpenReflections, onOpenMoodTrack
     }
   };
 
-  const removeFile = (index) => {
+  const removeFile = (index: number) => {
     setSelectedFiles(prev => prev.filter((_, i) => i !== index));
   };
 
   const handleSendClick = () => {
     if (!input.trim() && selectedFiles.length === 0) return;
-    sendMessage(input, selectedFiles);
+    sendMessage(input, selectedFiles as any);
     setSelectedFiles([]);
   };
 
   useEffect(() => {
-    const handleKeyDown = (e) => {
-      const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
-      const metaKey = isMac ? e.metaKey : e.ctrlKey;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const isMacLocal = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
+      const metaKey = isMacLocal ? (e as any).metaKey : (e as any).ctrlKey;
 
-      if (metaKey && e.shiftKey && e.key === '.') {
+      if (metaKey && (e as any).shiftKey && (e as any).key === '.') {
         e.preventDefault();
         toggleListening();
       }
 
-      if (metaKey && e.shiftKey && e.key.toLowerCase() === 'u') {
+      if (metaKey && (e as any).shiftKey && String((e as any).key).toLowerCase() === 'u') {
         e.preventDefault();
         handleFileClick();
       }
 
-      if (metaKey && e.key.toLowerCase() === 'k') {
+      if (metaKey && String((e as any).key).toLowerCase() === 'k') {
         e.preventDefault();
         setShowToolsMenu(prev => !prev);
       }
@@ -207,14 +219,14 @@ const InputArea = ({ inputRef, onOpenSupport, onOpenReflections, onOpenMoodTrack
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [recognition, isListening]);
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSendClick();
     }
   };
 
-  const formatFileName = (name) => {
+  const formatFileName = (name: string) => {
     if (name.length <= 12) return name;
     const lastDotIndex = name.lastIndexOf('.');
     if (lastDotIndex !== -1 && lastDotIndex < name.length - 1) {
@@ -235,25 +247,25 @@ const InputArea = ({ inputRef, onOpenSupport, onOpenReflections, onOpenMoodTrack
           {selectedFiles.length > 0 && (
             <div className="file-preview-list">
               {selectedFiles.map((file, index) => (
-                <div key={index} className="file-preview-item" title={file.name}>
+                <div key={index} className="file-preview-item" title={(file as any).name}>
                   <div className="preview-content">
                       {file.type && file.type.startsWith('image/') ? (
                         <ImagePreview file={file} />
                     ) : (
                       <div className="file-icon-wrapper">
                         <span className="material-symbols-outlined file-icon">description</span>
-                        <span className="file-type">{file.name.split('.').pop().slice(0, 4).toUpperCase()}</span>
+                        <span className="file-type">{((file as any).name || '').split('.').pop()?.slice(0, 4).toUpperCase()}</span>
                       </div>
                     )}
                     <button 
                       className="remove-file-btn" 
                       onClick={() => removeFile(index)}
-                      aria-label={`${t('chat.input.remove_file')} ${file.name}`}
+                      aria-label={`${t('chat.input.remove_file')} ${(file as any).name}`}
                     >
                       <span className="material-symbols-outlined" style={{ fontSize: '14px' }}>close</span>
                     </button>
                   </div>
-                  <span className="file-name">{formatFileName(file.name)}</span>
+                  <span className="file-name">{formatFileName((file as any).name)}</span>
                 </div>
               ))}
             </div>
@@ -292,7 +304,7 @@ const InputArea = ({ inputRef, onOpenSupport, onOpenReflections, onOpenMoodTrack
                     initial={{ opacity: 0, scale: 0.95, y: 10 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95, y: 10 }}
-                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    transition={{ duration: 0.2, ease: 'easeOut' }}
                   >
                     {tools.map(tool => {
                       const isPomodoroActive = tool.id === 'pomodoro' && pomodoroIsActive;
@@ -305,11 +317,11 @@ const InputArea = ({ inputRef, onOpenSupport, onOpenReflections, onOpenMoodTrack
                           key={tool.id} 
                           className={`tool-item ${isPomodoroActive ? 'pomodoro-active' : ''}`}
                           onClick={() => handleToolClick(tool)}
-                          style={isPomodoroActive ? { color: activeColor } : {}}
+                          style={isPomodoroActive ? { color: activeColor as string } : {}}
                         >
                           <span 
                             className={`material-symbols-outlined ${isPomodoroActive ? 'spin-animation' : ''}`}
-                            style={isPomodoroActive ? { color: activeColor } : {}}
+                            style={isPomodoroActive ? { color: activeColor as string } : {}}
                           >
                             {tool.icon}
                           </span>
@@ -329,7 +341,7 @@ const InputArea = ({ inputRef, onOpenSupport, onOpenReflections, onOpenMoodTrack
               </AnimatePresence>
             </div>
             <TextareaAutosize
-              ref={inputRef}
+              ref={inputRef as any}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}

@@ -1,8 +1,20 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import React from 'react'
+import { useTranslation } from 'react-i18next'
 
-const ErrorFallback = ({ error, resetErrorBoundary }) => {
-  const { t } = useTranslation();
+interface ErrorFallbackProps {
+  error: unknown
+  resetErrorBoundary: () => void
+}
+
+const ErrorFallback: React.FC<ErrorFallbackProps> = ({ error, resetErrorBoundary }) => {
+  const { t } = useTranslation()
+  const errorMessage = ((): string | null => {
+    if (!error) return null
+    if (typeof error === 'string') return error
+    if (typeof error === 'object' && error !== null && 'message' in error) return String((error as any).message)
+    return String(error)
+  })()
+
   return (
     <div className="google-error-container" role="alert">
       <div className="google-error-content">
@@ -11,13 +23,13 @@ const ErrorFallback = ({ error, resetErrorBoundary }) => {
           <span className="material-symbols-outlined crash-icon">error</span>
         </div>
         <h1>{t('error_fallback.title')}</h1>
-        <p className="error-message">{t("error_fallback.message")}</p>
-        <p className="error-subtext">{t("error_fallback.subtext")}</p>
+        <p className="error-message">{t('error_fallback.message')}</p>
+        <p className="error-subtext">{t('error_fallback.subtext')}</p>
         
-        {error && (
+        {errorMessage && (
           <details className="error-details">
             <summary>{t('error_fallback.details')}</summary>
-            <pre>{error.message}</pre>
+            <pre>{errorMessage}</pre>
           </details>
         )}
 
@@ -114,7 +126,7 @@ const ErrorFallback = ({ error, resetErrorBoundary }) => {
         }
       `}</style>
     </div>
-  );
-};
+  )
+}
 
-export default ErrorFallback;
+export default ErrorFallback

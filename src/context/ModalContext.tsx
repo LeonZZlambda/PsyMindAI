@@ -60,7 +60,7 @@ const ModalContext = createContext<ModalContextValue>({
  *   <App />
  * </ModalProvider>
  */
-export const ModalProvider = ({ children }: { children: ReactNode }): JSX.Element => {
+export const ModalProvider = ({ children }: { children: ReactNode }) => {
   // Centralized state of all modals
   const [openModals, setOpenModals] = useState<ModalState>({
     settings: false,

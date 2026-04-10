@@ -218,7 +218,7 @@ export function parseError(error: unknown): ApiError {
 
   return {
     type: errorType,
-    code: errorCode,
+    code: errorCode ?? null,
     message: translateErrorType(errorType),
     details
   };

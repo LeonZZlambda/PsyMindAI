@@ -1,19 +1,19 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
-import { useTheme } from '../context/ThemeContext';
-import '../styles/roadmap.css';
-import Footer from '../components/Footer';
-import ScrollToTopButton from '../components/ScrollToTopButton';
-import LandingHeader from '../components/LandingHeader';
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { motion } from 'framer-motion'
+import { useTheme } from '../context/ThemeContext'
+import '../styles/roadmap.css'
+import Footer from '../components/Footer'
+import ScrollToTopButton from '../components/ScrollToTopButton'
+import LandingHeader from '../components/LandingHeader'
 
-const RoadmapPage = () => {
-  const navigate = useNavigate();
-  const { isDarkMode, toggleTheme } = useTheme();
-  const { t } = useTranslation();
+const RoadmapPage: React.FC = () => {
+  const navigate = useNavigate()
+  const { isDarkMode, toggleTheme } = useTheme()
+  const { t } = useTranslation()
 
-  const roadmapItems = t('roadmap_page.phases', { returnObjects: true });
+  const roadmapItems = t('roadmap_page.phases', { returnObjects: true }) as any[]
 
   return (
     <motion.div 
@@ -53,7 +53,7 @@ const RoadmapPage = () => {
                 <h2>{phase.title}</h2>
               </div>
               <ul className="feature-list">
-                {phase.items.map((item, i) => (
+                {phase.items.map((item: string, i: number) => (
                   <li key={i}>
                     <span className="material-symbols-outlined">arrow_right</span>
                     {item}
@@ -68,7 +68,7 @@ const RoadmapPage = () => {
       <Footer />
       <ScrollToTopButton />
     </motion.div>
-  );
-};
+  )
+}
 
-export default RoadmapPage;
+export default RoadmapPage

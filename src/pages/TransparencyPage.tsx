@@ -1,11 +1,11 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import Footer from '../components/Footer';
-import ScrollToTopButton from '../components/ScrollToTopButton';
-import LandingHeader from '../components/LandingHeader';
-import '../styles/legal.css';
+import React from 'react'
+import { motion } from 'framer-motion'
+import Footer from '../components/Footer'
+import ScrollToTopButton from '../components/ScrollToTopButton'
+import LandingHeader from '../components/LandingHeader'
+import '../styles/legal.css'
 
-const TransparencyPage = () => {
+const TransparencyPage: React.FC = () => {
   return (
     <motion.div 
       className="landing-page legal-page"
@@ -59,7 +59,7 @@ const TransparencyPage = () => {
       <Footer />
       <ScrollToTopButton />
     </motion.div>
-  );
-};
+  )
+}
 
-export default TransparencyPage;
+export default TransparencyPage

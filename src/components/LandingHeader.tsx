@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { createPortal } from 'react-dom';
-import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useTranslation } from 'react-i18next';
-import { useTheme } from '../context/ThemeContext';
-import AccountModal from './AccountModal';
+import React, { useState } from 'react'
+import { createPortal } from 'react-dom'
+import { useNavigate } from 'react-router-dom'
+import { motion, AnimatePresence } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
+import { useTheme } from '../context/ThemeContext'
+import AccountModal from './AccountModal'
 
-const LandingHeader = () => {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-  const { isDarkMode, toggleTheme, fontSize, reducedMotion, highContrast, colorBlindMode } = useTheme();
-  const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
+const LandingHeader: React.FC = () => {
+  const { t } = useTranslation()
+  const navigate = useNavigate()
+  const { isDarkMode, toggleTheme, fontSize, reducedMotion, highContrast, colorBlindMode } = useTheme()
+  const [isAccountModalOpen, setIsAccountModalOpen] = useState(false)
 
   return (
     <nav className="landing-nav">
@@ -84,7 +84,7 @@ const LandingHeader = () => {
         document.body
       )}
     </nav>
-  );
-};
+  )
+}
 
-export default LandingHeader;
+export default LandingHeader

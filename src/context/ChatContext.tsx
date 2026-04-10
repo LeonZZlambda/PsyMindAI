@@ -54,7 +54,7 @@ export const useChat = (): ChatContextValue => {
   return context;
 };
 
-export const ChatProvider = ({ children }: { children: ReactNode }): JSX.Element => {
+export const ChatProvider = ({ children }: { children: ReactNode }) => {
   const { t } = useTranslation();
   const { reducedMotion } = useTheme();
   const [chats, setChats] = useState<Chat[]>([]);
@@ -115,7 +115,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }): JSX.Element
           ? (crypto as any).randomUUID()
           : Date.now().toString();
         const tempTitle = isAnonymous ? 'Modo Anônimo' : text.slice(0, 40) + (text.length > 40 ? '...' : '');
-        const newChat = createChat(chatId, tempTitle, [userMessage]);
+        const newChat = createChat(chatId as string, tempTitle, [userMessage]);
         if (isAnonymous) (newChat as any).isAnonymous = true;
 
         setChats((prev) => [newChat, ...prev]);

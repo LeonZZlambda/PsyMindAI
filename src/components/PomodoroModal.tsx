@@ -1,19 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/pomodoro.css';
 import { useTranslation } from 'react-i18next';
 import { usePomodoro } from '../context/PomodoroContext';
 import { generatePomodoroTip } from '../services/tools/pomodoroService';
 
-const PomodoroModal = ({ isOpen, onClose }) => {
-  const { 
-    timeLeft, 
-    isActive, 
-    mode, 
-    modes, 
-    toggleTimer, 
-    resetTimer, 
-    changeMode 
+type Props = {
+  isOpen: boolean;
+  onClose: () => void;
+};
+
+const PomodoroModal: React.FC<Props> = ({ isOpen, onClose }) => {
+  const {
+    timeLeft,
+    isActive,
+    mode,
+    modes,
+    toggleTimer,
+    resetTimer,
+    changeMode
   } = usePomodoro();
+
   const { t } = useTranslation();
 
   const [isClosing, setIsClosing] = useState(false);
@@ -21,10 +27,10 @@ const PomodoroModal = ({ isOpen, onClose }) => {
   const [isLoadingTip, setIsLoadingTip] = useState(false);
 
   useEffect(() => {
-    setAiTip(''); // Clear tip when mode changes
+    setAiTip('');
   }, [mode]);
 
-  const formatTime = (seconds) => {
+  const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
@@ -33,10 +39,10 @@ const PomodoroModal = ({ isOpen, onClose }) => {
   const fetchAiTip = async () => {
     setIsLoadingTip(true);
     setAiTip('');
-    
+
     try {
       const tip = await generatePomodoroTip(mode);
-      setAiTip(tip);
+      setAiTip(tip as string);
     } catch (error) {
       setAiTip(t('pomodoro.error'));
     }
@@ -52,7 +58,7 @@ const PomodoroModal = ({ isOpen, onClose }) => {
   };
 
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (!isOpen) return;
 
       if (e.key === 'Escape') {
@@ -60,9 +66,9 @@ const PomodoroModal = ({ isOpen, onClose }) => {
       } else if (e.key === 'Tab') {
         e.preventDefault();
         const modeKeys = ['focus', 'short', 'long'];
-        const currentIndex = modeKeys.indexOf(mode);
+        const currentIndex = modeKeys.indexOf(mode as string);
         const nextIndex = (currentIndex + 1) % modeKeys.length;
-        changeMode(modeKeys[nextIndex]);
+        changeMode(modeKeys[nextIndex] as any);
       } else if (e.key === 'Enter') {
         e.preventDefault();
         toggleTimer();
@@ -71,7 +77,7 @@ const PomodoroModal = ({ isOpen, onClose }) => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, mode, isActive]);
+  }, [isOpen, mode, isActive, toggleTimer, changeMode]);
 
   if (!isOpen) return null;
 
@@ -79,22 +85,22 @@ const PomodoroModal = ({ isOpen, onClose }) => {
 
   return (
     <div className={`modal-overlay ${isClosing ? 'closing' : ''}`} onClick={handleClose}>
-      <div className="modal-content pomodoro-modal" onClick={e => e.stopPropagation()}>
+      <div className="modal-content pomodoro-modal" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h2>{t('pomodoro.title')}</h2>
           <button className="close-btn" onClick={handleClose}>
             <span className="material-symbols-outlined">close</span>
           </button>
         </div>
-        
+
         <div className="modal-body pomodoro-body">
           <div className="pomodoro-modes">
-            {Object.keys(modes).map((m) => (
+            {(Object.keys(modes) as Array<keyof typeof modes>).map((m) => (
               <button
-                key={m}
+                key={m as string}
                 className={`mode-btn ${mode === m ? 'active' : ''}`}
-                onClick={() => changeMode(m)}
-                style={{ 
+                onClick={() => changeMode(m as any)}
+                style={{
                   backgroundColor: mode === m ? `${modes[m].color}15` : 'transparent',
                   color: mode === m ? modes[m].color : 'var(--text-light)',
                   display: 'flex',
@@ -116,7 +122,7 @@ const PomodoroModal = ({ isOpen, onClose }) => {
           </div>
 
           <div className="timer-controls">
-            <button 
+            <button
               className="control-btn main-control"
               onClick={toggleTimer}
               style={{ backgroundColor: modes[mode].color }}
@@ -125,7 +131,7 @@ const PomodoroModal = ({ isOpen, onClose }) => {
                 {isActive ? 'pause' : 'play_arrow'}
               </span>
             </button>
-            <button 
+            <button
               className="control-btn reset-control"
               onClick={resetTimer}
               title={t('pomodoro.restart')}
@@ -133,24 +139,24 @@ const PomodoroModal = ({ isOpen, onClose }) => {
               <span className="material-symbols-outlined">refresh</span>
             </button>
           </div>
-          
+
           <div className="progress-bar-container">
-            <div 
-              className="progress-bar-fill" 
-              style={{ 
+            <div
+              className="progress-bar-fill"
+              style={{
                 width: `${progress}%`,
-                backgroundColor: isActive ? modes[mode].color : 'var(--secondary-color)' 
+                backgroundColor: isActive ? modes[mode].color : 'var(--secondary-color)'
               }}
             />
           </div>
 
           <div className="ai-tip-section">
-            <button 
+            <button
               className="ai-tip-btn"
               onClick={fetchAiTip}
               disabled={isLoadingTip}
-              style={{ 
-                color: modes[mode].color, 
+              style={{
+                color: modes[mode].color,
                 borderColor: modes[mode].color,
                 backgroundColor: `${modes[mode].color}08`
               }}
@@ -160,7 +166,7 @@ const PomodoroModal = ({ isOpen, onClose }) => {
               </span>
               {isLoadingTip ? t('pomodoro.generating') : (mode === 'focus' ? t('pomodoro.focus_tip') : t('pomodoro.break_tip'))}
             </button>
-            
+
             {aiTip && (
               <div className="ai-tip-content">
                 <span className="material-symbols-outlined tip-icon" style={{ color: modes[mode].color }}>lightbulb</span>

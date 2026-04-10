@@ -1,33 +1,30 @@
-import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { useNavigate, useLocation } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
-const Footer = () => {
-  const navigate = useNavigate();
-  const { t } = useTranslation();
-  const location = useLocation();
+const Footer: React.FC = () => {
+  const navigate = useNavigate()
+  const { t } = useTranslation()
+  const location = useLocation()
 
-  const handleNavigation = (e, selector) => {
-    e.preventDefault();
+  const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, selector: string | null) => {
+    e.preventDefault()
     if (location.pathname !== '/') {
-      navigate('/');
-      // Simple timeout to allow navigation to happen before scrolling
-      // In a production app, we might use a context or query param to handle this better
+      navigate('/')
       if (selector) {
         setTimeout(() => {
-            const element = document.querySelector(selector);
-            if (element) element.scrollIntoView({ behavior: 'smooth' });
-        }, 500);
+            const element = document.querySelector(selector)
+            if (element) element.scrollIntoView({ behavior: 'smooth' })
+        }, 500)
       }
     } else {
       if (selector) {
-        const element = document.querySelector(selector);
-        if (element) element.scrollIntoView({ behavior: 'smooth' });
+        const element = document.querySelector(selector)
+        if (element) element.scrollIntoView({ behavior: 'smooth' })
       } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: 'smooth' })
       }
     }
-  };
+  }
 
   return (
       <footer className="landing-footer">
@@ -54,9 +51,9 @@ const Footer = () => {
           <div className="footer-links-container">
             <div className="footer-column">
               <h4>{t('footer.nav_title')}</h4>
-              <a href="#" onClick={(e) => handleNavigation(e, null)}>{t('footer.nav_home')}</a>
-              <a href="#" onClick={(e) => handleNavigation(e, '.features-section')}>{t('footer.nav_features')}</a>
-              <a href="#" onClick={(e) => handleNavigation(e, '.educational-focus')}>{t('footer.nav_education')}</a>
+              <a href="#" onClick={(e) => handleNavigation(e as any, null)}>{t('footer.nav_home')}</a>
+              <a href="#" onClick={(e) => handleNavigation(e as any, '.features-section')}>{t('footer.nav_features')}</a>
+              <a href="#" onClick={(e) => handleNavigation(e as any, '.educational-focus')}>{t('footer.nav_education')}</a>
             </div>
             <div className="footer-column">
               <h4>{t('footer.legal_title')}</h4>
@@ -93,7 +90,7 @@ const Footer = () => {
           </div>
         </div>
       </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

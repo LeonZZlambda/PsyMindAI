@@ -1,16 +1,17 @@
-import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import '../styles/chat.css';
 import ReactMarkdown from 'react-markdown';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
-import { useTranslation, Trans } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { useChat } from '../context/ChatContext';
 import Prism from 'prismjs';
 import 'prismjs/themes/prism-tomorrow.css';
 import DOMPurify from 'dompurify';
 import logger from '../utils/logger';
+import type { ChatMessage } from '@/types/storage';
 
-const CopyButton = ({ text }) => {
+const CopyButton: React.FC<{ text: string }> = ({ text }) => {
   const [copied, setCopied] = useState(false);
   const { t } = useTranslation();
 
@@ -35,7 +36,7 @@ const CopyButton = ({ text }) => {
   );
 };
 
-const CodeCopyButton = ({ text }) => {
+const CodeCopyButton: React.FC<{ text: string }> = ({ text }) => {
   const [copied, setCopied] = useState(false);
   const { t } = useTranslation();
 
@@ -59,59 +60,64 @@ const CodeCopyButton = ({ text }) => {
   );
 };
 
-const ImageViewer = ({ src, alt, onClose }) => {
+const ImageViewer: React.FC<{ src: string; alt: string; onClose: () => void }> = ({ src, alt, onClose }) => {
   const [copied, setCopied] = useState(false);
   const { t } = useTranslation();
 
-  const handleCopy = async (e) => {
+  const handleCopy = async (e: React.MouseEvent) => {
     e.stopPropagation();
-        try {
-          const response = await fetch(src);
-          const blob = await response.blob();
+    try {
+      const response = await fetch(src);
+      const blob = await response.blob();
 
-          try {
-            await navigator.clipboard.write([
-              new ClipboardItem({
-                [blob.type]: blob
-              })
-            ]);
-            setCopied(true);
-            toast.success(t('chat.messages.image_copied'));
-            setTimeout(() => setCopied(false), 2000);
-          } catch (writeErr) {
-            const img = new Image();
-            img.crossOrigin = "anonymous";
-            img.src = src;
-            await new Promise((resolve, reject) => {
-              img.onload = resolve;
-              img.onerror = reject;
-            });
+      try {
+        // try direct clipboard write
+        // @ts-ignore ClipboardItem may not exist in some TS DOM libs
+        await navigator.clipboard.write([
+          new ClipboardItem({
+            [blob.type]: blob
+          })
+        ]);
+        setCopied(true);
+        toast.success(t('chat.messages.image_copied'));
+        setTimeout(() => setCopied(false), 2000);
+      } catch (writeErr) {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.src = src;
+        await new Promise((resolve, reject) => {
+          img.onload = resolve;
+          img.onerror = reject;
+        });
 
-            const canvas = document.createElement('canvas');
-            canvas.width = img.naturalWidth;
-            canvas.height = img.naturalHeight;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0);
+        const canvas = document.createElement('canvas');
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        const ctx = canvas.getContext('2d');
+        if (ctx) ctx.drawImage(img, 0, 0);
 
-            const pngBlob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+        const pngBlob: Blob | null = await new Promise((resolve) => canvas.toBlob(resolve as any, 'image/png'));
 
-            await navigator.clipboard.write([
-              new ClipboardItem({
-                'image/png': pngBlob
-              })
-            ]);
-            setCopied(true);
-            toast.success(t('chat.messages.image_copied'));
-            setTimeout(() => setCopied(false), 2000);
-          }
-        } catch (err) {
-          logger.error('Failed to copy:', err);
-          toast.error(t('chat.messages.copy_image_error'));
+        if (pngBlob) {
+          // @ts-ignore
+          await navigator.clipboard.write([
+            new ClipboardItem({
+              'image/png': pngBlob
+            })
+          ]);
+          setCopied(true);
+          toast.success(t('chat.messages.image_copied'));
+          setTimeout(() => setCopied(false), 2000);
         }
+      }
+    } catch (err) {
+      logger.error('Failed to copy:', err);
+      toast.error(t('chat.messages.copy_image_error'));
+    }
   };
 
   useEffect(() => {
-    const handleEsc = (e) => {
+    const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
     window.addEventListener('keydown', handleEsc);
@@ -121,9 +127,9 @@ const ImageViewer = ({ src, alt, onClose }) => {
   return (
     <motion.div 
       className="image-viewer-overlay"
-      initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
-      animate={{ opacity: 1, backdropFilter: "blur(5px)" }}
-      exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+      initial={{ opacity: 0, backdropFilter: 'blur(0px)' }}
+      animate={{ opacity: 1, backdropFilter: 'blur(5px)' }}
+      exit={{ opacity: 0, backdropFilter: 'blur(0px)' }}
       onClick={onClose}
     >
       <div className="viewer-header">
@@ -145,29 +151,29 @@ const ImageViewer = ({ src, alt, onClose }) => {
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
-        transition={{ type: "spring", damping: 25, stiffness: 300 }}
+        transition={{ type: 'spring', damping: 25, stiffness: 300 }}
         onClick={(e) => e.stopPropagation()}
       />
     </motion.div>
   );
 };
 
-const MessageList = () => {
+const MessageList: React.FC = () => {
   const { messages, isTyping, setInput, isAnonymous } = useChat();
   const { t, i18n } = useTranslation();
-  const messagesEndRef = useRef(null);
-  const chatContainerRef = useRef(null);
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const chatContainerRef = useRef<HTMLElement | null>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState<{ src: string; alt: string } | null>(null);
 
   const [dailyQuote, setDailyQuote] = useState('');
   const [isLoadingQuote, setIsLoadingQuote] = useState(true);
-  const [speakingId, setSpeakingId] = useState(null);
+  const [speakingId, setSpeakingId] = useState<number | null>(null);
 
-  const loadedPrismLanguagesRef = useRef(new Set());
-  const [prismLangTick, setPrismLangTick] = useState(0);
+  const loadedPrismLanguagesRef = useRef<Set<string>>(new Set());
+  const [, setPrismLangTick] = useState(0);
 
-  const normalizeLang = useCallback((lang) => {
+  const normalizeLang = useCallback((lang?: string) => {
     const l = String(lang || '').toLowerCase();
     if (l === 'js') return 'javascript';
     if (l === 'ts') return 'typescript';
@@ -177,10 +183,11 @@ const MessageList = () => {
     return l;
   }, []);
 
-  const ensurePrismLanguage = useCallback(async (rawLang) => {
+  const ensurePrismLanguage = useCallback(async (rawLang?: string) => {
     const lang = normalizeLang(rawLang);
     if (!lang) return;
-    if (Prism.languages[lang]) return;
+    // @ts-ignore prism runtime
+    if ((Prism as any).languages[lang]) return;
     if (loadedPrismLanguagesRef.current.has(lang)) return;
 
     loadedPrismLanguagesRef.current.add(lang);
@@ -188,20 +195,20 @@ const MessageList = () => {
       await import(`prismjs/components/prism-${lang}.js`);
       setPrismLangTick((x) => x + 1);
     } catch {
-      // Ignore unknown languages; we'll render plain text.
+      // ignore unknown languages
     }
   }, [normalizeLang]);
 
   useEffect(() => {
     const generateDailyQuote = () => {
-      const quotes = t('quotes:daily_quotes', { returnObjects: true });
+      const quotes = t('quotes:daily_quotes', { returnObjects: true }) as string[];
       if (!Array.isArray(quotes) || quotes.length === 0) {
         setDailyQuote('');
         setIsLoadingQuote(false);
         return;
       }
 
-      const dateKey = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+      const dateKey = new Date().toISOString().slice(0, 10);
       const storageKey = `psy:dailyQuote:${i18n.language}:${dateKey}`;
 
       try {
@@ -223,12 +230,11 @@ const MessageList = () => {
         // ignore storage parse errors
       }
 
-      // deterministic selection based on date + language
       const seedKey = `${i18n.language}:${dateKey}`;
       let hash = 0;
       for (let i = 0; i < seedKey.length; i++) {
         hash = (hash << 5) - hash + seedKey.charCodeAt(i);
-        hash |= 0; // convert to 32bit int
+        hash |= 0;
       }
       const index = Math.abs(hash) % quotes.length;
       const selected = quotes[index];
@@ -244,7 +250,7 @@ const MessageList = () => {
     };
 
     generateDailyQuote();
-  }, [t]);
+  }, [t, i18n.language]);
 
   const userScrolledUpRef = useRef(false);
   const isAutoScrollingRef = useRef(false);
@@ -256,18 +262,17 @@ const MessageList = () => {
   };
 
   const scrollToTop = () => {
-    chatContainerRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+    (chatContainerRef.current as HTMLElement | null)?.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const loadingPhrases = t('chat.messages.loading_phrases', { returnObjects: true });
-  const [loadingPhrase, setLoadingPhrase] = useState(loadingPhrases[0]);
+  const loadingPhrases = t('chat.messages.loading_phrases', { returnObjects: true }) as string[];
+  const [loadingPhrase, setLoadingPhrase] = useState(loadingPhrases[0] || '');
 
   useEffect(() => {
-    let interval;
+    let interval: number | undefined;
     if (isTyping) {
       setLoadingPhrase(loadingPhrases[Math.floor(Math.random() * loadingPhrases.length)]);
-      
-      interval = setInterval(() => {
+      interval = window.setInterval(() => {
         setLoadingPhrase(loadingPhrases[Math.floor(Math.random() * loadingPhrases.length)]);
       }, 2000);
     }
@@ -279,7 +284,7 @@ const MessageList = () => {
   }, [messages, isTyping]);
 
   const handleScroll = () => {
-    const el = chatContainerRef.current;
+    const el = chatContainerRef.current as HTMLElement | null;
     if (!el) return;
     const { scrollTop, scrollHeight, clientHeight } = el;
     const atBottom = scrollHeight - scrollTop - clientHeight < 60;
@@ -289,7 +294,7 @@ const MessageList = () => {
     setShowScrollTop(scrollTop > 300);
   };
 
-  const speakMessage = (text, id) => {
+  const speakMessage = (text: string, id: number) => {
     if ('speechSynthesis' in window) {
       if (speakingId === id) {
         window.speechSynthesis.cancel();
@@ -315,7 +320,7 @@ const MessageList = () => {
   return (
     <main 
       className="chat-container" 
-      ref={chatContainerRef} 
+      ref={chatContainerRef as any} 
       onScroll={handleScroll}
     > 
       {messages.length === 0 ? (
@@ -347,7 +352,7 @@ const MessageList = () => {
                       <span className="material-symbols-outlined quote-icon quote-end">format_quote</span>
                     </div>
                     <p className="quote-date">
-                      {new Date().toLocaleDateString(i18n.language === 'en' ? 'en-US' : 'pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }).replace(/^\w/, c => c.toUpperCase())}
+                      {new Date().toLocaleDateString(i18n.language === 'en' ? 'en-US' : 'pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }).replace(/^[a-z]/i, c => c.toUpperCase())}
                     </p>
                   </>
                 )}
@@ -432,7 +437,7 @@ const MessageList = () => {
       ) : (
         <div className="messages">
           <AnimatePresence>
-            {messages.map((message, index) => (
+            {messages.map((message: ChatMessage, index: number) => (
               <motion.div 
                 key={index} 
                   className={`message ${message.type} ${message.isStreaming ? 'streaming' : ''} ${isAnonymous ? 'anonymous' : ''}`}
@@ -453,15 +458,15 @@ const MessageList = () => {
                           <div key={i} className="message-file-item">
                             {file.type && file.type.startsWith('image/') && (file instanceof Blob || file instanceof File) ? (
                               <img 
-                                src={URL.createObjectURL(file)} 
+                                src={URL.createObjectURL(file as any)} 
                                 alt={file.name} 
                                 className="message-file-image clickable" 
-                                onClick={() => setSelectedImage({ src: URL.createObjectURL(file), alt: file.name })}
+                                onClick={() => setSelectedImage({ src: URL.createObjectURL(file as any), alt: file.name })}
                               />
                             ) : (
                               <div className="message-file-generic">
                                 <span className="material-symbols-outlined">description</span>
-                                <span>{file.name || t('chat.input.file')}</span>
+                                <span>{(file as any).name || t('chat.input.file')}</span>
                               </div>
                             )}
                           </div>
@@ -470,14 +475,14 @@ const MessageList = () => {
                     )}
                     <ReactMarkdown
                       components={{
-                        code({node, inline, className, children, ...props}) {
+                        code({node, inline, className, children, ...props}: any) {
                           const match = /language-(\w+)/.exec(className || '')
                           if (!inline && match) {
                             const lang = match[1];
                             ensurePrismLanguage(lang);
                             const normalized = normalizeLang(lang);
                             const codeText = String(children).replace(/\n$/, '');
-                            const grammar = Prism.languages[normalized];
+                            const grammar = (Prism as any).languages[normalized];
                             const highlighted = grammar ? Prism.highlight(codeText, grammar, normalized) : null;
                             return (
                               <div className="code-block-wrapper">

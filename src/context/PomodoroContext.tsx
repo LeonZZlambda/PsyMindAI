@@ -40,7 +40,7 @@ export const usePomodoro = (): PomodoroContextValue => {
   return context;
 };
 
-export const PomodoroProvider = ({ children }: { children: ReactNode }): JSX.Element => {
+export const PomodoroProvider = ({ children }: { children: ReactNode }) => {
   const [timeLeft, setTimeLeft] = useState(25 * 60);
   const [isActive, setIsActive] = useState(false);
   const [mode, setMode] = useState<PomodoroMode>('focus');

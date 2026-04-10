@@ -33,7 +33,7 @@ export const useEmotionalJournal = (): EmotionalJournalContextValue => {
   return context;
 };
 
-export const EmotionalJournalProvider = ({ children }: { children: ReactNode }): JSX.Element => {
+export const EmotionalJournalProvider = ({ children }: { children: ReactNode }) => {
   const [entries, setEntries] = useState<JournalEntry[]>(() => {
     const saved = localStorage.getItem('emotionalJournalEntries');
     return saved ? JSON.parse(saved) : [];

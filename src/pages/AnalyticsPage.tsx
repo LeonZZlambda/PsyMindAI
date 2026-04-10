@@ -1,58 +1,58 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
-import { useTheme } from '../context/ThemeContext';
-import '../styles/roadmap.css';
-import { Telemetry } from '../services/analytics/telemetry';
-import { generateMetaInsight } from '../services/chat/chatService';
-import { defaultConfig } from '../services/config/apiConfig';
-import Footer from '../components/Footer';
-import ScrollToTopButton from '../components/ScrollToTopButton';
-import LandingHeader from '../components/LandingHeader';
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { motion } from 'framer-motion'
+import { useTheme } from '../context/ThemeContext'
+import '../styles/roadmap.css'
+import { Telemetry } from '../services/analytics/telemetry'
+import { generateMetaInsight } from '../services/chat/chatService'
+import { defaultConfig } from '../services/config/apiConfig'
+import Footer from '../components/Footer'
+import ScrollToTopButton from '../components/ScrollToTopButton'
+import LandingHeader from '../components/LandingHeader'
 
-const AnalyticsPage = () => {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-  const { isDarkMode, toggleTheme } = useTheme();
+const AnalyticsPage: React.FC = () => {
+  const { t } = useTranslation()
+  const navigate = useNavigate()
+  const { isDarkMode } = useTheme()
   
-  const [derived, setDerived] = useState(null);
-  const [stats, setStats] = useState(null);
-  const [viewMode, setViewMode] = useState('global'); // 'global' | 'local'
+  const [derived, setDerived] = useState<any>(null)
+  const [stats, setStats] = useState<any>(null)
+  const [viewMode, setViewMode] = useState<'global' | 'local'>('global')
   
   // Meta-Análise State
-  const [metaInsight, setMetaInsight] = useState(null);
-  const [isGeneratingInsight, setIsGeneratingInsight] = useState(false);
+  const [metaInsight, setMetaInsight] = useState<any>(null)
+  const [isGeneratingInsight, setIsGeneratingInsight] = useState(false)
 
   useEffect(() => {
-    setDerived(Telemetry.getDerivedMetrics());
-    setStats(Telemetry.getStats());
-    window.scrollTo(0, 0);
-  }, []);
+    setDerived(Telemetry.getDerivedMetrics())
+    setStats(Telemetry.getStats())
+    window.scrollTo(0, 0)
+  }, [])
 
   const handleGenerateInsight = async () => {
     if (!defaultConfig.isConfigured()) {
-      alert(t('analytics_page.alerts.api_key'));
-      return;
+      alert(t('analytics_page.alerts.api_key'))
+      return
     }
-    setIsGeneratingInsight(true);
+    setIsGeneratingInsight(true)
     try {
-      const insight = await generateMetaInsight();
+      const insight = await generateMetaInsight()
       if (insight && insight.pattern && insight.suggestion) {
-        setMetaInsight(insight);
+        setMetaInsight(insight)
       } else {
-        alert(t('analytics_page.alerts.insufficient_data'));
+        alert(t('analytics_page.alerts.insufficient_data'))
       }
     } catch (e) {
-      alert(t('analytics_page.alerts.connection_failed'));
+      alert(t('analytics_page.alerts.connection_failed'))
     } finally {
-      setIsGeneratingInsight(false);
+      setIsGeneratingInsight(false)
     }
-  };
+  }
 
   const handleExport = () => {
-    Telemetry.exportData();
-  };
+    Telemetry.exportData()
+  }
 
   // Mock global data since the app is currently client-only
   const globalStats = {
@@ -67,23 +67,22 @@ const AnalyticsPage = () => {
       { label: 'Mural de Resoluções', val: 12400, pct: 29.1 },
       { label: 'Mapas Mentais', val: 8900, pct: 20.9 }
     ]
-  };
+  }
 
   const getChartData = () => {
-    if (!stats || !stats.featuresUsed) return [];
-    // Convert to array and sort
-    const entries = Object.entries(stats.featuresUsed).sort((a,b) => b[1] - a[1]).slice(0, 5);
-    const maxVal = Math.max(...entries.map(e => e[1]), 1);
-    return entries.map(([label, val]) => ({
+    if (!stats || !stats.featuresUsed) return []
+    const entries = Object.entries(stats.featuresUsed).sort((a: any,b: any) => b[1] - a[1]).slice(0, 5)
+    const maxVal = Math.max(...entries.map((e: any) => e[1]), 1)
+    return entries.map(([label, val]: any) => ({
       label,
       val,
       pct: (val / maxVal) * 100
-    }));
-  };
+    }))
+  }
 
-  if (!derived || !stats) return null;
+  if (!derived || !stats) return null
 
-  const chartData = getChartData();
+  const chartData = getChartData()
 
   return (
     <motion.div 
@@ -204,7 +203,6 @@ const AnalyticsPage = () => {
               </div>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
-                
                 {/* Meta Insight Panel */}
                 <div style={{ background: 'linear-gradient(135deg, rgba(82, 196, 26, 0.1) 0%, rgba(0, 121, 107, 0.1) 100%)', border: '1px solid var(--primary-color)', padding: '24px', borderRadius: '16px', display: 'flex', flexDirection: 'column', gap: '15px' }}>
                   <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '15px' }}>
@@ -285,7 +283,7 @@ const AnalyticsPage = () => {
                 
                 {chartData.length > 0 ? (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-                    {chartData.map((item, idx) => (
+                    {chartData.map((item: any, idx: number) => (
                       <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                         <span style={{ width: '100px', fontSize: '0.95rem', color: 'var(--text-color)', textTransform: 'capitalize', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                           {item.label}
@@ -330,7 +328,7 @@ const AnalyticsPage = () => {
       <ScrollToTopButton />
       <Footer />
     </motion.div>
-  );
-};
+  )
+}
 
-export default AnalyticsPage;
+export default AnalyticsPage

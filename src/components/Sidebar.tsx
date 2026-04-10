@@ -1,52 +1,60 @@
-import React from 'react';
-import '../styles/sidebar.css';
-import { toast } from 'sonner';
-import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { useChat } from '../context/ChatContext';
-import { Telemetry } from '../services/analytics/telemetry';
+import { useNavigate } from 'react-router-dom'
+import '../styles/sidebar.css'
+import { toast } from 'sonner'
+import { useTranslation } from 'react-i18next'
+import { useChat } from '../context/ChatContext'
+import { Telemetry } from '../services/analytics/telemetry'
 
-const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onAnonymousChat, onChatSelect, isNewChatAnimating, onOpenSettings, onOpenHelp }) => {
-  const navigate = useNavigate();
-  const { loadChat, chats = [], currentChatId, deleteChat } = useChat();
-  const { t } = useTranslation();
-  
-  const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
-  const cmdKey = isMac ? '⌘' : 'Ctrl';
-  const shiftKey = isMac ? '⇧' : 'Shift';
+interface SidebarProps {
+  isOpen: boolean;
+  toggleSidebar: () => void;
+  onNewChat: () => void;
+  onAnonymousChat: () => void;
+  onChatSelect: () => void;
+  isNewChatAnimating: boolean;
+  onOpenSettings: () => void;
+  onOpenHelp: (tab?: string) => void;
+}
 
-  const handleChatClick = (chatId) => {
-    loadChat(chatId);
-    if (onChatSelect) {
-      onChatSelect();
-    }
-  };
+const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, onNewChat, onAnonymousChat, onChatSelect, isNewChatAnimating, onOpenSettings, onOpenHelp }) => {
+  const navigate = useNavigate()
+  const { loadChat, chats = [], currentChatId, deleteChat } = useChat()
+  const { t } = useTranslation()
   
-  const handleDeleteChat = (e, chatId) => {
-    e.stopPropagation();
-    deleteChat(chatId);
-    toast.success(t('sidebar.chat_deleted'));
-  };
+  const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform)
+  const cmdKey = isMac ? '⌘' : 'Ctrl'
+  const shiftKey = isMac ? '⇧' : 'Shift'
+
+  const handleChatClick = (chatId: string) => {
+    loadChat(chatId)
+    if (onChatSelect) onChatSelect()
+  }
   
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const now = new Date();
-    const diffMs = now - date;
-    const diffMins = Math.floor(diffMs / 60000);
-    const diffHours = Math.floor(diffMs / 3600000);
-    const diffDays = Math.floor(diffMs / 86400000);
+  const handleDeleteChat = (e: React.MouseEvent, chatId: string) => {
+    e.stopPropagation()
+    deleteChat(chatId)
+    toast.success(t('sidebar.chat_deleted'))
+  }
+  
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString)
+    const now = new Date()
+    const diffMs = now.getTime() - date.getTime()
+    const diffMins = Math.floor(diffMs / 60000)
+    const diffHours = Math.floor(diffMs / 3600000)
+    const diffDays = Math.floor(diffMs / 86400000)
     
-    if (diffMins < 1) return t('sidebar.time.now');
-    if (diffMins < 60) return t('sidebar.time.minutes_ago', { count: diffMins });
-    if (diffHours < 24) return t('sidebar.time.hours_ago', { count: diffHours });
-    if (diffDays === 1) return t('sidebar.time.yesterday');
-    if (diffDays < 7) return t('sidebar.time.days_ago', { count: diffDays });
+    if (diffMins < 1) return t('sidebar.time.now')
+    if (diffMins < 60) return t('sidebar.time.minutes_ago', { count: diffMins })
+    if (diffHours < 24) return t('sidebar.time.hours_ago', { count: diffHours })
+    if (diffDays === 1) return t('sidebar.time.yesterday')
+    if (diffDays < 7) return t('sidebar.time.days_ago', { count: diffDays })
     
     return t('sidebar.time.date', { 
       day: date.getDate().toString().padStart(2, '0'), 
       month: (date.getMonth() + 1).toString().padStart(2, '0') 
-    });
-  };
+    })
+  }
 
   return (
     <aside className={`sidebar ${!isOpen ? 'closed' : ''}`} aria-label={t('sidebar.menu_aria')}>
@@ -101,7 +109,7 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onAnonymousChat, onChatSele
             onClick={() => handleChatClick(chat.id)}
             role="button"
             tabIndex={0}
-            onKeyDown={(e) => e.key === 'Enter' && handleChatClick(chat.id)}
+            onKeyDown={(e) => (e as any).key === 'Enter' && handleChatClick(chat.id)}
             aria-label={`Carregar chat: ${chat.title}`}
           >
             <span className="material-symbols-outlined">chat_bubble_outline</span>
@@ -153,7 +161,7 @@ const Sidebar = ({ isOpen, toggleSidebar, onNewChat, onAnonymousChat, onChatSele
         </button>
       </div>
     </aside>
-  );
-};
+  )
+}
 
-export default Sidebar;
+export default Sidebar
