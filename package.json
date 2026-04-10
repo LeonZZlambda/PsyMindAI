@@ -11,6 +11,9 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
+    "test": "vitest",
+    "test:ci": "vitest run --coverage --reporter=dot",
+    "test:coverage": "vitest run --coverage --reporter=lcov",
     "preview": "vite preview",
     "start": "vite preview --host 0.0.0.0 --port $PORT"
   },
@@ -22,8 +25,11 @@
     "prismjs": "^1.30.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-error-boundary": "^6.0.0",
-    "react-i18next": "^17.0.2",
+    "vite": "^7.2.4",
+    "vite-plugin-pwa": "^1.2.0",
+    "vitest": "^1.4.2",
+    "@vitest/coverage-v8": "^1.0.0",
+    "jsdom": "^22.1.0"
     "react-markdown": "^10.1.0",
     "react-router-dom": "^7.9.6",
     "react-simple-code-editor": "^0.14.1",
