@@ -28,7 +28,13 @@ interface ModalRendererProps {
 
 export const ModalRenderer: React.FC<ModalRendererProps> = ({ openModals, toggleModal, helpInitialTab = 'faq' }) => {
   return (
-    <Suspense fallback={null}>
+    <Suspense
+      fallback={
+        <div role="status" aria-live="polite" className="suspense-fallback" style={{padding: 12}}>
+          Carregando…
+        </div>
+      }
+    >
       {/* Account Modal */}
       {openModals.account && (
         <AccountModal

@@ -5,13 +5,26 @@ export const Telemetry = {
   
   isOptedIn() {
     const pref = localStorage.getItem('psymind_telemetry_optin');
-    return pref !== 'false'; // Permite habilitado por padrão, a menos que o usuário ativamente negue
+    // Por privacidade, default agora é opt-out: somente true quando o usuário aceitar explicitamente
+    return pref === 'true';
   },
 
   setOptIn(value) {
     localStorage.setItem('psymind_telemetry_optin', value ? 'true' : 'false');
-    if (!value) {
+    if (value) {
+      // Se o usuário aceitar, inicializa a telemetria (init é idempotente)
+      try {
+        this.init();
+      } catch (e) {
+        if (import.meta.env.DEV) console.warn('Telemetry.init failed', e);
+      }
+    } else {
       // Limpa rastros coletados caso ele desative (privacidade total)
+      try {
+        this.endSession();
+      } catch (e) {
+        // ignore
+      }
       localStorage.removeItem('psymind_telemetry_events');
       localStorage.removeItem('psymind_telemetry_stats');
     }

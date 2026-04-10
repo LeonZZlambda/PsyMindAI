@@ -123,7 +123,7 @@ const LandingPage: React.FC = () => {
           whileHover={{ y: -5 }}
         >
           <span className="material-symbols-outlined feature-icon">school</span>
-          <h3>{t('landing.features.study_focus.title')}</h3>
+          <h2>{t('landing.features.study_focus.title')}</h2>
           <p>{t('landing.features.study_focus.description')}</p>
         </motion.div>
         <motion.div 
@@ -135,7 +135,7 @@ const LandingPage: React.FC = () => {
           whileHover={{ y: -5 }}
         >
           <span className="material-symbols-outlined feature-icon">self_improvement</span>
-          <h3>{t('landing.features.anxiety_control.title')}</h3>
+          <h2>{t('landing.features.anxiety_control.title')}</h2>
           <p>{t('landing.features.anxiety_control.description')}</p>
         </motion.div>
         <motion.div 
@@ -147,7 +147,7 @@ const LandingPage: React.FC = () => {
           whileHover={{ y: -5 }}
         >
           <span className="material-symbols-outlined feature-icon">schedule</span>
-          <h3>{t('landing.features.always_available.title')}</h3>
+          <h2>{t('landing.features.always_available.title')}</h2>
           <p>{t('landing.features.always_available.description')}</p>
         </motion.div>
       </section>

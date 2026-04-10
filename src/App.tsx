@@ -47,7 +47,13 @@ function App() {
 
   // Initial tracking
   useEffect(() => {
-    Telemetry.init();
+    try {
+      if (Telemetry && typeof Telemetry.isOptedIn === 'function' && Telemetry.isOptedIn()) {
+        Telemetry.init();
+      }
+    } catch (e) {
+      if (import.meta.env.DEV) console.warn('Telemetry init check failed', e);
+    }
   }, []);
 
   const handleNewChat = useCallback(() => {
@@ -150,7 +156,13 @@ function App() {
             </>
           )}
           
-          <Suspense fallback={null}>
+          <Suspense
+            fallback={
+              <main role="main" aria-busy="true" aria-live="polite" className="suspense-fallback">
+                <div role="status" className="loading">Carregando…</div>
+              </main>
+            }
+          >
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/roadmap" element={<RoadmapPage />} />

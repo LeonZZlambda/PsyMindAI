@@ -331,3 +331,101 @@ body.high-contrast, .app.high-contrast .suggestion:active .material-symbols-outl
   50% { transform: scale(1.1); }
   100% { transform: scale(1); }
 }
+
+/* Telemetry consent toast (accessible modal-like) */
+.telemetry-consent-toast {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 9999;
+  max-width: 380px;
+  width: calc(100% - 40px);
+}
+
+.telemetry-consent-content {
+  background: var(--card-bg, #ffffff);
+  color: var(--text-color, #202124);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+.telemetry-consent-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.telemetry-consent-header .icon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.telemetry-consent-content p {
+  margin: 6px 0;
+  font-size: 0.95rem;
+}
+
+.telemetry-consent-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+.telemetry-consent-actions .btn-accept {
+  background: var(--primary-color, #4f46e5);
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.telemetry-consent-actions .btn-decline {
+  background: transparent;
+  color: var(--text-color, #202124);
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.telemetry-consent-actions .btn-more-info {
+  align-self: center;
+  color: var(--primary-color, #4f46e5);
+  text-decoration: underline;
+  background: transparent;
+  border: none;
+  padding: 6px 8px;
+  cursor: pointer;
+}
+
+.telemetry-consent-actions button:focus-visible,
+.telemetry-consent-actions a:focus-visible {
+  outline: 3px solid var(--primary-color, #4f46e5);
+  outline-offset: 3px;
+}
+
+/* Suspense accessible fallback */
+.suspense-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40vh;
+  padding: 24px;
+  text-align: center;
+  color: var(--muted-text, #444);
+}
+
+.suspense-fallback .loading {
+  font-size: 1rem;
+}
+
+/* Modal focus outline when programmatically focused */
+.modal-content:focus {
+  outline: 3px solid var(--primary-color, #4f46e5);
+  outline-offset: 4px;
+}
