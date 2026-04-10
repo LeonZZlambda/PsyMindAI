@@ -98,10 +98,15 @@ export const ChatProvider = ({ children }: { children: ReactNode }): JSX.Element
   }, [currentChatId, chats]);
 
   const sendMessage = useCallback(
-    async (text: string, files: any[] = []): Promise<void> => {
+    async (text: string, files: (File | Blob)[] = []): Promise<void> => {
       if (!text.trim() && files.length === 0) return;
 
-      const userMessage = createUserMessage(text, files);
+        // Normalize File/Blob inputs into FileAttachment shape expected by storage
+        const fileAttachments = Array.isArray(files)
+          ? files.map((f) => ({ name: (f as File).name || 'file', size: (f as File).size || 0, type: (f as File).type || 'application/octet-stream' }))
+          : [];
+
+        const userMessage = createUserMessage(text, fileAttachments);
 
       let chatId = currentChatId;
       if (!chatId) {
