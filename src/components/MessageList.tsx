@@ -71,10 +71,9 @@ const ImageViewer: React.FC<{ src: string; alt: string; onClose: () => void }> =
       const blob = await response.blob();
 
       try {
-        // try direct clipboard write
-        // @ts-ignore ClipboardItem may not exist in some TS DOM libs
+        const ClipboardItemConstructor = (globalThis as any).ClipboardItem;
         await navigator.clipboard.write([
-          new ClipboardItem({
+          new ClipboardItemConstructor({
             [blob.type]: blob
           })
         ]);
@@ -99,9 +98,9 @@ const ImageViewer: React.FC<{ src: string; alt: string; onClose: () => void }> =
         const pngBlob: Blob | null = await new Promise((resolve) => canvas.toBlob(resolve as any, 'image/png'));
 
         if (pngBlob) {
-          // @ts-ignore
+          const ClipboardItemConstructor = (globalThis as any).ClipboardItem;
           await navigator.clipboard.write([
-            new ClipboardItem({
+            new ClipboardItemConstructor({
               'image/png': pngBlob
             })
           ]);
@@ -186,7 +185,6 @@ const MessageList: React.FC = () => {
   const ensurePrismLanguage = useCallback(async (rawLang?: string) => {
     const lang = normalizeLang(rawLang);
     if (!lang) return;
-    // @ts-ignore prism runtime
     if ((Prism as any).languages[lang]) return;
     if (loadedPrismLanguagesRef.current.has(lang)) return;
 
@@ -340,9 +338,9 @@ const MessageList: React.FC = () => {
             <>
               <div className="daily-quote-wrapper">
                 {isLoadingQuote ? (
-                  <div className="daily-quote-container" style={{ opacity: 0.6 }}>
-                    <span className="material-symbols-outlined quote-icon" style={{ animation: 'spin 2s linear infinite' }}>autorenew</span>
-                    <p className="daily-quote" style={{ color: 'var(--text-light)' }}>{t('chat.messages.generating_quote')}</p>
+                  <div className="daily-quote-container loading">
+                    <span className="material-symbols-outlined quote-icon loading">autorenew</span>
+                    <p className="daily-quote loading">{t('chat.messages.generating_quote')}</p>
                   </div>
                 ) : (
                   <>
@@ -362,28 +360,15 @@ const MessageList: React.FC = () => {
           )}
           
           {isAnonymous ? (
-            <div 
-              className="anonymous-disclaimer" 
-              style={{
-                backgroundColor: 'var(--bg-color-secondary, rgba(255,255,255,0.05))',
-                border: '1px solid var(--border-color, rgba(200,200,200,0.1))',
-                borderRadius: '12px',
-                padding: '24px',
-                marginTop: '16px',
-                textAlign: 'center',
-                color: 'var(--text-color-secondary, #aaa)',
-                maxWidth: '700px',
-                margin: '16px auto 0 auto'
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
-                <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color, #e0a3ff)' }}>visibility_off</span>
+            <div className="anonymous-disclaimer">
+              <div className="anonymous-notice-container">
+                <span className="material-symbols-outlined anonymous-notice-icon">visibility_off</span>
               </div>
-              <h3 style={{ fontSize: '1.2rem', marginBottom: '12px', color: 'var(--text-color, #fff)' }}>{t('chat.messages.anonymous_private_mode_title')}</h3>
-              <p style={{ fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '12px' }}>
+              <h3 className="anonymous-notice-title">{t('chat.messages.anonymous_private_mode_title')}</h3>
+              <p className="anonymous-notice-desc">
                 <strong>{t('chat.messages.anonymous_desc_1')}</strong>
               </p>
-              <p style={{ fontSize: '0.85rem', lineHeight: '1.5', opacity: 0.8 }}>
+              <p className="anonymous-notice-sub">
                 {t('chat.messages.anonymous_desc_2')}
               </p>
             </div>

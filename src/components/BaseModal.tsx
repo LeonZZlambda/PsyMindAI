@@ -1,17 +1,20 @@
-import React, { useEffect, useRef } from 'react'
-import { useModalAnimation, useEscapeKey } from '../hooks'
+import React, { useEffect, useRef } from 'react';
+import { useModalAnimation, useEscapeKey } from '../hooks';
 
-interface BaseModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  title?: string;
-  children?: React.ReactNode | ((args: { handleClose: () => void }) => React.ReactNode);
-  size?: 'small' | 'medium' | 'large';
-  closeButton?: boolean;
-  className?: string;
-}
-
-export const BaseModal: React.FC<BaseModalProps> = ({
+/**
+ * BaseModal Component - Wrapper universal para todos os modals
+ * Gerencia animações, ESC key, overlay click
+ * 
+ * Props:
+ * - isOpen {boolean} - Se o modal está aberto
+ * - onClose {Function} - Callback ao fechar
+ * - title {string} - Título do modal
+ * - children {React.ReactNode} - Conteúdo do modal
+ * - size {string} - Tamanho: 'small' | 'medium' (default) | 'large'
+ * - closeButton {boolean} - Mostrar botão X de fechar (default: true)
+ * - className {string} - Classe CSS adicional para modal-content
+ */
+export const BaseModal = ({
   isOpen,
   onClose,
   title,
@@ -20,27 +23,22 @@ export const BaseModal: React.FC<BaseModalProps> = ({
   closeButton = true,
   className = '',
 }) => {
-  const [isClosing, handleClose] = useModalAnimation(onClose)
+  const [isClosing, handleClose] = useModalAnimation(onClose);
 
-  // ESC key closes modal
-  useEscapeKey(handleClose, isOpen)
+  // ESC key fecha o modal
+  useEscapeKey(handleClose, isOpen);
 
-  if (!isOpen && !isClosing) return null
+  // Focus management (declare refs before early returns to keep hooks order stable)
+  const contentRef = useRef(null)
+  const closeBtnRef = useRef(null)
+  const prevActiveRef = useRef(null)
 
-  // Focus management
-  const contentRef = useRef<HTMLDivElement | null>(null)
-  const closeBtnRef = useRef<HTMLButtonElement | null>(null)
-  const prevActiveRef = useRef<HTMLElement | null>(null)
-
-  // unique ids to avoid collisions when multiple modals present
   const titleIdRef = useRef(`modal-title-${Math.random().toString(36).slice(2, 9)}`)
   const bodyIdRef = useRef(`modal-body-${Math.random().toString(36).slice(2, 9)}`)
-
   useEffect(() => {
     if (isOpen) {
-      prevActiveRef.current = document.activeElement as HTMLElement
+      prevActiveRef.current = document.activeElement
 
-      // focus close button if present, otherwise focus content container
       setTimeout(() => {
         if (closeBtnRef.current) {
           closeBtnRef.current.focus()
@@ -50,11 +48,11 @@ export const BaseModal: React.FC<BaseModalProps> = ({
         }
       }, 50)
 
-      const handleKeyDown = (e: KeyboardEvent) => {
+      const handleKeyDown = (e) => {
         if (e.key !== 'Tab') return
         const nodes = contentRef.current?.querySelectorAll('a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex]:not([tabindex="-1"])')
         if (!nodes || nodes.length === 0) return
-        const focusable = Array.prototype.slice.call(nodes).filter((n: HTMLElement) => n.offsetParent !== null)
+        const focusable = Array.prototype.slice.call(nodes).filter((n) => n.offsetParent !== null)
         const first = focusable[0]
         const last = focusable[focusable.length - 1]
 
@@ -79,11 +77,15 @@ export const BaseModal: React.FC<BaseModalProps> = ({
     }
   }, [isOpen])
 
-  const handleOverlayClick = (e: React.MouseEvent) => {
+  // Se não está aberto e não está fechando, não renderiza nada
+  if (!isOpen && !isClosing) return null;
+
+  const handleOverlayClick = (e) => {
+    // Fecha apenas ao clicar no overlay, não no conteúdo
     if (e.target === e.currentTarget) {
-      handleClose()
+      handleClose();
     }
-  }
+  };
 
   return (
     <div
@@ -100,6 +102,7 @@ export const BaseModal: React.FC<BaseModalProps> = ({
         aria-labelledby={title ? titleIdRef.current : undefined}
         aria-describedby={bodyIdRef.current}
       >
+        {/* Header com título e botão fechar */}
         {title && (
           <div className="modal-header">
             <h2 id={titleIdRef.current}>{title}</h2>
@@ -116,12 +119,13 @@ export const BaseModal: React.FC<BaseModalProps> = ({
           </div>
         )}
 
+        {/* Conteúdo do modal */}
         <div id={bodyIdRef.current} className="modal-body">
           {typeof children === 'function' ? children({ handleClose }) : children}
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default BaseModal
+export default BaseModal;

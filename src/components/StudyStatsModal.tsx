@@ -171,7 +171,7 @@ const StudyStatsModal: React.FC<Props> = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
-  const { weeklyData, disciplines } = computedStats as any;
+  const { weeklyData, disciplines } = computedStats;
 
   const chartWidth = 500;
   const chartHeight = 160;
@@ -179,14 +179,14 @@ const StudyStatsModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const paddingTop = 30;
   const paddingBottom = 40;
 
-  const points = weeklyData.map((d: any, i: number) => {
+  const points = weeklyData.map((d, i: number) => {
     const x = paddingX + (i * ((chartWidth - paddingX * 2) / (weeklyData.length - 1)));
     const y = chartHeight - paddingBottom - (d.percent / 100) * (chartHeight - paddingTop - paddingBottom);
     return { x, y, ...d };
   });
 
-  const polylinePoints = points.map((p: any) => `${p.x},${p.y}`).join(' ');
-  const polygonPoints = `${Math.min(...points.map((p: any) => p.x))},${chartHeight - paddingBottom} ${polylinePoints} ${Math.max(...points.map((p: any) => p.x))},${chartHeight - paddingBottom}`;
+  const polylinePoints = points.map((p) => `${p.x},${p.y}`).join(' ');
+  const polygonPoints = `${Math.min(...points.map((p) => p.x))},${chartHeight - paddingBottom} ${polylinePoints} ${Math.max(...points.map((p) => p.x))},${chartHeight - paddingBottom}`;
 
   return (
     <motion.div
@@ -268,7 +268,7 @@ const StudyStatsModal: React.FC<Props> = ({ isOpen, onClose }) => {
             <div style={{ background: 'var(--card-hover)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-color)', textAlign: 'center' }}>
               <span className="material-symbols-outlined" style={{ fontSize: '28px', color: '#4CAF50', marginBottom: '8px' }}>psychology</span>
               <h3 style={{ margin: '0 0 4px 0', fontSize: '0.85rem', color: 'var(--text-light)' }}>{t('study_stats.metrics.avg_focus')}</h3>
-              <p style={{ margin: 0, fontSize: '1.4rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{(computedStats as any).avgFocus}</p>
+              <p style={{ margin: 0, fontSize: '1.4rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{computedStats.avgFocus}</p>
             </div>
 
             <div style={{ background: 'var(--card-hover)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-color)', textAlign: 'center' }}>
@@ -329,7 +329,7 @@ const StudyStatsModal: React.FC<Props> = ({ isOpen, onClose }) => {
                     transition={{ duration: 0.8, ease: 'easeInOut' }}
                   />
 
-                  {points.map((p: any, i: number) => (
+                  {points.map((p, i: number) => (
                     <g key={i}>
                       <motion.circle
                         cx={p.x} cy={p.y} r={p.active ? 6 : 4}
@@ -376,7 +376,7 @@ const StudyStatsModal: React.FC<Props> = ({ isOpen, onClose }) => {
 
             <div style={{ background: 'var(--card-hover)', padding: '20px', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                {disciplines.map((item: any, i: number) => (
+                {disciplines.map((item, i: number) => (
                   <div key={i}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.85rem' }}>
                       <span style={{ color: 'var(--text-color)', fontWeight: '500' }}>{item.topic}</span>
@@ -392,7 +392,7 @@ const StudyStatsModal: React.FC<Props> = ({ isOpen, onClose }) => {
               <div style={{ marginTop: '20px', padding: '12px', background: 'var(--user-msg-bg)', borderRadius: '8px', display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
                 <span className="material-symbols-outlined" style={{ color: 'var(--primary-color)', fontSize: '20px' }}>lightbulb</span>
                 <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-color)', lineHeight: '1.4' }}>
-                  <strong>{t('study_stats.ai_tip.label')}</strong> {(computedStats as any).aiTip}
+                  <strong>{t('study_stats.ai_tip.label')}</strong> {computedStats.aiTip}
                 </p>
               </div>
 

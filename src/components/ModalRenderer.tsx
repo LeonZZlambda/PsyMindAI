@@ -1,124 +1,120 @@
-import { Suspense, lazy } from 'react'
-import { AnimatePresence } from 'framer-motion'
-import type { ModalState, ModalName } from '../context/ModalContext'
+import { Suspense, lazy, useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
 
 // Lazy load modals to improve initial load performance
-const AccountModal = lazy(() => import('./AccountModal'))
-const SettingsModal = lazy(() => import('./SettingsModal'))
-const HelpModal = lazy(() => import('./HelpModal'))
-const SupportModal = lazy(() => import('./SupportModal'))
-const ReflectionsModal = lazy(() => import('./ReflectionsModal'))
-const MoodTrackerModal = lazy(() => import('./MoodTrackerModal'))
-const EmotionalJournalModal = lazy(() => import('./EmotionalJournalModal'))
-const ImportContextModal = lazy(() => import('./ImportContextModal'))
-const StudyStatsModal = lazy(() => import('./StudyStatsModal'))
-const GuidedLearningModal = lazy(() => import('./GuidedLearningModal'))
-const PomodoroModal = lazy(() => import('./PomodoroModal'))
-const ExamsModal = lazy(() => import('./ExamsModal'))
-const KindnessModal = lazy(() => import('./KindnessModal'))
-const JudgeModal = lazy(() => import('./JudgeModal'))
-const QuizModal = lazy(() => import('./QuizModal'))
-const SoundscapesModal = lazy(() => import('./SoundscapesModal'))
+const AccountModal = lazy(() => import('./AccountModal'));
+const SettingsModal = lazy(() => import('./SettingsModal'));
+const HelpModal = lazy(() => import('./HelpModal'));
+const SupportModal = lazy(() => import('./SupportModal'));
+const ReflectionsModal = lazy(() => import('./ReflectionsModal'));
+const MoodTrackerModal = lazy(() => import('./MoodTrackerModal'));
+const EmotionalJournalModal = lazy(() => import('./EmotionalJournalModal'));
+const ImportContextModal = lazy(() => import('./ImportContextModal'));
+const StudyStatsModal = lazy(() => import('./StudyStatsModal'));
+const GuidedLearningModal = lazy(() => import('./GuidedLearningModal'));
+const PomodoroModal = lazy(() => import('./PomodoroModal'));
+const ExamsModal = lazy(() => import('./ExamsModal'));
+const KindnessModal = lazy(() => import('./KindnessModal'));
+const JudgeModal = lazy(() => import('./JudgeModal'));
+const QuizModal = lazy(() => import('./QuizModal'));
+const SoundscapesModal = lazy(() => import('./SoundscapesModal'));
 
-interface ModalRendererProps {
-  openModals: ModalState;
-  toggleModal: (modal: ModalName) => void;
-  helpInitialTab?: string;
-}
-
-export const ModalRenderer: React.FC<ModalRendererProps> = ({ openModals, toggleModal, helpInitialTab = 'faq' }) => {
+/**
+ * ModalRenderer Component
+ * Centralizes rendering of all modals with Suspense and lazy loading
+ * 
+ * Props:
+ * - openModals: Object with boolean flags for each modal (from useModal hook)
+ * - toggleModal: Function to toggle modal state
+ * - helpInitialTab: Tab to open HelpModal with
+ */
+export const ModalRenderer = ({ openModals, toggleModal, helpInitialTab = 'faq' }) => {
   return (
-    <Suspense
-      fallback={
-        <div role="status" aria-live="polite" className="suspense-fallback" style={{padding: 12}}>
-          Carregando…
-        </div>
-      }
-    >
+    <Suspense fallback={null}>
       {/* Account Modal */}
-      {openModals.account && (
+      {openModals.accountModal && (
         <AccountModal
-          isOpen={openModals.account}
-          onClose={() => toggleModal('account')}
-          onOpenStudyStats={() => toggleModal('studyStats')}
+          isOpen={openModals.accountModal}
+          onClose={() => toggleModal('accountModal')}
+          onOpenStudyStats={() => toggleModal('studyStatsModal')}
           initialView="personalization"
         />
       )}
 
       {/* Settings Modal */}
-      {openModals.settings && (
+      {openModals.settingsModal && (
         <SettingsModal 
-          isOpen={openModals.settings} 
-          onClose={() => toggleModal('settings')}
-          onOpenImportContext={() => toggleModal('importContext')}
+          isOpen={openModals.settingsModal} 
+          onClose={() => toggleModal('settingsModal')}
+          onOpenImportContext={() => toggleModal('importContextModal')}
         />
       )}
 
       {/* Help Modal */}
-      {openModals.help && (
+      {openModals.helpModal && (
         <HelpModal 
-          isOpen={openModals.help} 
-          onClose={() => toggleModal('help')} 
+          isOpen={openModals.helpModal} 
+          onClose={() => toggleModal('helpModal')} 
           initialTab={helpInitialTab}
         />
       )}
 
       {/* Support Modal */}
-      {openModals.support && (
+      {openModals.supportModal && (
         <SupportModal 
-          isOpen={openModals.support} 
-          onClose={() => toggleModal('support')} 
+          isOpen={openModals.supportModal} 
+          onClose={() => toggleModal('supportModal')} 
         />
       )}
 
       {/* Reflections Modal */}
-      {openModals.reflections && (
+      {openModals.reflectionsModal && (
         <ReflectionsModal 
-          isOpen={openModals.reflections} 
-          onClose={() => toggleModal('reflections')} 
+          isOpen={openModals.reflectionsModal} 
+          onClose={() => toggleModal('reflectionsModal')} 
         />
       )}
 
       {/* Mood Tracker Modal */}
-      {openModals.moodTracker && (
+      {openModals.moodTrackerModal && (
         <MoodTrackerModal 
-          isOpen={openModals.moodTracker} 
-          onClose={() => toggleModal('moodTracker')} 
+          isOpen={openModals.moodTrackerModal} 
+          onClose={() => toggleModal('moodTrackerModal')} 
         />
       )}
 
       {/* Emotional Journal Modal */}
-      {openModals.emotionalJournal && (
+      {openModals.emotionalJournalModal && (
         <EmotionalJournalModal 
-          isOpen={openModals.emotionalJournal} 
-          onClose={() => toggleModal('emotionalJournal')} 
+          isOpen={openModals.emotionalJournalModal} 
+          onClose={() => toggleModal('emotionalJournalModal')} 
         />
       )}
 
       {/* Import Context Modal */}
-      {openModals.importContext && (
+      {openModals.importContextModal && (
         <ImportContextModal 
-          isOpen={openModals.importContext} 
-          onClose={() => toggleModal('importContext')} 
+          isOpen={openModals.importContextModal} 
+          onClose={() => toggleModal('importContextModal')} 
         />
       )}
 
       {/* Study Stats Modal */}
       <AnimatePresence>
-        {openModals.studyStats && (
+        {openModals.studyStatsModal && (
           <StudyStatsModal 
-            isOpen={openModals.studyStats} 
-            onClose={() => toggleModal('studyStats')} 
+            isOpen={openModals.studyStatsModal} 
+            onClose={() => toggleModal('studyStatsModal')} 
           />
         )}
       </AnimatePresence>
 
       {/* Guided Learning Modal */}
       <AnimatePresence>
-        {openModals.guidedLearning && (
+        {openModals.guidedLearningModal && (
           <GuidedLearningModal
-            isOpen={openModals.guidedLearning}
-            onClose={() => toggleModal('guidedLearning')}
+            isOpen={openModals.guidedLearningModal}
+            onClose={() => toggleModal('guidedLearningModal')}
           />
         )}
       </AnimatePresence>
@@ -159,7 +155,6 @@ export const ModalRenderer: React.FC<ModalRendererProps> = ({ openModals, toggle
           <JudgeModal
             isOpen={openModals.judge}
             onClose={() => toggleModal('judge')}
-            config={undefined as any}
           />
         )}
       </AnimatePresence>
@@ -170,7 +165,6 @@ export const ModalRenderer: React.FC<ModalRendererProps> = ({ openModals, toggle
           <QuizModal
             isOpen={openModals.quiz}
             onClose={() => toggleModal('quiz')}
-            config={undefined as any}
           />
         )}
       </AnimatePresence>
@@ -185,7 +179,7 @@ export const ModalRenderer: React.FC<ModalRendererProps> = ({ openModals, toggle
         )}
       </AnimatePresence>
     </Suspense>
-  )
-}
+  );
+};
 
-export default ModalRenderer
+export default ModalRenderer;

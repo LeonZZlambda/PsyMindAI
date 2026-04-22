@@ -1259,6 +1259,64 @@
 }
 
 /* 4K screens */
+.daily-quote-container.loading {
+  opacity: 0.6;
+}
+
+.quote-icon.loading {
+  animation: spin 2s linear infinite;
+}
+
+.daily-quote.loading {
+  color: var(--text-light);
+}
+
+.messages-end-indicator {
+  padding: 0 2rem;
+  text-align: center;
+  color: var(--text-light);
+}
+
+.anonymous-notice-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.anonymous-notice-icon {
+  font-size: 2rem;
+  color: var(--primary-color, #e0a3ff);
+}
+
+.anonymous-notice-title {
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+  color: var(--text-color, #fff);
+}
+
+.anonymous-notice-desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.anonymous-notice-sub {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  opacity: 0.8;
+}
+
+.anonymous-disclaimer {
+  background-color: var(--bg-color-secondary, rgba(255,255,255,0.05));
+  border: 1px solid var(--border-color, rgba(200,200,200,0.1));
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  color: var(--text-color-secondary, #aaa);
+  max-width: 700px;
+  margin: 16px auto 0 auto;
+}
+
 @media (min-width: 2560px) {
   .welcome {
     max-width: 1200px;

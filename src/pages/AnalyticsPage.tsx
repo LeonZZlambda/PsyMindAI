@@ -11,17 +11,39 @@ import Footer from '../components/Footer'
 import ScrollToTopButton from '../components/ScrollToTopButton'
 import LandingHeader from '../components/LandingHeader'
 
+interface DerivedMetrics {
+  transformationScore: number;
+  avgSessionMinutes: string | number;
+  daysActive: number;
+  errorCount: number;
+}
+
+interface TelemetryStats {
+  featuresUsed: Record<string, number>;
+}
+
+interface MetaInsight {
+  pattern: string;
+  suggestion: string;
+}
+
+interface FeatureUsedEntry {
+  label: string;
+  val: number;
+  pct: number;
+}
+
 const AnalyticsPage: React.FC = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { isDarkMode } = useTheme()
   
-  const [derived, setDerived] = useState<any>(null)
-  const [stats, setStats] = useState<any>(null)
+  const [derived, setDerived] = useState<DerivedMetrics | null>(null)
+  const [stats, setStats] = useState<TelemetryStats | null>(null)
   const [viewMode, setViewMode] = useState<'global' | 'local'>('global')
   
   // Meta-Análise State
-  const [metaInsight, setMetaInsight] = useState<any>(null)
+  const [metaInsight, setMetaInsight] = useState<MetaInsight | null>(null)
   const [isGeneratingInsight, setIsGeneratingInsight] = useState(false)
 
   useEffect(() => {
@@ -69,11 +91,14 @@ const AnalyticsPage: React.FC = () => {
     ]
   }
 
-  const getChartData = () => {
+  const getChartData = (): FeatureUsedEntry[] => {
     if (!stats || !stats.featuresUsed) return []
-    const entries = Object.entries(stats.featuresUsed).sort((a: any,b: any) => b[1] - a[1]).slice(0, 5)
-    const maxVal = Math.max(...entries.map((e: any) => e[1]), 1)
-    return entries.map(([label, val]: any) => ({
+    // Cast explicitly since Object.entries might strip the number type depending on tsconfig lib.
+    const entries: [string, number][] = Object.entries(stats.featuresUsed) as [string, number][];
+    entries.sort((a, b) => b[1] - a[1]);
+    const topEntries = entries.slice(0, 5);
+    const maxVal = Math.max(...topEntries.map((e) => e[1]), 1)
+    return topEntries.map(([label, val]) => ({
       label,
       val,
       pct: (val / maxVal) * 100
@@ -283,7 +308,7 @@ const AnalyticsPage: React.FC = () => {
                 
                 {chartData.length > 0 ? (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-                    {chartData.map((item: any, idx: number) => (
+                    {chartData.map((item: FeatureUsedEntry, idx: number) => (
                       <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                         <span style={{ width: '100px', fontSize: '0.95rem', color: 'var(--text-color)', textTransform: 'capitalize', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                           {item.label}

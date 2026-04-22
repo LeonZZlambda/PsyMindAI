@@ -12,7 +12,8 @@ export class StorageAdapter {
       } catch {
         return value; // raw string fallback for legacy values
       }
-    } catch {
+    } catch (e) {
+      console.error('Storage get error for key ' + key + ':', e);
       return null;
     }
   }
@@ -21,7 +22,8 @@ export class StorageAdapter {
     try {
       this.storage.setItem(key, JSON.stringify(value));
       return true;
-    } catch {
+    } catch (e) {
+      console.error('Storage set error for key ' + key + ':', e);
       return false;
     }
   }

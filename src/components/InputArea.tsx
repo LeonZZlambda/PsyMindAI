@@ -25,7 +25,7 @@ const ImagePreview: React.FC<{ file: File }> = ({ file }) => {
     };
   }, [file]);
   if (!url) return null;
-  const safeName = typeof (file as any).name === 'string' ? (file as any).name : 'image';
+  const safeName = typeof file.name === 'string' ? file.name : 'image';
   return <img src={url} alt={safeName} />;
 };
 
@@ -46,7 +46,7 @@ const InputArea: React.FC<InputAreaProps> = ({ inputRef, onOpenHelp, onOpenSuppo
   const { toggleModal } = useModal();
   
   const [isListening, setIsListening] = useState(false);
-  const [recognition, setRecognition] = useState<any>(null);
+  const [recognition, setRecognition] = useState<{ start: () => void; stop: () => void } | null>(null);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [showToolsMenu, setShowToolsMenu] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -78,7 +78,7 @@ const InputArea: React.FC<InputAreaProps> = ({ inputRef, onOpenHelp, onOpenSuppo
     { id: 'learning', icon: 'menu_book', label: t('chat.input.tools.learning') }
   ];
 
-  const handleToolClick = (tool: any) => {
+  const handleToolClick = (tool: { id: string; label: string; [key: string]: unknown }) => {
     Telemetry.trackFeature(tool.id || tool.label, 'opened');
     if (tool.id === 'pomodoro') {
       toggleModal('pomodoro');
@@ -133,20 +133,19 @@ const InputArea: React.FC<InputAreaProps> = ({ inputRef, onOpenHelp, onOpenSuppo
 
   useEffect(() => {
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-      // @ts-ignore
-      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+      const SpeechRecognition = (window as unknown as { SpeechRecognition: any; webkitSpeechRecognition: any }).SpeechRecognition || (window as unknown as { SpeechRecognition: any; webkitSpeechRecognition: any }).webkitSpeechRecognition;
       const recognitionInstance = new SpeechRecognition();
       recognitionInstance.continuous = false;
       recognitionInstance.interimResults = false;
       recognitionInstance.lang = 'pt-BR';
 
-      recognitionInstance.onresult = (event: any) => {
+      recognitionInstance.onresult = (event: { results: { transcript: string }[][] }) => {
         const transcript = event.results[0][0].transcript;
         setInput((prev: string) => (prev ? prev + ' ' + transcript : transcript));
         setIsListening(false);
       };
 
-      recognitionInstance.onerror = (event: any) => {
+      recognitionInstance.onerror = (event: { error: unknown }) => {
         logger.error('Speech recognition error', event.error);
         setIsListening(false);
       };
@@ -190,26 +189,26 @@ const InputArea: React.FC<InputAreaProps> = ({ inputRef, onOpenHelp, onOpenSuppo
 
   const handleSendClick = () => {
     if (!input.trim() && selectedFiles.length === 0) return;
-    sendMessage(input, selectedFiles as any);
+    sendMessage(input, selectedFiles as FileAttachment[]);
     setSelectedFiles([]);
   };
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       const isMacLocal = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
-      const metaKey = isMacLocal ? (e as any).metaKey : (e as any).ctrlKey;
+      const metaKey = isMacLocal ? e.metaKey : e.ctrlKey;
 
-      if (metaKey && (e as any).shiftKey && (e as any).key === '.') {
+      if (metaKey && e.shiftKey && e.key === '.') {
         e.preventDefault();
         toggleListening();
       }
 
-      if (metaKey && (e as any).shiftKey && String((e as any).key).toLowerCase() === 'u') {
+      if (metaKey && e.shiftKey && String(e.key).toLowerCase() === 'u') {
         e.preventDefault();
         handleFileClick();
       }
 
-      if (metaKey && String((e as any).key).toLowerCase() === 'k') {
+      if (metaKey && String(e.key).toLowerCase() === 'k') {
         e.preventDefault();
         setShowToolsMenu(prev => !prev);
       }
@@ -247,25 +246,25 @@ const InputArea: React.FC<InputAreaProps> = ({ inputRef, onOpenHelp, onOpenSuppo
           {selectedFiles.length > 0 && (
             <div className="file-preview-list">
               {selectedFiles.map((file, index) => (
-                <div key={index} className="file-preview-item" title={(file as any).name}>
+                <div key={index} className="file-preview-item" title={file.name}>
                   <div className="preview-content">
                       {file.type && file.type.startsWith('image/') ? (
                         <ImagePreview file={file} />
                     ) : (
                       <div className="file-icon-wrapper">
                         <span className="material-symbols-outlined file-icon">description</span>
-                        <span className="file-type">{((file as any).name || '').split('.').pop()?.slice(0, 4).toUpperCase()}</span>
+                        <span className="file-type">{(file.name || '').split('.').pop()?.slice(0, 4).toUpperCase()}</span>
                       </div>
                     )}
                     <button 
                       className="remove-file-btn" 
                       onClick={() => removeFile(index)}
-                      aria-label={`${t('chat.input.remove_file')} ${(file as any).name}`}
+                      aria-label={`${t('chat.input.remove_file')} ${file.name}`}
                     >
                       <span className="material-symbols-outlined" style={{ fontSize: '14px' }}>close</span>
                     </button>
                   </div>
-                  <span className="file-name">{formatFileName((file as any).name)}</span>
+                  <span className="file-name">{formatFileName(file.name)}</span>
                 </div>
               ))}
             </div>
@@ -341,7 +340,7 @@ const InputArea: React.FC<InputAreaProps> = ({ inputRef, onOpenHelp, onOpenSuppo
               </AnimatePresence>
             </div>
             <TextareaAutosize
-              ref={inputRef as any}
+              ref={inputRef as React.RefObject<HTMLTextAreaElement>}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}

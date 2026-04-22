@@ -341,3 +341,13 @@
     width: 25rem;
   }
 }
+
+.sidebar .anonymous-btn {
+  background: var(--card-hover);
+  color: var(--text-color);
+  margin-top: 0.5rem;
+  border: 1px dashed var(--border-color);
+}
+.sidebar .anonymous-btn .material-symbols-outlined {
+  font-size: 18px;
+}

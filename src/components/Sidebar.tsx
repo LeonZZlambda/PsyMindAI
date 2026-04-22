@@ -89,14 +89,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, onNewChat, onA
         onClick={onAnonymousChat} 
         title={t('sidebar.anonymous_tooltip')}
         aria-label={t('sidebar.anonymous_chat')}
-        style={{ 
-          background: 'var(--card-hover)', 
-          color: 'var(--text-color)',
-          marginTop: '0.5rem',
-          border: '1px dashed var(--border-color)' 
-        }}
       >
-        <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>visibility_off</span>
+        <span className="material-symbols-outlined">visibility_off</span>
         <span>{t('sidebar.anonymous_chat')}</span>
       </button>
       

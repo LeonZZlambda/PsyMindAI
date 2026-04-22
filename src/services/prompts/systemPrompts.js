@@ -20,31 +20,31 @@ export const SYSTEM_PROMPTS = {
     let completedTrails = [];
 
     if (userProfileStr) {
-      try { userProfile = JSON.parse(userProfileStr); } catch (e) {}
+      try { userProfile = JSON.parse(userProfileStr); } catch (e) { console.warn('Falha ao dar parse em psymind_user_profile:', e); }
     }
     if (longtermMemoryStr) {
-      try { longtermMemory = JSON.parse(longtermMemoryStr); } catch (e) {}
+      try { longtermMemory = JSON.parse(longtermMemoryStr); } catch (e) { console.warn('Falha ao dar parse em psymind_longterm_memory:', e); }
     }
     if (moodHistoryStr) {
       try {
         const history = JSON.parse(moodHistoryStr);
         if (history.length > 0) latestMood = history[history.length - 1]; 
-      } catch (e) {}
+      } catch (e) { console.warn('Falha ao dar parse em psymind_mood_history:', e); }
     }
     if (pomodoroStatsStr) {
-      try { pomodoroData = JSON.parse(pomodoroStatsStr); } catch (e) {}
+      try { pomodoroData = JSON.parse(pomodoroStatsStr); } catch (e) { console.warn('Falha ao dar parse em psymind_pomodoro_stats:', e); }
     }
     if (emotionalJournalStr) {
       try {
         const entries = JSON.parse(emotionalJournalStr);
         if (entries.length > 0) latestJournalEntry = entries[entries.length - 1];
-      } catch (e) {}
+      } catch (e) { console.warn('Falha ao dar parse em emotionalJournalEntries:', e); }
     }
     if (completedTrailsStr) {
-      try { completedTrails = JSON.parse(completedTrailsStr); } catch (e) {}
+      try { completedTrails = JSON.parse(completedTrailsStr); } catch (e) { console.warn('Falha ao dar parse em psy_mind_completed_trails:', e); }
     }
     if (customTrailsStr) {
-      try { activeTrails = JSON.parse(customTrailsStr); } catch (e) {}
+      try { activeTrails = JSON.parse(customTrailsStr); } catch (e) { console.warn('Falha ao dar parse em psy_mind_custom_trails:', e); }
     }
 
     let basePrompt = `Você é o PsyMind.AI, um assistente educacional de apoio emocional para estudantes do ensino médio.
