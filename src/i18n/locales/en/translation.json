@@ -170,6 +170,11 @@
         "deuteranopia": "Deuteranopia (green)",
         "tritanopia": "Tritanopia (blue)",
         "achromatopsia": "Achromatopsia (monochrome)"
+      },
+      "keyboard_nav": {
+        "label": "Keyboard focus indicator",
+        "desc": "Show focus outline when navigating with Tab/keyboard (recommended for desktop only)",
+        "aria": "Toggle keyboard focus indicator"
       }
     },
     "integration": {

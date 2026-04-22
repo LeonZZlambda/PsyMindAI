@@ -77,7 +77,7 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
     isDarkMode, toggleTheme, themeMode, setThemeMode, 
     fontSize, setFontSize, reducedMotion, setReducedMotion, 
     highContrast, setHighContrast, colorBlindMode, setColorBlindMode,
-    dyslexicFont, setDyslexicFont 
+    dyslexicFont, setDyslexicFont, keyboardNavigation, setKeyboardNavigation
   } = useTheme();
   const { clearHistory } = useChat();
   
@@ -257,6 +257,22 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
                   { value: 'achromatopsia', label: cb('achromatopsia') }
                 ]}
               />
+            </div>
+
+            <div className="setting-item">
+              <div className="setting-info">
+                <span className="setting-label">{t('settings.accessibility.keyboard_nav.label')}</span>
+                <span className="setting-desc">{t('settings.accessibility.keyboard_nav.desc')}</span>
+              </div>
+              <button 
+                className={`toggle-switch ${keyboardNavigation ? 'active' : ''}`}
+                onClick={() => setKeyboardNavigation(!keyboardNavigation)}
+                role="switch"
+                aria-checked={keyboardNavigation}
+                aria-label={t('settings.accessibility.keyboard_nav.aria')}
+              >
+                <span className="toggle-thumb"></span>
+              </button>
             </div>
 
           </div>

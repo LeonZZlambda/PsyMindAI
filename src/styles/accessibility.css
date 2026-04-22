@@ -267,8 +267,8 @@ body.high-contrast, .app.high-contrast .suggestion:active .material-symbols-outl
   letter-spacing: 0.15em !important;
 }
 
-/* Keyboard-only UI Enhancements */
-*:focus-visible {
+/* Keyboard-only UI Enhancements — only active when enabled in Settings */
+.app.keyboard-nav *:focus-visible {
   outline: 3px solid var(--primary-color) !important;
   outline-offset: 4px !important;
   transition: none !important;

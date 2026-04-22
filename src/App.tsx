@@ -33,7 +33,7 @@ const TransparencyPage = lazy(() => import('./pages/TransparencyPage'))
 const AnalyticsPage = lazy(() => import('./pages/AnalyticsPage'))
 
 function App() {
-  const { isDarkMode, fontSize, reducedMotion, highContrast, dyslexicFont, colorBlindMode, toggleTheme } = useTheme()
+  const { isDarkMode, fontSize, reducedMotion, highContrast, dyslexicFont, colorBlindMode, keyboardNavigation, toggleTheme } = useTheme()
   const { clearHistory, setInput, isLoading, startAnonymousChat } = useChat()
   const { openModals, toggleModal } = useModal()
   const location = useLocation()
@@ -101,7 +101,7 @@ function App() {
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => window.location.reload()}>
       <MotionConfig reducedMotion={reducedMotion ? "always" : "user"}>
-        <div className={`app ${isDarkMode ? 'dark' : ''} ${fontSize === 'large' ? 'font-large' : ''} ${reducedMotion ? 'reduced-motion' : ''} ${highContrast ? 'high-contrast' : ''} ${dyslexicFont ? 'dyslexic-font' : ''} color-blind-${colorBlindMode}`}>
+        <div className={`app ${isDarkMode ? 'dark' : ''} ${fontSize === 'large' ? 'font-large' : ''} ${reducedMotion ? 'reduced-motion' : ''} ${highContrast ? 'high-contrast' : ''} ${dyslexicFont ? 'dyslexic-font' : ''} color-blind-${colorBlindMode}${keyboardNavigation ? ' keyboard-nav' : ''}`}>
           <Toaster
             position="bottom-center"
             toastOptions={{

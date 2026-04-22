@@ -46,6 +46,10 @@ export interface ThemeContextValue {
   // Accessibility: Color blindness
   colorBlindMode: ColorBlindMode;
   setColorBlindMode: Dispatch<SetStateAction<ColorBlindMode>>;
+
+  // Accessibility: Keyboard navigation focus indicators
+  keyboardNavigation: boolean;
+  setKeyboardNavigation: Dispatch<SetStateAction<boolean>>;
 }
 
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
@@ -76,6 +80,9 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   );
   const [colorBlindMode, setColorBlindMode] = useState<ColorBlindMode>(() => 
     (loadSetting('colorBlindMode', 'none') as ColorBlindMode)
+  );
+  const [keyboardNavigation, setKeyboardNavigation] = useState<boolean>(() => 
+    loadBooleanSetting('keyboardNavigation')
   );
 
   const [systemIsDark, setSystemIsDark] = useState<boolean>(() => {
@@ -116,6 +123,10 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     saveSetting('colorBlindMode', colorBlindMode);
   }, [colorBlindMode]);
 
+  useEffect(() => {
+    saveSetting('keyboardNavigation', keyboardNavigation);
+  }, [keyboardNavigation]);
+
   const isDarkMode = themeMode === 'system' ? systemIsDark : themeMode === 'dark';
   const toggleTheme = async (e?: React.MouseEvent<HTMLElement>): Promise<void> => {
     await animateThemeTransition(
@@ -144,7 +155,9 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     dyslexicFont,
     setDyslexicFont,
     colorBlindMode,
-    setColorBlindMode
+    setColorBlindMode,
+    keyboardNavigation,
+    setKeyboardNavigation
   };
 
   return (

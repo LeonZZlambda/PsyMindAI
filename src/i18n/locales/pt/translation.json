@@ -170,6 +170,11 @@
         "deuteranopia": "Deuteranopia (verde)",
         "tritanopia": "Tritanopia (azul)",
         "achromatopsia": "Acromatopsia (monocromático)"
+      },
+      "keyboard_nav": {
+        "label": "Indicador de foco por teclado",
+        "desc": "Exibir borda de foco ao navegar com Tab/teclado (recomendado apenas para desktop)",
+        "aria": "Alternar indicador de foco por teclado"
       }
     },
     "integration": {
