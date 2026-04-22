@@ -655,6 +655,7 @@
   },
   "account": {
     "close": "Close",
+    "guest": "Guest",
     "greeting": "Hello, {{name}}!",
     "manage": "Manage your Account",
     "menu": {

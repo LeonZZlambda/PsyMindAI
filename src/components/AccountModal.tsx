@@ -98,7 +98,7 @@ const AccountModal: React.FC<AccountModalProps> = ({ isOpen, onClose, onOpenStud
                     <div className="account-avatar-circle">
                       <span className="material-symbols-outlined" style={{ fontSize: '40px' }}>account_circle</span>
                     </div>
-                    <h2 className="account-greeting">{t('account.greeting', { name: 'Visitante' })}</h2>
+                    <h2 className="account-greeting">{t('account.greeting', { name: t('account.guest') })}</h2>
                     <p className="account-email">convidado@psymind.ai</p>
                     <button className="account-manage-btn" onClick={() => setActiveView('personalization')}>
                       {t('account.manage')}
@@ -110,19 +110,19 @@ const AccountModal: React.FC<AccountModalProps> = ({ isOpen, onClose, onOpenStud
                   <div className="account-menu-list">
                     <button className="account-menu-item" onClick={() => onOpenStudyStats?.()}>
                       <span className="material-symbols-outlined account-menu-icon">analytics</span>
-                      <span>{t('account.study_stats')}</span>
+                      <span>{t('account.menu.stats')}</span>
                     </button>
                     <button className="account-menu-item" onClick={() => setActiveView('personalization')}>
                       <span className="material-symbols-outlined account-menu-icon">tune</span>
-                      <span>{t('account.personalization')}</span>
+                      <span>{t('account.personalization.title')}</span>
                     </button>
                   </div>
 
                   <hr className="account-divider" />
 
                   <div className="account-footer">
-                    <button className="account-footer-btn" onClick={onClose}>{t('account.add_account', 'Adicionar conta')}</button>
-                    <button className="account-footer-btn" onClick={onClose}>{t('account.sign_out', 'Sair')}</button>
+                     <button className="account-footer-btn" onClick={onClose}>{t('account.menu.add_account')}</button>
+                     <button className="account-footer-btn" onClick={onClose}>{t('account.menu.logout')}</button>
                   </div>
                 </motion.div>
               ) : (
@@ -134,22 +134,22 @@ const AccountModal: React.FC<AccountModalProps> = ({ isOpen, onClose, onOpenStud
                   transition={{ duration: 0.2 }}
                 >
                   <div className="account-modal-header">
-                    <button className="close-btn" onClick={() => setActiveView('account')} aria-label={t('account.back')}>
+                     <button className="close-btn" onClick={() => setActiveView('account')} aria-label={t('common.close')}>
                       <span className="material-symbols-outlined">arrow_back</span>
                     </button>
                   </div>
                   <div className="personalization-form">
-                    <h2 className="account-greeting" style={{ textAlign: 'left' }}>{t('account.personalization')}</h2>
-                    <label>{t('account.custom_instructions')}</label>
+                    <h2 className="account-greeting" style={{ textAlign: 'left' }}>{t('account.personalization.title')}</h2>
+                    <label>{t('account.personalization.custom_instructions.title')}</label>
                     <textarea 
                       name="customInstructions" 
                       value={profileSettings.customInstructions || ''} 
                       onChange={handleChange} 
-                      placeholder="Descreva preferências de resposta da IA..."
+                      placeholder={t('account.personalization.custom_instructions.placeholder')}
                     />
                     <div className="personalization-actions">
-                      <button onClick={() => setActiveView('account')} className="secondary-btn">{t('account.cancel')}</button>
-                      <button onClick={handleSave} className="primary-btn">{t('account.save')}</button>
+                      <button onClick={() => setActiveView('account')} className="secondary-btn">{t('account.personalization.actions.cancel')}</button>
+                      <button onClick={handleSave} className="primary-btn">{t('account.personalization.actions.save')}</button>
                     </div>
                   </div>
                 </motion.div>
