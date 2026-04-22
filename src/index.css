@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -9,6 +10,8 @@ body {
   background-color: var(--background-color);
   color: var(--text-color);
   min-height: 100vh;
+  /* Anti-bounce on mobile iOS/Android for a native app feel */
+  overscroll-behavior-y: none;
 }
 
 #root {
@@ -20,6 +23,9 @@ button {
   font-family: inherit;
   border: none;
   outline: none;
+  /* Prevent text selection on actionable native-like buttons */
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 input {

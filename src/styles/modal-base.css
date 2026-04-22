@@ -31,9 +31,18 @@
 }
 
 @media (max-width: 768px) {
+  .modal-overlay {
+    align-items: flex-end; /* Align bottom-sheet to bottom */
+  }
+
   .modal-content {
-    width: 92%;
-    max-height: 85dvh;
+    width: 100%;
+    max-height: 90dvb; /* dynamic viewport block */
+    max-width: none;
+    border-radius: 28px 28px 0 0;
+    margin-bottom: 0;
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.15);
+    animation: bottomSheetSlideUp 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 }
 
@@ -44,6 +53,12 @@
 
 .modal-overlay.closing .modal-content {
   animation: modalSlideDown 0.3s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+@media (max-width: 768px) {
+  .modal-overlay.closing .modal-content {
+    animation: bottomSheetSlideDown 0.3s cubic-bezier(0.4, 0, 1, 1) forwards;
+  }
 }
 
 /* Animations */
@@ -65,6 +80,16 @@
 @keyframes modalSlideDown {
   from { transform: translateY(0) scale(1); opacity: 1; }
   to { transform: translateY(20px) scale(0.96); opacity: 0; }
+}
+
+@keyframes bottomSheetSlideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes bottomSheetSlideDown {
+  from { transform: translateY(0); }
+  to { transform: translateY(100%); }
 }
 
 /* Accessibility */

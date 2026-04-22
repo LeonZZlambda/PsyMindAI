@@ -1063,18 +1063,19 @@
   }
 
   .send-button, .input-action-btn {
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
   }
 
   .action-btn {
-    width: 30px;
-    height: 30px;
-    min-width: 30px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
     padding: 0;
   }
 
-  .action-btn .material-symbols-outlined { font-size: 16px; }
+  .action-btn .material-symbols-outlined { font-size: 20px; }
 
   .message-actions { gap: 2px; }
 

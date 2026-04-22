@@ -1,0 +1,195 @@
+.account-modal-overlay {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 1rem;
+}
+
+@media (max-width: 768px) {
+  .account-modal-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+}
+
+.account-modal-content {
+  background: var(--card-background);
+  border-radius: 28px;
+  width: 100%;
+  max-width: 400px;
+  max-height: 90vh;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  overflow: hidden;
+  position: relative;
+  margin-top: 60px; /* Offset to stay below the header on desktop */
+}
+
+@media (max-width: 768px) {
+  .account-modal-content {
+    margin-top: 0;
+    max-width: 100%;
+    border-radius: 24px 24px 0 0;
+    box-shadow: 0 -4px 24px rgba(0,0,0,0.1);
+  }
+}
+
+/* User Profile Header */
+.account-profile-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1.5rem 1.5rem;
+  text-align: center;
+}
+
+.account-email {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.account-avatar-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--primary-color, #4285F4);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+}
+
+.account-greeting {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--text-color);
+  margin: 0 0 1rem 0;
+}
+
+.account-manage-btn {
+  background: transparent;
+  color: var(--primary-color, #4285F4);
+  border: 1px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
+  font-weight: 500;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  text-decoration: none;
+}
+
+.account-manage-btn:hover {
+  background: rgba(66, 133, 244, 0.04);
+}
+
+.app.dark .account-manage-btn:hover {
+  background: rgba(66, 133, 244, 0.1);
+}
+
+/* Divisores do estilo Google */
+.account-divider {
+  height: 1px;
+  background: var(--border-color);
+  margin: 0;
+  border: none;
+}
+
+/* Lista de Ações */
+.account-menu-list {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0;
+}
+
+.account-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  color: var(--text-color);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.account-menu-item:hover {
+  background: rgba(0,0,0,0.04);
+}
+
+.app.dark .account-menu-item:hover {
+  background: rgba(255,255,255,0.04);
+}
+
+.account-menu-icon {
+  color: var(--text-light);
+  font-size: 20px;
+}
+
+/* Footer options (Sair, Adicionar conta) */
+.account-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.account-footer-btn {
+  background: transparent;
+  border: none;
+  font-size: 0.85rem;
+  color: var(--text-light);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.account-footer-btn:hover {
+  text-decoration: underline;
+  color: var(--text-color);
+}
+
+/* Personalization Screen */
+.account-modal-header {
+  padding: 1rem 1rem 0;
+  display: flex;
+}
+
+.personalization-form {
+  padding: 1rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.personalization-form label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.personalization-form textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-color-secondary);
+  color: var(--text-color);
+  font-family: inherit;
+  resize: vertical;
+}
+
+.personalization-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}

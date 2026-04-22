@@ -54,24 +54,12 @@ export default defineConfig({
     target: 'esnext',
     sourcemap: false,
     rollupOptions: {
-      // optional visualizer plugin - only active if devDependency is installed
+      // Optional visualizer plugin - only active if devDependency is installed
       plugins: [
         visualizer && visualizer({ filename: 'dist/stats.html', template: 'treemap', gzipSize: true })
-      ].filter(Boolean),
-      output: {
-        // finer-grained chunking for better caching and smaller vendor bundles
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            if (id.includes('react')) return 'vendor.react'
-            if (id.includes('react-router-dom')) return 'vendor.router'
-            if (id.includes('prismjs')) return 'vendor.prism'
-            if (id.includes('i18next') || id.includes('react-i18next')) return 'vendor.i18n'
-            if (id.includes('framer-motion') || id.includes('sonner')) return 'vendor.ui'
-            if (id.includes('react-textarea-autosize') || id.includes('react-markdown')) return 'vendor.ui'
-            return 'vendor'
-          }
-        }
-      }
+      ].filter(Boolean)
+      // Removed manualChunks to fix `ReferenceError: Cannot access 'X' before initialization`
+      // By default, Vite splits chunks effectively without causing Circular Chunk dependencies.
     },
     chunkSizeWarningLimit: 500
   }

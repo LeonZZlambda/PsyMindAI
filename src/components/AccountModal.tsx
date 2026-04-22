@@ -70,53 +70,68 @@ const AccountModal: React.FC<AccountModalProps> = ({ isOpen, onClose, onOpenStud
     <AnimatePresence mode="wait">
       {isOpen && (
         <motion.div
-          key="account-modal"
+          key="account-modal-overlay"
           className="modal-overlay account-modal-overlay"
           onClick={handleOverlayClick}
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-          transition={{ duration: 0.3, ease: 'easeOut' }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
         >
-          <div className="modal-content account-modal-content" onClick={(e) => e.stopPropagation()}>
+          <div className="account-modal-content" onClick={(e) => e.stopPropagation()}>
             <AnimatePresence mode="wait">
               {activeView === 'account' ? (
                 <motion.div 
-                  key="account"
+                  key="account-view"
                   initial={{ x: -20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   exit={{ x: -20, opacity: 0 }}
                   transition={{ duration: 0.2 }}
-                  className="account-modal-body"
                 >
-                  <div className="account-modal-header">
+                  <div className="account-modal-header" style={{ justifyContent: 'flex-end' }}>
                     <button className="close-btn" onClick={onClose} aria-label={t('account.close')}>
                       <span className="material-symbols-outlined">close</span>
                     </button>
                   </div>
                   
                   <div className="account-profile-box">
-                    <p className="account-email">usuario@exemplo.com</p>
-                    <div className="user-avatar account-avatar-circle">
-                      <span className="material-symbols-outlined account-avatar-icon">account_circle</span>
+                    <div className="account-avatar-circle">
+                      <span className="material-symbols-outlined" style={{ fontSize: '40px' }}>account_circle</span>
                     </div>
-                    <h2 className="account-greeting">{t('account.greeting', { name: 'Usuário' })}</h2>
-                    <button className="account-manage-btn">{t('account.manage')}</button>
+                    <h2 className="account-greeting">{t('account.greeting', { name: 'Visitante' })}</h2>
+                    <p className="account-email">convidado@psymind.ai</p>
+                    <button className="account-manage-btn" onClick={() => setActiveView('personalization')}>
+                      {t('account.manage')}
+                    </button>
                   </div>
 
+                  <hr className="account-divider" />
+
                   <div className="account-menu-list">
-                    <button onClick={() => setActiveView('personalization')}>{t('account.personalization')}</button>
-                    <button onClick={() => onOpenStudyStats?.()}>{t('account.study_stats')}</button>
+                    <button className="account-menu-item" onClick={() => onOpenStudyStats?.()}>
+                      <span className="material-symbols-outlined account-menu-icon">analytics</span>
+                      <span>{t('account.study_stats')}</span>
+                    </button>
+                    <button className="account-menu-item" onClick={() => setActiveView('personalization')}>
+                      <span className="material-symbols-outlined account-menu-icon">tune</span>
+                      <span>{t('account.personalization')}</span>
+                    </button>
+                  </div>
+
+                  <hr className="account-divider" />
+
+                  <div className="account-footer">
+                    <button className="account-footer-btn" onClick={onClose}>{t('account.add_account', 'Adicionar conta')}</button>
+                    <button className="account-footer-btn" onClick={onClose}>{t('account.sign_out', 'Sair')}</button>
                   </div>
                 </motion.div>
               ) : (
                 <motion.div
-                  key="personalization"
+                  key="personalization-view"
                   initial={{ x: 20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   exit={{ x: 20, opacity: 0 }}
                   transition={{ duration: 0.2 }}
-                  className="account-modal-body"
                 >
                   <div className="account-modal-header">
                     <button className="close-btn" onClick={() => setActiveView('account')} aria-label={t('account.back')}>
@@ -124,11 +139,17 @@ const AccountModal: React.FC<AccountModalProps> = ({ isOpen, onClose, onOpenStud
                     </button>
                   </div>
                   <div className="personalization-form">
+                    <h2 className="account-greeting" style={{ textAlign: 'left' }}>{t('account.personalization')}</h2>
                     <label>{t('account.custom_instructions')}</label>
-                    <textarea name="customInstructions" value={profileSettings.customInstructions || ''} onChange={handleChange} />
+                    <textarea 
+                      name="customInstructions" 
+                      value={profileSettings.customInstructions || ''} 
+                      onChange={handleChange} 
+                      placeholder="Descreva preferências de resposta da IA..."
+                    />
                     <div className="personalization-actions">
+                      <button onClick={() => setActiveView('account')} className="secondary-btn">{t('account.cancel')}</button>
                       <button onClick={handleSave} className="primary-btn">{t('account.save')}</button>
-                      <button onClick={() => setActiveView('account')}>{t('account.cancel')}</button>
                     </div>
                   </div>
                 </motion.div>

@@ -32,89 +32,89 @@ export const ModalRenderer = ({ openModals, toggleModal, helpInitialTab = 'faq' 
   return (
     <Suspense fallback={null}>
       {/* Account Modal */}
-      {openModals.accountModal && (
+      {openModals.account && (
         <AccountModal
-          isOpen={openModals.accountModal}
-          onClose={() => toggleModal('accountModal')}
-          onOpenStudyStats={() => toggleModal('studyStatsModal')}
+          isOpen={openModals.account}
+          onClose={() => toggleModal('account')}
+          onOpenStudyStats={() => toggleModal('studyStats')}
           initialView="personalization"
         />
       )}
 
       {/* Settings Modal */}
-      {openModals.settingsModal && (
+      {openModals.settings && (
         <SettingsModal 
-          isOpen={openModals.settingsModal} 
-          onClose={() => toggleModal('settingsModal')}
-          onOpenImportContext={() => toggleModal('importContextModal')}
+          isOpen={openModals.settings} 
+          onClose={() => toggleModal('settings')}
+          onOpenImportContext={() => toggleModal('importContext')}
         />
       )}
 
       {/* Help Modal */}
-      {openModals.helpModal && (
+      {openModals.help && (
         <HelpModal 
-          isOpen={openModals.helpModal} 
-          onClose={() => toggleModal('helpModal')} 
+          isOpen={openModals.help} 
+          onClose={() => toggleModal('help')} 
           initialTab={helpInitialTab}
         />
       )}
 
       {/* Support Modal */}
-      {openModals.supportModal && (
+      {openModals.support && (
         <SupportModal 
-          isOpen={openModals.supportModal} 
-          onClose={() => toggleModal('supportModal')} 
+          isOpen={openModals.support} 
+          onClose={() => toggleModal('support')} 
         />
       )}
 
       {/* Reflections Modal */}
-      {openModals.reflectionsModal && (
+      {openModals.reflections && (
         <ReflectionsModal 
-          isOpen={openModals.reflectionsModal} 
-          onClose={() => toggleModal('reflectionsModal')} 
+          isOpen={openModals.reflections} 
+          onClose={() => toggleModal('reflections')} 
         />
       )}
 
       {/* Mood Tracker Modal */}
-      {openModals.moodTrackerModal && (
+      {openModals.moodTracker && (
         <MoodTrackerModal 
-          isOpen={openModals.moodTrackerModal} 
-          onClose={() => toggleModal('moodTrackerModal')} 
+          isOpen={openModals.moodTracker} 
+          onClose={() => toggleModal('moodTracker')} 
         />
       )}
 
       {/* Emotional Journal Modal */}
-      {openModals.emotionalJournalModal && (
+      {openModals.emotionalJournal && (
         <EmotionalJournalModal 
-          isOpen={openModals.emotionalJournalModal} 
-          onClose={() => toggleModal('emotionalJournalModal')} 
+          isOpen={openModals.emotionalJournal} 
+          onClose={() => toggleModal('emotionalJournal')} 
         />
       )}
 
       {/* Import Context Modal */}
-      {openModals.importContextModal && (
+      {openModals.importContext && (
         <ImportContextModal 
-          isOpen={openModals.importContextModal} 
-          onClose={() => toggleModal('importContextModal')} 
+          isOpen={openModals.importContext} 
+          onClose={() => toggleModal('importContext')} 
         />
       )}
 
       {/* Study Stats Modal */}
       <AnimatePresence>
-        {openModals.studyStatsModal && (
+        {openModals.studyStats && (
           <StudyStatsModal 
-            isOpen={openModals.studyStatsModal} 
-            onClose={() => toggleModal('studyStatsModal')} 
+            isOpen={openModals.studyStats} 
+            onClose={() => toggleModal('studyStats')} 
           />
         )}
       </AnimatePresence>
 
       {/* Guided Learning Modal */}
       <AnimatePresence>
-        {openModals.guidedLearningModal && (
+        {openModals.guidedLearning && (
           <GuidedLearningModal
-            isOpen={openModals.guidedLearningModal}
-            onClose={() => toggleModal('guidedLearningModal')}
+            isOpen={openModals.guidedLearning}
+            onClose={() => toggleModal('guidedLearning')}
           />
         )}
       </AnimatePresence>
