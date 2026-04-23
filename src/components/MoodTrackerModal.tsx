@@ -58,18 +58,26 @@ const MoodTrackerModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <BaseModal isOpen={isOpen} onClose={onClose} title={t('mood_tracker.title')}>
-      <div className="pomodoro-modes" style={{ marginBottom: '1.5rem' }}>
+    <BaseModal 
+      isOpen={isOpen} 
+      onClose={onClose} 
+      title={t('mood_tracker.title')}
+      icon="mood"
+      maxWidth="550px"
+    >
+      <div className="mood-tabs">
         <button 
-          className={`mode-btn ${activeTab === 'new' ? 'active' : ''}`}
+          className={`mood-tab-btn ${activeTab === 'new' ? 'active' : ''}`}
           onClick={() => setActiveTab('new')}
         >
+          <span className="material-symbols-outlined">add_circle</span>
           {t('mood_tracker.tabs.new')}
         </button>
         <button 
-          className={`mode-btn ${activeTab === 'history' ? 'active' : ''}`}
+          className={`mood-tab-btn ${activeTab === 'history' ? 'active' : ''}`}
           onClick={() => setActiveTab('history')}
         >
+          <span className="material-symbols-outlined">history</span>
           {t('mood_tracker.tabs.history')}
         </button>
       </div>
@@ -78,17 +86,20 @@ const MoodTrackerModal = ({ isOpen, onClose }) => {
           {activeTab === 'new' ? (
             <>
               <h4 className="mood-section-title">{t('mood_tracker.question')}</h4>
-              <div className="mood-grid">
+              <div className="mood-selection-grid">
                 {moods.map(mood => (
                   <button
                     key={mood.id}
-                    className={`mood-btn ${selectedMood?.id === mood.id ? 'selected' : ''}`}
+                    className={`mood-card ${selectedMood?.id === mood.id ? 'selected' : ''}`}
                     onClick={() => setSelectedMood(mood)}
+                    style={{ '--mood-color': mood.color } as React.CSSProperties}
                   >
-                    <span className="material-symbols-outlined" style={{ color: selectedMood?.id === mood.id ? 'inherit' : mood.color }}>
-                      {mood.icon}
-                    </span>
-                    <span>{mood.label}</span>
+                    <div className="mood-card-icon">
+                      <span className="material-symbols-outlined">
+                        {mood.icon}
+                      </span>
+                    </div>
+                    <span className="mood-card-label">{mood.label}</span>
                   </button>
                 ))}
               </div>
@@ -124,31 +135,34 @@ const MoodTrackerModal = ({ isOpen, onClose }) => {
                   </button>
                   
                   {aiInsight && (
-                    <div className="ai-insight-box" style={{ marginBottom: '1rem', padding: '1rem', background: 'rgba(156, 39, 176, 0.1)', borderRadius: '12px', border: '1px solid rgba(156, 39, 176, 0.3)' }}>
-                      <p style={{ margin: 0, lineHeight: 1.6 }}>{aiInsight}</p>
+                    <div className="ai-insight-card">
+                      <div className="ai-insight-header">
+                        <span className="material-symbols-outlined">auto_awesome</span>
+                        <span>{t('mood_tracker.ai_insight.title', 'PsyMind Insight')}</span>
+                      </div>
+                      <p className="ai-insight-text">{aiInsight}</p>
                     </div>
                   )}
-                  
-                  {moodHistory.map(entry => (
-                  <div key={entry.id} className="history-item">
-                    <div className="history-icon">
-                      <span className="material-symbols-outlined" style={{ color: entry.mood.color }}>
+                                    {moodHistory.map(entry => (
+                  <div key={entry.id} className="history-entry">
+                    <div className="entry-mood-indicator" style={{ backgroundColor: entry.mood.color }}>
+                      <span className="material-symbols-outlined">
                         {entry.mood.icon}
                       </span>
                     </div>
-                    <div className="history-content">
-                      <div className="history-header">
-                        <span className="history-mood">{t(`mood_tracker.moods.${entry.mood.id}`, entry.mood.label)}</span>
-                        <span className="history-date">{formatDate(entry.date)}</span>
+                    <div className="entry-body">
+                      <div className="entry-header">
+                        <span className="entry-mood-name">{t(`mood_tracker.moods.${entry.mood.id}`, entry.mood.label)}</span>
+                        <span className="entry-timestamp">{formatDate(entry.date)}</span>
                       </div>
-                      {entry.note && <p className="history-note">{entry.note}</p>}
+                      {entry.note && <p className="entry-note-text">{entry.note}</p>}
                     </div>
                     <button 
                       className="delete-entry-btn"
                       onClick={() => deleteMoodEntry(entry.id)}
                       title={t('mood_tracker.delete_aria')}
                     >
-                      <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>delete</span>
+                      <span className="material-symbols-outlined">delete</span>
                     </button>
                   </div>
                   ))}
