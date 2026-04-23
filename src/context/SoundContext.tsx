@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState, useEffect, useRef, ReactNod
 /**
  * Available soundscape types
  */
-export type SoundType = 'rain' | 'forest' | 'white' | 'brown';
+export type SoundType = 'rain' | 'forest' | 'white' | 'brown' | 'focus';
 
 /**
  * Sound context value interface
@@ -34,20 +34,21 @@ export const SoundProvider = ({ children }: { children: ReactNode }) => {
 
   const audioContextRef = useRef<AudioContext | null>(null);
   const gainNodeRef = useRef<GainNode | null>(null);
-  const sourceNodeRef = useRef<BufferSource | null>(null);
-
-  // Type for BufferSource (either AudioBufferSourceNode or ExtendedAudioBufferSourceNode)
-  type BufferSource = AudioBufferSourceNode;
+  const sourceNodeRef = useRef<AudioBufferSourceNode | null>(null);
 
   /**
    * Initialize Web Audio API context
    */
-  const initAudio = (): void => {
+  const initAudio = async (): Promise<void> => {
     if (!audioContextRef.current) {
       const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
       audioContextRef.current = new AudioContextClass();
       gainNodeRef.current = audioContextRef.current.createGain();
       gainNodeRef.current.connect(audioContextRef.current.destination);
+    }
+    
+    if (audioContextRef.current.state === 'suspended') {
+      await audioContextRef.current.resume();
     }
   };
 
@@ -55,17 +56,16 @@ export const SoundProvider = ({ children }: { children: ReactNode }) => {
    * Generate noise buffer for soundscape
    */
   const generateNoiseBuffer = (type: SoundType, ctx: AudioContext): AudioBuffer => {
+    console.log(`[SoundContext] Generating noise buffer for: ${type}`);
     const bufferSize = ctx.sampleRate * 2; // 2 seconds buffer
     const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
     const data = buffer.getChannelData(0);
 
     if (type === 'white') {
-      // White noise: completely random
       for (let i = 0; i < bufferSize; i++) {
         data[i] = Math.random() * 2 - 1;
       }
     } else if (type === 'rain' || type === 'forest') {
-      // Pink noise approximation for rain/forest
       let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
       for (let i = 0; i < bufferSize; i++) {
         const white = Math.random() * 2 - 1;
@@ -76,62 +76,62 @@ export const SoundProvider = ({ children }: { children: ReactNode }) => {
         b4 = 0.55000 * b4 + white * 0.5329522;
         b5 = -0.7616 * b5 - white * 0.0168980;
         data[i] = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362;
-        data[i] *= 0.11;
+        data[i] *= 0.35;
         b6 = white * 0.115926;
       }
-    } else if (type === 'brown') {
-      // Brown noise: smooth falling frequency
+    } else {
+      // focus or brown
       let lastOut = 0;
       for (let i = 0; i < bufferSize; i++) {
         const white = Math.random() * 2 - 1;
         data[i] = (lastOut + 0.02 * white) / 1.02;
         lastOut = data[i];
-        data[i] *= 3.5;
+        data[i] *= 5.0;
       }
     }
-
     return buffer;
   };
 
   /**
    * Start playing current soundscape
    */
-  const playSound = (): void => {
-    initAudio();
-    stopSound(); // Clear any existing sound
+  const playSound = async (): Promise<void> => {
+    console.log(`[SoundContext] playSound() called for: ${currentSound}`);
+    await initAudio();
+    stopSound(); 
 
     const ctx = audioContextRef.current;
     const gainNode = gainNodeRef.current;
 
-    if (!ctx || !gainNode) return;
+    if (!ctx || !gainNode) {
+      console.error('[SoundContext] Failed to initialize AudioContext or GainNode');
+      return;
+    }
 
     const buffer = generateNoiseBuffer(currentSound, ctx);
-
     const noise = ctx.createBufferSource();
     noise.buffer = buffer;
     noise.loop = true;
 
-    // Apply frequency filter based on sound type
     const filter = ctx.createBiquadFilter();
     if (currentSound === 'rain') {
       filter.type = 'lowpass';
-      filter.frequency.value = 800;
-    } else if (currentSound === 'brown') {
+      filter.frequency.value = 1000;
+    } else if (currentSound === 'white') {
       filter.type = 'lowpass';
-      filter.frequency.value = 400;
+      filter.frequency.value = 15000;
     } else {
       filter.type = 'lowpass';
-      filter.frequency.value = 10000; // Open for white noise
+      filter.frequency.value = 850; // Further increased for audibility
     }
 
+    console.log(`[SoundContext] Audio source starting with filter at ${filter.frequency.value}Hz`);
     noise.connect(filter);
     filter.connect(gainNode);
 
     noise.start();
     sourceNodeRef.current = noise;
     setIsPlaying(true);
-
-    // Apply volume
     gainNode.gain.value = volume;
   };
 
@@ -166,12 +166,6 @@ export const SoundProvider = ({ children }: { children: ReactNode }) => {
    */
   const changeSoundType = (newSound: SoundType): void => {
     setCurrentSound(newSound);
-    if (isPlaying) {
-      // Restart with new sound type
-      setTimeout(() => {
-        stopSound();
-      }, 0);
-    }
   };
 
   // Effect to handle sound change while playing

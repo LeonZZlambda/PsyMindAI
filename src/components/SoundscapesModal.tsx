@@ -52,9 +52,9 @@ const SoundscapesModal = ({ isOpen, onClose }) => {
         tabIndex="-1"
       >
         <div className="modal-header">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <span className="material-symbols-outlined" style={{ color: 'var(--primary-color)' }}>headphones</span>
-            <h2 id="soundscapes-title" style={{ margin: 0, fontSize: '1.25rem', fontWeight: 500 }}>{t('soundscapes.title')}</h2>
+          <div className="modal-header-title">
+            <span className="material-symbols-outlined">headphones</span>
+            <h2 id="soundscapes-title">{t('soundscapes.title')}</h2>
           </div>
           <button className="close-btn" onClick={handleClose} aria-label={t('soundscapes.close')}>
             <span className="material-symbols-outlined">close</span>
@@ -77,7 +77,7 @@ const SoundscapesModal = ({ isOpen, onClose }) => {
               onClick={toggleSound}
               aria-label={isPlaying ? t('soundscapes.actions.pause') : t('soundscapes.actions.play')}
             >
-              <span className="material-symbols-outlined" style={{ fontSize: 28 }}>
+              <span className="material-symbols-outlined">
                 {isPlaying ? 'pause' : 'play_arrow'}
               </span>
             </button>
