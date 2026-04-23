@@ -424,8 +424,12 @@ body.high-contrast, .app.high-contrast .suggestion:active .material-symbols-outl
   font-size: 1rem;
 }
 
-/* Modal focus outline when programmatically focused */
-.modal-content:focus {
+/* Modal focus outline when programmatically focused — only for keyboard nav */
+.app.keyboard-nav .modal-content:focus {
   outline: 3px solid var(--primary-color, #4f46e5);
   outline-offset: 4px;
+}
+
+.modal-content:focus {
+  outline: none;
 }
