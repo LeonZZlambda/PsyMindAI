@@ -16,6 +16,7 @@ import Header from './components/Header'
 import ErrorFallback from './components/ErrorFallback'
 import TelemetryConsent from './components/TelemetryConsent'
 import ModalRenderer from './components/ModalRenderer'
+import ScrollToTop from './components/ScrollToTop'
 import useKeyboardShortcuts from './components/KeyboardShortcuts'
 import { useTheme } from './context/ThemeContext'
 import { useChat } from './context/ChatContext'
@@ -118,6 +119,7 @@ function App() {
               }
             }}
           />
+        <ScrollToTop />
         
         {!isPublicPage && (
           <>
