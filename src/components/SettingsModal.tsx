@@ -285,14 +285,13 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
                 <span className="setting-desc">{t('settings.integration.import.desc')}</span>
               </div>
               <button 
-                className="secondary-btn" 
-                style={{ width: '100%', justifyContent: 'center' }} 
+                className="secondary-btn w-full"
                 onClick={() => {
                   onClose();
                   onOpenImportContext();
                 }}
               >
-                <span className="material-symbols-outlined" style={{ fontSize: '18px', marginRight: '6px' }}>cloud_download</span>
+                <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>cloud_download</span>
                 {t('settings.integration.import.button')}
               </button>
             </div>

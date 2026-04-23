@@ -442,26 +442,32 @@
 
 .scroll-top-btn {
   position: fixed;
-  bottom: 120px;
+  bottom: 2rem;
   right: 2rem;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: var(--card-background);
   border: 1px solid var(--border-color);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
-  z-index: 100;
+  font-size: 1.4rem;
+  z-index: 99;
   transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
-  opacity: 0;
-  pointer-events: none;
-  color: var(--text-light);
+  color: var(--primary-color);
+  pointer-events: auto !important;
 }
 
+.app.dark .scroll-top-btn {
+  background: #2d2d2d;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: var(--primary-color);
+}
+
+/* kept for backward compatibility with non-Framer usage */
 .scroll-top-btn.visible {
   opacity: 1;
   pointer-events: auto;
@@ -1015,7 +1021,7 @@
   }
 
   .scroll-top-btn {
-    bottom: calc(90px + env(safe-area-inset-bottom));
+    bottom: calc(160px + env(safe-area-inset-bottom));
     right: 1rem;
   }
 }

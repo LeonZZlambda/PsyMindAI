@@ -50,6 +50,87 @@
   color: #001d35;
 }
 
+/* Secondary Button — outline style, for secondary actions */
+.secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 1.5rem;
+  height: 40px;
+  background: transparent;
+  color: var(--primary-color);
+  border: 1.5px solid var(--primary-color);
+  border-radius: 20px;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.secondary-btn:hover:not(:disabled) {
+  background: rgba(0, 121, 107, 0.07);
+}
+
+.app.dark .secondary-btn {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.app.dark .secondary-btn:hover:not(:disabled) {
+  background: rgba(128, 203, 196, 0.08);
+}
+
+.secondary-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* secondary-btn full-width variant */
+.secondary-btn.w-full {
+  width: 100%;
+}
+
+/* Filled primary button — for prominent standalone actions */
+.primary-btn.filled {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 1.5rem;
+  height: 40px;
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+  white-space: nowrap;
+}
+
+.primary-btn.filled:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.app.dark .primary-btn.filled {
+  color: #001d35;
+}
+
+.primary-btn.filled:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* filled full-width variant */
+.primary-btn.filled.w-full {
+  width: 100%;
+}
+
 /* Toggle Switch */
 .toggle-switch {
   width: 3.25rem;

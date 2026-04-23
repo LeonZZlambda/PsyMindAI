@@ -78,8 +78,8 @@ const ImportContextModal = ({ isOpen, onClose }) => {
             <div style={{ background: 'var(--background-color)', padding: '1rem', borderRadius: '8px', fontSize: '0.85rem', color: 'var(--text-light)', border: '1px solid var(--border-color)', width: '100%', maxHeight: '120px', overflowY: 'auto' }}>
               <pre style={{ whiteSpace: 'pre-wrap', margin: 0, fontFamily: 'inherit' }}>{importPrompt}</pre>
             </div>
-            <button type="button" className="secondary-btn" onClick={handleCopyPrompt} style={{ alignSelf: 'flex-start' }}>
-              <span className="material-symbols-outlined" style={{ fontSize: '18px', marginRight: '4px' }}>content_copy</span>
+            <button type="button" className="secondary-btn" onClick={handleCopyPrompt}>
+              <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>content_copy</span>
               {t('import_context.copy_prompt')}
             </button>
           </div>
@@ -96,7 +96,7 @@ const ImportContextModal = ({ isOpen, onClose }) => {
               onChange={(e) => setImportContext(e.target.value)}
               style={{ width: '100%', minHeight: '160px', padding: '1rem', borderRadius: '8px', border: '1px solid var(--border-color)', background: 'var(--background-color)', color: 'var(--text-color)', resize: 'vertical' }}
             />
-            <button type="button" className="primary-btn" onClick={handleSaveContext} style={{ alignSelf: 'flex-start', marginTop: '0.5rem', width: '100%', justifyContent: 'center' }}>
+            <button type="button" className="primary-btn filled w-full" onClick={handleSaveContext}>
               {t('import_context.save')}
             </button>
           </div>

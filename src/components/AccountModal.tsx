@@ -149,7 +149,7 @@ const AccountModal: React.FC<AccountModalProps> = ({ isOpen, onClose, onOpenStud
                     />
                     <div className="personalization-actions">
                       <button onClick={() => setActiveView('account')} className="secondary-btn">{t('account.personalization.actions.cancel')}</button>
-                      <button onClick={handleSave} className="primary-btn">{t('account.personalization.actions.save')}</button>
+                      <button onClick={handleSave} className="primary-btn filled">{t('account.personalization.actions.save')}</button>
                     </div>
                   </div>
                 </motion.div>

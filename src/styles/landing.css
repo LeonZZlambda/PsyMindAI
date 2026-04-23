@@ -487,20 +487,21 @@
   position: fixed;
   bottom: 2rem;
   right: 2rem;
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  background: #1a73e8;
-  color: white;
-  border: none;
-  box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+  background: var(--card-background);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
-  transition: background 0.2s ease, box-shadow 0.2s ease;
-  pointer-events: auto;
+  font-size: 1.4rem;
+  z-index: 99;
+  transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+  color: var(--primary-color);
+  pointer-events: auto !important;
 }
 
 .scroll-top-btn:hover {
