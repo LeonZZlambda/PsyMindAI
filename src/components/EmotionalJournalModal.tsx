@@ -46,42 +46,43 @@ const EmotionalJournalModal = ({ isOpen, onClose }) => {
     <BaseModal
       isOpen={isOpen}
       onClose={onClose}
-      title={
-        <span>
-          <span className="material-symbols-outlined" style={{ verticalAlign: 'middle', marginRight: '8px' }}>auto_stories</span>
-          {t('emotional_journal.title')}
-        </span>
-      }
+      title={t('emotional_journal.title')}
+      icon="auto_stories"
+      maxWidth="600px"
     >
-      <div className="pomodoro-modes" style={{ marginBottom: '1.5rem' }}>
-          <button 
-            className={`mode-btn ${activeTab === 'new' ? 'active' : ''}`}
-            onClick={() => setActiveTab('new')}
-          >
-            {t('emotional_journal.tabs.new')}
-          </button>
-          <button 
-            className={`mode-btn ${activeTab === 'history' ? 'active' : ''}`}
-            onClick={() => setActiveTab('history')}
-          >
-            {t('emotional_journal.tabs.history')}
-          </button>
-          </div>
+      <div className="journal-tabs">
+        <button
+          className={`journal-tab-btn ${activeTab === 'new' ? 'active' : ''}`}
+          onClick={() => setActiveTab('new')}
+        >
+          <span className="material-symbols-outlined">edit_note</span>
+          {t('emotional_journal.tabs.new')}
+        </button>
+        <button
+          className={`journal-tab-btn ${activeTab === 'history' ? 'active' : ''}`}
+          onClick={() => setActiveTab('history')}
+        >
+          <span className="material-symbols-outlined">history</span>
+          {t('emotional_journal.tabs.history')}
+        </button>
+      </div>
 
-          <div className="journal-content" style={{ padding: 0 }}>
-            {activeTab === 'new' ? (
-            <>
-              <h4 style={{ textAlign: 'center', marginBottom: '1.5rem', color: 'var(--text-color)', fontWeight: 500, fontSize: '1rem' }}>
-                {t('emotional_journal.subtitle')}
-              </h4>
+      <div className="journal-content">
+        {activeTab === 'new' ? (
+          <>
+            <h4 className="journal-subtitle">
+              {t('emotional_journal.subtitle')}
+            </h4>
               <div className="journal-questions">
                 {journalQuestions.map(q => (
                   <div key={q.id} className="journal-question-block">
                     <label className="journal-question">
-                      <span className="material-symbols-outlined" style={{ color: q.color }}>
-                        {q.icon}
-                      </span>
-                      {q.question}
+                      <div className="question-icon-wrapper" style={{ '--accent-color': q.color } as React.CSSProperties}>
+                        <span className="material-symbols-outlined">
+                          {q.icon}
+                        </span>
+                      </div>
+                      <span className="question-text">{q.question}</span>
                     </label>
                     <textarea
                       className="journal-textarea"
@@ -128,7 +129,7 @@ const EmotionalJournalModal = ({ isOpen, onClose }) => {
                             <span className="material-symbols-outlined" style={{ color: q.color }}>
                               {q.icon}
                             </span>
-                            <strong>{q.question}</strong>
+                            <span className="response-label">{q.question}</span>
                           </div>
                           <p className="response-text">{entry.responses[q.id]}</p>
                         </div>
