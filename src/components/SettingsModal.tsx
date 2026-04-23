@@ -110,6 +110,7 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
       isOpen={isOpen}
       onClose={onClose}
       title={t('settings.title')}
+      icon="settings"
       closeAriaLabel={t('settings.close_aria')}
     >
         <div className="settings-body">
@@ -279,8 +280,8 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
 
           <div className="settings-section">
             <h3>{t('settings.integration.title')}</h3>
-            <div className="setting-item" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '12px' }}>
-              <div className="setting-info" style={{ width: '100%' }}>
+            <div className="setting-item vertical-item">
+              <div className="setting-info">
                 <span className="setting-label">{t('settings.integration.import.label')}</span>
                 <span className="setting-desc">{t('settings.integration.import.desc')}</span>
               </div>
@@ -291,7 +292,7 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
                   onOpenImportContext();
                 }}
               >
-                <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>cloud_download</span>
+                <span className="material-symbols-outlined">cloud_download</span>
                 {t('settings.integration.import.button')}
               </button>
             </div>
@@ -300,13 +301,13 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
           <div className="settings-section">
             <h3>{t('settings.privacy.title')}</h3>
             
-            <div className="setting-item" style={{ alignItems: 'flex-start', flexDirection: 'column' }}>
-              <div className="setting-info" style={{ flex: '1 1 0%', width: '100%' }}>
+            <div className="setting-item vertical-item">
+              <div className="setting-info">
                 <span className="setting-label">{t('settings.api_key.label')}</span>
                 <span className="setting-desc">{t('settings.api_key.desc')}</span>
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '8px', width: '100%' }}>
-                <div className="api-key-input-group" style={{ margin: 0, width: '100%' }}>
+              <div className="api-key-container">
+                <div className="api-key-input-group">
                   <input 
                     type="password"
                     className="input-field api-key-input"
@@ -328,12 +329,12 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
                       title={t('settings.api_key.remove_title')}
                       type="button"
                     >
-                      <span className="material-symbols-outlined" style={{ fontSize: '1.2rem' }}>delete</span>
+                      <span className="material-symbols-outlined">delete</span>
                     </button>
                   )}
                 </div>
-                <div className="settings-tooltip-container" style={{ margin: 0 }}>
-                  <span className="material-symbols-outlined" style={{ fontSize: '1.2rem', color: 'var(--primary-color)', cursor: 'help' }}>lock</span>
+                <div className="settings-tooltip-container">
+                  <span className="material-symbols-outlined security-icon">lock</span>
                   <div className="tooltip-text">
                     {t('settings.api_key.tooltip')}
                   </div>
@@ -341,10 +342,10 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
               </div>
             </div>
 
-            <div className="setting-item" >
+            <div className="setting-item">
               <div className="setting-info">
                 <span className="setting-label">{t('settings.usage_analytics.label')}</span>
-                <span className="setting-desc" style={{ fontSize: '0.85rem' }}>{t('settings.usage_analytics.desc')}</span>
+                <span className="setting-desc analytics-desc">{t('settings.usage_analytics.desc')}</span>
               </div>
               <button 
                 className={`toggle-switch ${telemetryOptIn ? 'active' : ''}`}
@@ -357,13 +358,13 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
               </button>
             </div>
 
-            <div className="setting-item" >
+            <div className="setting-item">
               <div className="setting-info">
                 <span className="setting-label">{t('settings.history.label')}</span>
                 <span className="setting-desc">{t('settings.history.desc')}</span>
               </div>
               <button className="danger-btn" onClick={handleClearHistory} type="button">
-                <span className="material-symbols-outlined">delete</span>
+                <span className="material-symbols-outlined">delete_forever</span>
                 {t('settings.history.clear')}
               </button>
             </div>

@@ -18,6 +18,7 @@ export const BaseModal = ({
   isOpen,
   onClose,
   title,
+  icon,
   children,
   size = 'medium',
   closeButton = true,
@@ -102,22 +103,26 @@ export const BaseModal = ({
         aria-labelledby={title ? titleIdRef.current : undefined}
         aria-describedby={bodyIdRef.current}
       >
-        {/* Header com título e botão fechar */}
-        {title && (
-          <div className="modal-header">
-            <h2 id={titleIdRef.current}>{title}</h2>
-            {closeButton && (
-              <button
-                ref={closeBtnRef}
-                className="modal-close-btn"
-                onClick={handleClose}
-                aria-label={`Close ${title}`}
-              >
-                <span className="material-symbols-outlined">close</span>
-              </button>
-            )}
-          </div>
-        )}
+        {/* Header com título, ícone opcional e botão fechar */}
+        <div className="modal-header">
+          {title ? (
+            <div className="modal-header-title">
+              {icon && <span className="material-symbols-outlined">{icon}</span>}
+              <h2 id={titleIdRef.current}>{title}</h2>
+            </div>
+          ) : <div />}
+          
+          {closeButton && (
+            <button
+              ref={closeBtnRef}
+              className="close-btn"
+              onClick={handleClose}
+              aria-label="Fechar"
+            >
+              <span className="material-symbols-outlined">close</span>
+            </button>
+          )}
+        </div>
 
         {/* Conteúdo do modal */}
         <div id={bodyIdRef.current} className="modal-body">
