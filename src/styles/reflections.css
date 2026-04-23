@@ -1,37 +1,125 @@
-/* Reflections Modal Styles */
-.reflection-card {
-  background: var(--card-background);
+/* Reflections Modal Styles - Material 3 */
+
+.reflections-tabs {
+  display: flex;
+  background-color: var(--secondary-color);
   border: 1px solid var(--border-color);
-  border-radius: 16px;
-  padding: 2rem;
-  text-align: center;
-  margin: 1rem 0 1.5rem;
+  padding: 4px;
+  border-radius: 100px;
+  width: 100%;
+  margin-bottom: 2rem;
   position: relative;
-  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.reflections-tab-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.75rem 0.5rem;
+  border: none;
+  background: transparent;
+  color: var(--text-light);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 100px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 1;
+}
+
+.reflections-tab-btn .material-symbols-outlined {
+  font-size: 20px;
+}
+
+.reflections-tab-btn:hover {
+  color: var(--text-color);
+  background-color: var(--card-hover);
+}
+
+.reflections-tab-btn.active {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.reflections-tab-btn.active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--background-color);
+  border-radius: 100px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: -1;
+  border: 1px solid var(--border-color);
+}
+
+.reflections-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* Daily Reflection Card */
+.reflection-card {
+  background: var(--card-hover);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  margin: 0.5rem 0 1.5rem;
+  position: relative;
   transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.reflection-card.loading {
+  padding: 4rem 2rem;
 }
 
 .reflection-icon {
-  font-size: 40px;
+  font-size: 48px;
   color: var(--primary-color);
-  margin-bottom: 1.25rem;
-  opacity: 0.7;
+  opacity: 0.6;
+}
+
+.reflection-icon-spin {
+  font-size: 48px;
+  color: var(--primary-color);
+  animation: spin 2s linear infinite;
+}
+
+.loading-text {
+  color: var(--text-light);
+  margin: 0;
+  font-weight: 500;
 }
 
 .reflection-text {
-  font-size: 1.125rem;
-  line-height: 1.7;
+  font-size: 1.25rem;
+  line-height: 1.6;
   color: var(--text-color);
   font-style: italic;
-  margin-bottom: 1.25rem;
+  margin: 0;
+  position: relative;
+  font-weight: 400;
 }
 
 .reflection-author {
-  font-size: 0.8125rem;
+  font-size: 0.9rem;
   color: var(--text-light);
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
+  letter-spacing: 0.1em;
+  opacity: 0.8;
 }
 
 .reflection-actions {
@@ -39,213 +127,167 @@
   gap: 0.75rem;
   justify-content: center;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .reflection-btn {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.625rem 1.25rem;
-  border-radius: 24px;
-  font-size: 0.875rem;
-  font-weight: 500;
+  padding: 0.75rem 1.25rem;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
-  border: none;
-  font-family: inherit;
-}
-
-.btn-new {
-  background: var(--secondary-color);
-  color: var(--text-color);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid var(--border-color);
+  background: var(--card-hover);
+  color: var(--text-color);
 }
 
-.btn-new:hover:not(:disabled) {
-  background: var(--border-color);
-}
-
-.btn-ai {
+.reflection-btn:hover:not(:disabled) {
   background: var(--secondary-color);
-  color: var(--primary-color);
-  border: 1px solid var(--primary-color);
+  transform: translateY(-2px);
+  border-color: var(--primary-color);
 }
 
-.btn-ai:hover:not(:disabled) {
-  background: rgba(0, 121, 107, 0.08);
-}
-
-.btn-ai:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+.reflection-btn .material-symbols-outlined {
+  font-size: 20px;
 }
 
 .btn-chat {
   background: var(--primary-color);
-  color: #fff;
-  box-shadow: 0 2px 8px rgba(0, 121, 107, 0.3);
+  color: white;
+  border: none;
 }
 
 .btn-chat:hover {
   background: var(--primary-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 121, 107, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.app.dark .btn-new {
-  background: var(--secondary-color);
-  color: var(--text-color);
-  border-color: var(--border-color);
-}
-
-.app.dark .btn-new:hover:not(:disabled) {
-  background: #3c4043;
-}
-
-.app.dark .btn-ai {
-  background: transparent;
-  color: var(--primary-color);
-  border-color: var(--primary-color);
-}
-
-.app.dark .btn-ai:hover:not(:disabled) {
-  background: rgba(128, 203, 196, 0.08);
-}
-
-.app.dark .btn-chat {
-  background: var(--primary-color);
-  color: var(--background-dark);
-}
-
-/* AI reflection result box */
 .ai-reflection-box {
-  margin-top: 1.25rem;
-  padding: 1rem 1.25rem;
-  background: var(--secondary-color);
-  border-radius: 12px;
-  border-left: 3px solid var(--primary-color);
-  text-align: left;
+  margin-top: 0.5rem;
+  padding: 1.25rem;
+  background: linear-gradient(135deg, rgba(0, 121, 107, 0.08) 0%, rgba(128, 203, 196, 0.12) 100%);
+  border-radius: 16px;
+  border-left: 4px solid var(--primary-color);
+  animation: slideIn 0.4s ease-out;
 }
 
 .ai-reflection-box p {
   margin: 0;
   line-height: 1.6;
   color: var(--text-color);
-  font-size: 0.9375rem;
+  font-size: 0.95rem;
 }
 
-/* Categories Grid */
+/* Explore Tab */
+.explore-container h3 {
+  text-align: center;
+  color: var(--text-color);
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 0 0 1rem 0;
+}
+
 .categories-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
-  margin-top: 0.5rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
 }
 
 .category-card {
-  background: var(--card-background);
+  background: var(--card-hover);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 1.25rem;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  border-radius: 20px;
+  padding: 1.5rem 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 0.625rem;
-  font-family: inherit;
-  min-height: 140px;
+  gap: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .category-card:hover {
-  border-color: var(--primary-color);
-  background: rgba(0, 121, 107, 0.05);
-  transform: translateY(-2px);
+  transform: translateY(-4px);
+  border-color: var(--cat-color);
+  background: var(--secondary-color);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
 }
 
-.app.dark .category-card {
-  background: var(--card-background);
-  border-color: var(--border-color);
+.category-icon-wrapper {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background-color: color-mix(in srgb, var(--cat-color) 12%, transparent);
+  color: var(--cat-color);
 }
 
-.app.dark .category-card:hover {
-  border-color: var(--primary-color);
-  background: rgba(128, 203, 196, 0.08);
-}
-
-.category-icon {
+.category-icon-wrapper .material-symbols-outlined {
   font-size: 28px;
-  color: var(--primary-color);
 }
 
 .category-name {
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 0.85rem;
+  font-weight: 600;
   color: var(--text-color);
 }
 
-.reflection-container,
-.explore-container,
-.breathing-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.25rem;
-  width: 100%;
-  padding: 0.5rem 0;
-}
-
-.reflection-container > *,
-.explore-container > *,
-.breathing-container > * {
-  width: 100%;
-}
-
-.explore-container h3,
+/* Breathing Tab */
 .breathing-container h3 {
   text-align: center;
   color: var(--text-color);
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 500;
-  margin: 0;
-}
-
-/* Breathing Section */
-.breathing-container {
-  padding: 0.5rem 0;
+  margin: 0 0 1rem 0;
 }
 
 .breathing-techniques {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
+  gap: 1rem;
 }
 
 .technique-card {
-  background: var(--card-background);
+  background: var(--card-hover);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 1.25rem;
-  text-align: center;
-  /* ensure cards are consistent height and layout */
+  border-radius: 20px;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  min-height: 140px;
+  gap: 1rem;
+  transition: all 0.2s ease;
+}
+
+.technique-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.technique-icon {
+  font-size: 32px;
 }
 
 .technique-card h4 {
-  color: var(--primary-color);
-  margin: 0 0 0.375rem;
-  font-size: 0.9375rem;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
 }
 
-.technique-card p {
+.technique-desc {
   color: var(--text-light);
-  font-size: 0.8125rem;
-  margin: 0 0 1rem;
+  font-size: 0.85rem;
+  margin: 0;
+  text-align: center;
+  line-height: 1.5;
+  flex: 1;
 }
 
 .start-breathing-btn {
@@ -253,78 +295,82 @@
   align-items: center;
   gap: 0.5rem;
   justify-content: center;
-  width: 72%;
-  padding: 0.625rem 0.875rem;
-  background: var(--primary-color);
-  color: #fff;
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--tech-color);
+  color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   cursor: pointer;
-  font-family: inherit;
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 0.9rem;
   transition: all 0.2s;
-  /* keep button anchored to the bottom of the card */
-  margin-top: 0.5rem;
-  align-self: center;
 }
 
 .start-breathing-btn:hover {
-  filter: brightness(0.9);
-  transform: translateY(-1px);
-}
-
-.app.dark .start-breathing-btn {
-  /* color remains inline (#fff) for consistency and contrast */
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .breathing-active {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
-  padding: 1rem;
+  gap: 2rem;
+  padding: 2rem 0;
 }
 
 .breathing-circle {
-  width: 180px;
-  height: 180px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(0, 121, 107, 0.15), rgba(0, 121, 107, 0.3));
-  border: 3px solid var(--primary-color);
+  background: radial-gradient(circle, color-mix(in srgb, var(--primary-color) 20%, transparent) 0%, transparent 70%);
+  border: 4px solid var(--primary-color);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.3s ease;
+  position: relative;
 }
 
-.breathing-circle.inhale  { animation: breatheIn  4s ease-in-out; }
-.breathing-circle.hold    { animation: hold       4s ease-in-out; }
-.breathing-circle.exhale  { animation: breatheOut 4s ease-in-out; }
-.breathing-circle.holdAfter { animation: hold     4s ease-in-out; }
+.breathing-circle::before {
+  content: '';
+  position: absolute;
+  top: -10px; left: -10px; right: -10px; bottom: -10px;
+  border-radius: 50%;
+  border: 2px solid var(--primary-color);
+  opacity: 0.3;
+}
 
-.breathing-face { font-size: 72px; }
+.breathing-circle.inhale  { animation: breatheIn  4s ease-in-out infinite; }
+.breathing-circle.hold    { transform: scale(1.3); }
+.breathing-circle.exhale  { animation: breatheOut 4s ease-in-out infinite; }
+.breathing-circle.holdAfter { transform: scale(1); }
+
+.breathing-face { font-size: 80px; }
 
 .breathing-instruction {
-  font-size: 1.75rem;
-  font-weight: 600;
+  font-size: 2rem;
+  font-weight: 700;
   color: var(--primary-color);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .stop-breathing-btn {
-  padding: 0.625rem 2rem;
-  background: var(--secondary-color);
+  padding: 0.75rem 2.5rem;
+  background: var(--card-hover);
   color: var(--text-color);
   border: 1px solid var(--border-color);
-  border-radius: 24px;
+  border-radius: 100px;
   cursor: pointer;
-  font-weight: 500;
-  font-family: inherit;
+  font-weight: 600;
   transition: all 0.2s;
 }
 
 .stop-breathing-btn:hover {
-  background: var(--border-color);
+  background: var(--secondary-color);
+  border-color: var(--primary-color);
 }
 
 @keyframes breatheIn {
@@ -337,36 +383,37 @@
   100% { transform: scale(1); }
 }
 
-@keyframes hold {
-  0%, 100% { transform: scale(1.3); }
-}
-
 @keyframes spin {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
 }
 
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 @media (max-width: 480px) {
-  .reflection-actions {
-    flex-direction: column;
+  .reflections-tab-btn span:not(.material-symbols-outlined) {
+    display: none;
   }
-
-  .reflection-btn {
-    justify-content: center;
-  }
-
+  
   .categories-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-
+  
   .breathing-techniques {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
   }
-
+  
   .breathing-circle {
-    width: 150px;
-    height: 150px;
+    width: 160px;
+    height: 160px;
   }
-
-  .breathing-face { font-size: 56px; }
+  
+  .breathing-face { font-size: 60px; }
+  
+  .breathing-instruction {
+    font-size: 1.5rem;
+  }
 }

@@ -1,41 +1,29 @@
 /* Soundscapes Modal Styles - Material 3 / PsyMindAI Consistent */
+
 .soundscapes-body {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  padding: 0.5rem 0;
+  gap: 1.75rem;
+  padding: 0.25rem 0;
 }
 
-.modal-header-title {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.modal-header-title .material-symbols-outlined {
-  color: var(--primary-color);
-}
-
-.modal-header-title h2 {
-  font-size: 1.25rem !important;
-  font-weight: 500 !important;
-}
-
-/* Play/Pause Banner - Endel Like refined */
+/* Play/Pause Banner - Premium Hero */
 .soundscapes-hero {
   background: var(--secondary-color);
+  background: linear-gradient(135deg, var(--secondary-color) 0%, var(--card-background) 100%);
   border: 1px solid var(--border-color);
   border-radius: 28px;
-  padding: 2rem;
+  padding: 2.5rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: 1.5rem;
+  gap: 1.75rem;
   position: relative;
   overflow: hidden;
-  min-height: 200px;
+  min-height: 220px;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.02);
 }
 
 /* Atmospheric background effect */
@@ -43,9 +31,15 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 50%, var(--primary-color), transparent 70%);
-  opacity: 0.05;
+  background: radial-gradient(circle at 50% 50%, var(--primary-color), transparent 80%);
+  opacity: 0.08;
   z-index: 0;
+  animation: glow-pulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes glow-pulse {
+  from { opacity: 0.04; transform: scale(0.95); }
+  to { opacity: 0.12; transform: scale(1.1); }
 }
 
 .hero-info {
@@ -57,25 +51,26 @@
 }
 
 .hero-status {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--text-light);
-  opacity: 0.6;
+  letter-spacing: 0.2em;
+  color: var(--primary-color);
+  opacity: 0.8;
 }
 
 .hero-track {
-  font-size: 1.75rem;
-  font-weight: 500;
+  font-size: 2rem;
+  font-weight: 600;
   color: var(--text-color);
-  font-family: 'Google Sans', sans-serif;
+  font-family: 'Outfit', 'Google Sans', sans-serif;
   margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
 }
 
 .play-toggle-btn {
-  width: 72px;
-  height: 72px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   border: none;
   background: var(--primary-color);
@@ -84,125 +79,124 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(0, 121, 107, 0.3);
-  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+  box-shadow: 0 8px 32px color-mix(in srgb, var(--primary-color) 40%, transparent);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   z-index: 2;
 }
 
 .play-toggle-btn .material-symbols-outlined {
-  font-size: 32px;
+  font-size: 40px;
+  transition: transform 0.2s ease;
 }
 
 .play-toggle-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 12px 32px rgba(0, 121, 107, 0.4);
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 12px 40px color-mix(in srgb, var(--primary-color) 50%, transparent);
 }
 
 .play-toggle-btn:active {
-  transform: scale(0.95);
+  transform: scale(0.92);
 }
 
 .app.dark .play-toggle-btn {
   color: #001d35;
-  box-shadow: 0 8px 24px rgba(128, 203, 196, 0.2);
 }
 
-/* Equalizer Animation - Refined */
+/* Equalizer Animation - Organic */
 .equalizer-bg {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 60px;
+  height: 80px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
   padding: 0 2rem;
-  opacity: 0.15;
+  opacity: 0.2;
   z-index: 0;
   pointer-events: none;
 }
 
 .bar {
-  width: 4px;
+  width: 6px;
   background: var(--primary-color);
-  border-radius: 4px 4px 0 0;
-  height: 8px;
+  border-radius: 6px 6px 0 0;
+  height: 12px;
   transition: height 0.3s ease;
 }
 
 .bar.animate {
-  animation: eq-pulse 1.2s ease-in-out infinite alternate;
+  animation: eq-pulse 0.8s ease-in-out infinite alternate;
 }
 
-.bar:nth-child(1) { animation-delay: 0.1s; }
-.bar:nth-child(2) { animation-delay: 0.4s; }
-.bar:nth-child(3) { animation-delay: 0.2s; }
-.bar:nth-child(4) { animation-delay: 0.6s; }
-.bar:nth-child(5) { animation-delay: 0.3s; }
-.bar:nth-child(6) { animation-delay: 0.5s; }
-.bar:nth-child(7) { animation-delay: 0.2s; }
-.bar:nth-child(8) { animation-delay: 0.7s; }
+.bar:nth-child(1) { animation-duration: 0.6s; }
+.bar:nth-child(2) { animation-duration: 0.9s; }
+.bar:nth-child(3) { animation-duration: 0.7s; }
+.bar:nth-child(4) { animation-duration: 1.1s; }
+.bar:nth-child(5) { animation-duration: 0.8s; }
+.bar:nth-child(6) { animation-duration: 1.0s; }
+.bar:nth-child(7) { animation-duration: 0.65s; }
+.bar:nth-child(8) { animation-duration: 1.2s; }
 
 @keyframes eq-pulse {
-  0% { height: 8px; }
-  100% { height: 48px; }
+  0% { height: 12px; opacity: 0.3; }
+  100% { height: 64px; opacity: 1; }
 }
 
 /* Sound Grid */
 .sounds-section h3 {
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   color: var(--text-light);
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin: 1rem 0 1.25rem;
-  padding-left: 0.5rem;
+  letter-spacing: 0.1em;
+  margin: 0.5rem 0 1.25rem 0.25rem;
 }
 
 .sound-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
   gap: 1rem;
 }
 
 .sound-card {
-  background: var(--card-background);
-  border: 1.5px solid var(--border-color);
-  border-radius: 20px;
-  padding: 1.5rem 1rem;
+  background: var(--secondary-color);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  padding: 1.75rem 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
+  gap: 0.8rem;
   cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
   color: var(--text-light);
   position: relative;
-  overflow: hidden;
 }
 
 .sound-card span.material-symbols-outlined {
-  font-size: 28px;
-  transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+  font-size: 32px;
+  transition: all 0.3s ease;
 }
 
 .sound-card span.label {
-  font-size: 0.8125rem;
+  font-size: 0.85rem;
   font-weight: 500;
 }
 
 .sound-card:hover {
-  background: var(--secondary-color);
+  background: var(--card-hover);
   border-color: var(--primary-color);
   color: var(--text-color);
-  transform: translateY(-4px);
+  transform: translateY(-6px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
 }
 
 .sound-card:hover span.material-symbols-outlined {
-  transform: scale(1.1);
+  transform: scale(1.15);
   color: var(--primary-color);
 }
 
@@ -210,7 +204,8 @@
   background: var(--primary-color);
   border-color: var(--primary-color);
   color: #ffffff;
-  box-shadow: 0 4px 12px rgba(0, 121, 107, 0.2);
+  box-shadow: 0 10px 25px color-mix(in srgb, var(--primary-color) 30%, transparent);
+  transform: translateY(-2px);
 }
 
 .app.dark .sound-card.active {
@@ -219,31 +214,34 @@
 
 .sound-card.active span.material-symbols-outlined {
   color: inherit;
+  font-variation-settings: 'FILL' 1;
 }
 
 /* Volume Control */
 .volume-control {
   background: var(--secondary-color);
-  border-radius: 20px;
-  padding: 1rem 1.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  padding: 1.25rem 1.75rem;
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  gap: 1.5rem;
   margin-top: 0.5rem;
 }
 
 .volume-control .material-symbols-outlined {
-  color: var(--text-light);
-  font-size: 20px;
+  color: var(--primary-color);
+  font-size: 22px;
+  opacity: 0.8;
 }
 
 .volume-slider {
   flex: 1;
-  height: 4px;
+  height: 6px;
   appearance: none;
   -webkit-appearance: none;
   background: var(--border-color);
-  border-radius: 2px;
+  border-radius: 10px;
   outline: none;
   cursor: pointer;
 }
@@ -251,26 +249,27 @@
 .volume-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 14px;
-  height: 14px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: var(--primary-color);
-  border: 2px solid var(--card-background);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1);
+  border: 3px solid var(--card-background);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .volume-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.3);
+  transform: scale(1.25);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.2);
 }
 
 .volume-slider::-moz-range-thumb {
-  width: 12px;
-  height: 12px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background: var(--primary-color);
-  border: 2px solid var(--card-background);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  border: 3px solid var(--card-background);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
   cursor: pointer;
 }
 
@@ -283,16 +282,26 @@
   .sound-card {
     flex-direction: row;
     justify-content: flex-start;
-    padding: 1rem 1.5rem;
-    gap: 1rem;
+    padding: 1.25rem 1.75rem;
+    gap: 1.25rem;
+    border-radius: 20px;
+  }
+
+  .sound-card:hover {
+    transform: translateX(4px);
   }
 
   .hero-track {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
   }
 
   .soundscapes-hero {
-    min-height: 180px;
-    padding: 1.5rem;
+    min-height: 200px;
+    padding: 2rem 1.5rem;
+  }
+
+  .play-toggle-btn {
+    width: 72px;
+    height: 72px;
   }
 }

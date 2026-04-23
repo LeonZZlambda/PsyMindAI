@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { useChat } from '../context/ChatContext';
 import BaseModal from './BaseModal';
 import { generateReflection, generateReflectionAnalysis } from '../services/tools/reflectionService';
-import '../styles/help.css';
 import '../styles/reflections.css';
 
 const categories = [
@@ -135,42 +134,41 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
     <BaseModal
       isOpen={isOpen}
       onClose={onClose}
+      title={t('reflections.title')}
+      icon="auto_awesome"
+      size="medium"
     >
-      {({ handleClose }) => (
-        <div className="reflections-modal-content">
-          <div className="modal-header with-tabs">
-            <div className="modal-tabs">
-              <button 
-                className={`tab-btn ${activeTab === 'daily' ? 'active' : ''}`}
-                onClick={() => setActiveTab('daily')}
-              >
-                {t('reflections.tabs.daily')}
-              </button>
-              <button 
-                className={`tab-btn ${activeTab === 'explore' ? 'active' : ''}`}
-                onClick={() => setActiveTab('explore')}
-              >
-                {t('reflections.tabs.explore')}
-              </button>
-              <button 
-                className={`tab-btn ${activeTab === 'breathing' ? 'active' : ''}`}
-                onClick={() => { setActiveTab('breathing'); stopBreathing(); }}
-              >
-                {t('reflections.tabs.breathing')}
-              </button>
-            </div>
-            <button className="modal-close-btn reflections-modal-close-trigger" onClick={() => { handleCloseInternal(); handleClose(); }} aria-label="Close modal">
-              <span className="material-symbols-outlined">close</span>
-            </button>
-          </div>
-        
-        <div className="help-body">
+      <div className="reflections-tabs">
+        <button 
+          className={`reflections-tab-btn ${activeTab === 'daily' ? 'active' : ''}`}
+          onClick={() => setActiveTab('daily')}
+        >
+          <span className="material-symbols-outlined">today</span>
+          {t('reflections.tabs.daily')}
+        </button>
+        <button 
+          className={`reflections-tab-btn ${activeTab === 'explore' ? 'active' : ''}`}
+          onClick={() => setActiveTab('explore')}
+        >
+          <span className="material-symbols-outlined">explore</span>
+          {t('reflections.tabs.explore')}
+        </button>
+        <button 
+          className={`reflections-tab-btn ${activeTab === 'breathing' ? 'active' : ''}`}
+          onClick={() => { setActiveTab('breathing'); stopBreathing(); }}
+        >
+          <span className="material-symbols-outlined">air</span>
+          {t('reflections.tabs.breathing')}
+        </button>
+      </div>
+
+      <div className="reflections-body">
           {activeTab === 'daily' && (
             <div className="reflection-container">
               {isLoadingReflection && !currentReflection ? (
-                <div className="reflection-card" style={{ textAlign: 'center', padding: '3rem' }}>
-                  <span className="material-symbols-outlined reflection-icon" style={{ animation: 'spin 2s linear infinite' }}>autorenew</span>
-                  <p style={{ color: 'var(--text-light)' }}>{t('reflections.daily_tab.generating')}</p>
+                <div className="reflection-card loading">
+                  <span className="material-symbols-outlined reflection-icon-spin">autorenew</span>
+                  <p className="loading-text">{t('reflections.daily_tab.generating')}</p>
                 </div>
               ) : currentReflection && (
                 <>
@@ -217,8 +215,11 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
                       getRandomReflection(cat.id);
                       setActiveTab('daily');
                     }}
+                    style={{ '--cat-color': cat.color } as React.CSSProperties}
                   >
-                    <span className="material-symbols-outlined category-icon" style={{ color: cat.color }}>{cat.icon}</span>
+                    <div className="category-icon-wrapper">
+                      <span className="material-symbols-outlined">{cat.icon}</span>
+                    </div>
                     <span className="category-name">{t(`reflections.explore_tab.categories.${cat.id}`)}</span>
                   </button>
                 ))}
@@ -234,15 +235,15 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
                   <div className="breathing-techniques">
                     {breathingTechniques.map(tech => (
                       <div key={tech.id} className="technique-card">
-                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
-                          <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: tech.color }}>{tech.icon}</span>
+                        <div className="technique-header">
+                          <span className="material-symbols-outlined technique-icon" style={{ color: tech.color }}>{tech.icon}</span>
                           <h4 style={{ color: tech.color }}>{t(`reflections.breathing_tab.techniques.${tech.id}.name`)}</h4>
                         </div>
-                        <p>{t(`reflections.breathing_tab.techniques.${tech.id}.desc`)}</p>
+                        <p className="technique-desc">{t(`reflections.breathing_tab.techniques.${tech.id}.desc`)}</p>
                         <button 
                           className="start-breathing-btn" 
                           onClick={() => startBreathing(tech)}
-                          style={{ backgroundColor: tech.color, color: '#fff' }}
+                          style={{ '--tech-color': tech.color } as React.CSSProperties}
                         >
                           <span className="material-symbols-outlined">air</span>
                           {t('reflections.breathing_tab.start')}
@@ -274,9 +275,7 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
               )}
             </div>
           )}
-        </div>
       </div>
-      )}
     </BaseModal>
   );
 };
