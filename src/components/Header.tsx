@@ -3,6 +3,7 @@ import '../styles/header.css'
 import { createPortal } from 'react-dom'
 import { useTranslation } from 'react-i18next'
 import { useTheme } from '../context/ThemeContext'
+import { useSound } from '../context/SoundContext'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const SoundscapesModal = lazy(() => import('./SoundscapesModal'))
@@ -17,6 +18,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ isSidebarOpen, toggleSidebar, isLoading, onOpenStudyStats }) => {
   const { isDarkMode, toggleTheme, fontSize, reducedMotion, highContrast, colorBlindMode } = useTheme()
+  const { isPlaying } = useSound()
   const [isSoundModalOpen, setIsSoundModalOpen] = useState(false)
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false)
   const { t } = useTranslation()
@@ -47,7 +49,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, toggleSidebar, isLoading
       </div>
       <div className="header-actions">
         <button 
-          className="header-btn" 
+          className={`header-btn ${isPlaying ? 'playing' : ''}`} 
           onClick={() => setIsSoundModalOpen(true)} 
           title={t('header.ambient_sounds', 'Sons Ambientais')}
           aria-label={t('header.ambient_sounds_aria', 'Abrir sons ambientais')}

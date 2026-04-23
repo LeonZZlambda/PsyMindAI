@@ -650,7 +650,8 @@
     "sounds": {
       "rain": "Chuva Suave",
       "focus": "Foco Profundo",
-      "white": "Ruído Branco"
+      "white": "Ruído Branco",
+      "binaural": "Batidas Binaurais"
     }
   },
   "account": {

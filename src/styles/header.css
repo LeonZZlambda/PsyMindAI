@@ -99,6 +99,43 @@
   background-color: var(--hover-color);
 }
 
+.header-btn.playing {
+  color: var(--primary-color);
+  position: relative;
+}
+
+.header-btn.playing::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  border: 2px solid var(--background-color, #ffffff);
+  animation: pulse-dot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.app.dark .header-btn.playing::after {
+  border-color: #131314;
+}
+
+@keyframes pulse-dot {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 150, 136, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 6px rgba(0, 150, 136, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 150, 136, 0);
+  }
+}
+
 /* Fix for header visibility on smaller desktop screens - Landing Page Style */
 @media (max-width: 1390px) {
   .app .header {

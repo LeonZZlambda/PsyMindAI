@@ -650,7 +650,8 @@
     "sounds": {
       "rain": "Soft Rain",
       "focus": "Deep Focus",
-      "white": "White Noise"
+      "white": "White Noise",
+      "binaural": "Binaural Beats"
     }
   },
   "account": {

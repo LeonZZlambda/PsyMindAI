@@ -14,6 +14,7 @@ const SoundscapesModal = ({ isOpen, onClose }) => {
     { id: 'rain',  label: t('soundscapes.sounds.rain'),   icon: 'water_drop' },
     { id: 'focus', label: t('soundscapes.sounds.focus'), icon: 'self_improvement' },
     { id: 'white', label: t('soundscapes.sounds.white'),  icon: 'graphic_eq' },
+    { id: 'binaural', label: t('soundscapes.sounds.binaural'), icon: 'waves' },
   ];
 
   useEffect(() => {

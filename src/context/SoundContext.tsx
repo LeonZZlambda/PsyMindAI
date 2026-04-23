@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState, useEffect, useRef, ReactNod
 /**
  * Available soundscape types
  */
-export type SoundType = 'rain' | 'forest' | 'white' | 'brown' | 'focus';
+export type SoundType = 'rain' | 'forest' | 'white' | 'brown' | 'focus' | 'binaural';
 
 /**
  * Sound context value interface
@@ -53,11 +53,32 @@ export const SoundProvider = ({ children }: { children: ReactNode }) => {
   };
 
   /**
-   * Generate noise buffer for soundscape
+   * Generate noise or tone buffer for soundscape
    */
   const generateNoiseBuffer = (type: SoundType, ctx: AudioContext): AudioBuffer => {
-    console.log(`[SoundContext] Generating noise buffer for: ${type}`);
+    console.log(`[SoundContext] Generating buffer for: ${type}`);
     const bufferSize = ctx.sampleRate * 2; // 2 seconds buffer
+    
+    if (type === 'binaural') {
+      // Binaural beats require stereo
+      const buffer = ctx.createBuffer(2, bufferSize, ctx.sampleRate);
+      const left = buffer.getChannelData(0);
+      const right = buffer.getChannelData(1);
+      
+      const baseFreq = 200; // Carrier frequency
+      const beatFreq = 10;  // Alpha wave (10Hz)
+      
+      for (let i = 0; i < bufferSize; i++) {
+        const t = i / ctx.sampleRate;
+        // Apply a small fade in/out to avoid clicks if looped imperfectly (though loop is seamless)
+        const fade = Math.sin(Math.PI * i / bufferSize);
+        left[i] = Math.sin(2 * Math.PI * baseFreq * t) * 0.4 * fade;
+        right[i] = Math.sin(2 * Math.PI * (baseFreq + beatFreq) * t) * 0.4 * fade;
+      }
+      return buffer;
+    }
+
+    // Default to mono for other sounds
     const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
     const data = buffer.getChannelData(0);
 
@@ -96,17 +117,14 @@ export const SoundProvider = ({ children }: { children: ReactNode }) => {
    * Start playing current soundscape
    */
   const playSound = async (): Promise<void> => {
-    console.log(`[SoundContext] playSound() called for: ${currentSound}`);
+    console.log(`[SoundContext] playSound() for: ${currentSound}`);
     await initAudio();
     stopSound(); 
 
     const ctx = audioContextRef.current;
     const gainNode = gainNodeRef.current;
 
-    if (!ctx || !gainNode) {
-      console.error('[SoundContext] Failed to initialize AudioContext or GainNode');
-      return;
-    }
+    if (!ctx || !gainNode) return;
 
     const buffer = generateNoiseBuffer(currentSound, ctx);
     const noise = ctx.createBufferSource();
@@ -120,12 +138,15 @@ export const SoundProvider = ({ children }: { children: ReactNode }) => {
     } else if (currentSound === 'white') {
       filter.type = 'lowpass';
       filter.frequency.value = 15000;
+    } else if (currentSound === 'binaural') {
+      // Binaural beats don't need much filtering, but a gentle lowpass helps
+      filter.type = 'lowpass';
+      filter.frequency.value = 2000;
     } else {
       filter.type = 'lowpass';
-      filter.frequency.value = 850; // Further increased for audibility
+      filter.frequency.value = 850;
     }
 
-    console.log(`[SoundContext] Audio source starting with filter at ${filter.frequency.value}Hz`);
     noise.connect(filter);
     filter.connect(gainNode);
 
@@ -142,9 +163,7 @@ export const SoundProvider = ({ children }: { children: ReactNode }) => {
     if (sourceNodeRef.current) {
       try {
         sourceNodeRef.current.stop();
-      } catch (e) {
-        // Already stopped
-      }
+      } catch (e) {}
       sourceNodeRef.current = null;
     }
     setIsPlaying(false);
