@@ -115,7 +115,7 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
     >
         <div className="settings-body">
           <div className="settings-section">
-            <h3>{t('settings.appearance.title')}</h3>
+            <h3 className="modal-section-title">{t('settings.appearance.title')}</h3>
 
             <div className="setting-item">
               <div className="setting-info">
@@ -191,7 +191,7 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
           </div>
 
           <div className="settings-section">
-            <h3>{t('settings.accessibility.title')}</h3>
+            <h3 className="modal-section-title">{t('settings.accessibility.title')}</h3>
             
             <div className="setting-item">
               <div className="setting-info">
@@ -279,7 +279,7 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
           </div>
 
           <div className="settings-section">
-            <h3>{t('settings.integration.title')}</h3>
+            <h3 className="modal-section-title">{t('settings.integration.title')}</h3>
             <div className="setting-item vertical-item">
               <div className="setting-info">
                 <span className="setting-label">{t('settings.integration.import.label')}</span>
@@ -299,7 +299,7 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
           </div>
 
           <div className="settings-section">
-            <h3>{t('settings.privacy.title')}</h3>
+            <h3 className="modal-section-title">{t('settings.privacy.title')}</h3>
             
             <div className="setting-item vertical-item">
               <div className="setting-info">
