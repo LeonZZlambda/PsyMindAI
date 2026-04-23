@@ -3,6 +3,7 @@ import '../styles/pomodoro.css';
 import { useTranslation } from 'react-i18next';
 import { usePomodoro } from '../context/PomodoroContext';
 import { generatePomodoroTip } from '../services/tools/pomodoroService';
+import BaseModal from './BaseModal';
 
 type Props = {
   isOpen: boolean;
@@ -22,7 +23,6 @@ const PomodoroModal: React.FC<Props> = ({ isOpen, onClose }) => {
 
   const { t } = useTranslation();
 
-  const [isClosing, setIsClosing] = useState(false);
   const [aiTip, setAiTip] = useState('');
   const [isLoadingTip, setIsLoadingTip] = useState(false);
 
@@ -49,20 +49,12 @@ const PomodoroModal: React.FC<Props> = ({ isOpen, onClose }) => {
     setIsLoadingTip(false);
   };
 
-  const handleClose = () => {
-    setIsClosing(true);
-    setTimeout(() => {
-      setIsClosing(false);
-      onClose();
-    }, 300);
-  };
-
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isOpen) return;
 
       if (e.key === 'Escape') {
-        handleClose();
+        onClose();
       } else if (e.key === 'Tab') {
         e.preventDefault();
         const modeKeys = ['focus', 'short', 'long'];
@@ -84,99 +76,93 @@ const PomodoroModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const progress = ((modes[mode].time - timeLeft) / modes[mode].time) * 100;
 
   return (
-    <div className={`modal-overlay ${isClosing ? 'closing' : ''}`} onClick={handleClose}>
-      <div className="modal-content pomodoro-modal" onClick={(e) => e.stopPropagation()}>
-        <div className="modal-header">
-          <h2>{t('pomodoro.title')}</h2>
-          <button className="close-btn" onClick={handleClose}>
-            <span className="material-symbols-outlined">close</span>
+    <BaseModal
+      isOpen={isOpen}
+      onClose={onClose}
+      title={t('pomodoro.title')}
+      icon="timer"
+      maxWidth="400px"
+    >
+      <div className="pomodoro-body">
+        <div className="pomodoro-modes">
+          {(Object.keys(modes) as Array<keyof typeof modes>).map((m) => (
+            <button
+              key={m as string}
+              className={`mode-btn ${mode === m ? 'active' : ''}`}
+              onClick={() => changeMode(m as any)}
+              style={{
+                '--mode-color': modes[m].color
+              } as React.CSSProperties}
+            >
+              <span className="material-symbols-outlined">
+                {modes[m].icon}
+              </span>
+              <span>{modes[m].label}</span>
+            </button>
+          ))}
+        </div>
+
+        <div className="timer-display" style={{ color: modes[mode].color }}>
+          {formatTime(timeLeft)}
+        </div>
+
+        <div className="timer-controls">
+          <button
+            className="control-btn main-control"
+            onClick={toggleTimer}
+            style={{ backgroundColor: modes[mode].color }}
+            aria-label={isActive ? 'Pause' : 'Start'}
+          >
+            <span className="material-symbols-outlined">
+              {isActive ? 'pause' : 'play_arrow'}
+            </span>
+          </button>
+          <button
+            className="control-btn reset-control"
+            onClick={resetTimer}
+            title={t('pomodoro.restart')}
+            aria-label={t('pomodoro.restart')}
+          >
+            <span className="material-symbols-outlined">refresh</span>
           </button>
         </div>
 
-        <div className="modal-body pomodoro-body">
-          <div className="pomodoro-modes">
-            {(Object.keys(modes) as Array<keyof typeof modes>).map((m) => (
-              <button
-                key={m as string}
-                className={`mode-btn ${mode === m ? 'active' : ''}`}
-                onClick={() => changeMode(m as any)}
-                style={{
-                  backgroundColor: mode === m ? `${modes[m].color}15` : 'transparent',
-                  color: mode === m ? modes[m].color : 'var(--text-light)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '6px'
-                }}
-              >
-                <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>
-                  {modes[m].icon}
-                </span>
-                {modes[m].label}
-              </button>
-            ))}
-          </div>
+        <div className="progress-bar-container">
+          <div
+            className="progress-bar-fill"
+            style={{
+              width: `${progress}%`,
+              backgroundColor: isActive ? modes[mode].color : 'var(--border-color)'
+            }}
+          />
+        </div>
 
-          <div className="timer-display" style={{ color: modes[mode].color }}>
-            {formatTime(timeLeft)}
-          </div>
+        <div className="ai-tip-section">
+          <button
+            className="ai-tip-btn"
+            onClick={fetchAiTip}
+            disabled={isLoadingTip}
+            style={{
+              color: modes[mode].color,
+              borderColor: modes[mode].color,
+              backgroundColor: `${modes[mode].color}08`
+            }}
+          >
+            <span className="material-symbols-outlined">
+              {isLoadingTip ? 'hourglass_empty' : 'psychology'}
+            </span>
+            {isLoadingTip ? t('pomodoro.generating') : (mode === 'focus' ? t('pomodoro.focus_tip') : t('pomodoro.break_tip'))}
+          </button>
 
-          <div className="timer-controls">
-            <button
-              className="control-btn main-control"
-              onClick={toggleTimer}
-              style={{ backgroundColor: modes[mode].color }}
-            >
-              <span className="material-symbols-outlined">
-                {isActive ? 'pause' : 'play_arrow'}
-              </span>
-            </button>
-            <button
-              className="control-btn reset-control"
-              onClick={resetTimer}
-              title={t('pomodoro.restart')}
-            >
-              <span className="material-symbols-outlined">refresh</span>
-            </button>
-          </div>
-
-          <div className="progress-bar-container">
-            <div
-              className="progress-bar-fill"
-              style={{
-                width: `${progress}%`,
-                backgroundColor: isActive ? modes[mode].color : 'var(--secondary-color)'
-              }}
-            />
-          </div>
-
-          <div className="ai-tip-section">
-            <button
-              className="ai-tip-btn"
-              onClick={fetchAiTip}
-              disabled={isLoadingTip}
-              style={{
-                color: modes[mode].color,
-                borderColor: modes[mode].color,
-                backgroundColor: `${modes[mode].color}08`
-              }}
-            >
-              <span className="material-symbols-outlined">
-                {isLoadingTip ? 'hourglass_empty' : 'psychology'}
-              </span>
-              {isLoadingTip ? t('pomodoro.generating') : (mode === 'focus' ? t('pomodoro.focus_tip') : t('pomodoro.break_tip'))}
-            </button>
-
-            {aiTip && (
-              <div className="ai-tip-content">
-                <span className="material-symbols-outlined tip-icon" style={{ color: modes[mode].color }}>lightbulb</span>
-                <p>{aiTip}</p>
-              </div>
-            )}
-          </div>
+          {aiTip && (
+            <div className="ai-tip-content" style={{ borderColor: `${modes[mode].color}40` }}>
+              <span className="material-symbols-outlined tip-icon" style={{ color: modes[mode].color }}>lightbulb</span>
+              <p>{aiTip}</p>
+            </div>
+          )}
         </div>
       </div>
-    </div>
+    </BaseModal>
   );
 };
 
