@@ -543,6 +543,7 @@
     }
   },
   "help": {
+    "title": "Central de Ajuda",
     "tabs": {
       "faq": "Ajuda & FAQ",
       "shortcuts": "Atalhos",

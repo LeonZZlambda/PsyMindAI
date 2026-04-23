@@ -80,49 +80,46 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
     <BaseModal
       isOpen={isOpen}
       onClose={onClose}
+      title={t('help.title')}
+      icon="help"
     >
-      {({ handleClose }) => (
-        <>
-          <div className="modal-header with-tabs">
-            <div className="modal-tabs">
-              <button 
-                className={`tab-btn ${activeTab === 'faq' ? 'active' : ''}`}
-                onClick={() => setActiveTab('faq')}
-              >
-                {t('help.tabs.faq')}
-              </button>
-              {showShortcuts && (
-                <button 
-                  className={`tab-btn ${activeTab === 'shortcuts' ? 'active' : ''}`}
-                  onClick={() => setActiveTab('shortcuts')}
-                >
-                  {t('help.tabs.shortcuts')}
-                </button>
-              )}
-              <button 
-                className={`tab-btn ${activeTab === 'feedback' ? 'active' : ''}`}
-                onClick={() => setActiveTab('feedback')}
-              >
-                {t('help.tabs.feedback')}
-              </button>
-            </div>
-            <button className="modal-close-btn help-modal-close-trigger" onClick={handleClose} aria-label="Close modal">
-              <span className="material-symbols-outlined">close</span>
+      <div className="modal-tabs-container">
+        <div className="modal-tabs">
+          <button 
+            className={`tab-btn ${activeTab === 'faq' ? 'active' : ''}`}
+            onClick={() => setActiveTab('faq')}
+          >
+            {t('help.tabs.faq')}
+          </button>
+          {showShortcuts && (
+            <button 
+              className={`tab-btn ${activeTab === 'shortcuts' ? 'active' : ''}`}
+              onClick={() => setActiveTab('shortcuts')}
+            >
+              {t('help.tabs.shortcuts')}
             </button>
-          </div>
-          
-          <div className="help-body">
+          )}
+          <button 
+            className={`tab-btn ${activeTab === 'feedback' ? 'active' : ''}`}
+            onClick={() => setActiveTab('feedback')}
+          >
+            {t('help.tabs.feedback')}
+          </button>
+        </div>
+      </div>
+      
+      <div className="help-body">
           {activeTab === 'faq' && (
             <>
               <div className="help-section">
-                <h3>{t('help.about.title')}</h3>
+                <h3 className="modal-section-title">{t('help.about.title')}</h3>
                 <p className="help-text">
                   {t('help.about.text')}
                 </p>
               </div>
 
               <div className="help-section">
-                <h3>{t('help.how_to.title')}</h3>
+                <h3 className="modal-section-title">{t('help.how_to.title')}</h3>
                 <div className="help-item">
                   <span className="material-symbols-outlined help-icon">chat</span>
                   <div className="help-info">
@@ -154,7 +151,7 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
               </div>
 
               <div className="help-section">
-                <h3>{t('help.faq.title')}</h3>
+                <h3 className="modal-section-title">{t('help.faq.title')}</h3>
                 <details className="faq-item">
                   <summary>
                     <span>{t('help.faq.items.q1.question')}</span>
@@ -191,7 +188,7 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
             <div className="shortcuts-section">
               <div className="feedback-header">
                 <span className="material-symbols-outlined feedback-icon">keyboard</span>
-                <h3>{t('help.shortcuts.title')}</h3>
+                <h3 className="modal-section-title">{t('help.shortcuts.title')}</h3>
                 <p>{t('help.shortcuts.desc')}</p>
               </div>
               
@@ -373,11 +370,9 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
         
         {activeTab === 'faq' && (
           <div className="modal-footer">
-            <button className="primary-btn" onClick={handleClose}>{t('help.got_it')}</button>
+            <button className="primary-btn" onClick={onClose}>{t('help.got_it')}</button>
           </div>
         )}
-        </>
-      )}
     </BaseModal>
   );
 };

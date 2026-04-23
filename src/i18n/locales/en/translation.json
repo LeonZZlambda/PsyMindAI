@@ -543,6 +543,7 @@
     }
   },
   "help": {
+    "title": "Help Center",
     "tabs": {
       "faq": "Help & FAQ",
       "shortcuts": "Shortcuts",
