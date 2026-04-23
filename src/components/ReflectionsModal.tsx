@@ -29,6 +29,7 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
   const [breathingActive, setBreathingActive] = useState(false);
   const [breathingPhase, setBreathingPhase] = useState('inhale');
   const [selectedTechnique, setSelectedTechnique] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const breathingTimerRef = useRef(null);
   const [aiReflection, setAiReflection] = useState('');
   const [isLoadingReflection, setIsLoadingReflection] = useState(false);
@@ -144,21 +145,21 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
           onClick={() => setActiveTab('daily')}
         >
           <span className="material-symbols-outlined">today</span>
-          {t('reflections.tabs.daily')}
+          <span>{t('reflections.tabs.daily')}</span>
         </button>
         <button 
           className={`reflections-tab-btn ${activeTab === 'explore' ? 'active' : ''}`}
-          onClick={() => setActiveTab('explore')}
+          onClick={() => { setSelectedCategory(null); setActiveTab('explore'); }}
         >
           <span className="material-symbols-outlined">explore</span>
-          {t('reflections.tabs.explore')}
+          <span>{t('reflections.tabs.explore')}</span>
         </button>
         <button 
           className={`reflections-tab-btn ${activeTab === 'breathing' ? 'active' : ''}`}
           onClick={() => { setActiveTab('breathing'); stopBreathing(); }}
         >
           <span className="material-symbols-outlined">air</span>
-          {t('reflections.tabs.breathing')}
+          <span>{t('reflections.tabs.breathing')}</span>
         </button>
       </div>
 

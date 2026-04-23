@@ -824,6 +824,7 @@
     }
   },
   "reflections": {
+    "title": "Reflexões",
     "tabs": {
       "daily": "Reflexão do Dia",
       "explore": "Explorar Temas",
