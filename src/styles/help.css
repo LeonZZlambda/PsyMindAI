@@ -598,14 +598,19 @@ textarea#feedback-text:focus {
 }
 
 .result-actions .secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
   background: transparent;
   border: 1px solid var(--border-color);
   color: var(--text-color);
-  padding: 0.75rem 1.5rem;
+  padding: 0.9rem 1.5rem;
   border-radius: 24px;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 0.95rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: transform 0.18s ease, background 0.2s ease;
   width: 100%;
 }
 
@@ -615,6 +620,7 @@ textarea#feedback-text:focus {
 }
 
 .result-actions .secondary-btn:hover {
+  transform: translateY(-2px);
   background: rgba(0, 0, 0, 0.05);
 }
 

@@ -16,8 +16,27 @@
 .primary-btn:hover:not(:disabled) { transform: translateY(-2px); filter: brightness(1.1); }
 .primary-btn:disabled { background: var(--border-color); color: var(--text-light); cursor: not-allowed; opacity: 0.8; transform: none; }
 
-.secondary-btn { display: flex; align-items: center; justify-content: center; gap: 8px; background: transparent; color: var(--primary-color); border: 2px solid var(--primary-color); padding: 10px 1.5rem; border-radius: 20px; font-weight: 500; font-size: 0.875rem; cursor: pointer; transition: transform 0.18s ease, background 0.2s; white-space: nowrap; }
-.secondary-btn:hover:not(:disabled) { transform: translateY(-2px); background: rgba(0, 121, 107, 0.05); }
+.secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.5rem;
+  background: transparent;
+  color: var(--primary-color);
+  border: 1.5px solid var(--primary-color);
+  border-radius: 24px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.18s ease, background 0.2s;
+  white-space: nowrap;
+}
+
+.secondary-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: rgba(0, 121, 107, 0.06);
+}
 
 .dark .primary-btn { color: #111; }
 .dark .primary-btn:disabled { background: var(--card-background); border: 1px solid var(--border-color); color: var(--text-light); }
