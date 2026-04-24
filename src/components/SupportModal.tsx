@@ -3,6 +3,7 @@ import { useChat } from '../context/ChatContext';
 import { useTheme } from '../context/ThemeContext';
 import { useTranslation } from 'react-i18next';
 import BaseModal from './BaseModal';
+import PsyBot from './PsyBot';
 import '../styles/help.css';
 
 const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
@@ -34,44 +35,33 @@ const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
   });
   const [reframingResult, setReframingResult] = useState<any>(null);
 
-  // Avatar State
-  const [eyePos, setEyePos] = useState({ x: 0, y: 0 });
-  const [isInputFocused, setIsInputFocused] = useState(false);
+  const [isHappy, setIsHappy] = useState(false);
   const [isSmiling, setIsSmiling] = useState(false);
   const [isWinking, setIsWinking] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  const [clickCount, setClickCount] = useState(0);
   const [isDizzy, setIsDizzy] = useState(false);
-  const [isHappy, setIsHappy] = useState(false);
-  const [isBlinking, setIsBlinking] = useState(false);
-  const [isSleeping, setIsSleeping] = useState(false);
-  const idleTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [clickCount, setClickCount] = useState(0);
+  const [isInputFocused, setIsInputFocused] = useState(false);
+  const [eyePos, setEyePos] = useState({ x: 0, y: 0 });
 
-  // Idle Timer Logic
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const resetIdleTimer = () => {
-      setIsSleeping(false);
-      if (idleTimeoutRef.current) clearTimeout(idleTimeoutRef.current);
-      idleTimeoutRef.current = setTimeout(() => {
-        setIsSleeping(true);
-      }, 15000); // 15 seconds of inactivity to sleep
-    };
-
-    resetIdleTimer();
-
-    window.addEventListener('mousemove', resetIdleTimer);
-    window.addEventListener('keydown', resetIdleTimer);
-    window.addEventListener('click', resetIdleTimer);
-
-    return () => {
-      if (idleTimeoutRef.current) clearTimeout(idleTimeoutRef.current);
-      window.removeEventListener('mousemove', resetIdleTimer);
-      window.removeEventListener('keydown', resetIdleTimer);
-      window.removeEventListener('click', resetIdleTimer);
-    };
-  }, [isOpen]);
+  const handleBotClick = () => {
+    if (isDizzy) return;
+    setClickCount(prev => {
+      const newCount = prev + 1;
+      if (newCount >= 5) {
+        setIsDizzy(true);
+        setTimeout(() => {
+          setIsDizzy(false);
+          setClickCount(0);
+        }, 3000);
+        return 0;
+      }
+      return newCount;
+    });
+    if (!isWinking) {
+      setIsWinking(true);
+      setTimeout(() => setIsWinking(false), 800);
+    }
+  };
 
   useEffect(() => {
     if (reducedMotion) {
@@ -119,15 +109,7 @@ const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
     setEyePos({ x, y });
   };
 
-  // Auto blinking logic
-  useEffect(() => {
-    if (reducedMotion) return;
-    const interval = setInterval(() => {
-      setIsBlinking(true);
-      setTimeout(() => setIsBlinking(false), 150);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [reducedMotion]);
+  // Auto blinking is now handled by the PsyBot component internally
 
   useEffect(() => {
     if (!isOpen) return;
@@ -626,193 +608,18 @@ const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
         {activeTab === 'immediate' && (
           <div className="support-section">
             <div className="support-hero">
-              <div className="ai-avatar-container" style={{ padding: '10px' }}>
-                <svg 
-                  className="ai-avatar" 
-                  viewBox="0 0 120 120" 
-                  xmlns="http://www.w3.org/2000/svg"
-                  onMouseEnter={() => setIsHovered(true)}
-                  onMouseLeave={() => setIsHovered(false)}
-                  onClick={() => {
-                    if (isDizzy) return;
-                    
-                    setClickCount(prev => {
-                      const newCount = prev + 1;
-                      if (newCount >= 5) {
-                        setIsDizzy(true);
-                        setTimeout(() => {
-                          setIsDizzy(false);
-                          setClickCount(0);
-                        }, 3000);
-                        return 0;
-                      }
-                      return newCount;
-                    });
-
-                    if (!isWinking) {
-                      setIsWinking(true);
-                      setTimeout(() => setIsWinking(false), 800);
-                    }
-                  }}
-                  style={{ 
-                    cursor: 'pointer', 
-                    transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-                    transform: isSleeping
-                      ? 'scale(1) translateY(8px)'
-                      : isHappy 
-                      ? 'scale(1.1) translateY(-15px)'
-                      : isDizzy 
-                        ? 'scale(1) translateY(0) rotate(-10deg)' 
-                        : isHovered 
-                          ? 'scale(1.05) translateY(-5px)' 
-                          : isInputFocused 
-                            ? 'scale(1.02) translateY(2px) rotate(4deg)' 
-                            : 'scale(1) translateY(0)',
-                    overflow: 'visible'
-                  }}
-                >
-                  <defs>
-                    <linearGradient id="botGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="var(--primary-color, #0b57d0)" stopOpacity="0.15" />
-                      <stop offset="100%" stopColor="var(--primary-color, #0b57d0)" stopOpacity="0.05" />
-                    </linearGradient>
-                    <linearGradient id="screenGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stopColor="#1E293B" />
-                      <stop offset="100%" stopColor="#0F172A" />
-                    </linearGradient>
-                  </defs>
-
-                  <g 
-                    className="psybot-float"
-                    style={{
-                      filter: isHovered ? 'drop-shadow(0 8px 16px rgba(11, 87, 208, 0.3))' : 'drop-shadow(0 4px 8px rgba(0,0,0,0.1))',
-                      transition: 'filter 0.3s ease'
-                    }}
-                  >
-                    {/* Antenna Base & Stick */}
-                    <path d="M 50 30 Q 60 22 70 30" fill="none" stroke="var(--primary-color, #0b57d0)" strokeWidth="4" strokeLinecap="round" />
-                    <line x1="60" y1="26" x2="60" y2="10" stroke="var(--primary-color, #0b57d0)" strokeWidth="4" strokeLinecap="round" />
-                    
-                    {/* Zzz floating animation */}
-                    {isSleeping && (
-                      <g style={{ animation: 'floatZzz 3s infinite', opacity: 0.6 }}>
-                        <text x="75" y="15" fill="#38BDF8" fontSize="14" fontWeight="bold" style={{ filter: 'drop-shadow(0 0 4px #38BDF8)' }}>Z</text>
-                        <text x="85" y="0" fill="#38BDF8" fontSize="10" fontWeight="bold" style={{ animation: 'floatZzz 3s infinite 0.5s' }}>z</text>
-                        <text x="92" y="-10" fill="#38BDF8" fontSize="8" fontWeight="bold" style={{ animation: 'floatZzz 3s infinite 1s' }}>z</text>
-                      </g>
-                    )}
-
-                    {/* Antenna Bulb - Pulses when analyzing, turns green when listening, flashes yellow when happy */}
-                    <circle 
-                      cx="60" 
-                      cy="10" 
-                      r={isAnalyzing || isInputFocused || isHappy ? "7" : "5"} 
-                      fill={isSleeping ? "rgba(255,255,255,0.2)" : isHappy ? "#FDE047" : isAnalyzing ? "#F59E0B" : isInputFocused ? "#10B981" : "var(--primary-color, #0b57d0)"} 
-                      style={{ 
-                        transition: 'all 0.3s ease',
-                        filter: isSleeping 
-                          ? 'none'
-                          : isHappy 
-                            ? 'drop-shadow(0 0 8px #FDE047)'
-                            : isAnalyzing 
-                              ? 'drop-shadow(0 0 6px #F59E0B)' 
-                              : isInputFocused 
-                                ? 'drop-shadow(0 0 6px #10B981)' 
-                                : 'none'
-                      }}
-                    />
-
-                    {/* Main Body */}
-                    <rect 
-                      x="20" 
-                      y="30" 
-                      width="80" 
-                      height="75" 
-                      rx="35" 
-                      fill="url(#botGradient)" 
-                      stroke="var(--primary-color, #0b57d0)" 
-                      strokeWidth="4" 
-                    />
-
-                    {/* Glowing Core / Heart */}
-                    <circle 
-                      cx="60" 
-                      cy="92" 
-                      r="4" 
-                      fill="var(--primary-color, #0b57d0)" 
-                      style={{ animation: 'pulseGlow 2s ease-in-out infinite', transformOrigin: '60px 92px' }} 
-                    />
-                    <circle 
-                      cx="60" 
-                      cy="92" 
-                      r="1.5" 
-                      fill="#fff" 
-                      style={{ animation: 'pulseGlow 2s ease-in-out infinite', transformOrigin: '60px 92px' }} 
-                    />
-
-                    {/* Dark Glossy Screen */}
-                    <rect 
-                      x="28" 
-                      y="40" 
-                      width="64" 
-                      height="46" 
-                      rx="20" 
-                      fill="url(#screenGradient)" 
-                      stroke="rgba(255,255,255,0.1)"
-                      strokeWidth="1.5"
-                    />
-                    
-                    {/* Screen Reflection (Glossy effect) */}
-                    <path 
-                      d="M 32 44 Q 60 38 88 44 Q 85 55 60 55 Q 35 55 32 44" 
-                      fill="rgba(255,255,255,0.06)" 
-                    />
-
-                    {/* Cheeks (Blush when smiling, hovered, dizzy, or happy, hidden when sleeping) */}
-                    <circle cx="38" cy="68" r="5" fill="#EC4899" opacity={isSleeping ? "0" : (isSmiling || isHovered || isDizzy || isHappy) ? "0.6" : "0"} style={{ transition: 'opacity 0.4s ease', filter: 'drop-shadow(0 0 4px #EC4899)' }} />
-                    <circle cx="82" cy="68" r="5" fill="#EC4899" opacity={isSleeping ? "0" : (isSmiling || isHovered || isDizzy || isHappy) ? "0.6" : "0"} style={{ transition: 'opacity 0.4s ease', filter: 'drop-shadow(0 0 4px #EC4899)' }} />
-
-                    {/* Eyes Group with Tracking */}
-                    <g style={{ transform: `translate(${isSleeping || isDizzy ? 0 : eyePos.x}px, ${isSleeping || isDizzy ? 0 : eyePos.y}px)`, transition: 'transform 0.05s linear' }}>
-                      {/* Left Eye */}
-                      {isSleeping ? (
-                        <path d="M 40 64 Q 45 60 50 64" fill="none" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
-                      ) : isDizzy ? (
-                        <path d="M 40 58 L 50 68 M 40 68 L 50 58" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
-                      ) : (isWinking || isBlinking) ? (
-                        <path d="M 40 62 L 50 62" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
-                      ) : (isSmiling || isHappy) ? (
-                        <path d="M 40 64 Q 45 56 50 64" fill="none" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
-                      ) : (
-                        <circle cx="45" cy="62" r="5.5" fill="#38BDF8" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
-                      )}
-
-                      {/* Right Eye */}
-                      {isSleeping ? (
-                        <path d="M 70 64 Q 75 60 80 64" fill="none" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
-                      ) : isDizzy ? (
-                        <path d="M 70 58 L 80 68 M 70 68 L 80 58" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
-                      ) : (isBlinking && !isWinking) ? (
-                        <path d="M 70 62 L 80 62" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
-                      ) : (isSmiling || isHappy) ? (
-                        <path d="M 70 64 Q 75 56 80 64" fill="none" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
-                      ) : (
-                        <circle cx="75" cy="62" r="5.5" fill="#38BDF8" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
-                      )}
-                    </g>
-                    
-                    {/* Small Mouth / Detail (Only shows when speaking/smiling/dizzy/happy) */}
-                    <path 
-                      d={isDizzy ? "M 55 75 Q 60 70 65 75" : (isSmiling || isHappy) ? "M 56 74 Q 60 78 64 74" : "M 58 74 L 62 74"} 
-                      fill="none" 
-                      stroke="#38BDF8" 
-                      strokeWidth="2.5" 
-                      strokeLinecap="round" 
-                      opacity={isSleeping ? "0" : (isSmiling || isAnalyzing || isDizzy || isHappy) ? "1" : "0.2"}
-                      style={{ transition: 'all 0.3s ease' }}
-                    />
-                  </g>
-                </svg>
+              <div className="ai-avatar-container" style={{ padding: '10px', cursor: 'pointer' }} onClick={handleBotClick}>
+                <PsyBot 
+                  isAnalyzing={isAnalyzing}
+                  isInputFocused={isInputFocused}
+                  isHappy={isHappy}
+                  isSmiling={isSmiling}
+                  isWinking={isWinking}
+                  isDizzy={isDizzy}
+                  eyePos={eyePos}
+                  reducedMotion={reducedMotion}
+                  isOpen={isOpen}
+                />
               </div>
               <h3>{t("support.immediate.title")}</h3>
               <p>{t("support.immediate.desc")}</p>
