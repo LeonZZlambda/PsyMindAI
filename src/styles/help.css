@@ -153,6 +153,7 @@
 
 .modal-tabs {
   display: flex;
+  justify-content: center;
   gap: 0.5rem;
   overflow-x: auto;
   scrollbar-width: none;
