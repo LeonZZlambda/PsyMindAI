@@ -75,65 +75,64 @@ const KindnessModal = ({ isOpen, onClose }) => {
       isOpen={isOpen}
       onClose={onClose}
       title={t('kindness.title')}
+      icon="volunteer_activism"
     >
-      <div className="kindness-modal-content">
-        <div className="modal-body kindness-body">
-          <div className="kindness-categories">
-            {categories.map(cat => (
-              <button
-                key={cat.id}
-                className={`category-btn ${category === cat.id ? 'active' : ''}`}
-                onClick={() => {
-                  setCategory(cat.id);
-                  generateAct(cat.id);
-                }}
-                title={cat.label}
-              >
-                <span className="material-symbols-outlined" style={{ color: category === cat.id ? '#ffffff' : cat.color }}>{cat.icon}</span>
-                <span className="category-label">{cat.label}</span>
-              </button>
-            ))}
-          </div>
-
-          <div className="act-display-container">
-            {isLoading ? (
-              <div className="act-loading">
-                <span className="material-symbols-outlined spin-animation">psychology</span>
-                <p style={{ color: 'var(--text-light)' }}>{t('kindness.loading')}</p>
-              </div>
-            ) : (
-              <div className={`act-card ${completed ? 'completed' : ''}`}>
-                <span className="material-symbols-outlined act-icon">volunteer_activism</span>
-                <p className="act-text">{act}</p>
-                {completed && (
-                  <div className="completion-badge">
-                    <span className="material-symbols-outlined">check_circle</span>
-                    {t('kindness.completed')}
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-
-          <div className="kindness-controls">
-            <button 
-              className="action-btn secondary"
-              onClick={() => generateAct()}
-              disabled={isLoading}
+      <div className="kindness-body">
+        <div className="kindness-categories">
+          {categories.map(cat => (
+            <button
+              key={cat.id}
+              className={`category-btn ${category === cat.id ? 'active' : ''}`}
+              onClick={() => {
+                setCategory(cat.id);
+                generateAct(cat.id);
+              }}
+              title={cat.label}
             >
-              <span className="material-symbols-outlined">refresh</span>
-              {t('kindness.generate_new')}
+              <span className="material-symbols-outlined" style={{ color: category === cat.id ? '#ffffff' : cat.color }}>{cat.icon}</span>
+              <span className="category-label">{cat.label}</span>
             </button>
-            
-            <button 
-              className={`action-btn primary ${completed ? 'disabled' : ''}`}
-              onClick={handleComplete}
-              disabled={completed || isLoading}
-            >
-              <span className="material-symbols-outlined">favorite</span>
-              {completed ? t('kindness.done') : t('kindness.will_do')}
-            </button>
-          </div>
+          ))}
+        </div>
+
+        <div className="act-display-container">
+          {isLoading ? (
+            <div className="act-loading">
+              <span className="material-symbols-outlined spin-animation">psychology</span>
+              <p style={{ color: 'var(--text-light)' }}>{t('kindness.loading')}</p>
+            </div>
+          ) : (
+            <div className={`modal-hero act-card ${completed ? 'completed' : ''}`}>
+              <span className="material-symbols-outlined act-icon">volunteer_activism</span>
+              <p className="act-text">{act}</p>
+              {completed && (
+                <div className="completion-badge">
+                  <span className="material-symbols-outlined">check_circle</span>
+                  {t('kindness.completed')}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        <div className="modal-footer kindness-controls">
+          <button 
+            className="action-btn secondary"
+            onClick={() => generateAct()}
+            disabled={isLoading}
+          >
+            <span className="material-symbols-outlined">refresh</span>
+            {t('kindness.generate_new')}
+          </button>
+          
+          <button 
+            className={`action-btn primary ${completed ? 'disabled' : ''}`}
+            onClick={handleComplete}
+            disabled={completed || isLoading}
+          >
+            <span className="material-symbols-outlined">favorite</span>
+            {completed ? t('kindness.done') : t('kindness.will_do')}
+          </button>
         </div>
       </div>
     </BaseModal>

@@ -1,20 +1,11 @@
-/* Kindness Modal Styles */
-.kindness-modal {
-  max-width: 500px;
-  text-align: center;
-  padding: 24px;
-}
 
-.modal-overlay.closing .kindness-modal {
-  animation: slideDown 0.3s cubic-bezier(0.4, 0, 1, 1) forwards;
-}
 
 .kindness-body {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   gap: 1.5rem;
-  padding: 1rem 0;
+  padding: 0;
 }
 
 .kindness-categories {
@@ -49,15 +40,10 @@
 }
 
 .act-card {
-  background: #f0f4f9;
-  border: 1px solid #dadce0;
-  border-radius: 24px;
-  padding: 32px;
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
   transition: all 0.2s ease;
+  margin-bottom: 0;
+  text-align: center;
 }
 
 .act-card:hover {
@@ -98,11 +84,10 @@
 }
 
 .kindness-controls {
-  display: flex;
-  gap: 1rem;
-  width: 100%;
-  justify-content: center;
-  margin-top: 0.5rem;
+  margin: auto -1.5rem -1.5rem -1.5rem;
+  border-top: 1px solid var(--border-color);
+  background: var(--card-background);
+  border-radius: 0 0 28px 28px;
 }
 
 .action-btn {
@@ -156,9 +141,6 @@
 }
 
 /* Dark Mode for Kindness Modal */
-.app.dark .kindness-modal {
-  /* Box shadow inherited from .modal-content */
-}
 
 .app.dark .kindness-body {
   padding-top: 1rem;
@@ -179,8 +161,6 @@
 }
 
 .app.dark .act-card {
-  background: var(--background-color);
-  border-color: var(--border-color);
 }
 
 .app.dark .act-card:hover {
