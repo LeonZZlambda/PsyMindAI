@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const TelemetryConsent = () => {
   const { t } = useTranslation();
   const [isVisible, setIsVisible] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,20 +29,26 @@ const TelemetryConsent = () => {
     }
   }, []);
 
+  const closeToast = (callback) => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setIsVisible(false);
+      setIsClosing(false);
+      callback();
+    }, 300);
+  };
+
   const handleAccept = () => {
-    Telemetry.setOptIn(true);
-    setIsVisible(false);
+    closeToast(() => Telemetry.setOptIn(true));
   };
 
   const handleDecline = () => {
-    Telemetry.setOptIn(false);
-    setIsVisible(false);
+    closeToast(() => Telemetry.setOptIn(false));
   };
 
   const handleMoreInfo = (e) => {
     e.preventDefault();
-    navigate('/analytics');
-    setIsVisible(false);
+    closeToast(() => navigate('/analytics'));
   };
 
   const containerRef = useRef(null);
@@ -91,10 +98,10 @@ const TelemetryConsent = () => {
     }
   }, [isVisible]);
 
-  if (!isVisible) return null;
+  if (!isVisible && !isClosing) return null;
 
   return (
-    <div className="telemetry-consent-toast" role="dialog" aria-modal="true" aria-labelledby="telemetry-title" aria-describedby="telemetry-desc" ref={containerRef}>
+    <div className={`telemetry-consent-toast ${isClosing ? 'closing' : ''}`} role="dialog" aria-modal="true" aria-labelledby="telemetry-title" aria-describedby="telemetry-desc" ref={containerRef}>
       <div className="telemetry-consent-content">
         <div className="telemetry-consent-header">
           <span className="material-symbols-outlined icon" aria-hidden>monitoring</span>
