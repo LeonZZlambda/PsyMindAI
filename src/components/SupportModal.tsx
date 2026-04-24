@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import BaseModal from './BaseModal';
 import '../styles/help.css';
 
-const SupportModal = ({ isOpen, onClose }) => {
+const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   const { setInput } = useChat();
   const { isDarkMode, reducedMotion } = useTheme();
   const [activeTab, setActiveTab] = useState('immediate');
@@ -13,7 +13,7 @@ const SupportModal = ({ isOpen, onClose }) => {
   
   // Immediate Support State
   const [feelingInput, setFeelingInput] = useState('');
-  const [aiResponse, setAiResponse] = useState(null);
+  const [aiResponse, setAiResponse] = useState<any>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   // Investigation State
@@ -23,7 +23,7 @@ const SupportModal = ({ isOpen, onClose }) => {
     context: '',
     duration: ''
   });
-  const [investigationResult, setInvestigationResult] = useState(null);
+  const [investigationResult, setInvestigationResult] = useState<any>(null);
 
   // Reframing State
   const [reframingStep, setReframingStep] = useState(0);
@@ -32,7 +32,7 @@ const SupportModal = ({ isOpen, onClose }) => {
     thought: '',
     intensity: 5
   });
-  const [reframingResult, setReframingResult] = useState(null);
+  const [reframingResult, setReframingResult] = useState<any>(null);
 
   // Avatar State
   const [eyePos, setEyePos] = useState({ x: 0, y: 0 });
@@ -45,7 +45,7 @@ const SupportModal = ({ isOpen, onClose }) => {
   const [isHappy, setIsHappy] = useState(false);
   const [isBlinking, setIsBlinking] = useState(false);
   const [isSleeping, setIsSleeping] = useState(false);
-  const idleTimeoutRef = useRef(null);
+  const idleTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Idle Timer Logic
   useEffect(() => {
@@ -79,7 +79,7 @@ const SupportModal = ({ isOpen, onClose }) => {
       return;
     }
 
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: any) => {
       if (isInputFocused) return;
       
       const { innerWidth, innerHeight } = window;
@@ -96,7 +96,7 @@ const SupportModal = ({ isOpen, onClose }) => {
   }, [isOpen, isInputFocused, reducedMotion]);
 
   // Handler for text input caret tracking
-  const handleCaretTracking = (e) => {
+  const handleCaretTracking = (e: any) => {
     if (reducedMotion) return;
     const target = e.target;
     const cursor = target.selectionStart || 0;
@@ -132,7 +132,7 @@ const SupportModal = ({ isOpen, onClose }) => {
   useEffect(() => {
     if (!isOpen) return;
 
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: any) => {
       if (e.key === 'Tab') {
         e.preventDefault();
         setActiveTab(prev => prev === 'immediate' ? 'investigate' : 'immediate');
@@ -160,7 +160,7 @@ const SupportModal = ({ isOpen, onClose }) => {
       
       if (result.success) {
         const lines = result.text.split('\n').filter(l => l.trim());
-        const resources = [];
+        const resources: any[] = [];
         
         lines.forEach(line => {
           if (line.includes('TÉCNICA')) {
@@ -193,7 +193,7 @@ const SupportModal = ({ isOpen, onClose }) => {
 
     setTimeout(() => {
       const input = feelingInput.toLowerCase();
-      let response = {
+      let response: any = {
         type: 'general',
         message: 'Entendo que você esteja passando por isso. Aqui estão alguns recursos que podem ajudar:',
         resources: [
@@ -240,16 +240,17 @@ const SupportModal = ({ isOpen, onClose }) => {
   };
 
   // Investigation Logic
-  const handleInvestigationSelect = (field, value) => {
-    setInvestigationData(prev => ({ ...prev, [field]: value }));
+  const handleInvestigationSelect = (field: string, value: any) => {
+    const updatedData = { ...investigationData, [field]: value };
+    setInvestigationData(updatedData);
     if (field === 'duration') {
-      analyzeInvestigation({ ...investigationData, [field]: value });
+      analyzeInvestigation(updatedData);
     } else {
-      setInvestigationStep(prev => prev + 1);
+      setInvestigationStep((prev: number) => prev + 1);
     }
   };
 
-  const analyzeInvestigation = async (data) => {
+  const analyzeInvestigation = async (data: any) => {
     setIsAnalyzing(true);
     
     try {
@@ -323,7 +324,7 @@ const SupportModal = ({ isOpen, onClose }) => {
   };
 
   // Reframing Logic
-  const handleReframingSelect = (field, value) => {
+  const handleReframingSelect = (field: string, value: any) => {
     setReframingData(prev => ({ ...prev, [field]: value }));
     if (field === 'alternative') {
       analyzeReframing({ ...reframingData, [field]: value });
@@ -332,7 +333,7 @@ const SupportModal = ({ isOpen, onClose }) => {
     }
   };
 
-  const analyzeReframing = (data) => {
+  const analyzeReframing = (data: any) => {
     setIsAnalyzing(true);
     setTimeout(() => {
       let result = {
@@ -369,7 +370,7 @@ const SupportModal = ({ isOpen, onClose }) => {
 
   const resetReframing = () => {
     setReframingStep(0);
-    setReframingData({ thought: '', distortion: '', challenge: '', alternative: '' });
+    setReframingData({ situation: '', thought: '', intensity: 5 });
     setReframingResult(null);
   };
 
@@ -397,14 +398,14 @@ const SupportModal = ({ isOpen, onClose }) => {
       'sempre': 'há bastante tempo'
     };
 
-    const emotion = emotionMap[investigationData.emotion] || investigationData.emotion;
-    const context = contextMap[investigationData.context] || investigationData.context;
-    const duration = durationMap[investigationData.duration] || investigationData.duration;
+    const emotion = emotionMap[investigationData.emotion as keyof typeof emotionMap] || investigationData.emotion;
+    const context = contextMap[investigationData.context as keyof typeof contextMap] || investigationData.context;
+    const duration = durationMap[investigationData.duration as keyof typeof durationMap] || investigationData.duration;
 
     const message = t('support.investigate.chat_prompt', { emotion, context, duration });
     
     setInput(message);
-    const closeBtn = document.querySelector('.support-modal-close-trigger');
+    const closeBtn = document.querySelector('.support-modal-close-trigger') as HTMLElement;
     if (closeBtn) closeBtn.click();
     else onClose();
   };
@@ -412,12 +413,12 @@ const SupportModal = ({ isOpen, onClose }) => {
   const handleTalkAboutFeeling = () => {
     const message = t('support.chat_feeling_prompt', { feeling: feelingInput });
     setInput(message);
-    const closeBtn = document.querySelector('.support-modal-close-trigger');
+    const closeBtn = document.querySelector('.support-modal-close-trigger') as HTMLElement;
     if (closeBtn) closeBtn.click();
     else onClose();
   };
 
-  const handleReframingSubmit = async (e) => {
+  const handleReframingSubmit = async (e: any) => {
     e.preventDefault();
     if (!reframingData.situation || !reframingData.thought) return;
 
@@ -518,7 +519,7 @@ const SupportModal = ({ isOpen, onClose }) => {
                 value={reframingData.thought}
                 onChange={(e) => setReframingData({...reframingData, thought: e.target.value})}
                 className="material-textarea"
-                rows="3"
+                rows={3}
               />
             </div>
 
@@ -534,7 +535,7 @@ const SupportModal = ({ isOpen, onClose }) => {
                   className="intensity-slider"
                   style={{
                     '--slider-thumb-color': `hsl(${reframingData.intensity * 12}, 84%, 55%)`
-                  }}
+                  } as any}
                 />
                 <span className="intensity-value">{reframingData.intensity}</span>
               </div>
@@ -565,22 +566,22 @@ const SupportModal = ({ isOpen, onClose }) => {
           
           <div className="analysis-section">
             <h4>{t("support.reframing.result.distortion")}</h4>
-            <p className="highlight-text">{reframingResult.distortion}</p>
+            <p className="highlight-text">{reframingResult?.distortion}</p>
           </div>
 
           <div className="analysis-section">
             <h4>{t("support.reframing.result.challenge")}</h4>
-            <p>{reframingResult.challenge}</p>
+            <p>{reframingResult?.challenge}</p>
           </div>
 
           <div className="analysis-section">
             <h4>{t("support.reframing.result.alternative")}</h4>
-            <p>{reframingResult.alternative}</p>
+            <p>{reframingResult?.alternative}</p>
           </div>
 
           <div className="reframe-box">
             <h4>{t("support.reframing.result.reframe")}</h4>
-            <p>"{reframingResult.reframe}"</p>
+            <p>"{reframingResult?.reframe}"</p>
           </div>
 
           <button 
@@ -864,7 +865,7 @@ const SupportModal = ({ isOpen, onClose }) => {
                   <p>{aiResponse.message}</p>
                 </div>
                 <div className="resources-grid">
-                  {aiResponse.resources.map((resource, index) => (
+                  {aiResponse.resources.map((resource: any, index: number) => (
                     <div key={index} className={`resource-card ${resource.urgent ? 'urgent' : ''}`}>
                       <span className="material-symbols-outlined">{resource.icon}</span>
                       <div className="resource-info">
