@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useChat } from '../context/ChatContext';
 import { useTheme } from '../context/ThemeContext';
 import { useTranslation } from 'react-i18next';
@@ -44,6 +44,34 @@ const SupportModal = ({ isOpen, onClose }) => {
   const [isDizzy, setIsDizzy] = useState(false);
   const [isHappy, setIsHappy] = useState(false);
   const [isBlinking, setIsBlinking] = useState(false);
+  const [isSleeping, setIsSleeping] = useState(false);
+  const idleTimeoutRef = useRef(null);
+
+  // Idle Timer Logic
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const resetIdleTimer = () => {
+      setIsSleeping(false);
+      if (idleTimeoutRef.current) clearTimeout(idleTimeoutRef.current);
+      idleTimeoutRef.current = setTimeout(() => {
+        setIsSleeping(true);
+      }, 15000); // 15 seconds of inactivity to sleep
+    };
+
+    resetIdleTimer();
+
+    window.addEventListener('mousemove', resetIdleTimer);
+    window.addEventListener('keydown', resetIdleTimer);
+    window.addEventListener('click', resetIdleTimer);
+
+    return () => {
+      if (idleTimeoutRef.current) clearTimeout(idleTimeoutRef.current);
+      window.removeEventListener('mousemove', resetIdleTimer);
+      window.removeEventListener('keydown', resetIdleTimer);
+      window.removeEventListener('click', resetIdleTimer);
+    };
+  }, [isOpen]);
 
   useEffect(() => {
     if (reducedMotion) {
@@ -628,7 +656,9 @@ const SupportModal = ({ isOpen, onClose }) => {
                   style={{ 
                     cursor: 'pointer', 
                     transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-                    transform: isHappy 
+                    transform: isSleeping
+                      ? 'scale(1) translateY(8px)'
+                      : isHappy 
                       ? 'scale(1.1) translateY(-15px)'
                       : isDizzy 
                         ? 'scale(1) translateY(0) rotate(-10deg)' 
@@ -662,21 +692,32 @@ const SupportModal = ({ isOpen, onClose }) => {
                     <path d="M 50 30 Q 60 22 70 30" fill="none" stroke="var(--primary-color, #0b57d0)" strokeWidth="4" strokeLinecap="round" />
                     <line x1="60" y1="26" x2="60" y2="10" stroke="var(--primary-color, #0b57d0)" strokeWidth="4" strokeLinecap="round" />
                     
+                    {/* Zzz floating animation */}
+                    {isSleeping && (
+                      <g style={{ animation: 'floatZzz 3s infinite', opacity: 0.6 }}>
+                        <text x="75" y="15" fill="#38BDF8" fontSize="14" fontWeight="bold" style={{ filter: 'drop-shadow(0 0 4px #38BDF8)' }}>Z</text>
+                        <text x="85" y="0" fill="#38BDF8" fontSize="10" fontWeight="bold" style={{ animation: 'floatZzz 3s infinite 0.5s' }}>z</text>
+                        <text x="92" y="-10" fill="#38BDF8" fontSize="8" fontWeight="bold" style={{ animation: 'floatZzz 3s infinite 1s' }}>z</text>
+                      </g>
+                    )}
+
                     {/* Antenna Bulb - Pulses when analyzing, turns green when listening, flashes yellow when happy */}
                     <circle 
                       cx="60" 
                       cy="10" 
                       r={isAnalyzing || isInputFocused || isHappy ? "7" : "5"} 
-                      fill={isHappy ? "#FDE047" : isAnalyzing ? "#F59E0B" : isInputFocused ? "#10B981" : "var(--primary-color, #0b57d0)"} 
+                      fill={isSleeping ? "rgba(255,255,255,0.2)" : isHappy ? "#FDE047" : isAnalyzing ? "#F59E0B" : isInputFocused ? "#10B981" : "var(--primary-color, #0b57d0)"} 
                       style={{ 
                         transition: 'all 0.3s ease',
-                        filter: isHappy 
-                          ? 'drop-shadow(0 0 8px #FDE047)'
-                          : isAnalyzing 
-                            ? 'drop-shadow(0 0 6px #F59E0B)' 
-                            : isInputFocused 
-                              ? 'drop-shadow(0 0 6px #10B981)' 
-                              : 'none'
+                        filter: isSleeping 
+                          ? 'none'
+                          : isHappy 
+                            ? 'drop-shadow(0 0 8px #FDE047)'
+                            : isAnalyzing 
+                              ? 'drop-shadow(0 0 6px #F59E0B)' 
+                              : isInputFocused 
+                                ? 'drop-shadow(0 0 6px #10B981)' 
+                                : 'none'
                       }}
                     />
 
@@ -726,14 +767,16 @@ const SupportModal = ({ isOpen, onClose }) => {
                       fill="rgba(255,255,255,0.06)" 
                     />
 
-                    {/* Cheeks (Blush when smiling, hovered, dizzy, or happy) */}
-                    <circle cx="38" cy="68" r="5" fill="#EC4899" opacity={(isSmiling || isHovered || isDizzy || isHappy) ? "0.6" : "0"} style={{ transition: 'opacity 0.4s ease', filter: 'drop-shadow(0 0 4px #EC4899)' }} />
-                    <circle cx="82" cy="68" r="5" fill="#EC4899" opacity={(isSmiling || isHovered || isDizzy || isHappy) ? "0.6" : "0"} style={{ transition: 'opacity 0.4s ease', filter: 'drop-shadow(0 0 4px #EC4899)' }} />
+                    {/* Cheeks (Blush when smiling, hovered, dizzy, or happy, hidden when sleeping) */}
+                    <circle cx="38" cy="68" r="5" fill="#EC4899" opacity={isSleeping ? "0" : (isSmiling || isHovered || isDizzy || isHappy) ? "0.6" : "0"} style={{ transition: 'opacity 0.4s ease', filter: 'drop-shadow(0 0 4px #EC4899)' }} />
+                    <circle cx="82" cy="68" r="5" fill="#EC4899" opacity={isSleeping ? "0" : (isSmiling || isHovered || isDizzy || isHappy) ? "0.6" : "0"} style={{ transition: 'opacity 0.4s ease', filter: 'drop-shadow(0 0 4px #EC4899)' }} />
 
                     {/* Eyes Group with Tracking */}
-                    <g style={{ transform: `translate(${isDizzy ? 0 : eyePos.x}px, ${isDizzy ? 0 : eyePos.y}px)`, transition: 'transform 0.05s linear' }}>
+                    <g style={{ transform: `translate(${isSleeping || isDizzy ? 0 : eyePos.x}px, ${isSleeping || isDizzy ? 0 : eyePos.y}px)`, transition: 'transform 0.05s linear' }}>
                       {/* Left Eye */}
-                      {isDizzy ? (
+                      {isSleeping ? (
+                        <path d="M 40 64 Q 45 60 50 64" fill="none" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
+                      ) : isDizzy ? (
                         <path d="M 40 58 L 50 68 M 40 68 L 50 58" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
                       ) : (isWinking || isBlinking) ? (
                         <path d="M 40 62 L 50 62" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
@@ -744,7 +787,9 @@ const SupportModal = ({ isOpen, onClose }) => {
                       )}
 
                       {/* Right Eye */}
-                      {isDizzy ? (
+                      {isSleeping ? (
+                        <path d="M 70 64 Q 75 60 80 64" fill="none" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
+                      ) : isDizzy ? (
                         <path d="M 70 58 L 80 68 M 70 68 L 80 58" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
                       ) : (isBlinking && !isWinking) ? (
                         <path d="M 70 62 L 80 62" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
@@ -762,7 +807,7 @@ const SupportModal = ({ isOpen, onClose }) => {
                       stroke="#38BDF8" 
                       strokeWidth="2.5" 
                       strokeLinecap="round" 
-                      opacity={isSmiling || isAnalyzing || isDizzy || isHappy ? "1" : "0.2"}
+                      opacity={isSleeping ? "0" : (isSmiling || isAnalyzing || isDizzy || isHappy) ? "1" : "0.2"}
                       style={{ transition: 'all 0.3s ease' }}
                     />
                   </g>

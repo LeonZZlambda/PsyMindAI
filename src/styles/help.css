@@ -394,6 +394,13 @@ textarea#feedback-text:focus {
   100% { transform: scaleY(1); }
 }
 
+@keyframes floatZzz {
+  0% { transform: translate(0, 0) scale(0.8); opacity: 0; }
+  20% { opacity: 0.8; }
+  80% { opacity: 0.8; }
+  100% { transform: translate(15px, -20px) scale(1.2); opacity: 0; }
+}
+
 .psybot-blink {
   animation: botBlink 4s infinite;
   transform-box: fill-box;
