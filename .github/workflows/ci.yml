@@ -9,9 +9,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      ANALYZE: 'false'
     strategy:
       matrix:
-        node-version: [18, 20]
+        node-version: [20, 22]
 
     steps:
       - uses: actions/checkout@v4
@@ -38,5 +40,5 @@ jobs:
         run: npm run build
 
       - name: Optional bundle analyze
-        if: env.ANALYZE == 'true'
+        if: ${{ env.ANALYZE == 'true' }}
         run: npm run analyze

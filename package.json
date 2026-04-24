@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@google/genai": "^1.30.0",
-    "dompurify": "^3.3.3",
+    "dompurify": "^3.4.1",
     "framer-motion": "^12.23.24",
     "i18next": "^26.0.4",
     "i18next-browser-languagedetector": "^8.2.1",
