@@ -38,6 +38,8 @@ const SupportModal = ({ isOpen, onClose }) => {
   const [eyePos, setEyePos] = useState({ x: 0, y: 0 });
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [isSmiling, setIsSmiling] = useState(false);
+  const [isWinking, setIsWinking] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     if (reducedMotion) {
@@ -537,246 +539,315 @@ const SupportModal = ({ isOpen, onClose }) => {
     <BaseModal
       isOpen={isOpen}
       onClose={onClose}
-      closeButton={false}
+      title={t("support.title", "Apoio Emocional")}
+      icon="support_agent"
     >
-      {({ handleClose }) => (
-        <>
-          <div className="modal-header with-tabs">
-            <div className="modal-tabs">
-              <button 
-                className={`tab-btn ${activeTab === 'immediate' ? 'active' : ''}`}
-                onClick={() => setActiveTab('immediate')}
-              >{t("support.tabs.immediate")} </button>
-              <button 
-                className={`tab-btn ${activeTab === 'investigate' ? 'active' : ''}`}
-                onClick={() => setActiveTab('investigate')}
-              >{t("support.tabs.investigate")}</button>
-              <button 
-                className={`tab-btn ${activeTab === 'reframing' ? 'active' : ''}`}
-                onClick={() => setActiveTab('reframing')}
-              >{t("support.tabs.reframing")}</button>
-            </div>
-            <button className="modal-close-btn support-modal-close-trigger" onClick={handleClose} aria-label="Close modal">
-              <span className="material-symbols-outlined">close</span>
-            </button>
-          </div>
-          
-          <div className="help-body">
-          {activeTab === 'immediate' && (
-            <div className="support-section">
-              <div className="support-hero">
-                <div className="ai-avatar-container">
-                  <svg className="ai-avatar" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-                    {/* Google Style Body - Minimalist & Friendly */}
+      <div className="modal-tabs-container">
+        <div className="modal-tabs">
+          <button 
+            className={`tab-btn ${activeTab === 'immediate' ? 'active' : ''}`}
+            onClick={() => setActiveTab('immediate')}
+          >{t("support.tabs.immediate")} </button>
+          <button 
+            className={`tab-btn ${activeTab === 'investigate' ? 'active' : ''}`}
+            onClick={() => setActiveTab('investigate')}
+          >{t("support.tabs.investigate")}</button>
+          <button 
+            className={`tab-btn ${activeTab === 'reframing' ? 'active' : ''}`}
+            onClick={() => setActiveTab('reframing')}
+          >{t("support.tabs.reframing")}</button>
+        </div>
+      </div>
+      
+      <div className="help-body">
+        {activeTab === 'immediate' && (
+          <div className="support-section">
+            <div className="support-hero">
+              <div className="ai-avatar-container" style={{ padding: '10px' }}>
+                <svg 
+                  className="ai-avatar" 
+                  viewBox="0 0 120 120" 
+                  xmlns="http://www.w3.org/2000/svg"
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
+                  onClick={() => {
+                    if (!isWinking) {
+                      setIsWinking(true);
+                      setTimeout(() => setIsWinking(false), 800);
+                    }
+                  }}
+                  style={{ 
+                    cursor: 'pointer', 
+                    transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                    transform: isHovered ? 'scale(1.05) translateY(-5px)' : 'scale(1) translateY(0)',
+                    overflow: 'visible'
+                  }}
+                >
+                  <defs>
+                    <linearGradient id="botGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="var(--primary-color, #0b57d0)" stopOpacity="0.15" />
+                      <stop offset="100%" stopColor="var(--primary-color, #0b57d0)" stopOpacity="0.05" />
+                    </linearGradient>
+                    <linearGradient id="screenGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#1E293B" />
+                      <stop offset="100%" stopColor="#0F172A" />
+                    </linearGradient>
+                  </defs>
+
+                  <g 
+                    className="psybot-float"
+                    style={{
+                      filter: isHovered ? 'drop-shadow(0 8px 16px rgba(11, 87, 208, 0.3))' : 'drop-shadow(0 4px 8px rgba(0,0,0,0.1))',
+                      transition: 'filter 0.3s ease'
+                    }}
+                  >
+                    {/* Antenna Base & Stick */}
+                    <path d="M 50 30 Q 60 22 70 30" fill="none" stroke="var(--primary-color, #0b57d0)" strokeWidth="4" strokeLinecap="round" />
+                    <line x1="60" y1="26" x2="60" y2="10" stroke="var(--primary-color, #0b57d0)" strokeWidth="4" strokeLinecap="round" />
+                    
+                    {/* Antenna Bulb - Pulses when analyzing */}
+                    <circle 
+                      cx="60" 
+                      cy="10" 
+                      r={isAnalyzing ? "7" : "5"} 
+                      fill={isAnalyzing ? "#F59E0B" : "var(--primary-color, #0b57d0)"} 
+                      style={{ 
+                        transition: 'all 0.3s ease',
+                        filter: isAnalyzing ? 'drop-shadow(0 0 6px #F59E0B)' : 'none'
+                      }}
+                    />
+
+                    {/* Main Body */}
                     <rect 
-                      x="25" 
-                      y="25" 
-                      width="70" 
-                      height="70" 
-                      rx="24" 
-                      fill="none" 
-                      stroke="#4285F4" 
-                      strokeWidth="6" 
+                      x="20" 
+                      y="30" 
+                      width="80" 
+                      height="75" 
+                      rx="35" 
+                      fill="url(#botGradient)" 
+                      stroke="var(--primary-color, #0b57d0)" 
+                      strokeWidth="4" 
+                    />
+
+                    {/* Dark Glossy Screen */}
+                    <rect 
+                      x="28" 
+                      y="40" 
+                      width="64" 
+                      height="46" 
+                      rx="20" 
+                      fill="url(#screenGradient)" 
+                      stroke="rgba(255,255,255,0.1)"
+                      strokeWidth="1.5"
                     />
                     
-                    {/* Robot Detail: Antenna */}
-                    <line x1="60" y1="25" x2="60" y2="12" stroke="#4285F4" strokeWidth="3" strokeLinecap="round" />
-                    <circle cx="60" cy="12" r="4" fill="#4285F4" />
+                    {/* Screen Reflection (Glossy effect) */}
+                    <path 
+                      d="M 32 44 Q 60 38 88 44 Q 85 55 60 55 Q 35 55 32 44" 
+                      fill="rgba(255,255,255,0.06)" 
+                    />
 
-                    {/* Eyes Group */}
-                    <g className="avatar-eyes">
-                      {/* Left Eye - Always White Background */}
-                      <circle cx="45" cy="50" r="8" fill="white" stroke="#4285F4" strokeWidth="2" />
-                      <circle cx="45" cy="50" r="3.5" fill="#4285F4" style={{ transform: `translate(${eyePos.x}px, ${eyePos.y}px)` }} />
-                      
-                      {/* Right Eye - Always White Background */}
-                      <circle cx="75" cy="50" r="8" fill="white" stroke="#4285F4" strokeWidth="2" />
-                      <circle cx="75" cy="50" r="3.5" fill="#4285F4" style={{ transform: `translate(${eyePos.x}px, ${eyePos.y}px)` }} />
-                      
-                      {/* Eyebrows - Expressive */}
-                      <path d="M 38 38 Q 45 34 52 38" fill="none" stroke="#4285F4" strokeWidth="3" strokeLinecap="round" style={{ transform: `translate(0, ${eyePos.y * 0.5}px)` }} />
-                      <path d="M 68 38 Q 75 34 82 38" fill="none" stroke="#4285F4" strokeWidth="3" strokeLinecap="round" style={{ transform: `translate(0, ${eyePos.y * 0.5}px)` }} />
-                      
-                      {/* Mouth - Small & Simple or Smiling */}
-                      <path 
-                        d={isSmiling ? "M 45 70 L 75 70 Q 60 90 45 70 Z" : "M 53 72 Q 60 76 67 72"} 
-                        fill={isSmiling ? "white" : "none"}
-                        stroke="#4285F4" 
-                        strokeWidth="3" 
-                        strokeLinecap="round" 
-                        strokeLinejoin="round"
-                        style={{ transition: 'all 0.3s ease' }}
-                      />
+                    {/* Cheeks (Blush when smiling or hovered) */}
+                    <circle cx="38" cy="68" r="5" fill="#EC4899" opacity={(isSmiling || isHovered) ? "0.6" : "0"} style={{ transition: 'opacity 0.4s ease', filter: 'drop-shadow(0 0 4px #EC4899)' }} />
+                    <circle cx="82" cy="68" r="5" fill="#EC4899" opacity={(isSmiling || isHovered) ? "0.6" : "0"} style={{ transition: 'opacity 0.4s ease', filter: 'drop-shadow(0 0 4px #EC4899)' }} />
+
+                    {/* Eyes Group with Tracking */}
+                    <g style={{ transform: `translate(${eyePos.x}px, ${eyePos.y}px)`, transition: 'transform 0.05s linear' }}>
+                      {/* Left Eye */}
+                      {isWinking ? (
+                        <path d="M 40 62 L 50 62" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
+                      ) : isSmiling ? (
+                        <path d="M 40 64 Q 45 56 50 64" fill="none" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
+                      ) : (
+                        <circle cx="45" cy="62" r="5.5" fill="#38BDF8" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
+                      )}
+
+                      {/* Right Eye */}
+                      {isSmiling ? (
+                        <path d="M 70 64 Q 75 56 80 64" fill="none" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
+                      ) : (
+                        <circle cx="75" cy="62" r="5.5" fill="#38BDF8" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
+                      )}
                     </g>
-                  </svg>
+                    
+                    {/* Small Mouth / Detail (Only shows when speaking/smiling) */}
+                    <path 
+                      d={isSmiling ? "M 56 74 Q 60 78 64 74" : "M 58 74 L 62 74"} 
+                      fill="none" 
+                      stroke="#38BDF8" 
+                      strokeWidth="2.5" 
+                      strokeLinecap="round" 
+                      opacity={isSmiling || isAnalyzing ? "1" : "0.2"}
+                      style={{ transition: 'all 0.3s ease' }}
+                    />
+                  </g>
+                </svg>
+              </div>
+              <h3>{t("support.immediate.title")}</h3>
+              <p>{t("support.immediate.desc")}</p>
+            </div>
+
+            <div className="feeling-input-container">
+              <textarea
+                className="feeling-input"
+                placeholder={t("support.immediate.placeholder")}
+                value={feelingInput}
+                onChange={(e) => setFeelingInput(e.target.value)}
+                rows={3}
+                onFocus={() => setIsInputFocused(true)}
+                onBlur={() => setIsInputFocused(false)}
+              />
+              <button 
+                className="action-btn primary"
+                onClick={handleAnalyzeFeeling}
+                disabled={isAnalyzing || !feelingInput.trim()}
+              >
+                {isAnalyzing ? (
+                  <>
+                    <span className="material-symbols-outlined spin">sync</span>
+                    {t("support.immediate.analyzing")}
+                  </>
+                ) : (
+                  <>
+                    <span className="material-symbols-outlined">auto_awesome</span>
+                    {t("support.immediate.receive")}
+                  </>
+                )}
+              </button>
+            </div>
+
+            {aiResponse && (
+              <div className={`ai-response-card ${aiResponse.type}`}>
+                <div className="response-header">
+                  <span className="material-symbols-outlined">psychology</span>
+                  <p>{aiResponse.message}</p>
                 </div>
-                <h3>{t("support.immediate.title")}</h3>
-                <p>{t("support.immediate.desc")}</p>
-              </div>
-
-              <div className="feeling-input-container">
-                <textarea
-                  className="feeling-input"
-                  placeholder={t("support.immediate.placeholder")}
-                  value={feelingInput}
-                  onChange={(e) => setFeelingInput(e.target.value)}
-                  rows={3}
-                  onFocus={() => setIsInputFocused(true)}
-                  onBlur={() => setIsInputFocused(false)}
-                />
-                <button 
-                  className="analyze-btn"
-                  onClick={handleAnalyzeFeeling}
-                  disabled={isAnalyzing || !feelingInput.trim()}
-                >
-                  {isAnalyzing ? (
-                    <>
-                      <span className="material-symbols-outlined spin">sync</span>
-                      {t("support.immediate.analyzing")}
-                    </>
-                  ) : (
-                    <>
-                      <span className="material-symbols-outlined">auto_awesome</span>
-                      {t("support.immediate.receive")}
-                    </>
-                  )}
-                </button>
-              </div>
-
-              {aiResponse && (
-                <div className={`ai-response-card ${aiResponse.type}`}>
-                  <div className="response-header">
-                    <span className="material-symbols-outlined">psychology</span>
-                    <p>{aiResponse.message}</p>
-                  </div>
-                  <div className="resources-grid">
-                    {aiResponse.resources.map((resource, index) => (
-                      <div key={index} className={`resource-card ${resource.urgent ? 'urgent' : ''}`}>
-                        <span className="material-symbols-outlined">{resource.icon}</span>
-                        <div className="resource-info">
-                          <h4>{resource.title}</h4>
-                          <p>{resource.desc}</p>
-                        </div>
-                        {resource.action && (
-                          <a href={resource.action} className="resource-action-btn">{t("support.immediate.call")}</a>
-                        )}
+                <div className="resources-grid">
+                  {aiResponse.resources.map((resource, index) => (
+                    <div key={index} className={`resource-card ${resource.urgent ? 'urgent' : ''}`}>
+                      <span className="material-symbols-outlined">{resource.icon}</span>
+                      <div className="resource-info">
+                        <h4>{resource.title}</h4>
+                        <p>{resource.desc}</p>
                       </div>
-                    ))}
-                  </div>
-                  <div className="result-actions" style={{ marginTop: '1.5rem' }}>
-                    <button className="primary-btn highlight-action" onClick={handleTalkAboutFeeling}>
-                      <span className="material-symbols-outlined">chat</span>
-                      {t("support.immediate.chat")}
+                      {resource.action && (
+                        <a href={resource.action} className="resource-action-btn">{t("support.immediate.call")}</a>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                <div className="result-actions" style={{ marginTop: '1.5rem' }}>
+                  <button className="primary-btn cta" onClick={handleTalkAboutFeeling}>
+                    <span className="material-symbols-outlined">chat</span>
+                    {t("support.immediate.chat")}
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+        {activeTab === 'investigate' && (
+          <div className="investigation-section">
+            {investigationStep === 0 && (
+              <div className="step-container">
+                <h3>{t("support.investigate.step0.title")}</h3>
+                <div className="options-grid">
+                  {[
+                    { id: 'ansiedade', label: t('support.investigate.step0.ansiedade'), icon: 'sentiment_worried', color: '#eab308' },
+                    { id: 'tristeza', label: t('support.investigate.step0.tristeza'), icon: 'sentiment_dissatisfied', color: '#3b82f6' },
+                    { id: 'cansaco', label: t('support.investigate.step0.cansaco'), icon: 'battery_alert', color: '#94a3b8' },
+                    { id: 'confusao', label: t('support.investigate.step0.confusao'), icon: 'psychology_alt', color: '#a855f7' },
+                    { id: 'raiva', label: t('support.investigate.step0.raiva'), icon: 'sentiment_extremely_dissatisfied', color: '#ef4444' }
+                  ].map(opt => (
+                    <button 
+                      key={opt.id} 
+                      className="option-card" 
+                      onClick={() => handleInvestigationSelect('emotion', opt.id)}
+                    >
+                      <span className="material-symbols-outlined" style={{ color: opt.color }}>{opt.icon}</span>
+                      <span>{opt.label}</span>
                     </button>
-                  </div>
+                  ))}
                 </div>
-              )}
-            </div>
-          )}
-          {activeTab === 'investigate' && (
-            <div className="investigation-section">
-              {investigationStep === 0 && (
-                <div className="step-container">
-                  <h3>{t("support.investigate.step0.title")}</h3>
-                  <div className="options-grid">
-                    {[
-                      { id: 'ansiedade', label: t('support.investigate.step0.ansiedade'), icon: 'sentiment_worried', color: '#eab308' },
-                      { id: 'tristeza', label: t('support.investigate.step0.tristeza'), icon: 'sentiment_dissatisfied', color: '#3b82f6' },
-                      { id: 'cansaco', label: t('support.investigate.step0.cansaco'), icon: 'battery_alert', color: '#94a3b8' },
-                      { id: 'confusao', label: t('support.investigate.step0.confusao'), icon: 'psychology_alt', color: '#a855f7' },
-                      { id: 'raiva', label: t('support.investigate.step0.raiva'), icon: 'sentiment_extremely_dissatisfied', color: '#ef4444' }
-                    ].map(opt => (
-                      <button 
-                        key={opt.id} 
-                        className="option-card" 
-                        onClick={() => handleInvestigationSelect('emotion', opt.id)}
-                      >
-                        <span className="material-symbols-outlined" style={{ color: opt.color }}>{opt.icon}</span>
-                        <span>{opt.label}</span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
+              </div>
+            )}
 
-              {investigationStep === 1 && (
-                <div className="step-container">
-                  <h3>{t("support.investigate.step1.title")}</h3>
-                  <div className="options-grid">
-                    {[
-                      { id: 'estudos', label: t('support.investigate.step1.estudos'), icon: 'school', color: '#3b82f6' },
-                      { id: 'relacionamentos', label: t('support.investigate.step1.relacionamentos'), icon: 'group', color: '#ec4899' },
-                      { id: 'futuro', label: t('support.investigate.step1.futuro'), icon: 'timeline', color: '#8b5cf6' },
-                      { id: 'saude', label: t('support.investigate.step1.saude'), icon: 'health_and_safety', color: '#10b981' },
-                      { id: 'naosei', label: t('support.investigate.step1.naosei'), icon: 'question_mark', color: '#64748b' }
-                    ].map(opt => (
-                      <button key={opt.id} className="option-card" onClick={() => handleInvestigationSelect('context', opt.id)}>
-                        <span className="material-symbols-outlined" style={{ color: opt.color }}>{opt.icon}</span>
-                        <span>{opt.label}</span>
-                      </button>
-                    ))}
-                  </div>
-                  <button className="back-btn-text" onClick={() => setInvestigationStep(0)}>{t("support.investigate.back")}</button>
-                </div>
-              )}
-
-              {investigationStep === 2 && (
-                <div className="step-container">
-                  <h3>{t("support.investigate.step2.title")}</h3>
-                  <div className="options-grid">
-                    {[
-                      { id: 'hoje', label: t('support.investigate.step2.hoje'), icon: 'today', color: '#22c55e' },
-                      { id: 'semana', label: t('support.investigate.step2.semana'), icon: 'date_range', color: '#eab308' },
-                      { id: 'mes', label: t('support.investigate.step2.mes'), icon: 'calendar_month', color: '#f97316' },
-                      { id: 'sempre', label: t('support.investigate.step2.sempre'), icon: 'update', color: '#ef4444' }
-                    ].map(opt => (
-                      <button key={opt.id} className="option-card" onClick={() => handleInvestigationSelect('duration', opt.id)}>
-                        <span className="material-symbols-outlined" style={{ color: opt.color }}>{opt.icon}</span>
-                        <span>{opt.label}</span>
-                      </button>
-                    ))}
-                  </div>
-                  <button className="back-btn-text" onClick={() => setInvestigationStep(1)}>{t("support.investigate.back")}</button>
-                </div>
-              )}
-
-              {investigationStep === 3 && isAnalyzing && (
-                <div className="loading-state">
-                  <span className="material-symbols-outlined spin">sync</span>
-                  <p>{t("support.investigate.analyzing")}</p>
-                </div>
-              )}
-
-              {investigationStep === 3 && !isAnalyzing && investigationResult && (
-                <div className="result-container">
-                  <div className="result-header">
-                    <span className="material-symbols-outlined">lightbulb</span>
-                    <h3>{investigationResult.title}</h3>
-                  </div>
-                  <p className="result-desc">{investigationResult.description}</p>
-                  <div className="advice-box">
-                    <h4>{t("support.investigate.suggestion")}</h4>
-                    <p>{investigationResult.advice}</p>
-                  </div>
-                  <div className="result-actions">
-                    <button className="primary-btn highlight-action" onClick={handleTalkAboutIt}>
-                      <span className="material-symbols-outlined">chat</span>
-                      {t("support.immediate.chat")}
+            {investigationStep === 1 && (
+              <div className="step-container">
+                <h3>{t("support.investigate.step1.title")}</h3>
+                <div className="options-grid">
+                  {[
+                    { id: 'estudos', label: t('support.investigate.step1.estudos'), icon: 'school', color: '#3b82f6' },
+                    { id: 'relacionamentos', label: t('support.investigate.step1.relacionamentos'), icon: 'group', color: '#ec4899' },
+                    { id: 'futuro', label: t('support.investigate.step1.futuro'), icon: 'timeline', color: '#8b5cf6' },
+                    { id: 'saude', label: t('support.investigate.step1.saude'), icon: 'health_and_safety', color: '#10b981' },
+                    { id: 'naosei', label: t('support.investigate.step1.naosei'), icon: 'question_mark', color: '#64748b' }
+                  ].map(opt => (
+                    <button key={opt.id} className="option-card" onClick={() => handleInvestigationSelect('context', opt.id)}>
+                      <span className="material-symbols-outlined" style={{ color: opt.color }}>{opt.icon}</span>
+                      <span>{opt.label}</span>
                     </button>
-                    <button className="secondary-btn" onClick={resetInvestigation}>{t("support.investigate.restart")}</button>
-                  </div>
+                  ))}
                 </div>
-              )}
-            </div>
-          )}
-          {activeTab === 'reframing' && (
-            <div className="reframing-section">
-              {renderReframingTab()}
-            </div>
-          )}
-        </div>
-        </>
-      )}
+                <button className="back-btn-text" onClick={() => setInvestigationStep(0)}>{t("support.investigate.back")}</button>
+              </div>
+            )}
+
+            {investigationStep === 2 && (
+              <div className="step-container">
+                <h3>{t("support.investigate.step2.title")}</h3>
+                <div className="options-grid">
+                  {[
+                    { id: 'hoje', label: t('support.investigate.step2.hoje'), icon: 'today', color: '#22c55e' },
+                    { id: 'semana', label: t('support.investigate.step2.semana'), icon: 'date_range', color: '#eab308' },
+                    { id: 'mes', label: t('support.investigate.step2.mes'), icon: 'calendar_month', color: '#f97316' },
+                    { id: 'sempre', label: t('support.investigate.step2.sempre'), icon: 'update', color: '#ef4444' }
+                  ].map(opt => (
+                    <button key={opt.id} className="option-card" onClick={() => handleInvestigationSelect('duration', opt.id)}>
+                      <span className="material-symbols-outlined" style={{ color: opt.color }}>{opt.icon}</span>
+                      <span>{opt.label}</span>
+                    </button>
+                  ))}
+                </div>
+                <button className="back-btn-text" onClick={() => setInvestigationStep(1)}>{t("support.investigate.back")}</button>
+              </div>
+            )}
+
+            {investigationStep === 3 && isAnalyzing && (
+              <div className="loading-state">
+                <span className="material-symbols-outlined spin">sync</span>
+                <p>{t("support.investigate.analyzing")}</p>
+              </div>
+            )}
+
+            {investigationStep === 3 && !isAnalyzing && investigationResult && (
+              <div className="result-container">
+                <div className="result-header">
+                  <span className="material-symbols-outlined">lightbulb</span>
+                  <h3>{investigationResult.title}</h3>
+                </div>
+                <p className="result-desc">{investigationResult.description}</p>
+                <div className="advice-box">
+                  <h4>{t("support.investigate.suggestion")}</h4>
+                  <p>{investigationResult.advice}</p>
+                </div>
+                <div className="result-actions">
+                  <button className="primary-btn cta" onClick={handleTalkAboutIt}>
+                    <span className="material-symbols-outlined">chat</span>
+                    {t("support.immediate.chat")}
+                  </button>
+                  <button className="secondary-btn" onClick={resetInvestigation}>{t("support.investigate.restart")}</button>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+        {activeTab === 'reframing' && (
+          <div className="reframing-section">
+            {renderReframingTab()}
+          </div>
+        )}
+      </div>
     </BaseModal>
   );
 };

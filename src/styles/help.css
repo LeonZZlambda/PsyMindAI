@@ -1,8 +1,6 @@
-/* Help Modal Styles - Material Design 3 */
 .help-body {
-  padding: 0 1.5rem 1.5rem;
-  overflow-y: auto;
-  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .help-section {
@@ -149,8 +147,7 @@
 
 .modal-tabs-container {
   padding: 0 1.5rem;
-  margin-top: -0.5rem;
-  margin-bottom: 1rem;
+  margin: -0.5rem -1.5rem 1.5rem -1.5rem;
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -377,6 +374,17 @@ textarea#feedback-text:focus {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+.psybot-float {
+  animation: float 4s ease-in-out infinite;
+  transform-origin: center;
 }
 
 /* Investigation Mode Styles */
