@@ -382,6 +382,24 @@ textarea#feedback-text:focus {
   100% { transform: translateY(0px); }
 }
 
+@keyframes pulseGlow {
+  0% { opacity: 0.4; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.2); filter: drop-shadow(0 0 6px var(--primary-color)); }
+  100% { opacity: 0.4; transform: scale(0.9); }
+}
+
+@keyframes botBlink {
+  0%, 94%, 98% { transform: scaleY(1); }
+  96% { transform: scaleY(0); }
+  100% { transform: scaleY(1); }
+}
+
+.psybot-blink {
+  animation: botBlink 4s infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
 .psybot-float {
   animation: float 4s ease-in-out infinite;
   transform-origin: center;

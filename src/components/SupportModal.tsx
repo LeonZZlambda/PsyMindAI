@@ -40,6 +40,10 @@ const SupportModal = ({ isOpen, onClose }) => {
   const [isSmiling, setIsSmiling] = useState(false);
   const [isWinking, setIsWinking] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [clickCount, setClickCount] = useState(0);
+  const [isDizzy, setIsDizzy] = useState(false);
+  const [isHappy, setIsHappy] = useState(false);
+  const [isBlinking, setIsBlinking] = useState(false);
 
   useEffect(() => {
     if (reducedMotion) {
@@ -63,13 +67,39 @@ const SupportModal = ({ isOpen, onClose }) => {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [isOpen, isInputFocused, reducedMotion]);
 
+  // Handler for text input caret tracking
+  const handleCaretTracking = (e) => {
+    if (reducedMotion) return;
+    const target = e.target;
+    const cursor = target.selectionStart || 0;
+    const textBefore = target.value.substring(0, cursor);
+    const lines = textBefore.split('\n');
+    const currentPhysicalLineIndex = lines.length - 1;
+    const currentPhysicalLineChars = lines[currentPhysicalLineIndex].length;
+    
+    // Estimate visual wrap limit based on screen size
+    const CHARS_PER_LINE = window.innerWidth < 768 ? 40 : 63;
+    
+    const visualLineIndex = currentPhysicalLineIndex + Math.floor(currentPhysicalLineChars / CHARS_PER_LINE);
+    const cursorInVisualLine = currentPhysicalLineChars % CHARS_PER_LINE;
+    
+    // X maps from left (-4) to right (+4) within the current visual line
+    const x = -4 + (cursorInVisualLine / CHARS_PER_LINE) * 8;
+    // Y goes down up to 3 based on visual line
+    const y = 2 + Math.min(visualLineIndex, 3);
+    
+    setEyePos({ x, y });
+  };
+
+  // Auto blinking logic
   useEffect(() => {
     if (reducedMotion) return;
-
-    if (isInputFocused) {
-      setEyePos({ x: 0, y: 6 }); // Look down at input
-    }
-  }, [isInputFocused, reducedMotion]);
+    const interval = setInterval(() => {
+      setIsBlinking(true);
+      setTimeout(() => setIsBlinking(false), 150);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [reducedMotion]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -176,6 +206,8 @@ const SupportModal = ({ isOpen, onClose }) => {
       setAiResponse(response);
       setIsAnalyzing(false);
       setIsSmiling(false);
+      setIsHappy(true);
+      setTimeout(() => setIsHappy(false), 2500);
     }, 1500);
   };
 
@@ -206,6 +238,8 @@ const SupportModal = ({ isOpen, onClose }) => {
         
         setInvestigationResult({ title, description, advice });
         setIsAnalyzing(false);
+        setIsHappy(true);
+        setTimeout(() => setIsHappy(false), 2500);
         setInvestigationStep(3);
         return;
       }
@@ -571,6 +605,21 @@ const SupportModal = ({ isOpen, onClose }) => {
                   onMouseEnter={() => setIsHovered(true)}
                   onMouseLeave={() => setIsHovered(false)}
                   onClick={() => {
+                    if (isDizzy) return;
+                    
+                    setClickCount(prev => {
+                      const newCount = prev + 1;
+                      if (newCount >= 5) {
+                        setIsDizzy(true);
+                        setTimeout(() => {
+                          setIsDizzy(false);
+                          setClickCount(0);
+                        }, 3000);
+                        return 0;
+                      }
+                      return newCount;
+                    });
+
                     if (!isWinking) {
                       setIsWinking(true);
                       setTimeout(() => setIsWinking(false), 800);
@@ -579,7 +628,15 @@ const SupportModal = ({ isOpen, onClose }) => {
                   style={{ 
                     cursor: 'pointer', 
                     transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-                    transform: isHovered ? 'scale(1.05) translateY(-5px)' : 'scale(1) translateY(0)',
+                    transform: isHappy 
+                      ? 'scale(1.1) translateY(-15px)'
+                      : isDizzy 
+                        ? 'scale(1) translateY(0) rotate(-10deg)' 
+                        : isHovered 
+                          ? 'scale(1.05) translateY(-5px)' 
+                          : isInputFocused 
+                            ? 'scale(1.02) translateY(2px) rotate(4deg)' 
+                            : 'scale(1) translateY(0)',
                     overflow: 'visible'
                   }}
                 >
@@ -605,15 +662,21 @@ const SupportModal = ({ isOpen, onClose }) => {
                     <path d="M 50 30 Q 60 22 70 30" fill="none" stroke="var(--primary-color, #0b57d0)" strokeWidth="4" strokeLinecap="round" />
                     <line x1="60" y1="26" x2="60" y2="10" stroke="var(--primary-color, #0b57d0)" strokeWidth="4" strokeLinecap="round" />
                     
-                    {/* Antenna Bulb - Pulses when analyzing */}
+                    {/* Antenna Bulb - Pulses when analyzing, turns green when listening, flashes yellow when happy */}
                     <circle 
                       cx="60" 
                       cy="10" 
-                      r={isAnalyzing ? "7" : "5"} 
-                      fill={isAnalyzing ? "#F59E0B" : "var(--primary-color, #0b57d0)"} 
+                      r={isAnalyzing || isInputFocused || isHappy ? "7" : "5"} 
+                      fill={isHappy ? "#FDE047" : isAnalyzing ? "#F59E0B" : isInputFocused ? "#10B981" : "var(--primary-color, #0b57d0)"} 
                       style={{ 
                         transition: 'all 0.3s ease',
-                        filter: isAnalyzing ? 'drop-shadow(0 0 6px #F59E0B)' : 'none'
+                        filter: isHappy 
+                          ? 'drop-shadow(0 0 8px #FDE047)'
+                          : isAnalyzing 
+                            ? 'drop-shadow(0 0 6px #F59E0B)' 
+                            : isInputFocused 
+                              ? 'drop-shadow(0 0 6px #10B981)' 
+                              : 'none'
                       }}
                     />
 
@@ -627,6 +690,22 @@ const SupportModal = ({ isOpen, onClose }) => {
                       fill="url(#botGradient)" 
                       stroke="var(--primary-color, #0b57d0)" 
                       strokeWidth="4" 
+                    />
+
+                    {/* Glowing Core / Heart */}
+                    <circle 
+                      cx="60" 
+                      cy="92" 
+                      r="4" 
+                      fill="var(--primary-color, #0b57d0)" 
+                      style={{ animation: 'pulseGlow 2s ease-in-out infinite', transformOrigin: '60px 92px' }} 
+                    />
+                    <circle 
+                      cx="60" 
+                      cy="92" 
+                      r="1.5" 
+                      fill="#fff" 
+                      style={{ animation: 'pulseGlow 2s ease-in-out infinite', transformOrigin: '60px 92px' }} 
                     />
 
                     {/* Dark Glossy Screen */}
@@ -647,37 +726,43 @@ const SupportModal = ({ isOpen, onClose }) => {
                       fill="rgba(255,255,255,0.06)" 
                     />
 
-                    {/* Cheeks (Blush when smiling or hovered) */}
-                    <circle cx="38" cy="68" r="5" fill="#EC4899" opacity={(isSmiling || isHovered) ? "0.6" : "0"} style={{ transition: 'opacity 0.4s ease', filter: 'drop-shadow(0 0 4px #EC4899)' }} />
-                    <circle cx="82" cy="68" r="5" fill="#EC4899" opacity={(isSmiling || isHovered) ? "0.6" : "0"} style={{ transition: 'opacity 0.4s ease', filter: 'drop-shadow(0 0 4px #EC4899)' }} />
+                    {/* Cheeks (Blush when smiling, hovered, dizzy, or happy) */}
+                    <circle cx="38" cy="68" r="5" fill="#EC4899" opacity={(isSmiling || isHovered || isDizzy || isHappy) ? "0.6" : "0"} style={{ transition: 'opacity 0.4s ease', filter: 'drop-shadow(0 0 4px #EC4899)' }} />
+                    <circle cx="82" cy="68" r="5" fill="#EC4899" opacity={(isSmiling || isHovered || isDizzy || isHappy) ? "0.6" : "0"} style={{ transition: 'opacity 0.4s ease', filter: 'drop-shadow(0 0 4px #EC4899)' }} />
 
                     {/* Eyes Group with Tracking */}
-                    <g style={{ transform: `translate(${eyePos.x}px, ${eyePos.y}px)`, transition: 'transform 0.05s linear' }}>
+                    <g style={{ transform: `translate(${isDizzy ? 0 : eyePos.x}px, ${isDizzy ? 0 : eyePos.y}px)`, transition: 'transform 0.05s linear' }}>
                       {/* Left Eye */}
-                      {isWinking ? (
+                      {isDizzy ? (
+                        <path d="M 40 58 L 50 68 M 40 68 L 50 58" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
+                      ) : (isWinking || isBlinking) ? (
                         <path d="M 40 62 L 50 62" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
-                      ) : isSmiling ? (
+                      ) : (isSmiling || isHappy) ? (
                         <path d="M 40 64 Q 45 56 50 64" fill="none" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
                       ) : (
                         <circle cx="45" cy="62" r="5.5" fill="#38BDF8" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
                       )}
 
                       {/* Right Eye */}
-                      {isSmiling ? (
+                      {isDizzy ? (
+                        <path d="M 70 58 L 80 68 M 70 68 L 80 58" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
+                      ) : (isBlinking && !isWinking) ? (
+                        <path d="M 70 62 L 80 62" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
+                      ) : (isSmiling || isHappy) ? (
                         <path d="M 70 64 Q 75 56 80 64" fill="none" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
                       ) : (
                         <circle cx="75" cy="62" r="5.5" fill="#38BDF8" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
                       )}
                     </g>
                     
-                    {/* Small Mouth / Detail (Only shows when speaking/smiling) */}
+                    {/* Small Mouth / Detail (Only shows when speaking/smiling/dizzy/happy) */}
                     <path 
-                      d={isSmiling ? "M 56 74 Q 60 78 64 74" : "M 58 74 L 62 74"} 
+                      d={isDizzy ? "M 55 75 Q 60 70 65 75" : (isSmiling || isHappy) ? "M 56 74 Q 60 78 64 74" : "M 58 74 L 62 74"} 
                       fill="none" 
                       stroke="#38BDF8" 
                       strokeWidth="2.5" 
                       strokeLinecap="round" 
-                      opacity={isSmiling || isAnalyzing ? "1" : "0.2"}
+                      opacity={isSmiling || isAnalyzing || isDizzy || isHappy ? "1" : "0.2"}
                       style={{ transition: 'all 0.3s ease' }}
                     />
                   </g>
@@ -692,10 +777,21 @@ const SupportModal = ({ isOpen, onClose }) => {
                 className="feeling-input"
                 placeholder={t("support.immediate.placeholder")}
                 value={feelingInput}
-                onChange={(e) => setFeelingInput(e.target.value)}
+                onChange={(e) => {
+                  setFeelingInput(e.target.value);
+                  handleCaretTracking(e);
+                }}
+                onKeyUp={handleCaretTracking}
+                onClick={handleCaretTracking}
                 rows={3}
-                onFocus={() => setIsInputFocused(true)}
-                onBlur={() => setIsInputFocused(false)}
+                onFocus={(e) => {
+                  setIsInputFocused(true);
+                  handleCaretTracking(e);
+                }}
+                onBlur={() => {
+                  setIsInputFocused(false);
+                  if (!reducedMotion) setEyePos({ x: 0, y: 0 });
+                }}
               />
               <button 
                 className="action-btn primary"
