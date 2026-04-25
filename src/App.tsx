@@ -13,6 +13,7 @@ import './styles/accessibility.css'
 import './styles/account.css'
 import Sidebar from './components/Sidebar'
 import Header from './components/Header'
+import { SkeletonLandingPage, SkeletonChatPage } from './components/SkeletonScreen'
 import ErrorFallback from './components/ErrorFallback'
 import TelemetryConsent from './components/TelemetryConsent'
 import ModalRenderer from './components/ModalRenderer'
@@ -161,9 +162,7 @@ function App() {
           
           <Suspense
             fallback={
-              <main role="main" aria-busy="true" aria-live="polite" className="suspense-fallback">
-                <div role="status" className="loading">Carregando…</div>
-              </main>
+              isPublicPage ? <SkeletonLandingPage /> : <SkeletonChatPage />
             }
           >
             <Routes>

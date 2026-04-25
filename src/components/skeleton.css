@@ -1,0 +1,409 @@
+/* ==========================================================================
+   Skeleton Loading System — YouTube-style shimmer
+   Consistent with project's Material Design / variables.css tokens
+   ========================================================================== */
+
+/* --- Shimmer Animation --------------------------------------------------- */
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+
+/* --- Base Skeleton Element ----------------------------------------------- */
+.skeleton {
+  display: block;
+  background-color: #e8eaed; /* Google Grey 200 — light mode base */
+  background-image: linear-gradient(
+    90deg,
+    #e8eaed 0%,
+    #f1f3f4 40%,
+    #e8eaed 80%
+  );
+  background-size: 800px 100%;
+  background-repeat: no-repeat;
+  animation: skeleton-shimmer 1.6s ease-in-out infinite;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+}
+
+/* --- Shape Variants ------------------------------------------------------ */
+.skeleton--circle {
+  border-radius: 50%;
+}
+
+.skeleton--text {
+  height: 14px;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.skeleton--title {
+  height: 20px;
+  border-radius: 6px;
+  width: 60%;
+}
+
+.skeleton--button {
+  height: 40px;
+  border-radius: 20px;
+  width: 120px;
+}
+
+.skeleton--icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.skeleton--icon-lg {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+/* --- Composite: Feature Card (Landing Page .feature-card) ---------------- */
+.skeleton-feature-card {
+  padding: 2rem;
+  border-radius: 24px;
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid var(--border-color);
+  border-top: 4px solid #e8eaed;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.skeleton-feature-card .skeleton--icon-lg {
+  width: 56px;
+  height: 56px;
+}
+
+.skeleton-feature-card .skeleton--title {
+  width: 50%;
+}
+
+.skeleton-feature-card__lines {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skeleton-feature-card__lines .skeleton--text:nth-child(1) { width: 90%; }
+.skeleton-feature-card__lines .skeleton--text:nth-child(2) { width: 70%; }
+
+/* --- Composite: Suggestion Card (Chat .suggestion) ----------------------- */
+.skeleton-suggestion-card {
+  padding: 1rem;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  background: var(--card-background);
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 200px;
+}
+
+.skeleton-suggestion-card__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.skeleton-suggestion-card__header .skeleton--icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.skeleton-suggestion-card__header .skeleton--title {
+  width: 60%;
+  height: 16px;
+}
+
+.skeleton-suggestion-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.skeleton-suggestion-card__body .skeleton--text:nth-child(1) { width: 85%; }
+.skeleton-suggestion-card__body .skeleton--text:nth-child(2) { width: 65%; }
+.skeleton-suggestion-card__body .skeleton--text:nth-child(3) { width: 45%; }
+
+/* --- Composite: Chat Message (.message) ---------------------------------- */
+.skeleton-chat-message {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  max-width: 800px;
+  width: 100%;
+}
+
+.skeleton-chat-message--user {
+  flex-direction: row-reverse;
+}
+
+.skeleton-chat-message__avatar {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.skeleton-chat-message__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 70%;
+}
+
+.skeleton-chat-message--user .skeleton-chat-message__content {
+  padding: 1rem 1.5rem;
+  border-radius: 24px 24px 4px 24px;
+  background: var(--secondary-color);
+  gap: 8px;
+}
+
+.skeleton-chat-message__content .skeleton--text:nth-child(1) { width: 80%; }
+.skeleton-chat-message__content .skeleton--text:nth-child(2) { width: 60%; }
+.skeleton-chat-message__content .skeleton--text:nth-child(3) { width: 45%; }
+
+/* --- Composite: Modal Card (.modal-card / .modal-hero) ------------------- */
+.skeleton-modal-card {
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.skeleton-modal-card__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.skeleton-modal-card__lines {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skeleton-modal-card__lines .skeleton--text:nth-child(1) { width: 90%; }
+.skeleton-modal-card__lines .skeleton--text:nth-child(2) { width: 70%; }
+.skeleton-modal-card__lines .skeleton--text:nth-child(3) { width: 50%; }
+
+/* --- Page Layout: Landing Page ------------------------------------------- */
+.skeleton-landing-page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 4rem;
+  box-sizing: border-box;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 4rem;
+}
+
+.skeleton-landing-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+  flex: 1;
+}
+
+.skeleton-landing-hero__text {
+  flex: 1;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.skeleton-landing-hero__text .skeleton--title {
+  height: 48px;
+  width: 80%;
+  border-radius: 8px;
+}
+
+.skeleton-landing-hero__text .skeleton--title:nth-child(2) {
+  height: 36px;
+  width: 55%;
+}
+
+.skeleton-landing-hero__subtitle {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skeleton-landing-hero__subtitle .skeleton--text { width: 90%; }
+.skeleton-landing-hero__subtitle .skeleton--text:nth-child(2) { width: 70%; }
+
+.skeleton-landing-hero__actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.skeleton-landing-hero__visual {
+  width: 400px;
+  height: 500px;
+  border-radius: 24px;
+  flex-shrink: 0;
+}
+
+.skeleton-landing-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  width: 100%;
+}
+
+/* --- Page Layout: Chat Page ---------------------------------------------- */
+.skeleton-chat-page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  padding-top: 80px;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+  gap: 2rem;
+  box-sizing: border-box;
+}
+
+.skeleton-chat-welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.skeleton-chat-welcome .skeleton--title {
+  height: 48px;
+  width: 70%;
+  border-radius: 8px;
+}
+
+.skeleton-chat-welcome .skeleton--title:nth-child(2) {
+  height: 28px;
+  width: 50%;
+}
+
+.skeleton-chat-suggestions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  width: 100%;
+}
+
+.skeleton-chat-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+}
+
+.skeleton-chat-input {
+  width: 100%;
+  max-width: 900px;
+  height: 56px;
+  border-radius: 32px;
+  margin-top: auto;
+}
+
+/* ==========================================================================
+   Dark Mode Overrides
+   ========================================================================== */
+.app.dark .skeleton {
+  background-color: #303134; /* Google Grey 800 */
+  background-image: linear-gradient(
+    90deg,
+    #303134 0%,
+    #3c4043 40%,
+    #303134 80%
+  );
+  background-size: 800px 100%;
+}
+
+.app.dark .skeleton-feature-card {
+  background: rgba(255, 255, 255, 0.03);
+  border-top-color: #3c4043;
+}
+
+.app.dark .skeleton-suggestion-card {
+  background: var(--card-background);
+}
+
+.app.dark .skeleton-modal-card {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.app.dark .skeleton-chat-message--user .skeleton-chat-message__content {
+  background: var(--secondary-color);
+}
+
+/* ==========================================================================
+   Reduced Motion — disable shimmer, keep static placeholder
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+    background-image: none;
+  }
+}
+
+.app.reduced-motion .skeleton {
+  animation: none;
+  background-image: none;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+@media (max-width: 768px) {
+  .skeleton-landing-page {
+    padding: 2rem 1.5rem;
+    gap: 2rem;
+  }
+
+  .skeleton-landing-hero {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .skeleton-landing-hero__visual {
+    width: 100%;
+    height: 300px;
+  }
+
+  .skeleton-landing-features {
+    grid-template-columns: 1fr;
+  }
+
+  .skeleton-chat-suggestions {
+    grid-template-columns: 1fr;
+  }
+
+  .skeleton-chat-page {
+    padding: 1rem;
+    padding-top: 80px;
+  }
+}
