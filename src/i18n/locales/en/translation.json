@@ -987,6 +987,14 @@
     "title": "Prep Course",
     "close": "Close",
     "back": "Back",
+    "hero_description": "Explore exams, reference matrices, and prep shortcuts in a Material 3 surface consistent with the rest of the modal suite.",
+    "sections": {
+      "categories": "Categories",
+      "subjects": "Subjects",
+      "subjects_caption": "Choose a focus area to generate a plan, strategy, or guided practice.",
+      "available_options_one": "{{count}} option available",
+      "available_options_other": "{{count}} options available"
+    },
     "categories_title": {
       "international": "International",
       "national": "National",

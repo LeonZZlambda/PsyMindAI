@@ -987,6 +987,14 @@
     "title": "Preparatório",
     "close": "Fechar",
     "back": "Voltar",
+    "hero_description": "Explore provas, matrizes de referência e atalhos de preparação com uma superfície consistente em Material 3.",
+    "sections": {
+      "categories": "Categorias",
+      "subjects": "Matérias",
+      "subjects_caption": "Selecione um recorte para gerar plano, estratégia ou prática guiada.",
+      "available_options_one": "{{count}} opção disponível",
+      "available_options_other": "{{count}} opções disponíveis"
+    },
     "categories_title": {
       "international": "Internacionais",
       "national": "Nacionais",
