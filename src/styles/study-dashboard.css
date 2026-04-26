@@ -15,6 +15,22 @@
   gap: 1rem;
 }
 
+/* Compact hero: reduce vertical padding and gaps for a smaller height */
+.modal-hero.study-dashboard__hero {
+  padding: 0.9rem 1rem;
+  gap: 0.5rem;
+  border-radius: 18px;
+}
+
+.modal-hero.study-dashboard__hero h3 {
+  font-size: 1rem;
+  line-height: 1.15;
+}
+
+.modal-hero.study-dashboard__hero .study-dashboard__hero-copy {
+  gap: 0.375rem;
+}
+
 .study-dashboard__hero-copy {
   display: flex;
   flex-direction: column;
