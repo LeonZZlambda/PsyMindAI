@@ -1,407 +1,256 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Telemetry } from '../services/analytics/telemetry';
-
-type StudyLog = {
-  date: string;
-  minutes: number;
-  topic: string;
-};
-
-type TelemetryMetrics = {
-  totalSessions?: number;
-  transformationScore?: number | string;
-  daysActive?: number;
-};
+import BaseModal from './BaseModal';
+import StudyDashboardSkeleton from './study-dashboard/StudyDashboardSkeleton';
+import { useStudyDashboardData } from '../hooks/useStudyDashboardData';
+import type { DisciplineBreakdownItem, StudyMetricCard, WeeklyStudyPoint } from './study-dashboard/types';
+import '../styles/study-dashboard.css';
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
 };
 
-const StudyStatsModal: React.FC<Props> = ({ isOpen, onClose }) => {
+type StudySessionFormProps = {
+  onSubmit: (topic: string, minutes: number) => void;
+};
+
+type StudyMetricsGridProps = {
+  items: StudyMetricCard[];
+};
+
+type WeeklyStudyChartProps = {
+  caption: string;
+  items: WeeklyStudyPoint[];
+  title: string;
+};
+
+type DisciplineBreakdownProps = {
+  emptyMessage: string;
+  items: DisciplineBreakdownItem[];
+  title: string;
+};
+
+const durationOptions = [15, 30, 45, 60, 90, 120];
+
+const StudySessionForm: React.FC<StudySessionFormProps> = ({ onSubmit }) => {
   const { t } = useTranslation();
+  const [topic, setTopic] = useState('');
+  const [minutes, setMinutes] = useState('30');
 
-  const [studyLogs, setStudyLogs] = useState<StudyLog[]>([]);
-  const [showAddForm, setShowAddForm] = useState(false);
-  const [newLogTopic, setNewLogTopic] = useState('');
-  const [newLogMinutes, setNewLogMinutes] = useState('30');
-  const [telemetry, setTelemetry] = useState<TelemetryMetrics | null>(null);
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-  useEffect(() => {
-    if (!isOpen) return;
+    const normalizedTopic = topic.trim();
+    if (!normalizedTopic) return;
 
-    if (Telemetry.isOptedIn && Telemetry.isOptedIn()) {
-      if (Telemetry.getDerivedMetrics) {
-        setTelemetry(Telemetry.getDerivedMetrics());
-      }
-    }
-
-    const stored = localStorage.getItem('psymind_study_logs');
-    if (stored) {
-      try {
-        setStudyLogs(JSON.parse(stored));
-      } catch (e) {
-        // ignore parse errors and continue with empty/default data
-        // eslint-disable-next-line no-console
-        console.error('Error parsing study logs', e);
-      }
-    } else {
-      const today = new Date();
-      const yDay = new Date(today);
-      yDay.setDate(today.getDate() - 1);
-      const yyDay = new Date(today);
-      yyDay.setDate(today.getDate() - 2);
-
-      const initialLogs: StudyLog[] = [
-        { date: yyDay.toISOString(), minutes: 120, topic: 'Matemática Financeira' },
-        { date: yDay.toISOString(), minutes: 180, topic: 'História do Brasil' },
-        { date: today.toISOString(), minutes: 240, topic: 'Matemática Financeira' },
-        { date: today.toISOString(), minutes: 60, topic: 'Redação' }
-      ];
-
-      setStudyLogs(initialLogs);
-      localStorage.setItem('psymind_study_logs', JSON.stringify(initialLogs));
-    }
-  }, [isOpen]);
-
-  const handleAddLog = () => {
-    if (!newLogTopic.trim() || !newLogMinutes) return;
-
-    const log: StudyLog = {
-      date: new Date().toISOString(),
-      minutes: parseInt(newLogMinutes, 10),
-      topic: newLogTopic.trim()
-    };
-
-    const updated = [...studyLogs, log];
-    setStudyLogs(updated);
-    localStorage.setItem('psymind_study_logs', JSON.stringify(updated));
-    setNewLogTopic('');
-    setShowAddForm(false);
+    onSubmit(normalizedTopic, Number.parseInt(minutes, 10));
+    setTopic('');
+    setMinutes('30');
   };
 
-  const computedStats = useMemo(() => {
-    if (!studyLogs.length) {
-      return {
-        avgFocus: '0m',
-        retention: '0%',
-        streakWeeks: 0,
-        weeklyData: [
-          { day: t('study_stats.days.mon'), percent: 0, value: '0h', active: false },
-          { day: t('study_stats.days.tue'), percent: 0, value: '0h', active: false },
-          { day: t('study_stats.days.wed'), percent: 0, value: '0h', active: false },
-          { day: t('study_stats.days.thu'), percent: 0, value: '0h', active: false },
-          { day: t('study_stats.days.fri'), percent: 0, value: '0h', active: false },
-          { day: t('study_stats.days.sat'), percent: 0, value: '0h', active: false },
-          { day: t('study_stats.days.sun'), percent: 0, value: '0h', active: false }
-        ],
-        disciplines: [],
-        aiTip: t('study_stats.empty')
-      };
-    }
+  return (
+    <div className="modal-card">
+      <form className="study-dashboard__form" onSubmit={handleSubmit}>
+        <div>
+          <h3 className="study-dashboard__form-title">{t('study_stats.form.title')}</h3>
+        </div>
 
-    const today = new Date();
-    const dayOfWeek = today.getDay();
-    const startOfWeek = new Date(today);
-    startOfWeek.setDate(today.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1));
-    startOfWeek.setHours(0, 0, 0, 0);
+        <div className="study-dashboard__form-fields">
+          <input
+            className="study-dashboard__input"
+            onChange={(event) => setTopic(event.target.value)}
+            placeholder={t('study_stats.form.topic_placeholder')}
+            type="text"
+            value={topic}
+          />
 
-    const msInDay = 24 * 60 * 60 * 1000;
-    const weekDays = [
-      t('study_stats.days.mon'), t('study_stats.days.tue'), t('study_stats.days.wed'),
-      t('study_stats.days.thu'), t('study_stats.days.fri'), t('study_stats.days.sat'),
-      t('study_stats.days.sun')
-    ];
+          <select
+            aria-label={t('study_stats.form.duration_aria')}
+            className="study-dashboard__select"
+            onChange={(event) => setMinutes(event.target.value)}
+            value={minutes}
+          >
+            {durationOptions.map((value) => (
+              <option key={value} value={String(value)}>
+                {t(`study_stats.form.durations.${value}`)}
+              </option>
+            ))}
+          </select>
 
-    const baseWeekly = weekDays.map((name, index) => {
-      const dayStart = new Date(startOfWeek.getTime() + index * msInDay);
-      const dayEnd = new Date(dayStart.getTime() + msInDay);
+          <button className="study-dashboard__form-submit" type="submit">
+            <span className="material-symbols-outlined">add</span>
+            {t('study_stats.form.save')}
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};
 
-      const dayMins = studyLogs
-        .filter(l => {
-          const d = new Date(l.date);
-          return d >= dayStart && d < dayEnd;
-        })
-        .reduce((acc, l) => acc + l.minutes, 0);
+const StudyMetricsGrid: React.FC<StudyMetricsGridProps> = ({ items }) => (
+  <div className="study-dashboard__metrics-grid">
+    {items.map((item) => (
+      <div key={item.id} className="modal-card study-dashboard__metric-card">
+        <div className={`study-dashboard__metric-icon study-dashboard__metric-icon--${item.tone}`}>
+          <span className="material-symbols-outlined">{item.icon}</span>
+        </div>
+        <span className="study-dashboard__metric-label">{item.label}</span>
+        <strong className="study-dashboard__metric-value">{item.value}</strong>
+        {item.supportingText ? (
+          <span className="study-dashboard__metric-supporting">{item.supportingText}</span>
+        ) : null}
+      </div>
+    ))}
+  </div>
+);
 
-      const isToday = index === (dayOfWeek === 0 ? 6 : dayOfWeek - 1);
-      return {
-        day: name,
-        minutes: dayMins,
-        value: dayMins >= 60 ? `${Math.floor(dayMins / 60)}h${dayMins % 60 > 0 ? ` ${dayMins % 60}m` : ''}` : `${dayMins}m`,
-        active: isToday
-      };
-    });
+const WeeklyStudyChart: React.FC<WeeklyStudyChartProps> = ({ caption, items, title }) => (
+  <div className="modal-card study-dashboard__panel">
+    <div className="study-dashboard__panel-header">
+      <div>
+        <h3 className="study-dashboard__panel-title">{title}</h3>
+        <span className="study-dashboard__panel-caption">{caption}</span>
+      </div>
+    </div>
 
-    const maxMins = Math.max(...baseWeekly.map(d => d.minutes), 60);
-    const weeklyData = baseWeekly.map(d => ({
-      ...d,
-      percent: Math.min((d.minutes / maxMins) * 100, 100)
-    }));
+    <div className="study-dashboard__chart" role="img" aria-label={title}>
+      {items.map((item) => (
+        <div
+          key={item.day}
+          className={`study-dashboard__chart-column ${item.isToday ? 'study-dashboard__chart-column--today' : ''}`}
+        >
+          <span className="study-dashboard__chart-value">{item.minutes > 0 ? item.valueLabel : '0m'}</span>
+          <div className="study-dashboard__chart-track">
+            <div className="study-dashboard__chart-bar-shell">
+              <div
+                className="study-dashboard__chart-bar"
+                style={{ height: `${Math.max(item.progress, item.minutes > 0 ? 10 : 6)}%` }}
+              />
+            </div>
+          </div>
+          <span className="study-dashboard__chart-day">{item.day}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+);
 
-    const discMap: Record<string, number> = {};
-    let totalMins = 0;
-    studyLogs.forEach(l => {
-      discMap[l.topic] = (discMap[l.topic] || 0) + l.minutes;
-      totalMins += l.minutes;
-    });
+const DisciplineBreakdown: React.FC<DisciplineBreakdownProps> = ({ emptyMessage, items, title }) => (
+  <div className="modal-card study-dashboard__panel">
+    <div className="study-dashboard__panel-header">
+      <div>
+        <h3 className="study-dashboard__panel-title">{title}</h3>
+      </div>
+    </div>
 
-    const defaultColors = ['#4CAF50', '#2196F3', '#9C27B0', '#FF9800', '#F44336'];
-    const disciplines = Object.entries(discMap).map(([topic, mins], i) => ({
-      topic,
-      minutes: mins,
-      percent: Math.round((mins / totalMins) * 100),
-      color: defaultColors[i % defaultColors.length]
-    })).sort((a, b) => b.percent - a.percent);
+    {items.length > 0 ? (
+      <div className="study-dashboard__progress-list">
+        {items.map((item) => (
+          <div key={item.topic} className="study-dashboard__progress-item">
+            <div className="study-dashboard__progress-meta">
+              <span className="study-dashboard__progress-topic">{item.topic}</span>
+              <span className="study-dashboard__progress-share">
+                {item.share}% · {item.minutes} min
+              </span>
+            </div>
+            <div className="study-dashboard__progress-track">
+              <div className="study-dashboard__progress-bar" style={{ width: `${Math.max(item.share, 8)}%` }} />
+            </div>
+          </div>
+        ))}
+      </div>
+    ) : (
+      <div className="study-dashboard__empty-state">
+        <span className="material-symbols-outlined">library_books</span>
+        <p>{emptyMessage}</p>
+      </div>
+    )}
+  </div>
+);
 
-    const avgFocusValue = Math.round(totalMins / studyLogs.length);
-    const avgFocusStr = avgFocusValue >= 60 ? `${Math.floor(avgFocusValue / 60)}h${avgFocusValue % 60 > 0 ? ` ${avgFocusValue % 60}m` : ''}` : `${avgFocusValue}m`;
-
-    return {
-      avgFocus: avgFocusStr,
-      weeklyData,
-      disciplines,
-      aiTip: disciplines.length > 0
-        ? t('study_stats.ai_tip.good', { topic: disciplines[0].topic, score: telemetry ? telemetry.transformationScore : '0' })
-        : t('study_stats.ai_tip.empty')
-    };
-  }, [studyLogs, telemetry, t]);
+const StudyStatsModal: React.FC<Props> = ({ isOpen, onClose }) => {
+  const { t } = useTranslation();
+  const [isFormVisible, setIsFormVisible] = useState(false);
+  const { addLog, status, viewModel } = useStudyDashboardData(isOpen, t);
 
   if (!isOpen) return null;
 
-  const { weeklyData, disciplines } = computedStats;
-
-  const chartWidth = 500;
-  const chartHeight = 160;
-  const paddingX = 30;
-  const paddingTop = 30;
-  const paddingBottom = 40;
-
-  const points = weeklyData.map((d, i: number) => {
-    const x = paddingX + (i * ((chartWidth - paddingX * 2) / (weeklyData.length - 1)));
-    const y = chartHeight - paddingBottom - (d.percent / 100) * (chartHeight - paddingTop - paddingBottom);
-    return { x, y, ...d };
-  });
-
-  const polylinePoints = points.map((p) => `${p.x},${p.y}`).join(' ');
-  const polygonPoints = `${Math.min(...points.map((p) => p.x))},${chartHeight - paddingBottom} ${polylinePoints} ${Math.max(...points.map((p) => p.x))},${chartHeight - paddingBottom}`;
+  const handleAddLog = (topic: string, minutes: number) => {
+    addLog(topic, minutes);
+    setIsFormVisible(false);
+  };
 
   return (
-    <motion.div
-      className="modal-overlay"
-      onClick={onClose}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+    <BaseModal
+      isOpen={isOpen}
+      onClose={onClose}
+      title={t('study_stats.title')}
+      icon="school"
+      size="large"
+      className="study-stats-modal"
     >
-      <motion.div
-        className="modal-content"
-        onClick={(e) => e.stopPropagation()}
-        initial={{ opacity: 0, scale: 0.95, y: -20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.95, y: -20 }}
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          padding: 0,
-          overflow: 'hidden'
-        }}
-      >
-        <div style={{ padding: '24px', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--card-background)' }}>
-          <h2 style={{ margin: 0, fontSize: '1.2rem', display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-color)' }}>
-            <span className="material-symbols-outlined" style={{ color: 'var(--primary-color)' }}>school</span>
-            {t('study_stats.title')}
-          </h2>
-          <div style={{ display: 'flex', gap: '12px' }}>
+      {status === 'loading' ? (
+        <StudyDashboardSkeleton />
+      ) : (
+        <div className="study-dashboard">
+          <div className="modal-hero study-dashboard__hero">
+            <div className="study-dashboard__hero-copy">
+              <span className="study-dashboard__hero-eyebrow">
+                <span className="material-symbols-outlined">monitoring</span>
+                {t('study_stats.eyebrow')}
+              </span>
+              <h3>{t('study_stats.hero_title')}</h3>
+              <p>{t('study_stats.hero_description')}</p>
+            </div>
+
             <button
-              onClick={() => setShowAddForm(!showAddForm)}
-              style={{ background: 'var(--primary-color)', color: '#fff', border: 'none', borderRadius: '8px', padding: '6px 12px', fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>add</span>
-              {t('study_stats.add_session')}
-            </button>
-            <button className="close-btn" onClick={onClose} aria-label={t('study_stats.close')} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-color)', display: 'flex', alignItems: 'center' }}>
-              <span className="material-symbols-outlined">close</span>
-            </button>
-          </div>
-        </div>
-
-        <div style={{ padding: '24px', overflowY: 'auto', flex: 1, display: 'flex', flexDirection: 'column', gap: '24px', background: 'var(--bg-color)' }}>
-          {showAddForm && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              style={{ overflow: 'hidden' }}
+              className="study-dashboard__action-btn"
+              onClick={() => setIsFormVisible((currentValue) => !currentValue)}
+              type="button"
             >
-              <div style={{ padding: '16px', background: 'var(--card-background)', borderRadius: '12px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                <h3 style={{ margin: 0, fontSize: '0.95rem', color: 'var(--text-color)' }}>{t('study_stats.form.title')}</h3>
-                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                  <input
-                    type="text"
-                    placeholder={t('study_stats.form.topic_placeholder')}
-                    value={newLogTopic}
-                    onChange={(e) => setNewLogTopic(e.target.value)}
-                    style={{ flex: 1, padding: '10px', borderRadius: '8px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-color)' }}
-                  />
-                  <select
-                    value={newLogMinutes}
-                    onChange={(e) => setNewLogMinutes(e.target.value)}
-                    style={{ width: '120px', padding: '10px', borderRadius: '8px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-color)' }}
-                  >
-                    {['15', '30', '45', '60', '90', '120'].map(val => (
-                      <option key={val} value={val}>{t(`study_stats.form.durations.${val}`)}</option>
-                    ))}
-                  </select>
-                  <button
-                    onClick={handleAddLog}
-                    style={{ padding: '10px 16px', borderRadius: '8px', border: 'none', background: 'var(--primary-color)', color: '#fff', cursor: 'pointer', fontWeight: 'bold' }}>
-                    {t('study_stats.form.save')}
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          )}
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '16px' }}>
-            <div style={{ background: 'var(--card-hover)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-color)', textAlign: 'center' }}>
-              <span className="material-symbols-outlined" style={{ fontSize: '28px', color: '#4CAF50', marginBottom: '8px' }}>psychology</span>
-              <h3 style={{ margin: '0 0 4px 0', fontSize: '0.85rem', color: 'var(--text-light)' }}>{t('study_stats.metrics.avg_focus')}</h3>
-              <p style={{ margin: 0, fontSize: '1.4rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{computedStats.avgFocus}</p>
-            </div>
-
-            <div style={{ background: 'var(--card-hover)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-color)', textAlign: 'center' }}>
-              <span className="material-symbols-outlined" style={{ fontSize: '28px', color: '#2196F3', marginBottom: '8px' }}>timeline</span>
-              <h3 style={{ margin: '0 0 4px 0', fontSize: '0.85rem', color: 'var(--text-light)' }}>{t('study_stats.metrics.sessions')}</h3>
-              <p style={{ margin: 0, fontSize: '1.4rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{telemetry ? telemetry.totalSessions : '--'}</p>
-            </div>
-
-            <div style={{ background: 'var(--card-hover)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-color)', textAlign: 'center' }}>
-              <span className="material-symbols-outlined" style={{ fontSize: '28px', color: 'var(--primary-color)', marginBottom: '8px' }}>psychology_alt</span>
-              <h3 style={{ margin: '0 0 4px 0', fontSize: '0.85rem', color: 'var(--text-light)' }}>{t('study_stats.metrics.transformation')}</h3>
-              <p style={{ margin: 0, fontSize: '1.4rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{telemetry ? telemetry.transformationScore : '--'}</p>
-            </div>
-
-            <div style={{ background: 'var(--card-hover)', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-color)', textAlign: 'center' }}>
-              <span className="material-symbols-outlined" style={{ fontSize: '28px', color: '#FF9800', marginBottom: '8px' }}>local_fire_department</span>
-              <h3 style={{ margin: '0 0 4px 0', fontSize: '0.85rem', color: 'var(--text-light)' }}>{t('study_stats.metrics.active_days')}</h3>
-              <p style={{ margin: 0, fontSize: '1.4rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{telemetry ? telemetry.daysActive : '--'}</p>
-            </div>
+              <span className="material-symbols-outlined">
+                {isFormVisible ? 'remove' : 'add'}
+              </span>
+              {isFormVisible ? t('study_stats.hide_form') : t('study_stats.add_session')}
+            </button>
           </div>
 
-          <div style={{ background: 'var(--card-hover)', padding: '20px', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
-            <h3 style={{ margin: '0 0 16px 0', fontSize: '1rem', color: 'var(--text-color)' }}>{t('study_stats.charts.weekly_title')}</h3>
-            <div style={{ display: 'flex', justifyContent: 'center', width: '100%', overflowX: 'auto', paddingBottom: '8px' }}>
-              <div style={{ minWidth: '400px', width: '100%', position: 'relative' }}>
-                <svg width="100%" viewBox={`0 0 ${chartWidth} ${chartHeight}`} style={{ overflow: 'visible' }}>
-                  <defs>
-                    <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="var(--primary-color)" stopOpacity="0.4" />
-                      <stop offset="100%" stopColor="var(--primary-color)" stopOpacity="0.01" />
-                    </linearGradient>
-                  </defs>
+          {isFormVisible ? <StudySessionForm onSubmit={handleAddLog} /> : null}
 
-                  {[0, 25, 50, 75, 100].map(percent => {
-                    const y = chartHeight - paddingBottom - (percent / 100) * (chartHeight - paddingTop - paddingBottom);
-                    return (
-                      <line key={percent} x1={paddingX} y1={y} x2={chartWidth - paddingX} y2={y} stroke="var(--border-color)" strokeWidth="1" strokeDasharray="4 4" />
-                    );
-                  })}
+          <StudyMetricsGrid items={viewModel.metricCards} />
 
-                  <motion.polygon
-                    points={polygonPoints}
-                    fill="url(#chartGradient)"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                  />
-
-                  <motion.polyline
-                    points={polylinePoints}
-                    fill="none"
-                    stroke="var(--primary-color)"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={{ duration: 0.8, ease: 'easeInOut' }}
-                  />
-
-                  {points.map((p, i: number) => (
-                    <g key={i}>
-                      <motion.circle
-                        cx={p.x} cy={p.y} r={p.active ? 6 : 4}
-                        fill={p.active ? 'var(--bg-color)' : 'var(--primary-color)'}
-                        stroke='var(--primary-color)'
-                        strokeWidth={p.active ? 3 : 0}
-                        style={{ zIndex: 10 }}
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ duration: 0.3, delay: 0.4 + i * 0.05 }}
-                      />
-
-                      <motion.text
-                        x={p.x} y={p.y - 12}
-                        textAnchor="middle"
-                        fontSize="11"
-                        fill={p.active ? 'var(--text-color)' : 'var(--text-light)'}
-                        fontWeight={p.active ? 'bold' : 'normal'}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.3, delay: 0.6 + i * 0.05 }}
-                      >
-                        {p.value}
-                      </motion.text>
-
-                      <text
-                        x={p.x} y={chartHeight - paddingBottom + 24}
-                        textAnchor="middle"
-                        fontSize="12"
-                        fill={p.active ? 'var(--primary-color)' : 'var(--text-light)'}
-                        fontWeight={p.active ? 'bold' : 'normal'}
-                      >
-                        {p.day}
-                      </text>
-                    </g>
-                  ))}
-                </svg>
-              </div>
+          {!viewModel.telemetryEnabled ? (
+            <div className="study-dashboard__telemetry-banner">
+              <span className="material-symbols-outlined">visibility_off</span>
+              <p>{viewModel.telemetryDisabledMessage}</p>
             </div>
+          ) : null}
+
+          <div className="study-dashboard__content-grid">
+            <WeeklyStudyChart
+              caption={t('study_stats.weekly_caption')}
+              items={viewModel.weeklyStudy}
+              title={t('study_stats.charts.weekly_title')}
+            />
+
+            <DisciplineBreakdown
+              emptyMessage={t('study_stats.empty')}
+              items={viewModel.disciplineBreakdown}
+              title={t('study_stats.charts.discipline_title')}
+            />
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <h3 style={{ margin: 0, fontSize: '1rem', color: 'var(--text-color)' }}>{t('study_stats.charts.discipline_title')}</h3>
-
-            <div style={{ background: 'var(--card-hover)', padding: '20px', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                {disciplines.map((item, i: number) => (
-                  <div key={i}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.85rem' }}>
-                      <span style={{ color: 'var(--text-color)', fontWeight: '500' }}>{item.topic}</span>
-                      <span style={{ color: 'var(--text-light)' }}>{item.percent}%</span>
-                    </div>
-                    <div style={{ width: '100%', height: '8px', background: 'var(--border-color)', borderRadius: '4px', overflow: 'hidden' }}>
-                      <div style={{ width: `${item.percent}%`, height: '100%', background: item.color, borderRadius: '4px' }}></div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div style={{ marginTop: '20px', padding: '12px', background: 'var(--user-msg-bg)', borderRadius: '8px', display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                <span className="material-symbols-outlined" style={{ color: 'var(--primary-color)', fontSize: '20px' }}>lightbulb</span>
-                <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-color)', lineHeight: '1.4' }}>
-                  <strong>{t('study_stats.ai_tip.label')}</strong> {computedStats.aiTip}
-                </p>
-              </div>
-
+          <div className={`study-dashboard__insight study-dashboard__insight--${viewModel.insight.tone}`}>
+            <span className="material-symbols-outlined study-dashboard__insight-icon">lightbulb</span>
+            <div className="study-dashboard__insight-copy">
+              <strong className="study-dashboard__insight-title">{viewModel.insight.title}</strong>
+              <p>{viewModel.insight.body}</p>
             </div>
           </div>
-
         </div>
-      </motion.div>
-    </motion.div>
+      )}
+    </BaseModal>
   );
 };
 

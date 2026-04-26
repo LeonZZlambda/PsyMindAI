@@ -784,9 +784,17 @@
     "title": "Study Dashboard",
     "close": "Close",
     "add_session": "Session",
+    "hide_form": "Hide entry",
+    "eyebrow": "Study telemetry",
+    "hero_title": "Your study rhythm in a Material 3 surface",
+    "hero_description": "Track focus, weekly volume, and discipline distribution without visual instability while telemetry loads.",
+    "weekly_caption": "Last 7 days, with today highlighted",
+    "telemetry_off": "Telemetry disabled",
+    "telemetry_disabled": "Your in-app usage metrics are disabled in Settings. The dashboard still shows study entries, but journey indicators remain hidden.",
     "form": {
       "title": "Log Study (Today)",
       "topic_placeholder": "Subject / Topic",
+      "duration_aria": "Session duration",
       "durations": {
         "15": "15 min",
         "30": "30 min",
@@ -800,6 +808,12 @@
     "metrics": {
       "avg_focus": "Avg Focus",
       "sessions": "App Sessions",
+      "session": "session",
+      "app_sessions": "app sessions",
+      "entries_logged_one": "{{count}} entry",
+      "entries_logged_other": "{{count}} entries",
+      "total_study_time": "Total Time",
+      "this_journey": "in this journey",
       "transformation": "Transformation",
       "active_days": "Active Days"
     },
@@ -810,7 +824,8 @@
     "ai_tip": {
       "label": "AI Tip:",
       "empty": "No recent topics studied. Resume your studies to build discipline and earn points!",
-      "good": "Your dedication to {{topic}} is great. Keep your {{score}} Transformation points up and try not to overload!"
+      "good": "Your dedication to {{topic}} is great. Keep your {{score}} Transformation points up and try not to overload!",
+      "no_telemetry": "Your recent focus is being driven by {{topic}}. Turn app telemetry on to pair that progress with journey and retention indicators."
     },
     "empty": "You have no study logs yet. Start logging to get insights!",
     "days": {

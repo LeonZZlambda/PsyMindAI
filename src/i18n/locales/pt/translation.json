@@ -784,9 +784,17 @@
     "title": "Dashboard de Estudos",
     "close": "Fechar",
     "add_session": "Sessão",
+    "hide_form": "Ocultar registro",
+    "eyebrow": "Telemetria de estudo",
+    "hero_title": "Seu ritmo de estudo em uma superfície Material 3",
+    "hero_description": "Acompanhe foco, volume semanal e distribuição por disciplina sem perder estabilidade visual durante o carregamento.",
+    "weekly_caption": "Últimos 7 dias, com destaque para hoje",
+    "telemetry_off": "Telemetria desativada",
+    "telemetry_disabled": "Os dados do seu uso no app estão desativados em Configurações. O dashboard continua mostrando seus registros de estudo, mas os indicadores de jornada permanecem ocultos.",
     "form": {
       "title": "Registrar Estudo (Dia Atual)",
       "topic_placeholder": "Matéria / Tópico",
+      "duration_aria": "Duração da sessão",
       "durations": {
         "15": "15 min",
         "30": "30 min",
@@ -800,6 +808,12 @@
     "metrics": {
       "avg_focus": "Foco Médio",
       "sessions": "Sessões no App",
+      "session": "sessão",
+      "app_sessions": "sessões no app",
+      "entries_logged_one": "{{count}} registro",
+      "entries_logged_other": "{{count}} registros",
+      "total_study_time": "Tempo Total",
+      "this_journey": "nesta jornada",
       "transformation": "Transformação",
       "active_days": "Dias Ativos"
     },
@@ -810,7 +824,8 @@
     "ai_tip": {
       "label": "Dica da IA:",
       "empty": "Nenhum tópico estudado recentemente. Retome os estudos para construir sua disciplina e ganhar pontos!",
-      "good": "Sua dedicação em {{topic}} está ótima. Mantenha os seus {{score}} pontos de Transformação subindo e tente não sobrecarregar!"
+      "good": "Sua dedicação em {{topic}} está ótima. Mantenha os seus {{score}} pontos de Transformação subindo e tente não sobrecarregar!",
+      "no_telemetry": "Seu foco recente está puxado por {{topic}}. Ative a telemetria do app para combinar esse avanço com indicadores de jornada e retenção."
     },
     "empty": "Você ainda não tem registros de estudo. Comece a registrar para receber insights!",
     "days": {
