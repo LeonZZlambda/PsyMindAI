@@ -409,16 +409,16 @@ const AccountModal: React.FC<AccountModalProps> = ({
                       rows={4}
                       aria-label={t('account.personalization.custom_instructions.title')}
                     />
+                  </div>
 
-                    {/* ---- Actions ----------------------------------------- */}
-                    <div className="account-pref-actions">
-                      <button className="secondary-btn" onClick={handleCancel} type="button">
-                        {t('account.personalization.actions.cancel')}
-                      </button>
-                      <button className="primary-btn filled" onClick={handleSave} type="button">
-                        {t('account.personalization.actions.save')}
-                      </button>
-                    </div>
+                  {/* ---- Actions ----------------------------------------- */}
+                  <div className="account-pref-actions">
+                    <button className="secondary-btn" onClick={handleCancel} type="button">
+                      {t('account.personalization.actions.cancel')}
+                    </button>
+                    <button className="primary-btn filled" onClick={handleSave} type="button">
+                      {t('account.personalization.actions.save')}
+                    </button>
                   </div>
                 </motion.div>
               )}
