@@ -729,6 +729,17 @@ textarea#feedback-text:focus {
   color: #c4c7c5;
 }
 
+
+.upload-label {
+  font-size: 0.95rem;
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.app.dark .upload-label {
+  color: var(--text-color);
+}
+
 .upload-hint {
   font-size: 0.8rem;
   color: #747775;

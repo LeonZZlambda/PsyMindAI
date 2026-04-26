@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import '../styles/account.css'
+import CustomSelect from './CustomSelect'
 
 /* -------------------------------------------------------------------------- */
 /*  Types                                                                      */
@@ -348,18 +349,19 @@ const AccountModal: React.FC<AccountModalProps> = ({
                     <p className="account-pref-section-title">
                       {t('account.personalization.fine_tuning.title')}
                     </p>
-                    <select
-                      className="select-input account-style-select"
+                    <CustomSelect
                       value={draft.basicStyle}
-                      onChange={e => updateDraft('basicStyle', e.target.value as StyleLevel)}
-                      aria-label={t('account.personalization.fine_tuning.style.label')}
-                    >
-                      <option value="default">{t('account.personalization.fine_tuning.style.options.default')}</option>
-                      <option value="concise">{t('account.personalization.fine_tuning.style.options.concise')}</option>
-                      <option value="detailed">{t('account.personalization.fine_tuning.style.options.detailed')}</option>
-                      <option value="casual">{t('account.personalization.fine_tuning.style.options.casual')}</option>
-                      <option value="formal">{t('account.personalization.fine_tuning.style.options.formal')}</option>
-                    </select>
+                      onChange={(val) => updateDraft('basicStyle', val as StyleLevel)}
+                      ariaLabel={t('account.personalization.fine_tuning.style.label')}
+                      className="account-style-select"
+                      options={[
+                        { value: 'default', label: t('account.personalization.fine_tuning.style.options.default') },
+                        { value: 'concise', label: t('account.personalization.fine_tuning.style.options.concise') },
+                        { value: 'detailed', label: t('account.personalization.fine_tuning.style.options.detailed') },
+                        { value: 'casual', label: t('account.personalization.fine_tuning.style.options.casual') },
+                        { value: 'formal', label: t('account.personalization.fine_tuning.style.options.formal') },
+                      ]}
+                    />
 
                     {/* ---- Traits ------------------------------------------ */}
                     <p className="account-pref-section-title">

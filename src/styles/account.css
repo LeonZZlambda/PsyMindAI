@@ -421,41 +421,56 @@
   flex: 1;
 }
 
-/* Segmented control: 3 segments */
+/* Segmented control: contiguous Material 3–inspired segmented buttons */
 .account-segment-group {
-  display: flex;
-  border: 1px solid var(--border-color);
-  border-radius: 100px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 20px;
   overflow: hidden;
+  background: color-mix(in srgb, var(--card-background) 92%, var(--secondary-color));
+  border: 1px solid var(--border-color);
   flex-shrink: 0;
 }
 
 .account-segment-btn {
   background: transparent;
   border: none;
-  padding: 0.3rem 0.65rem;
-  font-size: 0.75rem;
-  font-weight: 500;
+  margin: 0;
+  padding: 0.5rem 0.9rem;
+  min-height: 36px;
+  font-size: 0.875rem;
+  font-weight: 600;
   font-family: inherit;
   color: var(--text-light);
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition: background 0.12s ease, color 0.12s ease, box-shadow 0.12s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   white-space: nowrap;
-  line-height: 1.4;
+  line-height: 1.2;
 }
 
-.account-segment-btn:not(:last-child) {
-  border-right: 1px solid var(--border-color);
+.account-segment-btn + .account-segment-btn {
+  /* subtle internal divider between contiguous segments */
+  border-left: 1px solid color-mix(in srgb, var(--border-color) 80%, transparent);
 }
 
-.account-segment-btn.active {
+.account-segment-btn.active,
+.account-segment-btn[aria-pressed="true"] {
   background: var(--primary-color);
-  color: #ffffff;
+  color: var(--card-background);
+  box-shadow: 0 6px 14px rgba(25, 118, 210, 0.12);
 }
 
 .account-segment-btn:hover:not(.active) {
-  background: var(--secondary-color);
+  background: color-mix(in srgb, var(--primary-color) 6%, var(--card-background));
   color: var(--text-color);
+}
+
+.account-segment-btn:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--primary-color) 24%, var(--card-background));
+  outline-offset: 2px;
 }
 
 /* --- Toggle Row (Instant Responses) --------------------------------------- */
@@ -511,6 +526,30 @@
   padding-top: 1.25rem;
   margin-top: 0.5rem;
   border-top: 1px solid var(--border-color);
+}
+
+/* Ensure action buttons in account preferences match project standard size */
+.account-pref-actions .primary-btn,
+.account-pref-actions .secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 1.5rem;
+  min-height: 40px;
+  font-size: 0.875rem;
+  border-radius: 20px;
+}
+
+.account-pref-actions .secondary-btn {
+  /* match project visual weight but keep secondary appearance */
+  background: transparent;
+  border-width: 1px;
+}
+
+.account-pref-actions .primary-btn.filled {
+  /* ensure filled primary uses the standard padding/height */
+  padding: 10px 1.5rem;
 }
 
 /* --- Style Select --------------------------------------------------------- */
@@ -574,9 +613,18 @@
   background: rgba(255, 255, 255, 0.04);
 }
 
+.app.dark .account-segment-group {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.app.dark .account-segment-btn {
+  color: var(--text-light);
+}
+
 .app.dark .account-segment-btn.active {
-  background: var(--primary-color);
-  color: #001d35;
+  background: color-mix(in srgb, var(--primary-color) 80%, var(--card-background));
+  color: var(--card-background);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.55);
 }
 
 /* ==========================================================================

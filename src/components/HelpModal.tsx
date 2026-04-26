@@ -316,12 +316,12 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
                 <div className="form-group">
                   <label>{t('help.feedback.image_label')}</label>
                   {!feedbackImage ? (
-                    <div 
+                    <div
                       className="image-upload-area"
                       onClick={() => fileInputRef.current?.click()}
                     >
                       <span className="material-symbols-outlined upload-icon">add_photo_alternate</span>
-                      <span>{t('help.feedback.image_hint')}</span>
+                      <span className="upload-label">{t('help.feedback.image_hint')}</span>
                       <span className="upload-hint">{t('help.feedback.image_subhint')}</span>
                       <input
                         type="file"
