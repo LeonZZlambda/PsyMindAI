@@ -37,31 +37,8 @@ const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
 
   const [isHappy, setIsHappy] = useState(false);
   const [isSmiling, setIsSmiling] = useState(false);
-  const [isWinking, setIsWinking] = useState(false);
-  const [isDizzy, setIsDizzy] = useState(false);
-  const [clickCount, setClickCount] = useState(0);
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [eyePos, setEyePos] = useState({ x: 0, y: 0 });
-
-  const handleBotClick = () => {
-    if (isDizzy) return;
-    setClickCount(prev => {
-      const newCount = prev + 1;
-      if (newCount >= 5) {
-        setIsDizzy(true);
-        setTimeout(() => {
-          setIsDizzy(false);
-          setClickCount(0);
-        }, 3000);
-        return 0;
-      }
-      return newCount;
-    });
-    if (!isWinking) {
-      setIsWinking(true);
-      setTimeout(() => setIsWinking(false), 800);
-    }
-  };
 
   useEffect(() => {
     if (reducedMotion) {
@@ -608,14 +585,12 @@ const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
         {activeTab === 'immediate' && (
           <div className="support-section">
             <div className="support-hero">
-              <div className="ai-avatar-container" style={{ padding: '10px', cursor: 'pointer' }} onClick={handleBotClick}>
+              <div className="ai-avatar-container" style={{ padding: '10px', cursor: 'pointer' }}>
                 <PsyBot 
                   isAnalyzing={isAnalyzing}
                   isInputFocused={isInputFocused}
                   isHappy={isHappy}
                   isSmiling={isSmiling}
-                  isWinking={isWinking}
-                  isDizzy={isDizzy}
                   eyePos={eyePos}
                   reducedMotion={reducedMotion}
                   isOpen={isOpen}

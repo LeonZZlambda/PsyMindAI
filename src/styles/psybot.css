@@ -20,11 +20,7 @@
 .psybot-svg {
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
-}
-
-.app.dark .psybot-svg {
-  filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.3));
+  overflow: visible;
 }
 
 @keyframes pulseGlow {

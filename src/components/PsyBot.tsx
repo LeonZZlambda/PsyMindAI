@@ -11,6 +11,7 @@ interface PsyBotProps {
   eyePos?: { x: number; y: number };
   reducedMotion?: boolean;
   isOpen?: boolean;
+  onClick?: () => void;
 }
 
 const PsyBot: React.FC<PsyBotProps> = ({
@@ -22,12 +23,19 @@ const PsyBot: React.FC<PsyBotProps> = ({
   isDizzy = false,
   eyePos = { x: 0, y: 0 },
   reducedMotion = false,
-  isOpen = true
+  isOpen = true,
+  onClick
 }) => {
   const [isBlinking, setIsBlinking] = useState(false);
   const [isSleeping, setIsSleeping] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [clickCount, setClickCount] = useState(0);
+  const [internalWink, setInternalWink] = useState(false);
+  const [internalDizzy, setInternalDizzy] = useState(false);
   const idleTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const effectiveWink = isWinking || internalWink;
+  const effectiveDizzy = isDizzy || internalDizzy;
 
   // Auto blinking logic
   useEffect(() => {
@@ -62,13 +70,40 @@ const PsyBot: React.FC<PsyBotProps> = ({
     };
   }, [isOpen]);
 
-  const effectiveEyePos = isSleeping || isDizzy ? { x: 0, y: 0 } : eyePos;
+  const handleAvatarClick = () => {
+    onClick?.();
+
+    if (effectiveDizzy) return;
+
+    setClickCount((previousValue) => {
+      const nextValue = previousValue + 1;
+
+      if (nextValue >= 5) {
+        setInternalDizzy(true);
+        setTimeout(() => {
+          setInternalDizzy(false);
+          setClickCount(0);
+        }, 3000);
+        return 0;
+      }
+
+      return nextValue;
+    });
+
+    if (!effectiveWink) {
+      setInternalWink(true);
+      setTimeout(() => setInternalWink(false), 800);
+    }
+  };
+
+  const effectiveEyePos = isSleeping || effectiveDizzy ? { x: 0, y: 0 } : eyePos;
 
   return (
     <div 
       className={`psybot-avatar ${isSleeping ? 'sleeping' : ''}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={handleAvatarClick}
     >
       <svg viewBox="0 0 120 120" className="psybot-svg">
         <defs>
@@ -163,17 +198,17 @@ const PsyBot: React.FC<PsyBotProps> = ({
           />
 
           {/* Cheeks */}
-          <circle cx="38" cy="68" r="5" fill="#EC4899" opacity={isSleeping ? "0" : (isSmiling || isHovered || isDizzy || isHappy) ? "0.6" : "0"} style={{ transition: 'opacity 0.4s ease', filter: 'drop-shadow(0 0 4px #EC4899)' }} />
-          <circle cx="82" cy="68" r="5" fill="#EC4899" opacity={isSleeping ? "0" : (isSmiling || isHovered || isDizzy || isHappy) ? "0.6" : "0"} style={{ transition: 'opacity 0.4s ease', filter: 'drop-shadow(0 0 4px #EC4899)' }} />
+          <circle cx="38" cy="68" r="5" fill="#EC4899" opacity={isSleeping ? "0" : (isSmiling || isHovered || effectiveDizzy || isHappy) ? "0.6" : "0"} style={{ transition: 'opacity 0.4s ease', filter: 'drop-shadow(0 0 4px #EC4899)' }} />
+          <circle cx="82" cy="68" r="5" fill="#EC4899" opacity={isSleeping ? "0" : (isSmiling || isHovered || effectiveDizzy || isHappy) ? "0.6" : "0"} style={{ transition: 'opacity 0.4s ease', filter: 'drop-shadow(0 0 4px #EC4899)' }} />
 
           {/* Eyes Group */}
           <g style={{ transform: `translate(${effectiveEyePos.x}px, ${effectiveEyePos.y}px)`, transition: 'transform 0.05s linear' }}>
             {/* Left Eye */}
             {isSleeping ? (
               <path d="M 40 64 Q 45 60 50 64" fill="none" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
-            ) : isDizzy ? (
+            ) : effectiveDizzy ? (
               <path d="M 40 58 L 50 68 M 40 68 L 50 58" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
-            ) : (isWinking || isBlinking) ? (
+            ) : (effectiveWink || isBlinking) ? (
               <path d="M 40 62 L 50 62" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
             ) : (isSmiling || isHappy) ? (
               <path d="M 40 64 Q 45 56 50 64" fill="none" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
@@ -184,9 +219,9 @@ const PsyBot: React.FC<PsyBotProps> = ({
             {/* Right Eye */}
             {isSleeping ? (
               <path d="M 70 64 Q 75 60 80 64" fill="none" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
-            ) : isDizzy ? (
+            ) : effectiveDizzy ? (
               <path d="M 70 58 L 80 68 M 70 68 L 80 58" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
-            ) : (isBlinking && !isWinking) ? (
+            ) : (isBlinking && !effectiveWink) ? (
               <path d="M 70 62 L 80 62" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
             ) : (isSmiling || isHappy) ? (
               <path d="M 70 64 Q 75 56 80 64" fill="none" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
@@ -197,12 +232,12 @@ const PsyBot: React.FC<PsyBotProps> = ({
           
           {/* Mouth */}
           <path 
-            d={isDizzy ? "M 55 75 Q 60 70 65 75" : (isSmiling || isHappy) ? "M 56 74 Q 60 78 64 74" : "M 58 74 L 62 74"} 
+            d={effectiveDizzy ? "M 55 75 Q 60 70 65 75" : (isSmiling || isHappy) ? "M 56 74 Q 60 78 64 74" : "M 58 74 L 62 74"} 
             fill="none" 
             stroke="#38BDF8" 
             strokeWidth="2.5" 
             strokeLinecap="round" 
-            opacity={isSleeping ? "0" : (isSmiling || isAnalyzing || isDizzy || isHappy) ? "1" : "0.2"}
+            opacity={isSleeping ? "0" : (isSmiling || isAnalyzing || effectiveDizzy || isHappy) ? "1" : "0.2"}
             style={{ transition: 'all 0.3s ease' }}
           />
         </g>
