@@ -142,9 +142,11 @@ const ImageViewer: React.FC<{ src: string; alt: string; onClose: () => void }> =
         </div>
       </div>
       <motion.img 
-        src={src} 
-        alt={alt} 
+        src={src}
+        alt={alt}
         className="full-screen-image"
+        width={320}
+        height={320}
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
@@ -454,9 +456,11 @@ const MessageList: React.FC = () => {
                           <div key={i} className="message-file-item">
                             {file.type && file.type.startsWith('image/') && (file instanceof Blob || file instanceof File) ? (
                               <img 
-                                src={URL.createObjectURL(file)} 
-                                alt={file.name} 
-                                className="message-file-image clickable" 
+                                src={URL.createObjectURL(file)}
+                                alt={file.name}
+                                className="message-file-image clickable"
+                                width={160}
+                                height={160}
                                 onClick={() => setSelectedImage({ src: URL.createObjectURL(file), alt: file.name })}
                               />
                             ) : (
