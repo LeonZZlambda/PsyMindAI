@@ -48,7 +48,10 @@
 
 .act-card:hover {
   background: #e1f5fe;
+  /* Usar apenas transform e opacity para animação composta */
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transform: translateY(-2px) scale(1.02);
+  transition: transform 0.2s cubic-bezier(0.4,0,0.2,1), opacity 0.2s cubic-bezier(0.4,0,0.2,1), background 0.2s;
 }
 
 .act-icon {
@@ -80,7 +83,7 @@
   border-radius: 100px;
   box-shadow: 0 1px 2px rgba(0,0,0,0.1);
   margin-top: 1rem;
-  animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: popIn 0.4s cubic-bezier(0.4,0,0.2,1);
 }
 
 .kindness-controls {
