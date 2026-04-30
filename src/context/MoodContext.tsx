@@ -4,6 +4,7 @@ import React, { createContext, useContext, useState, useEffect, ReactNode, Dispa
  * Mood object structure
  */
 export interface Mood {
+  id: string;
   label: string;
   icon: string;
   color: string;

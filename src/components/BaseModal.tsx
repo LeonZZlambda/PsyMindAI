@@ -14,7 +14,20 @@ import { useModalAnimation, useEscapeKey } from '../hooks';
  * - closeButton {boolean} - Mostrar botão X de fechar (default: true)
  * - className {string} - Classe CSS adicional para modal-content
  */
-export const BaseModal = ({
+interface BaseModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  title?: string | React.ReactNode;
+  icon?: string;
+  children: React.ReactNode | (({ handleClose }: { handleClose: () => void }) => React.ReactNode);
+  size?: 'small' | 'medium' | 'large';
+  closeButton?: boolean;
+  className?: string;
+  maxWidth?: string;
+  closeAriaLabel?: string;
+}
+
+export const BaseModal: React.FC<BaseModalProps> = ({
   isOpen,
   onClose,
   title,
@@ -23,24 +36,27 @@ export const BaseModal = ({
   size = 'medium',
   closeButton = true,
   className = '',
+  maxWidth,
+  closeAriaLabel = 'Fechar',
 }) => {
   const [isClosing, handleClose] = useModalAnimation(onClose);
 
   // ESC key fecha o modal
-  useEscapeKey(handleClose, isOpen);
+  useEscapeKey(handleClose as () => void, isOpen);
 
   // Focus management (declare refs before early returns to keep hooks order stable)
-  const contentRef = useRef(null)
-  const closeBtnRef = useRef(null)
-  const prevActiveRef = useRef(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+  const closeBtnRef = useRef<HTMLButtonElement>(null)
+  const prevActiveRef = useRef<Element | null>(null)
 
   const titleIdRef = useRef(`modal-title-${Math.random().toString(36).slice(2, 9)}`)
   const bodyIdRef = useRef(`modal-body-${Math.random().toString(36).slice(2, 9)}`)
+
   useEffect(() => {
     if (isOpen) {
       prevActiveRef.current = document.activeElement
 
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         if (closeBtnRef.current) {
           closeBtnRef.current.focus()
         } else if (contentRef.current) {
@@ -49,11 +65,11 @@ export const BaseModal = ({
         }
       }, 50)
 
-      const handleKeyDown = (e) => {
+      const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key !== 'Tab') return
         const nodes = contentRef.current?.querySelectorAll('a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex]:not([tabindex="-1"])')
         if (!nodes || nodes.length === 0) return
-        const focusable = Array.prototype.slice.call(nodes).filter((n) => n.offsetParent !== null)
+        const focusable = Array.prototype.slice.call(nodes).filter((n) => (n as HTMLElement).offsetParent !== null) as HTMLElement[]
         const first = focusable[0]
         const last = focusable[focusable.length - 1]
 
@@ -72,16 +88,18 @@ export const BaseModal = ({
 
       document.addEventListener('keydown', handleKeyDown)
       return () => {
+        clearTimeout(timer)
         document.removeEventListener('keydown', handleKeyDown)
-        try { prevActiveRef.current?.focus?.() } catch (err) {}
+        try { (prevActiveRef.current as HTMLElement)?.focus?.() } catch (err) {}
       }
     }
+    return undefined;
   }, [isOpen])
 
   // Se não está aberto e não está fechando, não renderiza nada
   if (!isOpen && !isClosing) return null;
 
-  const handleOverlayClick = (e) => {
+  const handleOverlayClick = (e: React.MouseEvent) => {
     // Fecha apenas ao clicar no overlay, não no conteúdo
     if (e.target === e.currentTarget) {
       handleClose();
@@ -97,6 +115,7 @@ export const BaseModal = ({
       <div
         ref={contentRef}
         className={`modal-content modal-${size} ${className} ${isClosing ? 'closing' : ''}`}
+        style={maxWidth ? { maxWidth } : {}}
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -117,7 +136,7 @@ export const BaseModal = ({
               ref={closeBtnRef}
               className="close-btn"
               onClick={handleClose}
-              aria-label="Fechar"
+              aria-label={closeAriaLabel}
             >
               <span className="material-symbols-outlined">close</span>
             </button>

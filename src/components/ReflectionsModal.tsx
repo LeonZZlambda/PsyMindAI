@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useChat } from '../context/ChatContext';
 import BaseModal from './BaseModal';
-import { generateReflection, generateReflectionAnalysis } from '../services/tools/reflectionService';
+import { Reflection, generateReflection, generateReflectionAnalysis } from '../services/tools/reflectionService';
 import '../styles/reflections.css';
 
 const categories = [
@@ -21,16 +21,38 @@ const breathingTechniques = [
   { id: 'energy', inhale: 3, exhale: 3, icon: 'bolt', color: '#f59e0b' }
 ];
 
-const ReflectionsModal = ({ isOpen, onClose }) => {
+
+interface Technique {
+  id: string;
+  inhale: number;
+  hold?: number;
+  exhale: number;
+  holdAfter?: number;
+  icon: string;
+  color: string;
+}
+
+interface Category {
+  id: string;
+  icon: string;
+  color: string;
+}
+
+interface ReflectionsModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const ReflectionsModal: React.FC<ReflectionsModalProps> = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
   const { setInput } = useChat();
   const [activeTab, setActiveTab] = useState('daily'); // 'daily', 'explore', or 'breathing'
-  const [currentReflection, setCurrentReflection] = useState(null);
+  const [currentReflection, setCurrentReflection] = useState<Reflection | null>(null);
   const [breathingActive, setBreathingActive] = useState(false);
   const [breathingPhase, setBreathingPhase] = useState('inhale');
-  const [selectedTechnique, setSelectedTechnique] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const breathingTimerRef = useRef(null);
+  const [selectedTechnique, setSelectedTechnique] = useState<Technique | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const breathingTimerRef = useRef<NodeJS.Timeout | null>(null);
   const [aiReflection, setAiReflection] = useState('');
   const [isLoadingReflection, setIsLoadingReflection] = useState(false);
 
@@ -44,7 +66,7 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
     }
   }, [isOpen, activeTab]);
 
-  const getRandomReflection = async (category = null) => {
+  const getRandomReflection = async (category: string | null = null) => {
     setAiReflection('');
     setIsLoadingReflection(true);
     
@@ -52,14 +74,14 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
       const reflection = await generateReflection(category);
       
       if (reflection) {
-        setCurrentReflection({ id: Date.now(), ...reflection });
+        setCurrentReflection({ ...reflection, id: Date.now() });
       } else {
-        const data = getReflectionsData();
+        const data = getReflectionsData() as Reflection[];
         const random = data[Math.floor(Math.random() * data.length)];
         setCurrentReflection(random);
       }
     } catch (error) {
-      const data = getReflectionsData();
+      const data = getReflectionsData() as Reflection[];
       const random = data[Math.floor(Math.random() * data.length)];
       setCurrentReflection(random);
     }
@@ -86,7 +108,7 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
     onClose();
   };
 
-  const startBreathing = (technique) => {
+  const startBreathing = (technique: Technique) => {
     setSelectedTechnique(technique);
     setBreathingActive(true);
     setBreathingPhase('inhale');
@@ -99,11 +121,11 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
     setSelectedTechnique(null);
   };
 
-  const runBreathingCycle = (technique, phase) => {
-    const phases = ['inhale', technique.hold ? 'hold' : null, 'exhale', technique.holdAfter ? 'holdAfter' : null].filter(Boolean);
+  const runBreathingCycle = (technique: Technique, phase: string) => {
+    const phases = ['inhale', technique.hold ? 'hold' : null, 'exhale', technique.holdAfter ? 'holdAfter' : null].filter(Boolean) as string[];
     const currentIndex = phases.indexOf(phase);
     const nextPhase = phases[(currentIndex + 1) % phases.length];
-    const duration = technique[phase] * 1000;
+    const duration = (technique[phase as keyof Technique] as number) * 1000;
 
     breathingTimerRef.current = setTimeout(() => {
       setBreathingPhase(nextPhase);
@@ -127,7 +149,7 @@ const ReflectionsModal = ({ isOpen, onClose }) => {
     const message = t('reflections.chat_prompt', { author: currentReflection.author, text: currentReflection.text });
     setInput(message);
     const closeBtn = document.querySelector('.reflections-modal-close-trigger');
-    if (closeBtn) closeBtn.click();
+    if (closeBtn) (closeBtn as HTMLElement).click();
     else onClose();
   };
 

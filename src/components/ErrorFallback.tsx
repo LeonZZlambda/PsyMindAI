@@ -11,7 +11,7 @@ const ErrorFallback: React.FC<ErrorFallbackProps> = ({ error, resetErrorBoundary
   const errorMessage = ((): string | null => {
     if (!error) return null
     if (typeof error === 'string') return error
-    if (typeof error === 'object' && error !== null && 'message' in error) return String((error as any).message)
+    if (typeof error === 'object' && error !== null && 'message' in error) return String((error as { message: string }).message)
     return String(error)
   })()
 

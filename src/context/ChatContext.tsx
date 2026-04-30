@@ -79,8 +79,9 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
   const [isTyping, setIsTyping] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isStreaming, setIsStreaming] = useState(false);
-  const streamTimeoutRef = useRef<TextStreamer | null>(null);
+  const typingTimeoutRef = useRef<number | null>(null);
   const delayedStartTimeoutRef = useRef<number | null>(null);
+  const streamTimeoutRef = useRef<TextStreamer | null>(null);
 
   useEffect(() => {
     if (chatsLoaded) {
@@ -112,12 +113,12 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
       let chatId = currentChatId;
       if (!chatId) {
         // Use crypto.randomUUID when available in the browser, fallback to timestamp
-        chatId = (typeof crypto !== 'undefined' && typeof (crypto as any).randomUUID === 'function')
-          ? (crypto as any).randomUUID()
+        chatId = (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function')
+          ? crypto.randomUUID()
           : Date.now().toString();
         const tempTitle = isAnonymous ? 'Modo Anônimo' : text.slice(0, 40) + (text.length > 40 ? '...' : '');
         const newChat = createChat(chatId as string, tempTitle, [userMessage]);
-        if (isAnonymous) (newChat as any).isAnonymous = true;
+        if (isAnonymous) newChat.isAnonymous = true;
 
         setChats((prev) => [newChat, ...prev]);
         setCurrentChatId(chatId);
@@ -149,7 +150,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
       if (isGeminiConfigured()) {
         const result = (await sendMessageToGemini(text, messages)) as SendMessageResponse;
         if (result.success) {
-          fullResponse = (result as any).text;
+          fullResponse = result.text;
         } else {
           // For backend errors like RATE_LIMIT, UNKNOWN, etc., send a friendly message
           const backendErrors = [
@@ -160,17 +161,18 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
             'NETWORK',
             'EMPTY_RESPONSE'
           ];
-          if (backendErrors.includes((result as any).error)) {
-            fullResponse = (result as any).userMessage;
+          if (backendErrors.includes(result.error as string)) {
+            fullResponse = result.userMessage;
           } else {
-            fullResponse = `${(result as any).userMessage}\n\n${t('chat.errors.limited_continue')}`;
+            fullResponse = `${result.userMessage}\n\n${t('chat.errors.limited_continue')}`;
           }
         }
       } else {
         fullResponse = t('chat.errors.demo_mode');
       }
 
-      setTimeout(() => {
+      typingTimeoutRef.current = window.setTimeout(() => {
+        typingTimeoutRef.current = null;
         setIsTyping(false);
 
         const aiMessage = createAIMessage(fullResponse, false);
@@ -236,7 +238,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
         delayedStartTimeoutRef.current = window.setTimeout(() => {
           delayedStartTimeoutRef.current = null;
           streamTimeoutRef.current = streamer;
-          streamer.start();
+          streamer.start(0); // Start immediately as we already waited 800ms
         }, 800);
       }, 800);
     },
@@ -305,6 +307,16 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
     },
     [currentChatId]
   );
+ 
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      stopStreaming();
+      if (typingTimeoutRef.current) {
+        clearTimeout(typingTimeoutRef.current);
+      }
+    };
+  }, [stopStreaming]);
 
   const value: ChatContextValue = {
     messages,

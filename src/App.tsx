@@ -23,6 +23,7 @@ import { useTheme } from './context/ThemeContext'
 import { useChat } from './context/ChatContext'
 import { useModal } from './context/ModalContext'
 import { Telemetry } from './services/analytics/telemetry'
+import logger from './utils/logger'
 
 const ChatPage = lazy(() => import('./pages/ChatPage'))
 const LandingPage = lazy(() => import('./pages/LandingPage'))
@@ -55,8 +56,18 @@ function App() {
         Telemetry.init();
       }
     } catch (e) {
-      if (import.meta.env.DEV) console.warn('Telemetry init check failed', e);
+      logger.warn('Telemetry init check failed', e);
     }
+
+    return () => {
+      try {
+        if (Telemetry && typeof Telemetry.cleanup === 'function') {
+          Telemetry.cleanup();
+        }
+      } catch (e) {
+        // ignore
+      }
+    };
   }, []);
 
   const handleNewChat = useCallback(() => {
@@ -91,7 +102,7 @@ function App() {
   useKeyboardShortcuts({
     onNewChat: handleNewChat,
     onToggleSidebar: () => setIsSidebarOpen(prev => !prev),
-    onToggleTheme: toggleTheme as any,
+    onToggleTheme: toggleTheme,
     onOpenSettings: () => toggleModal('settings'),
     onOpenHelp: (tab?: string) => {
       setHelpInitialTab(tab || 'faq');

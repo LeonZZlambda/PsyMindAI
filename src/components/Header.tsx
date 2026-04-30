@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense } from 'react'
+import React, { useState, lazy, Suspense } from 'react'
 import '../styles/header.css'
 import { createPortal } from 'react-dom'
 import { useTranslation } from 'react-i18next'
@@ -58,7 +58,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, toggleSidebar, isLoading
         </button>
         <button 
           className="header-btn" 
-          onClick={toggleTheme as any} 
+          onClick={toggleTheme} 
           title={isDarkMode ? `${t('header.light_mode')} (${cmdKey} + ${shiftKey} + L)` : `${t('header.dark_mode')} (${cmdKey} + ${shiftKey} + L)`}
           aria-label={isDarkMode ? t('header.activate_light_mode') : t('header.activate_dark_mode')}
         >

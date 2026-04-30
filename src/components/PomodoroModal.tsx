@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/pomodoro.css';
 import { useTranslation } from 'react-i18next';
-import { usePomodoro } from '../context/PomodoroContext';
+import { usePomodoro, PomodoroMode } from '../context/PomodoroContext';
 import { generatePomodoroTip } from '../services/tools/pomodoroService';
 import BaseModal from './BaseModal';
 
@@ -57,10 +57,10 @@ const PomodoroModal: React.FC<Props> = ({ isOpen, onClose }) => {
         onClose();
       } else if (e.key === 'Tab') {
         e.preventDefault();
-        const modeKeys = ['focus', 'short', 'long'];
-        const currentIndex = modeKeys.indexOf(mode as string);
+        const modeKeys: PomodoroMode[] = ['focus', 'short', 'long'];
+        const currentIndex = modeKeys.indexOf(mode);
         const nextIndex = (currentIndex + 1) % modeKeys.length;
-        changeMode(modeKeys[nextIndex] as any);
+        changeMode(modeKeys[nextIndex]);
       } else if (e.key === 'Enter') {
         e.preventDefault();
         toggleTimer();
@@ -89,7 +89,7 @@ const PomodoroModal: React.FC<Props> = ({ isOpen, onClose }) => {
             <button
               key={m as string}
               className={`mode-btn ${mode === m ? 'active' : ''}`}
-              onClick={() => changeMode(m as any)}
+              onClick={() => changeMode(m)}
               style={{
                 '--mode-color': modes[m].color
               } as React.CSSProperties}

@@ -42,13 +42,17 @@ export const SoundProvider = ({ children }: { children: ReactNode }) => {
    */
   const initAudio = async (): Promise<void> => {
     if (!audioContextRef.current) {
-      const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
-      audioContextRef.current = new AudioContextClass();
-      gainNodeRef.current = audioContextRef.current.createGain();
-      gainNodeRef.current.connect(audioContextRef.current.destination);
+      try {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        audioContextRef.current = new AudioContextClass();
+        gainNodeRef.current = audioContextRef.current.createGain();
+        gainNodeRef.current.connect(audioContextRef.current.destination);
+      } catch (e) {
+        logger.error('Failed to init audio context:', e);
+      }
     }
     
-    if (audioContextRef.current.state === 'suspended') {
+    if (audioContextRef.current && audioContextRef.current.state === 'suspended') {
       await audioContextRef.current.resume();
     }
   };
@@ -118,43 +122,50 @@ export const SoundProvider = ({ children }: { children: ReactNode }) => {
    * Start playing current soundscape
    */
   const playSound = async (): Promise<void> => {
-    logger.debug(`[SoundContext] playSound() for: ${currentSound}`);
-    await initAudio();
-    stopSound(); 
+    try {
+      logger.debug(`[SoundContext] playSound() for: ${currentSound}`);
+      await initAudio();
+      stopSound(); 
 
-    const ctx = audioContextRef.current;
-    const gainNode = gainNodeRef.current;
+      const ctx = audioContextRef.current;
+      const gainNode = gainNodeRef.current;
 
-    if (!ctx || !gainNode) return;
+      if (!ctx || !gainNode) {
+        throw new Error('Audio context or gain node not initialized');
+      }
 
-    const buffer = generateNoiseBuffer(currentSound, ctx);
-    const noise = ctx.createBufferSource();
-    noise.buffer = buffer;
-    noise.loop = true;
+      const buffer = generateNoiseBuffer(currentSound, ctx);
+      const noise = ctx.createBufferSource();
+      noise.buffer = buffer;
+      noise.loop = true;
 
-    const filter = ctx.createBiquadFilter();
-    if (currentSound === 'rain') {
-      filter.type = 'lowpass';
-      filter.frequency.value = 1000;
-    } else if (currentSound === 'white') {
-      filter.type = 'lowpass';
-      filter.frequency.value = 15000;
-    } else if (currentSound === 'binaural') {
-      // Binaural beats don't need much filtering, but a gentle lowpass helps
-      filter.type = 'lowpass';
-      filter.frequency.value = 2000;
-    } else {
-      filter.type = 'lowpass';
-      filter.frequency.value = 850;
+      const filter = ctx.createBiquadFilter();
+      if (currentSound === 'rain') {
+        filter.type = 'lowpass';
+        filter.frequency.value = 1000;
+      } else if (currentSound === 'white') {
+        filter.type = 'lowpass';
+        filter.frequency.value = 15000;
+      } else if (currentSound === 'binaural') {
+        // Binaural beats don't need much filtering, but a gentle lowpass helps
+        filter.type = 'lowpass';
+        filter.frequency.value = 2000;
+      } else {
+        filter.type = 'lowpass';
+        filter.frequency.value = 850;
+      }
+
+      noise.connect(filter);
+      filter.connect(gainNode);
+
+      noise.start();
+      sourceNodeRef.current = noise;
+      setIsPlaying(true);
+      gainNode.gain.value = volume;
+    } catch (error) {
+      logger.error('Failed to play sound:', error);
+      setIsPlaying(false);
     }
-
-    noise.connect(filter);
-    filter.connect(gainNode);
-
-    noise.start();
-    sourceNodeRef.current = noise;
-    setIsPlaying(true);
-    gainNode.gain.value = volume;
   };
 
   /**

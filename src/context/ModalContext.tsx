@@ -15,8 +15,6 @@ export type ModalName =
   | 'exams'
   | 'guidedLearning'
   | 'reflections'
-  | 'judge'
-  | 'quiz'
   | 'soundscapes'
   | 'studyStats'
   | 'importContext';
@@ -74,8 +72,6 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
     exams: false,
     guidedLearning: false,
     reflections: false,
-    judge: false,
-    quiz: false,
     soundscapes: false,
     studyStats: false,
     importContext: false,

@@ -1,3 +1,4 @@
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../styles/sidebar.css'
 import { toast } from 'sonner'
@@ -103,7 +104,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, onNewChat, onA
             onClick={() => handleChatClick(chat.id)}
             role="button"
             tabIndex={0}
-            onKeyDown={(e) => (e as any).key === 'Enter' && handleChatClick(chat.id)}
+            onKeyDown={(e) => e.key === 'Enter' && handleChatClick(chat.id)}
             aria-label={`Carregar chat: ${chat.title}`}
           >
             <span className="material-symbols-outlined">chat_bubble_outline</span>

@@ -54,14 +54,29 @@ export const PomodoroProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
-    if (isActive && timeLeft > 0) {
-      timerRef.current = setInterval(() => {
-        setTimeLeft((prev) => prev - 1);
-      }, 1000);
-    } else if (timeLeft === 0 && isActive) {
-      setIsActive(false);
-      if (timerRef.current) clearInterval(timerRef.current);
+    let interval: NodeJS.Timeout | null = null;
 
+    if (isActive && timeLeft > 0) {
+      interval = setInterval(() => {
+        setTimeLeft((prev) => {
+          if (prev <= 1) {
+            if (interval) clearInterval(interval);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [isActive]);
+
+  useEffect(() => {
+    if (timeLeft === 0 && isActive) {
+      setIsActive(false);
+      
       playNotificationSound();
 
       requestNotificationPermission().then((hasPermission) => {
@@ -73,11 +88,7 @@ export const PomodoroProvider = ({ children }: { children: ReactNode }) => {
         }
       });
     }
-
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
-  }, [isActive, timeLeft, t]);
+  }, [timeLeft, isActive, t]);
 
   const toggleTimer = (): void => {
     setIsActive(!isActive);

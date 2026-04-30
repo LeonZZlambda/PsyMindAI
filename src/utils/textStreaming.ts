@@ -1,5 +1,12 @@
 export class TextStreamer {
-  constructor(text, onChunk, onComplete, reducedMotion = false) {
+  private text: string;
+  private onChunk: (chunk: string) => void;
+  private onComplete: () => void;
+  private reducedMotion: boolean;
+  private currentIndex: number;
+  private timeoutId: NodeJS.Timeout | null;
+
+  constructor(text: string, onChunk: (chunk: string) => void, onComplete: () => void, reducedMotion = false) {
     this.text = text;
     this.onChunk = onChunk;
     this.onComplete = onComplete;
@@ -8,17 +15,17 @@ export class TextStreamer {
     this.timeoutId = null;
   }
 
-  start(delay = 800) {
+  start(delay = 0): void {
     if (this.reducedMotion) {
       this.onChunk(this.text);
       this.onComplete();
       return;
     }
 
-    setTimeout(() => this.streamNext(), delay);
+    this.timeoutId = setTimeout(() => this.streamNext(), delay);
   }
 
-  streamNext() {
+  private streamNext(): void {
     if (this.currentIndex >= this.text.length) {
       this.onComplete();
       return;
@@ -34,7 +41,7 @@ export class TextStreamer {
     this.timeoutId = setTimeout(() => this.streamNext(), delay);
   }
 
-  calculateDelay(chunk) {
+  private calculateDelay(chunk: string): number {
     let delay = 15 + Math.random() * 20;
     const lastChar = chunk[chunk.length - 1];
     
@@ -47,7 +54,7 @@ export class TextStreamer {
     return delay;
   }
 
-  stop() {
+  stop(): void {
     if (this.timeoutId) {
       clearTimeout(this.timeoutId);
       this.timeoutId = null;

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../styles/settings.css';
 import { toast } from 'sonner';
-import { useTheme } from '../context/ThemeContext';
+import { useTheme, ColorBlindMode } from '../context/ThemeContext';
 import { useChat } from '../context/ChatContext';
 import { defaultConfig } from '../services/config/apiConfig';
 import { setApiKey as updateApiKey } from '../services/chat/chatService';
@@ -12,7 +12,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import BaseModal from './BaseModal';
 import CustomSelect from './CustomSelect';
 
-const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
+interface SettingsModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onOpenImportContext: () => void;
+}
+
+const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, onOpenImportContext }) => {
   const { t, i18n } = useTranslation();
   const { 
     isDarkMode, toggleTheme, themeMode, setThemeMode, 
@@ -25,7 +31,7 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
   const [apiKey, setApiKey] = useState(defaultConfig.getApiKey() || '');
   const [telemetryOptIn, setTelemetryOptIn] = useState(Telemetry.isOptedIn());
 
-  const cb = (k) => t(`settings.accessibility.colorblind.${k}`);
+  const cb = (k: string) => String(t(`settings.accessibility.colorblind.${k}`));
 
   const handleOptInChange = () => {
     const newVal = !telemetryOptIn;
@@ -189,7 +195,7 @@ const SettingsModal = ({ isOpen, onClose, onOpenImportContext }) => {
               </div>
               <CustomSelect 
                 value={colorBlindMode}
-                onChange={setColorBlindMode}
+                onChange={(val) => setColorBlindMode(val as ColorBlindMode)}
                 ariaLabel={t('settings.accessibility.colorblind.aria_select')}
                 options={[
                   { value: 'none', label: cb('none') },

@@ -4,15 +4,21 @@ import { toast } from 'sonner';
 import { useTranslation, Trans } from 'react-i18next';
 import BaseModal from './BaseModal';
 
-const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
+interface HelpModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  initialTab?: string;
+}
+
+const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose, initialTab = 'faq' }) => {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState(initialTab); // 'faq', 'shortcuts' or 'feedback'
   const [feedbackType, setFeedbackType] = useState('sugestao');
   const [feedbackText, setFeedbackText] = useState('');
-  const [feedbackImage, setFeedbackImage] = useState(null);
+  const [feedbackImage, setFeedbackImage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showShortcuts, setShowShortcuts] = useState(true);
-  const fileInputRef = useRef(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   
   const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
   const cmdKey = isMac ? '⌘' : 'Ctrl';
@@ -32,17 +38,17 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
     setActiveTab(initialTab);
   }, [initialTab]);
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
     if (file) {
       if (file.size > 5 * 1024 * 1024) { // 5MB limit
-        toast.error(t('help.feedback.error_size'));
+        toast.error(String(t('help.feedback.error_size')));
         return;
       }
       
       const reader = new FileReader();
       reader.onloadend = () => {
-        setFeedbackImage(reader.result);
+        setFeedbackImage(reader.result as string);
       };
       reader.readAsDataURL(file);
     }
@@ -55,7 +61,7 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
     }
   };
 
-  const handleSubmitFeedback = (e) => {
+  const handleSubmitFeedback = (e: React.FormEvent) => {
     e.preventDefault();
     if (!feedbackText.trim()) return;
 
@@ -70,7 +76,7 @@ const HelpModal = ({ isOpen, onClose, initialTab = 'faq' }) => {
       setIsSubmitting(false);
       
       // Attempt to trigger animation close
-      const closeBtn = document.querySelector('.help-modal-close-trigger');
+      const closeBtn = document.querySelector('.help-modal-close-trigger') as HTMLElement | null;
       if (closeBtn) closeBtn.click();
       else onClose();
     }, 1500);

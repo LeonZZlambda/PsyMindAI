@@ -1,37 +1,58 @@
+import logger from '../../utils/logger';
+
+export interface TelemetryStats {
+  totalSessionTime: number;
+  featuresUsed: Record<string, number>;
+  transformationScore: number;
+  errors: Array<{
+    time: string;
+    source: string;
+    errorDetails: string;
+  }>;
+}
+
+export interface TelemetryEvent {
+  id: string;
+  type: string;
+  timestamp: string;
+  payload: any;
+}
+
+export interface DerivedMetrics {
+  daysActive: number;
+  totalSessions: number;
+  avgSessionMinutes: string;
+  totalMinutes: string;
+  errorCount: number;
+  topFeature: string;
+  transformationScore: number;
+}
+
 export const Telemetry = {
-  sessionStart: null,
-  lastPing: null,
+  sessionStart: null as number | null,
+  lastPing: null as number | null,
   sessionId: Date.now().toString(),
-  _visibilityListener: null,
-  _heartbeatInterval: null,
+  _visibilityListener: null as (() => void) | null,
+  _heartbeatInterval: null as NodeJS.Timeout | null,
   
-  isOptedIn() {
+  isOptedIn(): boolean {
+    if (typeof window === 'undefined') return false;
     const pref = localStorage.getItem('psymind_telemetry_optin');
-    // Por privacidade, default agora é opt-out: somente true quando o usuário aceitar explicitamente
     return pref === 'true';
   },
 
-  setOptIn(value) {
+  setOptIn(value: boolean): void {
+    if (typeof window === 'undefined') return;
     localStorage.setItem('psymind_telemetry_optin', value ? 'true' : 'false');
     if (value) {
-      // Se o usuário aceitar, inicializa a telemetria (init é idempotente)
       try {
         this.init();
       } catch (e) {
-        if (import.meta.env.DEV) console.warn('Telemetry.init failed', e);
+        logger.warn('Telemetry.init failed', e);
       }
     } else {
-      // Limpa rastros coletados caso ele desative (privacidade total)
       try {
-        this.endSession();
-        if (this._visibilityListener) {
-          document.removeEventListener('visibilitychange', this._visibilityListener);
-          this._visibilityListener = null;
-        }
-        if (this._heartbeatInterval) {
-          clearInterval(this._heartbeatInterval);
-          this._heartbeatInterval = null;
-        }
+        this.cleanup();
       } catch (e) {
         // ignore
       }
@@ -40,10 +61,10 @@ export const Telemetry = {
     }
   },
 
-  init() {
-    if (this.sessionStart) return; // Prevent double init
+  init(): void {
+    if (typeof window === 'undefined') return;
+    if (this.sessionStart) return; 
     
-    // Registo de retenção histórica primária
     if (!localStorage.getItem('psymind_telemetry_first_visit')) {
       localStorage.setItem('psymind_telemetry_first_visit', Date.now().toString());
     }
@@ -52,21 +73,17 @@ export const Telemetry = {
     this.lastPing = Date.now();
     this.saveEvent('SESSION_START');
     
-    // visibilitychange é o padrão ouro moderno (especialmente PWA/Mobile)
-    // para detectar quando o app vai pro background ou é fechado.
     if (!this._visibilityListener) {
       this._visibilityListener = () => {
         if (document.visibilityState === 'hidden') {
           this.flushSessionTime();
         } else if (document.visibilityState === 'visible') {
-          this.lastPing = Date.now(); // Retomou o foco, reinicia o contador do trecho
+          this.lastPing = Date.now(); 
         }
       };
       document.addEventListener('visibilitychange', this._visibilityListener);
     }
 
-    // Heartbeat de segurança: salva o tempo a cada 30 segundos
-    // para prevenir perda de dados em caso de crashes severos ou encerramento forçado do app web
     if (!this._heartbeatInterval) {
       this._heartbeatInterval = setInterval(() => {
         if (document.visibilityState === 'visible') {
@@ -76,8 +93,23 @@ export const Telemetry = {
     }
   },
 
-  flushSessionTime() {
-    if (!this.lastPing || !this.isOptedIn()) return;
+  cleanup(): void {
+    if (typeof window === 'undefined') return;
+    this.endSession();
+    if (this._visibilityListener) {
+      document.removeEventListener('visibilitychange', this._visibilityListener);
+      this._visibilityListener = null;
+    }
+    if (this._heartbeatInterval) {
+      clearInterval(this._heartbeatInterval);
+      this._heartbeatInterval = null;
+    }
+    this.sessionStart = null;
+    this.lastPing = null;
+  },
+
+  flushSessionTime(): void {
+    if (!this.lastPing || !this.isOptedIn() || typeof window === 'undefined') return;
     const now = Date.now();
     const elapsed = now - this.lastPing;
     
@@ -90,104 +122,101 @@ export const Telemetry = {
     this.lastPing = now;
   },
   
-  endSession() {
+  endSession(): void {
     if (!this.sessionStart) return;
     this.flushSessionTime();
     const durationMs = Date.now() - this.sessionStart;
     this.saveEvent('SESSION_END', { durationMs });
   },
   
-  trackFeature(featureName, action = 'opened') {
-    if (!this.isOptedIn()) return;
+  trackFeature(featureName: string, action = 'opened'): void {
+    if (!this.isOptedIn() || typeof window === 'undefined') return;
     this.saveEvent('FEATURE_USE', { featureName, action });
     
-    // Incrementa contador da feature
     const stats = this.getStats();
     stats.featuresUsed[featureName] = (stats.featuresUsed[featureName] || 0) + 1;
     localStorage.setItem('psymind_telemetry_stats', JSON.stringify(stats));
   },
   
-  trackError(source, errorDetails) {
-    if (!this.isOptedIn()) return;
+  trackError(source: string, errorDetails: any): void {
+    if (!this.isOptedIn() || typeof window === 'undefined') return;
     this.saveEvent('ERROR', { source, errorDetails });
     
-    // Salva falha no acumulador
     const stats = this.getStats();
     stats.errors.push({
       time: new Date().toISOString(),
       source,
       errorDetails: typeof errorDetails === 'string' ? errorDetails : JSON.stringify(errorDetails)
     });
-    // Manter as últimas 50
     if (stats.errors.length > 50) stats.errors.shift();
     localStorage.setItem('psymind_telemetry_stats', JSON.stringify(stats));
   },
 
-  trackTransformation(category, impact = 1) {
-    if (!this.isOptedIn()) return;
+  trackTransformation(category: string, impact = 1): void {
+    if (!this.isOptedIn() || typeof window === 'undefined') return;
     this.saveEvent('TRANSFORMATION', { category, impact });
     const stats = this.getStats();
     stats.transformationScore = (stats.transformationScore || 0) + impact;
     localStorage.setItem('psymind_telemetry_stats', JSON.stringify(stats));
   },
   
-  saveEvent(type, payload = {}) {
-    if (!this.isOptedIn()) return;
-    const event = {
+  saveEvent(type: string, payload = {}): void {
+    if (!this.isOptedIn() || typeof window === 'undefined') return;
+    const event: TelemetryEvent = {
       id: this.sessionId,
       type,
       timestamp: new Date().toISOString(),
       payload
     };
     
-    if (import.meta.env.DEV) {
-      console.debug(`[Analytics] ${type}`, payload);
-    }
+    logger.debug(`[Analytics] ${type}`, payload);
     
     const events = this.getEvents();
     events.push(event);
-    if(events.length > 500) events.shift(); // Evitar estourar storage
+    if(events.length > 500) events.shift(); 
     localStorage.setItem('psymind_telemetry_events', JSON.stringify(events));
   },
   
-  getEvents() {
+  getEvents(): TelemetryEvent[] {
+    if (typeof window === 'undefined') return [];
     try {
-      return JSON.parse(localStorage.getItem('psymind_telemetry_events')) || [];
+      return JSON.parse(localStorage.getItem('psymind_telemetry_events') || '[]');
     } catch {
       return [];
     }
   },
   
-  getStats() {
+  getStats(): TelemetryStats {
+    const defaultStats: TelemetryStats = {
+      totalSessionTime: 0,
+      featuresUsed: {},
+      transformationScore: 0,
+      errors: []
+    };
+    if (typeof window === 'undefined') return defaultStats;
     try {
-      return JSON.parse(localStorage.getItem('psymind_telemetry_stats')) || {
-        totalSessionTime: 0,
-        featuresUsed: {},
-        transformationScore: 0,
-        errors: []
-      };
+      return JSON.parse(localStorage.getItem('psymind_telemetry_stats') || JSON.stringify(defaultStats));
     } catch {
-      return { totalSessionTime: 0, featuresUsed: {}, transformationScore: 0, errors: [] };
+      return defaultStats;
     }
   },
 
-  getDerivedMetrics() {
+  getDerivedMetrics(): DerivedMetrics {
     const stats = this.getStats();
     const events = this.getEvents();
     
-    // Retention/Loyalty Simulation calculation
-    const firstVisit = localStorage.getItem('psymind_telemetry_first_visit');
     let daysActive = 1;
-    if (firstVisit) {
-      daysActive = Math.max(1, Math.ceil((Date.now() - parseInt(firstVisit, 10)) / (1000 * 60 * 60 * 24)));
+    if (typeof window !== 'undefined') {
+      const firstVisit = localStorage.getItem('psymind_telemetry_first_visit');
+      if (firstVisit) {
+        daysActive = Math.max(1, Math.ceil((Date.now() - parseInt(firstVisit, 10)) / (1000 * 60 * 60 * 24)));
+      }
     }
     
-    // Avg session 
     const sessionStarts = events.filter(e => e.type === 'SESSION_START').length || 1;
     const avgSessionMinutes = (stats.totalSessionTime / sessionStarts / 60000).toFixed(1);
     const totalMinutes = (stats.totalSessionTime / 60000).toFixed(1);
 
-    // Most used feature
     const sortedFeatures = Object.entries(stats.featuresUsed).sort((a,b) => b[1] - a[1]);
     const topFeature = sortedFeatures[0] ? sortedFeatures[0][0] : 'Nenhuma';
 
@@ -202,7 +231,8 @@ export const Telemetry = {
     };
   },
 
-  exportData() {
+  exportData(): void {
+    if (typeof window === 'undefined') return;
     const data = {
       exportedAt: new Date().toISOString(),
       stats: this.getStats(),
@@ -215,7 +245,7 @@ export const Telemetry = {
     const a = document.createElement('a');
     a.href = url;
     a.download = `psymind_analytics_${new Date().toISOString().split('T')[0]}.json`;
-    document.body.appendChild(a); // Append logic is safer
+    document.body.appendChild(a); 
     a.click();
     
     setTimeout(() => {
