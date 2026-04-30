@@ -2,6 +2,8 @@ export const Telemetry = {
   sessionStart: null,
   lastPing: null,
   sessionId: Date.now().toString(),
+  _visibilityListener: null,
+  _heartbeatInterval: null,
   
   isOptedIn() {
     const pref = localStorage.getItem('psymind_telemetry_optin');
@@ -22,6 +24,14 @@ export const Telemetry = {
       // Limpa rastros coletados caso ele desative (privacidade total)
       try {
         this.endSession();
+        if (this._visibilityListener) {
+          document.removeEventListener('visibilitychange', this._visibilityListener);
+          this._visibilityListener = null;
+        }
+        if (this._heartbeatInterval) {
+          clearInterval(this._heartbeatInterval);
+          this._heartbeatInterval = null;
+        }
       } catch (e) {
         // ignore
       }
@@ -44,21 +54,26 @@ export const Telemetry = {
     
     // visibilitychange é o padrão ouro moderno (especialmente PWA/Mobile)
     // para detectar quando o app vai pro background ou é fechado.
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'hidden') {
-        this.flushSessionTime();
-      } else if (document.visibilityState === 'visible') {
-        this.lastPing = Date.now(); // Retomou o foco, reinicia o contador do trecho
-      }
-    });
+    if (!this._visibilityListener) {
+      this._visibilityListener = () => {
+        if (document.visibilityState === 'hidden') {
+          this.flushSessionTime();
+        } else if (document.visibilityState === 'visible') {
+          this.lastPing = Date.now(); // Retomou o foco, reinicia o contador do trecho
+        }
+      };
+      document.addEventListener('visibilitychange', this._visibilityListener);
+    }
 
     // Heartbeat de segurança: salva o tempo a cada 30 segundos
     // para prevenir perda de dados em caso de crashes severos ou encerramento forçado do app web
-    setInterval(() => {
-      if (document.visibilityState === 'visible') {
-        this.flushSessionTime();
-      }
-    }, 30000);
+    if (!this._heartbeatInterval) {
+      this._heartbeatInterval = setInterval(() => {
+        if (document.visibilityState === 'visible') {
+          this.flushSessionTime();
+        }
+      }, 30000);
+    }
   },
 
   flushSessionTime() {

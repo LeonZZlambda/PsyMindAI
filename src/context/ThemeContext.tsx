@@ -25,7 +25,7 @@ export interface ThemeContextValue {
   themeMode: ThemeMode;
   setThemeMode: Dispatch<SetStateAction<ThemeMode>>;
   isDarkMode: boolean;
-  toggleTheme: (e: React.MouseEvent<HTMLElement>) => Promise<void>;
+  toggleTheme: (e?: React.MouseEvent<HTMLElement>) => Promise<void>;
 
   // Accessibility: Font
   fontSize: FontSize;

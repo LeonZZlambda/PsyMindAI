@@ -50,6 +50,7 @@ export const useMood = (): MoodContextValue => {
 
 export const MoodProvider = ({ children }: { children: ReactNode }) => {
   const [moodHistory, setMoodHistory] = useState<MoodEntry[]>(() => {
+    if (typeof window === 'undefined') return [];
     const saved = localStorage.getItem('psymind_mood_history');
     return saved ? JSON.parse(saved) : [];
   });

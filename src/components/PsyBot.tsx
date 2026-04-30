@@ -40,11 +40,15 @@ const PsyBot: React.FC<PsyBotProps> = ({
   // Auto blinking logic
   useEffect(() => {
     if (reducedMotion || isSleeping) return;
-    const interval = setInterval(() => {
+    let timeoutId: NodeJS.Timeout;
+    const intervalId = setInterval(() => {
       setIsBlinking(true);
-      setTimeout(() => setIsBlinking(false), 150);
+      timeoutId = setTimeout(() => setIsBlinking(false), 150);
     }, 4000);
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(intervalId);
+      if (timeoutId) clearTimeout(timeoutId);
+    };
   }, [reducedMotion, isSleeping]);
 
   // Idle Timer Logic

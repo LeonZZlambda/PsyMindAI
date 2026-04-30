@@ -32,7 +32,7 @@ export interface ChatContextValue {
   setInput: Dispatch<SetStateAction<string>>;
   isTyping: boolean;
   isLoading: boolean;
-  sendMessage: (text: string, files?: any[]) => Promise<void>;
+  sendMessage: (text: string, files?: (File | Blob)[]) => Promise<void>;
   clearHistory: () => void;
   loadChat: (chatId: string) => void;
   chats: Chat[];
@@ -79,7 +79,8 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
   const [isTyping, setIsTyping] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isStreaming, setIsStreaming] = useState(false);
-  const streamTimeoutRef = useRef<TextStreamer | NodeJS.Timeout | null>(null);
+  const streamTimeoutRef = useRef<TextStreamer | null>(null);
+  const delayedStartTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (chatsLoaded) {
@@ -231,19 +232,28 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
           reducedMotion
         );
 
-        streamTimeoutRef.current = streamer;
-        streamer.start();
+        // Schedule start of streaming and keep the timeout id so we can cancel it
+        delayedStartTimeoutRef.current = window.setTimeout(() => {
+          delayedStartTimeoutRef.current = null;
+          streamTimeoutRef.current = streamer;
+          streamer.start();
+        }, 800);
       }, 800);
     },
     [messages, reducedMotion, currentChatId, chats, isAnonymous, t]
   );
 
   const stopStreaming = useCallback((): void => {
+    if (delayedStartTimeoutRef.current) {
+      clearTimeout(delayedStartTimeoutRef.current);
+      delayedStartTimeoutRef.current = null;
+    }
+
     if (streamTimeoutRef.current) {
-      if (typeof (streamTimeoutRef.current as any).stop === 'function') {
-        (streamTimeoutRef.current as TextStreamer).stop();
-      } else {
-        clearTimeout(streamTimeoutRef.current as NodeJS.Timeout);
+      try {
+        streamTimeoutRef.current.stop();
+      } catch (e) {
+        // ignore
       }
       streamTimeoutRef.current = null;
     }

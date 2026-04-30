@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useRef, ReactNode } from 'react';
+import logger from '../utils/logger';
 
 /**
  * Available soundscape types
@@ -56,7 +57,7 @@ export const SoundProvider = ({ children }: { children: ReactNode }) => {
    * Generate noise or tone buffer for soundscape
    */
   const generateNoiseBuffer = (type: SoundType, ctx: AudioContext): AudioBuffer => {
-    console.log(`[SoundContext] Generating buffer for: ${type}`);
+    logger.debug(`[SoundContext] Generating buffer for: ${type}`);
     const bufferSize = ctx.sampleRate * 2; // 2 seconds buffer
     
     if (type === 'binaural') {
@@ -117,7 +118,7 @@ export const SoundProvider = ({ children }: { children: ReactNode }) => {
    * Start playing current soundscape
    */
   const playSound = async (): Promise<void> => {
-    console.log(`[SoundContext] playSound() for: ${currentSound}`);
+    logger.debug(`[SoundContext] playSound() for: ${currentSound}`);
     await initAudio();
     stopSound(); 
 
