@@ -96,11 +96,19 @@ const TelemetryConsent: React.FC = () => {
   if (!isVisible && !isClosing) return null;
 
   return (
-    <div className={`telemetry-consent-toast ${isClosing ? 'closing' : ''}`} role="dialog" aria-modal="true" aria-labelledby="telemetry-title" aria-describedby="telemetry-desc" ref={containerRef}>
+    <div
+      className={`telemetry-consent-toast ${isClosing ? 'closing' : ''}`}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="telemetry-title"
+      aria-describedby="telemetry-desc telemetry-warning"
+      ref={containerRef}
+      tabIndex={-1}
+    >
       <div className="telemetry-consent-content">
         <div className="telemetry-consent-header">
-          <span className="material-symbols-outlined icon" aria-hidden>monitoring</span>
-          <h4 id="telemetry-title">{t('telemetry.title')}</h4>
+          <span className="material-symbols-outlined icon" aria-hidden="true">monitoring</span>
+          <h2 id="telemetry-title">{t('telemetry.title')}</h2>
         </div>
         <p id="telemetry-desc">
           <Trans i18nKey="telemetry.description">
@@ -110,7 +118,7 @@ const TelemetryConsent: React.FC = () => {
             Você pode desativar isso a qualquer momento.
           </Trans>
         </p>
-        <p id="telemetry-warning" className="disclaimer">
+        <p id="telemetry-warning" className="disclaimer" role="alert" aria-live="polite">
           <Trans i18nKey="telemetry.warning">
             <strong>Aviso:</strong> A IA oferece apoio educativo e emocional básico, mas não substitui o acompanhamento de um psicólogo ou profissional de saúde mental.
           </Trans>
@@ -118,7 +126,7 @@ const TelemetryConsent: React.FC = () => {
         <div className="telemetry-consent-actions">
           <button ref={acceptRef} className="btn-accept" onClick={handleAccept}>{t('telemetry.accept')}</button>
           <button className="btn-decline" onClick={handleDecline}>{t('telemetry.decline')}</button>
-          <a href="#" className="btn-more-info" onClick={handleMoreInfo}>{t('telemetry.more_info')}</a>
+          <a href="#" className="btn-more-info" onClick={handleMoreInfo} aria-label={t('telemetry.more_info_aria') || t('telemetry.more_info')}>{t('telemetry.more_info')}</a>
         </div>
       </div>
     </div>

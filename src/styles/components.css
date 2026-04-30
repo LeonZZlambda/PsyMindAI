@@ -457,19 +457,21 @@ body.dark .telemetry-consent-content .disclaimer {
   flex-wrap: wrap;
 }
 
+/* Acessibilidade: cor mais escura para contraste AA */
 .btn-accept {
-  background: var(--primary-color);
-  color: #ffffff;
+  background: #0b5cab; /* Azul escuro acessível */
+  color: #fff;
   border: none;
   padding: 0.6rem 1.5rem;
   border-radius: 20px;
-  font-weight: 500;
-  font-size: 0.9rem;
+  font-weight: 600;
+  font-size: 1rem;
   cursor: pointer;
   transition: all 0.2s ease;
   order: 2;
+  box-shadow: 0 0 0 2px rgba(11,92,171,0.15);
 }
-
+/* Removido fechamento de chave extra que causava erro de sintaxe */
 .btn-accept:hover {
   filter: brightness(1.1);
   transform: translateY(-1px);
