@@ -28,7 +28,8 @@ export default defineConfig({
       srcDir: 'src',
       filename: 'sw.js',
       registerType: 'autoUpdate',
-      injectRegister: 'script-defer',
+      // Disable automatic injection of the register script so we can supply a safer registration
+      injectRegister: null,
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
       manifest: {
         name: 'PsyMind AI',

@@ -349,6 +349,8 @@ const InputArea: React.FC<InputAreaProps> = ({ inputRef, onOpenHelp, onOpenSuppo
               minRows={1}
               maxRows={5}
               aria-label={t('chat.input.placeholder')}
+              id="chat-message-input"
+              name="message"
             />
             <button 
               className={`input-action-btn ${isListening ? 'listening' : ''}`} 

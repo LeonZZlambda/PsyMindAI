@@ -115,7 +115,7 @@ function App() {
     <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => window.location.reload()}>
       <LazyMotion features={domAnimation}>
         <MotionConfig reducedMotion={reducedMotion ? "always" : "user"}>
-          <div className={`app ${isDarkMode ? 'dark' : ''} ${fontSize === 'large' ? 'font-large' : ''} ${reducedMotion ? 'reduced-motion' : ''} ${highContrast ? 'high-contrast' : ''} ${dyslexicFont ? 'dyslexic-font' : ''} color-blind-${colorBlindMode}${keyboardNavigation ? ' keyboard-nav' : ''}`}>
+          <div className={`app ${isDarkMode ? 'dark' : ''} ${fontSize === 'large' ? 'font-large' : ''} ${reducedMotion ? 'reduced-motion' : ''} ${highContrast ? 'high-contrast' : ''} ${dyslexicFont ? 'dyslexic-font' : ''} color-blind-${colorBlindMode} ${keyboardNavigation ? 'keyboard-nav' : ''}`}>
             <Toaster
               position="bottom-center"
               toastOptions={{
@@ -124,7 +124,7 @@ function App() {
                   color: isDarkMode ? '#e8eaed' : '#202124',
                   border: 'none',
                   borderRadius: '4px',
-                  fontFamily: "'Google Sans', Roboto, sans-serif",
+                  fontFamily: "'Outfit', 'Inter', Roboto, sans-serif",
                   fontSize: '14px',
                   padding: '14px 24px',
                   gap: '12px',
