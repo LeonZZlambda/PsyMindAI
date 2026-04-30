@@ -587,6 +587,8 @@ body.dark .btn-decline:hover {
   border-radius: 1rem;
   border: 1px solid var(--border-color);
   transition: all 0.3s ease;
+  box-sizing: border-box;
+  padding: 1.25rem;
 }
 
 .act-loading {
@@ -596,14 +598,7 @@ body.dark .btn-decline:hover {
   gap: 0.75rem;
 }
 
-.act-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 1rem;
-  padding: 1.5rem;
-}
+/* Removido bloco solto e duplicado que causava erro de sintaxe */
 
 .act-card .act-icon {
   font-size: 2.5rem;
