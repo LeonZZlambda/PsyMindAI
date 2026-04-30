@@ -1,5 +1,27 @@
+import logger from '../../utils/logger';
+
+export interface UserProfile {
+  responseMode?: 'reflective' | 'action' | 'learning' | 'support';
+  basicStyle?: 'concise' | 'detailed' | 'casual' | 'formal';
+  welcoming?: 'more' | 'less';
+  enthusiastic?: 'more' | 'less';
+  formatting?: 'more' | 'less';
+  emojis?: 'more' | 'less' | 'default';
+  instantResponses?: boolean;
+  customInstructions?: string;
+}
+
+export interface LongTermMemory {
+  padroesDeAprendizagem?: string[];
+  estadoEmocionalComum?: string[];
+  desafiosRecorrentes?: string[];
+  interessesETracos?: string[];
+}
+
 export const SYSTEM_PROMPTS = {
-  get PSYMIND() {
+  get PSYMIND(): string {
+    if (typeof window === 'undefined') return 'PsyMind.AI';
+
     const importedContext = localStorage.getItem('psymind_imported_context');
     const userProfileStr = localStorage.getItem('psymind_user_profile');
     const longtermMemoryStr = localStorage.getItem('psymind_longterm_memory');
@@ -11,40 +33,40 @@ export const SYSTEM_PROMPTS = {
     const completedTrailsStr = localStorage.getItem('psy_mind_completed_trails');
     const customTrailsStr = localStorage.getItem('psy_mind_custom_trails');
     
-    let userProfile = null;
-    let longtermMemory = null;
-    let latestMood = null;
-    let pomodoroData = null;
-    let latestJournalEntry = null;
-    let activeTrails = [];
-    let completedTrails = [];
+    let userProfile: UserProfile | null = null;
+    let longtermMemory: LongTermMemory | null = null;
+    let latestMood: any = null;
+    let pomodoroData: any = null;
+    let latestJournalEntry: any = null;
+    let activeTrails: any[] = [];
+    let completedTrails: any[] = [];
 
     if (userProfileStr) {
-      try { userProfile = JSON.parse(userProfileStr); } catch (e) { console.warn('Falha ao dar parse em psymind_user_profile:', e); }
+      try { userProfile = JSON.parse(userProfileStr); } catch (e) { logger.warn('Falha ao dar parse em psymind_user_profile:', e); }
     }
     if (longtermMemoryStr) {
-      try { longtermMemory = JSON.parse(longtermMemoryStr); } catch (e) { console.warn('Falha ao dar parse em psymind_longterm_memory:', e); }
+      try { longtermMemory = JSON.parse(longtermMemoryStr); } catch (e) { logger.warn('Falha ao dar parse em psymind_longterm_memory:', e); }
     }
     if (moodHistoryStr) {
       try {
         const history = JSON.parse(moodHistoryStr);
-        if (history.length > 0) latestMood = history[history.length - 1]; 
-      } catch (e) { console.warn('Falha ao dar parse em psymind_mood_history:', e); }
+        if (Array.isArray(history) && history.length > 0) latestMood = history[history.length - 1]; 
+      } catch (e) { logger.warn('Falha ao dar parse em psymind_mood_history:', e); }
     }
     if (pomodoroStatsStr) {
-      try { pomodoroData = JSON.parse(pomodoroStatsStr); } catch (e) { console.warn('Falha ao dar parse em psymind_pomodoro_stats:', e); }
+      try { pomodoroData = JSON.parse(pomodoroStatsStr); } catch (e) { logger.warn('Falha ao dar parse em psymind_pomodoro_stats:', e); }
     }
     if (emotionalJournalStr) {
       try {
         const entries = JSON.parse(emotionalJournalStr);
-        if (entries.length > 0) latestJournalEntry = entries[entries.length - 1];
-      } catch (e) { console.warn('Falha ao dar parse em emotionalJournalEntries:', e); }
+        if (Array.isArray(entries) && entries.length > 0) latestJournalEntry = entries[entries.length - 1];
+      } catch (e) { logger.warn('Falha ao dar parse em emotionalJournalEntries:', e); }
     }
     if (completedTrailsStr) {
-      try { completedTrails = JSON.parse(completedTrailsStr); } catch (e) { console.warn('Falha ao dar parse em psy_mind_completed_trails:', e); }
+      try { completedTrails = JSON.parse(completedTrailsStr); } catch (e) { logger.warn('Falha ao dar parse em psy_mind_completed_trails:', e); }
     }
     if (customTrailsStr) {
-      try { activeTrails = JSON.parse(customTrailsStr); } catch (e) { console.warn('Falha ao dar parse em psy_mind_custom_trails:', e); }
+      try { activeTrails = JSON.parse(customTrailsStr); } catch (e) { logger.warn('Falha ao dar parse em psy_mind_custom_trails:', e); }
     }
 
     let basePrompt = `Você é o PsyMind.AI, um assistente educacional de apoio emocional para estudantes do ensino médio.
@@ -77,33 +99,23 @@ QUANDO AJUDAR COM VESTIBULARES:
 - Lembre que o valor do estudante jamais se resume à pontuação do exame.`;
 
     if (userProfile) {
-      
-      // Modos de Resposta
       if (userProfile.responseMode) {
-        basePrompt += `
-
-=== PERFIL DE RESPOSTA ATIVO ===
-`;
+        basePrompt += `\n\n=== PERFIL DE RESPOSTA ATIVO ===\n`;
         switch(userProfile.responseMode) {
           case 'reflective':
-            basePrompt += `- MODO REFLEXIVO: Foque em análise emocional profunda e explique os fundamentos psicológicos por trás do que o estudante está sentindo. Faça perguntas que o levem à autorreflexão profunda ao invés de apenas dar a solução.
-`;
+            basePrompt += `- MODO REFLEXIVO: Foque em análise emocional profunda e explique os fundamentos psicológicos por trás do que o estudante está sentindo. Faça perguntas que o levem à autorreflexão profunda ao invés de apenas dar a solução.\n`;
             break;
           case 'action':
-            basePrompt += `- MODO DE AÇÃO: Seja direto ao ponto. Foque em soluções imediatas e práticas. Ofereça passos claros, acionáveis e estruturados. Menos teoria, mais execução.
-`;
+            basePrompt += `- MODO DE AÇÃO: Seja direto ao ponto. Foque em soluções imediatas e práticas. Ofereça passos claros, acionáveis e estruturados. Menos teoria, mais execução.\n`;
             break;
           case 'learning':
-            basePrompt += `- MODO DIDÁTICO (LEARNING): Seja como um tutor paciente. Exija esforço cognitivo do usuário. Dê explicações didáticas usando analogias fáceis do dia a dia, foque na progressão do aprendizado e no crescimento gradual.
-`;
+            basePrompt += `- MODO DIDÁTICO (LEARNING): Seja como um tutor paciente. Exija esforço cognitivo do usuário. Dê explicações didáticas usando analogias fáceis do dia a dia, foque na progressão do aprendizado e no crescimento gradual.\n`;
             break;
           case 'support':
-            basePrompt += `- MODO DE ACOLHIMENTO: Foque na validação emocional do estudante. Use linguagem ainda mais leve, afetuosa e empática. Sua prioridade é fazer a pessoa se sentir compreendida, segura e não julgada antes de propor qualquer solução.
-`;
+            basePrompt += `- MODO DE ACOLHIMENTO: Foque na validação emocional do estudante. Use linguagem ainda mais leve, afetuosa e empática. Sua prioridade é fazer a pessoa se sentir compreendida, segura e não julgada antes de propor qualquer solução.\n`;
             break;
           default:
-            basePrompt += `- MODO PADRÃO: Postura equilibrada, oferecendo um misto de apoio emocional leve e soluções graduais, mantendo-se adaptável ao que o estudante precisar.
-`;
+            basePrompt += `- MODO PADRÃO: Postura equilibrada, oferecendo um misto de apoio emocional leve e soluções graduais, mantendo-se adaptável ao que o estudante precisar.\n`;
             break;
         }
       }
@@ -149,7 +161,6 @@ QUANDO AJUDAR COM VESTIBULARES:
 `;
     }
 
-    // Injetando Integração Direta de Ferramentas na Consciência da IA
     if (latestMood || pomodoroData || latestJournalEntry || activeTrails.length > 0 || completedTrails.length > 0) {
       basePrompt += `\n\n=== STATUS ATUAL DO SISTEMA (PsyMind Tools) ===
 (Você é parte de um ecossistema. Ferramentas do aplicativo estão coletando estes dados passivamente. Refira-se a isso APENAS se for muito natural e altamente pertinente para a conversa, para não assustar o usuário):\n`;
@@ -178,7 +189,6 @@ QUANDO AJUDAR COM VESTIBULARES:
     return basePrompt;
   },
 
-  /** Modo terminal Juiz OBI: evita conflito com PSYMIND (saúde mental), que faz o modelo recusar tarefas “técnicas”. */
   OBI_JUDGE:
     'You are in OBI (Brazilian Informatics Olympiad) Prep Judge mode inside PsyMind.AI, an educational study app. ' +
     'Your ONLY tasks are: (1) create original competitive programming problems with clear I/O and examples, or (2) evaluate submitted source code like a contest judge (verdict, feedback, complexity). ' +
@@ -186,6 +196,6 @@ QUANDO AJUDAR COM VESTIBULARES:
     'Do not refuse, apologize, or say you cannot help when the request is normal competitive programming. ' +
     'Always output the full Markdown requested. You simulate judging; do not claim external execution.',
 
-  TITLE_GENERATOR: (text) => 
+  TITLE_GENERATOR: (text: string): string => 
     `Resuma esta mensagem em no máximo 4 palavras: "${text}". Responda APENAS com o resumo, sem aspas ou pontuação extra.`
 };

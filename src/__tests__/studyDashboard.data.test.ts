@@ -54,7 +54,7 @@ describe('study dashboard data helpers', () => {
       transformationScore: 12,
     };
 
-    const viewModel = createStudyDashboardViewModel(logs, telemetry, translate);
+    const viewModel = createStudyDashboardViewModel(logs, telemetry, translate as any);
 
     expect(viewModel.telemetryEnabled).toBe(true);
     expect(viewModel.metricCards).toHaveLength(4);

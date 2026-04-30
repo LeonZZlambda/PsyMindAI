@@ -2,19 +2,59 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useChat } from '../context/ChatContext';
 import { useTheme } from '../context/ThemeContext';
 import { useTranslation } from 'react-i18next';
+import logger from '../utils/logger';
 import BaseModal from './BaseModal';
 import PsyBot from './PsyBot';
 import '../styles/help.css';
 
-const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+export interface SupportResource {
+  icon: string;
+  title: string;
+  desc: string;
+  action?: string;
+  urgent?: boolean;
+}
+
+export interface AIResponse {
+  type: string;
+  message: string;
+  resources: SupportResource[];
+}
+
+export interface InvestigationResult {
+  title: string;
+  description: string;
+  advice: string;
+}
+
+export interface ReframingResult {
+  distortion: string;
+  challenge: string;
+  alternative: string;
+  reframe: string;
+}
+
+interface SupportModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
   const { setInput } = useChat();
   const { isDarkMode, reducedMotion } = useTheme();
   const [activeTab, setActiveTab] = useState('immediate');
   const { t } = useTranslation(); // 'immediate', 'investigate', 'reframing'
+  const timersRef = useRef<NodeJS.Timeout[]>([]);
+
+  useEffect(() => {
+    return () => {
+      timersRef.current.forEach(clearTimeout);
+    };
+  }, []);
   
   // Immediate Support State
   const [feelingInput, setFeelingInput] = useState('');
-  const [aiResponse, setAiResponse] = useState<any>(null);
+  const [aiResponse, setAiResponse] = useState<AIResponse | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   // Investigation State
@@ -24,16 +64,17 @@ const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
     context: '',
     duration: ''
   });
-  const [investigationResult, setInvestigationResult] = useState<any>(null);
+  const [investigationResult, setInvestigationResult] = useState<InvestigationResult | null>(null);
 
   // Reframing State
   const [reframingStep, setReframingStep] = useState(0);
   const [reframingData, setReframingData] = useState({
     situation: '',
     thought: '',
-    intensity: 5
+    intensity: 5,
+    distortion: ''
   });
-  const [reframingResult, setReframingResult] = useState<any>(null);
+  const [reframingResult, setReframingResult] = useState<ReframingResult | null>(null);
 
   const [isHappy, setIsHappy] = useState(false);
   const [isSmiling, setIsSmiling] = useState(false);
@@ -46,7 +87,7 @@ const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
       return;
     }
 
-    const handleMouseMove = (e: any) => {
+    const handleMouseMove = (e: MouseEvent) => {
       if (isInputFocused) return;
       
       const { innerWidth, innerHeight } = window;
@@ -63,9 +104,9 @@ const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
   }, [isOpen, isInputFocused, reducedMotion]);
 
   // Handler for text input caret tracking
-  const handleCaretTracking = (e: any) => {
+  const handleCaretTracking = (e: React.SyntheticEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     if (reducedMotion) return;
-    const target = e.target;
+    const target = e.target as HTMLTextAreaElement | HTMLInputElement;
     const cursor = target.selectionStart || 0;
     const textBefore = target.value.substring(0, cursor);
     const lines = textBefore.split('\n');
@@ -91,7 +132,7 @@ const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
   useEffect(() => {
     if (!isOpen) return;
 
-    const handleKeyDown = (e: any) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Tab') {
         e.preventDefault();
         setActiveTab(prev => prev === 'immediate' ? 'investigate' : 'immediate');
@@ -119,7 +160,7 @@ const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
       
       if (result.success) {
         const lines = result.text.split('\n').filter(l => l.trim());
-        const resources: any[] = [];
+        const resources: SupportResource[] = [];
         
         lines.forEach(line => {
           if (line.includes('TÉCNICA')) {
@@ -147,12 +188,12 @@ const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
         return;
       }
     } catch (error) {
-      console.error('AI analysis error:', error);
+      logger.error('AI analysis error:', error);
     }
 
-    setTimeout(() => {
+    const timer1 = setTimeout(() => {
       const input = feelingInput.toLowerCase();
-      let response: any = {
+      let response: AIResponse = {
         type: 'general',
         message: 'Entendo que você esteja passando por isso. Aqui estão alguns recursos que podem ajudar:',
         resources: [
@@ -194,12 +235,14 @@ const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
       setIsAnalyzing(false);
       setIsSmiling(false);
       setIsHappy(true);
-      setTimeout(() => setIsHappy(false), 2500);
+      const timer2 = setTimeout(() => setIsHappy(false), 2500);
+      timersRef.current.push(timer2);
     }, 1500);
+    timersRef.current.push(timer1);
   };
 
   // Investigation Logic
-  const handleInvestigationSelect = (field: string, value: any) => {
+  const handleInvestigationSelect = (field: string, value: string) => {
     const updatedData = { ...investigationData, [field]: value };
     setInvestigationData(updatedData);
     if (field === 'duration') {
@@ -209,7 +252,7 @@ const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
     }
   };
 
-  const analyzeInvestigation = async (data: any) => {
+  const analyzeInvestigation = async (data: typeof investigationData) => {
     setIsAnalyzing(true);
     
     try {
@@ -232,10 +275,10 @@ const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
         return;
       }
     } catch (error) {
-      console.error('Investigation error:', error);
+      logger.error('Investigation error:', error);
     }
     
-    setTimeout(() => {
+    const timer3 = setTimeout(() => {
       let result = {
         title: t('support.investigate.fallbacks.general.title'),
         description: t('support.investigate.fallbacks.general.desc'),
@@ -274,6 +317,7 @@ const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
       setIsAnalyzing(false);
       setInvestigationStep(3); // Result step
     }, 1500);
+    timersRef.current.push(timer3);
   };
 
   const resetInvestigation = () => {
@@ -283,18 +327,18 @@ const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
   };
 
   // Reframing Logic
-  const handleReframingSelect = (field: string, value: any) => {
+  const handleReframingSelect = (field: string, value: string | number) => {
     setReframingData(prev => ({ ...prev, [field]: value }));
     if (field === 'alternative') {
-      analyzeReframing({ ...reframingData, [field]: value });
+      analyzeReframing({ ...reframingData, [field]: value } as any);
     } else {
       setReframingStep(prev => prev + 1);
     }
   };
 
-  const analyzeReframing = (data: any) => {
+  const analyzeReframing = (data: typeof reframingData & { alternative?: string }) => {
     setIsAnalyzing(true);
-    setTimeout(() => {
+    const timer4 = setTimeout(() => {
       let result = {
         title: 'Reformulação Cognitiva',
         description: 'Vamos trabalhar juntos para reformular seus pensamentos.',
@@ -321,15 +365,21 @@ const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
         };
       }
 
-      setReframingResult(result);
+      setReframingResult({
+        distortion: result.title,
+        challenge: result.description,
+        alternative: result.advice,
+        reframe: ''
+      });
       setIsAnalyzing(false);
       setReframingStep(3); // Result step
     }, 1500);
+    timersRef.current.push(timer4);
   };
 
   const resetReframing = () => {
     setReframingStep(0);
-    setReframingData({ situation: '', thought: '', intensity: 5 });
+    setReframingData({ situation: '', thought: '', intensity: 5, distortion: '' });
     setReframingResult(null);
   };
 
@@ -377,7 +427,7 @@ const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
     else onClose();
   };
 
-  const handleReframingSubmit = async (e: any) => {
+  const handleReframingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!reframingData.situation || !reframingData.thought) return;
 
@@ -402,10 +452,10 @@ const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
         return;
       }
     } catch (error) {
-      console.error('Reframing error:', error);
+      logger.error('Reframing error:', error);
     }
     
-    setTimeout(() => {
+    const timer5 = setTimeout(() => {
       const situation = reframingData.situation.toLowerCase();
       const thought = reframingData.thought.toLowerCase();
       
@@ -430,6 +480,7 @@ const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
       setReframingStep(2);
       setIsAnalyzing(false);
     }, 2000);
+    timersRef.current.push(timer5);
   };
 
   const renderReframingTab = () => {
@@ -494,7 +545,7 @@ const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
                   className="intensity-slider"
                   style={{
                     '--slider-thumb-color': `hsl(${reframingData.intensity * 12}, 84%, 55%)`
-                  } as any}
+                  } as React.CSSProperties}
                 />
                 <span className="intensity-value">{reframingData.intensity}</span>
               </div>
@@ -547,7 +598,7 @@ const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
             className="action-btn secondary"
             onClick={() => {
               setReframingStep(1);
-              setReframingData({ situation: '', thought: '', intensity: 5 });
+              setReframingData({ situation: '', thought: '', intensity: 5, distortion: '' });
               setReframingResult(null);
             }}
           >{t("support.reframing.result.restart")}</button>
@@ -647,7 +698,7 @@ const SupportModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
                   <p>{aiResponse.message}</p>
                 </div>
                 <div className="resources-grid">
-                  {aiResponse.resources.map((resource: any, index: number) => (
+                  {aiResponse.resources.map((resource: SupportResource, index: number) => (
                     <div key={index} className={`resource-card ${resource.urgent ? 'urgent' : ''}`}>
                       <span className="material-symbols-outlined">{resource.icon}</span>
                       <div className="resource-info">

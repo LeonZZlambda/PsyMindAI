@@ -112,12 +112,12 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
       let chatId = currentChatId;
       if (!chatId) {
         // Use crypto.randomUUID when available in the browser, fallback to timestamp
-        chatId = (typeof crypto !== 'undefined' && typeof (crypto as any).randomUUID === 'function')
-          ? (crypto as any).randomUUID()
+        chatId = (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function')
+          ? crypto.randomUUID()
           : Date.now().toString();
         const tempTitle = isAnonymous ? 'Modo Anônimo' : text.slice(0, 40) + (text.length > 40 ? '...' : '');
         const newChat = createChat(chatId as string, tempTitle, [userMessage]);
-        if (isAnonymous) (newChat as any).isAnonymous = true;
+        if (isAnonymous) newChat.isAnonymous = true;
 
         setChats((prev) => [newChat, ...prev]);
         setCurrentChatId(chatId);
@@ -149,7 +149,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
       if (isGeminiConfigured()) {
         const result = (await sendMessageToGemini(text, messages)) as SendMessageResponse;
         if (result.success) {
-          fullResponse = (result as any).text;
+          fullResponse = result.text;
         } else {
           // For backend errors like RATE_LIMIT, UNKNOWN, etc., send a friendly message
           const backendErrors = [
@@ -160,10 +160,10 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
             'NETWORK',
             'EMPTY_RESPONSE'
           ];
-          if (backendErrors.includes((result as any).error)) {
-            fullResponse = (result as any).userMessage;
+          if (backendErrors.includes(result.error as string)) {
+            fullResponse = result.userMessage;
           } else {
-            fullResponse = `${(result as any).userMessage}\n\n${t('chat.errors.limited_continue')}`;
+            fullResponse = `${result.userMessage}\n\n${t('chat.errors.limited_continue')}`;
           }
         }
       } else {

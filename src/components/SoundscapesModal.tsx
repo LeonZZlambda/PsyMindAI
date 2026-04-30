@@ -4,7 +4,12 @@ import { useSound } from '../context/SoundContext';
 import BaseModal from './BaseModal';
 import '../styles/soundscapes.css';
 
-const SoundscapesModal = ({ isOpen, onClose }) => {
+interface SoundscapesModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const SoundscapesModal: React.FC<SoundscapesModalProps> = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
   const { isPlaying, currentSound, volume, toggleSound, changeSound, setVolume } = useSound();
 
@@ -62,7 +67,7 @@ const SoundscapesModal = ({ isOpen, onClose }) => {
                 key={sound.id}
                 className={`sound-card ${currentSound === sound.id ? 'active' : ''}`}
                 onClick={() => {
-                  changeSound(sound.id);
+                  changeSound(sound.id as any);
                   if (!isPlaying) toggleSound();
                 }}
                 aria-pressed={currentSound === sound.id}

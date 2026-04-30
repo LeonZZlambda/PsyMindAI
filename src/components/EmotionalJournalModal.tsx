@@ -4,22 +4,34 @@ import { useEmotionalJournal } from '../context/EmotionalJournalContext';
 import BaseModal from './BaseModal';
 import '../styles/emotional-journal.css';
 
-const EmotionalJournalModal = ({ isOpen, onClose }) => {
+interface EmotionalJournalModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+interface Question {
+  id: string;
+  question: string;
+  icon: string;
+  color: string;
+}
+
+const EmotionalJournalModal: React.FC<EmotionalJournalModalProps> = ({ isOpen, onClose }) => {
   const { t, i18n } = useTranslation();
   const { entries, addEntry, deleteEntry } = useEmotionalJournal();
-  const [activeTab, setActiveTab] = useState('new');
-  const [responses, setResponses] = useState({
+  const [activeTab, setActiveTab] = useState<'new' | 'history'>('new');
+  const [responses, setResponses] = useState<Record<string, string>>({
     excited: '',
     irritated: '',
     frustrated: '',
     proud: ''
   });
 
-  const journalQuestions = [
-    { id: 'excited', question: t('emotional_journal.questions.excited'), icon: 'celebration', color: '#FF9800' },
-    { id: 'irritated', question: t('emotional_journal.questions.irritated'), icon: 'sentiment_frustrated', color: '#F44336' },
-    { id: 'frustrated', question: t('emotional_journal.questions.frustrated'), icon: 'sentiment_stressed', color: '#9C27B0' },
-    { id: 'proud', question: t('emotional_journal.questions.proud'), icon: 'emoji_events', color: '#4CAF50' }
+  const journalQuestions: Question[] = [
+    { id: 'excited', question: String(t('emotional_journal.questions.excited')), icon: 'celebration', color: '#FF9800' },
+    { id: 'irritated', question: String(t('emotional_journal.questions.irritated')), icon: 'sentiment_frustrated', color: '#F44336' },
+    { id: 'frustrated', question: String(t('emotional_journal.questions.frustrated')), icon: 'sentiment_stressed', color: '#9C27B0' },
+    { id: 'proud', question: String(t('emotional_journal.questions.proud')), icon: 'emoji_events', color: '#4CAF50' }
   ];
 
   const handleSave = () => {
@@ -31,7 +43,7 @@ const EmotionalJournalModal = ({ isOpen, onClose }) => {
     }
   };
 
-  const formatDate = (isoString) => {
+  const formatDate = (isoString: string) => {
     const date = new Date(isoString);
     return new Intl.DateTimeFormat(i18n.language === 'en' ? 'en-US' : 'pt-BR', {
       day: '2-digit',

@@ -1,26 +1,31 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useMood } from '../context/MoodContext';
+import { Mood, useMood } from '../context/MoodContext';
 import { generateMoodInsight } from '../services/tools/moodService';
 import BaseModal from './BaseModal';
 import '../styles/mood.css';
 
-const MoodTrackerModal = ({ isOpen, onClose }) => {
+interface MoodTrackerModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const MoodTrackerModal: React.FC<MoodTrackerModalProps> = ({ isOpen, onClose }) => {
   const { t, i18n } = useTranslation();
   const { moodHistory, addMoodEntry, deleteMoodEntry } = useMood();
-  const [selectedMood, setSelectedMood] = useState(null);
+  const [selectedMood, setSelectedMood] = useState<Mood | null>(null);
   const [note, setNote] = useState('');
-  const [activeTab, setActiveTab] = useState('new'); // 'new' or 'history'
+  const [activeTab, setActiveTab] = useState<'new' | 'history'>('new');
   const [aiInsight, setAiInsight] = useState('');
   const [isLoadingInsight, setIsLoadingInsight] = useState(false);
 
-  const moods = [
-    { id: 'happy', label: t('mood_tracker.moods.happy'), icon: 'sentiment_very_satisfied', color: '#4CAF50' },
-    { id: 'calm', label: t('mood_tracker.moods.calm'), icon: 'self_improvement', color: '#009688' },
-    { id: 'focused', label: t('mood_tracker.moods.focused'), icon: 'center_focus_strong', color: '#2196F3' },
-    { id: 'anxious', label: t('mood_tracker.moods.anxious'), icon: 'sentiment_worried', color: '#FF9800' },
-    { id: 'tired', label: t('mood_tracker.moods.tired'), icon: 'bedtime', color: '#9C27B0' },
-    { id: 'sad', label: t('mood_tracker.moods.sad'), icon: 'sentiment_dissatisfied', color: '#607D8B' }
+  const moods: Mood[] = [
+    { id: 'happy', label: t('mood_tracker.moods.happy'), icon: 'sentiment_very_satisfied', color: '#4CAF50', value: 5 },
+    { id: 'calm', label: t('mood_tracker.moods.calm'), icon: 'self_improvement', color: '#009688', value: 4 },
+    { id: 'focused', label: t('mood_tracker.moods.focused'), icon: 'center_focus_strong', color: '#2196F3', value: 4 },
+    { id: 'anxious', label: t('mood_tracker.moods.anxious'), icon: 'sentiment_worried', color: '#FF9800', value: 2 },
+    { id: 'tired', label: t('mood_tracker.moods.tired'), icon: 'bedtime', color: '#9C27B0', value: 2 },
+    { id: 'sad', label: t('mood_tracker.moods.sad'), icon: 'sentiment_dissatisfied', color: '#607D8B', value: 1 }
   ];
 
   if (!isOpen) return null;
@@ -39,15 +44,15 @@ const MoodTrackerModal = ({ isOpen, onClose }) => {
     
     setIsLoadingInsight(true);
     try {
-      const insight = await generateMoodInsight(moodHistory);
+      const insight = await generateMoodInsight(moodHistory as any);
       setAiInsight(insight);
     } catch (error) {
-      setAiInsight(t('mood_tracker.ai_insight.error'));
+      setAiInsight(String(t('mood_tracker.ai_insight.error')));
     }
     setIsLoadingInsight(false);
   };
 
-  const formatDate = (isoString) => {
+  const formatDate = (isoString: string) => {
     const date = new Date(isoString);
     return new Intl.DateTimeFormat(i18n.language === 'en' ? 'en-US' : 'pt-BR', {
       day: '2-digit',

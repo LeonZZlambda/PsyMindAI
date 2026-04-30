@@ -18,7 +18,7 @@ const ImagePreview: React.FC<{ file: File }> = ({ file }) => {
       objectUrl = URL.createObjectURL(file);
       setUrl(objectUrl);
     } catch(err) {
-      console.error(err);
+      logger.error(err);
     }
     return () => {
       if (objectUrl) URL.revokeObjectURL(objectUrl);
@@ -46,7 +46,7 @@ const InputArea: React.FC<InputAreaProps> = ({ inputRef, onOpenHelp, onOpenSuppo
   const { toggleModal } = useModal();
   
   const [isListening, setIsListening] = useState(false);
-  const [recognition, setRecognition] = useState<{ start: () => void; stop: () => void } | null>(null);
+  const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [showToolsMenu, setShowToolsMenu] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -133,19 +133,19 @@ const InputArea: React.FC<InputAreaProps> = ({ inputRef, onOpenHelp, onOpenSuppo
 
   useEffect(() => {
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-      const SpeechRecognition = (window as unknown as { SpeechRecognition: any; webkitSpeechRecognition: any }).SpeechRecognition || (window as unknown as { SpeechRecognition: any; webkitSpeechRecognition: any }).webkitSpeechRecognition;
-      const recognitionInstance = new SpeechRecognition();
+      const SpeechRecognitionConstructor = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognitionInstance = new SpeechRecognitionConstructor();
       recognitionInstance.continuous = false;
       recognitionInstance.interimResults = false;
       recognitionInstance.lang = 'pt-BR';
 
-      recognitionInstance.onresult = (event: { results: { transcript: string }[][] }) => {
+      recognitionInstance.onresult = (event: SpeechRecognitionEvent) => {
         const transcript = event.results[0][0].transcript;
         setInput((prev: string) => (prev ? prev + ' ' + transcript : transcript));
         setIsListening(false);
       };
 
-      recognitionInstance.onerror = (event: { error: unknown }) => {
+      recognitionInstance.onerror = (event: SpeechRecognitionErrorEvent) => {
         logger.error('Speech recognition error', event.error);
         setIsListening(false);
       };
@@ -189,7 +189,7 @@ const InputArea: React.FC<InputAreaProps> = ({ inputRef, onOpenHelp, onOpenSuppo
 
   const handleSendClick = () => {
     if (!input.trim() && selectedFiles.length === 0) return;
-    sendMessage(input, selectedFiles as FileAttachment[]);
+    sendMessage(input, selectedFiles);
     setSelectedFiles([]);
   };
 

@@ -4,7 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import BaseModal from './BaseModal';
 
-const KindnessModal = ({ isOpen, onClose }) => {
+interface KindnessModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const KindnessModal: React.FC<KindnessModalProps> = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
   const [act, setAct] = useState('');
   const [category, setCategory] = useState('random');
@@ -19,14 +24,14 @@ const KindnessModal = ({ isOpen, onClose }) => {
     { id: 'work', label: t('kindness.categories.work'), icon: 'work', color: '#06b6d4' }
   ];
 
-  const generateAct = async (selectedCategory = category) => {
+  const generateAct = async (selectedCategory: string = category) => {
     setIsLoading(true);
     setCompleted(false);
     
     // Refresh t() bindings for prompt mapping
-    const promptMap = t('kindness.prompts', { returnObjects: true });
+    const promptMap = t('kindness.prompts', { returnObjects: true }) as Record<string, string>;
     // Handle edge case where i18n object hasn't hydrated properly, falling back to english or pt.
-    const getPrompt = (id) => promptMap[id] || promptMap['random'];
+    const getPrompt = (id: string) => promptMap[id] || promptMap['random'];
 
     try {
       const { sendMessage: sendMessageToGemini } = await import('../services/chat/chatService');
@@ -45,9 +50,9 @@ const KindnessModal = ({ isOpen, onClose }) => {
     setIsLoading(false);
   };
 
-  const fallbackAct = (selectedCategory) => {
-    const db = t('kindness.database', { returnObjects: true });
-    let pool = [];
+  const fallbackAct = (selectedCategory: string) => {
+    const db = t('kindness.database', { returnObjects: true }) as Record<string, string[]>;
+    let pool: string[] = [];
     if (selectedCategory === 'random') {
       Object.values(db).forEach(arr => pool.push(...arr));
     } else {

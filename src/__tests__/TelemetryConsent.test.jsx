@@ -55,14 +55,14 @@ describe('TelemetryConsent', () => {
       </MemoryRouter>
     )
 
-    await waitFor(() => expect(screen.getByRole('dialog')).toBeTruthy())
+    await waitFor(() => expect(screen.getByRole('dialog')).toBeTruthy(), { timeout: 3000 })
 
     const accept = screen.getByRole('button', { name: 'telemetry.accept' })
     expect(accept).toBeTruthy()
 
     // accept should call Telemetry.setOptIn(true)
     await user.click(accept)
-    expect(TelemetryMock.setOptIn).toHaveBeenCalledWith(true)
+    await waitFor(() => expect(TelemetryMock.setOptIn).toHaveBeenCalledWith(true))
   })
 
   it('closes on Escape and calls decline', async () => {
@@ -93,10 +93,10 @@ describe('TelemetryConsent', () => {
       </MemoryRouter>
     )
 
-    await waitFor(() => expect(screen.getByRole('dialog')).toBeTruthy())
+    await waitFor(() => expect(screen.getByRole('dialog')).toBeTruthy(), { timeout: 3000 })
 
     // Press Escape to decline
     await user.keyboard('{Escape}')
-    expect(TelemetryMock.setOptIn).toHaveBeenCalledWith(false)
+    await waitFor(() => expect(TelemetryMock.setOptIn).toHaveBeenCalledWith(false))
   })
 })

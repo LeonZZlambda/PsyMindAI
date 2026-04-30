@@ -71,9 +71,8 @@ const ImageViewer: React.FC<{ src: string; alt: string; onClose: () => void }> =
       const blob = await response.blob();
 
       try {
-        const ClipboardItemConstructor = (globalThis as any).ClipboardItem;
         await navigator.clipboard.write([
-          new ClipboardItemConstructor({
+          new window.ClipboardItem({
             [blob.type]: blob
           })
         ]);
@@ -95,12 +94,11 @@ const ImageViewer: React.FC<{ src: string; alt: string; onClose: () => void }> =
         const ctx = canvas.getContext('2d');
         if (ctx) ctx.drawImage(img, 0, 0);
 
-        const pngBlob: Blob | null = await new Promise((resolve) => canvas.toBlob(resolve as any, 'image/png'));
+        const pngBlob: Blob | null = await new Promise((resolve) => canvas.toBlob(resolve as BlobCallback, 'image/png'));
 
         if (pngBlob) {
-          const ClipboardItemConstructor = (globalThis as any).ClipboardItem;
           await navigator.clipboard.write([
-            new ClipboardItemConstructor({
+            new window.ClipboardItem({
               'image/png': pngBlob
             })
           ]);
@@ -185,7 +183,7 @@ const MessageList: React.FC = () => {
   const ensurePrismLanguage = useCallback(async (rawLang?: string) => {
     const lang = normalizeLang(rawLang);
     if (!lang) return;
-    if ((Prism as any).languages[lang]) return;
+    if (Prism.languages[lang]) return;
     if (loadedPrismLanguagesRef.current.has(lang)) return;
 
     loadedPrismLanguagesRef.current.add(lang);
@@ -253,10 +251,12 @@ const MessageList: React.FC = () => {
   const userScrolledUpRef = useRef(false);
   const isAutoScrollingRef = useRef(false);
 
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const scrollToBottom = () => {
     isAutoScrollingRef.current = true;
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    setTimeout(() => { isAutoScrollingRef.current = false; }, 400);
+    if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+    scrollTimeoutRef.current = setTimeout(() => { isAutoScrollingRef.current = false; }, 400);
   };
 
   const scrollToTop = () => {
@@ -267,14 +267,16 @@ const MessageList: React.FC = () => {
   const [loadingPhrase, setLoadingPhrase] = useState(loadingPhrases[0] || '');
 
   useEffect(() => {
-    let interval: number | undefined;
+    let interval: NodeJS.Timeout | undefined;
     if (isTyping) {
       setLoadingPhrase(loadingPhrases[Math.floor(Math.random() * loadingPhrases.length)]);
-      interval = window.setInterval(() => {
+      interval = setInterval(() => {
         setLoadingPhrase(loadingPhrases[Math.floor(Math.random() * loadingPhrases.length)]);
       }, 2000);
     }
-    return () => clearInterval(interval);
+    return () => {
+      if (interval) clearInterval(interval);
+    };
   }, [isTyping, loadingPhrases]);
 
   useEffect(() => {
@@ -315,10 +317,19 @@ const MessageList: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    return () => {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+    };
+  }, []);
+
   return (
     <main 
       className="chat-container" 
-      ref={chatContainerRef as any} 
+      ref={chatContainerRef} 
       onScroll={handleScroll}
     > 
       {messages.length === 0 ? (
@@ -443,15 +454,15 @@ const MessageList: React.FC = () => {
                           <div key={i} className="message-file-item">
                             {file.type && file.type.startsWith('image/') && (file instanceof Blob || file instanceof File) ? (
                               <img 
-                                src={URL.createObjectURL(file as any)} 
+                                src={URL.createObjectURL(file)} 
                                 alt={file.name} 
                                 className="message-file-image clickable" 
-                                onClick={() => setSelectedImage({ src: URL.createObjectURL(file as any), alt: file.name })}
+                                onClick={() => setSelectedImage({ src: URL.createObjectURL(file), alt: file.name })}
                               />
                             ) : (
                               <div className="message-file-generic">
                                 <span className="material-symbols-outlined">description</span>
-                                <span>{(file as any).name || t('chat.input.file')}</span>
+                                <span>{(file as File).name || t('chat.input.file')}</span>
                               </div>
                             )}
                           </div>
@@ -467,7 +478,7 @@ const MessageList: React.FC = () => {
                             ensurePrismLanguage(lang);
                             const normalized = normalizeLang(lang);
                             const codeText = String(children).replace(/\n$/, '');
-                            const grammar = (Prism as any).languages[normalized];
+                            const grammar = Prism.languages[normalized] as any;
                             const highlighted = grammar ? Prism.highlight(codeText, grammar, normalized) : null;
                             return (
                               <div className="code-block-wrapper">

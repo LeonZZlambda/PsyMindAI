@@ -15,7 +15,7 @@ export type FontSize = 'small' | 'normal' | 'large';
 /**
  * Color blindness simulation modes
  */
-export type ColorBlindMode = 'none' | 'protanopia' | 'deuteranopia' | 'tritanopia';
+export type ColorBlindMode = 'none' | 'protanopia' | 'deuteranopia' | 'tritanopia' | 'achromatopsia';
 
 /**
  * Theme context value interface

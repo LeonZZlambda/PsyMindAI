@@ -6,11 +6,11 @@ import { useEffect } from 'react';
  * @param {Function} callback - Função chamada quando ESC é pressionado
  * @param {boolean} isActive - Se o hook está ativo (default: true)
  */
-export const useEscapeKey = (callback, isActive = true) => {
+export const useEscapeKey = (callback: () => void, isActive = true) => {
   useEffect(() => {
     if (!isActive || !callback) return;
 
-    const handleEscape = (e) => {
+    const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         callback();
       }

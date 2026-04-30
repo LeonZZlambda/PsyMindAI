@@ -3,9 +3,14 @@ import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
 import BaseModal from './BaseModal';
 
-const ImportContextModal = ({ isOpen, onClose }) => {
+interface ImportContextModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const ImportContextModal: React.FC<ImportContextModalProps> = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
-  const [importContext, setImportContext] = useState(() => localStorage.getItem('psymind_imported_context') || '');
+  const [importContext, setImportContext] = useState<string>(() => (typeof window !== 'undefined' ? localStorage.getItem('psymind_imported_context') || '' : ''));
 
   const importPrompt = t('import_context.prompt');
 

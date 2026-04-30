@@ -1,5 +1,7 @@
-export async function requestNotificationPermission() {
-  if (!('Notification' in window)) return false;
+import logger from './logger';
+
+export async function requestNotificationPermission(): Promise<boolean> {
+  if (typeof window === 'undefined' || !('Notification' in window)) return false;
   
   if (Notification.permission === 'granted') return true;
   
@@ -11,18 +13,19 @@ export async function requestNotificationPermission() {
   return false;
 }
 
-export function showNotification(title, body) {
-  if ('Notification' in window && Notification.permission === 'granted') {
+export function showNotification(title: string, body: string): void {
+  if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted') {
     new Notification(title, { body });
   }
 }
 
-export function playNotificationSound() {
+export function playNotificationSound(): void {
+  if (typeof window === 'undefined') return;
   try {
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    if (!AudioContext) return;
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) return;
     
-    const ctx = new AudioContext();
+    const ctx = new AudioContextClass();
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
 
@@ -39,6 +42,6 @@ export function playNotificationSound() {
     osc.start();
     osc.stop(ctx.currentTime + 0.5);
   } catch (e) {
-    console.error("Audio play failed", e);
+    logger.error("Audio play failed", e);
   }
 }

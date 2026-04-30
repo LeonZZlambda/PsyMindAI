@@ -1,6 +1,26 @@
 import { sendMessage } from '../chat/chatService';
+import logger from '../../utils/logger';
 
-export async function explainQuizError(question, userResponse, correctAnswer) {
+export interface LearningItem {
+  type: 'flashcard' | 'quiz' | 'open_ended';
+  front?: string;
+  back?: string;
+  question?: string;
+  options?: string[];
+  correctOption?: string;
+  hint?: string;
+}
+
+export interface LearningTrail {
+  id: string;
+  title: string;
+  description: string;
+  theme: 'purple' | 'green' | 'yellow' | 'pink' | 'blue';
+  icon: string;
+  content: LearningItem[];
+}
+
+export async function explainQuizError(question: string, userResponse: string, correctAnswer: string): Promise<string> {
   const prompt = `Atue como um tutor objetivo. O aluno errou a seguinte questão de múltipla escolha:
 Pergunta: "${question}"
 Resposta correta: "${correctAnswer}"
@@ -15,7 +35,7 @@ Explique de forma direta e extremamente enxuta apenas a diferença central: por 
   return "Desculpe, não consegui carregar a explicação agora. Continue estudando!";
 }
 
-export async function evaluateOpenEnded(question, userResponse) {
+export async function evaluateOpenEnded(question: string, userResponse: string): Promise<string> {
   const prompt = `Atue como um professor objetivo. Avalie a resposta do aluno para a seguinte questão:
 Pergunta: "${question}"
 Resposta do aluno: "${userResponse}"
@@ -29,7 +49,7 @@ Dê um feedback claro e extremamente direto usando Markdown básico (ex: **Ponto
   return "Feedback: Resposta gravada! Infelizmente, o tutor IA não está disponível agora para avaliar.";
 }
 
-export async function generateLearningTrail(topic) {
+export async function generateLearningTrail(topic: string): Promise<LearningTrail | null> {
   const prompt = `Gere uma trilha de aprendizado guiado e interativo sobre o tema "${topic}".
 Sua resposta deve ser estritamente um código JSON válido. Não inclua texto extra, markdown, etc.
 O objeto raiz deve ter este formato:
@@ -81,9 +101,9 @@ Requisitos adicionais:
       if (!trailData.content || !Array.isArray(trailData.content)) {
         throw new Error('Conteúdo inválido recebido da IA.');
       }
-      return trailData;
+      return trailData as LearningTrail;
     } catch (e) {
-      console.error('Falha ao parsear JSON retornado pela IA:', e, jsonContent);
+      logger.error('Falha ao parsear JSON retornado pela IA:', e, jsonContent);
       return null;
     }
   }

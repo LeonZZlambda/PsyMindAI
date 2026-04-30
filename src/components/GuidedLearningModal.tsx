@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useTranslation, Trans } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
 import ReactMarkdown from 'react-markdown';
+import logger from '../utils/logger';
 import BaseModal from './BaseModal';
 import { generateLearningTrail, explainQuizError, evaluateOpenEnded } from "../services/tools/learningService";
 import "../styles/learning.css";
@@ -9,10 +10,64 @@ import "../styles/ai-learning.css";
 
 
 
-export default function GuidedLearningModal({ isOpen, onClose }) {
+import "../styles/ai-learning.css";
+
+export type LearningStepType = "flashcard" | "quiz" | "open_ended";
+
+export interface FlashcardItem {
+  type: "flashcard";
+  front: string;
+  back: string;
+  _uid?: string;
+}
+
+export interface QuizOption {
+  id: string;
+  text: string;
+}
+
+export interface QuizItem {
+  type: "quiz";
+  question: string;
+  options: QuizOption[];
+  correctOption: string;
+  _uid?: string;
+  isRetry?: boolean;
+}
+
+export interface OpenEndedItem {
+  type: "open_ended";
+  question: string;
+  hint?: string;
+  _uid?: string;
+}
+
+export type LearningStep = FlashcardItem | QuizItem | OpenEndedItem;
+
+export interface LearningTrail {
+  id: string | number;
+  title: string;
+  description: string;
+  icon?: string;
+  theme?: string;
+  content: LearningStep[];
+  isAiGenerated?: boolean;
+}
+
+export interface CompletedTrailStats {
+  correct: number;
+  total: number;
+}
+
+interface GuidedLearningModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningModalProps) {
   const { t } = useTranslation();
-  const DEFAULT_TRAILS = t("guided_learning.default_trails", { returnObjects: true }) || [];
-  const [customTrails, setCustomTrails] = useState(() => {
+  const DEFAULT_TRAILS = t("guided_learning.default_trails", { returnObjects: true }) as LearningTrail[] || [];
+  const [customTrails, setCustomTrails] = useState<LearningTrail[]>(() => {
     try {
       const saved = localStorage.getItem('psy_mind_custom_trails');
       return saved ? JSON.parse(saved) : [];
@@ -27,7 +82,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
     localStorage.setItem('psy_mind_custom_trails', JSON.stringify(customTrails));
   }, [customTrails]);
 
-  const handleDeleteTrail = (e, trailId) => {
+  const handleDeleteTrail = (e: React.MouseEvent, trailId: string | number) => {
     e.stopPropagation();
     if (window.confirm(t("guided_learning.alerts.delete_confirm"))) {
       setCustomTrails(prev => prev.filter(t => t.id !== trailId));
@@ -38,8 +93,8 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
   };
 
   const [activeTab, setActiveTab] = useState("trails");
-  const [selectedTrail, setSelectedTrail] = useState(null);
-  const [activeTrailContent, setActiveTrailContent] = useState(null);
+  const [selectedTrail, setSelectedTrail] = useState<LearningTrail | null>(null);
+  const [activeTrailContent, setActiveTrailContent] = useState<LearningStep[] | null>(null);
   const [trailStepIndex, setTrailStepIndex] = useState(0);
 
   // States for AI Creation
@@ -47,7 +102,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
   const [newTrailTopic, setNewTrailTopic] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
 
-  const [completedTrails, setCompletedTrails] = useState(() => {
+  const [completedTrails, setCompletedTrails] = useState<Record<string | number, CompletedTrailStats>>(() => {
     try {
       const saved = localStorage.getItem('psy_mind_completed_trails');
       return saved ? JSON.parse(saved) : {};
@@ -56,7 +111,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
     }
   });
 
-  const [currentTrailStats, setCurrentTrailStats] = useState({ correct: 0, total: 0 });
+  const [currentTrailStats, setCurrentTrailStats] = useState<CompletedTrailStats>({ correct: 0, total: 0 });
   const [isTrailFinished, setIsTrailFinished] = useState(false);
 
   useEffect(() => {
@@ -67,37 +122,37 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
   const [currentFlashcard, setCurrentFlashcard] = useState(0);
   const [genericQuizIndex, setGenericQuizIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [quizSubmitted, setQuizSubmitted] = useState(false);
   
   const [genericQuizStats, setGenericQuizStats] = useState({ correct: 0 });
   const [isGenericQuizFinished, setIsGenericQuizFinished] = useState(false);
 
-  const [srsData, setSrsData] = useState(() => {
-    try { return JSON.parse(localStorage.getItem("psy_mind_srs_data")) || {}; }
+  const [srsData, setSrsData] = useState<Record<string, { nextReview: number; difficulty: number }>>(() => {
+    try { return JSON.parse(localStorage.getItem("psy_mind_srs_data") || "{}"); }
     catch { return {}; }
   });
-  const [aiExplanation, setAiExplanation] = useState(null);
+  const [aiExplanation, setAiExplanation] = useState<string | null>(null);
   const [isExplaining, setIsExplaining] = useState(false);
   const [discursiveResp, setDiscursiveResp] = useState("");
-  const [discursiveFeedback, setDiscursiveFeedback] = useState(null);
+  const [discursiveFeedback, setDiscursiveFeedback] = useState<string | null>(null);
   const [isEvaluating, setIsEvaluating] = useState(false);
 
   // SRS Filter for Flashcards Tab
   // eslint-disable-next-line react-hooks/purity
   const now = Date.now();
   // Flashcards that are due or haven't been reviewed
-  const baseFlashcards = trails.filter(t => completedTrails[t.id]).flatMap(t => t.content.filter(c => c.type === "flashcard"));
+  const baseFlashcards = trails.filter(t => completedTrails[t.id]).flatMap(t => t.content.filter((c): c is FlashcardItem => c.type === "flashcard"));
   
-  const [sessionFailedFlashcards, setSessionFailedFlashcards] = useState([]);
+  const [sessionFailedFlashcards, setSessionFailedFlashcards] = useState<FlashcardItem[]>([]);
   
   // ALL_FLASHCARDS merges due flashcards and any that failed in this session but haven't been re-answered correctly
   const ALL_FLASHCARDS = [...new Set([...baseFlashcards.filter(f => !srsData[f.front] || srsData[f.front].nextReview <= now), ...sessionFailedFlashcards])];
 
-  const [sessionFailedQuizzes, setSessionFailedQuizzes] = useState([]);
+  const [sessionFailedQuizzes, setSessionFailedQuizzes] = useState<QuizItem[]>([]);
   
   const baseQuizzes = useMemo(() => {
-    const pool = trails.filter(t => completedTrails[t.id]).flatMap(t => t.content.filter(c => c.type === "quiz"));
+    const pool = trails.filter(t => completedTrails[t.id]).flatMap(t => t.content.filter((c): c is QuizItem => c.type === "quiz"));
     if (pool.length === 0) return [];
 
     // Fisher-Yates pra ordem real das questões sem alterar os originais do 'trails'
@@ -152,7 +207,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
   const currentGenericQuiz = ALL_QUIZZES[genericQuizIndex] || ALL_QUIZZES[0];
 
   const handleFlip = () => setIsFlipped(!isFlipped);
-  const handleSrsAction = (flashcard, difficulty, isTrailMode) => {
+  const handleSrsAction = (flashcard: FlashcardItem, difficulty: number, isTrailMode: boolean) => {
     // difficulty: 0 (Errei), 1 (Difícil), 2 (Bom), 3 (Fácil)
     const intervals = [1000 * 30, 1000 * 60 * 5, 1000 * 60 * 30, 1000 * 60 * 60 * 2]; // Reduced intervals: 30s, 5m, 30m, 2h
     // eslint-disable-next-line react-hooks/purity
@@ -188,6 +243,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
        } else {
           // Send failed trail question to the end of the trail content
           setActiveTrailContent(prev => {
+             if (!prev) return null;
              const updated = [...prev];
              // Clonando para ter novo _uid assim não conflita chave no React se repetir
              const rep = { ...currentStep, _uid: `trail_rep_${crypto.randomUUID()}`, isRetry: true };
@@ -229,7 +285,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
   
   const isTrailActive = !!selectedTrail;
 
-  const startTrail = (trail) => {
+  const startTrail = (trail: LearningTrail) => {
     setSelectedTrail(trail);
     
     // Preparar as questões do Trail (embaralhar opções de quizzes) antes de iniciar
@@ -272,7 +328,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
     setIsTrailFinished(false);
   };
 
-  const handleExplainError = async (question, userResp, correctResp) => {
+  const handleExplainError = async (question: string, userResp: string, correctResp: string) => {
     setIsExplaining(true);
     const explanation = await explainQuizError(question, userResp, correctResp);
     setAiExplanation(explanation);
@@ -287,10 +343,12 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
        setSelectedOption(null);
        setQuizSubmitted(false);
     } else {
-       setCompletedTrails(prev => ({
-          ...prev,
-          [selectedTrail.id]: { correct: currentTrailStats.correct, total: currentTrailStats.total }
-       }));
+       if (selectedTrail) {
+         setCompletedTrails(prev => ({
+            ...prev,
+            [selectedTrail.id]: { correct: currentTrailStats.correct, total: currentTrailStats.total }
+         }));
+       }
        setIsTrailFinished(true);
     }
   };
@@ -312,7 +370,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
     }
   };
 
-  const handleExportTrail = async (trail) => {
+  const handleExportTrail = async (trail: LearningTrail) => {
     try {
       await navigator.clipboard.writeText(JSON.stringify(trail));
       alert(t("guided_learning.alerts.export_success"));
@@ -327,19 +385,19 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
     try {
        const generatedTrail = await generateLearningTrail(newTrailTopic);
        if (generatedTrail && generatedTrail.content && generatedTrail.content.length > 0) {
-          const mappedTrail = {
+          const mappedTrail: LearningTrail = {
              ...generatedTrail,
              id: Date.now(),
              icon: generatedTrail.icon || "auto_awesome",
              content: generatedTrail.content.map(step => {
                 if (step.type === "quiz" && Array.isArray(step.options)) {
                    if (typeof step.options[0] === 'string') {
-                      const mappedOptions = step.options.map((opt, i) => ({ id: String.fromCharCode(65 + i), text: opt }));
+                      const mappedOptions = (step.options as string[]).map((opt, i) => ({ id: String.fromCharCode(65 + i), text: opt }));
                       const correctObj = mappedOptions.find(o => o.text === step.correctOption);
-                      return { ...step, options: mappedOptions, correctOption: correctObj ? correctObj.id : "A" };
+                      return { ...step, options: mappedOptions, correctOption: correctObj ? correctObj.id : "A" } as QuizItem;
                    }
                 }
-                return step;
+                return step as LearningStep;
              }),
              isAiGenerated: true
           };
@@ -353,13 +411,13 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
           setIsGenerating(false);
        }
     } catch (e) {
-       console.error("Erro gerando trilha:", e);
+       logger.error("Erro gerando trilha:", e);
        alert(t("guided_learning.alerts.generate_catch"));
        setIsGenerating(false);
     }
   };
 
-  const handleEvaluateDiscursive = async (question, userResp) => {
+  const handleEvaluateDiscursive = async (question: string, userResp: string) => {
     if (!userResp.trim()) return;
     setIsEvaluating(true);
     const feedback = await evaluateOpenEnded(question, userResp);
@@ -367,7 +425,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
     setIsEvaluating(false);
   };
 
-  const renderOpenEnded = (openEndedItem, isTrail = false) => {
+  const renderOpenEnded = (openEndedItem: OpenEndedItem, isTrail = false) => {
     return (
       <div className="discursive-wrapper">
          <div className="discursive-card">
@@ -379,7 +437,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
                  <>
                    <textarea
                      className="ai-textarea"
-                     rows="5"
+                     rows={5}
                      placeholder={t("guided_learning.open_ended.placeholder")}
                      value={discursiveResp}
                      onChange={(e) => setDiscursiveResp(e.target.value)}
@@ -391,7 +449,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
                          <span className="material-symbols-outlined">rate_review</span>
                          {isEvaluating ? t("guided_learning.open_ended.evaluating") : t("guided_learning.open_ended.evaluate_btn")}
                       </button>
-               <button type="button" className="secondary-btn skip-btn" onClick={isTrail ? nextTrailStep : null}>
+               <button type="button" className="secondary-btn skip-btn" onClick={isTrail ? nextTrailStep : undefined}>
                   {t("guided_learning.open_ended.skip_btn")}
                </button>
                    </div>
@@ -410,7 +468,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
                          </ReactMarkdown>
                       </div>
                    </div>
-                   <button className="primary-btn cta" onClick={isTrail ? nextTrailStep : null} style={{width: '100%'}}>
+                   <button className="primary-btn cta" onClick={isTrail ? nextTrailStep : undefined} style={{width: '100%'}}>
                       {t("guided_learning.open_ended.continue_trail")} <span className="material-symbols-outlined">arrow_forward</span>
                    </button>
                  </div>
@@ -420,7 +478,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
     );
   };
 
-  const renderQuiz = (quizItem, isTrail = false) => {
+  const renderQuiz = (quizItem: QuizItem, isTrail = false) => {
     return (
       <div className="quiz-card">
          <h4 className="quiz-question">{quizItem.question}</h4>
@@ -456,7 +514,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
          {quizSubmitted && selectedOption !== quizItem.correctOption && (
             <div className="ai-explanation-box" style={{ marginTop: '16px', padding: '16px', borderRadius: '12px', backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}>
                {!aiExplanation ? (
-                 <button className="secondary-btn" onClick={() => handleExplainError(quizItem.question, selectedOption, quizItem.correctOption)} disabled={isExplaining} style={{ width: '100%', height: 'auto', padding: '10px' }}>
+                 <button className="secondary-btn" onClick={() => handleExplainError(quizItem.question, selectedOption || "", quizItem.correctOption)} disabled={isExplaining} style={{ width: '100%', height: 'auto', padding: '10px' }}>
                     <span className="material-symbols-outlined">auto_awesome</span> 
                     {isExplaining ? t("guided_learning.quiz.explaining") : t("guided_learning.quiz.explain_btn")}
                  </button>
@@ -499,7 +557,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
     );
   };
 
-  const renderCompletionSplash = (title, correct, total, actionText, actionIcon, onAction) => {
+  const renderCompletionSplash = (title: string, correct: number, total: number, actionText: string, actionIcon: string, onAction: () => void) => {
     const percentage = total > 0 ? Math.round((correct / total) * 100) : 100;
     
     let message = t("guided_learning.completion.you_are_awesome");
@@ -535,10 +593,10 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
             <span className="material-symbols-outlined" style={{ fontSize: "80px", color: color, marginBottom: "16px", filter: `drop-shadow(0 4px 12px ${color}66)` }}>{icon}</span>
          </motion.div>
          <h4 style={{ fontSize: "1.8rem", marginBottom: "12px", color: "var(--text-color)", fontWeight: "800" }}>{title}</h4>
-         <p style={{ fontSize: "1.1rem", color: "var(--text-light)", marginBottom: "24px", maxWidth: "400px" }}>
-            <Trans i18nKey="guided_learning.completion.stats" values={{ correct, total, percentage }}>Você acertou <strong>{{correct}}</strong> de <strong>{{total}}</strong> questões de primeira ({{percentage}}%).</Trans><br/><br/>
+          <p style={{ fontSize: "1.1rem", color: "var(--text-light)", marginBottom: "24px", maxWidth: "400px" }}>
+            <Trans i18nKey="guided_learning.completion.stats" values={{ correct, total, percentage }}>Você acertou <strong>{correct}</strong> de <strong>{total}</strong> questões de primeira ({percentage}%).</Trans><br/><br/>
             {message}
-         </p>
+          </p>
          <motion.button 
             whileHover={{ scale: 1.05 }} 
             whileTap={{ scale: 0.95 }} 
@@ -552,7 +610,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
     );
   };
 
-  const renderFlashcardWrapper = (flashcardItem, isTrail = false) => {
+  const renderFlashcardWrapper = (flashcardItem: FlashcardItem, isTrail = false) => {
     return (
       <div className={`flashcard ${isFlipped ? "flipped" : ""}`} onClick={handleFlip}>
          <div className="flashcard-inner">
@@ -565,10 +623,10 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
                <span className="material-symbols-outlined watermark">lightbulb</span>
                <p>{flashcardItem.back}</p>
                <div className="flashcard-actions" onClick={(e) => e.stopPropagation()}>
-                  <button className="difficulty-btn" style={{backgroundColor: '#FFE5E5', color: '#D32F2F', borderColor: '#D32F2F'}} onClick={() => handleSrsAction(flashcardItem, 0, isTrail)}>{t("guided_learning.flashcard.difficulty.fail")} <br/><span style={{fontSize:'0.65rem'}}>{t("guided_learning.flashcard.times.30s")}</span></button>
-                  <button className="difficulty-btn" style={{backgroundColor: '#FFF4E5', color: '#F57C00', borderColor: '#F57C00'}} onClick={() => handleSrsAction(flashcardItem, 1, isTrail)}>{t("guided_learning.flashcard.difficulty.hard")} <br/><span style={{fontSize:'0.65rem'}}>{t("guided_learning.flashcard.times.5m")}</span></button>
-                  <button className="difficulty-btn medium" style={{backgroundColor: '#E8F5E9', color: '#388E3C', borderColor: '#388E3C'}} onClick={() => handleSrsAction(flashcardItem, 2, isTrail)}>{t("guided_learning.flashcard.difficulty.good")} <br/><span style={{fontSize:'0.65rem'}}>{t("guided_learning.flashcard.times.30m")}</span></button>
-                  <button className="difficulty-btn easy" style={{backgroundColor: '#E3F2FD', color: '#1B5E20', borderColor: '#1B5E20'}} onClick={() => handleSrsAction(flashcardItem, 3, isTrail)}>{t("guided_learning.flashcard.difficulty.easy")} <br/><span style={{fontSize:'0.65rem'}}>{t("guided_learning.flashcard.times.2h")}</span></button>
+                  <button className="difficulty-btn" style={{backgroundColor: '#FFE5E5', color: '#D32F2F', borderColor: '#D32F2F'} as any} onClick={() => handleSrsAction(flashcardItem, 0, isTrail)}>{t("guided_learning.flashcard.difficulty.fail")} <br/><span style={{fontSize:'0.65rem'}}>{t("guided_learning.flashcard.times.30s")}</span></button>
+                  <button className="difficulty-btn" style={{backgroundColor: '#FFF4E5', color: '#F57C00', borderColor: '#F57C00'} as any} onClick={() => handleSrsAction(flashcardItem, 1, isTrail)}>{t("guided_learning.flashcard.difficulty.hard")} <br/><span style={{fontSize:'0.65rem'}}>{t("guided_learning.flashcard.times.5m")}</span></button>
+                  <button className="difficulty-btn medium" style={{backgroundColor: '#E8F5E9', color: '#388E3C', borderColor: '#388E3C'} as any} onClick={() => handleSrsAction(flashcardItem, 2, isTrail)}>{t("guided_learning.flashcard.difficulty.good")} <br/><span style={{fontSize:'0.65rem'}}>{t("guided_learning.flashcard.times.30m")}</span></button>
+                  <button className="difficulty-btn easy" style={{backgroundColor: '#E3F2FD', color: '#1B5E20', borderColor: '#1B5E20'} as any} onClick={() => handleSrsAction(flashcardItem, 3, isTrail)}>{t("guided_learning.flashcard.difficulty.easy")} <br/><span style={{fontSize:'0.65rem'}}>{t("guided_learning.flashcard.times.2h")}</span></button>
                </div>
             </div>
          </div>
@@ -625,7 +683,7 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
                         </motion.div>
                      ) : (
                         <motion.div key={trailStepIndex} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-                           {currentStep?.type === "open_ended" ? renderOpenEnded(currentStep, true) : currentStep?.type === "flashcard" ? renderFlashcardWrapper(currentStep, true) : renderQuiz(currentStep, true)}
+                           {currentStep?.type === "open_ended" ? renderOpenEnded(currentStep, true) : currentStep?.type === "flashcard" ? renderFlashcardWrapper(currentStep, true) : currentStep ? renderQuiz(currentStep as QuizItem, true) : null}
                         </motion.div>
                      )}
                   </AnimatePresence>
@@ -658,10 +716,10 @@ export default function GuidedLearningModal({ isOpen, onClose }) {
                                        <button className="icon-btn" onClick={() => setIsCreatingTrail(false)}><span className="material-symbols-outlined">close</span></button>
                                     </div>
                                     <p style={{color: 'var(--text-light)', marginTop: 0}}>{t("guided_learning.create.desc")}</p>
-                                    <textarea 
-                                       className="ai-input" 
-                                       rows="4" 
-                                       placeholder={t("guided_learning.create.placeholder")}
+                                     <textarea 
+                                        className="ai-input" 
+                                        rows={4} 
+                                        placeholder={t("guided_learning.create.placeholder")}
                                        value={newTrailTopic}
                                        onChange={(e) => setNewTrailTopic(e.target.value)}
                                     />

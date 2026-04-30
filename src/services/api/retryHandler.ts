@@ -1,6 +1,7 @@
 /**
  * Generic async function that can be retried
  */
+import logger from '../../utils/logger';
 export type AsyncFunction<T = unknown> = () => Promise<T>;
 
 /**
@@ -45,7 +46,7 @@ export async function withRetry<T>(
                       (error as any)?.status;
 
     if (errorCode === 429 && retries > 0) {
-      console.warn(`Erro 429: Rate limit atingido. Retentando em ${delay}ms...`);
+      logger.warn(`Erro 429: Rate limit atingido. Retentando em ${delay}ms...`);
       await new Promise(resolve => setTimeout(resolve, delay));
       return withRetry(fn, retries - 1, delay * 2);
     }

@@ -2,15 +2,35 @@ import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useTranslation } from 'react-i18next';
 import { sendMessage } from '../services/chat/chatService';
+import logger from '../utils/logger';
 import '../styles/quiz.css';
 
-const QuizModal = ({ isOpen, onClose, config }) => {
+export interface QuizConfig {
+  topic: string;
+  exam: string;
+  subject: string;
+}
+
+export interface Question {
+  pergunta: string;
+  alternativas: string[];
+  correta: number;
+  explicacao: string;
+}
+
+interface QuizModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  config: QuizConfig | null;
+}
+
+const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, config }) => {
   const { t } = useTranslation();
   const [isClosing, setIsClosing] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState<Question[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [isEvaluated, setIsEvaluated] = useState(false);
   const [score, setScore] = useState(0);
   const [quizFinished, setQuizFinished] = useState(false);
@@ -70,7 +90,7 @@ const QuizModal = ({ isOpen, onClose, config }) => {
         throw new Error("Falha ao gerar");
       }
     } catch (e) {
-      console.error(e);
+      logger.error('Quiz generation error:', e);
       // Fallback in case the JSON parsing fails
       setQuestions([{
           pergunta: t('quiz.messages.error_comm'),
@@ -90,7 +110,7 @@ const QuizModal = ({ isOpen, onClose, config }) => {
     }
   }, [isOpen, config]);
 
-  const handleSelect = (idx) => {
+  const handleSelect = (idx: number) => {
     if (!isEvaluated) {
         setSelectedAnswer(idx);
     }
@@ -118,7 +138,7 @@ const QuizModal = ({ isOpen, onClose, config }) => {
 
   return (
     <div className={`modal-overlay ${isClosing ? 'closing' : ''}`} onClick={(e) => {
-      if (e.target.classList.contains('modal-overlay')) {
+      if ((e.target as HTMLElement).classList.contains('modal-overlay')) {
         handleClose();
       }
     }}>

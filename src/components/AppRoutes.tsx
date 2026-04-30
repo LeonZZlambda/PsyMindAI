@@ -9,20 +9,17 @@ import TermsOfUsePage from '../pages/TermsOfUsePage';
 import TransparencyPage from '../pages/TransparencyPage';
 import AnalyticsPage from '../pages/AnalyticsPage';
 
-/**
- * AppRoutes Component
- * Centralizes all application routes
- * 
- * Props:
- * - inputRef: Reference to main input element
- * - onOpenHelp: Callback to open help modal
- * - onOpenSupport: Callback to open support modal
- * - onOpenReflections: Callback to open reflections modal
- * - onOpenMoodTracker: Callback to open mood tracker modal
- * - onOpenEmotionalJournal: Callback to open emotional journal modal
- * - onOpenGuidedLearning: Callback to open guided learning modal
- */
-export const AppRoutes = ({
+interface AppRoutesProps {
+  inputRef: React.RefObject<HTMLTextAreaElement>;
+  onOpenHelp: () => void;
+  onOpenSupport: () => void;
+  onOpenReflections: () => void;
+  onOpenMoodTracker: () => void;
+  onOpenEmotionalJournal: () => void;
+  onOpenGuidedLearning: () => void;
+}
+
+export const AppRoutes: React.FC<AppRoutesProps> = ({
   inputRef,
   onOpenHelp,
   onOpenSupport,

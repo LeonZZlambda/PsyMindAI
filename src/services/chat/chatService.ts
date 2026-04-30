@@ -110,7 +110,7 @@ export async function sendMessage(
       history.length > 2 &&
       (history.length + 1) % 5 === 0
     ) {
-      updateLongTermMemory([...history, { type: 'user', content: message }, { type: 'ai', content: response.text }]).catch(console.error);
+      updateLongTermMemory([...history, { type: 'user', content: message }, { type: 'ai', content: response.text }]).catch(logger.error);
     }
 
     return {

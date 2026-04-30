@@ -15,9 +15,15 @@ const GuidedLearningModal = lazy(() => import('./GuidedLearningModal'));
 const PomodoroModal = lazy(() => import('./PomodoroModal'));
 const ExamsModal = lazy(() => import('./ExamsModal'));
 const KindnessModal = lazy(() => import('./KindnessModal'));
-const JudgeModal = lazy(() => import('./JudgeModal'));
-const QuizModal = lazy(() => import('./QuizModal'));
 const SoundscapesModal = lazy(() => import('./SoundscapesModal'));
+
+import { ModalState, ModalName } from '../context/ModalContext';
+
+interface ModalRendererProps {
+  openModals: ModalState;
+  toggleModal: (modalName: ModalName) => void;
+  helpInitialTab?: string;
+}
 
 /**
  * ModalRenderer Component
@@ -28,7 +34,7 @@ const SoundscapesModal = lazy(() => import('./SoundscapesModal'));
  * - toggleModal: Function to toggle modal state
  * - helpInitialTab: Tab to open HelpModal with
  */
-export const ModalRenderer = ({ openModals, toggleModal, helpInitialTab = 'faq' }) => {
+export const ModalRenderer: React.FC<ModalRendererProps> = ({ openModals, toggleModal, helpInitialTab = 'faq' }) => {
   return (
     <Suspense fallback={null}>
       {/* Account Modal */}
@@ -149,25 +155,6 @@ export const ModalRenderer = ({ openModals, toggleModal, helpInitialTab = 'faq' 
         )}
       </AnimatePresence>
 
-      {/* Judge Modal */}
-      <AnimatePresence>
-        {openModals.judge && (
-          <JudgeModal
-            isOpen={openModals.judge}
-            onClose={() => toggleModal('judge')}
-          />
-        )}
-      </AnimatePresence>
-
-      {/* Quiz Modal */}
-      <AnimatePresence>
-        {openModals.quiz && (
-          <QuizModal
-            isOpen={openModals.quiz}
-            onClose={() => toggleModal('quiz')}
-          />
-        )}
-      </AnimatePresence>
 
       {/* Soundscapes Modal */}
       <AnimatePresence>

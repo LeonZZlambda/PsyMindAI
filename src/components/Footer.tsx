@@ -1,3 +1,4 @@
+import React from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
@@ -51,9 +52,9 @@ const Footer: React.FC = () => {
           <div className="footer-links-container">
             <div className="footer-column">
               <h4>{t('footer.nav_title')}</h4>
-              <a href="#" onClick={(e) => handleNavigation(e as any, null)}>{t('footer.nav_home')}</a>
-              <a href="#" onClick={(e) => handleNavigation(e as any, '.features-section')}>{t('footer.nav_features')}</a>
-              <a href="#" onClick={(e) => handleNavigation(e as any, '.educational-focus')}>{t('footer.nav_education')}</a>
+              <a href="#" onClick={(e) => handleNavigation(e, null)}>{t('footer.nav_home')}</a>
+              <a href="#" onClick={(e) => handleNavigation(e, '.features-section')}>{t('footer.nav_features')}</a>
+              <a href="#" onClick={(e) => handleNavigation(e, '.educational-focus')}>{t('footer.nav_education')}</a>
             </div>
             <div className="footer-column">
               <h4>{t('footer.legal_title')}</h4>

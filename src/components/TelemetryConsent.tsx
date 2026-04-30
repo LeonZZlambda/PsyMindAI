@@ -3,7 +3,7 @@ import { useTranslation, Trans } from 'react-i18next';
 import { Telemetry } from '../services/analytics/telemetry';
 import { useNavigate } from 'react-router-dom';
 
-const TelemetryConsent = () => {
+const TelemetryConsent: React.FC = () => {
   const { t } = useTranslation();
   const [isVisible, setIsVisible] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
@@ -11,25 +11,19 @@ const TelemetryConsent = () => {
 
   useEffect(() => {
     // Check if the user has already made a choice
-    const hasChosen = typeof localStorage?.getItem === 'function' ? localStorage.getItem('psymind_telemetry_optin') !== null : false;
+    const hasChosen = typeof window !== 'undefined' && localStorage.getItem('psymind_telemetry_optin') !== null;
 
     if (!hasChosen) {
-      // In tests we want deterministic behavior; show immediately
-      const isTest = typeof import.meta !== 'undefined' && import.meta.vitest;
-      if (isTest || process.env.NODE_ENV === 'test') {
-        setIsVisible(true);
-        return;
-      }
-
       // Delay showing the toast slightly so it's not too aggressive on load
       const timer = setTimeout(() => {
         setIsVisible(true);
       }, 2000);
       return () => clearTimeout(timer);
     }
+    return undefined;
   }, []);
 
-  const closeToast = (callback) => {
+  const closeToast = (callback: () => void) => {
     setIsClosing(true);
     setTimeout(() => {
       setIsVisible(false);
@@ -46,14 +40,14 @@ const TelemetryConsent = () => {
     closeToast(() => Telemetry.setOptIn(false));
   };
 
-  const handleMoreInfo = (e) => {
+  const handleMoreInfo = (e: React.MouseEvent) => {
     e.preventDefault();
     closeToast(() => navigate('/analytics'));
   };
 
-  const containerRef = useRef(null);
-  const acceptRef = useRef(null);
-  const prevActiveRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const acceptRef = useRef<HTMLButtonElement>(null);
+  const prevActiveRef = useRef<Element | null>(null);
 
   useEffect(() => {
     if (isVisible) {
@@ -62,7 +56,7 @@ const TelemetryConsent = () => {
       // focus accept button for a11y
       setTimeout(() => acceptRef.current?.focus(), 50);
 
-      const handleKeyDown = (e) => {
+      const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === 'Escape') {
           e.preventDefault();
           handleDecline();
@@ -72,7 +66,7 @@ const TelemetryConsent = () => {
           // trap focus inside the toast
           const nodes = containerRef.current ? containerRef.current.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])') : [];
           if (!nodes || nodes.length === 0) return;
-          const focusable = Array.prototype.slice.call(nodes).filter((n) => !n.disabled && n.getAttribute('aria-hidden') !== 'true');
+          const focusable = Array.prototype.slice.call(nodes).filter((n) => !(n as any).disabled && n.getAttribute('aria-hidden') !== 'true') as HTMLElement[];
           const first = focusable[0];
           const last = focusable[focusable.length - 1];
           if (e.shiftKey) {
@@ -93,9 +87,10 @@ const TelemetryConsent = () => {
       return () => {
         document.removeEventListener('keydown', handleKeyDown);
         // restore focus
-        try { prevActiveRef.current?.focus?.(); } catch (e) {}
+        try { (prevActiveRef.current as HTMLElement)?.focus?.(); } catch (e) {}
       };
     }
+    return undefined;
   }, [isVisible]);
 
   if (!isVisible && !isClosing) return null;

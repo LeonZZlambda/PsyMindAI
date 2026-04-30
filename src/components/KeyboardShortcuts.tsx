@@ -13,6 +13,15 @@ import { useEffect } from 'react';
  * - Cmd/Ctrl + Shift + /: Open Shortcuts Help
  * - /: Focus Input (when not in text field)
  */
+interface KeyboardShortcutsProps {
+  onNewChat?: () => void;
+  onToggleSidebar?: () => void;
+  onToggleTheme?: () => void;
+  onOpenSettings?: () => void;
+  onOpenHelp?: (tab?: string) => void;
+  inputRef: React.RefObject<HTMLTextAreaElement | HTMLInputElement | null>;
+}
+
 export const useKeyboardShortcuts = ({
   onNewChat,
   onToggleSidebar,
@@ -20,9 +29,9 @@ export const useKeyboardShortcuts = ({
   onOpenSettings,
   onOpenHelp,
   inputRef
-}) => {
+}: KeyboardShortcutsProps) => {
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
       const metaKey = isMac ? e.metaKey : e.ctrlKey;
 
@@ -64,15 +73,17 @@ export const useKeyboardShortcuts = ({
 
       // Focus Input: /
       if (e.key === '/' && !metaKey && !e.ctrlKey && !e.altKey && 
-          document.activeElement.tagName !== 'INPUT' && 
-          document.activeElement.tagName !== 'TEXTAREA') {
+          document.activeElement?.tagName !== 'INPUT' && 
+          document.activeElement?.tagName !== 'TEXTAREA') {
         e.preventDefault();
         inputRef.current?.focus();
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
   }, [onNewChat, onToggleSidebar, onToggleTheme, onOpenSettings, onOpenHelp, inputRef]);
 };
 

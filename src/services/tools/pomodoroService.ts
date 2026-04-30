@@ -1,13 +1,15 @@
 import i18n from '../../i18n/config';
 import { sendMessage } from '../chat/chatService';
 
-export async function generatePomodoroTip(mode) {
-  const prompts = {
+export type PomodoroMode = 'focus' | 'short' | 'long';
+
+export async function generatePomodoroTip(mode: PomodoroMode): Promise<string> {
+  const prompts: Record<PomodoroMode, string> = {
     focus: 'Dê uma dica rápida e prática (1 frase) para um estudante manter o foco durante uma sessão Pomodoro de estudo.',
     short: 'Dê uma sugestão rápida (1 frase) de atividade relaxante para um estudante fazer durante uma pausa curta de 5 minutos.',
     long: 'Dê uma sugestão rápida (1 frase) de atividade relaxante para um estudante fazer durante uma pausa longa de 15 minutos.'
   };
 
   const result = await sendMessage(prompts[mode] || prompts.focus, []);
-  return result.success ? result.text : result.userMessage || i18n.t('api.errors.service_fallback');
+  return result.success ? result.text : (result.userMessage || String(i18n.t('api.errors.service_fallback')));
 }

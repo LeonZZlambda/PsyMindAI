@@ -90,20 +90,24 @@ const AccountModal: React.FC<AccountModalProps> = ({
 
   /* --- Load / reset -------------------------------------------------------- */
   useEffect(() => {
+    let timer: NodeJS.Timeout | undefined;
     if (!isOpen) {
       // Reset view after closing animation
-      const timer = setTimeout(() => setActiveView(initialView), 300)
-      return () => clearTimeout(timer)
-    }
-    const saved = localStorage.getItem('psymind_user_profile')
-    if (saved) {
-      try {
-        const parsed: ProfileSettings = JSON.parse(saved)
-        setProfileSettings(parsed)
-        setDraft(parsed)
-      } catch {
-        // ignore malformed data
+      timer = setTimeout(() => setActiveView(initialView), 300)
+    } else {
+      const saved = localStorage.getItem('psymind_user_profile')
+      if (saved) {
+        try {
+          const parsed: ProfileSettings = JSON.parse(saved)
+          setProfileSettings(parsed)
+          setDraft(parsed)
+        } catch {
+          // ignore malformed data
+        }
       }
+    }
+    return () => {
+      if (timer) clearTimeout(timer)
     }
   }, [isOpen, initialView])
 

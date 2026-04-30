@@ -18,7 +18,7 @@ describe('BaseModal accessibility and focus behavior', () => {
       return (
         <>
           <button data-testid="outside-btn" onClick={() => setOpen(true)}>Open</button>
-          <BaseModal isOpen={open} onClose={() => setOpen(false)} title="Test Modal">
+          <BaseModal isOpen={open} onClose={() => setOpen(false)} title="Test Modal" closeAriaLabel="Close Test Modal">
             <button data-testid="inside-btn">Inside</button>
             <a href="#" data-testid="link-inside">Link</a>
           </BaseModal>
