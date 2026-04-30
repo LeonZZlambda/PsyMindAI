@@ -151,7 +151,21 @@
 .quiz-option.selected { border-color: var(--primary-color); background: rgba(14, 165, 233, 0.1); }
 .quiz-option.correct { border-color: #10b981; background: rgba(16, 185, 129, 0.1); }
 .quiz-option.wrong { border-color: #ef4444; background: rgba(239, 68, 68, 0.1); opacity: 0.7; }
-.option-letter { background: var(--hover-color); color: var(--text-light); width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-weight: bold; }
+.option-letter {
+  background: var(--hover-color);
+  color: var(--text-light);
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-weight: bold;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  font-size: 0.9rem;
+  line-height: 1;
+}
 .quiz-option.selected .option-letter { background: var(--primary-color); color: white; }
 .quiz-option.correct .option-letter { background: #10b981; color: white; }
 .quiz-option.wrong .option-letter { background: #ef4444; color: white; }

@@ -140,6 +140,16 @@
 .option-letter {
   font-weight: bold;
   color: var(--primary-color);
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  font-size: 0.9rem;
+  line-height: 1;
 }
 
 .option-text {

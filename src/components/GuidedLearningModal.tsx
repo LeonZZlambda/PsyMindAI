@@ -66,7 +66,7 @@ interface GuidedLearningModalProps {
 
 export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningModalProps) {
   const { t } = useTranslation();
-  const DEFAULT_TRAILS = t("guided_learning.default_trails", { returnObjects: true }) as LearningTrail[] || [];
+  const DEFAULT_TRAILS = useMemo(() => t("guided_learning.default_trails", { returnObjects: true }) as LearningTrail[] || [], [t]);
   const [customTrails, setCustomTrails] = useState<LearningTrail[]>(() => {
     try {
       const saved = localStorage.getItem('psy_mind_custom_trails');
@@ -139,15 +139,20 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
   const [isEvaluating, setIsEvaluating] = useState(false);
 
   // SRS Filter for Flashcards Tab
-  // eslint-disable-next-line react-hooks/purity
-  const now = Date.now();
+  const now = useMemo(() => Date.now(), []); // Stable reference for a single render cycle, though it might need periodic update if session is long. Actually better to use it in useMemo dependencies.
   // Flashcards that are due or haven't been reviewed
-  const baseFlashcards = trails.filter(t => completedTrails[t.id]).flatMap(t => t.content.filter((c): c is FlashcardItem => c.type === "flashcard"));
+  const baseFlashcards = useMemo(() => 
+    trails.filter(t => completedTrails[t.id]).flatMap(t => t.content.filter((c): c is FlashcardItem => c.type === "flashcard")),
+    [trails, completedTrails]
+  );
   
   const [sessionFailedFlashcards, setSessionFailedFlashcards] = useState<FlashcardItem[]>([]);
   
   // ALL_FLASHCARDS merges due flashcards and any that failed in this session but haven't been re-answered correctly
-  const ALL_FLASHCARDS = [...new Set([...baseFlashcards.filter(f => !srsData[f.front] || srsData[f.front].nextReview <= now), ...sessionFailedFlashcards])];
+  const ALL_FLASHCARDS = useMemo(() => 
+    [...new Set([...baseFlashcards.filter(f => !srsData[f.front] || srsData[f.front].nextReview <= Date.now()), ...sessionFailedFlashcards])],
+    [baseFlashcards, srsData, sessionFailedFlashcards]
+  );
 
   const [sessionFailedQuizzes, setSessionFailedQuizzes] = useState<QuizItem[]>([]);
   
