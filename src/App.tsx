@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback, Suspense, lazy } from 'react'
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { Toaster } from 'sonner'
 import { ErrorBoundary } from 'react-error-boundary'
-import { MotionConfig } from 'framer-motion'
+import { MotionConfig, LazyMotion, domAnimation } from 'framer-motion'
 import './styles/variables.css'
 import './styles/base.css'
 import './styles/animations.css'
@@ -113,108 +113,110 @@ function App() {
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => window.location.reload()}>
-      <MotionConfig reducedMotion={reducedMotion ? "always" : "user"}>
-        <div className={`app ${isDarkMode ? 'dark' : ''} ${fontSize === 'large' ? 'font-large' : ''} ${reducedMotion ? 'reduced-motion' : ''} ${highContrast ? 'high-contrast' : ''} ${dyslexicFont ? 'dyslexic-font' : ''} color-blind-${colorBlindMode}${keyboardNavigation ? ' keyboard-nav' : ''}`}>
-          <Toaster
-            position="bottom-center"
-            toastOptions={{
-              style: {
-                background: isDarkMode ? '#202124' : '#e8eaed',
-                color: isDarkMode ? '#e8eaed' : '#202124',
-                border: 'none',
-                borderRadius: '4px',
-                fontFamily: "'Google Sans', Roboto, sans-serif",
-                fontSize: '14px',
-                padding: '14px 24px',
-                gap: '12px',
-                boxShadow: '0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12)'
-              }
-            }}
-          />
-        <ScrollToTop />
-        
-        {!isPublicPage && (
-          <>
-            <Sidebar 
-              isOpen={isSidebarOpen} 
-              toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} 
-              onNewChat={handleNewChat}
-              onAnonymousChat={handleAnonymousChat}
-              onChatSelect={handleChatSelect}
-              isNewChatAnimating={isNewChatAnimating}
-              onOpenSettings={() => toggleModal('settings')}
-              onOpenHelp={(tab?: string) => {
-                setHelpInitialTab(tab || 'faq');
-                toggleModal('help');
+      <LazyMotion features={domAnimation}>
+        <MotionConfig reducedMotion={reducedMotion ? "always" : "user"}>
+          <div className={`app ${isDarkMode ? 'dark' : ''} ${fontSize === 'large' ? 'font-large' : ''} ${reducedMotion ? 'reduced-motion' : ''} ${highContrast ? 'high-contrast' : ''} ${dyslexicFont ? 'dyslexic-font' : ''} color-blind-${colorBlindMode}${keyboardNavigation ? ' keyboard-nav' : ''}`}>
+            <Toaster
+              position="bottom-center"
+              toastOptions={{
+                style: {
+                  background: isDarkMode ? '#202124' : '#e8eaed',
+                  color: isDarkMode ? '#e8eaed' : '#202124',
+                  border: 'none',
+                  borderRadius: '4px',
+                  fontFamily: "'Google Sans', Roboto, sans-serif",
+                  fontSize: '14px',
+                  padding: '14px 24px',
+                  gap: '12px',
+                  boxShadow: '0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12)'
+                }
               }}
             />
-            {isSidebarOpen && (
-              <div 
-                className="sidebar-overlay" 
-                onClick={() => setIsSidebarOpen(false)}
-                role="presentation"
-                aria-hidden="true"
-              />
-            )}
-          </>
-        )}
-
-        <div className={isPublicPage ? "landing-wrapper" : "main-content"}>
+          <ScrollToTop />
+          
           {!isPublicPage && (
             <>
-              <Header 
-                isSidebarOpen={isSidebarOpen} 
-                toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
-                isLoading={isLoading}
-                onOpenStudyStats={() => toggleModal('studyStats')}
+              <Sidebar 
+                isOpen={isSidebarOpen} 
+                toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} 
+                onNewChat={handleNewChat}
+                onAnonymousChat={handleAnonymousChat}
+                onChatSelect={handleChatSelect}
+                isNewChatAnimating={isNewChatAnimating}
+                onOpenSettings={() => toggleModal('settings')}
+                onOpenHelp={(tab?: string) => {
+                  setHelpInitialTab(tab || 'faq');
+                  toggleModal('help');
+                }}
               />
+              {isSidebarOpen && (
+                <div 
+                  className="sidebar-overlay" 
+                  onClick={() => setIsSidebarOpen(false)}
+                  role="presentation"
+                  aria-hidden="true"
+                />
+              )}
             </>
           )}
-          
-          <Suspense
-            fallback={
-              isPublicPage ? <SkeletonLandingPage /> : <SkeletonChatPage />
-            }
-          >
-            <Routes>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/roadmap" element={<RoadmapPage />} />
-              <Route path="/analytics" element={<AnalyticsPage />} />
-              <Route path="/transparency" element={<TransparencyPage />} />
-              <Route path="/contribute" element={<ContributePage />} />
-              <Route path="/style-guide" element={<StyleGuidePage />} />
-              <Route path="/privacy" element={<PrivacyPolicyPage />} />
-              <Route path="/terms" element={<TermsOfUsePage />} />
-              <Route 
-                path="/chat" 
-                element={
-                  <ChatPage 
-                    inputRef={inputRef} 
-                    onOpenHelp={() => {
-                      setHelpInitialTab('faq');
-                      toggleModal('help');
-                    }}
-                    onOpenSupport={() => toggleModal('support')}
-                    onOpenReflections={() => toggleModal('reflections')}
-                    onOpenMoodTracker={() => toggleModal('moodTracker')}
-                    onOpenEmotionalJournal={() => toggleModal('emotionalJournal')}
-                    onOpenGuidedLearning={() => toggleModal('guidedLearning')}
-                  />
-                } 
-              />
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-          </Suspense>
-        </div>
 
-        <ModalRenderer 
-          openModals={openModals}
-          toggleModal={toggleModal}
-          helpInitialTab={helpInitialTab}
-        />
-        <TelemetryConsent />
-        </div>
-      </MotionConfig>
+          <div className={isPublicPage ? "landing-wrapper" : "main-content"}>
+            {!isPublicPage && (
+              <>
+                <Header 
+                  isSidebarOpen={isSidebarOpen} 
+                  toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+                  isLoading={isLoading}
+                  onOpenStudyStats={() => toggleModal('studyStats')}
+                />
+              </>
+            )}
+            
+            <Suspense
+              fallback={
+                isPublicPage ? <SkeletonLandingPage /> : <SkeletonChatPage />
+              }
+            >
+              <Routes>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/roadmap" element={<RoadmapPage />} />
+                <Route path="/analytics" element={<AnalyticsPage />} />
+                <Route path="/transparency" element={<TransparencyPage />} />
+                <Route path="/contribute" element={<ContributePage />} />
+                <Route path="/style-guide" element={<StyleGuidePage />} />
+                <Route path="/privacy" element={<PrivacyPolicyPage />} />
+                <Route path="/terms" element={<TermsOfUsePage />} />
+                <Route 
+                  path="/chat" 
+                  element={
+                    <ChatPage 
+                      inputRef={inputRef} 
+                      onOpenHelp={() => {
+                        setHelpInitialTab('faq');
+                        toggleModal('help');
+                      }}
+                      onOpenSupport={() => toggleModal('support')}
+                      onOpenReflections={() => toggleModal('reflections')}
+                      onOpenMoodTracker={() => toggleModal('moodTracker')}
+                      onOpenEmotionalJournal={() => toggleModal('emotionalJournal')}
+                      onOpenGuidedLearning={() => toggleModal('guidedLearning')}
+                    />
+                  } 
+                />
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </Suspense>
+          </div>
+
+          <ModalRenderer 
+            openModals={openModals}
+            toggleModal={toggleModal}
+            helpInitialTab={helpInitialTab}
+          />
+          <TelemetryConsent />
+          </div>
+        </MotionConfig>
+      </LazyMotion>
     </ErrorBoundary>
   )
 }

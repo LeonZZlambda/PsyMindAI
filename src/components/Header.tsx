@@ -1,13 +1,10 @@
-import React, { useState, lazy, Suspense } from 'react'
+import React from 'react'
 import '../styles/header.css'
-import { createPortal } from 'react-dom'
 import { useTranslation } from 'react-i18next'
 import { useTheme } from '../context/ThemeContext'
 import { useSound } from '../context/SoundContext'
+import { useModal } from '../context/ModalContext'
 import { motion, AnimatePresence } from 'framer-motion'
-
-const SoundscapesModal = lazy(() => import('./SoundscapesModal'))
-const AccountModal = lazy(() => import('./AccountModal'))
 
 interface HeaderProps {
   isSidebarOpen: boolean;
@@ -17,10 +14,9 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ isSidebarOpen, toggleSidebar, isLoading, onOpenStudyStats }) => {
-  const { isDarkMode, toggleTheme, fontSize, reducedMotion, highContrast, colorBlindMode } = useTheme()
+  const { isDarkMode, toggleTheme } = useTheme()
   const { isPlaying } = useSound()
-  const [isSoundModalOpen, setIsSoundModalOpen] = useState(false)
-  const [isAccountModalOpen, setIsAccountModalOpen] = useState(false)
+  const { toggleModal } = useModal()
   const { t } = useTranslation()
   
   const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform)
@@ -50,7 +46,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, toggleSidebar, isLoading
       <div className="header-actions">
         <button 
           className={`header-btn ${isPlaying ? 'playing' : ''}`} 
-          onClick={() => setIsSoundModalOpen(true)} 
+          onClick={() => toggleModal('soundscapes')} 
           title={t('header.ambient_sounds', 'Sons Ambientais')}
           aria-label={t('header.ambient_sounds_aria', 'Abrir sons ambientais')}
         >
@@ -66,7 +62,12 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, toggleSidebar, isLoading
             {isDarkMode ? 'light_mode' : 'dark_mode'}
           </span>
         </button>
-        <button className="user-profile" onClick={(e) => { e.stopPropagation(); setIsAccountModalOpen(prev => !prev); }} title={t('header.user_account')} aria-label={t('header.user_profile')}>
+        <button 
+          className="user-profile" 
+          onClick={(e) => { e.stopPropagation(); toggleModal('account'); }} 
+          title={t('header.user_account')} 
+          aria-label={t('header.user_profile')}
+        >
           <span className="material-symbols-outlined">account_circle</span>
         </button>
       </div>
@@ -81,31 +82,6 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, toggleSidebar, isLoading
           />
         )}
       </AnimatePresence>
-      
-      {isSoundModalOpen && createPortal(
-        <div className={`app ${isDarkMode ? 'dark' : ''} ${fontSize === 'large' ? 'font-large' : ''} ${reducedMotion ? 'reduced-motion' : ''} ${highContrast ? 'high-contrast' : ''} color-blind-${colorBlindMode}`} style={{ display: 'contents' }}>
-          <Suspense fallback={null}>
-            <SoundscapesModal
-              isOpen={isSoundModalOpen}
-              onClose={() => setIsSoundModalOpen(false)}
-            />
-          </Suspense>
-        </div>,
-        document.body
-      )}
-
-      {createPortal(
-        <div className={`app ${isDarkMode ? 'dark' : ''} ${fontSize === 'large' ? 'font-large' : ''} ${reducedMotion ? 'reduced-motion' : ''} ${highContrast ? 'high-contrast' : ''} color-blind-${colorBlindMode}`} style={{ display: 'contents' }} onClick={(e) => e.stopPropagation()}>
-          <Suspense fallback={null}>
-            <AccountModal
-              isOpen={isAccountModalOpen}
-              onClose={() => setIsAccountModalOpen(false)}
-              onOpenStudyStats={onOpenStudyStats}
-            />
-          </Suspense>
-        </div>,
-        document.body
-      )}
     </header>
   )
 }

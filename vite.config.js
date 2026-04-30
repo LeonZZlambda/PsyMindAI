@@ -52,7 +52,7 @@ export default defineConfig({
   ],
   build: {
     target: 'esnext',
-    sourcemap: false,
+    sourcemap: true,
     rollupOptions: {
       // Optional visualizer plugin - only active if devDependency is installed
       plugins: [

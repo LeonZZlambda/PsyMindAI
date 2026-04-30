@@ -5,9 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
 import { useChat } from '../context/ChatContext';
-import Prism from 'prismjs';
 import 'prismjs/themes/prism-tomorrow.css';
-import DOMPurify from 'dompurify';
 import logger from '../utils/logger';
 import type { ChatMessage } from '@/types/storage';
 
@@ -170,7 +168,23 @@ const MessageList: React.FC = () => {
   const [speakingId, setSpeakingId] = useState<number | null>(null);
 
   const loadedPrismLanguagesRef = useRef<Set<string>>(new Set());
+  const prismRef = useRef<any>(null);
+  const domPurifyRef = useRef<any>(null);
   const [, setPrismLangTick] = useState(0);
+
+  useEffect(() => {
+    // Dynamically load Prism and DOMPurify to reduce initial bundle size
+    Promise.all([
+      import('prismjs'),
+      import('dompurify')
+    ]).then(([prism, domPurify]) => {
+      prismRef.current = prism.default || prism;
+      domPurifyRef.current = domPurify.default || domPurify;
+      setPrismLangTick(prev => prev + 1);
+    }).catch(err => {
+      logger.error('Failed to load libraries dynamically:', err);
+    });
+  }, []);
 
   const normalizeLang = useCallback((lang?: string) => {
     const l = String(lang || '').toLowerCase();
@@ -185,7 +199,12 @@ const MessageList: React.FC = () => {
   const ensurePrismLanguage = useCallback(async (rawLang?: string) => {
     const lang = normalizeLang(rawLang);
     if (!lang) return;
-    if (Prism.languages[lang]) return;
+    
+    // Wait for Prism to be loaded
+    if (!prismRef.current) return;
+    
+    const PrismInstance = prismRef.current;
+    if (PrismInstance.languages[lang]) return;
     if (loadedPrismLanguagesRef.current.has(lang)) return;
 
     loadedPrismLanguagesRef.current.add(lang);
@@ -477,13 +496,16 @@ const MessageList: React.FC = () => {
                       components={{
                         code({node, inline, className, children, ...props}: any) {
                           const match = /language-(\w+)/.exec(className || '')
-                          if (!inline && match) {
+                          if (!inline && match && prismRef.current) {
                             const lang = match[1];
                             ensurePrismLanguage(lang);
                             const normalized = normalizeLang(lang);
                             const codeText = String(children).replace(/\n$/, '');
-                            const grammar = Prism.languages[normalized] as any;
-                            const highlighted = grammar ? Prism.highlight(codeText, grammar, normalized) : null;
+                            
+                            const PrismInstance = prismRef.current;
+                            const grammar = PrismInstance.languages[normalized] as any;
+                            const highlighted = grammar ? PrismInstance.highlight(codeText, grammar, normalized) : null;
+                            
                             return (
                               <div className="code-block-wrapper">
                                 <div className="code-block-header">
@@ -491,11 +513,11 @@ const MessageList: React.FC = () => {
                                   <CodeCopyButton text={codeText} />
                                 </div>
                                 <pre className={`language-${normalized || ''}`} {...props}>
-                                  {highlighted ? (
-                                          <code dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(highlighted) }} />
-                                        ) : (
-                                          <code>{codeText}</code>
-                                        )}
+                                  {highlighted && domPurifyRef.current ? (
+                                    <code dangerouslySetInnerHTML={{ __html: domPurifyRef.current.sanitize(highlighted) }} />
+                                  ) : (
+                                    <code>{codeText}</code>
+                                  )}
                                 </pre>
                               </div>
                             )
