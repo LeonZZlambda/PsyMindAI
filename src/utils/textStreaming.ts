@@ -15,7 +15,7 @@ export class TextStreamer {
     this.timeoutId = null;
   }
 
-  start(delay = 800): void {
+  start(delay = 0): void {
     if (this.reducedMotion) {
       this.onChunk(this.text);
       this.onComplete();

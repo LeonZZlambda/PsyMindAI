@@ -3,7 +3,7 @@ import logger from '../../utils/logger';
 import { z } from 'zod';
 import { parseError, createErrorResponse, ErrorType, type ErrorResponse, type ApiError } from '../api/errorHandler';
 import { withRetry } from '../api/retryHandler';
-import { SYSTEM_PROMPTS } from '../prompts/systemPrompts';
+import { getSystemPrompt, getMemoryUpdatePrompt, getMetaInsightPrompt, getTitleGeneratorPrompt } from '../prompts/systemPrompts';
 import { formatHistoryForGemini } from './messageFormatter';
 import { defaultConfig } from '../config/apiConfig';
 import type { ChatMessage } from '@/types/storage';
@@ -83,7 +83,8 @@ export async function sendMessage(
     return createErrorResponse(ErrorType.API_KEY_MISSING);
   }
 
-  const systemPrompt = options.systemPrompt ?? SYSTEM_PROMPTS.PSYMIND;
+  const lang = (typeof window !== 'undefined' && localStorage.getItem('i18nextLng')) || 'pt';
+  const systemPrompt = options.systemPrompt ?? getSystemPrompt(lang);
   const skipMemoryUpdate = options.skipMemoryUpdate === true;
 
   try {
@@ -129,7 +130,23 @@ export async function sendMessage(
  * Truncates to 40 characters to avoid excessive API calls
  */
 export async function generateTitle(text: string): Promise<string> {
-  return text.trim().slice(0, 40) + (text.length > 40 ? '...' : '');
+  if (!geminiClient.isConfigured()) return text.slice(0, 40);
+
+  try {
+    const lang = (typeof window !== 'undefined' && localStorage.getItem('i18nextLng')) || 'pt';
+    const prompt = getTitleGeneratorPrompt(text, lang);
+    const contents = [{ role: 'user', parts: [{ text: prompt }] }];
+    
+    const response = await geminiClient.generateContent({
+      model: 'gemini-2.5-flash',
+      contents
+    });
+
+    return response?.text?.trim().replace(/["']/g, '') || text.slice(0, 40);
+  } catch (error) {
+    logger.error('Error generating title:', error);
+    return text.slice(0, 40);
+  }
 }
 
 /**
@@ -141,17 +158,8 @@ export async function updateLongTermMemory(history: ChatMessage[]): Promise<Long
 
   try {
     const oldMemory = localStorage.getItem('psymind_longterm_memory') || '{}';
-    const memoryPrompt = `Você é um psicólogo e educador. Analise este recente trecho de conversa do usuário e atualize a memória de longo prazo existente.
-Memória atual: ${oldMemory}
-
-Retorne **APENAS** o novíssimo objeto JSON atualizado detalhando a Memória de Longo Prazo. Enriqueça com novos padrões observados, mas mantenha as informações importantes que já existiam na memória:
-{
-  "padroesDeAprendizagem": ["...", "..."],
-  "estadoEmocionalComum": ["...", "..."],
-  "desafiosRecorrentes": ["...", "..."],
-  "interessesETracos": ["...", "..."]
-}
-Sem markdown de conversação, apenas o JSON válido.`;
+    const lang = (typeof window !== 'undefined' && localStorage.getItem('i18nextLng')) || 'pt';
+    const memoryPrompt = await getMemoryUpdatePrompt(history, oldMemory, lang);
     
     const contents = [
       ...formatHistoryForGemini(history, memoryPrompt)
@@ -198,18 +206,13 @@ export async function generateMetaInsight(): Promise<MetaInsight | null> {
     const pomodoroStatsStr = localStorage.getItem('psymind_pomodoro_stats') || '{}';
     const telemetryStatsStr = localStorage.getItem('psymind_telemetry_stats') || '{}';
 
-    const insightPrompt = `Atuando como um orientador analítico, relacione os seguintes dados reais do uso do estudante neste app educacional/emocional:
-Memória de Longo Prazo: ${longtermMemory}
-Histórico de Humor (Mood): ${moodHistoryStr}
-Estudos (Pomodoro): ${pomodoroStatsStr}
-Estatísticas de Uso Geral: ${telemetryStatsStr}
-
-Analise os pontos fortes e de melhoria, identificando padrões implícitos (correlacionando horários, humor e foco, se possível) e devolva APENAS UM JSON válido na exata seguinte estrutura:
-{
-  "pattern": "A descrição breve e analítica de um padrão real observado no cenário do estudante. Ex: '🧠 Padrão observado: Você estuda à noite com foco baixo.'",
-  "suggestion": "Uma recomendação encorajadora, empírica e acionável para melhorar. Ex: '⚡ Sugestão: Tente sessões mais curtas cedo.'"
-}
-Não use crases, markdown, nem explique o raciocínio fora do JSON. Apenas as chaves "pattern" e "suggestion".`;
+    const lang = (typeof window !== 'undefined' && localStorage.getItem('i18nextLng')) || 'pt';
+    const insightPrompt = getMetaInsightPrompt({
+      longtermMemory,
+      moodHistory: moodHistoryStr,
+      pomodoroStats: pomodoroStatsStr,
+      telemetryStats: telemetryStatsStr
+    }, lang);
 
     const contents = [{ role: 'user', parts: [{ text: insightPrompt }] }];
     const response = await geminiClient.generateContent({

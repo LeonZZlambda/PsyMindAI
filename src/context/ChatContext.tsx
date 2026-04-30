@@ -79,8 +79,9 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
   const [isTyping, setIsTyping] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isStreaming, setIsStreaming] = useState(false);
-  const streamTimeoutRef = useRef<TextStreamer | null>(null);
+  const typingTimeoutRef = useRef<number | null>(null);
   const delayedStartTimeoutRef = useRef<number | null>(null);
+  const streamTimeoutRef = useRef<TextStreamer | null>(null);
 
   useEffect(() => {
     if (chatsLoaded) {
@@ -170,7 +171,8 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
         fullResponse = t('chat.errors.demo_mode');
       }
 
-      setTimeout(() => {
+      typingTimeoutRef.current = window.setTimeout(() => {
+        typingTimeoutRef.current = null;
         setIsTyping(false);
 
         const aiMessage = createAIMessage(fullResponse, false);
@@ -236,7 +238,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
         delayedStartTimeoutRef.current = window.setTimeout(() => {
           delayedStartTimeoutRef.current = null;
           streamTimeoutRef.current = streamer;
-          streamer.start();
+          streamer.start(0); // Start immediately as we already waited 800ms
         }, 800);
       }, 800);
     },
@@ -305,6 +307,16 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
     },
     [currentChatId]
   );
+ 
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      stopStreaming();
+      if (typingTimeoutRef.current) {
+        clearTimeout(typingTimeoutRef.current);
+      }
+    };
+  }, [stopStreaming]);
 
   const value: ChatContextValue = {
     messages,
