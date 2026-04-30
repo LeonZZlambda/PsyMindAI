@@ -30,9 +30,85 @@
     <meta property="og:description" content="Inteligência Artificial para apoio emocional e educativo de estudantes." />
     <meta property="og:image" content="/psymind.svg" />
 
-    <!-- SEO: Canonical URL & Structured Data -->
+    <!-- SEO: Canonical URL & Structured Data Consolidado -->
     <link rel="canonical" href="https://psymind.ai/" />
-    <!-- Structured Data (Optional: Add via dynamic script if needed) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://psymind.ai/#organization",
+          "name": "PsyMind.AI",
+          "url": "https://psymind.ai/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://psymind.ai/psymind.svg"
+          },
+          "description": "IA especializada em apoio emocional e organização de estudos para estudantes.",
+          "sameAs": [
+            "https://www.instagram.com/psymind.ai",
+            "https://github.com/LeonZZlambda/PsyMindAI"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://psymind.ai/#website",
+          "url": "https://psymind.ai/",
+          "name": "PsyMind.AI",
+          "publisher": { "@id": "https://psymind.ai/#organization" },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://psymind.ai/search?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://psymind.ai/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "O PsyMind.AI substitui um psicólogo?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Não. O PsyMind.AI é uma ferramenta educativa de apoio emocional e organização de estudos. Ele não oferece diagnósticos clínicos nem substitui o acompanhamento de profissionais de saúde mental."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Como a IA ajuda na minha rotina de estudos?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Nossa IA utiliza técnicas canônicas como Active Recall e Spaced Repetition para otimizar seu aprendizado, além de ajudar a identificar sinais de burnout e sugerir pausas estratégicas."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Meus dados e conversas são privados?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sim. Priorizamos a privacidade. Você pode utilizar o chat de forma anônima e possui controle total sobre o histórico de conversas e dados de telemetria."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://psymind.ai/#breadcrumb",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://psymind.ai/"
+          }]
+        }
+      ]
+    }
+    </script>
 
     <title>PsyMind.AI - Apoio Emocional</title>
   </head>
