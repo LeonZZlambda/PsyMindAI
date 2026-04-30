@@ -305,3 +305,30 @@
     height: 72px;
   }
 }
+.volume-control .volume-up {
+  position: static !important;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+@media (max-width: 320px) {
+  .volume-control {
+    gap: 0.75rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    width: 100%;
+  }
+  
+  .volume-slider {
+    min-width: 0; /* Allow shrinking */
+  }
+  
+  .soundscapes-hero {
+    padding: 1.5rem 1rem;
+    min-height: 180px;
+  }
+  
+  .hero-track {
+    font-size: 1.4rem;
+  }
+}

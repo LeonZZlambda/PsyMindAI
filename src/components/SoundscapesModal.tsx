@@ -94,7 +94,7 @@ const SoundscapesModal: React.FC<SoundscapesModalProps> = ({ isOpen, onClose }) 
               background: `linear-gradient(to right, var(--primary-color) ${volume * 100}%, var(--border-color) ${volume * 100}%)` 
             } as React.CSSProperties}
           />
-          <span className="material-symbols-outlined">volume_up</span>
+          <span className="material-symbols-outlined volume-up">volume_up</span>
         </div>
 
       </div>

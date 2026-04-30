@@ -1336,3 +1336,25 @@
     max-width: 1300px;
   }
 }
+/* ── Extra Small mobile (≤320px) ────────────────────────────────── */
+@media (max-width: 320px) {
+  .tools-menu {
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    max-height: 200px;
+    gap: 0.25rem;
+    padding: 0.5rem;
+    min-width: 180px;
+    width: auto;
+  }
+  
+  .tool-item {
+    padding: 0.75rem 1rem;
+    flex-shrink: 0;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: flex-start;
+  }
+}
