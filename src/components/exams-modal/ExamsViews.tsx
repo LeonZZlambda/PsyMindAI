@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next';
 import type { ExamCategory, ExamDefinition, JudgeConfig, QuizConfig } from './types';
 import { EnemCalculator } from './EnemCalculator';
 import { getSubjectConfig } from './data';
+import { useExamTelemetry } from '../../hooks/useExamTelemetry';
+import { ExamCategoryType } from '../../services/analytics/telemetry';
 
 type CategoriesViewProps = {
   categories: ExamCategory[];
@@ -34,6 +36,12 @@ type TopicsViewProps = {
 
 export const CategoriesView: React.FC<CategoriesViewProps> = ({ categories, onSelectCategory }) => {
   const { t } = useTranslation();
+  const { trackFunnel } = useExamTelemetry();
+
+  const handleSelect = (category: ExamCategory) => {
+    trackFunnel(category.id as ExamCategoryType);
+    onSelectCategory(category);
+  };
 
   return (
     <div className="exams-section">
@@ -42,7 +50,7 @@ export const CategoriesView: React.FC<CategoriesViewProps> = ({ categories, onSe
       </div>
       <div className="exams-categories-grid">
         {categories.map((category) => (
-          <button key={category.id} className="exam-category-btn modal-card" onClick={() => onSelectCategory(category)}>
+          <button key={category.id} className="exam-category-btn modal-card" onClick={() => handleSelect(category)}>
             <div className="exam-category-btn__icon" style={{ color: category.color }}>
               <span className="material-symbols-outlined">{category.icon}</span>
             </div>
@@ -56,6 +64,12 @@ export const CategoriesView: React.FC<CategoriesViewProps> = ({ categories, onSe
 
 export const ExamsListView: React.FC<ExamsListViewProps> = ({ category, onSelectExam }) => {
   const { t } = useTranslation();
+  const { trackFunnel } = useExamTelemetry();
+
+  const handleSelect = (exam: ExamDefinition) => {
+    trackFunnel(category.id as ExamCategoryType, exam.name);
+    onSelectExam(exam);
+  };
 
   return (
     <div className="exams-list-view">
@@ -71,7 +85,7 @@ export const ExamsListView: React.FC<ExamsListViewProps> = ({ category, onSelect
 
       <div className="exams-list">
         {category.exams.map((exam) => (
-          <button key={exam.name} className="exam-item-modal" onClick={() => onSelectExam(exam)}>
+          <button key={exam.name} className="exam-item-modal" onClick={() => handleSelect(exam)}>
             <div className="exam-item-modal__icon">
               <span className="material-symbols-outlined">school</span>
             </div>
@@ -89,6 +103,12 @@ export const ExamsListView: React.FC<ExamsListViewProps> = ({ category, onSelect
 
 export const SubjectsView: React.FC<SubjectsViewProps> = ({ exam, onClose, onSelectSubject }) => {
   const { t } = useTranslation();
+  const { trackInteraction } = useExamTelemetry();
+
+  const handleSelect = (subject: string) => {
+    trackInteraction(subject, undefined, exam.name);
+    onSelectSubject(subject);
+  };
 
   if (exam.isCalculator) {
     return (
@@ -112,7 +132,7 @@ export const SubjectsView: React.FC<SubjectsViewProps> = ({ exam, onClose, onSel
           {exam.subjects.map((subject) => {
             const { icon, className } = getSubjectConfig(subject, exam.name);
             return (
-              <button key={subject} className={`subject-card ${className}`} onClick={() => onSelectSubject(subject)} type="button">
+              <button key={subject} className={`subject-card ${className}`} onClick={() => handleSelect(subject)} type="button">
                 <div className="subject-icon-wrapper">
                   <span className="material-symbols-outlined">{icon}</span>
                 </div>
@@ -138,16 +158,29 @@ export const TopicsView: React.FC<TopicsViewProps> = ({
   topics,
 }) => {
   const { t } = useTranslation();
+  const { trackInteraction, trackConversion } = useExamTelemetry();
 
   return (
     <div className="exams-topics-view">
       <div className="exam-ai-actions">
-        <button className="ai-action-btn primary" onClick={onGeneratePlan}>
+        <button
+          className="ai-action-btn primary"
+          onClick={() => {
+            trackConversion('ai_study_plan_click', exam.name, subject);
+            onGeneratePlan();
+          }}
+        >
           <span className="material-symbols-outlined">auto_awesome</span>
           {t('exams.actions.ai_plan')}
         </button>
 
-        <button className="ai-action-btn secondary" onClick={onGenerateStrategy}>
+        <button
+          className="ai-action-btn secondary"
+          onClick={() => {
+            trackConversion('exam_strategy_view', exam.name, subject);
+            onGenerateStrategy();
+          }}
+        >
           <span className="material-symbols-outlined">psychology</span>
           {t('exams.actions.ai_strategy')}
         </button>
@@ -171,7 +204,15 @@ export const TopicsView: React.FC<TopicsViewProps> = ({
               <span className="topic-text">{topic}</span>
             </div>
             <div className="topic-actions">
-              <button className="topic-action-btn" onClick={() => { onExplainTopic(topic); onClose(); }} title={t('exams.actions.explain_topic')}>
+              <button
+                className="topic-action-btn"
+                onClick={() => {
+                  trackInteraction(subject, topic, exam.name);
+                  onExplainTopic(topic);
+                  onClose();
+                }}
+                title={t('exams.actions.explain_topic')}
+              >
                 <span className="material-symbols-outlined">school</span>
               </button>
               <button className="topic-action-btn" onClick={() => onGenerateQuiz({ exam: exam.name, subject, topic })} title={t('exams.actions.generate_quiz')}>

@@ -12,10 +12,23 @@ export interface TelemetryStats {
 }
 
 export interface TelemetryEvent {
-  id: string;
+  id: string; // session_id
   type: string;
   timestamp: string;
   payload: any;
+}
+
+/**
+ * Vestibular Refactoring Interfaces
+ */
+export type ExamCategoryType = 'Nacional' | 'Internacional' | 'Regional' | 'Olimpíadas';
+
+export interface ExamTelemetryPayload {
+  category?: ExamCategoryType;
+  target_exam?: string;
+  subject_access?: string;
+  topic_depth?: string;
+  [key: string]: any;
 }
 
 export interface DerivedMetrics {
@@ -158,6 +171,18 @@ export const Telemetry = {
     const stats = this.getStats();
     stats.transformationScore = (stats.transformationScore || 0) + impact;
     localStorage.setItem('psymind_telemetry_stats', JSON.stringify(stats));
+  },
+
+  /**
+   * Vestibular/Exam specific tracking
+   */
+  trackExam(type: 'FUNNEL' | 'INTERACTION' | 'CONVERSION', payload: ExamTelemetryPayload): void {
+    if (!this.isOptedIn() || typeof window === 'undefined') return;
+    this.saveEvent(`EXAM_${type}`, {
+      ...payload,
+      session_id: this.sessionId,
+      timestamp: new Date().toISOString()
+    });
   },
   
   saveEvent(type: string, payload = {}): void {
