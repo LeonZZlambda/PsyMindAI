@@ -768,7 +768,7 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
               </div>
             )}
 
-            {investigationStep === 2 && (
+            {investigationStep === 2 && !isAnalyzing && (
               <div className="step-container">
                 <h3>{t("support.investigate.step2.title")}</h3>
                 <div className="options-grid">
@@ -788,10 +788,34 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
               </div>
             )}
 
-            {investigationStep === 3 && isAnalyzing && (
-              <div className="loading-state">
-                <span className="material-symbols-outlined spin">sync</span>
-                <p>{t("support.investigate.analyzing")}</p>
+            {isAnalyzing && (
+              <div className="loading-state fade-in" style={{ 
+                display: 'flex', 
+                flexDirection: 'column', 
+                alignItems: 'center', 
+                justifyContent: 'center',
+                padding: '3rem 1rem',
+                textAlign: 'center'
+              }}>
+                <div className="ai-loader-container" style={{ marginBottom: '1.5rem' }}>
+                  <PsyBot 
+                    isAnalyzing={true}
+                    isInputFocused={false}
+                    isHappy={false}
+                    isSmiling={true}
+                    eyePos={{ x: 0, y: 0 }}
+                    reducedMotion={reducedMotion}
+                    isOpen={true}
+                  />
+                </div>
+                <div className="loading-dots-large">
+                  <span className="dot"></span>
+                  <span className="dot"></span>
+                  <span className="dot"></span>
+                </div>
+                <p style={{ marginTop: '1rem', color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
+                  {t("support.investigate.analyzing", "Analisando seu relato com carinho...")}
+                </p>
               </div>
             )}
 

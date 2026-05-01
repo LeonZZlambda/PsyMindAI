@@ -1597,3 +1597,39 @@ kbd {
   filter: brightness(1.1);
 }
 
+
+/* Loading Animation Styles */
+.loading-dots-large {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.loading-dots-large .dot {
+  width: 10px;
+  height: 10px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  animation: dotPulse 1.4s infinite ease-in-out both;
+}
+
+.app.dark .loading-dots-large .dot {
+  background-color: #a8c7fa;
+}
+
+.loading-dots-large .dot:nth-child(1) { animation-delay: -0.32s; }
+.loading-dots-large .dot:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes dotPulse {
+  0%, 80%, 100% { transform: scale(0); opacity: 0.3; }
+  40% { transform: scale(1.0); opacity: 1; }
+}
+
+.ai-loader-container {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
