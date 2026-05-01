@@ -145,9 +145,15 @@ const InputArea: React.FC<InputAreaProps> = ({ inputRef, onOpenHelp, onOpenSuppo
         setIsListening(false);
       };
 
-      recognitionInstance.onerror = (event: SpeechRecognitionErrorEvent) => {
-        logger.error('Speech recognition error', event.error);
+      recognitionInstance.onerror = (event: any) => {
+        logger.error('Speech recognition error', event && event.error);
         setIsListening(false);
+        // Show a helpful message when permission is denied or other errors occur
+        if (event && event.error === 'not-allowed') {
+          toast.error(t('chat.input.mic_permission_denied'));
+        } else {
+          toast.error(t('chat.input.mic_start_failed'));
+        }
       };
 
       recognitionInstance.onend = () => {
@@ -158,14 +164,34 @@ const InputArea: React.FC<InputAreaProps> = ({ inputRef, onOpenHelp, onOpenSuppo
     }
   }, [setInput]);
 
-  const toggleListening = () => {
+  const toggleListening = async () => {
     if (!recognition) return;
 
     if (isListening) {
       recognition.stop();
-    } else {
+      return;
+    }
+
+    try {
+      // If Permissions API is available, check microphone permission first
+      if ((navigator as any).permissions && (navigator as any).permissions.query) {
+        try {
+          const perm = await (navigator as any).permissions.query({ name: 'microphone' });
+          if (perm && perm.state === 'denied') {
+            toast.error(t('chat.input.mic_permission_denied'));
+            return;
+          }
+        } catch (e) {
+          // ignore permission check errors and continue to attempt start
+        }
+      }
+
       recognition.start();
       setIsListening(true);
+    } catch (err) {
+      logger.error('Recognition start error', err);
+      toast.error(t('chat.input.mic_start_failed'));
+      setIsListening(false);
     }
   };
 

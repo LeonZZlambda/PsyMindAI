@@ -135,6 +135,11 @@
         "label": "Dark theme",
         "desc": "Easier on the eyes in low light",
         "aria": "Toggle dark theme"
+      },
+      "dark_room": {
+        "label": "Dark room mode",
+        "desc": "Dim backgrounds and soften brightness for late-night focus",
+        "aria": "Toggle dark room mode"
       }
     },
     "font": {
@@ -401,6 +406,8 @@
       "use_mic": "Use microphone",
       "stop_mic": "Stop microphone",
       "start_mic": "Activate microphone",
+      "mic_permission_denied": "Microphone access denied. Please enable microphone permissions in your browser settings.",
+      "mic_start_failed": "Unable to start microphone. Check permissions and try again.",
       "stop_streaming": "Stop generation",
       "send_message": "Send message",
       "disclaimer": "PsyMind.AI offers educational support. For serious issues, seek professional help.",

@@ -135,6 +135,11 @@
         "label": "Tema escuro",
         "desc": "Ajustar a aparência para ambientes com pouca luz",
         "aria": "Alternar tema escuro"
+      },
+      "dark_room": {
+        "label": "Modo sala escura",
+        "desc": "Reduz brilho e contraste para foco noturno com menos fadiga visual",
+        "aria": "Alternar modo sala escura"
       }
     },
     "font": {
@@ -401,6 +406,8 @@
       "use_mic": "Usar microfone",
       "stop_mic": "Parar microfone",
       "start_mic": "Ativar microfone",
+      "mic_permission_denied": "Acesso ao microfone negado. Ative as permissões do microfone nas configurações do navegador.",
+      "mic_start_failed": "Não foi possível ativar o microfone. Verifique as permissões e tente novamente.",
       "stop_streaming": "Parar geração",
       "send_message": "Enviar mensagem",
       "disclaimer": "O PsyMind.AI oferece apoio educativo. Para questões sérias, procure ajuda profissional.",

@@ -115,7 +115,7 @@ function App() {
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback} onReset={() => window.location.reload()}>
       <LazyMotion features={domAnimation}>
-        <MotionConfig reducedMotion={reducedMotion ? "always" : "user"}>
+        <MotionConfig reducedMotion={import.meta.env.DEV ? "never" : (reducedMotion ? "always" : "user")}>
           <div className={`app ${isDarkMode ? 'dark' : ''} ${fontSize === 'large' ? 'font-large' : ''} ${reducedMotion ? 'reduced-motion' : ''} ${highContrast ? 'high-contrast' : ''} ${dyslexicFont ? 'dyslexic-font' : ''} color-blind-${colorBlindMode} ${keyboardNavigation ? 'keyboard-nav' : ''}`}>
             <Toaster
               position="bottom-center"

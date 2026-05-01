@@ -5,7 +5,16 @@
 
   window.addEventListener('load', async () => {
     try {
-      const reg = await navigator.serviceWorker.register('/sw.js', { scope: '/' });
+      const swUrl = '/sw.js';
+      // Fetch the SW script first to ensure it's actually a JS file (not an HTML fallback)
+      const res = await fetch(swUrl, { method: 'GET', cache: 'no-store' });
+      const contentType = res.headers.get('content-type') || '';
+      if (!res.ok || !/javascript|ecmascript|module/i.test(contentType)) {
+        console.info('[SW] sw.js not available or not JavaScript; skipping registration', contentType);
+        return;
+      }
+
+      const reg = await navigator.serviceWorker.register(swUrl, { scope: '/' });
       console.info('[SW] registered', reg);
     } catch (err) {
       // Gracefully handle registration failures without leaving uncaught promise rejections
