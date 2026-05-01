@@ -24,7 +24,8 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, onOpenIm
     isDarkMode, toggleTheme, themeMode, setThemeMode, 
     fontSize, setFontSize, reducedMotion, setReducedMotion, 
     highContrast, setHighContrast, colorBlindMode, setColorBlindMode,
-    dyslexicFont, setDyslexicFont, keyboardNavigation, setKeyboardNavigation
+    dyslexicFont, setDyslexicFont, keyboardNavigation, setKeyboardNavigation,
+    darkRoom, setDarkRoom
   } = useTheme();
   const { clearHistory } = useChat();
   
@@ -108,6 +109,22 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, onOpenIm
                 role="switch"
                 aria-checked={isDarkMode}
                 aria-label={t('settings.theme.dark.aria')}
+              >
+                <span className="toggle-thumb"></span>
+              </button>
+            </div>
+
+            <div className="setting-item">
+              <div className="setting-info">
+                <span className="setting-label">{t('settings.theme.dark_room.label')}</span>
+                <span className="setting-desc">{t('settings.theme.dark_room.desc')}</span>
+              </div>
+              <button 
+                className={`toggle-switch ${darkRoom ? 'active' : ''}`}
+                onClick={() => setDarkRoom(!darkRoom)}
+                role="switch"
+                aria-checked={darkRoom}
+                aria-label={t('settings.theme.dark_room.aria')}
               >
                 <span className="toggle-thumb"></span>
               </button>

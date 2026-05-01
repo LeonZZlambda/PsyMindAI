@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useTheme } from '../context/ThemeContext';
 import '../styles/psybot.css';
 
 interface PsyBotProps {
@@ -33,6 +34,7 @@ const PsyBot: React.FC<PsyBotProps> = ({
   const [internalWink, setInternalWink] = useState(false);
   const [internalDizzy, setInternalDizzy] = useState(false);
   const idleTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const { darkRoom } = useTheme();
 
   const effectiveWink = isWinking || internalWink;
   const effectiveDizzy = isDizzy || internalDizzy;
@@ -195,10 +197,12 @@ const PsyBot: React.FC<PsyBotProps> = ({
             strokeWidth="1.5"
           />
           
-          {/* Screen Reflection */}
+          {/* Screen Reflection — oculto no Dark Room Mode */}
           <path 
             d="M 32 44 Q 60 38 88 44 Q 85 55 60 55 Q 35 55 32 44" 
             fill="rgba(255,255,255,0.06)" 
+            opacity={darkRoom ? 0 : 1}
+            style={{ transition: 'opacity 0.4s ease' }}
           />
 
           {/* Cheeks */}

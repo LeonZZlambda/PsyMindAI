@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { usePomodoro, PomodoroMode } from '../context/PomodoroContext';
 import { generatePomodoroTip } from '../services/tools/pomodoroService';
 import BaseModal from './BaseModal';
+import { useTheme } from '../context/ThemeContext';
 
 type Props = {
   isOpen: boolean;
@@ -22,6 +23,10 @@ const PomodoroModal: React.FC<Props> = ({ isOpen, onClose }) => {
   } = usePomodoro();
 
   const { t } = useTranslation();
+  const { darkRoom } = useTheme();
+
+  // Dark Room Mode: substitui cores dos modos por vermelho puro
+  const modeColor = (originalColor: string) => darkRoom ? '#FF2200' : originalColor;
 
   const [aiTip, setAiTip] = useState('');
   const [isLoadingTip, setIsLoadingTip] = useState(false);
@@ -91,7 +96,7 @@ const PomodoroModal: React.FC<Props> = ({ isOpen, onClose }) => {
               className={`mode-btn ${mode === m ? 'active' : ''}`}
               onClick={() => changeMode(m)}
               style={{
-                '--mode-color': modes[m].color
+                '--mode-color': modeColor(modes[m].color)
               } as React.CSSProperties}
             >
               <span className="material-symbols-outlined">
@@ -102,7 +107,7 @@ const PomodoroModal: React.FC<Props> = ({ isOpen, onClose }) => {
           ))}
         </div>
 
-        <div className="timer-display" style={{ color: modes[mode].color }}>
+        <div className="timer-display" style={{ color: modeColor(modes[mode].color) }}>
           {formatTime(timeLeft)}
         </div>
 

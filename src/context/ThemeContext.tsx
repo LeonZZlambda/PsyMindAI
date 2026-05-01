@@ -50,6 +50,10 @@ export interface ThemeContextValue {
   // Accessibility: Keyboard navigation focus indicators
   keyboardNavigation: boolean;
   setKeyboardNavigation: Dispatch<SetStateAction<boolean>>;
+
+  // Accessibility: Dark Room (Zero Blue Light)
+  darkRoom: boolean;
+  setDarkRoom: Dispatch<SetStateAction<boolean>>;
 }
 
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
@@ -83,6 +87,9 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   );
   const [keyboardNavigation, setKeyboardNavigation] = useState<boolean>(() => 
     loadBooleanSetting('keyboardNavigation')
+  );
+  const [darkRoom, setDarkRoom] = useState<boolean>(() => 
+    loadBooleanSetting('darkRoom')
   );
 
   const [systemIsDark, setSystemIsDark] = useState<boolean>(() => {
@@ -127,6 +134,15 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     saveSetting('keyboardNavigation', keyboardNavigation);
   }, [keyboardNavigation]);
 
+  useEffect(() => {
+    saveSetting('darkRoom', darkRoom);
+    if (darkRoom) {
+      document.documentElement.classList.add('dark-room-mode');
+    } else {
+      document.documentElement.classList.remove('dark-room-mode');
+    }
+  }, [darkRoom]);
+
   const isDarkMode = themeMode === 'system' ? systemIsDark : themeMode === 'dark';
   const toggleTheme = async (e?: React.MouseEvent<HTMLElement>): Promise<void> => {
     await animateThemeTransition(
@@ -157,7 +173,9 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     colorBlindMode,
     setColorBlindMode,
     keyboardNavigation,
-    setKeyboardNavigation
+    setKeyboardNavigation,
+    darkRoom,
+    setDarkRoom
   };
 
   return (

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Mood, useMood } from '../context/MoodContext';
 import { generateMoodInsight } from '../services/tools/moodService';
 import BaseModal from './BaseModal';
+import { useTheme } from '../context/ThemeContext';
 import '../styles/mood.css';
 
 interface MoodTrackerModalProps {
@@ -13,11 +14,15 @@ interface MoodTrackerModalProps {
 const MoodTrackerModal: React.FC<MoodTrackerModalProps> = ({ isOpen, onClose }) => {
   const { t, i18n } = useTranslation();
   const { moodHistory, addMoodEntry, deleteMoodEntry } = useMood();
+  const { darkRoom } = useTheme();
   const [selectedMood, setSelectedMood] = useState<Mood | null>(null);
   const [note, setNote] = useState('');
   const [activeTab, setActiveTab] = useState<'new' | 'history'>('new');
   const [aiInsight, setAiInsight] = useState('');
   const [isLoadingInsight, setIsLoadingInsight] = useState(false);
+
+  // Dark Room Mode: substitui cores dos humores por vermelho puro
+  const moodColor = (originalColor: string) => darkRoom ? '#FF2200' : originalColor;
 
   const moods: Mood[] = [
     { id: 'happy', label: t('mood_tracker.moods.happy'), icon: 'sentiment_very_satisfied', color: '#4CAF50', value: 5 },
@@ -97,7 +102,7 @@ const MoodTrackerModal: React.FC<MoodTrackerModalProps> = ({ isOpen, onClose }) 
                     key={mood.id}
                     className={`mood-card ${selectedMood?.id === mood.id ? 'selected' : ''}`}
                     onClick={() => setSelectedMood(mood)}
-                    style={{ '--mood-color': mood.color } as React.CSSProperties}
+                    style={{ '--mood-color': moodColor(mood.color) } as React.CSSProperties}
                   >
                     <div className="mood-card-icon">
                       <span className="material-symbols-outlined">
@@ -150,7 +155,7 @@ const MoodTrackerModal: React.FC<MoodTrackerModalProps> = ({ isOpen, onClose }) 
                   )}
                                     {moodHistory.map(entry => (
                   <div key={entry.id} className="history-entry">
-                    <div className="entry-mood-indicator" style={{ backgroundColor: entry.mood.color }}>
+                    <div className="entry-mood-indicator" style={{ backgroundColor: moodColor(entry.mood.color) }}>
                       <span className="material-symbols-outlined">
                         {entry.mood.icon}
                       </span>

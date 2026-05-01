@@ -1,0 +1,335 @@
+/* ═══════════════════════════════════════════════════════════════
+   Dark Room Mode — Zero Blue Light
+   Estratégia Dual-Layer:
+   1. Backgrounds forçados diretamente (cobre Framer Motion / stacking contexts)
+   2. Overlay multiply elimina os resíduos de luz fria
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Overlay de Eliminação de Luz Azul ──────────────────────── */
+.dark-room-mode::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(200, 10, 0, 0.42);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 2147483647;
+}
+
+/* ── CSS Custom Properties — Root Cause Fix ─────────────────── */
+/* CSS variables NÃO suportam !important. Por isso usamos           */
+/* html.dark-room-mode (especificidade maior que :root) para        */
+/* sobrescrever --primary-color e impedir bordas/glows azuis/roxos. */
+html.dark-room-mode {
+  /* Cores primárias → vermelho */
+  --primary-color: #FF2200;
+  --primary-light: #FF4500;
+  --primary-dark: #8b0000;
+  --primary-gradient: linear-gradient(135deg, #8b0000, #4a0000);
+
+  /* Cores secundárias → escuro avermelhado */
+  --secondary-color: #1a0000;
+  --accent-color: #FF4500;
+
+  /* Backgrounds */
+  --bg-color: #050000;
+  --card-background: #0a0000;
+  --surface: #0d0000;
+  --modal-bg: #0a0000;
+
+  /* Texto */
+  --text-color: #FF4500;
+  --text-light: #882200;
+  --muted-text: #662200;
+
+  /* Bordas */
+  --border-color: #4a0000;
+
+  /* Estados interativos */
+  --hover-color: #1f0000;
+  --focus-color: #FF2200;
+
+  /* Toggles */
+  --toggle-bg: #2a0000;
+
+  /* Shadows — usamos vermelho em vez de azul */
+  --shadow-sm: 0 1px 3px rgba(139, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(100, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(80, 0, 0, 0.5);
+}
+
+/* ── Cursor Vermelho Personalizado ───────────────────────────── */
+/* data URI de um SVG com círculo vermelho + crosshair */
+.dark-room-mode,
+.dark-room-mode * {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='4' fill='%23FF2200' opacity='0.9'/%3E%3Cline x1='12' y1='2' x2='12' y2='8' stroke='%23FF2200' stroke-width='1.5' stroke-linecap='round'/%3E%3Cline x1='12' y1='16' x2='12' y2='22' stroke='%23FF2200' stroke-width='1.5' stroke-linecap='round'/%3E%3Cline x1='2' y1='12' x2='8' y2='12' stroke='%23FF2200' stroke-width='1.5' stroke-linecap='round'/%3E%3Cline x1='16' y1='12' x2='22' y2='12' stroke='%23FF2200' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") 12 12, crosshair !important;
+}
+
+.dark-room-mode button,
+.dark-room-mode [role="button"],
+.dark-room-mode a,
+.dark-room-mode [onclick],
+.dark-room-mode input,
+.dark-room-mode textarea,
+.dark-room-mode select {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M5 3l14 9-7 2-4 7z' fill='%23FF2200' stroke='%23660000' stroke-width='1'/%3E%3C/svg%3E") 5 3, pointer !important;
+}
+
+/* ── Reset Global de Cor ─────────────────────────────────────── */
+.dark-room-mode,
+.dark-room-mode * {
+  color: #FF4500 !important;
+  caret-color: #FF2200 !important;
+  /* Gradientes de texto viram vermelho sólido */
+  -webkit-text-fill-color: #FF4500 !important;
+  background-clip: unset !important;
+  -webkit-background-clip: unset !important;
+
+  /* ── Bordas — TODAS as propriedades individuais ──────────── */
+  border-color: #4a0000 !important;
+  border-top-color: #4a0000 !important;
+  border-right-color: #4a0000 !important;
+  border-bottom-color: #4a0000 !important;
+  border-left-color: #4a0000 !important;
+
+  /* ── Shadows e Outlines ──────────────────────────────────── */
+  /* box-shadow: none causa perda de profundidade — substituímos por sombra vermelha */
+  box-shadow: none !important;
+  outline-color: #FF2200 !important;
+  outline-offset: 2px !important;
+}
+
+/* ── Keyboard Focus Indicator ────────────────────────────────── */
+/* SÓ aplica quando keyboard-nav está ativo em Settings (.app.keyboard-nav) */
+/* Sem keyboard-nav: remove outlines brancos padrão do browser */
+.dark-room-mode *:focus,
+.dark-room-mode *:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* COM keyboard-nav ativo: restaura o outline mas em vermelho */
+.dark-room-mode .app.keyboard-nav *:focus-visible,
+.dark-room-mode.keyboard-nav *:focus-visible {
+  outline: 2px solid #FF2200 !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 4px rgba(255, 34, 0, 0.25) !important;
+}
+
+/* ── Active States — Tabs e Botões de Modo ───────────────────── */
+/* Tabs ativas (reflections-tab-btn, mood-tab, etc.) */
+.dark-room-mode [class*="tab"].active,
+.dark-room-mode [class*="tab"][aria-selected="true"],
+.dark-room-mode [class*="tab-btn"].active,
+.dark-room-mode .active[class*="tab"] {
+  border-bottom: 2px solid #FF2200 !important;
+  border-bottom-color: #FF2200 !important;
+  color: #FF2200 !important;
+  -webkit-text-fill-color: #FF2200 !important;
+}
+
+/* Pomodoro / Botões de Modo com borda de destaque ativa.
+   Muitos destes elementos usam `border` via inline style ou JS —
+   o seletor [style*="border"] captura esses casos. */
+.dark-room-mode [class*="mode"].active,
+.dark-room-mode [class*="mode-btn"].active,
+.dark-room-mode [class*="pomodoro"].active,
+.dark-room-mode [aria-pressed="true"],
+.dark-room-mode [data-active="true"],
+.dark-room-mode .active {
+  border-color: #FF2200 !important;
+  border-top-color: #FF2200 !important;
+  border-right-color: #FF2200 !important;
+  border-bottom-color: #FF2200 !important;
+  border-left-color: #FF2200 !important;
+  color: #FF4500 !important;
+  -webkit-text-fill-color: #FF4500 !important;
+  background-color: #1f0000 !important;
+}
+
+/* Captura bordas aplicadas via inline style (ex: border: 1px solid white) */
+.dark-room-mode [style*="border-color"],
+.dark-room-mode [style*="border:"],
+.dark-room-mode [style*="border-top"],
+.dark-room-mode [style*="border-right"],
+.dark-room-mode [style*="border-bottom"],
+.dark-room-mode [style*="border-left"],
+.dark-room-mode [style*="outline"] {
+  border-color: #4a0000 !important;
+  border-top-color: #4a0000 !important;
+  border-right-color: #4a0000 !important;
+  border-bottom-color: #4a0000 !important;
+  border-left-color: #4a0000 !important;
+  outline-color: #4a0000 !important;
+}
+
+
+/* ── Backgrounds de Superfície ────────────────────────────────── */
+/* Universal — cobre qualquer elemento, incluindo divs animados */
+.dark-room-mode *:not(img):not(video):not(canvas):not(svg):not(use):not(path) {
+  background-color: #050000 !important;
+  background-image: none !important;
+}
+
+/* Exceções para pseudo-elementos decorativos */
+.dark-room-mode *::before:not(.dark-room-mode::before),
+.dark-room-mode *::after {
+  background-color: #0a0000 !important;
+  background-image: none !important;
+}
+
+/* ── Superfícies Específicas ─────────────────────────────────── */
+.dark-room-mode body,
+.dark-room-mode #root,
+.dark-room-mode .app-layout,
+.dark-room-mode .main-content,
+.dark-room-mode .chat-container,
+.dark-room-mode .chat-main,
+.dark-room-mode .messages-area {
+  background-color: #050000 !important;
+  background-image: none !important;
+}
+
+/* Sidebar */
+.dark-room-mode .sidebar,
+.dark-room-mode .sidebar-header,
+.dark-room-mode .sidebar-footer,
+.dark-room-mode .sidebar-list {
+  background-color: #070000 !important;
+  border-color: #3a0000 !important;
+}
+
+/* ── Input Area ──────────────────────────────────────────────── */
+/* Este é o elemento que "escapava" por ter background próprio */
+.dark-room-mode .input-area,
+.dark-room-mode .input-wrapper,
+.dark-room-mode .input-container,
+.dark-room-mode .chat-input-area,
+.dark-room-mode .chat-input-wrapper,
+.dark-room-mode .message-input-container,
+.dark-room-mode textarea,
+.dark-room-mode input[type="text"],
+.dark-room-mode input[type="password"],
+.dark-room-mode input[type="email"],
+.dark-room-mode input[type="search"] {
+  background-color: #100000 !important;
+  background-image: none !important;
+  color: #FF4500 !important;
+  border-color: #4a0000 !important;
+}
+
+.dark-room-mode input::placeholder,
+.dark-room-mode textarea::placeholder {
+  color: #7a1500 !important;
+  opacity: 1 !important;
+  -webkit-text-fill-color: #7a1500 !important;
+}
+
+/* ── Modais e Overlays ───────────────────────────────────────── */
+.dark-room-mode .modal-overlay,
+.dark-room-mode .modal-backdrop {
+  background-color: rgba(5, 0, 0, 0.85) !important;
+}
+
+.dark-room-mode .modal-content,
+.dark-room-mode .modal-body,
+.dark-room-mode .settings-body,
+.dark-room-mode .base-modal,
+.dark-room-mode [class*="modal"] {
+  background-color: #0d0000 !important;
+}
+
+/* ── Atalhos de Teclado ──────────────────────────────────────── */
+/* keyboard-shortcut escapava por ter background sólido próprio */
+.dark-room-mode .keyboard-shortcut,
+.dark-room-mode kbd,
+.dark-room-mode [class*="shortcut"],
+.dark-room-mode [class*="keyboard"] {
+  background-color: #1a0000 !important;
+  color: #FF4500 !important;
+  border-color: #5a0000 !important;
+}
+
+/* ── Cards e Suggestion Chips ────────────────────────────────── */
+.dark-room-mode .suggestion-card,
+.dark-room-mode .message-bubble,
+.dark-room-mode .card,
+.dark-room-mode [class*="card"],
+.dark-room-mode [class*="chip"],
+.dark-room-mode [class*="bubble"] {
+  background-color: #0d0000 !important;
+  border-color: #4a0000 !important;
+}
+
+/* ── Elementos Animados (Framer Motion) ──────────────────────── */
+/* Elementos com transform criam stacking contexts e escapam do overlay.
+   Aplicamos o filtro diretamente neles para garantir cobertura total. */
+.dark-room-mode [style*="transform"],
+.dark-room-mode [style*="opacity"],
+.dark-room-mode [style*="will-change"] {
+  background-color: #080000 !important;
+}
+
+/* ── Botões ──────────────────────────────────────────────────── */
+.dark-room-mode button,
+.dark-room-mode .btn,
+.dark-room-mode .icon-btn,
+.dark-room-mode [role="button"] {
+  background-color: #130000 !important;
+  color: #FF4500 !important;
+}
+
+.dark-room-mode .primary-btn,
+.dark-room-mode [class*="primary"] {
+  background-color: #3a0000 !important;
+  color: #FF4500 !important;
+}
+
+.dark-room-mode .toggle-switch {
+  background-color: #2a0000 !important;
+}
+
+.dark-room-mode .toggle-switch.active {
+  background-color: #7a0000 !important;
+}
+
+.dark-room-mode .toggle-thumb {
+  background-color: #FF4500 !important;
+}
+
+/* ── Ícones Material Symbols ─────────────────────────────────── */
+.dark-room-mode .material-symbols-outlined,
+.dark-room-mode .material-symbols-rounded,
+.dark-room-mode .material-icons {
+  color: #FF2200 !important;
+  -webkit-text-fill-color: #FF2200 !important;
+}
+
+/* ── Mídias — recebem filtro de hardware diretamente ─────────── */
+.dark-room-mode img,
+.dark-room-mode video,
+.dark-room-mode canvas {
+  filter: grayscale(1) brightness(0.5) sepia(1) hue-rotate(-50deg) !important;
+  mix-blend-mode: screen;
+}
+
+/* ── SVG ─────────────────────────────────────────────────────── */
+.dark-room-mode svg *:not(text) {
+  fill: #FF4500 !important;
+  stroke: #5a0000 !important;
+}
+
+/* ── Scrollbars ──────────────────────────────────────────────── */
+.dark-room-mode ::-webkit-scrollbar-track {
+  background: #050000 !important;
+}
+
+.dark-room-mode ::-webkit-scrollbar-thumb {
+  background: #550000 !important;
+}
+
+/* ── Seleção de Texto ────────────────────────────────────────── */
+.dark-room-mode ::selection {
+  background: #6b0000 !important;
+  color: #FF4500 !important;
+}
