@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useChat } from '../context/ChatContext';
 import BaseModal from './BaseModal';
+import { useTheme } from '../context/ThemeContext';
 import { Reflection, generateReflection, generateReflectionAnalysis } from '../services/tools/reflectionService';
 import '../styles/reflections.css';
 
@@ -46,6 +47,7 @@ interface ReflectionsModalProps {
 const ReflectionsModal: React.FC<ReflectionsModalProps> = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
   const { setInput } = useChat();
+  const { darkRoom } = useTheme();
   const [activeTab, setActiveTab] = useState('daily'); // 'daily', 'explore', or 'breathing'
   const [currentReflection, setCurrentReflection] = useState<Reflection | null>(null);
   const [breathingActive, setBreathingActive] = useState(false);
@@ -278,11 +280,31 @@ const ReflectionsModal: React.FC<ReflectionsModalProps> = ({ isOpen, onClose }) 
               ) : (
                 <div className="breathing-active">
                   <div className={`breathing-circle ${breathingPhase}`}>
-                    <div className="breathing-face">
-                      {breathingPhase === 'inhale' && '😌'}
-                      {breathingPhase === 'hold' && '😊'}
-                      {breathingPhase === 'exhale' && '😮'}
-                      {breathingPhase === 'holdAfter' && '🙂'}
+                  <div className="breathing-face">
+                      {/* Emojis não são recoloríveis via CSS — no Dark Room Mode
+                          usamos ícones Material Symbols em vermelho puro */}
+                      {darkRoom ? (
+                        <span
+                          className="material-symbols-outlined"
+                          style={{
+                            fontSize: 'inherit',
+                            color: '#FF2200',
+                            transition: 'all 0.3s ease'
+                          }}
+                        >
+                          {breathingPhase === 'inhale'    && 'sentiment_calm'}
+                          {breathingPhase === 'hold'      && 'sentiment_satisfied'}
+                          {breathingPhase === 'exhale'    && 'sentiment_content'}
+                          {breathingPhase === 'holdAfter' && 'sentiment_neutral'}
+                        </span>
+                      ) : (
+                        <>
+                          {breathingPhase === 'inhale'    && '😌'}
+                          {breathingPhase === 'hold'      && '😊'}
+                          {breathingPhase === 'exhale'    && '😮'}
+                          {breathingPhase === 'holdAfter' && '🙂'}
+                        </>
+                      )}
                     </div>
                   </div>
                   <div className="breathing-instruction">
