@@ -422,6 +422,7 @@
         "journal": "Repertório Emocional",
         "reflexoes": "Reflexões",
         "vestibulares": "Vestibulares",
+        "vocational": "Teste Vocacional",
         "kindness": "Atos de Bondade",
         "helpline": "Linha de Apoio",
         "learning": "Aprendizado Guiado"
@@ -995,6 +996,51 @@
     "close": "Fechar",
     "back": "Voltar",
     "hero_description": "Explore provas, matrizes de referência e atalhos de preparação.",
+    "vocational": {
+      "title": "Teste Vocacional",
+      "progress_aria": "Progresso do teste vocacional",
+      "likert": {
+        "1": "Não curto e evito",
+        "2": "Acho chato",
+        "3": "Tanto faz / Neutro",
+        "4": "Gosto de fazer",
+        "5": "Adoro! Faria sempre"
+      },
+      "processing": "Analisando seu perfil vocacional...",
+      "result": {
+        "title": "Seu Perfil Profissional",
+        "cta_plan": "Gerar Plano de Estudos",
+        "chat_input": "Gostaria de um plano de estudos focado em {{area}}"
+      },
+      "questions": {
+        "1": "Você gosta de montar ou consertar objetos mecânicos no dia a dia ou de vez em quando?",
+        "2": "Você curte investigar problemas científicos ou matemáticos para achar soluções?",
+        "3": "Você se sente bem expressando ideias com design, artes ou criação visual?",
+        "4": "Você gosta de ajudar pessoas a aprender algo novo ou se desenvolver?",
+        "5": "Você se anima em liderar equipes e tomar decisões em projetos?",
+        "6": "Você gosta de organizar dados, arquivos e seguir rotinas claras?",
+        "7": "Você gosta de mexer com ferramentas, máquinas ou atividades práticas?",
+        "8": "Você se sente bem observando detalhes e testando hipóteses?",
+        "9": "Você gosta de criar algo original, mesmo que seja só por hobby?",
+        "10": "Você curte ouvir as pessoas e oferecer apoio quando precisam?",
+        "11": "Você se motiva em convencer, negociar ou vender uma ideia?",
+        "12": "Você se sente bem seguindo processos claros e checando tudo com cuidado?",
+        "13": "Você gosta de atividades ao ar livre ou que envolvam uso do corpo?",
+        "14": "Você gosta de aprender por conta própria e explorar assuntos a fundo?",
+        "15": "Você se anima em contar histórias, escrever ou compor algo?",
+        "16": "Você gosta de trabalhar em equipe e criar um clima de colaboração?",
+        "17": "Você gosta de assumir a frente para organizar pessoas e metas?",
+        "18": "Você curte planilhas, organização financeira ou tarefas administrativas?"
+      },
+      "dimensions": {
+        "R": "Realista",
+        "I": "Investigativo",
+        "A": "Artístico",
+        "S": "Social",
+        "E": "Empreendedor",
+        "C": "Convencional"
+      }
+    },
     "sections": {
       "categories": "Categorias",
       "subjects": "Matérias",
@@ -1645,8 +1691,7 @@
     "subtext": "Tente recarregar a página ou tente novamente mais tarde.",
     "details": "Detalhes técnicos",
     "reload": "Recarregar página"
-  }
-  ,
+  },
   "contributing": {
     "title": "Como Contribuir",
     "intro": "Obrigado por contribuir para PsyMind.AI. Esta seção explica como você pode ajudar, incluindo traduções.",

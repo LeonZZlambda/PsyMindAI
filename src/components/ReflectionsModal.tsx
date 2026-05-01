@@ -4,6 +4,7 @@ import { useChat } from '../context/ChatContext';
 import BaseModal from './BaseModal';
 import { useTheme } from '../context/ThemeContext';
 import { Reflection, generateReflection, generateReflectionAnalysis } from '../services/tools/reflectionService';
+import PsyBot from './PsyBot';
 import '../styles/reflections.css';
 
 const categories = [
@@ -47,7 +48,7 @@ interface ReflectionsModalProps {
 const ReflectionsModal: React.FC<ReflectionsModalProps> = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
   const { setInput } = useChat();
-  const { darkRoom } = useTheme();
+  const { darkRoom, reducedMotion } = useTheme();
   const [activeTab, setActiveTab] = useState('daily'); // 'daily', 'explore', or 'breathing'
   const [currentReflection, setCurrentReflection] = useState<Reflection | null>(null);
   const [breathingActive, setBreathingActive] = useState(false);
@@ -57,6 +58,7 @@ const ReflectionsModal: React.FC<ReflectionsModalProps> = ({ isOpen, onClose }) 
   const breathingTimerRef = useRef<NodeJS.Timeout | null>(null);
   const [aiReflection, setAiReflection] = useState('');
   const [isLoadingReflection, setIsLoadingReflection] = useState(false);
+  const [loadingMode, setLoadingMode] = useState<'reflection' | 'analysis' | null>(null);
 
   const getReflectionsData = () => {
     return t('reflections.default_quotes', { returnObjects: true });
@@ -70,6 +72,7 @@ const ReflectionsModal: React.FC<ReflectionsModalProps> = ({ isOpen, onClose }) 
 
   const getRandomReflection = async (category: string | null = null) => {
     setAiReflection('');
+    setLoadingMode('reflection');
     setIsLoadingReflection(true);
     
     try {
@@ -89,11 +92,13 @@ const ReflectionsModal: React.FC<ReflectionsModalProps> = ({ isOpen, onClose }) 
     }
     
     setIsLoadingReflection(false);
+    setLoadingMode(null);
   };
 
   const getAiReflection = async () => {
     if (!currentReflection) return;
     
+    setLoadingMode('analysis');
     setIsLoadingReflection(true);
     try {
       const analysis = await generateReflectionAnalysis(currentReflection);
@@ -102,6 +107,7 @@ const ReflectionsModal: React.FC<ReflectionsModalProps> = ({ isOpen, onClose }) 
       setAiReflection(t('reflections.daily_tab.error'));
     }
     setIsLoadingReflection(false);
+    setLoadingMode(null);
   };
 
   const handleClose = () => {
@@ -155,6 +161,10 @@ const ReflectionsModal: React.FC<ReflectionsModalProps> = ({ isOpen, onClose }) 
     else onClose();
   };
 
+  const loadingLabel = loadingMode === 'analysis'
+    ? t('reflections.daily_tab.ai_reflecting')
+    : t('reflections.daily_tab.generating');
+
   return (
     <BaseModal
       isOpen={isOpen}
@@ -192,8 +202,10 @@ const ReflectionsModal: React.FC<ReflectionsModalProps> = ({ isOpen, onClose }) 
             <div className="reflection-container">
               {isLoadingReflection && !currentReflection ? (
                 <div className="reflection-card loading">
-                  <span className="material-symbols-outlined reflection-icon-spin">autorenew</span>
-                  <p className="loading-text">{t('reflections.daily_tab.generating')}</p>
+                  <div className="psybot-loader">
+                    <PsyBot isAnalyzing isHappy reducedMotion={reducedMotion} />
+                    <p className="psybot-loader__text">{loadingLabel}</p>
+                  </div>
                 </div>
               ) : currentReflection && (
                 <>
@@ -217,6 +229,15 @@ const ReflectionsModal: React.FC<ReflectionsModalProps> = ({ isOpen, onClose }) 
                       {t('reflections.daily_tab.chat_button')}
                     </button>
                   </div>
+
+                  {isLoadingReflection && (
+                    <div className="ai-reflection-loading">
+                      <div className="psybot-loader psybot-loader--compact">
+                        <PsyBot isAnalyzing isHappy reducedMotion={reducedMotion} />
+                        <p className="psybot-loader__text">{loadingLabel}</p>
+                      </div>
+                    </div>
+                  )}
               
                   {aiReflection && (
                     <div className="ai-reflection-box">

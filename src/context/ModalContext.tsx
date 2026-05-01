@@ -13,6 +13,7 @@ export type ModalName =
   | 'pomodoro'
   | 'kindness'
   | 'exams'
+  | 'vocational'
   | 'guidedLearning'
   | 'reflections'
   | 'soundscapes'
@@ -70,6 +71,7 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
     pomodoro: false,
     kindness: false,
     exams: false,
+    vocational: false,
     guidedLearning: false,
     reflections: false,
     soundscapes: false,

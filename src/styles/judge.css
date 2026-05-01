@@ -167,9 +167,12 @@
 .eval-loading {
   display: flex;
   align-items: center;
+  justify-content: center;
+  text-align: center;
   gap: 12px;
   color: var(--text-light);
   font-size: 14px;
+  padding: 0.5rem 0;
 }
 
 .app.dark .eval-loading {

@@ -4,6 +4,7 @@ import { Mood, useMood } from '../context/MoodContext';
 import { generateMoodInsight } from '../services/tools/moodService';
 import BaseModal from './BaseModal';
 import { useTheme } from '../context/ThemeContext';
+import PsyBot from './PsyBot';
 import '../styles/mood.css';
 
 interface MoodTrackerModalProps {
@@ -14,7 +15,7 @@ interface MoodTrackerModalProps {
 const MoodTrackerModal: React.FC<MoodTrackerModalProps> = ({ isOpen, onClose }) => {
   const { t, i18n } = useTranslation();
   const { moodHistory, addMoodEntry, deleteMoodEntry } = useMood();
-  const { darkRoom } = useTheme();
+  const { darkRoom, reducedMotion } = useTheme();
   const [selectedMood, setSelectedMood] = useState<Mood | null>(null);
   const [note, setNote] = useState('');
   const [activeTab, setActiveTab] = useState<'new' | 'history'>('new');
@@ -143,6 +144,15 @@ const MoodTrackerModal: React.FC<MoodTrackerModalProps> = ({ isOpen, onClose }) 
                     </span>
                     {isLoadingInsight ? t('mood_tracker.ai_insight.analyzing') : t('mood_tracker.ai_insight.button')}
                   </button>
+
+                  {isLoadingInsight && (
+                    <div className="ai-insight-loading">
+                      <div className="psybot-loader psybot-loader--compact">
+                        <PsyBot isAnalyzing isHappy reducedMotion={reducedMotion} />
+                        <p className="psybot-loader__text">{t('mood_tracker.ai_insight.analyzing')}</p>
+                      </div>
+                    </div>
+                  )}
                   
                   {aiInsight && (
                     <div className="ai-insight-card">

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useTranslation } from 'react-i18next';
 import { sendMessage } from '../services/chat/chatService';
+import { useTheme } from '../context/ThemeContext';
+import PsyBot from './PsyBot';
 import logger from '../utils/logger';
 import '../styles/quiz.css';
 
@@ -26,6 +28,7 @@ interface QuizModalProps {
 
 const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, config }) => {
   const { t } = useTranslation();
+  const { reducedMotion } = useTheme();
   const [isClosing, setIsClosing] = useState(false);
   const [loading, setLoading] = useState(true);
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -156,9 +159,11 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, config }) => {
         <div className="quiz-body">
           {loading ? (
              <div className="quiz-loading">
-                <span className="material-symbols-outlined rotating" style={{fontSize: '48px', color: 'var(--primary-color)'}}>psychology</span>
+               <div className="psybot-loader">
+                  <PsyBot isAnalyzing isHappy reducedMotion={reducedMotion} />
                 <h3>{t('quiz.loading.title')}</h3>
                 <p>{t('quiz.loading.desc', { exam: config?.exam })}</p>
+               </div>
              </div>
           ) : quizFinished ? (
              <div className="quiz-results">

@@ -3,6 +3,8 @@ import '../styles/kindness.css';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import BaseModal from './BaseModal';
+import { useTheme } from '../context/ThemeContext';
+import PsyBot from './PsyBot';
 
 interface KindnessModalProps {
   isOpen: boolean;
@@ -11,6 +13,7 @@ interface KindnessModalProps {
 
 const KindnessModal: React.FC<KindnessModalProps> = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
+  const { reducedMotion } = useTheme();
   const [act, setAct] = useState('');
   const [category, setCategory] = useState('random');
   const [isLoading, setIsLoading] = useState(false);
@@ -103,8 +106,10 @@ const KindnessModal: React.FC<KindnessModalProps> = ({ isOpen, onClose }) => {
         <div className="act-display-container">
           {isLoading ? (
             <div className="act-loading">
-              <span className="material-symbols-outlined spin-animation">psychology</span>
-              <p style={{ color: 'var(--text-light)' }}>{t('kindness.loading')}</p>
+              <div className="psybot-loader">
+                <PsyBot isAnalyzing isHappy reducedMotion={reducedMotion} />
+                <p className="psybot-loader__text">{t('kindness.loading')}</p>
+              </div>
             </div>
           ) : (
             <div className={`modal-hero act-card ${completed ? 'completed' : ''}`}>

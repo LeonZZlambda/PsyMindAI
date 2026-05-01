@@ -73,6 +73,7 @@ const InputArea: React.FC<InputAreaProps> = ({ inputRef, onOpenHelp, onOpenSuppo
     { id: 'journal', icon: 'auto_stories', label: t('chat.input.tools.journal') },
     { id: 'reflexoes', icon: 'self_improvement', label: t('chat.input.tools.reflexoes') },
     { id: 'vestibulares', icon: 'school', label: t('chat.input.tools.vestibulares') },
+    { id: 'vocational', icon: 'explore', label: t('chat.input.tools.vocational') },
     { id: 'kindness', icon: 'volunteer_activism', label: t('chat.input.tools.kindness') },
     { id: 'helpline', icon: 'support_agent', label: t('chat.input.tools.helpline') },
     { id: 'learning', icon: 'menu_book', label: t('chat.input.tools.learning') }
@@ -92,6 +93,11 @@ const InputArea: React.FC<InputAreaProps> = ({ inputRef, onOpenHelp, onOpenSuppo
     }
     if (tool.id === 'vestibulares') {
       toggleModal('exams');
+      setShowToolsMenu(false);
+      return;
+    }
+    if (tool.id === 'vocational') {
+      toggleModal('vocational');
       setShowToolsMenu(false);
       return;
     }

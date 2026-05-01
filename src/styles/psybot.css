@@ -23,6 +23,41 @@
   overflow: visible;
 }
 
+.psybot-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: center;
+}
+
+.psybot-loader .psybot-avatar {
+  width: 96px;
+  height: 96px;
+  margin: 0;
+}
+
+.psybot-loader .psybot-avatar:hover {
+  transform: none;
+}
+
+.psybot-loader--compact .psybot-avatar {
+  width: 72px;
+  height: 72px;
+}
+
+.psybot-loader--tiny .psybot-avatar {
+  width: 56px;
+  height: 56px;
+}
+
+.psybot-loader__text {
+  color: var(--text-light);
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin: 0;
+}
+
 @keyframes pulseGlow {
   0% { transform: scale(1); opacity: 0.6; }
   50% { transform: scale(1.5); opacity: 1; }

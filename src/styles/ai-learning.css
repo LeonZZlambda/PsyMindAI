@@ -7,3 +7,293 @@
 .ai-magic-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 .spin-anim { animation: learning-spin 1s linear infinite; }
 @keyframes learning-spin { 100% { transform: rotate(360deg); } }
+/* Vocational Test Styles */
+.vocational-modal-content {
+  padding: 1.5rem;
+  max-width: 460px;
+  margin: 0 auto;
+  --vocational-surface: color-mix(in srgb, var(--card-background) 86%, var(--primary-color) 14%);
+  --vocational-surface-strong: color-mix(in srgb, var(--card-background) 72%, var(--primary-color) 28%);
+  --vocational-outline: color-mix(in srgb, var(--primary-color) 22%, var(--border-color));
+  --vocational-ink: var(--text-color);
+  --vocational-soft: var(--text-light);
+}
+
+.app.dark .vocational-modal-content {
+  --vocational-surface: color-mix(in srgb, var(--card-background) 80%, var(--primary-color) 20%);
+  --vocational-surface-strong: color-mix(in srgb, var(--card-background) 65%, var(--primary-color) 35%);
+  --vocational-outline: color-mix(in srgb, var(--primary-color) 35%, var(--border-color));
+}
+
+@media (max-width: 360px) {
+  .vocational-modal-content {
+    padding: 0.75rem;
+    max-width: 100%;
+  }
+
+  .vocational-shell {
+    padding: 1rem;
+  }
+}
+
+.progress-container {
+  margin-bottom: 1.75rem;
+  background: color-mix(in srgb, var(--primary-color) 18%, var(--border-color));
+  border-radius: 999px;
+  height: 10px;
+  overflow: hidden;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.vocational-shell {
+  position: relative;
+  background: linear-gradient(160deg, var(--vocational-surface), color-mix(in srgb, var(--card-background) 94%, #ffffff 6%));
+  border: 1px solid var(--vocational-outline);
+  border-radius: 24px;
+  padding: 1.5rem;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.app.dark .vocational-shell {
+  background: linear-gradient(160deg, var(--vocational-surface), color-mix(in srgb, var(--card-background) 92%, #0b0f10 8%));
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+}
+
+.vocational-shell::before {
+  content: '';
+  position: absolute;
+  inset: -40% 40% auto auto;
+  width: 240px;
+  height: 240px;
+  background: radial-gradient(circle, rgba(0, 121, 107, 0.18), transparent 70%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.app.dark .vocational-shell::before {
+  background: radial-gradient(circle, rgba(128, 203, 196, 0.18), transparent 70%);
+}
+
+.vocational-shell::after {
+  content: '';
+  position: absolute;
+  inset: auto auto -35% -15%;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(66, 133, 244, 0.12), transparent 70%);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.app.dark .vocational-shell::after {
+  background: radial-gradient(circle, rgba(138, 180, 248, 0.14), transparent 70%);
+}
+
+.vocational-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-color), color-mix(in srgb, var(--primary-color) 40%, #8ec5c0));
+  border-radius: inherit;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--primary-color) 45%, transparent);
+}
+
+.vocational-question-step {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.vocational-question {
+  font-size: 1.25rem;
+  margin: 0 0 0.5rem;
+  text-align: center;
+  color: var(--vocational-ink);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.vocational-options {
+  display: grid;
+  gap: 12px;
+  margin-top: 0.5rem;
+}
+
+.vocational-option {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  padding: 16px;
+  background: color-mix(in srgb, var(--vocational-surface) 82%, var(--card-background));
+  color: var(--vocational-ink);
+  border: 1px solid var(--vocational-outline);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  text-align: left;
+}
+
+.vocational-option:hover {
+  border-color: var(--option-color);
+  background: color-mix(in srgb, var(--option-color) 12%, var(--card-background));
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.vocational-option__icon {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  color: var(--option-color);
+  background: color-mix(in srgb, var(--option-color) 18%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--option-color) 30%, transparent);
+  flex-shrink: 0;
+}
+
+.vocational-option__icon .material-symbols-outlined {
+  font-size: 1.65rem;
+}
+
+.vocational-option__label {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.vocational-processing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.vocational-results {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: var(--vocational-ink);
+  position: relative;
+  z-index: 1;
+}
+
+.vocational-results__hero {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.vocational-results__hero .material-symbols-outlined {
+  font-size: 48px;
+  color: var(--primary-color);
+}
+
+.vocational-results__hero h2 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.result-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.likert-btn {
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  border-radius: 14px;
+  border: 1px solid var(--border-color);
+  background: var(--secondary-color);
+  color: var(--text-color);
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+}
+
+.app.dark .likert-btn {
+  background: #2d2e31;
+}
+
+.likert-btn:hover {
+  background: var(--primary-background-light-hover);
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+.app.dark .likert-btn:hover {
+  background: #0842a0;
+  border-color: #a8c7fa;
+}
+
+.vocational-modal-content .area-card {
+  padding: 1.25rem;
+  background: color-mix(in srgb, var(--card-background) 86%, var(--primary-color) 14%);
+  border-radius: 18px;
+  border: 1px solid color-mix(in srgb, var(--primary-color) 18%, var(--border-color));
+  margin-bottom: 0;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.vocational-modal-content .area-card h4 {
+  margin-bottom: 0.5rem;
+  font-size: 1.05rem;
+  color: var(--primary-color);
+}
+
+.vocational-modal-content .area-card p {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--text-light);
+}
+
+.skills-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.skill-tag {
+  padding: 6px 14px;
+  background: color-mix(in srgb, var(--card-background) 86%, var(--primary-color) 14%);
+  border: 1px solid color-mix(in srgb, var(--primary-color) 18%, var(--border-color));
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.app.dark .skill-tag {
+  background: #2d2e31;
+}
+
+.vocational-cta {
+  width: 100%;
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--primary-color), color-mix(in srgb, var(--primary-color) 55%, #5bb8ad));
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.vocational-cta:hover {
+  background: linear-gradient(135deg, var(--primary-hover), color-mix(in srgb, var(--primary-color) 40%, #4bb0a4));
+}

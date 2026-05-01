@@ -198,6 +198,15 @@
   margin-top: 0.25rem;
 }
 
+.ai-tip-loading {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  border-radius: 16px;
+  border: 1px dashed color-mix(in srgb, var(--primary-color) 30%, var(--border-color));
+  background: color-mix(in srgb, var(--card-background) 88%, var(--secondary-color));
+}
+
 .ai-tip-btn {
   display: flex;
   align-items: center;

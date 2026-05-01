@@ -11,6 +11,8 @@ import 'prismjs/themes/prism-tomorrow.css';
 import BaseModal from './BaseModal';
 import { sendMessage } from '../services/chat/chatService';
 import { SYSTEM_PROMPTS } from '../services/prompts/systemPrompts';
+import { useTheme } from '../context/ThemeContext';
+import PsyBot from './PsyBot';
 import '../styles/judge.css';
 
 const judgeSendOptions = {
@@ -53,6 +55,7 @@ const highlightCode = (sourceCode: string, language: string) => {
 
 const JudgeModal: React.FC<JudgeModalProps> = ({ isOpen, onClose, config }) => {
   const { t } = useTranslation();
+  const { reducedMotion } = useTheme();
   const [loading, setLoading] = useState(true);
   const [evaluating, setEvaluating] = useState(false);
   const [challengeText, setChallengeText] = useState('');
@@ -162,8 +165,10 @@ const JudgeModal: React.FC<JudgeModalProps> = ({ isOpen, onClose, config }) => {
             <div className="judge-panel__body judge-panel__body--scroll">
               {loading ? (
                 <div className="eval-loading">
-                  <span className="material-symbols-outlined rotating">autorenew</span>
-                  <p>{t('judge.loading_challenge')}</p>
+                  <div className="psybot-loader psybot-loader--compact">
+                    <PsyBot isAnalyzing isHappy reducedMotion={reducedMotion} />
+                    <p className="psybot-loader__text">{t('judge.loading_challenge')}</p>
+                  </div>
                 </div>
               ) : (
                 <div className="markdown-content">
@@ -224,8 +229,10 @@ const JudgeModal: React.FC<JudgeModalProps> = ({ isOpen, onClose, config }) => {
               <div className="judge-panel__body judge-panel__body--scroll">
                 {evaluating ? (
                   <div className="eval-loading">
-                    <span className="material-symbols-outlined rotating">hourglass_empty</span>
-                    <p>{t('judge.loading_eval')}</p>
+                    <div className="psybot-loader psybot-loader--compact">
+                      <PsyBot isAnalyzing isHappy reducedMotion={reducedMotion} />
+                      <p className="psybot-loader__text">{t('judge.loading_eval')}</p>
+                    </div>
                   </div>
                 ) : result ? (
                   <div className="markdown-content">

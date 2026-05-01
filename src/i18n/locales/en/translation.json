@@ -422,6 +422,7 @@
         "journal": "Emotional Journal",
         "reflexoes": "Reflections",
         "vestibulares": "College Exams",
+        "vocational": "Vocational Test",
         "kindness": "Acts of Kindness",
         "helpline": "Helpline",
         "learning": "Guided Learning"
@@ -995,6 +996,51 @@
     "close": "Close",
     "back": "Back",
     "hero_description": "Explore exams, reference matrices, and prep shortcuts.",
+    "vocational": {
+      "title": "Vocational Test",
+      "progress_aria": "Vocational test progress",
+      "likert": {
+        "1": "I dislike it",
+        "2": "Find it boring",
+        "3": "Whatever / Neutral",
+        "4": "I like doing it",
+        "5": "I love it!"
+      },
+      "processing": "Analyzing your vocational profile...",
+      "result": {
+        "title": "Your Professional Profile",
+        "cta_plan": "Generate Study Plan",
+        "chat_input": "I would like a study plan focused on {{area}}"
+      },
+      "questions": {
+        "1": "Do you enjoy assembling or fixing mechanical objects in your daily life or occasionally?",
+        "2": "Do you like investigating scientific or mathematical problems to find solutions?",
+        "3": "Do you feel good expressing ideas through design, arts, or visual creation?",
+        "4": "Do you enjoy helping people learn something new or develop themselves?",
+        "5": "Are you excited about leading teams and making decisions in projects?",
+        "6": "Do you like organizing data, files, and following clear routines?",
+        "7": "Do you like working with tools, machines, or hands-on activities?",
+        "8": "Do you feel good observing details and testing hypotheses?",
+        "9": "Do you like creating something original, even if it's just for a hobby?",
+        "10": "Do you enjoy listening to people and offering support when they need it?",
+        "11": "Are you motivated by convincing, negotiating, or selling an idea?",
+        "12": "Do you feel good following clear processes and checking everything carefully?",
+        "13": "Do you like outdoor activities or those that involve using your body?",
+        "14": "Do you like learning on your own and exploring subjects in depth?",
+        "15": "Are you excited about telling stories, writing, or composing something?",
+        "16": "Do you like working in a team and creating a collaborative environment?",
+        "17": "Do you like taking the lead to organize people and goals?",
+        "18": "Do you enjoy spreadsheets, financial organization, or administrative tasks?"
+      },
+      "dimensions": {
+        "R": "Realistic",
+        "I": "Investigative",
+        "A": "Artistic",
+        "S": "Social",
+        "E": "Enterprising",
+        "C": "Conventional"
+      }
+    },
     "sections": {
       "categories": "Categories",
       "subjects": "Subjects",
@@ -1645,8 +1691,7 @@
     "subtext": "Try reloading the page or try again later.",
     "details": "Technical details",
     "reload": "Reload page"
-  }
-  ,
+  },
   "contributing": {
     "title": "How to Contribute",
     "intro": "Thank you for contributing to PsyMind.AI. This section explains how you can help, including translations.",

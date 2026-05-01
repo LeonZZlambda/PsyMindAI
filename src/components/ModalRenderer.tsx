@@ -14,6 +14,7 @@ const StudyStatsModal = lazy(() => import('./StudyStatsModal'));
 const GuidedLearningModal = lazy(() => import('./GuidedLearningModal'));
 const PomodoroModal = lazy(() => import('./PomodoroModal'));
 const ExamsModal = lazy(() => import('./ExamsModal'));
+const VocationalTestModal = lazy(() => import('./VocationalTestModal'));
 const KindnessModal = lazy(() => import('./KindnessModal'));
 const SoundscapesModal = lazy(() => import('./SoundscapesModal'));
 
@@ -141,6 +142,16 @@ export const ModalRenderer: React.FC<ModalRendererProps> = ({ openModals, toggle
           <ExamsModal
             isOpen={openModals.exams}
             onClose={() => toggleModal('exams')}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Vocational Test Modal */}
+      <AnimatePresence>
+        {openModals.vocational && (
+          <VocationalTestModal
+            isOpen={openModals.vocational}
+            onClose={() => toggleModal('vocational')}
           />
         )}
       </AnimatePresence>

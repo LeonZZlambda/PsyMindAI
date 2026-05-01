@@ -5,6 +5,7 @@ import { usePomodoro, PomodoroMode } from '../context/PomodoroContext';
 import { generatePomodoroTip } from '../services/tools/pomodoroService';
 import BaseModal from './BaseModal';
 import { useTheme } from '../context/ThemeContext';
+import PsyBot from './PsyBot';
 
 type Props = {
   isOpen: boolean;
@@ -23,7 +24,7 @@ const PomodoroModal: React.FC<Props> = ({ isOpen, onClose }) => {
   } = usePomodoro();
 
   const { t } = useTranslation();
-  const { darkRoom } = useTheme();
+  const { darkRoom, reducedMotion } = useTheme();
 
   // Dark Room Mode: substitui cores dos modos por vermelho puro
   const modeColor = (originalColor: string) => darkRoom ? '#FF2200' : originalColor;
@@ -158,6 +159,15 @@ const PomodoroModal: React.FC<Props> = ({ isOpen, onClose }) => {
             </span>
             {isLoadingTip ? t('pomodoro.generating') : (mode === 'focus' ? t('pomodoro.focus_tip') : t('pomodoro.break_tip'))}
           </button>
+
+          {isLoadingTip && (
+            <div className="ai-tip-loading">
+              <div className="psybot-loader psybot-loader--compact">
+                <PsyBot isAnalyzing isHappy reducedMotion={reducedMotion} />
+                <p className="psybot-loader__text">{t('pomodoro.generating')}</p>
+              </div>
+            </div>
+          )}
 
           {aiTip && (
             <div className="ai-tip-content" style={{ borderColor: `${modes[mode].color}40` }}>
