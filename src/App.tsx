@@ -184,7 +184,7 @@ function App() {
 
           <div 
             className={isPublicPage ? "landing-wrapper" : "main-content"}
-            {...(Object.values(openModals).some(Boolean) || (!isPublicPage && isSidebarOpen) ? { inert: '' } : {})}
+            {...(Object.values(openModals).some(Boolean) || (!isPublicPage && isSidebarOpen) ? { inert: true } : {})}
           >
             {!isPublicPage && (
               <>
