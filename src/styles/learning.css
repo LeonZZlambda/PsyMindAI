@@ -299,9 +299,9 @@
 .bounce-hover:hover { animation: bounce-hover 0.5s infinite; }
 
 /* Active Trail Responsive Layout */
-.trail-active-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; flex-wrap: wrap; gap: 15px; }
+.trail-active-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; flex-wrap: nowrap; gap: 15px; }
 .trail-active-header-left { flex: 1; display: flex; flex-direction: column; min-width: 0; }
-.trail-active-header-right { display: flex; flex-direction: column; align-items: flex-end; justify-content: center; flex: 1 1 120px; min-width: 120px; }
+.trail-active-header-right { display: flex; flex-direction: column; align-items: flex-end; justify-content: center; flex: 0 0 auto; white-space: nowrap; }
 .trail-active-back-btn { background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: flex-start; padding: 0; margin-bottom: 10px; color: var(--text-light); font-size: 0.95rem; transition: color 0.2s; }
 .trail-active-back-btn:hover { color: var(--primary-color); }
 .trail-active-title { margin: 0; font-size: 1.25rem; display: flex; align-items: center; color: var(--text-color); }
@@ -314,7 +314,7 @@
 
 @media (max-width: 600px) {
   .learning-content { padding: 15px; } /* Less padding on small screens */
-  .trail-active-header { flex-direction: column; gap: 0; margin-bottom: 12px; padding-bottom: 12px; }
+  .trail-active-header { flex-direction: column; gap: 0; margin-bottom: 12px; padding-bottom: 12px; flex-wrap: wrap; }
   .trail-active-header-left { margin-bottom: 15px; }
   .trail-active-header-right { 
     flex-direction: row; 
@@ -325,12 +325,18 @@
     padding: 10px 15px; 
     border-radius: 10px; 
     box-sizing: border-box;
+    white-space: normal;
   }
   .trail-active-header-right > span { margin-bottom: 0 !important; font-weight: 500; }
   .trail-progress-bar { width: 100% !important; max-width: 140px; margin: 0 0 0 15px !important; }
   .action-buttons-row { flex-direction: column; gap: 12px; }
   .action-buttons-row button { width: 100%; padding: 12px; }
   .trails-header-actions { grid-template-columns: 1fr; }
+}
+
+@media (min-width: 601px) {
+  .trail-active-header { align-items: center; }
+  .trail-active-header-right { padding-left: 20px; }
 }
 
 .evaluate-btn { flex: 1; display: flex; justify-content: center; gap: 8px; height: auto; }
