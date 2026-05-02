@@ -53,8 +53,11 @@ const Footer: React.FC = () => {
             <div className="footer-column">
               <h4>{t('footer.nav_title')}</h4>
               <a href="#" onClick={(e) => handleNavigation(e, null)}>{t('footer.nav_home')}</a>
-              <a href="#" onClick={(e) => handleNavigation(e, '.features-section')}>{t('footer.nav_features')}</a>
-              <a href="#" onClick={(e) => handleNavigation(e, '.educational-focus')}>{t('footer.nav_education')}</a>
+              <a href="#" onClick={(e) => handleNavigation(e, '#about')}>{t('landing.about.title')}</a>
+              <a href="#" onClick={(e) => handleNavigation(e, '#modules')}>{t('landing.modules.title')}</a>
+              <a href="#" onClick={(e) => handleNavigation(e, '#accessibility')}>{t('landing.accessibility.title')}</a>
+              <a href="#" onClick={(e) => handleNavigation(e, '#technical')}>{t('landing.technical.title')}</a>
+              <a href="#" onClick={(e) => handleNavigation(e, '#tech-stack')}>{t('landing.tech_stack.title')}</a>
             </div>
             <div className="footer-column">
               <h4>{t('footer.legal_title')}</h4>

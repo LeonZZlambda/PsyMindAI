@@ -4,8 +4,99 @@
       "title_main": "Equilíbrio mental",
       "title_sub": "para seus estudos",
       "subtitle": "O PsyMind.AI é seu companheiro para enfrentar o Ensino Médio e Vestibulares. Organize sua rotina, controle a ansiedade e conquiste seus objetivos com apoio da IA.",
-      "start_journey": "Começar Jornada",
-      "learn_more": "Saiba mais"
+      "start_journey": "Experimentar Agora",
+      "learn_more": "Saiba mais",
+      "view_github": "Ver no GitHub"
+    },
+    "about": {
+      "title": "Sobre o Projeto",
+      "subtitle": "Um compromisso com a saúde mental e o sucesso acadêmico.",
+      "p1": "O PsyMind.AI nasceu da convicção de que a tecnologia deve ser o alicerce para o equilíbrio emocional. Unimos Inteligência Artificial de última geração a uma abordagem humanizada, criando um ambiente seguro para que cada estudante possa florescer em sua jornada de autodescoberta.",
+      "mission": {
+        "title": "Nossa Missão",
+        "desc": "Democratizar o acesso a ferramentas de autoconhecimento e produtividade consciente."
+      },
+      "vision": {
+        "title": "Nossa Visão",
+        "desc": "Ser a referência global em suporte emocional educativo, unindo ciência e tecnologia."
+      }
+    },
+    "technical": {
+      "title": "Decisões Técnicas & Trade-offs",
+      "subtitle": "Transparência arquitetural e rigor de engenharia.",
+      "table": {
+        "decision": "Decisão",
+        "advantage": "Vantagem",
+        "disadvantage": "Desvantagem",
+        "mitigation": "Mitigação / Futuro"
+      },
+      "items": {
+        "client_side": {
+          "decision": "Arquitetura Client-side",
+          "advantage": "Privacidade máxima e performance local.",
+          "disadvantage": "Sem sincronização entre dispositivos nativa.",
+          "mitigation": "Estudo de integração P2P ou Sync via Nuvem Criptografada."
+        },
+        "gemini_api": {
+          "decision": "Dependência Gemini API",
+          "advantage": "Processamento de linguagem natural de elite sem custo fixo.",
+          "disadvantage": "Latência de rede e dependência externa.",
+          "mitigation": "Implementação de streaming de texto e lógica de retry robusta."
+        },
+        "ts_strict": {
+          "decision": "TypeScript Strict Mode",
+          "advantage": "Eliminação de bugs em tempo de compilação.",
+          "disadvantage": "Desenvolvimento inicial mais rigoroso.",
+          "mitigation": "Uso zero de 'any' para garantir código autossustentável."
+        },
+        "context_api": {
+          "decision": "React Context API",
+          "advantage": "Gerenciamento de estado leve e direto.",
+          "disadvantage": "Risco de re-renders desnecessários em larga escala.",
+          "mitigation": "Contextos segmentados e Memoization estratégica."
+        }
+      }
+    },
+    "accessibility": {
+      "title": "Acessibilidade & Inclusão",
+      "subtitle": "Tecnologia para todos, sem exceções.",
+      "contrast": {
+        "title": "Alto Contraste",
+        "desc": "Temas otimizados para usuários com baixa visão ou fotossensibilidade."
+      },
+      "keyboard": {
+        "title": "Navegação por Teclado",
+        "desc": "Foco visual claro e atalhos intuitivos para navegação sem mouse."
+      },
+      "screen_reader": {
+        "title": "Leitores de Tela",
+        "desc": "Semântica HTML5 rigorosa e atributos ARIA para uma experiência auditiva fluida."
+      }
+    },
+    "tech_stack": {
+      "title": "Stack Tecnológica",
+      "subtitle": "Construído com as melhores ferramentas do ecossistema moderno."
+    },
+    "final_cta": {
+      "title": "Pronto para evoluir sua jornada?",
+      "button_chat": "Experimentar Agora",
+      "button_docs": "Documentação Técnica"
+    },
+    "modules": {
+      "title": "Módulos & Funcionalidades",
+      "subtitle": "Uma plataforma integrada para suporte emocional e organização de estudos.",
+      "psybot": {
+        "title": "PsyBot Tutor",
+        "desc": "Assistente interativo que acompanha sua trilha de aprendizado com feedback emocional."
+      },
+      "vocational": {
+        "title": "Teste Vocacional",
+        "desc": "Análise multidimensional baseada em IA para orientar sua escolha de carreira."
+      },
+      "insights": {
+        "title": "Meta-insights",
+        "desc": "Visualize padrões de humor e produtividade para decisões baseadas em dados pessoais."
+      }
     },
     "features": {
       "study_focus": {

@@ -4,8 +4,99 @@
       "title_main": "Mental balance",
       "title_sub": "for your studies",
       "subtitle": "PsyMind.AI is your companion for High School and College exams. Organize your routine, control anxiety and achieve your goals with AI support.",
-      "start_journey": "Start Journey",
-      "learn_more": "Learn more"
+      "start_journey": "Try it Now",
+      "learn_more": "Learn more",
+      "view_github": "View on GitHub"
+    },
+    "about": {
+      "title": "About the Project",
+      "subtitle": "A commitment to mental health and academic success.",
+      "p1": "PsyMind.AI was born from the vision that cutting-edge technology should be an ally for students' emotional health. Combining advanced artificial intelligence with consolidated pedagogical practices, we offer a safe harbor for personal development.",
+      "mission": {
+        "title": "Mission",
+        "desc": "Empower students with self-knowledge and productivity tools."
+      },
+      "vision": {
+        "title": "Vision",
+        "desc": "To be the gold standard in AI-based educational emotional support."
+      }
+    },
+    "technical": {
+      "title": "Technical Decisions & Trade-offs",
+      "subtitle": "Architectural transparency and engineering rigor.",
+      "table": {
+        "decision": "Decision",
+        "advantage": "Advantage",
+        "disadvantage": "Disadvantage",
+        "mitigation": "Mitigation / Future"
+      },
+      "items": {
+        "client_side": {
+          "decision": "Client-side Architecture",
+          "advantage": "Maximum privacy and local performance.",
+          "disadvantage": "No native cross-device synchronization.",
+          "mitigation": "Study of P2P integration or Sync via Encrypted Cloud."
+        },
+        "gemini_api": {
+          "decision": "Gemini API Dependency",
+          "advantage": "Elite natural language processing without fixed costs.",
+          "disadvantage": "Network latency and external dependency.",
+          "mitigation": "Implementation of text streaming and robust retry logic."
+        },
+        "ts_strict": {
+          "decision": "TypeScript Strict Mode",
+          "advantage": "Compile-time bug elimination.",
+          "disadvantage": "More rigorous initial development.",
+          "mitigation": "Zero use of 'any' to ensure self-sustaining code."
+        },
+        "context_api": {
+          "decision": "React Context API",
+          "advantage": "Lightweight and direct state management.",
+          "disadvantage": "Risk of unnecessary re-renders at large scale.",
+          "mitigation": "Segmented contexts and strategic Memoization."
+        }
+      }
+    },
+    "accessibility": {
+      "title": "Accessibility & Inclusion",
+      "subtitle": "Technology for everyone, without exceptions.",
+      "contrast": {
+        "title": "High Contrast",
+        "desc": "Themes optimized for users with low vision or photosensitivity."
+      },
+      "keyboard": {
+        "title": "Keyboard Navigation",
+        "desc": "Clear visual focus and intuitive shortcuts for mouse-free navigation."
+      },
+      "screen_reader": {
+        "title": "Screen Readers",
+        "desc": "Rigorous HTML5 semantics and ARIA attributes for a fluid auditory experience."
+      }
+    },
+    "tech_stack": {
+      "title": "Tech Stack",
+      "subtitle": "Built with the best tools of the modern ecosystem."
+    },
+    "final_cta": {
+      "title": "Ready to evolve your journey?",
+      "button_chat": "Try it Now",
+      "button_docs": "Technical Documentation"
+    },
+    "modules": {
+      "title": "Modules & Features",
+      "subtitle": "An integrated platform for emotional support and study organization.",
+      "psybot": {
+        "title": "PsyBot Tutor",
+        "desc": "Interactive assistant that tracks your learning path with emotional feedback."
+      },
+      "vocational": {
+        "title": "Vocational Test",
+        "desc": "AI-based multidimensional analysis to guide your career choice."
+      },
+      "insights": {
+        "title": "Meta-insights",
+        "desc": "Visualize mood and productivity patterns for decisions based on personal data."
+      }
     },
     "features": {
       "study_focus": {
