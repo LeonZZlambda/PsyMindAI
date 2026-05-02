@@ -21,7 +21,7 @@
     "start": "vite preview --host 0.0.0.0 --port $PORT"
   },
   "dependencies": {
-    "@google/genai": "^1.30.0",
+    "@google/genai": "^1.51.0",
     "dompurify": "^3.4.1",
     "framer-motion": "^12.23.24",
     "i18next": "^26.0.4",
@@ -64,7 +64,9 @@
   },
   "overrides": {
     "serialize-javascript": "^7.0.0",
-    "minimatch": "9.0.7"
+    "minimatch": "9.0.7",
+    "magic-string": "^0.30.21",
+    "source-map": "^0.7.6"
   },
   "vitest": {
     "setupFiles": [
