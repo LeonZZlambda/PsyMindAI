@@ -1,29 +1,29 @@
 /* Global Styles */
 :root {
   /* Psychology & Studies Theme - Google Material Inspired */
-  
+
   /* Primary: Teal 700 - Focus, Calm, Growth */
-  --primary-color: #00796B;
+  --primary-color: #00796b;
   /* Primary Hover: Teal 800 */
-  --primary-hover: #00695C;
-  
+  --primary-hover: #00695c;
+
   /* Secondary: Light Blue/Grey - Clarity */
-  --secondary-color: #F1F3F4; /* Google Grey 100 */
-  
+  --secondary-color: #f1f3f4; /* Google Grey 100 */
+
   /* Text: High Contrast */
   --text-color: #202124; /* Google Grey 900 */
-  --text-light: #5F6368; /* Google Grey 700 */
-  
+  --text-light: #5f6368; /* Google Grey 700 */
+
   /* Backgrounds */
-  --background-color: #FFFFFF;
+  --background-color: #ffffff;
   --background-dark: #202124;
-  --card-background: #FFFFFF; /* Clean cards */
-  
+  --card-background: #ffffff; /* Clean cards */
+
   /* Borders & Shadows */
-  --border-color: #DADCE0; /* Google Grey 300 */
+  --border-color: #dadce0; /* Google Grey 300 */
   --shadow-color: rgba(60, 64, 67, 0.3); /* Material Shadow */
   --hover-color: rgba(0, 0, 0, 0.05);
-  
+
   /* Semantic Colors */
   --danger-color: #d93025;
   --danger-bg: #fff0f0;
@@ -33,39 +33,46 @@
   --warning-bg: #fef7e0;
   --info-color: #1a73e8;
   --info-bg: #e8f0fe;
-  
+
   /* UI Elements */
   --toggle-bg: #e3e3e3;
   --overlay-bg: rgba(0, 0, 0, 0.4);
-  
+
+  /* Scrollbars - M3 Style */
+  --scrollbar-width: 8px;
+  --scrollbar-thumb: rgba(0, 0, 0, 0.2);
+  --scrollbar-thumb-hover: rgba(0, 0, 0, 0.3);
+  --scrollbar-track: transparent;
+
   /* Gradients: Brain/Mind (Teal -> Indigo) */
-  --gradient-start: #00796B;
-  --gradient-mid: #1976D2;
-  --gradient-end: #512DA8; /* Deep Purple */
+  --gradient-start: #00796b;
+  --gradient-mid: #1976d2;
+  --gradient-end: #512da8; /* Deep Purple */
 }
 
-body.dark, .app.dark {
+body.dark,
+.app.dark {
   /* Dark Mode Overrides */
-  
+
   /* Primary: Teal 200 - Better visibility on dark */
-  --primary-color: #80CBC4;
+  --primary-color: #80cbc4;
   /* Primary Hover: Teal 300 */
-  --primary-hover: #4DB6AC;
-  
+  --primary-hover: #4db6ac;
+
   /* Secondary: Dark Grey - Surface */
   --secondary-color: #303134; /* Google Grey 800 */
-  
+
   /* Text: High Contrast Light */
-  --text-color: #E8EAED; /* Google Grey 100 */
-  --text-light: #BDC1C6; /* Google Grey 400 */
-  
+  --text-color: #e8eaed; /* Google Grey 100 */
+  --text-light: #bdc1c6; /* Google Grey 400 */
+
   /* Backgrounds */
   --background-color: #202124; /* Google Grey 900 */
   --background-dark: #000000;
   --card-background: #303134; /* Google Grey 800 */
-  
+
   /* Borders & Shadows */
-  --border-color: #5F6368; /* Google Grey 700 */
+  --border-color: #5f6368; /* Google Grey 700 */
   --shadow-color: rgba(0, 0, 0, 0.5);
   --hover-color: rgba(255, 255, 255, 0.05);
 
@@ -78,13 +85,17 @@ body.dark, .app.dark {
   --warning-bg: #40300a;
   --info-color: #8ab4f8;
   --info-bg: #0a1f3f;
-  
+
   /* UI Elements - Dark Mode */
   --toggle-bg: var(--border-color);
   --overlay-bg: rgba(0, 0, 0, 0.7);
-  
+
+  /* Scrollbars - M3 Style */
+  --scrollbar-thumb: rgba(255, 255, 255, 0.2);
+  --scrollbar-thumb-hover: rgba(255, 255, 255, 0.3);
+
   /* Gradients: Adjusted for Dark Mode */
-  --gradient-start: #80CBC4;
-  --gradient-mid: #4285F4; /* Google Blue 500 */
-  --gradient-end: #B39DDB; /* Deep Purple 200 */
+  --gradient-start: #80cbc4;
+  --gradient-mid: #4285f4; /* Google Blue 500 */
+  --gradient-end: #b39ddb; /* Deep Purple 200 */
 }

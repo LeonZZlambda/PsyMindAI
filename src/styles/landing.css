@@ -498,7 +498,7 @@
   align-items: center;
   justify-content: center;
   font-size: 1.4rem;
-  z-index: 99;
+  z-index: 5;
   transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
   color: var(--primary-color);
   pointer-events: auto !important;

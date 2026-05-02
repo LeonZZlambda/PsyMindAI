@@ -29,7 +29,12 @@
 
 .welcome-icon .material-symbols-outlined {
   font-size: 64px;
-  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end));
+  background: linear-gradient(
+    135deg,
+    var(--gradient-start),
+    var(--gradient-mid),
+    var(--gradient-end)
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -44,7 +49,13 @@
 }
 
 .welcome h2 span {
-  background: linear-gradient(90deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end), var(--gradient-start));
+  background: linear-gradient(
+    90deg,
+    var(--gradient-start),
+    var(--gradient-mid),
+    var(--gradient-end),
+    var(--gradient-start)
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -97,7 +108,7 @@
 
 .suggestion:hover {
   background: #dfe4ea;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
 .suggestion strong {
@@ -107,7 +118,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  
+
   background: linear-gradient(90deg, #009688, #4285f4, #7c4dff, #009688);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -207,7 +218,12 @@
 
 .message.ai .message-avatar .material-symbols-outlined {
   font-size: 28px;
-  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end));
+  background: linear-gradient(
+    135deg,
+    var(--gradient-start),
+    var(--gradient-mid),
+    var(--gradient-end)
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -231,7 +247,8 @@
   margin-bottom: 0;
 }
 
-.message-content ul, .message-content ol {
+.message-content ul,
+.message-content ol {
   margin-left: 1.5rem;
   margin-bottom: 0.5rem;
 }
@@ -270,7 +287,9 @@
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transition: opacity 0.2s ease, background-color 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .message:hover .speak-btn {
@@ -278,7 +297,7 @@
 }
 
 .speak-btn:hover {
-  background-color: rgba(0,0,0,0.05);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .speak-btn .material-symbols-outlined {
@@ -304,8 +323,12 @@
   animation: typing 1.4s infinite ease-in-out;
 }
 
-.typing-dots span:nth-child(1) { animation-delay: -0.32s; }
-.typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+.typing-dots span:nth-child(1) {
+  animation-delay: -0.32s;
+}
+.typing-dots span:nth-child(2) {
+  animation-delay: -0.16s;
+}
 
 .input-area {
   padding: 0 2rem 2rem;
@@ -353,7 +376,7 @@
 }
 
 .input-action-btn:hover {
-  background: rgba(0,0,0,0.05);
+  background: rgba(0, 0, 0, 0.05);
   color: var(--text-color);
 }
 
@@ -409,7 +432,7 @@
 }
 
 .send-button:hover {
-  background: rgba(0,0,0,0.05);
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .send-button:disabled {
@@ -449,22 +472,22 @@
   border-radius: 50%;
   background: var(--card-background);
   border: 1px solid var(--border-color);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.4rem;
-  z-index: 99;
+  z-index: 5;
   transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
   color: var(--primary-color);
   pointer-events: auto !important;
 }
 
 .app.dark .scroll-top-btn {
-  background: #2d2d2d;
-  border-color: rgba(255, 255, 255, 0.1);
-  color: var(--primary-color);
+  background: var(--primary-color);
+  color: var(--background-dark);
+  box-shadow: 0 4px 12px rgba(128, 203, 196, 0.3);
 }
 
 /* kept for backward compatibility with non-Framer usage */
@@ -475,14 +498,13 @@
 }
 
 .scroll-top-btn:hover {
-  background: #f8f9fa;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  transform: translateY(-1px);
+  background: var(--primary-hover);
+  box-shadow: 0 6px 16px rgba(26, 115, 232, 0.4);
 }
 
-.scroll-top-btn:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+.app.dark .scroll-top-btn:hover {
+  background: var(--primary-hover);
+  box-shadow: 0 6px 16px rgba(128, 203, 196, 0.4);
 }
 
 /* File Preview Styles */
@@ -518,7 +540,7 @@
   height: 64px;
   border-radius: 12px;
   background: var(--secondary-color);
-  border: 1px solid rgba(0,0,0,0.08);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -643,13 +665,17 @@
   gap: 4px;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.1s ease, visibility 0s linear 0.1s;
+  transition:
+    opacity 0.1s ease,
+    visibility 0s linear 0.1s;
 }
 
 .message-content-wrapper:hover .message-actions {
   opacity: 1;
   visibility: visible;
-  transition: opacity 0.1s ease, visibility 0s linear 0s;
+  transition:
+    opacity 0.1s ease,
+    visibility 0s linear 0s;
 }
 
 .action-btn {
@@ -666,7 +692,7 @@
 }
 
 .action-btn:hover {
-  background-color: rgba(0,0,0,0.05);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .action-btn .material-symbols-outlined {
@@ -743,7 +769,7 @@
 }
 
 .code-copy-btn:hover {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .code-copy-btn .material-symbols-outlined {
@@ -856,7 +882,9 @@
   font-size: 0.875rem;
   cursor: pointer;
   text-align: left;
-  transition: background 0.2s ease, transform 0.1s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.1s ease;
 }
 
 .tool-item:hover {
@@ -942,7 +970,9 @@
 
 /* ── Tablet (768–1024px) ───────────────────────────────────────── */
 @media (max-width: 1024px) and (min-width: 769px) {
-  .welcome h2 { font-size: 2.75rem; }
+  .welcome h2 {
+    font-size: 2.75rem;
+  }
 
   .suggestions {
     grid-template-columns: repeat(2, 1fr);
@@ -968,7 +998,9 @@
     gap: 1.25rem;
   }
 
-  .message { gap: 0.75rem; }
+  .message {
+    gap: 0.75rem;
+  }
 
   .message.user .message-content {
     padding: 0.75rem 1rem;
@@ -981,14 +1013,18 @@
     text-align: center;
   }
 
-  .welcome h2 { font-size: 2rem; }
+  .welcome h2 {
+    font-size: 2rem;
+  }
 
   .welcome p {
     font-size: 1rem;
     margin-bottom: 1.5rem;
   }
 
-  .daily-quote-wrapper { max-width: 100%; }
+  .daily-quote-wrapper {
+    max-width: 100%;
+  }
 
   .suggestions {
     grid-template-columns: repeat(2, 1fr);
@@ -1012,7 +1048,9 @@
     padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
   }
 
-  .input-container { padding: 0.25rem 0.5rem; }
+  .input-container {
+    padding: 0.25rem 0.5rem;
+  }
 
   .tools-menu {
     left: 0;
@@ -1039,24 +1077,34 @@
     font-size: 0.875rem;
   }
 
-  .message { gap: 0.5rem; }
+  .message {
+    gap: 0.5rem;
+  }
 
   .message.user .message-content {
     padding: 0.6rem 0.9rem;
     font-size: 0.9375rem;
   }
 
-  .message-content { font-size: 0.9375rem; }
+  .message-content {
+    font-size: 0.9375rem;
+  }
 
-  .welcome h2 { font-size: 1.625rem; }
+  .welcome h2 {
+    font-size: 1.625rem;
+  }
 
-  .welcome p { font-size: 0.9375rem; }
+  .welcome p {
+    font-size: 0.9375rem;
+  }
 
   .suggestions {
     grid-template-columns: 1fr;
   }
 
-  .suggestion strong { font-size: 0.9375rem; }
+  .suggestion strong {
+    font-size: 0.9375rem;
+  }
 
   .input-area {
     padding: 0 0.5rem;
@@ -1068,7 +1116,8 @@
     padding: 0.6rem;
   }
 
-  .send-button, .input-action-btn {
+  .send-button,
+  .input-action-btn {
     width: 44px;
     height: 44px;
     min-width: 44px;
@@ -1081,18 +1130,18 @@
     padding: 0;
   }
 
-  .action-btn .material-symbols-outlined { font-size: 20px; }
+  .action-btn .material-symbols-outlined {
+    font-size: 20px;
+  }
 
-  .message-actions { gap: 2px; }
+  .message-actions {
+    gap: 2px;
+  }
 
-  .tools-menu { min-width: 160px; }
+  .tools-menu {
+    min-width: 160px;
+  }
 }
-
-
-
-
-
-
 
 .app.dark .suggestion:hover {
   background: #2d2e2f;
@@ -1101,8 +1150,6 @@
 .app.dark .suggestion strong {
   color: #e3e3e3;
 }
-
-
 
 .app.dark .suggestion strong .material-symbols-outlined {
   background: rgba(66, 133, 244, 0.2);
@@ -1124,66 +1171,40 @@
   color: #f28b82;
 }
 
-
-
 .app.dark .input-container:focus-within {
   background: #2d2e2f;
 }
 
-
-
-
-
-
-
 .app.dark .input-action-btn:hover {
-  background: rgba(255,255,255,0.05);
+  background: rgba(255, 255, 255, 0.05);
   color: #e3e3e3;
 }
-
-
-
-
-
-
 
 .app.dark .send-button:hover:not(:disabled) {
   background: #282a2c;
 }
 
-
-
-
-
 .app.dark .scroll-top-btn {
-  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
 .app.dark .scroll-top-btn:hover {
   background: #3c3c3c;
   border-color: #5f6368;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
-
-
 
 .app.dark .speak-btn:hover {
-  background-color: rgba(255,255,255,0.1);
+  background-color: rgba(255, 255, 255, 0.1);
 }
-
-
 
 .app.dark .file-preview-list {
-  border-bottom-color: rgba(255,255,255,0.1);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
 }
-
-
 
 .app.dark .file-preview-item .file-icon {
   color: var(--text-color);
 }
-
-
 
 .app.dark .remove-file-btn {
   background: rgba(255, 255, 255, 0.6);
@@ -1198,25 +1219,13 @@
   color: var(--text-color);
 }
 
-
-
 .app.dark .action-btn:hover {
-  background-color: rgba(255,255,255,0.1);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .app.dark .header-loader-bar {
   box-shadow: 0 4px 12px rgba(128, 203, 196, 0.6);
 }
-
-
-
-
-
-
-
-
-
-
 
 .app.dark .tools-menu {
   background: var(--card-background);
@@ -1243,8 +1252,6 @@
 .app.dark .send-button {
   color: var(--text-color);
 }
-
-
 
 /* Anonymous Mode Messages */
 .message.anonymous.user .message-content {
@@ -1314,8 +1321,8 @@
 }
 
 .anonymous-disclaimer {
-  background-color: var(--bg-color-secondary, rgba(255,255,255,0.05));
-  border: 1px solid var(--border-color, rgba(200,200,200,0.1));
+  background-color: var(--bg-color-secondary, rgba(255, 255, 255, 0.05));
+  border: 1px solid var(--border-color, rgba(200, 200, 200, 0.1));
   border-radius: 12px;
   padding: 24px;
   text-align: center;
@@ -1349,7 +1356,7 @@
     min-width: 180px;
     width: auto;
   }
-  
+
   .tool-item {
     padding: 0.75rem 1rem;
     flex-shrink: 0;
