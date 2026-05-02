@@ -184,7 +184,7 @@ function App() {
 
           <div 
             className={isPublicPage ? "landing-wrapper" : "main-content"}
-            aria-hidden={Object.values(openModals).some(Boolean) || (!isPublicPage && isSidebarOpen)}
+            {...(Object.values(openModals).some(Boolean) || (!isPublicPage && isSidebarOpen) ? { inert: '' } : {})}
           >
             {!isPublicPage && (
               <>
