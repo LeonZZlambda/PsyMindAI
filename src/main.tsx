@@ -1,5 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { initSecurityPolicies } from './security'
+
+// Initialize Trusted Types as soon as possible to mitigate DOM-based XSS
+initSecurityPolicies();
+
 import './i18n/config'
 import './index.css'
 import App from './App'

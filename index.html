@@ -7,9 +7,12 @@
     <meta name="description" content="PsyMind.AI: Solução educativa de apoio emocional para estudantes. Compreenda suas emoções com ajuda da IA." />
     <meta name="theme-color" content="#f0f4f9" />
     
+    <!-- Content Security Policy for XSS protection and violation reporting -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://generativelanguage.googleapis.com https://fonts.googleapis.com https://fonts.gstatic.com; frame-ancestors 'none'; require-trusted-types-for 'script'; trusted-types default; report-uri /csp-violation-report;">
+    
     <!-- Performance: Preconnect to Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
     
     <!-- Small external script to prevent theme flash (FOUC) -->
     <script src="/theme-init.js"></script>
@@ -20,6 +23,7 @@
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&amp;family=Outfit:wght@300;400;500;600;700;800&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap"
+      crossorigin="anonymous"
     />
 
     <!-- Open Graph / Social Media -->
