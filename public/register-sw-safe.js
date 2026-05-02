@@ -2,6 +2,8 @@
   if (!('serviceWorker' in navigator)) return;
   // Only attempt registration in secure contexts (https or localhost)
   if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') return;
+  // Skip SW registration in development mode
+  if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') return;
 
   window.addEventListener('load', async () => {
     try {

@@ -41,7 +41,7 @@ function App() {
   const { isDarkMode, fontSize, reducedMotion, highContrast, dyslexicFont, colorBlindMode, keyboardNavigation, toggleTheme } = useTheme()
   const { clearHistory, setInput, isLoading, startAnonymousChat } = useChat()
   const { openModals, toggleModal } = useModal()
-  const { i18n } = useTranslation()
+  const { i18n, t } = useTranslation()
   const location = useLocation()
   const publicRoutes = ['/', '/roadmap', '/contribute', '/style-guide', '/privacy', '/terms', '/analytics', '/transparency']
   const isPublicPage = publicRoutes.includes(location.pathname)
