@@ -7,6 +7,7 @@ import { useTheme } from '../context/ThemeContext';
 import PsyBot from './PsyBot';
 import { sendMessage } from '../services/chat/chatService';
 import logger from '../utils/logger';
+import TelemetryService from '../services/TelemetryService';
 import '../styles/ai-learning.css';
 
 /**
@@ -162,6 +163,13 @@ const VocationalTestModal: React.FC<{ isOpen: boolean; onClose: () => void }> = 
   const { t, i18n } = useTranslation();
   const { setInput } = useChat();
   const { reducedMotion } = useTheme();
+  
+  React.useEffect(() => {
+    if (isOpen) {
+      TelemetryService.trackEvent('modal_open', { modal: 'vocational_test' });
+    }
+  }, [isOpen]);
+
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [isProcessing, setIsProcessing] = useState(false);
@@ -172,6 +180,14 @@ const VocationalTestModal: React.FC<{ isOpen: boolean; onClose: () => void }> = 
   const handleAnswer = (value: number) => {
     const nextAnswers = { ...answers, [QUESTIONS[currentStep].id]: value };
     setAnswers(nextAnswers);
+    
+    // Track step completion for drop-off analysis
+    TelemetryService.trackEvent('vocational_test_step', { 
+      step: currentStep + 1, 
+      total_steps: QUESTIONS.length,
+      question_id: QUESTIONS[currentStep].id 
+    });
+
     if (currentStep < QUESTIONS.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
@@ -263,7 +279,12 @@ const VocationalTestModal: React.FC<{ isOpen: boolean; onClose: () => void }> = 
         logger.warn('Vocational AI request failed, falling back to local result.');
       }
 
-      setResult(buildFallbackResult(scores));
+      const finalResult = buildFallbackResult(scores);
+      setResult(finalResult);
+      TelemetryService.trackEvent('vocational_test_complete', { 
+        archetype: finalResult.archetype,
+        top_area: finalResult.topAreas[0].area 
+      });
       setIsProcessing(false);
     } catch (e) {
       logger.error("Error processing vocational test", e);

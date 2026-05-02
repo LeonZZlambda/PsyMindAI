@@ -1,6 +1,7 @@
 import React, { Suspense, lazy, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useChat } from '../context/ChatContext';
+import TelemetryService from '../services/TelemetryService';
 import BaseModal from './BaseModal';
 import { examCategories, getTopicsForSubject } from './exams-modal/data';
 import { CategoriesView, ExamsListView, SubjectsView, TopicsView } from './exams-modal/ExamsViews';
@@ -42,8 +43,27 @@ const ExamsModal: React.FC<ExamsModalProps> = ({ isOpen, onClose }) => {
     };
 
     window.addEventListener('keydown', handleKeyDown);
+    if (isOpen) {
+      TelemetryService.trackEvent('modal_open', { modal: 'exams' });
+    }
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen]);
+
+  const onSelectCategoryWrapper = (category: ExamCategory) => {
+    setSelectedCategory(category);
+    TelemetryService.trackEvent('exams_funnel', { step: 1, category: category.id });
+  };
+
+  const onSelectExamWrapper = (exam: ExamDefinition) => {
+    setSelectedExam(exam);
+    TelemetryService.trackEvent('exams_funnel', { step: 2, exam: exam.name });
+  };
+
+  const onSelectSubjectWrapper = (subject: string) => {
+    setSelectedSubject(subject);
+    TelemetryService.trackEvent('exams_funnel', { step: 3, subject });
+  };
+
 
   const currentTopics = selectedSubject ? getTopicsForSubject(selectedSubject, selectedExam?.name) : [];
 
@@ -110,11 +130,11 @@ const ExamsModal: React.FC<ExamsModalProps> = ({ isOpen, onClose }) => {
         </div>
 
         {!selectedCategory ? (
-          <CategoriesView categories={examCategories} onSelectCategory={setSelectedCategory} />
+          <CategoriesView categories={examCategories} onSelectCategory={onSelectCategoryWrapper} />
         ) : !selectedExam ? (
-          <ExamsListView category={selectedCategory} onSelectExam={setSelectedExam} />
+          <ExamsListView category={selectedCategory} onSelectExam={onSelectExamWrapper} />
         ) : !selectedSubject ? (
-          <SubjectsView exam={selectedExam} onClose={onClose} onSelectSubject={setSelectedSubject} />
+          <SubjectsView exam={selectedExam} onClose={onClose} onSelectSubject={onSelectSubjectWrapper} />
         ) : (
           <TopicsView
             exam={selectedExam}
@@ -128,6 +148,7 @@ const ExamsModal: React.FC<ExamsModalProps> = ({ isOpen, onClose }) => {
               sendMessage(prompt);
             }}
             onGeneratePlan={() => {
+              TelemetryService.trackEvent('ai_feature_use', { feature: 'study_plan', subject: selectedSubject, exam: selectedExam.name });
               const prompt = t('exams.prompts.plan', {
                 exam: selectedExam.name,
                 subject: selectedSubject,
@@ -137,10 +158,12 @@ const ExamsModal: React.FC<ExamsModalProps> = ({ isOpen, onClose }) => {
               onClose();
             }}
             onGenerateQuiz={(config) => {
+              TelemetryService.trackEvent('ai_feature_use', { feature: 'quiz', subject: selectedSubject, exam: selectedExam.name });
               setQuizConfig(config);
               setShowQuiz(true);
             }}
             onGenerateStrategy={() => {
+              TelemetryService.trackEvent('ai_feature_use', { feature: 'exam_strategy', subject: selectedSubject, exam: selectedExam.name });
               const prompt = t('exams.prompts.strategy', {
                 exam: selectedExam.name,
                 subject: selectedSubject,

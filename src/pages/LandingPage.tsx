@@ -8,6 +8,7 @@ import Footer from '../components/Footer'
 import ScrollToTopButton from '../components/ScrollToTopButton'
 import LandingHeader from '../components/LandingHeader'
 import PsyBot from '../components/PsyBot'
+import TelemetryService from '../services/TelemetryService'
 
 const MotionLink = motion.create(Link)
 
@@ -71,6 +72,7 @@ const LandingPage: React.FC = () => {
                 style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none', gap: '0.5rem' }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={() => TelemetryService.trackEvent('landing_cta_click', { target: 'github_hero' })}
               >
                 <span className="material-symbols-outlined" aria-hidden="true">code</span>
                 {t('landing.hero.view_github')}
@@ -156,10 +158,13 @@ const LandingPage: React.FC = () => {
         </section>
 
         <section id="modules" className="features-section">
-          <div className="section-header">
+          <motion.div 
+            className="section-header"
+            onViewportEnter={() => TelemetryService.trackEvent('section_view', { section: 'modules' })}
+          >
             <h2>{t('landing.modules.title')}</h2>
             <p>{t('landing.modules.subtitle')}</p>
-          </div>
+          </motion.div>
           <div className="features-grid">
             <motion.div 
               className="feature-card"
@@ -231,10 +236,13 @@ const LandingPage: React.FC = () => {
         </section>
 
         <section id="technical" className="technical-section">
-          <div className="section-header">
+          <motion.div 
+            className="section-header"
+            onViewportEnter={() => TelemetryService.trackEvent('section_view', { section: 'technical_decisions' })}
+          >
             <h2>{t('landing.technical.title')}</h2>
             <p>{t('landing.technical.subtitle')}</p>
-          </div>
+          </motion.div>
           <div className="technical-grid">
             {['client_side', 'gemini_api', 'ts_strict', 'context_api'].map((item, idx) => (
               <motion.div 
@@ -333,6 +341,7 @@ const LandingPage: React.FC = () => {
                 style={{ textDecoration: 'none' }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={() => TelemetryService.trackEvent('landing_cta_click', { target: 'github_final' })}
               >
                 {t('landing.final_cta.button_docs')}
               </motion.a>
