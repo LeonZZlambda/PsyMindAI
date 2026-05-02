@@ -7,6 +7,7 @@ import '../styles/landing.css'
 import Footer from '../components/Footer'
 import ScrollToTopButton from '../components/ScrollToTopButton'
 import LandingHeader from '../components/LandingHeader'
+import PsyBot from '../components/PsyBot'
 
 const MotionLink = motion.create(Link)
 
@@ -313,6 +314,7 @@ const LandingPage: React.FC = () => {
             transition={{ type: 'spring', stiffness: 100 }}
           >
             <h2>{t('landing.final_cta.title')}</h2>
+            <PsyBot isHappy={true} />
             <div className="hero-actions" style={{ justifyContent: 'center' }}>
               <MotionLink 
                 to="/chat" 

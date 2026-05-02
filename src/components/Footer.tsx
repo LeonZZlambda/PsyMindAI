@@ -51,7 +51,7 @@ const Footer: React.FC = () => {
           
           <div className="footer-links-container">
             <div className="footer-column">
-              <h4>{t('footer.nav_title')}</h4>
+              <h3>{t('footer.nav_title')}</h3>
               <a href="#" onClick={(e) => handleNavigation(e, null)}>{t('footer.nav_home')}</a>
               <a href="#" onClick={(e) => handleNavigation(e, '#about')}>{t('landing.about.title')}</a>
               <a href="#" onClick={(e) => handleNavigation(e, '#modules')}>{t('landing.modules.title')}</a>
@@ -60,14 +60,14 @@ const Footer: React.FC = () => {
               <a href="#" onClick={(e) => handleNavigation(e, '#tech-stack')}>{t('landing.tech_stack.title')}</a>
             </div>
             <div className="footer-column">
-              <h4>{t('footer.legal_title')}</h4>
+              <h3>{t('footer.legal_title')}</h3>
               <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">{t('footer.legal_license')}</a>
               <a href="#" onClick={(e) => { e.preventDefault(); navigate('/privacy'); }}>{t('footer.legal_privacy')}</a>
               <a href="#" onClick={(e) => { e.preventDefault(); navigate('/terms'); }}>{t('footer.legal_terms')}</a>
               <a href="#" onClick={(e) => { e.preventDefault(); navigate('/transparency'); }}>{t('footer.legal_transparency')}</a>
             </div>
             <div className="footer-column">
-              <h4>{t('footer.project_title')}</h4>
+              <h3>{t('footer.project_title')}</h3>
               <a href="https://github.com/LeonZZlambda/PsyMindAI" target="_blank" rel="noopener noreferrer">{t('footer.project_repo')}</a>
               <a href="#" onClick={(e) => { e.preventDefault(); navigate('/contribute'); }}>{t('footer.project_contribute')}</a>
               <a href="#" onClick={(e) => { e.preventDefault(); navigate('/roadmap'); }}>{t('footer.project_roadmap')}</a>
