@@ -40,7 +40,6 @@ const LandingPage: React.FC = () => {
 
         <ScrollToTopButton />
 
-
         <main className="landing-hero">
           <motion.div
             className="hero-content"
