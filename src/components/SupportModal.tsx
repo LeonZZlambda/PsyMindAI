@@ -512,8 +512,9 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
           
           <form onSubmit={handleReframingSubmit} className="reframing-form">
             <div className="form-group">
-              <label>{t("support.reframing.step1.q_situation")}</label>
+              <label htmlFor="reframing-situation">{t("support.reframing.step1.q_situation")}</label>
               <input 
+                id="reframing-situation"
                 type="text" 
                 placeholder={t("support.reframing.step1.q_situ_placeholder")}
                 value={reframingData.situation}
@@ -523,8 +524,9 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
             </div>
             
             <div className="form-group">
-              <label>{t("support.reframing.step1.q_thought")}</label>
+              <label htmlFor="reframing-thought">{t("support.reframing.step1.q_thought")}</label>
               <textarea 
+                id="reframing-thought"
                 placeholder={t("support.reframing.step1.q_thought_placeholder")}
                 value={reframingData.thought}
                 onChange={(e) => setReframingData({...reframingData, thought: e.target.value})}
@@ -534,9 +536,10 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
             </div>
 
             <div className="form-group">
-              <label>{t("support.reframing.step1.q_intensity")}</label>
+              <label htmlFor="reframing-intensity">{t("support.reframing.step1.q_intensity")}</label>
               <div className="intensity-slider-container">
                 <input 
+                  id="reframing-intensity"
                   type="range" 
                   min="0" 
                   max="10" 

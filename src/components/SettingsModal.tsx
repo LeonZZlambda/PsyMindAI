@@ -273,6 +273,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, onOpenIm
               <div className="api-key-container">
                 <div className="api-key-input-group">
                   <input 
+                    id="api-key-input"
                     type="password"
                     className="input-field api-key-input"
                     placeholder={t('settings.api_key.placeholder')}

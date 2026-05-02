@@ -62,6 +62,7 @@ const ImportContextModal: React.FC<ImportContextModalProps> = ({ isOpen, onClose
               <span className="setting-desc">{t('import_context.step2_desc')}</span>
             </div>
             <textarea 
+              id="import-context-textarea"
               className="input-field import-textarea"
               placeholder={t('import_context.placeholder')}
               value={importContext}

@@ -441,6 +441,7 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
                {!discursiveFeedback ? (
                  <>
                    <textarea
+                     id="discursive-response"
                      className="ai-textarea"
                      rows={5}
                      placeholder={t("guided_learning.open_ended.placeholder")}
@@ -723,6 +724,7 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
                                     </div>
                                     <p style={{color: 'var(--text-light)', marginTop: 0}}>{t("guided_learning.create.desc")}</p>
                                      <textarea 
+                                        id="new-trail-topic"
                                         className="ai-input" 
                                         rows={4} 
                                         placeholder={t("guided_learning.create.placeholder")}

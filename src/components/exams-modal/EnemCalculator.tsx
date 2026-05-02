@@ -300,7 +300,7 @@ export const EnemCalculator: React.FC<EnemCalculatorProps> = ({ onClose }) => {
 
             <div className="checkbox-group full-width">
               <label className="checkbox-container">
-                <input type="checkbox" checked={ignoreRedacao} onChange={(event) => setIgnoreRedacao(event.target.checked)} />
+                <input id="ignore-redacao" type="checkbox" checked={ignoreRedacao} onChange={(event) => setIgnoreRedacao(event.target.checked)} />
                 <span className="checkmark"></span>
                 <span className="checkbox-label">{t('exams.calculator.ignore_redacao')}</span>
               </label>

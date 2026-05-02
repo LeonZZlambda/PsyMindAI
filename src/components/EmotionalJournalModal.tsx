@@ -88,7 +88,7 @@ const EmotionalJournalModal: React.FC<EmotionalJournalModalProps> = ({ isOpen, o
               <div className="journal-questions">
                 {journalQuestions.map(q => (
                   <div key={q.id} className="journal-question-block">
-                    <label className="journal-question">
+                    <label htmlFor={`journal-${q.id}`} className="journal-question">
                       <div className="question-icon-wrapper" style={{ '--accent-color': q.color } as React.CSSProperties}>
                         <span className="material-symbols-outlined">
                           {q.icon}
@@ -97,6 +97,7 @@ const EmotionalJournalModal: React.FC<EmotionalJournalModalProps> = ({ isOpen, o
                       <span className="question-text">{q.question}</span>
                     </label>
                     <textarea
+                      id={`journal-${q.id}`}
                       className="journal-textarea"
                       placeholder={t('emotional_journal.placeholder')}
                       value={responses[q.id]}
