@@ -14,6 +14,12 @@ try {
 
 // https://vite.dev/config/
 export default defineConfig({
+  resolve: {
+    alias: {
+      'react-dom$': 'react-dom/profiling',
+      'scheduler/tracing': 'scheduler/tracing-profiling',
+    },
+  },
   server: {
     headers: {
       'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
