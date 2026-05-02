@@ -599,7 +599,8 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
          </motion.div>
          <h4 style={{ fontSize: "1.8rem", marginBottom: "12px", color: "var(--text-color)", fontWeight: "800" }}>{title}</h4>
           <p style={{ fontSize: "1.1rem", color: "var(--text-light)", marginBottom: "24px", maxWidth: "400px" }}>
-            <Trans i18nKey="guided_learning.completion.stats" values={{ correct, total, percentage }}>Você acertou <strong>{correct}</strong> de <strong>{total}</strong> questões de primeira ({percentage}%).</Trans><br/><br/>
+            <Trans i18nKey="guided_learning.completion.stats" values={{ correct: correct.toString(), total: total.toString(), percentage: percentage.toString() }} />
+            <br/><br/>
             {message}
           </p>
          <motion.button 
