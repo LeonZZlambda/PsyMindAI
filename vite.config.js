@@ -58,9 +58,15 @@ export default defineConfig({
       // Optional visualizer plugin - only active if devDependency is installed
       plugins: [
         visualizer && visualizer({ filename: 'dist/stats.html', template: 'treemap', gzipSize: true })
-      ].filter(Boolean)
-      // Removed manualChunks to fix `ReferenceError: Cannot access 'X' before initialization`
-      // By default, Vite splits chunks effectively without causing Circular Chunk dependencies.
+      ].filter(Boolean),
+      // Added minimal manualChunks to safely split heavy vendors without circular dependencies
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'framer-motion': ['framer-motion'],
+          'i18n-vendor': ['i18next', 'react-i18next']
+        }
+      }
     },
     chunkSizeWarningLimit: 500
   }

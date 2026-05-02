@@ -158,21 +158,21 @@ const LandingPage: React.FC = () => {
       </section>
 
       <section id="faq" className="faq-section" style={{ padding: '4rem 2rem', maxWidth: '800px', margin: '0 auto' }}>
-        <h2 style={{ textAlign: 'center', marginBottom: '2rem', fontSize: '2rem', color: 'var(--text-color)' }}>Dúvidas Frequentes</h2>
+        <h2 style={{ textAlign: 'center', marginBottom: '2rem', fontSize: '2rem', color: 'var(--text-color)' }}>{t('faq.title')}</h2>
         
         <details style={{ marginBottom: '1rem', padding: '1.2rem', background: 'var(--card-background)', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
-          <summary style={{ fontWeight: '600', cursor: 'pointer', fontSize: '1.1rem', color: 'var(--text-color)' }}>O PsyMind.AI substitui um psicólogo?</summary>
-          <p style={{ marginTop: '1rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>Não. O PsyMind.AI é uma ferramenta educativa de apoio emocional e organização de estudos. Ele não oferece diagnósticos clínicos nem substitui o acompanhamento de profissionais de saúde mental.</p>
+          <summary style={{ fontWeight: '600', cursor: 'pointer', fontSize: '1.1rem', color: 'var(--text-color)' }}>{t('faq.q1.question')}</summary>
+          <p style={{ marginTop: '1rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{t('faq.q1.answer')}</p>
         </details>
         
         <details style={{ marginBottom: '1rem', padding: '1.2rem', background: 'var(--card-background)', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
-          <summary style={{ fontWeight: '600', cursor: 'pointer', fontSize: '1.1rem', color: 'var(--text-color)' }}>Como a IA ajuda na minha rotina de estudos?</summary>
-          <p style={{ marginTop: '1rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>Nossa IA utiliza técnicas canônicas como Active Recall e Spaced Repetition para otimizar seu aprendizado, além de ajudar a identificar sinais de burnout e sugerir pausas estratégicas.</p>
+          <summary style={{ fontWeight: '600', cursor: 'pointer', fontSize: '1.1rem', color: 'var(--text-color)' }}>{t('faq.q2.question')}</summary>
+          <p style={{ marginTop: '1rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{t('faq.q2.answer')}</p>
         </details>
         
         <details style={{ marginBottom: '1rem', padding: '1.2rem', background: 'var(--card-background)', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
-          <summary style={{ fontWeight: '600', cursor: 'pointer', fontSize: '1.1rem', color: 'var(--text-color)' }}>Meus dados e conversas são privados?</summary>
-          <p style={{ marginTop: '1rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>Sim. Priorizamos a privacidade. Você pode utilizar o chat de forma anônima e possui controle total sobre o histórico de conversas e dados de telemetria.</p>
+          <summary style={{ fontWeight: '600', cursor: 'pointer', fontSize: '1.1rem', color: 'var(--text-color)' }}>{t('faq.q3.question')}</summary>
+          <p style={{ marginTop: '1rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{t('faq.q3.answer')}</p>
         </details>
       </section>
 

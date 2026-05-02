@@ -52,10 +52,25 @@ function App() {
   
   const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement | null>(null)
 
-  // Initial tracking
+  // Initial tracking & SEO
   useEffect(() => {
-    document.documentElement.lang = i18n.language || 'pt-BR'
-  }, [i18n.language])
+    const lang = i18n.language || 'pt-BR'
+    document.documentElement.lang = lang
+    
+    // Dynamic SEO
+    document.title = t('seo.title')
+    const metaDescription = document.querySelector('meta[name="description"]')
+    if (metaDescription) {
+      metaDescription.setAttribute('content', t('seo.description'))
+    }
+    
+    // Dynamic Open Graph
+    const ogTitle = document.querySelector('meta[property="og:title"]')
+    if (ogTitle) ogTitle.setAttribute('content', t('seo.og_title'))
+    
+    const ogDesc = document.querySelector('meta[property="og:description"]')
+    if (ogDesc) ogDesc.setAttribute('content', t('seo.og_description'))
+  }, [i18n.language, t])
 
   useEffect(() => {
     try {

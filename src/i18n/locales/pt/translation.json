@@ -1715,5 +1715,92 @@
   "dashboard": {
     "title": "Painel",
     "intro": "Visão geral com métricas-chave e insights."
+  },
+  "seo": {
+    "title": "PsyMind.AI - Apoio Emocional Educativo",
+    "description": "PsyMind.AI: Solução educativa de apoio emocional para estudantes. Compreenda suas emoções com ajuda da IA.",
+    "og_title": "PsyMind.AI - Apoio Emocional Educativo",
+    "og_description": "Inteligência Artificial para apoio emocional e educativo de estudantes."
+  },
+  "faq": {
+    "title": "Dúvidas Frequentes",
+    "q1": {
+      "question": "O PsyMind.AI substitui um psicólogo?",
+      "answer": "Não. O PsyMind.AI é uma ferramenta educativa de apoio emocional e organização de estudos. Ele não oferece diagnósticos clínicos nem substitui o acompanhamento de profissionais de saúde mental."
+    },
+    "q2": {
+      "question": "Como a IA ajuda na minha rotina de estudos?",
+      "answer": "Nossa IA utiliza técnicas canônicas como Active Recall e Spaced Repetition para otimizar seu aprendizado, além de ajudar a identificar sinais de burnout e sugerir pausas estratégicas."
+    },
+    "q3": {
+      "question": "Meus dados e conversas são privados?",
+      "answer": "Sim. Priorizamos a privacidade. Você pode utilizar o chat de forma anônima e possui controle total sobre o histórico de conversas e dados de telemetria."
+    }
+  },
+  "privacy": {
+    "title": "Política de Privacidade",
+    "subtitle": "Transparência total sobre como seus dados são (e principalmente, como NÃO são) utilizados no PsyMind.AI.",
+    "last_update": "Última atualização: 7 de Abril de 2026",
+    "sections": {
+      "s1": {
+        "title": "1. Arquitetura Local (Client-Side)",
+        "p1": "O PsyMind.AI é fundamentado na privacidade *by design*. Somos uma aplicação exclusivamente executada no lado do cliente (Vite + React). <strong>Não possuímos servidores de banco de dados próprios</strong> que interceptam, leem ou armazenam seus desabafos, conversas ou dados de perfil centralizadamente.",
+        "p2": "Todas as informações pessoais, incluindo seu Histórico de Conversas, Temas, Planejamentos do Pomodoro e Diário Emocional, são salvas <strong>exclusivamente no cache do seu próprio navegador (localStorage)</strong>."
+      },
+      "s2": {
+        "title": "2. Processamento das Inteligências Artificiais",
+        "p1": "Para fornecer respostas inteligentes, o aplicativo estabelece uma ponte direta do seu navegador com fornecedores de IA (como o Google Gemini API). Ao enviar uma mensagem:",
+        "li1": "O seu texto (e contexto do chat atual) passa por uma camada técnica diretamente para os servidores da IA selecionada.",
+        "li2": "A chave de API que você fornece fica armazenada criptografada apenas na memória local do seu dispositivo.",
+        "li3": "Recomendamos revisar as políticas de privacidade da Google (fornecedora do Gemini) sobre como eles gerenciam prompts de API."
+      },
+      "s3": {
+        "title": "3. O Modo Anônimo",
+        "p1": "Para garantir máxima privacidade em desabafos pontuais, disponibilizamos o <strong>Modo Anônimo</strong>. Ao engajar com a IA neste modo, a conversa <strong>não</strong> é gravada em momento algum no seu localStorage, desaparecendo permanentemente de qualquer registro na máquina assim que a aba for recarregada ou o chat for fechado."
+      },
+      "s4": {
+        "title": "4. Cookies e Armazenamento em Cache",
+        "p1": "Utilizamos apenas cookies essenciais e a tecnologia de Web Storage local necessários para o funcionamento básico e a personalização da interface, tais como:",
+        "li1": "Lembrar sua preferência de Modo Escuro ou Modo Claro.",
+        "li2": "Configurações de Fontes (aumentadas/reduzidas).",
+        "li3": "Configurações de Acessibilidade ou Redução de Movimento.",
+        "li4": "Estatísticas de foco locais (relatório de pomodoros diários)."
+      },
+      "s5": {
+        "title": "5. Segurança e Compartilhamento de Dados",
+        "p1": "Como não coletamos dados para nosso servidor, é tecnicamente impossível para o PsyMind.AI vender, repassar, ou compartilhar suas mensagens em massa para agências terceiras de publicidade ou marketing. Ponto final."
+      },
+      "s6": {
+        "title": "6. Exclusão de Dados",
+        "p1": "Como você tem controle integral, você pode excluir qualquer dado a qualquer instante. Para apagar completamente tudo que o aplicativo sabe sobre você, basta clicar em \"Limpar Histórico\" ou usar o recurso do navegador de limpar o cache (Local Storage). Não haverá recuperação possível (uma vez que não há servidores de nuvem envolvidos)."
+      },
+      "s7": {
+        "title": "7. Alterações nesta Política",
+        "p1": "O PsyMind.AI é Open Source. Se no futuro um recurso estritamente dependente de nuvem se tornar necessário e decidirmos integrar algo como um Banco de Dados Oficial, esta Política será atualizada via repositório, com um grande aviso exposto de forma antecipada para todos os usuários da plataforma."
+      }
+    }
+  },
+  "terms": {
+    "title": "Termos de Uso",
+    "subtitle": "Condições gerais de navegação, responsabilidades legais da Inteligência Artificial e Regras Open-Source.",
+    "last_update": "Última atualização: 7 de Abril de 2026",
+    "sections": {
+      "s1": {
+        "title": "1. Aviso Legal (Disclaimer) Essencial sobre Saúde Mental ⚠️",
+        "p1": "O PsyMind.AI é fornecido <strong>exclusivamente para fins informativos e de apoio ao aprendizado/autodesenvolvimento</strong>. A inteligência artificial presente na plataforma pode fornecer reflexões emocionais, citações estoicas, rotinas de estudos e exercícios, mas <strong style={{color: 'var(--primary-color)'}}>NUNCA SUBSTITUI</strong> (e não tem a competência para) o tratamento, conselho profissional, ou diagnóstico em Saúde Mental e Psicológica."
+      },
+      "s2": {
+        "title": "2. Responsabilidades pelas \"Alucinações\" (Erros da IA)",
+        "p1": "O cérebro do PsyMind.AI roda usando Modelos Avançados de Linguagem. Esses modelos criam texto através de estatística probabilística. Isso os conduz inerentemente ao risco das \"alucinações da IA\" (dar explicações incrivelmente plausíveis, porém tecnicamente ou factualmente incorretas)."
+      },
+      "s3": {
+        "title": "3. Direitos Autorais e Cultura Code Open-Source",
+        "p1": "O repositório PsyMind.AI está licenciado sob a licença de <strong>Creative Commons Atribuição-CompartilhaIgual 4.0 Internacional (CC BY-SA 4.0)</strong>."
+      },
+      "s4": {
+        "title": "4. Uso da API Keys (Fornecedores de Nuvem)",
+        "p1": "O serviço pode depender que você provisione sua própria chave pessoal de provedores (ex: chave Google Gemini). Ao fazer isto, é vital que você compreenda as limitações orçamentárias e cotas grátis do provedor da API. <strong>O PsyMind não se responsabiliza nem garante reembolso e nem mediará qualquer infração feita à quota ou os eventuais termos atrelados da parceira (Google) sobre a chave que você fornecer à plataforma.</strong>"
+      }
+    }
   }
 }
