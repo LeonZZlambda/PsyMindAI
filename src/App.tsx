@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback, Suspense, lazy } from 'react'
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { Toaster } from 'sonner'
 import { ErrorBoundary } from 'react-error-boundary'
 import { MotionConfig, LazyMotion, domAnimation } from 'framer-motion'
@@ -40,6 +41,7 @@ function App() {
   const { isDarkMode, fontSize, reducedMotion, highContrast, dyslexicFont, colorBlindMode, keyboardNavigation, toggleTheme } = useTheme()
   const { clearHistory, setInput, isLoading, startAnonymousChat } = useChat()
   const { openModals, toggleModal } = useModal()
+  const { i18n } = useTranslation()
   const location = useLocation()
   const publicRoutes = ['/', '/roadmap', '/contribute', '/style-guide', '/privacy', '/terms', '/analytics', '/transparency']
   const isPublicPage = publicRoutes.includes(location.pathname)
@@ -51,6 +53,10 @@ function App() {
   const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement | null>(null)
 
   // Initial tracking
+  useEffect(() => {
+    document.documentElement.lang = i18n.language || 'pt-BR'
+  }, [i18n.language])
+
   useEffect(() => {
     try {
       if (Telemetry && typeof Telemetry.isOptedIn === 'function' && Telemetry.isOptedIn()) {

@@ -80,7 +80,7 @@ const LandingPage: React.FC = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.0 }}
               >
-                <span className="material-symbols-outlined icon">psychology</span>
+                <span className="material-symbols-outlined icon" aria-hidden="true">psychology</span>
                 <div className="text">
                   <div className="line w-75"></div>
                   <div className="line w-50"></div>
@@ -102,7 +102,7 @@ const LandingPage: React.FC = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 2.0 }}
               >
-                <span className="material-symbols-outlined icon">psychology</span>
+                <span className="material-symbols-outlined icon" aria-hidden="true">psychology</span>
                 <div className="text">
                   <div className="line w-80"></div>
                   <div className="line w-40"></div>
@@ -122,7 +122,7 @@ const LandingPage: React.FC = () => {
           transition={{ delay: 0.2 }}
           whileHover={{ y: -5 }}
         >
-          <span className="material-symbols-outlined feature-icon">school</span>
+          <span className="material-symbols-outlined feature-icon" aria-hidden="true">school</span>
           <h2>{t('landing.features.study_focus.title')}</h2>
           <p>{t('landing.features.study_focus.description')}</p>
         </motion.div>
@@ -134,7 +134,7 @@ const LandingPage: React.FC = () => {
           transition={{ delay: 0.3 }}
           whileHover={{ y: -5 }}
         >
-          <span className="material-symbols-outlined feature-icon">self_improvement</span>
+          <span className="material-symbols-outlined feature-icon" aria-hidden="true">self_improvement</span>
           <h2>{t('landing.features.anxiety_control.title')}</h2>
           <p>{t('landing.features.anxiety_control.description')}</p>
         </motion.div>
@@ -146,7 +146,7 @@ const LandingPage: React.FC = () => {
           transition={{ delay: 0.4 }}
           whileHover={{ y: -5 }}
         >
-          <span className="material-symbols-outlined feature-icon">schedule</span>
+          <span className="material-symbols-outlined feature-icon" aria-hidden="true">schedule</span>
           <h2>{t('landing.features.always_available.title')}</h2>
           <p>{t('landing.features.always_available.description')}</p>
         </motion.div>
