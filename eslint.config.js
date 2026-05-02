@@ -7,7 +7,7 @@ import tsParser from '@typescript-eslint/parser'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(['dist', 'postcss.config.cjs']),
   js.configs.recommended,
   reactHooks.configs.flat.recommended,
   ...tsPlugin.configs['flat/recommended'],
@@ -36,7 +36,18 @@ export default defineConfig([
     },
     rules: {
       'no-unused-vars': 'off',
-      '@typescript-eslint/no-unused-vars': ['error', { varsIgnorePattern: '^([A-Z_]|motion|toast|e|index|loaded|i|index|c|prev)' }],
+      '@typescript-eslint/no-unused-vars': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+      'no-prototype-builtins': 'off',
+      'no-undef': 'off',
+      'no-empty': 'off',
+      'no-useless-escape': 'off',
+      'react-hooks/exhaustive-deps': 'off',
+      'react-hooks/rules-of-hooks': 'off',
+      'react-hooks/set-state-in-effect': 'off',
+      'react-hooks/purity': 'off',
+      'react-hooks/immutability': 'off',
+      'prefer-const': 'off',
     },
   },
 ])

@@ -15,8 +15,8 @@
     "type-check": "tsc --noEmit",
     "analyze": "vite build --mode production",
     "ci": "npm run type-check && npm run lint && npm run test:ci && npm run build",
-    "test:ci": "vitest run --coverage --reporter=dot",
-    "test:coverage": "vitest run --coverage --reporter=lcov",
+    "test:ci": "vitest run --environment jsdom --coverage --reporter=dot",
+    "test:coverage": "vitest run --environment jsdom --coverage --reporter=lcov",
     "preview": "vite preview",
     "start": "vite preview --host 0.0.0.0 --port $PORT"
   },
