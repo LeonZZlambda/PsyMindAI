@@ -183,8 +183,10 @@
   },
   "common": {
     "close": "Close",
-    "close_modal": "Close modal"
+    "close_modal": "Close modal",
+    "back": "Back"
   },
+
   "sidebar": {
     "new_chat": "New chat",
     "anonymous_chat": "Anonymous Session",
@@ -1090,6 +1092,16 @@
     "vocational": {
       "title": "Vocational Test",
       "progress_aria": "Vocational test progress",
+      "introduction": {
+        "title": "Discover Your Professional Vocation",
+        "description": "This test is based on the RIASEC model, a scientific tool that identifies your professional preferences through six dimensions: Realistic, Investigative, Artistic, Social, Enterprising, and Conventional.",
+        "features": {
+          "riasec": "Based on RIASEC model",
+          "insights": "Personalized career insights",
+          "guidance": "Guidance for decision making"
+        },
+        "start_button": "Start Vocational Test"
+      },
       "likert": {
         "1": "I dislike it",
         "2": "Find it boring",

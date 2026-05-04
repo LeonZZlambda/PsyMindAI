@@ -183,7 +183,8 @@
   },
   "common": {
     "close": "Fechar",
-    "close_modal": "Fechar modal"
+    "close_modal": "Fechar modal",
+    "back": "Voltar"
   },
   "sidebar": {
     "new_chat": "Novo chat",
@@ -1090,6 +1091,16 @@
     "vocational": {
       "title": "Teste Vocacional",
       "progress_aria": "Progresso do teste vocacional",
+      "introduction": {
+        "title": "Descubra sua Vocação Profissional",
+        "description": "Este teste é baseado no modelo RIASEC, uma ferramenta científica que identifica suas preferências profissionais através de seis dimensões: Realista, Investigativo, Artístico, Social, Empreendedor e Convencional.",
+        "features": {
+          "riasec": "Baseado no modelo RIASEC",
+          "insights": "Insights personalizados sobre carreira",
+          "guidance": "Orientação para tomada de decisões"
+        },
+        "start_button": "Iniciar Teste Vocacional"
+      },
       "likert": {
         "1": "Não curto e evito",
         "2": "Acho chato",

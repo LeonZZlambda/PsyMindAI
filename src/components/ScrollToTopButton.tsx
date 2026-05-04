@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 
 const ScrollToTopButton: React.FC = () => {
   const [showScrollTop, setShowScrollTop] = useState(false)
+  const { t } = useTranslation()
 
   const getScrollContainer = () => {
     return document.querySelector('.landing-wrapper, .main-content') as HTMLElement | null
@@ -57,7 +59,7 @@ const ScrollToTopButton: React.FC = () => {
           exit={{ opacity: 0, scale: 0.5, y: 20 }}
           whileHover={{ scale: 1.1, y: -5 }}
           whileTap={{ scale: 0.9 }}
-          title="Voltar ao topo"
+          title={t('messages.scroll_top')}
           style={{ pointerEvents: 'auto', zIndex: 99 }}
         >
           <span className="material-symbols-outlined">arrow_upward</span>

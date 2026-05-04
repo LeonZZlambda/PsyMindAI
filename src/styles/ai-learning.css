@@ -1,19 +1,80 @@
 /* AI Create Trail */
-.ai-create-container { display: flex; flex-direction: column; padding: 20px; background: var(--card-background); border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 20px; }
-.ai-input { width: 100%; padding: 16px; border-radius: 12px; border: 1px solid var(--border-color); background: var(--background-color); color: var(--text-color); font-size: 1rem; resize: vertical; margin-bottom: 20px; font-family: inherit; }
-.ai-input:focus { outline: none; border-color: var(--primary-color); }
-.ai-magic-btn { background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-mid) 60%, var(--gradient-end) 100%); color: white; border: none; padding: 10px 1.5rem; border-radius: 20px; font-weight: 500; font-size: 0.875rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: transform 0.18s ease, opacity 0.2s; white-space: nowrap; }
-.ai-magic-btn:hover { transform: translateY(-2px); opacity: 0.9; }
-.ai-magic-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-.spin-anim { animation: learning-spin 1s linear infinite; }
-@keyframes learning-spin { 100% { transform: rotate(360deg); } }
+.ai-create-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background: var(--card-background);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 20px;
+}
+.ai-input {
+  width: 100%;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background: var(--background-color);
+  color: var(--text-color);
+  font-size: 1rem;
+  resize: vertical;
+  margin-bottom: 20px;
+  font-family: inherit;
+}
+.ai-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+.ai-magic-btn {
+  background: linear-gradient(
+    135deg,
+    var(--gradient-start) 0%,
+    var(--gradient-mid) 60%,
+    var(--gradient-end) 100%
+  );
+  color: white;
+  border: none;
+  padding: 10px 1.5rem;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 0.875rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition:
+    transform 0.18s ease,
+    opacity 0.2s;
+  white-space: nowrap;
+}
+.ai-magic-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+.ai-magic-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+.spin-anim {
+  animation: learning-spin 1s linear infinite;
+}
+@keyframes learning-spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
 /* Vocational Test Styles */
 .vocational-modal-content {
   padding: 1.5rem;
   max-width: 460px;
   margin: 0 auto;
   --vocational-surface: color-mix(in srgb, var(--card-background) 86%, var(--primary-color) 14%);
-  --vocational-surface-strong: color-mix(in srgb, var(--card-background) 72%, var(--primary-color) 28%);
+  --vocational-surface-strong: color-mix(
+    in srgb,
+    var(--card-background) 72%,
+    var(--primary-color) 28%
+  );
   --vocational-outline: color-mix(in srgb, var(--primary-color) 22%, var(--border-color));
   --vocational-ink: var(--text-color);
   --vocational-soft: var(--text-light);
@@ -21,7 +82,11 @@
 
 .app.dark .vocational-modal-content {
   --vocational-surface: color-mix(in srgb, var(--card-background) 80%, var(--primary-color) 20%);
-  --vocational-surface-strong: color-mix(in srgb, var(--card-background) 65%, var(--primary-color) 35%);
+  --vocational-surface-strong: color-mix(
+    in srgb,
+    var(--card-background) 65%,
+    var(--primary-color) 35%
+  );
   --vocational-outline: color-mix(in srgb, var(--primary-color) 35%, var(--border-color));
 }
 
@@ -49,7 +114,11 @@
 
 .vocational-shell {
   position: relative;
-  background: linear-gradient(160deg, var(--vocational-surface), color-mix(in srgb, var(--card-background) 94%, #ffffff 6%));
+  background: linear-gradient(
+    160deg,
+    var(--vocational-surface),
+    color-mix(in srgb, var(--card-background) 94%, #ffffff 6%)
+  );
   border: 1px solid var(--vocational-outline);
   border-radius: 24px;
   padding: 1.5rem;
@@ -58,7 +127,11 @@
 }
 
 .app.dark .vocational-shell {
-  background: linear-gradient(160deg, var(--vocational-surface), color-mix(in srgb, var(--card-background) 92%, #0b0f10 8%));
+  background: linear-gradient(
+    160deg,
+    var(--vocational-surface),
+    color-mix(in srgb, var(--card-background) 92%, #0b0f10 8%)
+  );
   box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
 }
 
@@ -94,7 +167,11 @@
 
 .vocational-progress-bar {
   height: 100%;
-  background: linear-gradient(90deg, var(--primary-color), color-mix(in srgb, var(--primary-color) 40%, #8ec5c0));
+  background: linear-gradient(
+    90deg,
+    var(--primary-color),
+    color-mix(in srgb, var(--primary-color) 40%, #8ec5c0)
+  );
   border-radius: inherit;
   box-shadow: 0 0 12px color-mix(in srgb, var(--primary-color) 45%, transparent);
 }
@@ -133,7 +210,11 @@
   border: 1px solid var(--vocational-outline);
   border-radius: 16px;
   cursor: pointer;
-  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
   text-align: left;
 }
 
@@ -244,7 +325,9 @@
   border-radius: 18px;
   border: 1px solid color-mix(in srgb, var(--primary-color) 18%, var(--border-color));
   margin-bottom: 0;
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .vocational-modal-content .area-card h4 {
@@ -290,10 +373,148 @@
   gap: 8px;
   padding: 12px;
   border-radius: 16px;
-  background: linear-gradient(135deg, var(--primary-color), color-mix(in srgb, var(--primary-color) 55%, #5bb8ad));
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    color-mix(in srgb, var(--primary-color) 55%, #5bb8ad)
+  );
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
 }
 
 .vocational-cta:hover {
-  background: linear-gradient(135deg, var(--primary-hover), color-mix(in srgb, var(--primary-color) 40%, #4bb0a4));
+  background: linear-gradient(
+    135deg,
+    var(--primary-hover),
+    color-mix(in srgb, var(--primary-color) 40%, #4bb0a4)
+  );
+}
+
+.app.dark .vocational-start-btn {
+  color: white;
+}
+
+.vocational-start-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(
+    135deg,
+    var(--gradient-start) 0%,
+    var(--gradient-mid) 60%,
+    var(--gradient-end) 100%
+  );
+  border: none;
+  border-radius: 24px;
+  transition:
+    transform 0.18s ease,
+    background 0.2s ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.vocational-start-btn:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(
+    135deg,
+    var(--primary-hover),
+    color-mix(in srgb, var(--primary-color) 40%, #4bb0a4)
+  );
+}
+
+.app.dark .vocational-start-btn {
+  background: linear-gradient(135deg, var(--gradient-mid) 0%, var(--gradient-end) 100%);
+  color: #001d35;
+}
+
+.app.dark .vocational-start-btn:hover {
+  background: linear-gradient(
+    135deg,
+    var(--gradient-end) 0%,
+    color-mix(in srgb, var(--gradient-end) 40%, #4bb0a4) 100%
+  );
+}
+
+.vocational-introduction {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1rem;
+  position: relative;
+  z-index: 1;
+  min-height: 400px;
+}
+
+.vocational-intro-content {
+  max-width: 500px;
+  width: 100%;
+}
+
+.vocational-intro-header {
+  margin-bottom: 2rem;
+}
+
+.vocational-intro-header .vocational-intro-icon {
+  font-size: 3rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.vocational-intro-header h2 {
+  font-size: 1.75rem;
+  margin: 0 0 1rem;
+  color: var(--vocational-ink);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.vocational-intro-description {
+  margin-bottom: 2.5rem;
+}
+
+.vocational-intro-description p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--vocational-soft);
+  margin: 0 0 2rem;
+}
+
+.vocational-intro-features {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: color-mix(in srgb, var(--vocational-surface) 85%, var(--card-background));
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--vocational-outline) 50%, transparent);
+}
+
+.feature-item .material-symbols-outlined {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  flex-shrink: 0;
+}
+
+.feature-item span {
+  font-size: 0.95rem;
+  color: var(--vocational-ink);
+  font-weight: 500;
+}
+
+.app.dark .feature-item {
+  background: color-mix(in srgb, var(--vocational-surface) 90%, var(--card-background));
 }
