@@ -1,33 +1,33 @@
-import React, { useState, useEffect, useRef } from 'react';
-import TextareaAutosize from 'react-textarea-autosize';
-import { motion, AnimatePresence } from 'framer-motion';
-import { toast } from 'sonner';
-import { useTranslation } from 'react-i18next';
-import { useChat } from '../context/ChatContext';
-import { usePomodoro } from '../context/PomodoroContext';
-import { useModal } from '../context/ModalContext';
-import { Telemetry } from '../services/analytics/telemetry';
-import logger from '../utils/logger';
-import type { FileAttachment } from '@/types/storage';
+import React, { useState, useEffect, useRef } from 'react'
+import TextareaAutosize from 'react-textarea-autosize'
+import { m, AnimatePresence } from 'framer-motion'
+import { toast } from 'sonner'
+import { useTranslation } from 'react-i18next'
+import { useChat } from '../context/ChatContext'
+import { usePomodoro } from '../context/PomodoroContext'
+import { useModal } from '../context/ModalContext'
+import { Telemetry } from '../services/analytics/telemetry'
+import logger from '../utils/logger'
+import type { FileAttachment } from '@/types/storage'
 
 const ImagePreview: React.FC<{ file: File }> = ({ file }) => {
-  const [url, setUrl] = useState<string>('');
+  const [url, setUrl] = useState<string>('')
   useEffect(() => {
-    let objectUrl: string | undefined;
+    let objectUrl: string | undefined
     try {
-      objectUrl = URL.createObjectURL(file);
-      setUrl(objectUrl);
-    } catch(err) {
-      logger.error(err);
+      objectUrl = URL.createObjectURL(file)
+      setUrl(objectUrl)
+    } catch (err) {
+      logger.error(err)
     }
     return () => {
-      if (objectUrl) URL.revokeObjectURL(objectUrl);
-    };
-  }, [file]);
-  if (!url) return null;
-  const safeName = typeof file.name === 'string' ? file.name : 'image';
-  return <img src={url} alt={safeName} />;
-};
+      if (objectUrl) URL.revokeObjectURL(objectUrl)
+    }
+  }, [file])
+  if (!url) return null
+  const safeName = typeof file.name === 'string' ? file.name : 'image'
+  return <img src={url} alt={safeName} />
+}
 
 interface InputAreaProps {
   inputRef?: React.RefObject<HTMLInputElement | HTMLTextAreaElement | null>
@@ -39,33 +39,45 @@ interface InputAreaProps {
   onOpenGuidedLearning?: () => void
 }
 
-const InputArea: React.FC<InputAreaProps> = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections, onOpenMoodTracker, onOpenEmotionalJournal, onOpenGuidedLearning }) => {
-  const { input, setInput, sendMessage, isTyping, isStreaming, stopStreaming } = useChat();
-  const { isActive: pomodoroIsActive, mode: pomodoroMode, timeLeft: pomodoroTimeLeft } = usePomodoro();
-  const { t } = useTranslation(['chat', 'translation']);
-  const { toggleModal } = useModal();
-  
-  const [isListening, setIsListening] = useState(false);
-  const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const [showToolsMenu, setShowToolsMenu] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const toolsMenuRef = useRef<HTMLDivElement | null>(null);
+const InputArea: React.FC<InputAreaProps> = ({
+  inputRef,
+  onOpenHelp,
+  onOpenSupport,
+  onOpenReflections,
+  onOpenMoodTracker,
+  onOpenEmotionalJournal,
+  onOpenGuidedLearning,
+}) => {
+  const { input, setInput, sendMessage, isTyping, isStreaming, stopStreaming } = useChat()
+  const {
+    isActive: pomodoroIsActive,
+    mode: pomodoroMode,
+    timeLeft: pomodoroTimeLeft,
+  } = usePomodoro()
+  const { t } = useTranslation(['chat', 'translation'])
+  const { toggleModal } = useModal()
 
-  const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
-  const cmdKey = isMac ? '⌘' : 'Ctrl';
-  const shiftKey = isMac ? '⇧' : 'Shift';
+  const [isListening, setIsListening] = useState(false)
+  const [recognition, setRecognition] = useState<SpeechRecognition | null>(null)
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([])
+  const [showToolsMenu, setShowToolsMenu] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
+  const toolsMenuRef = useRef<HTMLDivElement | null>(null)
+
+  const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform)
+  const cmdKey = isMac ? '⌘' : 'Ctrl'
+  const shiftKey = isMac ? '⇧' : 'Shift'
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (toolsMenuRef.current && !toolsMenuRef.current.contains(event.target as Node)) {
-        setShowToolsMenu(false);
+        setShowToolsMenu(false)
       }
-    };
+    }
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   const tools = [
     { id: 'pomodoro', icon: 'timer', label: t('chat.input.tools.pomodoro') },
@@ -76,200 +88,202 @@ const InputArea: React.FC<InputAreaProps> = ({ inputRef, onOpenHelp, onOpenSuppo
     { id: 'vocational', icon: 'explore', label: t('chat.input.tools.vocational') },
     { id: 'kindness', icon: 'volunteer_activism', label: t('chat.input.tools.kindness') },
     { id: 'helpline', icon: 'support_agent', label: t('chat.input.tools.helpline') },
-    { id: 'learning', icon: 'menu_book', label: t('chat.input.tools.learning') }
-  ];
+    { id: 'learning', icon: 'menu_book', label: t('chat.input.tools.learning') },
+  ]
 
   const handleToolClick = (tool: { id: string; label: string; [key: string]: unknown }) => {
-    Telemetry.trackFeature(tool.id || tool.label, 'opened');
+    Telemetry.trackFeature(tool.id || tool.label, 'opened')
     if (tool.id === 'pomodoro') {
-      toggleModal('pomodoro');
-      setShowToolsMenu(false);
-      return;
+      toggleModal('pomodoro')
+      setShowToolsMenu(false)
+      return
     }
     if (tool.id === 'kindness') {
-      toggleModal('kindness');
-      setShowToolsMenu(false);
-      return;
+      toggleModal('kindness')
+      setShowToolsMenu(false)
+      return
     }
     if (tool.id === 'vestibulares') {
-      toggleModal('exams');
-      setShowToolsMenu(false);
-      return;
+      toggleModal('exams')
+      setShowToolsMenu(false)
+      return
     }
     if (tool.id === 'vocational') {
-      toggleModal('vocational');
-      setShowToolsMenu(false);
-      return;
+      toggleModal('vocational')
+      setShowToolsMenu(false)
+      return
     }
     if (tool.id === 'helpline') {
-      if (onOpenSupport) onOpenSupport();
-      setShowToolsMenu(false);
-      return;
+      if (onOpenSupport) onOpenSupport()
+      setShowToolsMenu(false)
+      return
     }
     if (tool.id === 'reflexoes') {
-      if (onOpenReflections) onOpenReflections();
-      setShowToolsMenu(false);
-      return;
+      if (onOpenReflections) onOpenReflections()
+      setShowToolsMenu(false)
+      return
     }
     if (tool.id === 'mood') {
-      if (onOpenMoodTracker) onOpenMoodTracker();
-      setShowToolsMenu(false);
-      return;
+      if (onOpenMoodTracker) onOpenMoodTracker()
+      setShowToolsMenu(false)
+      return
     }
     if (tool.id === 'journal') {
-      if (onOpenEmotionalJournal) onOpenEmotionalJournal();
-      setShowToolsMenu(false);
-      return;
+      if (onOpenEmotionalJournal) onOpenEmotionalJournal()
+      setShowToolsMenu(false)
+      return
     }
     if (tool.id === 'learning') {
-      if (onOpenGuidedLearning) onOpenGuidedLearning();
-      setShowToolsMenu(false);
-      return;
+      if (onOpenGuidedLearning) onOpenGuidedLearning()
+      setShowToolsMenu(false)
+      return
     }
-    toast.info(t('chat.input.tool_soon', { tool: tool.label }));
-    setShowToolsMenu(false);
-  };
+    toast.info(t('chat.input.tool_soon', { tool: tool.label }))
+    setShowToolsMenu(false)
+  }
 
   const formatTime = (seconds?: number) => {
-    if (seconds === undefined) return '';
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-  };
+    if (seconds === undefined) return ''
+    const mins = Math.floor(seconds / 60)
+    const secs = seconds % 60
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
+  }
 
   useEffect(() => {
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-      const SpeechRecognitionConstructor = window.SpeechRecognition || window.webkitSpeechRecognition;
-      const recognitionInstance = new SpeechRecognitionConstructor();
-      recognitionInstance.continuous = false;
-      recognitionInstance.interimResults = false;
-      recognitionInstance.lang = 'pt-BR';
+      const SpeechRecognitionConstructor =
+        window.SpeechRecognition || window.webkitSpeechRecognition
+      const recognitionInstance = new SpeechRecognitionConstructor()
+      recognitionInstance.continuous = false
+      recognitionInstance.interimResults = false
+      recognitionInstance.lang = 'pt-BR'
 
       recognitionInstance.onresult = (event: SpeechRecognitionEvent) => {
-        const transcript = event.results[0][0].transcript;
-        setInput((prev: string) => (prev ? prev + ' ' + transcript : transcript));
-        setIsListening(false);
-      };
+        const transcript = event.results[0][0].transcript
+        setInput((prev: string) => (prev ? prev + ' ' + transcript : transcript))
+        setIsListening(false)
+      }
 
       recognitionInstance.onerror = (event: any) => {
-        logger.error('Speech recognition error', event && event.error);
-        setIsListening(false);
+        logger.error('Speech recognition error', event && event.error)
+        setIsListening(false)
         // Show a helpful message when permission is denied or other errors occur
         if (event && event.error === 'not-allowed') {
-          toast.error(t('chat.input.mic_permission_denied'));
+          toast.error(t('chat.input.mic_permission_denied'))
         } else {
-          toast.error(t('chat.input.mic_start_failed'));
+          toast.error(t('chat.input.mic_start_failed'))
         }
-      };
+      }
 
       recognitionInstance.onend = () => {
-        setIsListening(false);
-      };
+        setIsListening(false)
+      }
 
-      setRecognition(recognitionInstance);
+      setRecognition(recognitionInstance)
     }
-  }, [setInput]);
+  }, [setInput])
 
   const toggleListening = async () => {
-    if (!recognition) return;
+    if (!recognition) return
 
     if (isListening) {
-      recognition.stop();
-      return;
+      recognition.stop()
+      return
     }
 
     try {
       // If Permissions API is available, check microphone permission first
       if ((navigator as any).permissions && (navigator as any).permissions.query) {
         try {
-          const perm = await (navigator as any).permissions.query({ name: 'microphone' });
+          const perm = await (navigator as any).permissions.query({ name: 'microphone' })
           if (perm && perm.state === 'denied') {
-            toast.error(t('chat.input.mic_permission_denied'));
-            return;
+            toast.error(t('chat.input.mic_permission_denied'))
+            return
           }
         } catch (e) {
           // ignore permission check errors and continue to attempt start
         }
       }
 
-      recognition.start();
-      setIsListening(true);
+      recognition.start()
+      setIsListening(true)
     } catch (err) {
-      logger.error('Recognition start error', err);
-      toast.error(t('chat.input.mic_start_failed'));
-      setIsListening(false);
+      logger.error('Recognition start error', err)
+      toast.error(t('chat.input.mic_start_failed'))
+      setIsListening(false)
     }
-  };
+  }
 
   const handleFileClick = () => {
-    fileInputRef.current?.click();
-  };
+    fileInputRef.current?.click()
+  }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files || []);
+    const files = Array.from(e.target.files || [])
     if (files && files.length > 0) {
-      setSelectedFiles(prev => [...prev, ...files]);
+      setSelectedFiles((prev) => [...prev, ...files])
     }
     if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+      fileInputRef.current.value = ''
     }
-  };
+  }
 
   const removeFile = (index: number) => {
-    setSelectedFiles(prev => prev.filter((_, i) => i !== index));
-  };
+    setSelectedFiles((prev) => prev.filter((_, i) => i !== index))
+  }
 
   const handleSendClick = () => {
-    if (!input.trim() && selectedFiles.length === 0) return;
-    sendMessage(input, selectedFiles);
-    setSelectedFiles([]);
-  };
+    if (!input.trim() && selectedFiles.length === 0) return
+    sendMessage(input, selectedFiles)
+    setSelectedFiles([])
+  }
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      const isMacLocal = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform);
-      const metaKey = isMacLocal ? e.metaKey : e.ctrlKey;
+      const isMacLocal =
+        typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform)
+      const metaKey = isMacLocal ? e.metaKey : e.ctrlKey
 
       if (metaKey && e.shiftKey && e.key === '.') {
-        e.preventDefault();
-        toggleListening();
+        e.preventDefault()
+        toggleListening()
       }
 
       if (metaKey && e.shiftKey && String(e.key).toLowerCase() === 'u') {
-        e.preventDefault();
-        handleFileClick();
+        e.preventDefault()
+        handleFileClick()
       }
 
       if (metaKey && String(e.key).toLowerCase() === 'k') {
-        e.preventDefault();
-        setShowToolsMenu(prev => !prev);
+        e.preventDefault()
+        setShowToolsMenu((prev) => !prev)
       }
-    };
+    }
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [recognition, isListening]);
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [recognition, isListening])
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSendClick();
+      e.preventDefault()
+      handleSendClick()
     }
-  };
+  }
 
   const formatFileName = (name: string) => {
-    if (name.length <= 12) return name;
-    const lastDotIndex = name.lastIndexOf('.');
+    if (name.length <= 12) return name
+    const lastDotIndex = name.lastIndexOf('.')
     if (lastDotIndex !== -1 && lastDotIndex < name.length - 1) {
-      const ext = name.slice(lastDotIndex);
-      const nameWithoutExt = name.slice(0, lastDotIndex);
-      const charsToShow = 10 - ext.length;
+      const ext = name.slice(lastDotIndex)
+      const nameWithoutExt = name.slice(0, lastDotIndex)
+      const charsToShow = 10 - ext.length
       if (charsToShow > 0) {
-        return `${nameWithoutExt.slice(0, charsToShow)}..${ext}`;
+        return `${nameWithoutExt.slice(0, charsToShow)}..${ext}`
       }
     }
-    return `${name.slice(0, 10)}..`;
-  };
+    return `${name.slice(0, 10)}..`
+  }
 
   return (
     <footer className="input-area">
@@ -280,20 +294,24 @@ const InputArea: React.FC<InputAreaProps> = ({ inputRef, onOpenHelp, onOpenSuppo
               {selectedFiles.map((file, index) => (
                 <div key={index} className="file-preview-item" title={file.name}>
                   <div className="preview-content">
-                      {file.type && file.type.startsWith('image/') ? (
-                        <ImagePreview file={file} />
+                    {file.type && file.type.startsWith('image/') ? (
+                      <ImagePreview file={file} />
                     ) : (
                       <div className="file-icon-wrapper">
                         <span className="material-symbols-outlined file-icon">description</span>
-                        <span className="file-type">{(file.name || '').split('.').pop()?.slice(0, 4).toUpperCase()}</span>
+                        <span className="file-type">
+                          {(file.name || '').split('.').pop()?.slice(0, 4).toUpperCase()}
+                        </span>
                       </div>
                     )}
-                    <button 
-                      className="remove-file-btn" 
+                    <button
+                      className="remove-file-btn"
                       onClick={() => removeFile(index)}
                       aria-label={`${t('chat.input.remove_file')} ${file.name}`}
                     >
-                      <span className="material-symbols-outlined" style={{ fontSize: '14px' }}>close</span>
+                      <span className="material-symbols-outlined" style={{ fontSize: '14px' }}>
+                        close
+                      </span>
                     </button>
                   </div>
                   <span className="file-name">{formatFileName(file.name)}</span>
@@ -301,7 +319,7 @@ const InputArea: React.FC<InputAreaProps> = ({ inputRef, onOpenHelp, onOpenSuppo
               ))}
             </div>
           )}
-          
+
           <div className="input-controls">
             <input
               type="file"
@@ -311,8 +329,8 @@ const InputArea: React.FC<InputAreaProps> = ({ inputRef, onOpenHelp, onOpenSuppo
               multiple
               aria-hidden="true"
             />
-            <button 
-              className="input-action-btn" 
+            <button
+              className="input-action-btn"
               onClick={handleFileClick}
               title={`${t('chat.input.attach_file')} (${cmdKey} + ${shiftKey} + U)`}
               aria-label={t('chat.input.attach_file')}
@@ -320,7 +338,7 @@ const InputArea: React.FC<InputAreaProps> = ({ inputRef, onOpenHelp, onOpenSuppo
               <span className="material-symbols-outlined">attach_file</span>
             </button>
             <div className="tools-menu-container" ref={toolsMenuRef}>
-              <button 
+              <button
                 className={`input-action-btn ${showToolsMenu ? 'active' : ''}`}
                 onClick={() => setShowToolsMenu(!showToolsMenu)}
                 title={`${t('chat.input.tools_menu')} (${cmdKey} + K)`}
@@ -330,27 +348,31 @@ const InputArea: React.FC<InputAreaProps> = ({ inputRef, onOpenHelp, onOpenSuppo
               </button>
               <AnimatePresence>
                 {showToolsMenu && (
-                  <motion.div 
+                  <m.div
                     className="tools-menu"
                     initial={{ opacity: 0, scale: 0.95, y: 10 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95, y: 10 }}
                     transition={{ duration: 0.2, ease: 'easeOut' }}
                   >
-                    {tools.map(tool => {
-                      const isPomodoroActive = tool.id === 'pomodoro' && pomodoroIsActive;
-                      const activeColor = isPomodoroActive 
-                        ? (pomodoroMode === 'focus' ? '#1a73e8' : pomodoroMode === 'short' ? '#188038' : '#e37400')
-                        : null;
+                    {tools.map((tool) => {
+                      const isPomodoroActive = tool.id === 'pomodoro' && pomodoroIsActive
+                      const activeColor = isPomodoroActive
+                        ? pomodoroMode === 'focus'
+                          ? '#1a73e8'
+                          : pomodoroMode === 'short'
+                            ? '#188038'
+                            : '#e37400'
+                        : null
 
                       return (
-                        <button 
-                          key={tool.id} 
+                        <button
+                          key={tool.id}
                           className={`tool-item ${isPomodoroActive ? 'pomodoro-active' : ''}`}
                           onClick={() => handleToolClick(tool)}
                           style={isPomodoroActive ? { color: activeColor as string } : {}}
                         >
-                          <span 
+                          <span
                             className={`material-symbols-outlined ${isPomodoroActive ? 'spin-animation' : ''}`}
                             style={isPomodoroActive ? { color: activeColor as string } : {}}
                           >
@@ -365,9 +387,9 @@ const InputArea: React.FC<InputAreaProps> = ({ inputRef, onOpenHelp, onOpenSuppo
                             )}
                           </span>
                         </button>
-                      );
+                      )
                     })}
-                  </motion.div>
+                  </m.div>
                 )}
               </AnimatePresence>
             </div>
@@ -384,52 +406,66 @@ const InputArea: React.FC<InputAreaProps> = ({ inputRef, onOpenHelp, onOpenSuppo
               id="chat-message-input"
               name="message"
             />
-            <button 
-              className={`input-action-btn ${isListening ? 'listening' : ''}`} 
+            <button
+              className={`input-action-btn ${isListening ? 'listening' : ''}`}
               onClick={toggleListening}
-              title={isListening ? t('chat.input.stop_listening') : `${t('chat.input.use_mic')} (${cmdKey} + ${shiftKey} + .)`}
+              title={
+                isListening
+                  ? t('chat.input.stop_listening')
+                  : `${t('chat.input.use_mic')} (${cmdKey} + ${shiftKey} + .)`
+              }
               disabled={!recognition}
               aria-label={isListening ? t('chat.input.stop_mic') : t('chat.input.start_mic')}
             >
-              <span className="material-symbols-outlined">
-                {isListening ? 'mic_off' : 'mic'}
-              </span>
+              <span className="material-symbols-outlined">{isListening ? 'mic_off' : 'mic'}</span>
             </button>
             {isStreaming ? (
-              <button 
-                onClick={stopStreaming} 
-                className="send-button" 
+              <button
+                onClick={stopStreaming}
+                className="send-button"
                 title={t('chat.input.stop_streaming')}
                 aria-label={t('chat.input.stop_streaming')}
               >
                 <span className="material-symbols-outlined">stop_circle</span>
               </button>
-            ) : (input.trim() || selectedFiles.length > 0) && (
-              <button 
-                onClick={handleSendClick} 
-                className="send-button" 
-                title={`${t('chat.input.send_message')} (Enter)`}
-                aria-label={t('chat.input.send_message')}
-              >
-                <span className="material-symbols-outlined">send</span>
-              </button>
+            ) : (
+              (input.trim() || selectedFiles.length > 0) && (
+                <button
+                  onClick={handleSendClick}
+                  className="send-button"
+                  title={`${t('chat.input.send_message')} (Enter)`}
+                  aria-label={t('chat.input.send_message')}
+                >
+                  <span className="material-symbols-outlined">send</span>
+                </button>
+              )
             )}
           </div>
         </div>
       </div>
       <p className="disclaimer" role="note">
-        <span className="material-symbols-outlined" style={{ fontSize: '14px', verticalAlign: 'middle', marginRight: '4px' }} aria-hidden="true">warning</span>
+        <span
+          className="material-symbols-outlined"
+          style={{ fontSize: '14px', verticalAlign: 'middle', marginRight: '4px' }}
+          aria-hidden="true"
+        >
+          warning
+        </span>
         {t('chat.input.disclaimer')}
       </p>
       <p className="license-notice" role="contentinfo">
-        <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer" aria-label="Licença Creative Commons BY-SA 4.0">
+        <a
+          href="https://creativecommons.org/licenses/by-sa/4.0/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Licença Creative Commons BY-SA 4.0"
+        >
           Licenciado sob CC BY-SA 4.0
         </a>
       </p>
-      <AnimatePresence>
-      </AnimatePresence>
+      <AnimatePresence></AnimatePresence>
     </footer>
-  );
-};
+  )
+}
 
-export default InputArea;
+export default InputArea

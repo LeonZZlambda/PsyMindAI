@@ -85,12 +85,10 @@ export default defineConfig({
           visualizer({ filename: 'dist/stats.html', template: 'treemap', gzipSize: true }),
       ].filter(Boolean),
       output: {
+        // Preload critical chunks for better FCP/LCP
+        experimentalMinChunkSize: 1000,
         manualChunks(id) {
-          // Google GenAI SDK — large, only needed when chat is active
-          if (id.includes('node_modules/@google/genai/')) {
-            return 'genai-vendor'
-          }
-          // React core — combine react and react-dom to avoid circular dependencies
+          // Core React ecosystem — largest chunk, loaded first
           if (
             id.includes('node_modules/react/') ||
             id.includes('node_modules/react-dom/') ||
@@ -99,13 +97,13 @@ export default defineConfig({
             id.includes('node_modules/react-error-boundary/') ||
             id.includes('node_modules/scheduler/')
           ) {
-            return 'react-vendor'
+            return 'core-vendor'
           }
-          // Framer motion — heavy, isolated so it tree-shakes independently
+          // Framer Motion — animation library, tree-shaken with LazyMotion
           if (id.includes('node_modules/framer-motion/')) {
-            return 'framer-motion'
+            return 'motion-vendor'
           }
-          // i18n core runtime (small, without JSON resources)
+          // i18n core runtime — small, loaded early for translations
           if (
             id.includes('node_modules/i18next/') ||
             id.includes('node_modules/react-i18next/') ||
@@ -113,6 +111,10 @@ export default defineConfig({
             id.includes('node_modules/i18next-resources-to-backend/')
           ) {
             return 'i18n-vendor'
+          }
+          // Google GenAI SDK — large, only needed when chat is active
+          if (id.includes('node_modules/@google/genai/')) {
+            return 'genai-vendor'
           }
           // Markdown + syntax highlighting — only loaded in chat/modals
           if (
@@ -140,5 +142,8 @@ export default defineConfig({
       },
     },
     chunkSizeWarningLimit: 400,
+    // Enhanced CSS optimization for LCP
+    cssCodeSplit: true,
+    cssMinify: true,
   },
 })

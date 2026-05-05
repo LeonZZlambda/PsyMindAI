@@ -4,16 +4,22 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/psymind.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="PsyMind.AI: Solução educativa de apoio emocional para estudantes. Compreenda suas emoções com ajuda da IA." />
+    <meta
+      name="description"
+      content="PsyMind.AI: Solução educativa de apoio emocional para estudantes. Compreenda suas emoções com ajuda da IA."
+    />
     <meta name="theme-color" content="#f0f4f9" />
-    
+
     <!-- Content Security Policy for XSS protection and violation reporting -->
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests; default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://generativelanguage.googleapis.com https://fonts.googleapis.com https://fonts.gstatic.com; require-trusted-types-for 'script'; trusted-types default goog#html vue dompurify 'allow-duplicates';">
-    
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="upgrade-insecure-requests; default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://generativelanguage.googleapis.com https://fonts.googleapis.com https://fonts.gstatic.com; require-trusted-types-for 'script'; trusted-types default goog#html vue dompurify 'allow-duplicates';"
+    />
+
     <!-- Performance: Preconnect to Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
-    
+
     <!-- Small external script to prevent theme flash (FOUC) -->
     <script src="/theme-init.js"></script>
     <!-- Safe service worker registration (handles failures and secure-context checks) -->
@@ -26,100 +32,470 @@
       crossorigin="anonymous"
     />
 
+    <!-- Critical CSS for first paint - LCP optimization -->
+    <style>
+      /* Critical CSS - Only styles needed for first paint */
+      :root {
+        /* Primary: Teal 700 - Focus, Calm, Growth */
+        --primary-color: #00796b;
+        /* Primary Hover: Teal 800 */
+        --primary-hover: #00695c;
+
+        /* Text: High Contrast */
+        --text-color: #202124; /* Google Grey 900 */
+        --text-light: #5f6368; /* Google Grey 700 */
+
+        /* Backgrounds */
+        --background-color: #ffffff;
+        --card-background: #ffffff; /* Clean cards */
+
+        /* Borders & Shadows */
+        --border-color: #dadce0; /* Google Grey 300 */
+        --shadow-color: rgba(60, 64, 67, 0.3); /* Material Shadow */
+        --hover-color: rgba(0, 0, 0, 0.05);
+
+        /* Fonts */
+        --font-family-primary:
+          'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        --font-family-secondary:
+          'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      }
+
+      /* Critical base styles */
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: var(--font-family-secondary);
+        font-size: 16px;
+        line-height: 1.5;
+        color: var(--text-color);
+        background: var(--background-color);
+      }
+
+      /* Critical landing page styles */
+      .landing-page {
+        width: 100%;
+        min-height: 100vh;
+        background: var(--background-color);
+        display: flex;
+        flex-direction: column;
+        color: var(--text-color);
+        position: relative;
+        font-family: var(--font-family-secondary);
+      }
+
+      /* Critical header styles */
+      .landing-nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1.5rem 4rem;
+        width: 100%;
+        box-sizing: border-box;
+        z-index: 10;
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        position: sticky;
+        top: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .landing-nav-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        max-width: 1400px;
+      }
+
+      .landing-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: var(--text-color);
+        font-family: var(--font-family-primary);
+      }
+
+      .landing-nav-links {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+
+      .header-btn {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        border: none;
+        background: transparent;
+        color: var(--text-color);
+        cursor: pointer;
+        transition: background-color 0.2s cubic-bezier(0.2, 0, 0, 1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .header-btn:hover {
+        background-color: var(--hover-color);
+      }
+
+      .user-profile {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: var(--text-color);
+        border: none;
+        background: transparent;
+        padding: 0;
+      }
+
+      .user-profile:hover {
+        background: var(--hover-color);
+      }
+
+      /* Critical hero styles - LCP Element Priority */
+      .landing-hero {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 4rem 4rem;
+        min-height: 80vh;
+        gap: 4rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-content {
+        flex: 1;
+        max-width: 600px;
+      }
+
+      .hero-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        line-height: 1.1;
+        margin-bottom: 1.5rem;
+        color: var(--text-color);
+        font-family: var(--font-family-primary);
+      }
+
+      .gradient-text {
+        background: linear-gradient(135deg, #00796b, #1976d2, #512da8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .hero-subtitle {
+        font-size: 1.25rem;
+        color: var(--text-light);
+        line-height: 1.6;
+        margin-bottom: 2.5rem;
+        max-width: 500px;
+        font-family: var(--font-family-secondary);
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+
+      .cta-btn {
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 0.75rem;
+        font-size: 1.125rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        font-family: var(--font-family-secondary);
+      }
+
+      .cta-btn:hover {
+        background: var(--primary-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(0, 121, 107, 0.3);
+      }
+
+      .secondary-btn {
+        background: transparent;
+        color: var(--text-color);
+        border: 2px solid var(--border-color);
+        padding: 1rem 2rem;
+        border-radius: 0.75rem;
+        font-size: 1.125rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        font-family: var(--font-family-secondary);
+      }
+
+      .secondary-btn:hover {
+        background: var(--hover-color);
+        border-color: var(--primary-color);
+      }
+
+      /* Critical hero visual styles - LCP Element */
+      .hero-visual {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 500px;
+      }
+
+      .visual-card {
+        background: var(--card-background);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        box-shadow: 0 20px 40px var(--shadow-color);
+        border: 1px solid var(--border-color);
+        width: 100%;
+        max-width: 400px;
+      }
+
+      .card-header {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 1rem;
+      }
+
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+      }
+
+      .dot.red {
+        background: #ff5f57;
+      }
+      .dot.yellow {
+        background: #febc2e;
+      }
+      .dot.green {
+        background: #28c840;
+      }
+
+      .card-content {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .chat-bubble {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+
+      .chat-bubble.ai .icon {
+        color: var(--primary-color);
+        background: rgba(232, 240, 254, 0.8);
+        padding: 8px;
+        border-radius: 50%;
+        font-size: 20px;
+      }
+
+      .chat-bubble .text {
+        flex: 1;
+        background: rgba(241, 243, 244, 0.8);
+        padding: 1rem;
+        border-radius: 16px;
+        border-top-left-radius: 4px;
+      }
+
+      .chat-bubble.user {
+        flex-direction: row-reverse;
+      }
+
+      .chat-bubble.user .text {
+        background: rgba(232, 240, 254, 0.8);
+        border-radius: 16px;
+        border-top-right-radius: 4px;
+      }
+
+      .line {
+        height: 8px;
+        background: rgba(218, 220, 224, 0.8);
+        border-radius: 4px;
+        margin-bottom: 6px;
+      }
+
+      .line.w-75 {
+        width: 75%;
+      }
+      .line.w-50 {
+        width: 50%;
+      }
+      .line.w-60 {
+        width: 60%;
+      }
+
+      /* Critical final CTA styles */
+      .final-cta {
+        padding: 4rem 4rem;
+        text-align: center;
+      }
+
+      .final-cta h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        color: var(--text-color);
+        font-family: var(--font-family-primary);
+      }
+
+      /* Loading placeholders */
+      .loading-sections {
+        min-height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-light);
+      }
+
+      .psybot-placeholder {
+        width: 200px;
+        height: 200px;
+      }
+
+      .footer-placeholder {
+        height: 100px;
+      }
+
+      /* Material Symbols Outlined font for icons */
+      .material-symbols-outlined {
+        font-family: 'Material Symbols Outlined';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 24px;
+        line-height: 1;
+        letter-spacing: normal;
+        text-transform: none;
+        display: inline-block;
+        white-space: nowrap;
+        word-wrap: normal;
+        direction: ltr;
+      }
+
+      /* Critical typography */
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: var(--font-family-primary);
+        margin: 0;
+        line-height: 1.2;
+      }
+
+      p {
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      /* Critical responsive design */
+      @media (max-width: 768px) {
+        .landing-hero {
+          flex-direction: column;
+          padding: 2rem 1rem;
+          min-height: auto;
+          gap: 2rem;
+        }
+
+        .hero-title {
+          font-size: 2.5rem;
+        }
+
+        .hero-actions {
+          flex-direction: column;
+          width: 100%;
+        }
+
+        .cta-btn,
+        .secondary-btn {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .landing-nav {
+          padding: 1rem;
+        }
+      }
+    </style>
+
+    <!-- Preload critical resources for LCP optimization -->
+    <link rel="preload" href="/src/core-vendor-IZ--yGvI.js" as="script" crossorigin />
+    <link rel="preload" href="/src/i18n-vendor-D7Yliq8f.js" as="script" crossorigin />
+    <link rel="modulepreload" href="/src/core-vendor-IZ--yGvI.js" />
+    <link rel="modulepreload" href="/src/i18n-vendor-D7Yliq8f.js" />
+
+    <!-- Preload critical CSS -->
+    <link
+      rel="preload"
+      href="/src/styles/landing.css"
+      as="style"
+      onload="
+        this.onload = null
+        this.rel = 'stylesheet'
+      "
+    />
+    <link
+      rel="preload"
+      href="/src/styles/header.css"
+      as="style"
+      onload="
+        this.onload = null
+        this.rel = 'stylesheet'
+      "
+    />
+    <noscript
+      ><link rel="stylesheet" href="/src/styles/landing.css" /><link
+        rel="stylesheet"
+        href="/src/styles/header.css"
+    /></noscript>
+
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="PsyMind.AI - Apoio Emocional Educativo" />
-    <meta property="og:description" content="Inteligência Artificial para apoio emocional e educativo de estudantes." />
-    <meta property="og:image" content="https://psymind.ai/psymind.svg" />
-
-    <!-- Twitter Cards -->
+    <meta property="og:title" content="PsyMind.AI - Assistente de Saúde Mental" />
+    <meta
+      property="og:description"
+      content="Solução educativa de apoio emocional para estudantes. Compreenda suas emoções com ajuda da IA."
+    />
+    <meta property="og:image" content="/psymind-og.png" />
+    <meta property="og:url" content="https://psymind.ai" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="PsyMind.AI - Apoio Emocional Educativo" />
-    <meta name="twitter:description" content="Inteligência Artificial para apoio emocional e educativo de estudantes." />
-    <meta name="twitter:image" content="https://psymind.ai/psymind.svg" />
-
-    <!-- SEO: Canonical URL & Structured Data Consolidado -->
-    <link rel="canonical" href="https://psymind.ai/" />
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "Organization",
-          "@id": "https://psymind.ai/#organization",
-          "name": "PsyMind.AI",
-          "url": "https://psymind.ai/",
-          "logo": {
-            "@type": "ImageObject",
-            "url": "https://psymind.ai/psymind.svg"
-          },
-          "description": "IA especializada em apoio emocional e organização de estudos para estudantes.",
-          "sameAs": [
-            "https://www.instagram.com/psymind.ai",
-            "https://github.com/LeonZZlambda/PsyMindAI"
-          ]
-        },
-        {
-          "@type": "WebSite",
-          "@id": "https://psymind.ai/#website",
-          "url": "https://psymind.ai/",
-          "name": "PsyMind.AI",
-          "description": "IA especializada em apoio emocional e organização de estudos para estudantes.",
-          "publisher": { "@id": "https://psymind.ai/#organization" },
-          "potentialAction": {
-            "@type": "SearchAction",
-            "target": {
-              "@type": "EntryPoint",
-              "urlTemplate": "https://psymind.ai/search?q={search_term_string}"
-            },
-            "query-input": "required name=search_term_string"
-          }
-        },
-        {
-          "@type": "FAQPage",
-          "@id": "https://psymind.ai/#faq",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "O PsyMind.AI substitui um psicólogo?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Não. O PsyMind.AI é uma ferramenta educativa de apoio emocional e organização de estudos. Ele não oferece diagnósticos clínicos nem substitui o acompanhamento de profissionais de saúde mental."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Como a IA ajuda na minha rotina de estudos?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Nossa IA utiliza técnicas canônicas como Active Recall e Spaced Repetition para otimizar seu aprendizado, além de ajudar a identificar sinais de burnout e sugerir pausas estratégicas."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Meus dados e conversas são privados?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Sim. Priorizamos a privacidade. Você pode utilizar o chat de forma anônima e possui controle total sobre o histórico de conversas e dados de telemetria."
-              }
-            }
-          ]
-        },
-        {
-          "@type": "BreadcrumbList",
-          "@id": "https://psymind.ai/#breadcrumb",
-          "itemListElement": [{
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://psymind.ai/"
-          }]
-        }
-      ]
-    }
-    </script>
-
-    <title>PsyMind.AI - Apoio Emocional</title>
+    <meta name="twitter:title" content="PsyMind.AI - Assistente de Saúde Mental" />
+    <meta
+      name="twitter:description"
+      content="Solução educativa de apoio emocional para estudantes. Compreenda suas emoções com ajuda da IA."
+    />
+    <meta name="twitter:image" content="/psymind-twitter.png" />
   </head>
   <body>
     <div id="root"></div>

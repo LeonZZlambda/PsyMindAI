@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import '../styles/account.css'
@@ -90,7 +90,7 @@ const AccountModal: React.FC<AccountModalProps> = ({
 
   /* --- Load / reset -------------------------------------------------------- */
   useEffect(() => {
-    let timer: NodeJS.Timeout | undefined;
+    let timer: NodeJS.Timeout | undefined
     if (!isOpen) {
       // Reset view after closing animation
       timer = setTimeout(() => setActiveView(initialView), 300)
@@ -143,7 +143,7 @@ const AccountModal: React.FC<AccountModalProps> = ({
   }
 
   const updateDraft = <K extends keyof ProfileSettings>(key: K, value: ProfileSettings[K]) => {
-    setDraft(prev => ({ ...prev, [key]: value }))
+    setDraft((prev) => ({ ...prev, [key]: value }))
   }
 
   const handleOpenStats = () => {
@@ -154,11 +154,27 @@ const AccountModal: React.FC<AccountModalProps> = ({
   /* --- Response mode config ----------------------------------------------- */
   type ModeConfig = { key: ResponseMode; icon: string; label: string }
   const RESPONSE_MODES: ModeConfig[] = [
-    { key: 'default',    icon: 'auto_fix_normal', label: t('account.personalization.profile.modes.default.title') },
-    { key: 'reflective', icon: 'psychology',      label: t('account.personalization.profile.modes.reflective.title') },
-    { key: 'action',     icon: 'bolt',            label: t('account.personalization.profile.modes.action.title') },
-    { key: 'learning',   icon: 'school',          label: t('account.personalization.profile.modes.learning.title') },
-    { key: 'support',    icon: 'favorite',        label: t('account.personalization.profile.modes.support.title') },
+    {
+      key: 'default',
+      icon: 'auto_fix_normal',
+      label: t('account.personalization.profile.modes.default.title'),
+    },
+    {
+      key: 'reflective',
+      icon: 'psychology',
+      label: t('account.personalization.profile.modes.reflective.title'),
+    },
+    { key: 'action', icon: 'bolt', label: t('account.personalization.profile.modes.action.title') },
+    {
+      key: 'learning',
+      icon: 'school',
+      label: t('account.personalization.profile.modes.learning.title'),
+    },
+    {
+      key: 'support',
+      icon: 'favorite',
+      label: t('account.personalization.profile.modes.support.title'),
+    },
   ]
 
   const TRAIT_LEVELS = [
@@ -168,10 +184,10 @@ const AccountModal: React.FC<AccountModalProps> = ({
   ] as [string, string, string]
 
   const TRAITS: { key: keyof ProfileSettings; label: string }[] = [
-    { key: 'welcoming',    label: t('account.personalization.traits.welcoming') },
+    { key: 'welcoming', label: t('account.personalization.traits.welcoming') },
     { key: 'enthusiastic', label: t('account.personalization.traits.enthusiastic') },
-    { key: 'formatting',   label: t('account.personalization.traits.formatting') },
-    { key: 'emojis',       label: t('account.personalization.traits.emojis') },
+    { key: 'formatting', label: t('account.personalization.traits.formatting') },
+    { key: 'emojis', label: t('account.personalization.traits.emojis') },
   ]
 
   /* ========================================================================= */
@@ -180,7 +196,7 @@ const AccountModal: React.FC<AccountModalProps> = ({
   return (
     <AnimatePresence mode="wait">
       {isOpen && (
-        <motion.div
+        <m.div
           key="account-modal-overlay"
           className="modal-overlay account-modal-overlay"
           onClick={handleOverlayClick}
@@ -192,21 +208,20 @@ const AccountModal: React.FC<AccountModalProps> = ({
           aria-modal="true"
           aria-label={t('account.close')}
         >
-          <motion.div
+          <m.div
             className="account-modal-content"
-            onClick={e => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
             initial={{ opacity: 0, y: -8, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.97 }}
             transition={{ duration: 0.2, ease: [0.2, 0, 0, 1] }}
           >
             <AnimatePresence mode="wait">
-
               {/* ============================================================ */}
               {/* ACCOUNT VIEW                                                   */}
               {/* ============================================================ */}
               {activeView === 'account' && (
-                <motion.div
+                <m.div
                   key="account-view"
                   initial={{ opacity: 0, x: -16 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -246,14 +261,12 @@ const AccountModal: React.FC<AccountModalProps> = ({
 
                   {/* ---- Menu List ------------------------------------------ */}
                   <nav className="account-menu-list" aria-label="Menu da conta">
-                    <button
-                      className="account-menu-item"
-                      onClick={handleOpenStats}
-                      type="button"
-                    >
+                    <button className="account-menu-item" onClick={handleOpenStats} type="button">
                       <span className="material-symbols-outlined account-menu-icon">analytics</span>
                       <span className="account-menu-label">{t('account.menu.stats')}</span>
-                      <span className="material-symbols-outlined account-menu-chevron">chevron_right</span>
+                      <span className="material-symbols-outlined account-menu-chevron">
+                        chevron_right
+                      </span>
                     </button>
                     <button
                       className="account-menu-item"
@@ -261,8 +274,12 @@ const AccountModal: React.FC<AccountModalProps> = ({
                       type="button"
                     >
                       <span className="material-symbols-outlined account-menu-icon">tune</span>
-                      <span className="account-menu-label">{t('account.personalization.title')}</span>
-                      <span className="material-symbols-outlined account-menu-chevron">chevron_right</span>
+                      <span className="account-menu-label">
+                        {t('account.personalization.title')}
+                      </span>
+                      <span className="material-symbols-outlined account-menu-chevron">
+                        chevron_right
+                      </span>
                     </button>
                   </nav>
 
@@ -273,7 +290,9 @@ const AccountModal: React.FC<AccountModalProps> = ({
                     <button className="account-footer-btn" onClick={onClose} type="button">
                       {t('account.menu.add_account')}
                     </button>
-                    <span className="account-footer-dot" aria-hidden="true">·</span>
+                    <span className="account-footer-dot" aria-hidden="true">
+                      ·
+                    </span>
                     <button className="account-footer-btn" onClick={onClose} type="button">
                       {t('account.menu.logout')}
                     </button>
@@ -281,29 +300,37 @@ const AccountModal: React.FC<AccountModalProps> = ({
                     <div className="account-footer-links">
                       <button
                         className="account-footer-link"
-                        onClick={() => { onClose(); navigate('/privacy') }}
+                        onClick={() => {
+                          onClose()
+                          navigate('/privacy')
+                        }}
                         type="button"
                       >
                         {t('account.links.privacy')}
                       </button>
-                      <span className="account-footer-dot" aria-hidden="true">·</span>
+                      <span className="account-footer-dot" aria-hidden="true">
+                        ·
+                      </span>
                       <button
                         className="account-footer-link"
-                        onClick={() => { onClose(); navigate('/terms') }}
+                        onClick={() => {
+                          onClose()
+                          navigate('/terms')
+                        }}
                         type="button"
                       >
                         {t('account.links.terms')}
                       </button>
                     </div>
                   </div>
-                </motion.div>
+                </m.div>
               )}
 
               {/* ============================================================ */}
               {/* PERSONALIZATION VIEW                                           */}
               {/* ============================================================ */}
               {activeView === 'personalization' && (
-                <motion.div
+                <m.div
                   key="personalization-view"
                   initial={{ opacity: 0, x: 16 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -328,13 +355,16 @@ const AccountModal: React.FC<AccountModalProps> = ({
 
                   {/* Body */}
                   <div className="account-pref-body">
-
                     {/* ---- Response Profile --------------------------------- */}
                     <p className="account-pref-section-title">
                       {t('account.personalization.profile.title')}
                     </p>
-                    <div className="account-mode-grid" role="radiogroup" aria-label={t('account.personalization.profile.title')}>
-                      {RESPONSE_MODES.map(mode => (
+                    <div
+                      className="account-mode-grid"
+                      role="radiogroup"
+                      aria-label={t('account.personalization.profile.title')}
+                    >
+                      {RESPONSE_MODES.map((mode) => (
                         <button
                           key={mode.key}
                           className={`account-mode-chip${draft.responseMode === mode.key ? ' active' : ''}`}
@@ -359,11 +389,26 @@ const AccountModal: React.FC<AccountModalProps> = ({
                       ariaLabel={t('account.personalization.fine_tuning.style.label')}
                       className="account-style-select"
                       options={[
-                        { value: 'default', label: t('account.personalization.fine_tuning.style.options.default') },
-                        { value: 'concise', label: t('account.personalization.fine_tuning.style.options.concise') },
-                        { value: 'detailed', label: t('account.personalization.fine_tuning.style.options.detailed') },
-                        { value: 'casual', label: t('account.personalization.fine_tuning.style.options.casual') },
-                        { value: 'formal', label: t('account.personalization.fine_tuning.style.options.formal') },
+                        {
+                          value: 'default',
+                          label: t('account.personalization.fine_tuning.style.options.default'),
+                        },
+                        {
+                          value: 'concise',
+                          label: t('account.personalization.fine_tuning.style.options.concise'),
+                        },
+                        {
+                          value: 'detailed',
+                          label: t('account.personalization.fine_tuning.style.options.detailed'),
+                        },
+                        {
+                          value: 'casual',
+                          label: t('account.personalization.fine_tuning.style.options.casual'),
+                        },
+                        {
+                          value: 'formal',
+                          label: t('account.personalization.fine_tuning.style.options.formal'),
+                        },
                       ]}
                     />
 
@@ -371,12 +416,12 @@ const AccountModal: React.FC<AccountModalProps> = ({
                     <p className="account-pref-section-title">
                       {t('account.personalization.traits.title')}
                     </p>
-                    {TRAITS.map(trait => (
+                    {TRAITS.map((trait) => (
                       <div key={trait.key} className="account-trait-row">
                         <span className="account-trait-label">{trait.label}</span>
                         <SegmentedControl
                           value={draft[trait.key] as TraitLevel}
-                          onChange={val => updateDraft(trait.key, val)}
+                          onChange={(val) => updateDraft(trait.key, val)}
                           labels={TRAIT_LEVELS}
                         />
                       </div>
@@ -408,7 +453,7 @@ const AccountModal: React.FC<AccountModalProps> = ({
                     <textarea
                       className="account-textarea"
                       value={draft.customInstructions}
-                      onChange={e => updateDraft('customInstructions', e.target.value)}
+                      onChange={(e) => updateDraft('customInstructions', e.target.value)}
                       placeholder={t('account.personalization.custom_instructions.placeholder')}
                       rows={4}
                       aria-label={t('account.personalization.custom_instructions.title')}
@@ -424,12 +469,11 @@ const AccountModal: React.FC<AccountModalProps> = ({
                       {t('account.personalization.actions.save')}
                     </button>
                   </div>
-                </motion.div>
+                </m.div>
               )}
-
             </AnimatePresence>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   )

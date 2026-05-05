@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 
 const ScrollToTopButton: React.FC = () => {
@@ -51,7 +51,7 @@ const ScrollToTopButton: React.FC = () => {
   return (
     <AnimatePresence>
       {showScrollTop && (
-        <motion.button
+        <m.button
           className="scroll-top-btn"
           onClick={scrollToTop}
           initial={{ opacity: 0, scale: 0.5, y: 20 }}
@@ -63,7 +63,7 @@ const ScrollToTopButton: React.FC = () => {
           style={{ pointerEvents: 'auto', zIndex: 99 }}
         >
           <span className="material-symbols-outlined">arrow_upward</span>
-        </motion.button>
+        </m.button>
       )}
     </AnimatePresence>
   )

@@ -64,9 +64,15 @@
   border-radius: 50%;
 }
 
-.dot.red { background: #ff5f57; }
-.dot.yellow { background: #febc2e; }
-.dot.green { background: #28c840; }
+.dot.red {
+  background: #ff5f57;
+}
+.dot.yellow {
+  background: #febc2e;
+}
+.dot.green {
+  background: #28c840;
+}
 
 .card-content {
   display: flex;
@@ -121,9 +127,86 @@
   background: rgba(174, 203, 250, 0.8);
 }
 
-.w-75 { width: 75%; }
-.w-50 { width: 50%; }
-.w-60 { width: 60%; }
-.w-80 { width: 80%; }
-.w-40 { width: 40%; }
+.w-75 {
+  width: 75%;
+}
+.w-50 {
+  width: 50%;
+}
+.w-60 {
+  width: 60%;
+}
+.w-80 {
+  width: 80%;
+}
+.w-40 {
+  width: 40%;
+}
 
+/* Header button styles for landing page */
+.header-btn {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background-color 0.2s cubic-bezier(0.2, 0, 0, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-btn:hover {
+  background-color: var(--hover-color);
+}
+
+.header-btn:active {
+  background-color: var(--hover-color);
+}
+
+.user-profile {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-color);
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+.user-profile:hover {
+  background: var(--hover-color);
+}
+
+/* Dark theme styles for landing header */
+.landing-nav.dark {
+  background: rgba(32, 33, 36, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.landing-nav.dark .landing-logo {
+  color: var(--text-color);
+}
+
+.landing-nav.dark .nav-link {
+  color: #e8eaed;
+}
+
+.landing-nav.dark .nav-link:hover {
+  color: #ffffff;
+}
+
+.landing-nav.dark .header-btn {
+  color: var(--text-color);
+}
+
+.landing-nav.dark .user-profile {
+  color: var(--text-color);
+}

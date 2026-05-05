@@ -1,6 +1,8 @@
-import React from 'react'
-import MessageList from '../components/MessageList'
-import InputArea from '../components/InputArea'
+import React, { lazy, Suspense } from 'react'
+import { SkeletonChatPage } from '../components/SkeletonScreen'
+
+const MessageList = lazy(() => import('../components/MessageList'))
+const InputArea = lazy(() => import('../components/InputArea'))
 
 interface ChatPageProps {
   inputRef?: React.RefObject<HTMLInputElement | HTMLTextAreaElement | null>
@@ -12,12 +14,20 @@ interface ChatPageProps {
   onOpenGuidedLearning?: () => void
 }
 
-const ChatPage: React.FC<ChatPageProps> = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections, onOpenMoodTracker, onOpenEmotionalJournal, onOpenGuidedLearning }) => {
+const ChatPage: React.FC<ChatPageProps> = ({
+  inputRef,
+  onOpenHelp,
+  onOpenSupport,
+  onOpenReflections,
+  onOpenMoodTracker,
+  onOpenEmotionalJournal,
+  onOpenGuidedLearning,
+}) => {
   return (
-    <>
+    <Suspense fallback={<SkeletonChatPage />}>
       <MessageList />
-      <InputArea 
-        inputRef={inputRef} 
+      <InputArea
+        inputRef={inputRef}
         onOpenHelp={onOpenHelp}
         onOpenSupport={onOpenSupport}
         onOpenReflections={onOpenReflections}
@@ -25,7 +35,7 @@ const ChatPage: React.FC<ChatPageProps> = ({ inputRef, onOpenHelp, onOpenSupport
         onOpenEmotionalJournal={onOpenEmotionalJournal}
         onOpenGuidedLearning={onOpenGuidedLearning}
       />
-    </>
+    </Suspense>
   )
 }
 
