@@ -12,7 +12,7 @@ const ScrollToTopButton: React.FC = () => {
 
   useEffect(() => {
     const scrollContainer = getScrollContainer()
-    
+
     const handleScroll = () => {
       if (scrollContainer && scrollContainer.scrollTop > 300) {
         setShowScrollTop(true)
