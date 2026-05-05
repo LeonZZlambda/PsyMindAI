@@ -138,10 +138,19 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     saveSetting('darkRoom', darkRoom);
     if (darkRoom) {
       document.documentElement.classList.add('dark-room-mode');
+      // Lazy load dark room CSS only when active
+      import('../styles/dark-room.css').catch(err => console.error('Failed to load dark-room styles', err));
     } else {
       document.documentElement.classList.remove('dark-room-mode');
     }
   }, [darkRoom]);
+
+  // Lazy load accessibility CSS only when specialized features are active
+  useEffect(() => {
+    if (highContrast || dyslexicFont || colorBlindMode !== 'none' || fontSize !== 'normal') {
+      import('../styles/accessibility.css').catch(err => console.error('Failed to load accessibility styles', err));
+    }
+  }, [highContrast, dyslexicFont, colorBlindMode, fontSize]);
 
   const isDarkMode = themeMode === 'system' ? systemIsDark : themeMode === 'dark';
   const toggleTheme = async (e?: React.MouseEvent<HTMLElement>): Promise<void> => {

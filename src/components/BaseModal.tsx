@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useModalAnimation, useEscapeKey } from '../hooks';
+import '../styles/modal-base.css';
 
 /**
  * BaseModal Component - Wrapper universal para todos os modals

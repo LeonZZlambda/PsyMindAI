@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import { useTheme } from '../context/ThemeContext'
 import { useSound } from '../context/SoundContext'
 import { useModal } from '../context/ModalContext'
-import { motion, AnimatePresence } from 'framer-motion'
 
 interface HeaderProps {
   isSidebarOpen: boolean;
@@ -71,19 +70,15 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, toggleSidebar, isLoading
           <span className="material-symbols-outlined">account_circle</span>
         </button>
       </div>
-      <AnimatePresence>
-        {isLoading && (
-          <motion.div 
-            className="header-loader-bar"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-          />
-        )}
-      </AnimatePresence>
+      {/* CSS-animated loader bar — no framer-motion dependency */}
+      <div 
+        className="header-loader-bar"
+        style={{ opacity: isLoading ? 1 : 0 }}
+        aria-hidden="true"
+      />
     </header>
   )
 }
 
 export default Header
+

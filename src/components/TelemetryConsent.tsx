@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import { Telemetry } from '../services/analytics/telemetry';
 import { useNavigate } from 'react-router-dom';
+import '../styles/telemetry-consent.css';
 
 const TelemetryConsent: React.FC = () => {
   const { t } = useTranslation();

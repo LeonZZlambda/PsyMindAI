@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { useTheme } from '../context/ThemeContext'
 import AccountModal from './AccountModal'
+import '../styles/landing-header.css'
 
 const LandingHeader: React.FC = () => {
   const { t } = useTranslation(['landing', 'translation'])

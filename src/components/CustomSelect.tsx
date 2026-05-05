@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
+import '../styles/custom-select.css'
 
 type Option = { value: string; label: string }
 
@@ -43,7 +44,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({ value, options, onChange, a
 
       <AnimatePresence>
         {isOpen && (
-          <motion.div
+          <m.div
             className="custom-select-dropdown"
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
@@ -66,7 +67,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({ value, options, onChange, a
                 {option.label}
               </button>
             ))}
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

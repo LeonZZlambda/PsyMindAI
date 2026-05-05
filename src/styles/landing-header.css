@@ -1,0 +1,129 @@
+.landing-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem 4rem;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.landing-nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1400px;
+}
+
+.landing-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.landing-nav-links {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.nav-link {
+  background: transparent;
+  border: none;
+  color: #444746;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #1f1f1f;
+}
+
+.card-header {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 2rem;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.dot.red { background: #ff5f57; }
+.dot.yellow { background: #febc2e; }
+.dot.green { background: #28c840; }
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.chat-bubble {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.chat-bubble.user {
+  flex-direction: row-reverse;
+}
+
+.chat-bubble .icon {
+  color: #4285f4;
+  background: rgba(232, 240, 254, 0.8);
+  padding: 8px;
+  border-radius: 50%;
+  font-size: 20px;
+  backdrop-filter: blur(4px);
+}
+
+.chat-bubble .text {
+  flex: 1;
+  background: rgba(241, 243, 244, 0.8);
+  padding: 1rem;
+  border-radius: 16px;
+  border-top-left-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  backdrop-filter: blur(4px);
+}
+
+.chat-bubble.user .text {
+  background: rgba(232, 240, 254, 0.8);
+  border-radius: 16px;
+  border-top-right-radius: 4px;
+}
+
+.line {
+  height: 8px;
+  background: rgba(218, 220, 224, 0.8);
+  border-radius: 4px;
+}
+
+.chat-bubble.user .line {
+  background: rgba(174, 203, 250, 0.8);
+}
+
+.w-75 { width: 75%; }
+.w-50 { width: 50%; }
+.w-60 { width: 60%; }
+.w-80 { width: 80%; }
+.w-40 { width: 40%; }
+

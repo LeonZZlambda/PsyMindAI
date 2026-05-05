@@ -1,0 +1,170 @@
+/* Select Input - Google Material Style */
+.select-input {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 10px 40px 10px 16px;
+  border-radius: 18px;
+  border: 1px solid transparent;
+  background-color: var(--secondary-color);
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-color);
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22%23444746%22%3E%3Cpath%20d%3D%22M7%2010l5%205%205-5z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  transition: all 0.2s ease;
+  min-width: 180px;
+}
+
+.select-input:hover {
+  background-color: #e1e5ea;
+}
+
+.select-input:focus {
+  outline: none;
+  border-color: transparent;
+  background-color: #e1e5ea;
+  box-shadow: none;
+}
+
+.app.dark .select-input {
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22%23e3e3e3%22%3E%3Cpath%20d%3D%22M7%2010l5%205%205-5z%22%2F%3E%3C%2Fsvg%3E");
+}
+
+.app.dark .select-input:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.app.dark .select-input:focus {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.app.high-contrast .select-input {
+  background-color: var(--hc-bg);
+  color: var(--hc-text);
+  border: 2px solid var(--hc-border);
+  background-image: none; /* Remove custom arrow in HC mode to rely on native or add high contrast arrow if needed, but native is safer for HC */
+  appearance: auto; /* Revert to native for maximum accessibility in HC mode */
+  -webkit-appearance: auto;
+  padding: 8px;
+}
+
+/* Custom Select Dropdown */
+.custom-select-container {
+  position: relative;
+  min-width: 180px;
+}
+
+.custom-select-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background-color: var(--secondary-color);
+  border: 1px solid transparent;
+  border-radius: 18px;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.custom-select-trigger:hover {
+  background-color: #e1e5ea;
+}
+
+.custom-select-trigger.open {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  background-color: #e1e5ea;
+}
+
+.custom-select-trigger .dropdown-icon {
+  font-size: 1.2rem;
+  transition: transform 0.2s ease;
+}
+
+.custom-select-trigger.open .dropdown-icon {
+  transform: rotate(180deg);
+}
+
+.custom-select-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-select-option {
+  padding: 10px 16px;
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-color);
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.1s ease;
+}
+
+.custom-select-option:hover {
+  background-color: var(--secondary-color);
+}
+
+.custom-select-option.selected {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+.app.dark .custom-select-trigger {
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+}
+
+.app.dark .custom-select-trigger:hover,
+.app.dark .custom-select-trigger.open {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.app.dark .custom-select-dropdown {
+  background-color: var(--card-background);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.app.dark .custom-select-option:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.app.dark .custom-select-option.selected {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.app.high-contrast .custom-select-trigger {
+  background-color: var(--hc-bg);
+  color: var(--hc-text);
+  border: 2px solid var(--hc-border);
+}
+
+.app.high-contrast .custom-select-dropdown {
+  background-color: var(--hc-bg);
+  border: 2px solid var(--hc-border);
+}
+

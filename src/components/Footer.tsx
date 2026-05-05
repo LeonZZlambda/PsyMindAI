@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import '../styles/footer.css'
 
 const Footer: React.FC = () => {
   const navigate = useNavigate()

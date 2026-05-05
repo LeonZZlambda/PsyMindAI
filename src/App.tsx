@@ -9,12 +9,6 @@ import './styles/base.css'
 import './styles/animations.css'
 import './styles/layout.css'
 import './styles/components.css'
-import './styles/modal-base.css'
-import './styles/accessibility.css'
-import './styles/account.css'
-import './styles/dark-room.css'
-import Sidebar from './components/Sidebar'
-import Header from './components/Header'
 import { SkeletonLandingPage, SkeletonChatPage } from './components/SkeletonScreen'
 import ErrorFallback from './components/ErrorFallback'
 import TelemetryConsent from './components/TelemetryConsent'
@@ -36,6 +30,9 @@ const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'))
 const TermsOfUsePage = lazy(() => import('./pages/TermsOfUsePage'))
 const TransparencyPage = lazy(() => import('./pages/TransparencyPage'))
 const AnalyticsPage = lazy(() => import('./pages/AnalyticsPage'))
+// Shell components — lazy loaded because they're only used in the app routes (not landing)
+const Header = lazy(() => import('./components/Header'))
+const Sidebar = lazy(() => import('./components/Sidebar'))
 
 function App() {
   const {
