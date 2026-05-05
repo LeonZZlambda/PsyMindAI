@@ -15,7 +15,7 @@ const MotionLink = motion.create(Link)
 const LandingPage: React.FC = () => {
   const { isDarkMode } = useTheme()
   const landingPageRef = useRef<HTMLDivElement | null>(null)
-  const { t } = useTranslation()
+  const { t } = useTranslation(['landing', 'translation'])
 
   const techStack = [
     { name: 'TypeScript', icon: 'code', label: 'Strict Mode' },

@@ -1,0 +1,184 @@
+{
+  "landing": {
+    "hero": {
+      "title_main": "Mental balance",
+      "title_sub": "for your studies",
+      "subtitle": "PsyMind.AI is your companion for High School and College exams. Organize your routine, control anxiety and achieve your goals with AI support.",
+      "start_journey": "Try it Now",
+      "learn_more": "Learn more",
+      "view_github": "View on GitHub"
+    },
+    "about": {
+      "title": "About the Project",
+      "subtitle": "A commitment to mental health and academic success.",
+      "p1": "PsyMind.AI was born from the vision that cutting-edge technology should be an ally for students' emotional health. Combining advanced artificial intelligence with consolidated pedagogical practices, we offer a safe harbor for personal development.",
+      "mission": {
+        "title": "Mission",
+        "desc": "Empower students with self-knowledge and productivity tools."
+      },
+      "vision": {
+        "title": "Vision",
+        "desc": "To be the gold standard in AI-based educational emotional support."
+      }
+    },
+    "technical": {
+      "title": "Technical Decisions & Trade-offs",
+      "subtitle": "Architectural transparency and engineering rigor.",
+      "table": {
+        "decision": "Decision",
+        "advantage": "Advantage",
+        "disadvantage": "Disadvantage",
+        "mitigation": "Mitigation / Future"
+      },
+      "items": {
+        "client_side": {
+          "decision": "Client-side Architecture",
+          "advantage": "Maximum privacy and local performance.",
+          "disadvantage": "No native cross-device synchronization.",
+          "mitigation": "Study of P2P integration or Sync via Encrypted Cloud."
+        },
+        "gemini_api": {
+          "decision": "Gemini API Dependency",
+          "advantage": "Elite natural language processing without fixed costs.",
+          "disadvantage": "Network latency and external dependency.",
+          "mitigation": "Implementation of text streaming and robust retry logic."
+        },
+        "ts_strict": {
+          "decision": "TypeScript Strict Mode",
+          "advantage": "Compile-time bug elimination.",
+          "disadvantage": "More rigorous initial development.",
+          "mitigation": "Zero use of 'any' to ensure self-sustaining code."
+        },
+        "context_api": {
+          "decision": "React Context API",
+          "advantage": "Lightweight and direct state management.",
+          "disadvantage": "Risk of unnecessary re-renders at large scale.",
+          "mitigation": "Segmented contexts and strategic Memoization."
+        }
+      }
+    },
+    "accessibility": {
+      "title": "Accessibility & Inclusion",
+      "subtitle": "Technology for everyone, without exceptions.",
+      "contrast": {
+        "title": "High Contrast",
+        "desc": "Themes optimized for users with low vision or photosensitivity."
+      },
+      "keyboard": {
+        "title": "Keyboard Navigation",
+        "desc": "Clear visual focus and intuitive shortcuts for mouse-free navigation."
+      },
+      "screen_reader": {
+        "title": "Screen Readers",
+        "desc": "Rigorous HTML5 semantics and ARIA attributes for a fluid auditory experience."
+      }
+    },
+    "tech_stack": {
+      "title": "Tech Stack",
+      "subtitle": "Built with the best tools of the modern ecosystem."
+    },
+    "final_cta": {
+      "title": "Ready to evolve your journey?",
+      "button_chat": "Try it Now",
+      "button_docs": "Technical Documentation"
+    },
+    "modules": {
+      "title": "Modules & Features",
+      "subtitle": "An integrated platform for emotional support and study organization.",
+      "psybot": {
+        "title": "PsyBot Tutor",
+        "desc": "Interactive assistant that tracks your learning path with emotional feedback."
+      },
+      "vocational": {
+        "title": "Vocational Test",
+        "desc": "AI-based multidimensional analysis to guide your career choice."
+      },
+      "insights": {
+        "title": "Meta-insights",
+        "desc": "Visualize mood and productivity patterns for decisions based on personal data."
+      }
+    },
+    "features": {
+      "study_focus": {
+        "title": "Study Focus",
+        "description": "Organization tips and personalized schedules for national and college exams."
+      },
+      "anxiety_control": {
+        "title": "Anxiety Control",
+        "description": "Breathing and mindfulness techniques to stay calm before tests and essays."
+      },
+      "always_available": {
+        "title": "Available 24/7",
+        "description": "Ask questions, vent or ask for study tips at any time of day or night."
+      }
+    },
+    "gemini": {
+      "title": "Powered by Google Gemini",
+      "description": "PsyMind.AI uses <1>Google Gemini 1.5 Flash</1>, a next-generation AI model, to offer empathetic and scientifically grounded answers.",
+      "api": {
+        "title": "Gemini API",
+        "description": "Direct integration with the Google Gemini API for natural and contextualized conversations."
+      },
+      "notebooklm": {
+        "title": "NotebookLM",
+        "description": "Prompt engineering developed with NotebookLM, based on educational psychology studies."
+      },
+      "gems": {
+        "title": "Gemini Gems",
+        "description": "Personality and tone of voice optimized through Gems for teenage emotional support."
+      }
+    },
+    "education": {
+      "title": "Educational Focus",
+      "description": "PsyMind.AI isn't just a chat, it's a journey companion for <1>Middle and High School</1> students.",
+      "stress": {
+        "title": "Stress Management",
+        "description": "Support to deal with the pressure of exams, mock tests and career choices."
+      },
+      "mentoring": {
+        "title": "College Mentoring",
+        "description": "Strategic guidance for national and main college exams, keeping focus on results."
+      },
+      "self_knowledge": {
+        "title": "Self-knowledge",
+        "description": "Tools that help in discovering vocations and emotional maturation."
+      }
+    },
+    "license": {
+      "title": "Transparency and Open Source",
+      "description": "PsyMind.AI is an <1>Open Source</1> project, which means its technology is accessible and auditable by everyone.",
+      "transparency": {
+        "title": "Transparency",
+        "description": "You know exactly how your data is handled, ensuring greater security and trust."
+      },
+      "community": {
+        "title": "Community",
+        "description": "Developers, educators and students can collaborate to continuously evolve the platform."
+      },
+      "education_code": {
+        "title": "Education",
+        "description": "The source code serves as free study material for anyone who wants to learn programming and AI."
+      },
+      "terms": "Distributed under the <1>Creative Commons BY-SA 4.0</1> license, allowing sharing and adaptation with appropriate credit.",
+      "read_full": "Read full license"
+    },
+    "nav": {
+      "start": "Start"
+    }
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "q1": {
+      "question": "Does PsyMind.AI replace a psychologist?",
+      "answer": "No. PsyMind.AI is an educational tool for emotional support and study organization. It does not offer clinical diagnoses nor replace the monitoring of mental health professionals."
+    },
+    "q2": {
+      "question": "How does AI help my study routine?",
+      "answer": "Our AI uses canonical techniques such as Active Recall and Spaced Repetition to optimize your learning, in addition to helping identify signs of burnout and suggesting strategic breaks."
+    },
+    "q3": {
+      "question": "Is my data and conversation private?",
+      "answer": "Yes. We prioritize privacy. You can use the chat anonymously and have full control over your chat history and telemetry data."
+    }
+  }
+}

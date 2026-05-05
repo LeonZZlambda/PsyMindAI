@@ -17,7 +17,7 @@ interface Question {
 }
 
 const EmotionalJournalModal: React.FC<EmotionalJournalModalProps> = ({ isOpen, onClose }) => {
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation(['dashboard', 'translation']);
   const { entries, addEntry, deleteEntry } = useEmotionalJournal();
   const [activeTab, setActiveTab] = useState<'new' | 'history'>('new');
   const [responses, setResponses] = useState<Record<string, string>>({

@@ -13,7 +13,7 @@ interface MoodTrackerModalProps {
 }
 
 const MoodTrackerModal: React.FC<MoodTrackerModalProps> = ({ isOpen, onClose }) => {
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation(['dashboard', 'translation']);
   const { moodHistory, addMoodEntry, deleteMoodEntry } = useMood();
   const { darkRoom, reducedMotion } = useTheme();
   const [selectedMood, setSelectedMood] = useState<Mood | null>(null);

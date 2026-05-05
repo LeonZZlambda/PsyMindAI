@@ -54,7 +54,7 @@ const highlightCode = (sourceCode: string, language: string) => {
 };
 
 const JudgeModal: React.FC<JudgeModalProps> = ({ isOpen, onClose, config }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['tools', 'translation']);
   const { reducedMotion } = useTheme();
   const [loading, setLoading] = useState(true);
   const [evaluating, setEvaluating] = useState(false);

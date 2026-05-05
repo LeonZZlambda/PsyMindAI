@@ -18,7 +18,7 @@ type ExamsModalProps = {
 
 const ExamsModal: React.FC<ExamsModalProps> = ({ isOpen, onClose }) => {
   const { sendMessage } = useChat();
-  const { t } = useTranslation();
+  const { t } = useTranslation(['learning', 'translation']);
   const [selectedCategory, setSelectedCategory] = useState<ExamCategory | null>(null);
   const [selectedExam, setSelectedExam] = useState<ExamDefinition | null>(null);
   const [selectedSubject, setSelectedSubject] = useState<string | null>(null);

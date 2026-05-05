@@ -215,7 +215,7 @@ const VocationalTestModal: React.FC<{ isOpen: boolean; onClose: () => void }> = 
   isOpen,
   onClose,
 }) => {
-  const { t, i18n } = useTranslation()
+  const { t, i18n } = useTranslation(['learning', 'translation'])
   const { setInput } = useChat()
   const { reducedMotion } = useTheme()
 

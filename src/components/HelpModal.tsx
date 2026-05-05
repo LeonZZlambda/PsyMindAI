@@ -11,7 +11,7 @@ interface HelpModalProps {
 }
 
 const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose, initialTab = 'faq' }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['support', 'translation']);
   const [activeTab, setActiveTab] = useState(initialTab); // 'faq', 'shortcuts' or 'feedback'
   const [feedbackType, setFeedbackType] = useState('sugestao');
   const [feedbackText, setFeedbackText] = useState('');

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 const Footer: React.FC = () => {
   const navigate = useNavigate()
-  const { t } = useTranslation()
+  const { t } = useTranslation(['landing', 'translation'])
   const location = useLocation()
 
   const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, selector: string | null) => {

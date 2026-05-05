@@ -1,0 +1,256 @@
+{
+  "dashboard": {
+    "title": "Dashboard",
+    "intro": "Overview page showing key metrics and insights."
+  },
+  "study_stats": {
+    "title": "Study Dashboard",
+    "close": "Close",
+    "add_session": "Session",
+    "hide_form": "Hide entry",
+    "eyebrow": "Study telemetry",
+    "hero_title": "Your study rhythm",
+    "hero_description": "Track focus, weekly volume, and discipline distribution.",
+    "weekly_caption": "Last 7 days, with today highlighted",
+    "telemetry_off": "Telemetry disabled",
+    "telemetry_disabled": "Your in-app usage metrics are disabled in Settings. The dashboard still shows study entries, but journey indicators remain hidden.",
+    "form": {
+      "title": "Log Study (Today)",
+      "topic_placeholder": "Subject / Topic",
+      "duration_aria": "Session duration",
+      "durations": {
+        "15": "15 min",
+        "30": "30 min",
+        "45": "45 min",
+        "60": "1 hour",
+        "90": "1h 30m",
+        "120": "2 hours"
+      },
+      "save": "Save"
+    },
+    "metrics": {
+      "avg_focus": "Avg Focus",
+      "sessions": "App Sessions",
+      "session": "session",
+      "app_sessions": "app sessions",
+      "entries_logged_one": "{{count}} entry",
+      "entries_logged_other": "{{count}} entries",
+      "total_study_time": "Total Time",
+      "this_journey": "in this journey",
+      "transformation": "Transformation",
+      "active_days": "Active Days"
+    },
+    "charts": {
+      "weekly_title": "Weekly Rhythm",
+      "discipline_title": "Focus by Subject"
+    },
+    "ai_tip": {
+      "label": "AI Tip:",
+      "empty": "No recent topics studied. Resume your studies to build discipline and earn points!",
+      "good": "Your dedication to {{topic}} is great. Keep your {{score}} Transformation points up and try not to overload!",
+      "no_telemetry": "Your recent focus is being driven by {{topic}}. Turn app telemetry on to pair that progress with journey and retention indicators."
+    },
+    "empty": "You have no study logs yet. Start logging to get insights!",
+    "days": {
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sat": "Sat",
+      "sun": "Sun"
+    }
+  },
+  "analytics_page": {
+    "title": "Usage Dashboard",
+    "subtitle": "Track the global evolution of our community and your personal progress.",
+    "back_home": "Back to home",
+    "tabs": {
+      "global": "Global View",
+      "personal": "My Usage"
+    },
+    "mockup_warning": "⚠️ Mockup Warning: This is an illustrative demonstration. Since the app runs 100% on your device (no backend), these global data are simulated. In the future, they will represent the real community.",
+    "alerts": {
+      "api_key": "Set your Gemini API key in Settings (or chat) before continuing.",
+      "insufficient_data": "Not enough data to generate the analysis yet. Try using the journal or study tools more often.",
+      "connection_failed": "Could not reach the AI for meta-analysis.",
+      "telemetry_disabled": "Personal telemetry disabled. Analytics recording is off in Settings. Enable it to unlock interactive charts for tracking your learning journey."
+    },
+    "metrics": {
+      "active_users": "Active Users",
+      "total_sessions": "Total Sessions",
+      "avg_session": "Average Session",
+      "transformation_score": "Transformation Points",
+      "retention": "Weekly Retention",
+      "error_count": "Error Rate"
+    },
+    "charts": {
+      "top_features_community": "Top 5 Features (Community)",
+      "top_features_personal": "Top 5 Features Used"
+    },
+    "meta_analysis": {
+      "title": "Meta Mode: Pattern Analysis (AI)",
+      "description": "Let artificial intelligence passively review crossovers between your focus, moods, and sessions to give you active tips.",
+      "button": "Generate Self-Reflection",
+      "generating": "Analyzing data...",
+      "pattern_label": "🧠 Observed Pattern:",
+      "suggestion_label": "⚡ Suggestion:",
+      "generate_new": "Generate new reflection"
+    }
+  },
+  "emotional_journal": {
+    "title": "Emotional Repertoire",
+    "close_aria": "Close emotional repertoire",
+    "tabs": {
+      "new": "New Entry",
+      "history": "History"
+    },
+    "subtitle": "Expand your emotional vocabulary. The more you name what you feel, the easier it is to communicate and connect.",
+    "placeholder": "Write your answer...",
+    "save": "Save Entry",
+    "empty": "No record found. Start your emotional journal!",
+    "delete_aria": "Delete entry",
+    "questions": {
+      "excited": "What made you excited today?",
+      "irritated": "What irritated you?",
+      "frustrated": "Did something frustrate you?",
+      "proud": "When did you feel good about yourself?"
+    }
+  },
+  "reflections": {
+    "title": "Reflections",
+    "tabs": {
+      "daily": "Daily Reflection",
+      "explore": "Explore Themes",
+      "breathing": "Guided Breathing"
+    },
+    "close": "Close",
+    "daily_tab": {
+      "generating": "Generating inspiring quote...",
+      "new_button": "New AI Quote",
+      "ai_button": "AI Reflection",
+      "ai_reflecting": "Reflecting...",
+      "chat_button": "Reflect in Chat",
+      "error": "❌ Error connecting to AI. Try again."
+    },
+    "explore_tab": {
+      "title": "Choose a theme to reflect on",
+      "categories": {
+        "resilience": "Resilience",
+        "self_knowledge": "Self Knowledge",
+        "purpose": "Purpose",
+        "anxiety": "Anxiety",
+        "gratitude": "Gratitude",
+        "self_esteem": "Self Esteem"
+      }
+    },
+    "breathing_tab": {
+      "title": "Choose a breathing technique",
+      "techniques": {
+        "478": {
+          "name": "4-7-8",
+          "desc": "Deep relaxation"
+        },
+        "box": {
+          "name": "Box Breathing",
+          "desc": "Balance and focus"
+        },
+        "calm": {
+          "name": "Calm Breathing",
+          "desc": "Anxiety reduction"
+        },
+        "energy": {
+          "name": "Energizing Breathing",
+          "desc": "Increases energy"
+        }
+      },
+      "start": "Start",
+      "stop": "Stop",
+      "phases": {
+        "inhale": "Inhale",
+        "hold": "Hold",
+        "exhale": "Exhale",
+        "holdAfter": "Hold"
+      }
+    },
+    "chat_prompt": "Hi, PsyMind. I read this quote from {{author}}: \"{{text}}\". I would like to reflect on what it means for my current moment.",
+    "default_quotes": [
+      {
+        "text": "The only way to do great work is to love what you do.",
+        "author": "Steve Jobs",
+        "category": "purpose"
+      },
+      {
+        "text": "It's not what happens to you, but how you react to it that matters.",
+        "author": "Epictetus",
+        "category": "resilience"
+      },
+      {
+        "text": "Happiness is not something ready made. It comes from your own actions.",
+        "author": "Dalai Lama",
+        "category": "happiness"
+      },
+      {
+        "text": "Know thyself and thou shalt know all the mysteries of the gods and of the universe.",
+        "author": "Socrates",
+        "category": "self knowledge"
+      },
+      {
+        "text": "Success consists of going from failure to failure without loss of enthusiasm.",
+        "author": "Winston Churchill",
+        "category": "resilience"
+      },
+      {
+        "text": "Be the change that you wish to see in the world.",
+        "author": "Mahatma Gandhi",
+        "category": "purpose"
+      },
+      {
+        "text": "Anxiety is the dizziness of freedom.",
+        "author": "Søren Kierkegaard",
+        "category": "anxiety"
+      },
+      {
+        "text": "What you think, you become. What you feel, you attract. What you imagine, you create.",
+        "author": "Buddha",
+        "category": "self knowledge"
+      },
+      {
+        "text": "Don't let the noise of others' opinions drown out your own inner voice.",
+        "author": "Steve Jobs",
+        "category": "self esteem"
+      },
+      {
+        "text": "Gratitude turns what we have into enough.",
+        "author": "Melody Beattie",
+        "category": "gratitude"
+      }
+    ]
+  },
+  "mood_tracker": {
+    "title": "Mood Diary",
+    "close_aria": "Close mood diary",
+    "tabs": {
+      "new": "New Entry",
+      "history": "History"
+    },
+    "question": "How are you feeling right now?",
+    "note_placeholder": "Add a note about how you feel... (optional)",
+    "save": "Save Entry",
+    "empty": "No record found.",
+    "ai_insight": {
+      "analyzing": "Analyzing...",
+      "button": "AI Mood Analysis",
+      "error": "❌ Error connecting to AI. Try again."
+    },
+    "delete_aria": "Delete entry",
+    "moods": {
+      "happy": "Happy",
+      "calm": "Calm",
+      "focused": "Focused",
+      "anxious": "Anxious",
+      "tired": "Tired",
+      "sad": "Sad"
+    }
+  }
+}

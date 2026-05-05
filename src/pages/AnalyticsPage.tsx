@@ -34,7 +34,7 @@ interface FeatureUsedEntry {
 }
 
 const AnalyticsPage: React.FC = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['dashboard', 'translation'])
   const navigate = useNavigate()
   const { isDarkMode } = useTheme()
   

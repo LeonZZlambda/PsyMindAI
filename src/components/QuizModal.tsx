@@ -27,7 +27,7 @@ interface QuizModalProps {
 }
 
 const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, config }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['learning', 'translation']);
   const { reducedMotion } = useTheme();
   const [isClosing, setIsClosing] = useState(false);
   const [loading, setLoading] = useState(true);

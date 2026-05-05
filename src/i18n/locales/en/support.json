@@ -1,0 +1,329 @@
+{
+  "help": {
+    "title": "Help Center",
+    "tabs": {
+      "faq": "Help & FAQ",
+      "shortcuts": "Shortcuts",
+      "feedback": "Send Feedback"
+    },
+    "about": {
+      "title": "About PsyMindAI",
+      "text": "PsyMindAI is a virtual assistant focused on mental health and well-being. Our goal is to provide a safe space for conversations, study tips, and emotional support."
+    },
+    "how_to": {
+      "title": "How to use",
+      "items": {
+        "chat": {
+          "label": "Start a conversation",
+          "desc": "Type your message in the text box below and press Enter or click the send button."
+        },
+        "new": {
+          "label": "New Chat",
+          "desc": "Use the 'New chat' button in the sidebar to start a new topic."
+        },
+        "settings": {
+          "label": "Customize",
+          "desc": "Access settings to adjust theme, font size, and accessibility options."
+        },
+        "support": {
+          "label": "Help Line",
+          "desc": "Access the Help Line in the tools menu for immediate emotional support."
+        }
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "items": {
+        "q1": {
+          "question": "Does PsyMindAI substitute a psychologist?",
+          "answer": "No. PsyMindAI is an educational support tool and does not substitute professional companion. If you're in crisis, please seek professional help immediately."
+        },
+        "q2": {
+          "question": "Are my conversations private?",
+          "answer": "Yes, your conversations are processed locally and we prioritize your privacy. No personal info is shared."
+        },
+        "q3": {
+          "question": "How does the Pomodoro work?",
+          "answer": "The Pomodoro technique helps you focus. The default is 25m focus and 5m break. You can activate it in the tools menu."
+        },
+        "q4": {
+          "question": "Can I use it offline?",
+          "answer": "Currently PsyMindAI requires internet connection to process answers."
+        }
+      }
+    },
+    "shortcuts": {
+      "title": "Keyboard Shortcuts",
+      "desc": "Speed up your navigation with these quick shortcuts.",
+      "items": {
+        "new_chat": "New Chat",
+        "settings": "Settings",
+        "help": "Help",
+        "view_shortcuts": "View Shortcuts",
+        "focus_chat": "Focus Chat",
+        "send": "Send Message",
+        "new_line": "Line Break",
+        "mic": "Toggle Microphone",
+        "attach": "Attach File"
+      }
+    },
+    "feedback": {
+      "title": "Your opinion matters",
+      "desc": "Help us improve PsyMindAI by sending suggestions, compliments, or reporting issues.",
+      "type_label": "Feedback Type",
+      "types": {
+        "suggestion": "Suggestion",
+        "problem": "Problem",
+        "praise": "Praise"
+      },
+      "message_label": "Message",
+      "message_placeholder": "Describe your feedback in detail...",
+      "image_label": "Attach Image (Optional)",
+      "image_hint": "Click to add an image",
+      "image_subhint": "JPG, PNG up to 5MB",
+      "sending": "Sending...",
+      "send": "Send Feedback",
+      "success": "Feedback sent successfully!",
+      "success_desc": "Thank you for helping us improve PsyMindAI.",
+      "error_size": "Image must be under 5MB",
+      "remove_image": "Remove image"
+    },
+    "got_it": "Got it",
+    "close_aria": "Close help"
+  },
+  "support": {
+    "tabs": {
+      "immediate": "Immediate Support",
+      "investigate": "Investigate Causes",
+      "reframing": "Cognitive Reframing"
+    },
+    "immediate": {
+      "title": "How are you feeling today?",
+      "desc": "Our AI can suggest exercises and resources based on your emotional state.",
+      "placeholder": "Ex: I'm feeling very anxious about an exam tomorrow...",
+      "analyzing": "Analyzing...",
+      "receive": "Get Support",
+      "chat": "I want to talk more about this",
+      "call": "Call",
+      "fallbacks": {
+        "general": {
+          "msg": "I understand you are going through this. Here are some resources that might help:",
+          "res1": {
+            "title": "Guided Breathing",
+            "desc": "4-7-8 Technique to calm down"
+          },
+          "res2": {
+            "title": "Mindfulness",
+            "desc": "Quick mindfulness exercise"
+          }
+        },
+        "anxiety": {
+          "msg": "It sounds like you're feeling anxious. Let's try to calm down together.",
+          "res1": {
+            "title": "Box Breathing",
+            "desc": "Inhale 4s, Hold 4s, Exhale 4s, Hold 4s"
+          },
+          "res2": {
+            "title": "5-4-3-2-1 Technique",
+            "desc": "Identify things around you to ground yourself"
+          }
+        },
+        "sadness": {
+          "msg": "I'm so sorry you're feeling this way. You are not alone.",
+          "res1": {
+            "title": "Self-Compassion",
+            "desc": "Be gentle with yourself right now"
+          },
+          "res2": {
+            "title": "Connection",
+            "desc": "Consider talking to someone you trust"
+          }
+        },
+        "crisis": {
+          "msg": "You are important and help is available. Please reach out to professionals now.",
+          "res1": {
+            "title": "Emergency Line",
+            "desc": "24h Emotional Support"
+          },
+          "res2": {
+            "title": "Emergency Services",
+            "desc": "Medical Emergency"
+          }
+        }
+      },
+      "prompt": "Analyze this feeling: \"{{feeling}}\". Identify the main emotion (anxiety, sadness, anger, etc) and suggest 2 quick emotional support techniques (1 sentence each). Format: EMOÇÃO: [name]\nTÉCNICA 1: [title] - [description]\nTÉCNICA 2: [title] - [description]"
+    },
+    "investigate": {
+      "step0": {
+        "title": "What are you feeling mostly?",
+        "ansiedade": "Anxiety / Nervousness",
+        "tristeza": "Sadness / Discouragement",
+        "cansaco": "Fatigue / Exhaustion",
+        "confusao": "Confusion / Indecision",
+        "raiva": "Anger / Frustration"
+      },
+      "step1": {
+        "title": "Which area of life does this affect the most right now?",
+        "estudos": "Studies / Exams",
+        "relacionamentos": "Relationships",
+        "futuro": "Future / Career",
+        "saude": "Health / Body",
+        "naosei": "I don't know how to identify"
+      },
+      "step2": {
+        "title": "How long have you felt this way?",
+        "hoje": "Started today",
+        "semana": "A few days / A week",
+        "mes": "A month or more",
+        "sempre": "It feels like it's always this way"
+      },
+      "back": "Back",
+      "analyzing": "Analyzing your answers...",
+      "restart": "New Investigation",
+      "suggestion": "PsyMind Suggestion:",
+      "prompt": "Analyze: Emotion={{emotion}}, Context={{context}}, Duration={{duration}}. Provide: TÍTULO: [name]\nDESCRIÇÃO: [2 sentences]\nCONSELHO: [1 practical sentence]",
+      "fallbacks": {
+        "general": {
+          "title": "Initial Analysis",
+          "desc": "Based on what you shared, it seems you are facing a challenging time.",
+          "advice": "We recommend focusing on short breaks and self-care."
+        },
+        "anxiety_studies": {
+          "title": "Academic Anxiety",
+          "desc": "Feeling pressure with studies is common. Anxiety can come from the fear of not being able to cope.",
+          "advice": "Try dividing the content into smaller parts (Pomodoro) and remember that your value is not your grade."
+        },
+        "anxiety_future": {
+          "title": "Anticipatory Anxiety",
+          "desc": "Worrying about the future is natural, but it can paralyze.",
+          "advice": "Focus on what you can control today. The future is built one day at a time."
+        },
+        "sadness": {
+          "title": "Embracing Sadness",
+          "desc": "Sadness is a valid emotion and signals that something needs attention.",
+          "advice": "Allow yourself to feel without judgment. Writing about your feelings can help process them."
+        },
+        "tiredness": {
+          "title": "Mental Exhaustion",
+          "desc": "You might be close to a burnout if you don't rest.",
+          "advice": "Rest is productive. Disconnect from screens and do something that doesn't require mental effort."
+        }
+      },
+      "chat_prompt": "Hi, PsyMind. I'm going through a delicate moment and would like to vent. I have been feeling {{emotion}} regarding {{context}}. This has affected me {{duration}}. Could you listen to me and help me better understand what I'm feeling?"
+    },
+    "reframing": {
+      "step0": {
+        "title": "Cognitive Reframing",
+        "desc": "Let's work together to identify and reframe negative thoughts.",
+        "start": "Start"
+      },
+      "step1": {
+        "title": "Challenge your Thoughts",
+        "desc": "Identify a negative thought and we will work together to find a more balanced perspective.",
+        "q_situation": "What is the trigger situation?",
+        "q_situ_placeholder": "Ex: I received criticism at work...",
+        "q_thought": "What did you automatically think?",
+        "q_thought_placeholder": "Ex: I am incompetent and I'll be fired...",
+        "q_intensity": "How does this make you feel? (0-10)",
+        "analyze": "Analyze Thought",
+        "analyzing": "Analyzing..."
+      },
+      "result": {
+        "title": "Cognitive Analysis",
+        "distortion": "Possible Distortion",
+        "challenge": "The Challenge",
+        "alternative": "Alternative Perspective",
+        "reframe": "Suggested New Thought",
+        "restart": "Analyze Another Thought"
+      },
+      "prompt": "Analyze this negative thought using CBT:\\nSituation: {{situation}}\\nThought: {{thought}}\\n\\nProvide:\\nDISTORÇÃO: [type of cognitive distortion]\\nDESAFIO: [1 sentence explaining the distortion]\\nALTERNATIVA: [1 sentence with alternative perspective]\\nREFORMULAÇÃO: [new balanced thought]",
+      "fallbacks": {
+        "general": {
+          "distortion": "Overgeneralization or Catastrophizing",
+          "challenge": "You are taking an isolated event as a universal pattern or predicting the worst possible scenario without concrete evidence.",
+          "alternative": "Try to view the situation as a single event and not as a definition of who you are. Ask yourself: 'What is the real evidence that this will always happen?'",
+          "reframe": "Instead of thinking '{{thought}}', try thinking: 'Although this situation was difficult, it does not define my entire future or capability.'"
+        },
+        "all_or_nothing": {
+          "distortion": "All-or-Nothing Thinking",
+          "challenge": "Life is rarely black or white. Using 'always' or 'never' usually indicates a distortion of reality.",
+          "alternative": "Look for exceptions. Have there been times when this didn't happen? Try using words like 'sometimes' or 'frequently'."
+        },
+        "should_statements": {
+          "distortion": "'Should' Statements",
+          "challenge": "Using 'should' creates guilt and frustration. You are imposing rigid rules on yourself or others.",
+          "alternative": "Replace 'I should' with 'I would like' or 'It would be preferable'. This reduces pressure and increases acceptance."
+        }
+      }
+    },
+    "chat_feeling_prompt": "Hi, PsyMind. I'm going through a delicate moment and would like to vent. {{feeling}}. Could you listen to me and help me better understand what I'm feeling?"
+  },
+  "contributing": {
+    "title": "How to Contribute",
+    "intro": "Thank you for contributing to PsyMind.AI. This section explains how you can help, including translations.",
+    "translate": "Translation",
+    "translation_details": "To contribute translations, add missing keys to this file and submit a PR with updates.",
+    "steps": {
+      "step1": "Fork the repository",
+      "step2": "Create a descriptive branch",
+      "step3": "Translate missing strings",
+      "step4": "Open a PR with test instructions"
+    }
+  },
+  "contribute_page": {
+    "title": "How to Contribute",
+    "subtitle": "PsyMind.AI is an open-source project and we'd love your help to make it even better.",
+    "back_home": "Back to home",
+    "cards": [
+      {
+        "icon": "code",
+        "title": "Development",
+        "description": "Found a bug or want to add a new feature? Check out our issues on GitHub or open a Pull Request.",
+        "link_text": "Go to GitHub"
+      },
+      {
+        "icon": "palette",
+        "title": "Design & UX",
+        "description": "Help us improve user experience. Design suggestions and interface improvements are always welcome.",
+        "link_text": "View Style Guide"
+      },
+      {
+        "icon": "menu_book",
+        "title": "Documentation",
+        "description": "Good documentation is essential. Help us improve our guides, README and tutorials for new users.",
+        "link_text": "Contribute on Wiki"
+      },
+      {
+        "icon": "language",
+        "title": "Translation",
+        "description": "Help make PsyMind.AI accessible to more people by translating the interface into different languages.",
+        "link_text": "Help with Translation"
+      }
+    ],
+    "steps": {
+      "title": "Step by Step to Contribute",
+      "items": [
+        {
+          "number": "1",
+          "title": "Fork the Repository",
+          "description": "Create a copy of the repository in your GitHub account."
+        },
+        {
+          "number": "2",
+          "title": "Create a Branch",
+          "description": "Use git checkout -b feature/my-feature to work."
+        },
+        {
+          "number": "3",
+          "title": "Commit & Push",
+          "description": "Make your commits and push to your fork."
+        },
+        {
+          "number": "4",
+          "title": "Open a Pull Request",
+          "description": "Describe your changes and wait for team review."
+        }
+      ]
+    }
+  }
+}

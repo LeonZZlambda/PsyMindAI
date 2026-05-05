@@ -9,7 +9,7 @@ interface ImportContextModalProps {
 }
 
 const ImportContextModal: React.FC<ImportContextModalProps> = ({ isOpen, onClose }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['chat', 'translation']);
   const [importContext, setImportContext] = useState<string>(() => (typeof window !== 'undefined' ? localStorage.getItem('psymind_imported_context') || '' : ''));
 
   const importPrompt = t('import_context.prompt');

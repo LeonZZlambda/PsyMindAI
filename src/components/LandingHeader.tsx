@@ -7,7 +7,7 @@ import { useTheme } from '../context/ThemeContext'
 import AccountModal from './AccountModal'
 
 const LandingHeader: React.FC = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['landing', 'translation'])
   const navigate = useNavigate()
   const { isDarkMode, toggleTheme, fontSize, reducedMotion, highContrast, colorBlindMode } = useTheme()
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false)

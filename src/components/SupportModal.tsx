@@ -43,7 +43,7 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
   const { setInput } = useChat();
   const { isDarkMode, reducedMotion } = useTheme();
   const [activeTab, setActiveTab] = useState('immediate');
-  const { t } = useTranslation(); // 'immediate', 'investigate', 'reframing'
+  const { t } = useTranslation(['support', 'translation']); // 'immediate', 'investigate', 'reframing'
   const timersRef = useRef<NodeJS.Timeout[]>([]);
 
   useEffect(() => {

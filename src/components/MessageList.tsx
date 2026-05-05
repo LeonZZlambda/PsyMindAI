@@ -11,7 +11,7 @@ import type { ChatMessage } from '@/types/storage';
 
 const CopyButton: React.FC<{ text: string }> = ({ text }) => {
   const [copied, setCopied] = useState(false);
-  const { t } = useTranslation();
+  const { t } = useTranslation(['chat', 'translation']);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(text);
@@ -36,7 +36,7 @@ const CopyButton: React.FC<{ text: string }> = ({ text }) => {
 
 const CodeCopyButton: React.FC<{ text: string }> = ({ text }) => {
   const [copied, setCopied] = useState(false);
-  const { t } = useTranslation();
+  const { t } = useTranslation(['chat', 'translation']);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(text);
@@ -60,7 +60,7 @@ const CodeCopyButton: React.FC<{ text: string }> = ({ text }) => {
 
 const ImageViewer: React.FC<{ src: string; alt: string; onClose: () => void }> = ({ src, alt, onClose }) => {
   const [copied, setCopied] = useState(false);
-  const { t } = useTranslation();
+  const { t } = useTranslation(['chat', 'translation']);
 
   const handleCopy = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -157,7 +157,7 @@ const ImageViewer: React.FC<{ src: string; alt: string; onClose: () => void }> =
 
 const MessageList: React.FC = () => {
   const { messages, isTyping, setInput, isAnonymous } = useChat();
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation(['chat', 'translation']);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const chatContainerRef = useRef<HTMLElement | null>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);

@@ -12,7 +12,7 @@ interface KindnessModalProps {
 }
 
 const KindnessModal: React.FC<KindnessModalProps> = ({ isOpen, onClose }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['kindness', 'translation']);
   const { reducedMotion } = useTheme();
   const [act, setAct] = useState('');
   const [category, setCategory] = useState('random');

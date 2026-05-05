@@ -42,7 +42,7 @@ interface InputAreaProps {
 const InputArea: React.FC<InputAreaProps> = ({ inputRef, onOpenHelp, onOpenSupport, onOpenReflections, onOpenMoodTracker, onOpenEmotionalJournal, onOpenGuidedLearning }) => {
   const { input, setInput, sendMessage, isTyping, isStreaming, stopStreaming } = useChat();
   const { isActive: pomodoroIsActive, mode: pomodoroMode, timeLeft: pomodoroTimeLeft } = usePomodoro();
-  const { t } = useTranslation();
+  const { t } = useTranslation(['chat', 'translation']);
   const { toggleModal } = useModal();
   
   const [isListening, setIsListening] = useState(false);

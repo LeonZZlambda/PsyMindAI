@@ -23,7 +23,7 @@ const PomodoroModal: React.FC<Props> = ({ isOpen, onClose }) => {
     changeMode
   } = usePomodoro();
 
-  const { t } = useTranslation();
+  const { t } = useTranslation(['tools', 'translation']);
   const { darkRoom, reducedMotion } = useTheme();
 
   // Dark Room Mode: substitui cores dos modos por vermelho puro

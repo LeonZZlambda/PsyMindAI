@@ -34,7 +34,7 @@ type DisciplineBreakdownProps = {
 const durationOptions = [15, 30, 45, 60, 90, 120];
 
 const StudySessionForm: React.FC<StudySessionFormProps> = ({ onSubmit }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['dashboard', 'translation']);
   const [topic, setTopic] = useState('');
   const [minutes, setMinutes] = useState('30');
 
@@ -170,7 +170,7 @@ const DisciplineBreakdown: React.FC<DisciplineBreakdownProps> = ({ emptyMessage,
 );
 
 const StudyStatsModal: React.FC<Props> = ({ isOpen, onClose }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['dashboard', 'translation']);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const { addLog, status, viewModel } = useStudyDashboardData(isOpen, t);
 

@@ -11,7 +11,7 @@ import LandingHeader from '../components/LandingHeader'
 const ContributePage: React.FC = () => {
   const navigate = useNavigate()
   const { isDarkMode, toggleTheme } = useTheme()
-  const { t } = useTranslation()
+  const { t } = useTranslation(['support', 'translation'])
 
   const contributeCards = t('contribute_page.cards', { returnObjects: true }) as any[]
 

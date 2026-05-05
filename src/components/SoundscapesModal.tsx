@@ -10,7 +10,7 @@ interface SoundscapesModalProps {
 }
 
 const SoundscapesModal: React.FC<SoundscapesModalProps> = ({ isOpen, onClose }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['tools', 'translation']);
   const { isPlaying, currentSound, volume, toggleSound, changeSound, setVolume } = useSound();
 
   const sounds = [

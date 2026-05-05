@@ -1,0 +1,588 @@
+{
+  "guided_learning": {
+    "title": "Guided Learning",
+    "aria": {
+      "close": "Close",
+      "start_trail": "Start trail",
+      "export_trail": "Export trail",
+      "delete_trail": "Delete trail"
+    },
+    "tabs": {
+      "trails": "Study Paths",
+      "flashcards": "Practice Flashcards",
+      "quizzes": "Random Quiz"
+    },
+    "alerts": {
+      "delete_confirm": "Do you really want to remove this AI-generated trail?",
+      "import_success": "Trail imported successfully!",
+      "import_error": "Import error. Copy a valid JSON trail code before importing.",
+      "export_success": "Trail copied to clipboard! Share it with your friends.",
+      "export_error": "Error copying the trail.",
+      "generate_error": "Could not generate the trail. Try being more specific about the topic.",
+      "generate_catch": "Error connecting to AI."
+    },
+    "trails": {
+      "active_back": "Back to Trails",
+      "active_step": "Step {{step}} of {{total}}",
+      "active_finished": "Completed",
+      "completed": "Completed"
+    },
+    "completion": {
+      "perfection_title": "Perfection! No mistakes!",
+      "excellent_title": "Excellent work!",
+      "continue_title": "Learning is a continuous process!",
+      "stats": "You answered <strong>{{correct}}</strong> out of <strong>{{total}}</strong> questions correctly on the first try ({{percentage}}%).",
+      "you_are_awesome": "You are awesome!",
+      "title": "Trail Completed!",
+      "action": "Back to Trails",
+      "quizzes_title": "Quizzes Completed!",
+      "retry": "Try Again"
+    },
+    "flashcard": {
+      "flip_hint": "Click to reveal",
+      "difficulty": {
+        "fail": "Again",
+        "hard": "Hard",
+        "good": "Good",
+        "easy": "Easy"
+      },
+      "times": {
+        "30s": "30 sec",
+        "5m": "5 min",
+        "30m": "30 min",
+        "2h": "2 hr"
+      }
+    },
+    "quiz": {
+      "verify": "Check Answer",
+      "explain_btn": "Explain with AI ✨",
+      "explaining": "Generating explanation...",
+      "tutor": "AI Tutor:",
+      "finish_trail": "Finish Trail",
+      "next_question": "Next Question",
+      "see_results": "See Results"
+    },
+    "open_ended": {
+      "placeholder": "Write your reflection or answer here...",
+      "evaluate_btn": "Evaluate Output with AI",
+      "evaluating": "Evaluating...",
+      "skip_btn": "Skip",
+      "your_answer": "Your Answer:",
+      "ai_feedback": "AI Feedback:",
+      "continue_trail": "Continue Trail"
+    },
+    "create": {
+      "title": "What do you want to learn today?",
+      "desc": "Describe a topic, emotional challenge, or skill. Our artificial intelligence will build a customized interactive plan (Flashcards and Quizzes).",
+      "placeholder": "Ex: I want a trail with flashcards on how to practice mindfulness at work in 5 minutes...",
+      "btn_create": "Generate with AI",
+      "btn_generating": "Generating Material..."
+    },
+    "explore": {
+      "title": "Explore Trails or Create Yours",
+      "import": "Import",
+      "activities": "{{count}} Activities",
+      "generate": "Generate with AI"
+    },
+    "empty_flashcards": {
+      "title": "No Flashcards Unlocked",
+      "desc": "Complete a Study Path in the 'Study Paths' tab to unlock flashcards for review."
+    },
+    "empty_quizzes": {
+      "title": "No Quizzes Unlocked",
+      "desc": "Complete a Study Path in the 'Study Paths' tab to unlock quizzes for practice."
+    },
+    "status": {
+      "base_unlocked": "{{count}} Unlocked in Base",
+      "flashcard_status": "Flashcard {{current}} / {{total}}",
+      "quiz_status": "Question {{current}} / {{total}}",
+      "quick_quiz": "General Quick Quiz",
+      "practice": "Practice Flashcards"
+    },
+    "default_trails": [
+      {
+        "id": 1,
+        "title": "Anxiety Management",
+        "icon": "psychology",
+        "description": "Learn to identify and manage anxiety symptoms.",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "What is the 'Fight or Flight' response?",
+            "back": "It's a physiological reaction that occurs in response to a perceived harmful event, attack, or threat to survival, activating the sympathetic nervous system."
+          },
+          {
+            "type": "quiz",
+            "question": "Which breathing technique is most recommended to reduce acute anxiety?",
+            "options": [
+              {
+                "id": "A",
+                "text": "Rapid chest breathing"
+              },
+              {
+                "id": "B",
+                "text": "Holding breath for 1 minute"
+              },
+              {
+                "id": "C",
+                "text": "Diaphragmatic Breathing (4-7-8)"
+              },
+              {
+                "id": "D",
+                "text": "Hyperventilation"
+              }
+            ],
+            "correctOption": "C"
+          },
+          {
+            "type": "flashcard",
+            "front": "Grounding",
+            "back": "The act of bringing your attention to the present moment, focusing on physical senses (e.g., 5 things you see, 4 you touch)."
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Nonviolent Communication",
+        "icon": "forum",
+        "description": "Improve your relationships by communicating empathetically.",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "What are the 4 components of NVC?",
+            "back": "1. Observation, 2. Feeling, 3. Need, 4. Request."
+          },
+          {
+            "type": "quiz",
+            "question": "Which of these phrases is an example of an 'Observation' (without judgment) in NVC?",
+            "options": [
+              {
+                "id": "A",
+                "text": "You are very irresponsible."
+              },
+              {
+                "id": "B",
+                "text": "You never listen to me."
+              },
+              {
+                "id": "C",
+                "text": "I noticed you arrived 10 minutes late to the last meetings."
+              },
+              {
+                "id": "D",
+                "text": "You are always lazy."
+              }
+            ],
+            "correctOption": "C"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Emotional Intelligence",
+        "icon": "favorite",
+        "description": "Recognize and control your own emotions.",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "What is Self-awareness?",
+            "back": "The ability to recognize and understand your own moods, emotions, and drives."
+          },
+          {
+            "type": "quiz",
+            "question": "A key pillar of emotional intelligence in the workplace is:",
+            "options": [
+              {
+                "id": "A",
+                "text": "Hiding what you feel."
+              },
+              {
+                "id": "B",
+                "text": "Empathy for colleagues."
+              },
+              {
+                "id": "C",
+                "text": "Working to exhaustion."
+              },
+              {
+                "id": "D",
+                "text": "Speaking louder than others."
+              }
+            ],
+            "correctOption": "B"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Mindfulness and Focus",
+        "icon": "self_improvement",
+        "description": "Mindfulness techniques to stay focused on the present.",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "What is Mindfulness?",
+            "back": "A mental state achieved by focusing one's awareness on the present moment, while calmly acknowledging and accepting one's feelings."
+          },
+          {
+            "type": "quiz",
+            "question": "When getting distracted during meditation, you should:",
+            "options": [
+              {
+                "id": "A",
+                "text": "Get frustrated with yourself."
+              },
+              {
+                "id": "B",
+                "text": "Give up and try another day."
+              },
+              {
+                "id": "C",
+                "text": "Notice the distraction and gently return focus to the breath."
+              },
+              {
+                "id": "D",
+                "text": "Let your mind wander indefinitely."
+              }
+            ],
+            "correctOption": "C"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Cognitive Biases",
+        "icon": "visibility",
+        "description": "Understand the thinking errors that affect our decisions.",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "Confirmation Bias",
+            "back": "The tendency to search for and remember information that confirms one's preconceptions."
+          },
+          {
+            "type": "quiz",
+            "question": "What is the Dunning-Kruger Effect?",
+            "options": [
+              {
+                "id": "A",
+                "text": "Overestimating one's own ability in tasks where one has little experience."
+              },
+              {
+                "id": "B",
+                "text": "Panic when speaking in public."
+              },
+              {
+                "id": "C",
+                "text": "The habit of buying things on sale."
+              },
+              {
+                "id": "D",
+                "text": "Forgetting information under stress."
+              }
+            ],
+            "correctOption": "A"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "Study Organization",
+        "icon": "menu_book",
+        "description": "Time management and school planning techniques.",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "What is the Pomodoro Technique?",
+            "back": "A time management method that alternates intense focus blocks (e.g., 25 mins) with short breaks (e.g., 5 mins) to maintain productivity."
+          },
+          {
+            "type": "quiz",
+            "question": "What is the best way to prepare for a week with multiple exams?",
+            "options": [
+              {
+                "id": "A",
+                "text": "Study everything the night before the exam."
+              },
+              {
+                "id": "B",
+                "text": "Create a schedule distributing the subjects throughout the week."
+              },
+              {
+                "id": "C",
+                "text": "Study only the hardest subject."
+              },
+              {
+                "id": "D",
+                "text": "Don't study and rely only on what you remember from classes."
+              }
+            ],
+            "correctOption": "B"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "title": "School Pressure and Exams",
+        "icon": "school",
+        "description": "Strategies to manage pre-exam nervousness and avoid going 'blank'.",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "What causes you to go 'blank' during a test?",
+            "back": "Going 'blank' is usually caused by an anxiety spike. The brain perceives the exam as an immediate threat, blocking memory access."
+          },
+          {
+            "type": "quiz",
+            "question": "What to do if you feel you're going to go blank during an exam?",
+            "options": [
+              {
+                "id": "A",
+                "text": "Panic silently."
+              },
+              {
+                "id": "B",
+                "text": "Take a break, close your eyes, take a deep breath, and drink water if possible."
+              },
+              {
+                "id": "C",
+                "text": "Answer anything as quickly as possible."
+              },
+              {
+                "id": "D",
+                "text": "Cry immediately."
+              }
+            ],
+            "correctOption": "B"
+          },
+          {
+            "type": "flashcard",
+            "front": "Expectations vs. Reality",
+            "back": "Often pressure comes from parents' or teachers' expectations. Remembering that a bad grade does not define your intelligence is key to reducing and dealing with this excessive pressure."
+          }
+        ]
+      }
+    ]
+  },
+  "exams": {
+    "title": "Prep Course",
+    "close": "Close",
+    "back": "Back",
+    "hero_description": "Explore exams, reference matrices, and prep shortcuts.",
+    "vocational": {
+      "title": "Vocational Test",
+      "progress_aria": "Vocational test progress",
+      "introduction": {
+        "title": "Discover Your Professional Vocation",
+        "description": "This test is based on the RIASEC model, a scientific tool that identifies your professional preferences through six dimensions: Realistic, Investigative, Artistic, Social, Enterprising, and Conventional.",
+        "features": {
+          "riasec": "Based on RIASEC model",
+          "insights": "Personalized career insights",
+          "guidance": "Guidance for decision making"
+        },
+        "start_button": "Start Vocational Test"
+      },
+      "likert": {
+        "1": "I dislike it",
+        "2": "Find it boring",
+        "3": "Whatever / Neutral",
+        "4": "I like doing it",
+        "5": "I love it!"
+      },
+      "processing": "Analyzing your vocational profile...",
+      "result": {
+        "title": "Your Professional Profile",
+        "cta_plan": "Generate Study Plan",
+        "chat_input": "I would like a study plan focused on {{area}}"
+      },
+      "questions": {
+        "1": "Do you enjoy assembling or fixing mechanical objects in your daily life or occasionally?",
+        "2": "Do you like investigating scientific or mathematical problems to find solutions?",
+        "3": "Do you feel good expressing ideas through design, arts, or visual creation?",
+        "4": "Do you enjoy helping people learn something new or develop themselves?",
+        "5": "Are you excited about leading teams and making decisions in projects?",
+        "6": "Do you like organizing data, files, and following clear routines?",
+        "7": "Do you like working with tools, machines, or hands-on activities?",
+        "8": "Do you feel good observing details and testing hypotheses?",
+        "9": "Do you like creating something original, even if it's just for a hobby?",
+        "10": "Do you enjoy listening to people and offering support when they need it?",
+        "11": "Are you motivated by convincing, negotiating, or selling an idea?",
+        "12": "Do you feel good following clear processes and checking everything carefully?",
+        "13": "Do you like outdoor activities or those that involve using your body?",
+        "14": "Do you like learning on your own and exploring subjects in depth?",
+        "15": "Are you excited about telling stories, writing, or composing something?",
+        "16": "Do you like working in a team and creating a collaborative environment?",
+        "17": "Do you like taking the lead to organize people and goals?",
+        "18": "Do you enjoy spreadsheets, financial organization, or administrative tasks?"
+      },
+      "dimensions": {
+        "R": "Realistic",
+        "I": "Investigative",
+        "A": "Artistic",
+        "S": "Social",
+        "E": "Enterprising",
+        "C": "Conventional"
+      }
+    },
+    "sections": {
+      "categories": "Categories",
+      "subjects": "Subjects",
+      "subjects_caption": "Choose a focus area to generate a plan, strategy, or guided practice.",
+      "available_options_one": "{{count}} option available",
+      "available_options_other": "{{count}} options available"
+    },
+    "categories_title": {
+      "international": "International",
+      "national": "National",
+      "regional": "Regional",
+      "olympiads": "Olympiads"
+    },
+    "topics_header": "Reference Matrix and Contents",
+    "actions": {
+      "ai_plan": "Create AI Study Plan",
+      "ai_strategy": "Exam Strategy",
+      "ai_judge": "Prep Mode (OBI Judge)",
+      "explain_topic": "Explain topic",
+      "generate_quiz": "Generate Questions (Quiz)"
+    },
+    "calculator": {
+      "mode_simple": {
+        "title": "Simple Average",
+        "desc": "I already have my final grades and want to calculate the average."
+      },
+      "mode_advanced": {
+        "title": "By Hits",
+        "desc": "I only have the answer key and want to estimate my score."
+      },
+      "inputs": {
+        "course": "Desired Course (e.g. Medicine)",
+        "category": "Competition Category"
+      },
+      "subjects": {
+        "linguagens": "Languages",
+        "humanas": "Human Sciences",
+        "natureza": "Natural Sciences",
+        "matematica": "Mathematics",
+        "redacao": "Essay"
+      },
+      "correct_labels": {
+        "linguagens": "Language Hits (0-45)",
+        "humanas": "Human Sciences Hits (0-45)",
+        "natureza": "Natural Sciences Hits (0-45)",
+        "matematica": "Mathematics Hits (0-45)",
+        "redacao": "Essay Score (0-1000)"
+      },
+      "ignore_redacao": "I don't have the essay score yet",
+      "result": {
+        "simple_label": "Your Simple Average:",
+        "advanced_label": "Estimated Average (IRT Range):",
+        "avg": "Probable average: ~{{val}}",
+        "warning": "The Essay score <strong>WAS NOT</strong> included in this calculation. This average considers only the 4 objective areas.",
+        "note_simple": "*This is a simple average. SiSU and ProUni may use different weights depending on the course and university.",
+        "note_advanced": "*This is an estimate based on previous patterns. The real score depends on IRT (Item Response Theory) and question difficulty."
+      },
+      "buttons": {
+        "switch": "Switch Mode",
+        "calc_ai": "Calculate and Analyze with AI",
+        "calc": "Calculate Average"
+      },
+      "prompts": {
+        "simple": "🎓 ADMISSION FEASIBILITY ANALYSIS\n\n📊 MY TARGET SCORES:\n• Languages: {{linguagens}}\n• Human Sciences: {{humanas}}\n• Natural Sciences: {{natureza}}\n• Mathematics: {{matematica}}\n• Essay: {{redacao}}\n\n📈 Simple Average: {{avg}}\n\n🎯 GOAL:\n• Course: {{course}}\n• Category/Modality: {{category}}\n\nPlease help me with:\n\n1. 🏛️ VIABLE UNIVERSITIES\n   - List universities where I have a GOOD chance\n   - Mention recent cutoff scores\n\n2. ⚠️ RISKY OPTIONS\n   - Universities where it would be harder, but possible\n\n3. ⚖️ WEIGHT SYSTEM\n   - How does {{course}} usually weigh these areas?\n   - What is my estimated weighted score?\n\n4. 💡 STRATEGIES\n   - Should I focus on improving any specific area?\n   - Admission application tips\n\n5. 🧠 EMOTIONAL SUPPORT\n   - How to manage waiting anxiety?\n   - Personalized motivational message\n\nBe realistic but encouraging! 💪",
+        "advanced": "🎯 SCORE ESTIMATION ANALYSIS\n\n📝 MY HITS:\n• Languages: {{linguagens}}/45\n  📉 Estimated score: {{triLinguagensMin}} - {{triLinguagensMax}}\n  \n• Human Sciences: {{humanas}}/45\n  📉 Estimated score: {{triHumanasMin}} - {{triHumanasMax}}\n  \n• Natural Sciences: {{natureza}}/45\n  📉 Estimated score: {{triNaturezaMin}} - {{triNaturezaMax}}\n  \n• Mathematics: {{matematica}}/45\n  📉 Estimated score: {{triMatematicaMin}} - {{triMatematicaMax}}\n\n{{redacaoInfo}}\n\n📊 ESTIMATED AVERAGE:\n• Pessimistic scenario: {{totalMin}}\n• Optimistic scenario: {{totalMax}}\n• Probable average: ~{{totalAvg}}\n{{observacao}}\n\n🎯 MY GOAL:\n• Course: {{course}}\n• Modality: {{category}}\n\nI need a complete analysis:\n\n1. 🏛️ REAL CHANCES\n   - Considering the score range, which universities are viable?\n   - Compare with recent cutoff scores\n{{impactoRedacao}}\n\n2. 📈 AREA ANALYSIS\n   - In which areas did I do well?\n   - Where can I improve if I retake it?\n\n3. ⚖️ WEIGHTS & STRATEGY\n   - How does {{course}} weigh the areas?\n   - Do my strong areas favor this course?\n\n4. 🔄 PLAN B\n   - Alternative courses that match my score profile\n   - Nearby university options\n\n5. 💪 PSYCHOLOGICAL SUPPORT\n   - How to deal with the uncertainty of the estimation?\n   - Tips to stay calm until the official results\n   - Motivational message based on my performance\n\nBe honest about the chances, but also encouraging! 🌟"
+      }
+    },
+    "prompts": {
+      "plan": "Create a complete study plan for {{exam}} - {{subject}}:\n\n📚 TOPICS:\n{{topics}}\n\nPlease provide:\n1. Ideal study order\n2. Suggested time for each topic\n3. Specific study techniques\n4. Recommended resources\n5. How this content appears in exams\n6. Memorization and review tips\n\nBe practical and motivating! 💪",
+      "strategy": "Analyze the preparation strategy for {{exam}} - {{subject}}:\n\n🎯 How should I prioritize my studies?\n📊 Which topics are most frequent?\n⚡ Quick resolution techniques\n🧠 How to handle pre-exam anxiety\n📝 Time management tips during the exam\n\nGive practical and motivating advice!",
+      "explain": "Clearly and didactically explain the following topic of {{subject}} for {{exam}}:\n\n📌 {{topic}}\n\nIncluding:\n1. Fundamental concepts\n2. Practical examples\n3. How it appears on exams\n4. Memorization tips\n5. Common mistakes to avoid\n\nUse accessible language! 📚"
+    }
+  },
+  "quiz": {
+    "title": "Integrated Mock Exam: {{topic}}",
+    "close": "Close",
+    "loading": {
+      "title": "Generating fresh questions...",
+      "desc": "Our AI is formulating the educational mock exam in the format of {{exam}}."
+    },
+    "results": {
+      "title": "Training Complete!",
+      "score": "You got {{score}} out of {{total}} questions right.",
+      "finish": "Finish Review"
+    },
+    "active": {
+      "progress": "Question {{current}} of {{total}}",
+      "confirm": "Confirm Answer",
+      "next": "Next Question",
+      "see_results": "See Results",
+      "correct": "✨ Correct Answer!",
+      "incorrect": "❌ Incorrect Answer"
+    },
+    "messages": {
+      "error_comm": "There was an error communicating with the AI to generate the exam. Try again later.",
+      "try_again": "Try again",
+      "error_desc": "Network failure or malformed response."
+    },
+    "prompt": "Act as a mock exam question generator. Create 4 original questions at the level of the {{exam}} exam in the subject of {{subject}} focusing on the theme: {{topic}}.\n\nReturn ONLY a pure JSON array containing the questions. Do not write any other words outside the JSON braces. Do not include ```json at the beginning.\n\n[\n  {\n    \"pergunta\": \"Formatted text of the question...\",\n    \"alternativas\": [\"Option 1\", \"Option 2\", \"Option 3\", \"Option 4\", \"Option 5\"],\n    \"correta\": 0,\n    \"explicacao\": \"Detailed explanation of the correct option in Portuguese.\"\n  }\n]"
+  },
+  "roadmap": {
+    "title": "Roadmap",
+    "intro": "Overview of planned features and milestones."
+  },
+  "roadmap_page": {
+    "title": "Product Roadmap",
+    "subtitle": "Follow our journey and see what we're building for the future of emotional education.",
+    "back_home": "Back to home",
+    "statuses": {
+      "completed": "Completed",
+      "in_progress": "In Development",
+      "planned": "Planned"
+    },
+    "phases": [
+      {
+        "quarter": "Q4 2025",
+        "status": "completed",
+        "title": "Beta Launch",
+        "items": [
+          "Intuitive Chat Interface",
+          "Generative AI Integration",
+          "Dark/Light Mode",
+          "Voice Command Support"
+        ]
+      },
+      {
+        "quarter": "Q1 2026",
+        "status": "in_progress",
+        "title": "Feature Expansion",
+        "items": [
+          "Integrated Quizzes System",
+          "Competitive Judge Mode (C, C++, Python)",
+          "Olympiad and College Exam Interactive Integration",
+          "Advanced Pomodoro Module",
+          "Persistent Chat History"
+        ]
+      },
+      {
+        "quarter": "Q2 2026",
+        "status": "planned",
+        "title": "Community and Content",
+        "items": [
+          "Student Forum",
+          "Educational Content Curation",
+          "Google Calendar Integration",
+          "Mobile App (iOS/Android)"
+        ]
+      },
+      {
+        "quarter": "Q3 2026",
+        "status": "planned",
+        "title": "Advanced Personalization",
+        "items": [
+          "Customizable AI Tutors",
+          "Study Statistics Dashboard",
+          "Gamification and Achievements",
+          "Public API for Developers"
+        ]
+      }
+    ]
+  }
+}

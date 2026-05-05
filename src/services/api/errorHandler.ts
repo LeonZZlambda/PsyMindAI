@@ -98,7 +98,7 @@ function translateErrorType(errorType: ErrorType): string {
     [ErrorType.UNKNOWN]: i18n.t('api.errors.UNKNOWN')
   };
 
-  return translations[errorType] || 'Erro desconhecido';
+  return translations[errorType] || translations[ErrorType.UNKNOWN];
 }
 
 /**

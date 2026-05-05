@@ -11,7 +11,7 @@ import LandingHeader from '../components/LandingHeader'
 const RoadmapPage: React.FC = () => {
   const navigate = useNavigate()
   const { isDarkMode, toggleTheme } = useTheme()
-  const { t } = useTranslation()
+  const { t } = useTranslation(['learning', 'translation'])
 
   const roadmapItems = t('roadmap_page.phases', { returnObjects: true }) as any[]
 

@@ -65,7 +65,7 @@ interface GuidedLearningModalProps {
 }
 
 export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningModalProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['learning', 'translation']);
   const DEFAULT_TRAILS = useMemo(() => t("guided_learning.default_trails", { returnObjects: true }) as LearningTrail[] || [], [t]);
   const [customTrails, setCustomTrails] = useState<LearningTrail[]>(() => {
     try {
