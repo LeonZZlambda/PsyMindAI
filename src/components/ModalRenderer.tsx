@@ -17,6 +17,7 @@ const ExamsModal = lazy(() => import('./ExamsModal'));
 const VocationalTestModal = lazy(() => import('./VocationalTestModal'));
 const KindnessModal = lazy(() => import('./KindnessModal'));
 const SoundscapesModal = lazy(() => import('./SoundscapesModal'));
+const WeeklyScheduleModal = lazy(() => import('./WeeklySchedule/components/WeeklyScheduleModal'));
 
 import { ModalState, ModalName } from '../context/ModalContext';
 
@@ -173,6 +174,16 @@ export const ModalRenderer: React.FC<ModalRendererProps> = ({ openModals, toggle
           <SoundscapesModal
             isOpen={openModals.soundscapes}
             onClose={() => toggleModal('soundscapes')}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Weekly Schedule Modal */}
+      <AnimatePresence>
+        {openModals.weeklySchedule && (
+          <WeeklyScheduleModal
+            isOpen={openModals.weeklySchedule}
+            onClose={() => toggleModal('weeklySchedule')}
           />
         )}
       </AnimatePresence>

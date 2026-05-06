@@ -21,7 +21,15 @@
     "start": "vite preview --host 0.0.0.0 --port $PORT"
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/modifiers": "^9.0.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "@google/genai": "^1.51.0",
+    "@hookform/resolvers": "^5.2.2",
+    "@mui/icons-material": "^9.0.0",
+    "@mui/material": "^9.0.0",
+    "date-fns": "^4.1.0",
     "dompurify": "^3.4.1",
     "framer-motion": "^12.23.24",
     "i18next": "^26.0.4",
@@ -31,13 +39,15 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-error-boundary": "^6.1.1",
+    "react-hook-form": "^7.75.0",
     "react-i18next": "^13.0.1",
     "react-markdown": "^10.1.0",
     "react-router-dom": "^7.9.6",
     "react-simple-code-editor": "^0.14.1",
     "react-textarea-autosize": "^8.5.9",
     "sonner": "^2.0.7",
-    "zod": "^3.22.2"
+    "zod": "^3.22.2",
+    "zustand": "^5.0.13"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

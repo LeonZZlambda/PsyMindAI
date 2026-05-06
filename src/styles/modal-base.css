@@ -55,33 +55,61 @@
 
 /* Animations */
 @keyframes modalFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes modalFadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 @keyframes modalSlideUp {
-  from { transform: translateY(20px) scale(0.96); opacity: 0; }
-  to { transform: translateY(0) scale(1); opacity: 1; }
+  from {
+    transform: translateY(20px) scale(0.96);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
 }
 
 @keyframes modalSlideDown {
-  from { transform: translateY(0) scale(1); opacity: 1; }
-  to { transform: translateY(20px) scale(0.96); opacity: 0; }
+  from {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(20px) scale(0.96);
+    opacity: 0;
+  }
 }
 
 @keyframes bottomSheetSlideUp {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
 @keyframes bottomSheetSlideDown {
-  from { transform: translateY(0); }
-  to { transform: translateY(100%); }
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
 }
 
 /* Accessibility */
@@ -92,7 +120,7 @@
   .modal-overlay.closing .modal-content {
     animation: none !important;
   }
-  
+
   .modal-overlay.closing {
     opacity: 0;
     transition: opacity 0.1s;
@@ -108,6 +136,8 @@
   flex-shrink: 0;
   gap: 1rem;
   min-width: 0;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--card-background);
 }
 
 .modal-header-title {
@@ -138,6 +168,7 @@
   padding: 0 1.5rem 1.5rem;
   overflow-y: auto;
   flex: 1;
+  background: var(--card-background);
 }
 
 .modal-section-title {
@@ -151,7 +182,7 @@
 }
 
 .modal-card {
-  background: rgba(0, 0, 0, 0.03);
+  background: var(--card-background);
   border: 1px solid var(--border-color);
   border-radius: 20px;
   padding: 1rem;
@@ -159,11 +190,11 @@
 }
 
 .app.dark .modal-card {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--card-background);
 }
 
 .modal-hero {
-  background: var(--card-hover, rgba(0, 0, 0, 0.05));
+  background: var(--card-background);
   border-radius: 24px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
@@ -174,7 +205,7 @@
 }
 
 .app.dark .modal-hero {
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--card-background);
 }
 
 .modal-footer {
@@ -183,6 +214,8 @@
   justify-content: flex-end;
   gap: 1rem;
   flex-shrink: 0;
+  background: var(--card-background);
+  border-top: 1px solid var(--border-color);
 }
 
 .app.dark .modal-header {
@@ -190,7 +223,8 @@
 }
 
 /* Close Icon/Button overrides */
-.modal-close-btn, .close-btn {
+.modal-close-btn,
+.close-btn {
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -206,22 +240,27 @@
   transition: all 0.2s ease;
 }
 
-.modal-close-btn:hover, .close-btn:hover {
+.modal-close-btn:hover,
+.close-btn:hover {
   background-color: var(--hover-color);
 }
 
-.modal-close-btn:active, .close-btn:active {
+.modal-close-btn:active,
+.close-btn:active {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.app.dark .modal-close-btn, .app.dark .close-btn {
+.app.dark .modal-close-btn,
+.app.dark .close-btn {
   color: var(--text-color);
 }
 
-.app.dark .modal-close-btn:hover, .app.dark .close-btn:hover {
+.app.dark .modal-close-btn:hover,
+.app.dark .close-btn:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-.app.dark .modal-close-btn:active, .app.dark .close-btn:active {
+.app.dark .modal-close-btn:active,
+.app.dark .close-btn:active {
   background-color: rgba(255, 255, 255, 0.15);
 }

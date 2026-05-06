@@ -81,6 +81,7 @@ const InputArea: React.FC<InputAreaProps> = ({
 
   const tools = [
     { id: 'pomodoro', icon: 'timer', label: t('chat.input.tools.pomodoro') },
+    { id: 'weeklySchedule', icon: 'calendar_month', label: t('chat.input.tools.weeklySchedule', { defaultValue: 'Grade Semanal' }) },
     { id: 'mood', icon: 'mood', label: t('chat.input.tools.mood') },
     { id: 'journal', icon: 'auto_stories', label: t('chat.input.tools.journal') },
     { id: 'reflexoes', icon: 'self_improvement', label: t('chat.input.tools.reflexoes') },
@@ -100,6 +101,11 @@ const InputArea: React.FC<InputAreaProps> = ({
     }
     if (tool.id === 'kindness') {
       toggleModal('kindness')
+      setShowToolsMenu(false)
+      return
+    }
+    if (tool.id === 'weeklySchedule') {
+      toggleModal('weeklySchedule')
       setShowToolsMenu(false)
       return
     }
