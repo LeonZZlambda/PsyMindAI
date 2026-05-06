@@ -1,25 +1,25 @@
 {
   "guided_learning": {
-    "title": "التعلم الموجَّه",
+    "title": "التعلّم الموجّه",
     "aria": {
       "close": "إغلاق",
-      "start_trail": "ابدأ المسار",
+      "start_trail": "بدء المسار",
       "export_trail": "تصدير المسار",
       "delete_trail": "حذف المسار"
     },
     "tabs": {
       "trails": "مسارات الدراسة",
-      "flashcards": "ممارسة البطاقات",
-      "quizzes": "اختبارات عشوائية"
+      "flashcards": "مراجعة البطاقات",
+      "quizzes": "اختبار عشوائي"
     },
     "alerts": {
-      "delete_confirm": "هل تريد حقًا إزالة هذا المسار المُنشأ بواسطة الذكاء الاصطناعي؟",
+      "delete_confirm": "هل تريد حقًا حذف هذا المسار الذي تم إنشاؤه بواسطة الذكاء الاصطناعي؟",
       "import_success": "تم استيراد المسار بنجاح!",
       "import_error": "خطأ في الاستيراد. انسخ رمز JSON صالح للمسار قبل الاستيراد.",
       "export_success": "تم نسخ المسار إلى الحافظة! شاركه مع أصدقائك.",
-      "export_error": "حدث خطأ أثناء نسخ المسار.",
-      "generate_error": "تعذر توليد المسار. حاول أن تكون أكثر تحديدًا في الموضوع.",
-      "generate_catch": "خطأ في الاتصال بخدمة الذكاء الاصطناعي."
+      "export_error": "خطأ عند نسخ المسار.",
+      "generate_error": "تعذّر إنشاء المسار. حاول أن تكون أكثر تحديدًا بشأن الموضوع.",
+      "generate_catch": "خطأ في الاتصال بالذكاء الاصطناعي."
     },
     "trails": {
       "active_back": "العودة إلى المسارات",
@@ -29,19 +29,19 @@
     },
     "completion": {
       "perfection_title": "مثالي! لا أخطاء!",
-      "excellent_title": "عمل ممتاز!",
-      "continue_title": "التعلم عملية مستمرة!",
-      "stats": "أجبت عن <strong>{{correct}}</strong> من <strong>{{total}}</strong> سؤال بشكل صحيح من المحاولة الأولى ({{percentage}}%).",
+      "excellent_title": "عمل رائع!",
+      "continue_title": "التعلّم عملية مستمرة!",
+      "stats": "أجبت بشكل صحيح على <strong>{{correct}}</strong> من <strong>{{total}}</strong> أسئلة في المحاولة الأولى ({{percentage}}%).",
       "you_are_awesome": "أنت رائع!",
-      "title": "انتهى المسار!",
+      "title": "اكتمل المسار!",
       "action": "العودة إلى المسارات",
-      "quizzes_title": "اكتملت الاختبارات!",
+      "quizzes_title": "الاختبارات مكتملة!",
       "retry": "حاول مرة أخرى"
     },
     "flashcard": {
       "flip_hint": "انقر للكشف",
       "difficulty": {
-        "fail": "أخطأت",
+        "fail": "مرة أخرى",
         "hard": "صعب",
         "good": "جيد",
         "easy": "سهل"
@@ -55,122 +55,122 @@
     },
     "quiz": {
       "verify": "تحقق من الإجابة",
-      "explain_btn": "اشرح لي بالذكاء الاصطناعي ✨",
-      "explaining": "جاري توليد الشرح...",
-      "tutor": "المرشد بالذكاء الاصطناعي:",
+      "explain_btn": "اشرح بالذكاء الاصطناعي ✨",
+      "explaining": "جارٍ توليد الشرح...",
+      "tutor": "مدرّب الذكاء الاصطناعي:",
       "finish_trail": "إنهاء المسار",
       "next_question": "السؤال التالي",
       "see_results": "عرض النتائج"
     },
     "open_ended": {
       "placeholder": "اكتب تأملك أو إجابتك هنا...",
-      "evaluate_btn": "قيّم الإجابة بالذكاء الاصطناعي",
-      "evaluating": "جاري التقييم...",
+      "evaluate_btn": "تقييم بالإجابه بواسطة الذكاء الاصطناعي",
+      "evaluating": "جارٍ التقييم...",
       "skip_btn": "تخطي",
       "your_answer": "إجابتك:",
       "ai_feedback": "ملاحظات الذكاء الاصطناعي:",
-      "continue_trail": "تابع المسار"
+      "continue_trail": "متابعة المسار"
     },
     "create": {
       "title": "ماذا تريد أن تتعلم اليوم؟",
-      "desc": "صف موضوعًا، تحديًا عاطفيًا أو مهارة. سيقوم ذكاؤنا الاصطناعي ببناء خطة تفاعلية مخصصة (بطاقات واختبارات).",
-      "placeholder": "مثال: أريد مسارًا ببطاقات عن كيفية ممارسة اليقظة الذهنية في العمل خلال 5 دقائق...",
-      "btn_create": "أنشئ بواسطة الذكاء الاصطناعي",
-      "btn_generating": "جاري إنشاء المحتوى..."
+      "desc": "صف موضوعًا أو تحديًا عاطفيًا أو مهارة. سيبني الذكاء الاصطناعي خطة تفاعلية مخصصة (بطاقات واختبارات).",
+      "placeholder": "مثال: أريد مسارًا ببطاقات حول كيفية ممارسة التأمل اليقظ في العمل خلال 5 دقائق...",
+      "btn_create": "توليد بالذكاء الاصطناعي",
+      "btn_generating": "جارٍ توليد المواد..."
     },
     "explore": {
-      "title": "استعرض المسارات أو أنشئ مسارك",
+      "title": "استكشاف المسارات أو إنشاء خاصتك",
       "import": "استيراد",
       "activities": "{{count}} أنشطة",
-      "generate": "إنشاء بواسطة الذكاء الاصطناعي"
+      "generate": "توليد بالذكاء الاصطناعي"
     },
     "empty_flashcards": {
-      "title": "لا توجد بطاقات قابلة للمراجعة",
-      "desc": "أكمل مسارًا في تبويب \"مسارات الدراسة\" لفتح البطاقات للمراجعة."
+      "title": "لا توجد بطاقات مفتوحة",
+      "desc": "أكمل مسار دراسة في تبويب 'مسارات الدراسة' لفتح البطاقات للمراجعة."
     },
     "empty_quizzes": {
-      "title": "لا توجد اختبارات متاحة",
-      "desc": "أكمل مسارًا في تبويب \"مسارات الدراسة\" لفتح الاختبارات للممارسة."
+      "title": "لا توجد اختبارات مفتوحة",
+      "desc": "أكمل مسار دراسة لفتح الاختبارات للتدريب."
     },
     "status": {
       "base_unlocked": "{{count}} متاحة في القاعدة",
       "flashcard_status": "بطاقة {{current}} / {{total}}",
       "quiz_status": "سؤال {{current}} / {{total}}",
-      "quick_quiz": "اختبار سريع عام",
+      "quick_quiz": "اختبار سريع",
       "practice": "ممارسة البطاقات"
     },
     "default_trails": [
       {
         "id": 1,
-        "title": "إدارة القلق",
+        "title": "Anxiety Management",
         "icon": "psychology",
-        "description": "تعلم كيفية التعرف على أعراض القلق وإدارتها.",
+        "description": "Learn to identify and manage anxiety symptoms.",
         "content": [
           {
             "type": "flashcard",
-            "front": "ما هو رد فعل 'القتال أو الهروب'؟",
-            "back": "هو استجابة فسيولوجية تلقائية للجسم تجاه أحداث تُعتبر مهددة أو مُجهدة، حيث ينشط الجهاز العصبي الودي."
+            "front": "What is the 'Fight or Flight' response?",
+            "back": "It's a physiological reaction that occurs in response to a perceived harmful event, attack, or threat to survival, activating the sympathetic nervous system."
           },
           {
             "type": "quiz",
-            "question": "ما هي تقنية التنفس الموصى بها لتخفيف القلق الحاد؟",
+            "question": "Which breathing technique is most recommended to reduce acute anxiety?",
             "options": [
               {
                 "id": "A",
-                "text": "تنفس صدري سريع"
+                "text": "Rapid chest breathing"
               },
               {
                 "id": "B",
-                "text": "حبس النفس لمدة دقيقة"
+                "text": "Holding breath for 1 minute"
               },
               {
                 "id": "C",
-                "text": "تنفس الحجاب الحاجز (4-7-8)"
+                "text": "Diaphragmatic Breathing (4-7-8)"
               },
               {
                 "id": "D",
-                "text": "فرط التنفس"
+                "text": "Hyperventilation"
               }
             ],
             "correctOption": "C"
           },
           {
             "type": "flashcard",
-            "front": "التأريض (Grounding)",
-            "back": "فعل جلب انتباهك للحظة الحاضرة عبر التركيز على الحواس الجسدية (مثال: 5 أشياء تراها، 4 أشياء تلمسها)."
+            "front": "Grounding",
+            "back": "The act of bringing your attention to the present moment, focusing on physical senses (e.g., 5 things you see, 4 you touch)."
           }
         ]
       },
       {
         "id": 2,
-        "title": "التواصل غير العنيف",
+        "title": "Nonviolent Communication",
         "icon": "forum",
-        "description": "حسّن علاقاتك من خلال التواصل بتعاطف.",
+        "description": "Improve your relationships by communicating empathetically.",
         "content": [
           {
             "type": "flashcard",
-            "front": "ما هي المكونات الأربعة للتواصل غير العنيف؟",
-            "back": "1. الملاحظة، 2. الشعور، 3. الحاجة، 4. الطلب."
+            "front": "What are the 4 components of NVC?",
+            "back": "1. Observation, 2. Feeling, 3. Need, 4. Request."
           },
           {
             "type": "quiz",
-            "question": "أي من العبارات التالية مثال على 'الملاحظة' بدون حكم في التواصل غير العنيف؟",
+            "question": "Which of these phrases is an example of an 'Observation' (without judgment) in NVC?",
             "options": [
               {
                 "id": "A",
-                "text": "أنت غير مسؤول للغاية."
+                "text": "You are very irresponsible."
               },
               {
                 "id": "B",
-                "text": "أنت لا تستمع إليّ أبدًا."
+                "text": "You never listen to me."
               },
               {
                 "id": "C",
-                "text": "لقد لاحظت أنك وصلت متأخرًا 10 دقائق في الاجتماعات الأخيرة."
+                "text": "I noticed you arrived 10 minutes late to the last meetings."
               },
               {
                 "id": "D",
-                "text": "أنت دائمًا كسول."
+                "text": "You are always lazy."
               }
             ],
             "correctOption": "C"
@@ -179,34 +179,34 @@
       },
       {
         "id": 3,
-        "title": "الذكاء العاطفي",
+        "title": "Emotional Intelligence",
         "icon": "favorite",
-        "description": "تعلّم التعرف على عواطفك والتحكم بها.",
+        "description": "Recognize and control your own emotions.",
         "content": [
           {
             "type": "flashcard",
-            "front": "ما هو الوعي الذاتي؟",
-            "back": "القدرة على التعرف على مزاجك ومشاعرك ومحفزاتك وفهمها."
+            "front": "What is Self-awareness?",
+            "back": "The ability to recognize and understand your own moods, emotions, and drives."
           },
           {
             "type": "quiz",
-            "question": "ما هو ركن أساسي من أركان الذكاء العاطفي في مكان العمل؟",
+            "question": "A key pillar of emotional intelligence in the workplace is:",
             "options": [
               {
                 "id": "A",
-                "text": "إخفاء ما تشعر به."
+                "text": "Hiding what you feel."
               },
               {
                 "id": "B",
-                "text": "التعاطف مع الزملاء."
+                "text": "Empathy for colleagues."
               },
               {
                 "id": "C",
-                "text": "العمل حتى الإرهاق."
+                "text": "Working to exhaustion."
               },
               {
                 "id": "D",
-                "text": "التحدث بصوت أعلى من الآخرين."
+                "text": "Speaking louder than others."
               }
             ],
             "correctOption": "B"
@@ -215,34 +215,34 @@
       },
       {
         "id": 4,
-        "title": "اليقظة والتركيز",
+        "title": "Mindfulness and Focus",
         "icon": "self_improvement",
-        "description": "تقنيات اليقظة للحفاظ على التركيز في الحاضر.",
+        "description": "Mindfulness techniques to stay focused on the present.",
         "content": [
           {
             "type": "flashcard",
-            "front": "ما هي اليقظة الذهنية (Mindfulness)؟",
-            "back": "حالة ذهنية تتحقق عبر توجيه الوعي للحظة الحالية مع إدراك وقبول المشاعر."
+            "front": "What is Mindfulness?",
+            "back": "A mental state achieved by focusing one's awareness on the present moment, while calmly acknowledging and accepting one's feelings."
           },
           {
             "type": "quiz",
-            "question": "إذا تشوشت أثناء التأمل، ماذا يجب أن تفعل؟",
+            "question": "When getting distracted during meditation, you should:",
             "options": [
               {
                 "id": "A",
-                "text": "أن تشعر بالإحباط من نفسك."
+                "text": "Get frustrated with yourself."
               },
               {
                 "id": "B",
-                "text": "الاستسلام والمحاولة في يوم آخر."
+                "text": "Give up and try another day."
               },
               {
                 "id": "C",
-                "text": "ملاحظة التشوش والعودة بلطف للتركيز على التنفس."
+                "text": "Notice the distraction and gently return focus to the breath."
               },
               {
                 "id": "D",
-                "text": "ترك العقل يتجول بلا نهاية."
+                "text": "Let your mind wander indefinitely."
               }
             ],
             "correctOption": "C"
@@ -251,34 +251,34 @@
       },
       {
         "id": 5,
-        "title": "التحيّزات المعرفية",
+        "title": "Cognitive Biases",
         "icon": "visibility",
-        "description": "فهم أخطاء التفكير التي تؤثر على قراراتنا.",
+        "description": "Understand the thinking errors that affect our decisions.",
         "content": [
           {
             "type": "flashcard",
-            "front": "تحيّز التأكيد",
-            "back": "ميل للبحث وتذكر المعلومات التي تؤكد معتقداتنا المسبقة."
+            "front": "Confirmation Bias",
+            "back": "The tendency to search for and remember information that confirms one's preconceptions."
           },
           {
             "type": "quiz",
-            "question": "ما هو تأثير دانينغ-كروجر؟",
+            "question": "What is the Dunning-Kruger Effect?",
             "options": [
               {
                 "id": "A",
-                "text": "المبالغة في تقدير مهارتك في مجالات تفتقر فيها للخبرة."
+                "text": "Overestimating one's own ability in tasks where one has little experience."
               },
               {
                 "id": "B",
-                "text": "الذعر عند التحدث أمام الجمهور."
+                "text": "Panic when speaking in public."
               },
               {
                 "id": "C",
-                "text": "عادة شراء أشياء على عروض."
+                "text": "The habit of buying things on sale."
               },
               {
                 "id": "D",
-                "text": "نسيان المعلومات تحت الضغط."
+                "text": "Forgetting information under stress."
               }
             ],
             "correctOption": "A"
@@ -287,34 +287,34 @@
       },
       {
         "id": 6,
-        "title": "تنظيم الدراسة",
+        "title": "Study Organization",
         "icon": "menu_book",
-        "description": "تقنيات إدارة الوقت والتخطيط الدراسي.",
+        "description": "Time management and school planning techniques.",
         "content": [
           {
             "type": "flashcard",
-            "front": "ما هي طريقة بومودورو؟",
-            "back": "تقنية لإدارة الوقت تتناوب بين فترات تركيز مكثف (مثلاً: 25 دقيقة) واستراحات قصيرة (مثلاً: 5 دقائق) للحفاظ على الإنتاجية."
+            "front": "What is the Pomodoro Technique?",
+            "back": "A time management method that alternates intense focus blocks (e.g., 25 mins) with short breaks (e.g., 5 mins) to maintain productivity."
           },
           {
             "type": "quiz",
-            "question": "ما هي أفضل طريقة للتحضير لأسبوع فيه عدة اختبارات؟",
+            "question": "What is the best way to prepare for a week with multiple exams?",
             "options": [
               {
                 "id": "A",
-                "text": "دراسة كل شيء في ليلة الامتحان."
+                "text": "Study everything the night before the exam."
               },
               {
                 "id": "B",
-                "text": "إعداد جدول يوزع المواد على مدار الأسبوع."
+                "text": "Create a schedule distributing the subjects throughout the week."
               },
               {
                 "id": "C",
-                "text": "دراسة المادة الأكثر صعوبة فقط."
+                "text": "Study only the hardest subject."
               },
               {
                 "id": "D",
-                "text": "عدم الدراسة والاعتماد فقط على ما تتذكره من الدروس."
+                "text": "Don't study and rely only on what you remember from classes."
               }
             ],
             "correctOption": "B"
@@ -323,264 +323,264 @@
       },
       {
         "id": 7,
-        "title": "الضغط الدراسي والامتحانات",
+        "title": "School Pressure and Exams",
         "icon": "school",
-        "description": "استراتيجيات للتعامل مع القلق قبل الامتحان وتجنب النسيان أثناء الاختبار.",
+        "description": "Strategies to manage pre-exam nervousness and avoid going 'blank'.",
         "content": [
           {
             "type": "flashcard",
-            "front": "ما الذي يسبب ظاهرة 'النسيان' أثناء الامتحان؟",
-            "back": "غالبًا ما يحدث 'النسيان' بسبب ذروة القلق؛ يعتبر الدماغ الامتحان تهديدًا فوريًا ويقيّد الوصول إلى الذاكرة."
+            "front": "What causes you to go 'blank' during a test?",
+            "back": "Going 'blank' is usually caused by an anxiety spike. The brain perceives the exam as an immediate threat, blocking memory access."
           },
           {
             "type": "quiz",
-            "question": "ماذا تفعل إذا شعرت بأنك قد تنسى أثناء الامتحان؟",
+            "question": "What to do if you feel you're going to go blank during an exam?",
             "options": [
               {
                 "id": "A",
-                "text": "الذعر بصمت."
+                "text": "Panic silently."
               },
               {
                 "id": "B",
-                "text": "خذ استراحة، أغلق عينيك، تنفَّس بعمق واشرب ماءً إذا أمكن."
+                "text": "Take a break, close your eyes, take a deep breath, and drink water if possible."
               },
               {
                 "id": "C",
-                "text": "أجب بأي شيء بأسرع ما يمكن."
+                "text": "Answer anything as quickly as possible."
               },
               {
                 "id": "D",
-                "text": "البكاء فورًا."
+                "text": "Cry immediately."
               }
             ],
             "correctOption": "B"
           },
           {
             "type": "flashcard",
-            "front": "التوقعات مقابل الواقع",
-            "back": "في كثير من الأحيان يأتي الضغط من توقعات الآباء أو المعلمين. تذكّر أن الدرجة السيئة لا تعرّف ذكاءك، وهذا مهم لتقليل والتعامل مع هذا الضغط المفرط."
+            "front": "Expectations vs. Reality",
+            "back": "Often pressure comes from parents' or teachers' expectations. Remembering that a bad grade does not define your intelligence is key to reducing and dealing with this excessive pressure."
           }
         ]
       }
     ]
   },
   "exams": {
-    "title": "التحضير للاختبارات",
-    "close": "إغلاق",
-    "back": "عودة",
-    "hero_description": "استعرض الامتحانات، مصفوفات المرجع واختصارات التحضير.",
+    "title": "Prep Course",
+    "close": "Close",
+    "back": "Back",
+    "hero_description": "Explore exams, reference matrices, and prep shortcuts.",
     "vocational": {
-      "title": "اختبار الميول المهنية",
-      "progress_aria": "تقدم اختبار الميول المهنية",
+      "title": "Vocational Test",
+      "progress_aria": "Vocational test progress",
       "introduction": {
-        "title": "اكتشف ميولك المهنية",
-        "description": "يعتمد هذا الاختبار على نموذج RIASEC، أداة علمية تحدد تفضيلاتك المهنية عبر ستة أبعاد: واقعي، بحثي، فني، اجتماعي، ريادي وتقليدي.",
+        "title": "Discover Your Professional Vocation",
+        "description": "This test is based on the RIASEC model, a scientific tool that identifies your professional preferences through six dimensions: Realistic, Investigative, Artistic, Social, Enterprising, and Conventional.",
         "features": {
-          "riasec": "مبني على نموذج RIASEC",
-          "insights": "استنتاجات مهنية مخصصة",
-          "guidance": "إرشاد لاتخاذ القرار"
+          "riasec": "Based on RIASEC model",
+          "insights": "Personalized career insights",
+          "guidance": "Guidance for decision making"
         },
-        "start_button": "بدء اختبار الميول"
+        "start_button": "Start Vocational Test"
       },
       "likert": {
-        "1": "لا أحب وأتجنّب",
-        "2": "أجدها مملة",
-        "3": "محايد",
-        "4": "أحب فعلها",
-        "5": "أعشقها! سأفعلها دائمًا"
+        "1": "I dislike it",
+        "2": "Find it boring",
+        "3": "Whatever / Neutral",
+        "4": "I like doing it",
+        "5": "I love it!"
       },
-      "processing": "جارٍ تحليل ملفك المهني...",
+      "processing": "Analyzing your vocational profile...",
       "result": {
-        "title": "ملفك المهني",
-        "cta_plan": "توليد خطة دراسية",
-        "chat_input": "أريد خطة دراسة مركزة على {{area}}"
+        "title": "Your Professional Profile",
+        "cta_plan": "Generate Study Plan",
+        "chat_input": "I would like a study plan focused on {{area}}"
       },
       "questions": {
-        "1": "هل تحب تركيب أو إصلاح أشياء ميكانيكية في حياتك اليومية أم من حين لآخر؟",
-        "2": "هل تستمتع بالتحقيق في مشكلات علمية أو رياضية لإيجاد حلول؟",
-        "3": "هل تشعر بالراحة عند التعبير عن الأفكار بالتصميم أو الفنون أو الإبداع البصري؟",
-        "4": "هل تحب مساعدة الآخرين على تعلم شيء جديد أو التطور؟",
-        "5": "هل تشعر بالحماس لقيادة فرق واتخاذ قرارات في المشاريع؟",
-        "6": "هل تحب تنظيم البيانات والملفات واتباع روتين واضح؟",
-        "7": "هل تحب التعامل مع الأدوات والآلات أو الأنشطة العملية؟",
-        "8": "هل تشعر بالراحة عند ملاحظة التفاصيل واختبار الفرضيات؟",
-        "9": "هل تحب ابتكار شيء أصلي حتى لو كان كهواية؟",
-        "10": "هل تستمتع بالاستماع للناس وتقديم الدعم عند الحاجة؟",
-        "11": "هل تتحفز لإقناع الآخرين أو التفاوض أو بيع فكرة؟",
-        "12": "هل تشعر بالراحة عند اتباع إجراءات واضحة والتحقق من كل شيء بعناية؟",
-        "13": "هل تفضل الأنشطة الخارجية أو التي تتطلب استخدام الجسد؟",
-        "14": "هل تستمتع بالتعلم الذاتي واستكشاف المواضيع بعمق؟",
-        "15": "هل تفرح برواية القصص أو الكتابة أو التأليف؟",
-        "16": "هل تحب العمل ضمن فريق وخلق مناخ تعاوني؟",
-        "17": "هل تحب تولي القيادة لتنظيم الأشخاص والأهداف؟",
-        "18": "هل تستمتع بالجداول والمهام الإدارية أو التنظيم المالي؟"
+        "1": "Do you enjoy assembling or fixing mechanical objects in your daily life or occasionally?",
+        "2": "Do you like investigating scientific or mathematical problems to find solutions?",
+        "3": "Do you feel good expressing ideas through design, arts, or visual creation?",
+        "4": "Do you enjoy helping people learn something new or develop themselves?",
+        "5": "Are you excited about leading teams and making decisions in projects?",
+        "6": "Do you like organizing data, files, and following clear routines?",
+        "7": "Do you like working with tools, machines, or hands-on activities?",
+        "8": "Do you feel good observing details and testing hypotheses?",
+        "9": "Do you like creating something original, even if it's just for a hobby?",
+        "10": "Do you enjoy listening to people and offering support when they need it?",
+        "11": "Are you motivated by convincing, negotiating, or selling an idea?",
+        "12": "Do you feel good following clear processes and checking everything carefully?",
+        "13": "Do you like outdoor activities or those that involve using your body?",
+        "14": "Do you like learning on your own and exploring subjects in depth?",
+        "15": "Are you excited about telling stories, writing, or composing something?",
+        "16": "Do you like working in a team and creating a collaborative environment?",
+        "17": "Do you like taking the lead to organize people and goals?",
+        "18": "Do you enjoy spreadsheets, financial organization, or administrative tasks?"
       },
       "dimensions": {
-        "R": "واقعي",
-        "I": "بحثي",
-        "A": "فني",
-        "S": "اجتماعي",
-        "E": "ريادي",
-        "C": "تقليدي"
+        "R": "Realistic",
+        "I": "Investigative",
+        "A": "Artistic",
+        "S": "Social",
+        "E": "Enterprising",
+        "C": "Conventional"
       }
     },
     "sections": {
-      "categories": "الفئات",
-      "subjects": "المواد",
-      "subjects_caption": "اختر نطاقًا لتوليد خطة، استراتيجية أو ممارسة موجهة.",
-      "available_options_one": "{{count}} خيار متاح",
-      "available_options_other": "{{count}} خيارات متاحة"
+      "categories": "Categories",
+      "subjects": "Subjects",
+      "subjects_caption": "Choose a focus area to generate a plan, strategy, or guided practice.",
+      "available_options_one": "{{count}} option available",
+      "available_options_other": "{{count}} options available"
     },
     "categories_title": {
-      "international": "دولية",
-      "national": "وطنية",
-      "regional": "إقليمية",
-      "olympiads": "المسابقات العلمية"
+      "international": "International",
+      "national": "National",
+      "regional": "Regional",
+      "olympiads": "Olympiads"
     },
-    "topics_header": "مصفوفة المراجع والمحتوى",
+    "topics_header": "Reference Matrix and Contents",
     "actions": {
-      "ai_plan": "إنشاء خطة دراسة بالذكاء الاصطناعي",
-      "ai_strategy": "استراتيجية الامتحان",
-      "ai_judge": "وضع التحضير (قاضي OBI)",
-      "explain_topic": "شرح الموضوع",
-      "generate_quiz": "توليد أسئلة (محاكاة)"
+      "ai_plan": "Create AI Study Plan",
+      "ai_strategy": "Exam Strategy",
+      "ai_judge": "Prep Mode (OBI Judge)",
+      "explain_topic": "Explain topic",
+      "generate_quiz": "Generate Questions (Quiz)"
     },
     "calculator": {
       "mode_simple": {
-        "title": "متوسط بسيط",
-        "desc": "لدي درجاتي النهائية وأرغب في حساب المتوسط."
+        "title": "Simple Average",
+        "desc": "I already have my final grades and want to calculate the average."
       },
       "mode_advanced": {
-        "title": "حسب عدد الإجابات الصحيحة",
-        "desc": "لدي فقط النتائج وأريد تقدير درجتي."
+        "title": "By Hits",
+        "desc": "I only have the answer key and want to estimate my score."
       },
       "inputs": {
-        "course": "الاختصاص المطلوب (مثال: طب)",
-        "category": "فئة المنافسة"
+        "course": "Desired Course (e.g. Medicine)",
+        "category": "Competition Category"
       },
       "subjects": {
-        "linguagens": "اللغات",
-        "humanas": "العلوم الإنسانية",
-        "natureza": "العلوم الطبيعية",
-        "matematica": "الرياضيات",
-        "redacao": "الكتابة"
+        "linguagens": "Languages",
+        "humanas": "Human Sciences",
+        "natureza": "Natural Sciences",
+        "matematica": "Mathematics",
+        "redacao": "Essay"
       },
       "correct_labels": {
-        "linguagens": "إجابات اللغات (0-45)",
-        "humanas": "إجابات العلوم الإنسانية (0-45)",
-        "natureza": "إجابات العلوم الطبيعية (0-45)",
-        "matematica": "إجابات الرياضيات (0-45)",
-        "redacao": "درجة الكتابة (0-1000)"
+        "linguagens": "Language Hits (0-45)",
+        "humanas": "Human Sciences Hits (0-45)",
+        "natureza": "Natural Sciences Hits (0-45)",
+        "matematica": "Mathematics Hits (0-45)",
+        "redacao": "Essay Score (0-1000)"
       },
-      "ignore_redacao": "لم أحصل على درجة الكتابة بعد",
+      "ignore_redacao": "I don't have the essay score yet",
       "result": {
-        "simple_label": "متوسطك البسيط:",
-        "advanced_label": "تقدير المتوسط (نطاق TRI):",
-        "avg": "المتوسط المتوقع: ~{{val}}",
-        "warning": "درجة الكتابة <strong>لم تُدرَج</strong> في هذا الحساب. هذا المتوسط يشمل المجالات الموضوعية الأربع فقط.",
-        "note_simple": "*هذا متوسط بسيط. قد يستخدم SiSU وProUni أوزانًا مختلفة حسب التخصص والجامعة.",
-        "note_advanced": "*هذا تقدير مبني على أنماط سابقة. الدرجة الحقيقية تعتمد على TRI وصعوبة الأسئلة."
+        "simple_label": "Your Simple Average:",
+        "advanced_label": "Estimated Average (IRT Range):",
+        "avg": "Probable average: ~{{val}}",
+        "warning": "The Essay score <strong>WAS NOT</strong> included in this calculation. This average considers only the 4 objective areas.",
+        "note_simple": "*This is a simple average. SiSU and ProUni may use different weights depending on the course and university.",
+        "note_advanced": "*This is an estimate based on previous patterns. The real score depends on IRT (Item Response Theory) and question difficulty."
       },
       "buttons": {
-        "switch": "تبديل الوضع",
-        "calc_ai": "حساب وتحليل بالذكاء الاصطناعي",
-        "calc": "حساب المتوسط"
+        "switch": "Switch Mode",
+        "calc_ai": "Calculate and Analyze with AI",
+        "calc": "Calculate Average"
       },
       "prompts": {
-        "simple": "🎓 تحليل جدوى SISU/PROUNI\n\n📊 درجاتي:\n• اللغات: {{linguagens}}\n• العلوم الإنسانية: {{humanas}}\n• العلوم الطبيعية: {{natureza}}\n• الرياضيات: {{matematica}}\n• الكتابة: {{redacao}}\n\n📈 المتوسط البسيط: {{avg}}\n\n🎯 الهدف:\n• التخصص: {{course}}\n• الفئة: {{category}}\n\nالرجاء مساعدتي في:\n1. الجامعات المحتملة\n   - اذكر جامعات عامة حيث لدي فرصة جيدة\n   - اذكر حدود القبول الأخيرة\n2. الخيارات الخطرة\n3. نظام الأوزان\n4. استراتيجيات التحسين\n5. الدعم النفسي: نصائح للتعامل مع القلق\n\nكن واقعيًا ومشجعًا!",
-        "advanced": "🎯 تحليل TRI - تقدير الأداء\n\n📝 إجاباتي:\n• اللغات: {{linguagens}}/45\n  📉 تقدير الدرجة: {{triLinguagensMin}} - {{triLinguagensMax}}\n\n• العلوم الإنسانية: {{humanas}}/45\n  📉 تقدير الدرجة: {{triHumanasMin}} - {{triHumanasMax}}\n\n• العلوم الطبيعية: {{natureza}}/45\n  📉 تقدير الدرجة: {{triNaturezaMin}} - {{triNaturezaMax}}\n\n• الرياضيات: {{matematica}}/45\n  📉 تقدير الدرجة: {{triMatematicaMin}} - {{triMatematicaMax}}\n\n{{redacaoInfo}}\n\n📊 المتوسط المقدر:\n• سيناريو متشائم: {{totalMin}}\n• سيناريو متفائل: {{totalMax}}\n• المتوسط المحتمل: ~{{totalAvg}}\n{{observacao}}\n\n🎯 هدفي:\n• التخصص: {{course}}\n• الفئة: {{category}}\n\nأحتاج تحليلًا كاملاً يشمل:\n1. الفرص الواقعية (مقارنة مع حدود القبول)\n2. تحليل حسب المجال\n3. الأوزان والاستراتيجية\n4. خطة بديلة\n5. دعم نفسي ومقترحات للتعامل مع عدم اليقين\n\nكن صريحًا لكن مشجعًا!"
+        "simple": "🎓 ADMISSION FEASIBILITY ANALYSIS\n\n📊 MY TARGET SCORES:\n• Languages: {{linguagens}}\n• Human Sciences: {{humanas}}\n• Natural Sciences: {{natureza}}\n• Mathematics: {{matematica}}\n• Essay: {{redacao}}\n\n📈 Simple Average: {{avg}}\n\n🎯 GOAL:\n• Course: {{course}}\n• Category/Modality: {{category}}\n\nPlease help me with:\n\n1. 🏛️ VIABLE UNIVERSITIES\n   - List universities where I have a GOOD chance\n   - Mention recent cutoff scores\n\n2. ⚠️ RISKY OPTIONS\n   - Universities where it would be harder, but possible\n\n3. ⚖️ WEIGHT SYSTEM\n   - How does {{course}} usually weigh these areas?\n   - What is my estimated weighted score?\n\n4. 💡 STRATEGIES\n   - Should I focus on improving any specific area?\n   - Admission application tips\n\n5. 🧠 EMOTIONAL SUPPORT\n   - How to manage waiting anxiety?\n   - Personalized motivational message\n\nBe realistic but encouraging! 💪",
+        "advanced": "🎯 SCORE ESTIMATION ANALYSIS\n\n📝 MY HITS:\n• Languages: {{linguagens}}/45\n  📉 Estimated score: {{triLinguagensMin}} - {{triLinguagensMax}}\n  \n• Human Sciences: {{humanas}}/45\n  📉 Estimated score: {{triHumanasMin}} - {{triHumanasMax}}\n  \n• Natural Sciences: {{natureza}}/45\n  📉 Estimated score: {{triNaturezaMin}} - {{triNaturezaMax}}\n  \n• Mathematics: {{matematica}}/45\n  📉 Estimated score: {{triMatematicaMin}} - {{triMatematicaMax}}\n\n{{redacaoInfo}}\n\n📊 ESTIMATED AVERAGE:\n• Pessimistic scenario: {{totalMin}}\n• Optimistic scenario: {{totalMax}}\n• Probable average: ~{{totalAvg}}\n{{observacao}}\n\n🎯 MY GOAL:\n• Course: {{course}}\n• Modality: {{category}}\n\nI need a complete analysis:\n\n1. 🏛️ REAL CHANCES\n   - Considering the score range, which universities are viable?\n   - Compare with recent cutoff scores\n{{impactoRedacao}}\n\n2. 📈 AREA ANALYSIS\n   - In which areas did I do well?\n   - Where can I improve if I retake it?\n\n3. ⚖️ WEIGHTS & STRATEGY\n   - How does {{course}} weigh the areas?\n   - Do my strong areas favor this course?\n\n4. 🔄 PLAN B\n   - Alternative courses that match my score profile\n   - Nearby university options\n\n5. 💪 PSYCHOLOGICAL SUPPORT\n   - How to deal with the uncertainty of the estimation?\n   - Tips to stay calm until the official results\n   - Motivational message based on my performance\n\nBe honest about the chances, but also encouraging! 🌟"
       }
     },
     "prompts": {
-      "plan": "أنشئ خطة دراسية كاملة لـ {{exam}} - {{subject}}:\n\n📚 المواضيع:\n{{topics}}\n\nالرجاء تزويدي بـ:\n1. الترتيب المثالي للدراسة\n2. المدة المقترحة لكل موضوع\n3. تقنيات دراسة محددة\n4. مصادر موصى بها\n5. كيفية ظهور المحتوى في الامتحانات\n6. نصائح للمراجعة\n\nكن عمليًا ومحفزًا!",
-      "strategy": "حلل استراتيجية التحضير لـ {{exam}} - {{subject}}:\n\n🎯 كيف أوزع الأولويات؟\n📊 ما المواضيع الأكثر تكرارًا؟\n⚡ تقنيات الحل السريع\n🧠 كيفية التعامل مع القلق قبل الامتحان\n📝 إدارة الوقت أثناء الاختبار\n\nقدم نصائح عملية ومحفزة!",
-      "explain": "اشرح بوضوح موضوع {{topic}} في مادة {{subject}} لـ {{exam}}:\n\n📌 {{topic}}\n\nيشمل:\n1. المفاهيم الأساسية\n2. أمثلة عملية\n3. كيف يظهر في الامتحانات\n4. نصائح للحفظ\n5. الأخطاء الشائعة\n\nاستخدم لغة مبسطة!"
+      "plan": "Create a complete study plan for {{exam}} - {{subject}}:\n\n📚 TOPICS:\n{{topics}}\n\nPlease provide:\n1. Ideal study order\n2. Suggested time for each topic\n3. Specific study techniques\n4. Recommended resources\n5. How this content appears in exams\n6. Memorization and review tips\n\nBe practical and motivating! 💪",
+      "strategy": "Analyze the preparation strategy for {{exam}} - {{subject}}:\n\n🎯 How should I prioritize my studies?\n📊 Which topics are most frequent?\n⚡ Quick resolution techniques\n🧠 How to handle pre-exam anxiety\n📝 Time management tips during the exam\n\nGive practical and motivating advice!",
+      "explain": "Clearly and didactically explain the following topic of {{subject}} for {{exam}}:\n\n📌 {{topic}}\n\nIncluding:\n1. Fundamental concepts\n2. Practical examples\n3. How it appears on exams\n4. Memorization tips\n5. Common mistakes to avoid\n\nUse accessible language! 📚"
     }
   },
   "quiz": {
-    "title": "اختبار محاكاة: {{topic}}",
-    "close": "إغلاق",
+    "title": "Integrated Mock Exam: {{topic}}",
+    "close": "Close",
     "loading": {
-      "title": "جارٍ توليد أسئلة جديدة...",
-      "desc": "يقوم نظامنا بتوليد اختبار تعليمي بصيغة {{exam}}."
+      "title": "Generating fresh questions...",
+      "desc": "Our AI is formulating the educational mock exam in the format of {{exam}}."
     },
     "results": {
-      "title": "اكتملت المراجعة!",
-      "score": "أجبت عن {{score}} من أصل {{total}} سؤالًا بشكل صحيح.",
-      "finish": "إنهاء المراجعة"
+      "title": "Training Complete!",
+      "score": "You got {{score}} out of {{total}} questions right.",
+      "finish": "Finish Review"
     },
     "active": {
-      "progress": "السؤال {{current}} من {{total}}",
-      "confirm": "تأكيد الإجابة",
-      "next": "السؤال التالي",
-      "see_results": "عرض النتائج",
-      "correct": "✨ إجابة صحيحة!",
-      "incorrect": "❌ إجابة غير صحيحة"
+      "progress": "Question {{current}} of {{total}}",
+      "confirm": "Confirm Answer",
+      "next": "Next Question",
+      "see_results": "See Results",
+      "correct": "✨ Correct Answer!",
+      "incorrect": "❌ Incorrect Answer"
     },
     "messages": {
-      "error_comm": "حدث خطأ في الاتصال المتقدم مع الذكاء الاصطناعي لتوليد هذا JSON. حاول مرة أخرى لاحقًا.",
-      "try_again": "حاول مرة أخرى",
-      "error_desc": "فشل الشبكة أو استجابة غير منسقة."
+      "error_comm": "There was an error communicating with the AI to generate the exam. Try again later.",
+      "try_again": "Try again",
+      "error_desc": "Network failure or malformed response."
     },
-    "prompt": "اعمل كمولِّد لأسئلة المحاكاة. أنشئ 4 أسئلة أصلية بمستوى امتحان {{exam}} في مادة {{subject}} مع التركيز على: {{topic}}.\n\nأعد فقط مصفوفة بصيغة JSON خام تحتوي الأسئلة. لا تكتب أي كلمات خارج كائنات الـ JSON. لا تضع ```json في البداية.\n\n[\n  {\n    \"question\": \"نص السؤال...\",\n    \"options\": [\"الخيار 1\", \"الخيار 2\", \"الخيار 3\", \"الخيار 4\"],\n    \"correct\": 0,\n    \"explanation\": \"تفسير مفصل للإجابة الصحيحة.\"\n  }\n]"
+    "prompt": "Act as a mock exam question generator. Create 4 original questions at the level of the {{exam}} exam in the subject of {{subject}} focusing on the theme: {{topic}}.\n\nReturn ONLY a pure JSON array containing the questions. Do not write any other words outside the JSON braces. Do not include ```json at the beginning.\n\n[\n  {\n    \"pergunta\": \"Formatted text of the question...\",\n    \"alternativas\": [\"Option 1\", \"Option 2\", \"Option 3\", \"Option 4\", \"Option 5\"],\n    \"correta\": 0,\n    \"explicacao\": \"Detailed explanation of the correct option in Portuguese.\"\n  }\n]"
   },
   "roadmap": {
-    "title": "خريطة الطريق",
-    "intro": "نظرة عامة على الميزات المخطط لها والمعالم القادمة."
+    "title": "Roadmap",
+    "intro": "Overview of planned features and milestones."
   },
   "roadmap_page": {
-    "title": "خريطة طريق المنتج",
-    "subtitle": "تابع رحلتنا وشاهد ما نبنيه لمستقبل التعليم العاطفي.",
-    "back_home": "العودة للرئيسية",
+    "title": "Product Roadmap",
+    "subtitle": "Follow our journey and see what we're building for the future of emotional education.",
+    "back_home": "Back to home",
     "statuses": {
-      "completed": "مكتمل",
-      "in_progress": "قيد التطوير",
-      "planned": "مخطط"
+      "completed": "Completed",
+      "in_progress": "In Development",
+      "planned": "Planned"
     },
     "phases": [
       {
         "quarter": "Q4 2025",
         "status": "completed",
-        "title": "إطلاق النسخة التجريبية",
+        "title": "Beta Launch",
         "items": [
-          "واجهة دردشة بديهية",
-          "تكامل مع الذكاء الاصطناعي التوليدي",
-          "الوضع الداكن/الفاتح",
-          "دعم أوامر الصوت"
+          "Intuitive Chat Interface",
+          "Generative AI Integration",
+          "Dark/Light Mode",
+          "Voice Command Support"
         ]
       },
       {
         "quarter": "Q1 2026",
         "status": "in_progress",
-        "title": "توسيع الميزات",
+        "title": "Feature Expansion",
         "items": [
-          "نظام اختبارات مدمج (Quizzes)",
-          "وضع القاضي التنافسي (C, C++, Python)",
-          "تكامل تفاعلي للأولمبيادات والامتحانات",
-          "وحدة بومودورو متقدمة",
-          "سجل محادثات مستمر"
+          "Integrated Quizzes System",
+          "Competitive Judge Mode (C, C++, Python)",
+          "Olympiad and College Exam Interactive Integration",
+          "Advanced Pomodoro Module",
+          "Persistent Chat History"
         ]
       },
       {
         "quarter": "Q2 2026",
         "status": "planned",
-        "title": "المجتمع والمحتوى",
+        "title": "Community and Content",
         "items": [
-          "منتدى للطلاب",
-          "تنسيق المحتوى التعليمي",
-          "تكامل مع تقويم Google",
-          "تطبيق جوال (iOS/Android)"
+          "Student Forum",
+          "Educational Content Curation",
+          "Google Calendar Integration",
+          "Mobile App (iOS/Android)"
         ]
       },
       {
         "quarter": "Q3 2026",
         "status": "planned",
-        "title": "تخصيص متقدم",
+        "title": "Advanced Personalization",
         "items": [
-          "مدرسون ذكيون قابلون للتخصيص",
-          "لوحة إحصائيات الدراسة",
-          "الألعاب والإنجازات",
-          "API عامة للمطورين"
+          "Customizable AI Tutors",
+          "Study Statistics Dashboard",
+          "Gamification and Achievements",
+          "Public API for Developers"
         ]
       }
     ]

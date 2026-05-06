@@ -1,176 +1,176 @@
 {
   "guided_learning": {
-    "title": "Aprendizado Guiado",
+    "title": "ガイド付き学習",
     "aria": {
-      "close": "Fechar",
-      "start_trail": "Iniciar trilha",
-      "export_trail": "Exportar trilha",
-      "delete_trail": "Excluir trilha"
+      "close": "閉じる",
+      "start_trail": "コースを開始",
+      "export_trail": "コースをエクスポート",
+      "delete_trail": "コースを削除"
     },
     "tabs": {
-      "trails": "Planos de Estudo",
-      "flashcards": "Praticar Flashcards",
-      "quizzes": "Quiz Aleatório"
+      "trails": "学習パス",
+      "flashcards": "フラッシュカードを練習",
+      "quizzes": "ランダムクイズ"
     },
     "alerts": {
-      "delete_confirm": "Deseja realmente remover esta trilha gerada pela IA?",
-      "import_success": "Trilha importada com sucesso!",
-      "import_error": "Erro ao importar. Copie um código JSON válido de trilha antes de importar.",
-      "export_success": "Trilha copiada para área de transferência! Envie para seus amigos.",
-      "export_error": "Erro ao copiar a trilha.",
-      "generate_error": "Não foi possível gerar a trilha. Tente ser mais específico no tema.",
-      "generate_catch": "Erro ao conectar com a IA."
+      "delete_confirm": "このAI生成のコースを本当に削除しますか？",
+      "import_success": "コースが正常にインポートされました！",
+      "import_error": "インポートエラー。先に有効なJSONをコピーしてください。",
+      "export_success": "コースをクリップボードにコピーしました！共有してください。",
+      "export_error": "コースのコピー中にエラーが発生しました。",
+      "generate_error": "コースを生成できませんでした。トピックをより具体的にしてください。",
+      "generate_catch": "AIへの接続エラー。"
     },
     "trails": {
-      "active_back": "Voltar para Trilhas",
-      "active_step": "Passo {{step}} de {{total}}",
-      "active_finished": "Concluída",
-      "completed": "Concluída"
+      "active_back": "コースに戻る",
+      "active_step": "ステップ {{step}} / {{total}}",
+      "active_finished": "完了",
+      "completed": "完了"
     },
     "completion": {
-      "perfection_title": "Perfeição! Nenhum erro!",
-      "excellent_title": "Excelente trabalho!",
-      "continue_title": "O aprendizado é um processo contínuo!",
-      "stats": "Você acertou <strong>{{correct}}</strong> de <strong>{{total}}</strong> questões de primeira ({{percentage}}%).",
-      "you_are_awesome": "Você é incrível!",
-      "title": "Trilha Concluída!",
-      "action": "Voltar para Trilhas",
-      "quizzes_title": "Quizzes Concluídos!",
-      "retry": "Tentar Novamente"
+      "perfection_title": "完璧！ミスなし！",
+      "excellent_title": "素晴らしい！",
+      "continue_title": "学習は継続的なプロセスです！",
+      "stats": "最初の試行で<strong>{{correct}}</strong>問中<strong>{{total}}</strong>問正解しました（{{percentage}}％）。",
+      "you_are_awesome": "あなたは素晴らしい！",
+      "title": "コース完了！",
+      "action": "コースに戻る",
+      "quizzes_title": "クイズ完了！",
+      "retry": "再挑戦"
     },
     "flashcard": {
-      "flip_hint": "Clique para revelar",
+      "flip_hint": "クリックして表示",
       "difficulty": {
-        "fail": "Errei",
-        "hard": "Difícil",
-        "good": "Bom",
-        "easy": "Fácil"
+        "fail": "もう一度",
+        "hard": "難しい",
+        "good": "良い",
+        "easy": "簡単"
       },
       "times": {
-        "30s": "30 seg",
-        "5m": "5 min",
-        "30m": "30 min",
-        "2h": "2h"
+        "30s": "30秒",
+        "5m": "5分",
+        "30m": "30分",
+        "2h": "2時間"
       }
     },
     "quiz": {
-      "verify": "Verificar Resposta",
-      "explain_btn": "Me explique com IA ✨",
-      "explaining": "Gerando explicação...",
-      "tutor": "Tutor IA:",
-      "finish_trail": "Concluir Trilha",
-      "next_question": "Próxima Questão",
-      "see_results": "Ver Resultados"
+      "verify": "回答を確認",
+      "explain_btn": "AIで説明 ✨",
+      "explaining": "説明を生成中...",
+      "tutor": "AIチューター：",
+      "finish_trail": "コースを終了",
+      "next_question": "次の質問",
+      "see_results": "結果を見る"
     },
     "open_ended": {
-      "placeholder": "Escreva sua reflexão ou resposta aqui...",
-      "evaluate_btn": "Avaliar Resposta com IA",
-      "evaluating": "Avaliando...",
-      "skip_btn": "Pular",
-      "your_answer": "Sua Resposta:",
-      "ai_feedback": "Feedback da IA:",
-      "continue_trail": "Continuar Trilha"
+      "placeholder": "ここに自分の振り返りや回答を書いてください...",
+      "evaluate_btn": "AIで評価",
+      "evaluating": "評価中...",
+      "skip_btn": "スキップ",
+      "your_answer": "あなたの回答：",
+      "ai_feedback": "AIのフィードバック：",
+      "continue_trail": "コースを続ける"
     },
     "create": {
-      "title": "O que você deseja aprender hoje?",
-      "desc": "Descreva um tema, desafio emocional ou habilidade. Nossa inteligência artificial construirá um plano interativo (Flashcards e Quizzes) personalizado.",
-      "placeholder": "Ex: Quero uma trilha com flashcards sobre como praticar mindfulness no trabalho em 5 minutos...",
-      "btn_create": "Criar com IA",
-      "btn_generating": "Gerando Material..."
+      "title": "今日何を学びたいですか？",
+      "desc": "トピック、感情的な課題、またはスキルを説明してください。AIがカスタムのインタラクティブプランを作成します。",
+      "placeholder": "例：職場でのマインドフルネスを5分で実践する方法...",
+      "btn_create": "AIで生成",
+      "btn_generating": "生成中..."
     },
     "explore": {
-      "title": "Explore Trilhas ou Crie a Sua",
-      "import": "Importar",
-      "activities": "{{count}} Atividades",
-      "generate": "Gerar com IA"
+      "title": "コースを探すまたは作成する",
+      "import": "インポート",
+      "activities": "{{count}} アクティビティ",
+      "generate": "AIで生成"
     },
     "empty_flashcards": {
-      "title": "Nenhum Flashcard Desbloqueado",
-      "desc": "Complete uma Trilha de Estudo na aba \"Planos de Estudo\" para desbloquear os flashcards para revisão."
+      "title": "解放されたフラッシュカードはありません",
+      "desc": "復習用のフラッシュカードを解除するには学習パスを完了してください。"
     },
     "empty_quizzes": {
-      "title": "Nenhum Quiz Desbloqueado",
-      "desc": "Complete uma Trilha de Estudo na aba \"Planos de Estudo\" para desbloquear quizzes para praticar."
+      "title": "解放されたクイズはありません",
+      "desc": "練習用のクイズを解除するには学習パスを完了してください。"
     },
     "status": {
-      "base_unlocked": "{{count}} Desbloqueados na Base",
-      "flashcard_status": "Flashcard {{current}} / {{total}}",
-      "quiz_status": "Questão {{current}} / {{total}}",
-      "quick_quiz": "Quiz Rápido Geral",
-      "practice": "Praticar Flashcards"
+      "base_unlocked": "{{count}} がベースでアンロックされました",
+      "flashcard_status": "フラッシュカード {{current}} / {{total}}",
+      "quiz_status": "質問 {{current}} / {{total}}",
+      "quick_quiz": "クイッククイズ",
+      "practice": "フラッシュカード練習"
     },
     "default_trails": [
       {
         "id": 1,
-        "title": "不安の管理",
+        "title": "Anxiety Management",
         "icon": "psychology",
-        "description": "不安の症状を特定し、それに対処する方法を学びましょう。",
+        "description": "Learn to identify and manage anxiety symptoms.",
         "content": [
           {
             "type": "flashcard",
-            "front": "「闘争か逃走」反応とは何ですか？",
-            "back": "生存に対する脅威やストレスと認識される出来事に対する生理的反応で、交感神経系が活性化されます。"
+            "front": "What is the 'Fight or Flight' response?",
+            "back": "It's a physiological reaction that occurs in response to a perceived harmful event, attack, or threat to survival, activating the sympathetic nervous system."
           },
           {
             "type": "quiz",
-            "question": "急性の不安を軽減するために最も推奨される呼吸法はどれですか？",
+            "question": "Which breathing technique is most recommended to reduce acute anxiety?",
             "options": [
               {
                 "id": "A",
-                "text": "胸式の速い呼吸"
+                "text": "Rapid chest breathing"
               },
               {
                 "id": "B",
-                "text": "1分間息を止める"
+                "text": "Holding breath for 1 minute"
               },
               {
                 "id": "C",
-                "text": "横隔膜呼吸（4-7-8）"
+                "text": "Diaphragmatic Breathing (4-7-8)"
               },
               {
                 "id": "D",
-                "text": "過呼吸"
+                "text": "Hyperventilation"
               }
             ],
             "correctOption": "C"
           },
           {
             "type": "flashcard",
-            "front": "グラウンディング（接地）",
-            "back": "現在の瞬間に注意を向け、身体の感覚に集中する行為です（例：見えるもの5つ、触れるもの4つ）。"
+            "front": "Grounding",
+            "back": "The act of bringing your attention to the present moment, focusing on physical senses (e.g., 5 things you see, 4 you touch)."
           }
         ]
       },
       {
         "id": 2,
-        "title": "非暴力コミュニケーション",
+        "title": "Nonviolent Communication",
         "icon": "forum",
-        "description": "共感的にコミュニケーションすることで人間関係を改善しましょう。",
+        "description": "Improve your relationships by communicating empathetically.",
         "content": [
           {
             "type": "flashcard",
-            "front": "非暴力コミュニケーションの4つの構成要素は何ですか？",
-            "back": "1. 観察、2. 感情、3. 欲求、4. リクエスト。"
+            "front": "What are the 4 components of NVC?",
+            "back": "1. Observation, 2. Feeling, 3. Need, 4. Request."
           },
           {
             "type": "quiz",
-            "question": "次のうち、非暴力コミュニケーションで『観察』（評価なし）の例はどれですか？",
+            "question": "Which of these phrases is an example of an 'Observation' (without judgment) in NVC?",
             "options": [
               {
                 "id": "A",
-                "text": "あなたは非常に無責任です。"
+                "text": "You are very irresponsible."
               },
               {
                 "id": "B",
-                "text": "あなたは私の話を全く聞いてくれない。"
+                "text": "You never listen to me."
               },
               {
                 "id": "C",
-                "text": "最近の会議で10分遅れて到着したことに気付きました。"
+                "text": "I noticed you arrived 10 minutes late to the last meetings."
               },
               {
                 "id": "D",
-                "text": "あなたはいつも怠け者です。"
+                "text": "You are always lazy."
               }
             ],
             "correctOption": "C"
@@ -179,34 +179,34 @@
       },
       {
         "id": 3,
-        "title": "感情知能",
+        "title": "Emotional Intelligence",
         "icon": "favorite",
-        "description": "自分の感情を認識し、コントロールする方法を学びましょう。",
+        "description": "Recognize and control your own emotions.",
         "content": [
           {
             "type": "flashcard",
-            "front": "自己認識とは何ですか？",
-            "back": "自分の気分、感情、衝動を認識し理解する能力です。"
+            "front": "What is Self-awareness?",
+            "back": "The ability to recognize and understand your own moods, emotions, and drives."
           },
           {
             "type": "quiz",
-            "question": "職場での感情知能の重要な柱は何ですか？",
+            "question": "A key pillar of emotional intelligence in the workplace is:",
             "options": [
               {
                 "id": "A",
-                "text": "自分の感じていることを隠すこと。"
+                "text": "Hiding what you feel."
               },
               {
                 "id": "B",
-                "text": "同僚への共感。"
+                "text": "Empathy for colleagues."
               },
               {
                 "id": "C",
-                "text": "過労になるまで働くこと。"
+                "text": "Working to exhaustion."
               },
               {
                 "id": "D",
-                "text": "他人より大きな声で話すこと。"
+                "text": "Speaking louder than others."
               }
             ],
             "correctOption": "B"
@@ -215,34 +215,34 @@
       },
       {
         "id": 4,
-        "title": "マインドフルネスと集中",
+        "title": "Mindfulness and Focus",
         "icon": "self_improvement",
-        "description": "現在に集中するためのマインドフルネス技法です。",
+        "description": "Mindfulness techniques to stay focused on the present.",
         "content": [
           {
             "type": "flashcard",
-            "front": "マインドフルネスとは何ですか？",
-            "back": "現在の瞬間に意識を集中し、自分の感情を落ち着いて認め受け入れる精神状態です。"
+            "front": "What is Mindfulness?",
+            "back": "A mental state achieved by focusing one's awareness on the present moment, while calmly acknowledging and accepting one's feelings."
           },
           {
             "type": "quiz",
-            "question": "瞑想中に気が散ったらどうすべきですか？",
+            "question": "When getting distracted during meditation, you should:",
             "options": [
               {
                 "id": "A",
-                "text": "自分に腹を立てる。"
+                "text": "Get frustrated with yourself."
               },
               {
                 "id": "B",
-                "text": "諦めて別の日にやり直す。"
+                "text": "Give up and try another day."
               },
               {
                 "id": "C",
-                "text": "気が散ったことに気づき、優しく呼吸に意識を戻す。"
+                "text": "Notice the distraction and gently return focus to the breath."
               },
               {
                 "id": "D",
-                "text": "心を際限なくさまよわせる。"
+                "text": "Let your mind wander indefinitely."
               }
             ],
             "correctOption": "C"
@@ -251,34 +251,34 @@
       },
       {
         "id": 5,
-        "title": "認知バイアス",
+        "title": "Cognitive Biases",
         "icon": "visibility",
-        "description": "意思決定に影響を与える思考の誤りを理解しましょう。",
+        "description": "Understand the thinking errors that affect our decisions.",
         "content": [
           {
             "type": "flashcard",
-            "front": "確証バイアス",
-            "back": "先行する信念を裏付ける情報を探し記憶する傾向です。"
+            "front": "Confirmation Bias",
+            "back": "The tendency to search for and remember information that confirms one's preconceptions."
           },
           {
             "type": "quiz",
-            "question": "ダニング＝クルーガー効果とは何ですか？",
+            "question": "What is the Dunning-Kruger Effect?",
             "options": [
               {
                 "id": "A",
-                "text": "経験が少ない課題で自分の能力を過大評価すること。"
+                "text": "Overestimating one's own ability in tasks where one has little experience."
               },
               {
                 "id": "B",
-                "text": "人前で話すとパニックになること。"
+                "text": "Panic when speaking in public."
               },
               {
                 "id": "C",
-                "text": "セール品を買う習慣。"
+                "text": "The habit of buying things on sale."
               },
               {
                 "id": "D",
-                "text": "ストレス下で情報を忘れること。"
+                "text": "Forgetting information under stress."
               }
             ],
             "correctOption": "A"
@@ -287,34 +287,34 @@
       },
       {
         "id": 6,
-        "title": "学習の整理",
+        "title": "Study Organization",
         "icon": "menu_book",
-        "description": "時間管理と学習計画のテクニック。",
+        "description": "Time management and school planning techniques.",
         "content": [
           {
             "type": "flashcard",
-            "front": "ポモドーロ・テクニックとは何ですか？",
-            "back": "集中のブロック（例：25分）と短い休憩（例：5分）を交互に行い、生産性を維持する時間管理法です。"
+            "front": "What is the Pomodoro Technique?",
+            "back": "A time management method that alternates intense focus blocks (e.g., 25 mins) with short breaks (e.g., 5 mins) to maintain productivity."
           },
           {
             "type": "quiz",
-            "question": "複数の試験がある週の準備で最も良い方法は何ですか？",
+            "question": "What is the best way to prepare for a week with multiple exams?",
             "options": [
               {
                 "id": "A",
-                "text": "試験前夜にすべてを勉強する。"
+                "text": "Study everything the night before the exam."
               },
               {
                 "id": "B",
-                "text": "スケジュールを作り、科目を週に分配する。"
+                "text": "Create a schedule distributing the subjects throughout the week."
               },
               {
                 "id": "C",
-                "text": "最も難しい科目だけを勉強する。"
+                "text": "Study only the hardest subject."
               },
               {
                 "id": "D",
-                "text": "勉強せず授業で覚えていることだけに頼る。"
+                "text": "Don't study and rely only on what you remember from classes."
               }
             ],
             "correctOption": "B"
@@ -323,264 +323,264 @@
       },
       {
         "id": 7,
-        "title": "学業のプレッシャーと試験",
+        "title": "School Pressure and Exams",
         "icon": "school",
-        "description": "試験前の緊張を管理し、試験中のブラックアウトを避けるための戦略。",
+        "description": "Strategies to manage pre-exam nervousness and avoid going 'blank'.",
         "content": [
           {
             "type": "flashcard",
-            "front": "試験中の有名な『ブラックアウト』は何が原因で起こることが多いですか？",
-            "back": "ブラックアウトはしばしば不安の急増が原因です：脳が試験を差し迫った脅威と認識し、記憶へのアクセスを遮断することがあります。"
+            "front": "What causes you to go 'blank' during a test?",
+            "back": "Going 'blank' is usually caused by an anxiety spike. The brain perceives the exam as an immediate threat, blocking memory access."
           },
           {
             "type": "quiz",
-            "question": "試験中にブラックアウトしそうだと感じたらどうすればよいですか？",
+            "question": "What to do if you feel you're going to go blank during an exam?",
             "options": [
               {
                 "id": "A",
-                "text": "静かにパニックになる。"
+                "text": "Panic silently."
               },
               {
                 "id": "B",
-                "text": "少し休憩を取り、目を閉じて深呼吸し、可能なら水を飲む。"
+                "text": "Take a break, close your eyes, take a deep breath, and drink water if possible."
               },
               {
                 "id": "C",
-                "text": "とにかく何かに素早く答える。"
+                "text": "Answer anything as quickly as possible."
               },
               {
                 "id": "D",
-                "text": "すぐに泣く。"
+                "text": "Cry immediately."
               }
             ],
             "correctOption": "B"
           },
           {
             "type": "flashcard",
-            "front": "期待と現実",
-            "back": "プレッシャーはしばしば親や教師の期待から来ます。悪い成績があなたの知性を定義するわけではないことを思い出すことは、過度のプレッシャーを減らし対処するのに重要です。"
+            "front": "Expectations vs. Reality",
+            "back": "Often pressure comes from parents' or teachers' expectations. Remembering that a bad grade does not define your intelligence is key to reducing and dealing with this excessive pressure."
           }
         ]
       }
     ]
   },
   "exams": {
-    "title": "Preparatório",
-    "close": "Fechar",
-    "back": "Voltar",
-    "hero_description": "Explore provas, matrizes de referência e atalhos de preparação.",
+    "title": "Prep Course",
+    "close": "Close",
+    "back": "Back",
+    "hero_description": "Explore exams, reference matrices, and prep shortcuts.",
     "vocational": {
-      "title": "Teste Vocacional",
-      "progress_aria": "Progresso do teste vocacional",
+      "title": "Vocational Test",
+      "progress_aria": "Vocational test progress",
       "introduction": {
-        "title": "Descubra sua Vocação Profissional",
-        "description": "Este teste é baseado no modelo RIASEC, uma ferramenta científica que identifica suas preferências profissionais através de seis dimensões: Realista, Investigativo, Artístico, Social, Empreendedor e Convencional.",
+        "title": "Discover Your Professional Vocation",
+        "description": "This test is based on the RIASEC model, a scientific tool that identifies your professional preferences through six dimensions: Realistic, Investigative, Artistic, Social, Enterprising, and Conventional.",
         "features": {
-          "riasec": "Baseado no modelo RIASEC",
-          "insights": "Insights personalizados sobre carreira",
-          "guidance": "Orientação para tomada de decisões"
+          "riasec": "Based on RIASEC model",
+          "insights": "Personalized career insights",
+          "guidance": "Guidance for decision making"
         },
-        "start_button": "Iniciar Teste Vocacional"
+        "start_button": "Start Vocational Test"
       },
       "likert": {
-        "1": "Não curto e evito",
-        "2": "Acho chato",
-        "3": "Tanto faz / Neutro",
-        "4": "Gosto de fazer",
-        "5": "Adoro! Faria sempre"
+        "1": "I dislike it",
+        "2": "Find it boring",
+        "3": "Whatever / Neutral",
+        "4": "I like doing it",
+        "5": "I love it!"
       },
-      "processing": "Analisando seu perfil vocacional...",
+      "processing": "Analyzing your vocational profile...",
       "result": {
-        "title": "Seu Perfil Profissional",
-        "cta_plan": "Gerar Plano de Estudos",
-        "chat_input": "Gostaria de um plano de estudos focado em {{area}}"
+        "title": "Your Professional Profile",
+        "cta_plan": "Generate Study Plan",
+        "chat_input": "I would like a study plan focused on {{area}}"
       },
       "questions": {
-        "1": "Você gosta de montar ou consertar objetos mecânicos no dia a dia ou de vez em quando?",
-        "2": "Você curte investigar problemas científicos ou matemáticos para achar soluções?",
-        "3": "Você se sente bem expressando ideias com design, artes ou criação visual?",
-        "4": "Você gosta de ajudar pessoas a aprender algo novo ou se desenvolver?",
-        "5": "Você se anima em liderar equipes e tomar decisões em projetos?",
-        "6": "Você gosta de organizar dados, arquivos e seguir rotinas claras?",
-        "7": "Você gosta de mexer com ferramentas, máquinas ou atividades práticas?",
-        "8": "Você se sente bem observando detalhes e testando hipóteses?",
-        "9": "Você gosta de criar algo original, mesmo que seja só por hobby?",
-        "10": "Você curte ouvir as pessoas e oferecer apoio quando precisam?",
-        "11": "Você se motiva em convencer, negociar ou vender uma ideia?",
-        "12": "Você se sente bem seguindo processos claros e checando tudo com cuidado?",
-        "13": "Você gosta de atividades ao ar livre ou que envolvam uso do corpo?",
-        "14": "Você gosta de aprender por conta própria e explorar assuntos a fundo?",
-        "15": "Você se anima em contar histórias, escrever ou compor algo?",
-        "16": "Você gosta de trabalhar em equipe e criar um clima de colaboração?",
-        "17": "Você gosta de assumir a frente para organizar pessoas e metas?",
-        "18": "Você curte planilhas, organização financeira ou tarefas administrativas?"
+        "1": "Do you enjoy assembling or fixing mechanical objects in your daily life or occasionally?",
+        "2": "Do you like investigating scientific or mathematical problems to find solutions?",
+        "3": "Do you feel good expressing ideas through design, arts, or visual creation?",
+        "4": "Do you enjoy helping people learn something new or develop themselves?",
+        "5": "Are you excited about leading teams and making decisions in projects?",
+        "6": "Do you like organizing data, files, and following clear routines?",
+        "7": "Do you like working with tools, machines, or hands-on activities?",
+        "8": "Do you feel good observing details and testing hypotheses?",
+        "9": "Do you like creating something original, even if it's just for a hobby?",
+        "10": "Do you enjoy listening to people and offering support when they need it?",
+        "11": "Are you motivated by convincing, negotiating, or selling an idea?",
+        "12": "Do you feel good following clear processes and checking everything carefully?",
+        "13": "Do you like outdoor activities or those that involve using your body?",
+        "14": "Do you like learning on your own and exploring subjects in depth?",
+        "15": "Are you excited about telling stories, writing, or composing something?",
+        "16": "Do you like working in a team and creating a collaborative environment?",
+        "17": "Do you like taking the lead to organize people and goals?",
+        "18": "Do you enjoy spreadsheets, financial organization, or administrative tasks?"
       },
       "dimensions": {
-        "R": "Realista",
-        "I": "Investigativo",
-        "A": "Artístico",
+        "R": "Realistic",
+        "I": "Investigative",
+        "A": "Artistic",
         "S": "Social",
-        "E": "Empreendedor",
-        "C": "Convencional"
+        "E": "Enterprising",
+        "C": "Conventional"
       }
     },
     "sections": {
-      "categories": "Categorias",
-      "subjects": "Matérias",
-      "subjects_caption": "Selecione um recorte para gerar plano, estratégia ou prática guiada.",
-      "available_options_one": "{{count}} opção disponível",
-      "available_options_other": "{{count}} opções disponíveis"
+      "categories": "Categories",
+      "subjects": "Subjects",
+      "subjects_caption": "Choose a focus area to generate a plan, strategy, or guided practice.",
+      "available_options_one": "{{count}} option available",
+      "available_options_other": "{{count}} options available"
     },
     "categories_title": {
-      "international": "Internacionais",
-      "national": "Nacionais",
-      "regional": "Regionais",
-      "olympiads": "Olimpíadas"
+      "international": "International",
+      "national": "National",
+      "regional": "Regional",
+      "olympiads": "Olympiads"
     },
-    "topics_header": "Matriz de Referência e Conteúdos",
+    "topics_header": "Reference Matrix and Contents",
     "actions": {
-      "ai_plan": "Criar Plano de Estudos com IA",
-      "ai_strategy": "Estratégia de Prova",
-      "ai_judge": "Modo Preparatório (Juiz OBI)",
-      "explain_topic": "Explicar tópico",
-      "generate_quiz": "Gerar questões (Simulado)"
+      "ai_plan": "Create AI Study Plan",
+      "ai_strategy": "Exam Strategy",
+      "ai_judge": "Prep Mode (OBI Judge)",
+      "explain_topic": "Explain topic",
+      "generate_quiz": "Generate Questions (Quiz)"
     },
     "calculator": {
       "mode_simple": {
-        "title": "Média Simples",
-        "desc": "Já tenho minhas notas finais e quero calcular a média."
+        "title": "Simple Average",
+        "desc": "I already have my final grades and want to calculate the average."
       },
       "mode_advanced": {
-        "title": "Por Acertos",
-        "desc": "Tenho apenas o gabarito e quero estimar minha nota."
+        "title": "By Hits",
+        "desc": "I only have the answer key and want to estimate my score."
       },
       "inputs": {
-        "course": "Curso Almejado (ex: Medicina)",
-        "category": "Categoria de Concorrência"
+        "course": "Desired Course (e.g. Medicine)",
+        "category": "Competition Category"
       },
       "subjects": {
-        "linguagens": "Linguagens",
-        "humanas": "Ciências Humanas",
-        "natureza": "Ciências da Natureza",
-        "matematica": "Matemática",
-        "redacao": "Redação"
+        "linguagens": "Languages",
+        "humanas": "Human Sciences",
+        "natureza": "Natural Sciences",
+        "matematica": "Mathematics",
+        "redacao": "Essay"
       },
       "correct_labels": {
-        "linguagens": "Acertos Linguagens (0-45)",
-        "humanas": "Acertos Humanas (0-45)",
-        "natureza": "Acertos Natureza (0-45)",
-        "matematica": "Acertos Matemática (0-45)",
-        "redacao": "Nota Redação (0-1000)"
+        "linguagens": "Language Hits (0-45)",
+        "humanas": "Human Sciences Hits (0-45)",
+        "natureza": "Natural Sciences Hits (0-45)",
+        "matematica": "Mathematics Hits (0-45)",
+        "redacao": "Essay Score (0-1000)"
       },
-      "ignore_redacao": "Ainda não tenho a nota da redação",
+      "ignore_redacao": "I don't have the essay score yet",
       "result": {
-        "simple_label": "Sua Média Simples:",
-        "advanced_label": "Média Estimada (Intervalo TRI):",
-        "avg": "Média provável: ~{{val}}",
-        "warning": "A nota da Redação <strong>NÃO</strong> foi incluída neste cálculo. Esta média considera apenas as 4 áreas objetivas.",
-        "note_simple": "*Esta é uma média simples. O SiSU e ProUni podem usar pesos diferentes dependendo do curso e universidade.",
-        "note_advanced": "*Esta é uma estimativa baseada em padrões anteriores. A nota real depende do TRI (Teoria de Resposta ao Item) e da dificuldade das questões."
+        "simple_label": "Your Simple Average:",
+        "advanced_label": "Estimated Average (IRT Range):",
+        "avg": "Probable average: ~{{val}}",
+        "warning": "The Essay score <strong>WAS NOT</strong> included in this calculation. This average considers only the 4 objective areas.",
+        "note_simple": "*This is a simple average. SiSU and ProUni may use different weights depending on the course and university.",
+        "note_advanced": "*This is an estimate based on previous patterns. The real score depends on IRT (Item Response Theory) and question difficulty."
       },
       "buttons": {
-        "switch": "Trocar Modo",
-        "calc_ai": "Calcular e Analisar com IA",
-        "calc": "Calcular Média"
+        "switch": "Switch Mode",
+        "calc_ai": "Calculate and Analyze with AI",
+        "calc": "Calculate Average"
       },
       "prompts": {
-        "simple": "🎓 ANÁLISE DE VIABILIDADE SISU/PROUNI\n\n📊 MINHAS NOTAS DO ENEM:\n• Linguagens: {{linguagens}}\n• Ciências Humanas: {{humanas}}\n• Ciências da Natureza: {{natureza}}\n• Matemática: {{matematica}}\n• Redação: {{redacao}}\n\n📈 Média Simples: {{avg}}\n\n🎯 OBJETIVO:\n• Curso: {{course}}\n• Modalidade: {{category}}\n\nPor favor, me ajude com:\n\n1. 🏛️ UNIVERSIDADES VIÁVEIS\n   - Liste universidades federais/estaduais onde tenho BOA chance\n   - Mencione as notas de corte recentes\n\n2. ⚠️ OPÇÕES ARRISCADAS\n   - Universidades onde seria mais difícil, mas possível\n\n3. ⚖️ SISTEMA DE PESOS\n   - Como {{course}} costuma pesar as áreas?\n   - Qual minha nota ponderada estimada?\n\n4. 💡 ESTRATÉGIAS\n   - Devo focar em melhorar alguma área específica?\n   - Dicas para escolha de cursos no SiSU\n\n5. 🧠 APOIO EMOCIONAL\n   - Como lidar com a ansiedade da espera?\n   - Mensagem motivacional personalizada\n\nSeja realista mas encorajador! 💪",
-        "advanced": "🎯 ANÁLISE TRI - ESTIMATIVA DE DESEMPENHO\n\n📝 MEUS ACERTOS:\n• Linguagens: {{linguagens}}/45 questões\n  📉 Nota estimada: {{triLinguagensMin}} - {{triLinguagensMax}} pontos\n  \n• Humanas: {{humanas}}/45 questões\n  📉 Nota estimada: {{triHumanasMin}} - {{triHumanasMax}} pontos\n  \n• Natureza: {{natureza}}/45 questões\n  📉 Nota estimada: {{triNaturezaMin}} - {{triNaturezaMax}} pontos\n  \n• Matemática: {{matematica}}/45 questões\n  📉 Nota estimada: {{triMatematicaMin}} - {{triMatematicaMax}} pontos\n\n{{redacaoInfo}}\n\n📊 MÉDIA ESTIMADA:\n• Cenário pessimista: {{totalMin}}\n• Cenário otimista: {{totalMax}}\n• Média provável: ~{{totalAvg}}\n{{observacao}}\n\n🎯 MEU OBJETIVO:\n• Curso: {{course}}\n• Modalidade: {{category}}\n\nPreciso de uma análise completa:\n\n1. 🏛️ CHANCES REAIS\n   - Considerando o intervalo de notas, quais universidades são viáveis?\n   - Compare com notas de corte recentes\n{{impactoRedacao}}\n\n2. 📈 ANÁLISE POR ÁREA\n   - Em quais áreas fui bem?\n   - Onde posso melhorar se fizer novamente?\n\n3. ⚖️ PESOS E ESTRATÉGIA\n   - Como {{course}} pondera as áreas?\n   - Minhas áreas fortes favorecem este curso?\n\n4. 🔄 PLANO B\n   - Cursos alternativos que combinam com meu perfil de notas\n   - Opções em universidades próximas\n\n5. 💪 APOIO PSICOLÓGICO\n   - Como lidar com a incerteza da estimativa TRI?\n   - Dicas para manter a calma até o resultado oficial\n   - Mensagem motivacional baseada no meu desempenho\n\nSeja honesto sobre as chances, mas também encorajador! 🌟"
+        "simple": "🎓 ADMISSION FEASIBILITY ANALYSIS\n\n📊 MY TARGET SCORES:\n• Languages: {{linguagens}}\n• Human Sciences: {{humanas}}\n• Natural Sciences: {{natureza}}\n• Mathematics: {{matematica}}\n• Essay: {{redacao}}\n\n📈 Simple Average: {{avg}}\n\n🎯 GOAL:\n• Course: {{course}}\n• Category/Modality: {{category}}\n\nPlease help me with:\n\n1. 🏛️ VIABLE UNIVERSITIES\n   - List universities where I have a GOOD chance\n   - Mention recent cutoff scores\n\n2. ⚠️ RISKY OPTIONS\n   - Universities where it would be harder, but possible\n\n3. ⚖️ WEIGHT SYSTEM\n   - How does {{course}} usually weigh these areas?\n   - What is my estimated weighted score?\n\n4. 💡 STRATEGIES\n   - Should I focus on improving any specific area?\n   - Admission application tips\n\n5. 🧠 EMOTIONAL SUPPORT\n   - How to manage waiting anxiety?\n   - Personalized motivational message\n\nBe realistic but encouraging! 💪",
+        "advanced": "🎯 SCORE ESTIMATION ANALYSIS\n\n📝 MY HITS:\n• Languages: {{linguagens}}/45\n  📉 Estimated score: {{triLinguagensMin}} - {{triLinguagensMax}}\n  \n• Human Sciences: {{humanas}}/45\n  📉 Estimated score: {{triHumanasMin}} - {{triHumanasMax}}\n  \n• Natural Sciences: {{natureza}}/45\n  📉 Estimated score: {{triNaturezaMin}} - {{triNaturezaMax}}\n  \n• Mathematics: {{matematica}}/45\n  📉 Estimated score: {{triMatematicaMin}} - {{triMatematicaMax}}\n\n{{redacaoInfo}}\n\n📊 ESTIMATED AVERAGE:\n• Pessimistic scenario: {{totalMin}}\n• Optimistic scenario: {{totalMax}}\n• Probable average: ~{{totalAvg}}\n{{observacao}}\n\n🎯 MY GOAL:\n• Course: {{course}}\n• Modality: {{category}}\n\nI need a complete analysis:\n\n1. 🏛️ REAL CHANCES\n   - Considering the score range, which universities are viable?\n   - Compare with recent cutoff scores\n{{impactoRedacao}}\n\n2. 📈 AREA ANALYSIS\n   - In which areas did I do well?\n   - Where can I improve if I retake it?\n\n3. ⚖️ WEIGHTS & STRATEGY\n   - How does {{course}} weigh the areas?\n   - Do my strong areas favor this course?\n\n4. 🔄 PLAN B\n   - Alternative courses that match my score profile\n   - Nearby university options\n\n5. 💪 PSYCHOLOGICAL SUPPORT\n   - How to deal with the uncertainty of the estimation?\n   - Tips to stay calm until the official results\n   - Motivational message based on my performance\n\nBe honest about the chances, but also encouraging! 🌟"
       }
     },
     "prompts": {
-      "plan": "Crie um plano de estudos completo para {{exam}} - {{subject}}:\n\n📚 TÓPICOS:\n{{topics}}\n\nPor favor, forneça:\n1. Ordem ideal de estudo\n2. Tempo sugerido para cada tópico\n3. Técnicas de estudo específicas\n4. Recursos recomendados\n5. Como esse conteúdo aparece nas provas\n6. Dicas para fixação e revisão\n\nSeja prático e motivador! 💪",
-      "strategy": "Analise a estratégia de preparação para {{exam}} - {{subject}}:\n\n🎯 Como devo priorizar meus estudos?\n📊 Quais são os tópicos que mais caem?\n⚡ Técnicas de resolução rápida\n🧠 Como lidar com ansiedade pré-prova\n📝 Dicas de gestão de tempo durante o exame\n\nDê conselhos práticos e motivadores!",
-      "explain": "Explique de forma clara e didática o seguinte tópico de {{subject}} para {{exam}}:\n\n📌 {{topic}}\n\nIncluindo:\n1. Conceitos fundamentais\n2. Exemplos práticos\n3. Como aparece nas provas\n4. Dicas de memorização\n5. Erros comuns a evitar\n\nUse linguagem acessível! 📚"
+      "plan": "Create a complete study plan for {{exam}} - {{subject}}:\n\n📚 TOPICS:\n{{topics}}\n\nPlease provide:\n1. Ideal study order\n2. Suggested time for each topic\n3. Specific study techniques\n4. Recommended resources\n5. How this content appears in exams\n6. Memorization and review tips\n\nBe practical and motivating! 💪",
+      "strategy": "Analyze the preparation strategy for {{exam}} - {{subject}}:\n\n🎯 How should I prioritize my studies?\n📊 Which topics are most frequent?\n⚡ Quick resolution techniques\n🧠 How to handle pre-exam anxiety\n📝 Time management tips during the exam\n\nGive practical and motivating advice!",
+      "explain": "Clearly and didactically explain the following topic of {{subject}} for {{exam}}:\n\n📌 {{topic}}\n\nIncluding:\n1. Fundamental concepts\n2. Practical examples\n3. How it appears on exams\n4. Memorization tips\n5. Common mistakes to avoid\n\nUse accessible language! 📚"
     }
   },
   "quiz": {
-    "title": "Simulado Integrado: {{topic}}",
-    "close": "Fechar",
+    "title": "Integrated Mock Exam: {{topic}}",
+    "close": "Close",
     "loading": {
-      "title": "Gerando questões inéditas...",
-      "desc": "Nossa IA está formulando o simulado pedagógico no formato de {{exam}}."
+      "title": "Generating fresh questions...",
+      "desc": "Our AI is formulating the educational mock exam in the format of {{exam}}."
     },
     "results": {
-      "title": "Treinamento Concluído!",
-      "score": "Você acertou {{score}} de {{total}} questões.",
-      "finish": "Finalizar Revisão"
+      "title": "Training Complete!",
+      "score": "You got {{score}} out of {{total}} questions right.",
+      "finish": "Finish Review"
     },
     "active": {
-      "progress": "Questão {{current}} de {{total}}",
-      "confirm": "Confirmar Resposta",
-      "next": "Próxima Questão",
-      "see_results": "Ver Resultados",
-      "correct": "✨ Resposta Correta!",
-      "incorrect": "❌ Resposta Incorreta"
+      "progress": "Question {{current}} of {{total}}",
+      "confirm": "Confirm Answer",
+      "next": "Next Question",
+      "see_results": "See Results",
+      "correct": "✨ Correct Answer!",
+      "incorrect": "❌ Incorrect Answer"
     },
     "messages": {
-      "error_comm": "Houve um erro na comunicação avançada com a IA para gerar este JSON. Tente novamente mais tarde.",
-      "try_again": "Tentar novamente",
-      "error_desc": "Falha de rede ou resposta mal formatada."
+      "error_comm": "There was an error communicating with the AI to generate the exam. Try again later.",
+      "try_again": "Try again",
+      "error_desc": "Network failure or malformed response."
     },
-    "prompt": "Atue como um gerador de questões para simulados. Crie 4 questões originais de nível do exame {{exam}} na matéria de {{subject}} focando no tema: {{topic}}.\n\nRetorne APENAS um array em formato JSON puro, contendo as questões. Em hipótese alguma escreva qualquer outra palavra fora das chaves do JSON. Não inclua ```json no início.\n\n[\n  {\n    \"pergunta\": \"Texto da pergunta formatado...\",\n    \"alternativas\": [\"Alternativa 1\", \"Alternativa 2\", \"Alternativa 3\", \"Alternativa 4\", \"Alternativa 5\"],\n    \"correta\": 0,\n    \"explicacao\": \"Explicação detalhada da alternativa correta.\"\n  }\n]"
+    "prompt": "Act as a mock exam question generator. Create 4 original questions at the level of the {{exam}} exam in the subject of {{subject}} focusing on the theme: {{topic}}.\n\nReturn ONLY a pure JSON array containing the questions. Do not write any other words outside the JSON braces. Do not include ```json at the beginning.\n\n[\n  {\n    \"pergunta\": \"Formatted text of the question...\",\n    \"alternativas\": [\"Option 1\", \"Option 2\", \"Option 3\", \"Option 4\", \"Option 5\"],\n    \"correta\": 0,\n    \"explicacao\": \"Detailed explanation of the correct option in Portuguese.\"\n  }\n]"
   },
   "roadmap": {
     "title": "Roadmap",
-    "intro": "Visão geral das funcionalidades planejadas e marcos."
+    "intro": "Overview of planned features and milestones."
   },
   "roadmap_page": {
-    "title": "Roadmap do Produto",
-    "subtitle": "Acompanhe nossa jornada e veja o que estamos construindo para o futuro da educação emocional.",
-    "back_home": "Voltar ao início",
+    "title": "Product Roadmap",
+    "subtitle": "Follow our journey and see what we're building for the future of emotional education.",
+    "back_home": "Back to home",
     "statuses": {
-      "completed": "Concluído",
-      "in_progress": "Em Desenvolvimento",
-      "planned": "Planejado"
+      "completed": "Completed",
+      "in_progress": "In Development",
+      "planned": "Planned"
     },
     "phases": [
       {
         "quarter": "Q4 2025",
         "status": "completed",
-        "title": "Lançamento Beta",
+        "title": "Beta Launch",
         "items": [
-          "Interface de Chat Intuitiva",
-          "Integração com IA Generativa",
-          "Modo Escuro/Claro",
-          "Suporte a Comandos de Voz"
+          "Intuitive Chat Interface",
+          "Generative AI Integration",
+          "Dark/Light Mode",
+          "Voice Command Support"
         ]
       },
       {
         "quarter": "Q1 2026",
         "status": "in_progress",
-        "title": "Expansão de Recursos",
+        "title": "Feature Expansion",
         "items": [
-          "Sistema de Simulados Integrados (Quizzes)",
-          "Modo Juiz Competitivo (C, C++, Python)",
-          "Integração Interativa de Olimpíadas e Vestibulares",
-          "Módulo de Pomodoro Avançado",
-          "Histórico de Conversas Persistente"
+          "Integrated Quizzes System",
+          "Competitive Judge Mode (C, C++, Python)",
+          "Olympiad and College Exam Interactive Integration",
+          "Advanced Pomodoro Module",
+          "Persistent Chat History"
         ]
       },
       {
         "quarter": "Q2 2026",
         "status": "planned",
-        "title": "Comunidade e Conteúdo",
+        "title": "Community and Content",
         "items": [
-          "Fórum de Estudantes",
-          "Curadoria de Conteúdos Educativos",
-          "Integração com Google Calendar",
-          "App Mobile (iOS/Android)"
+          "Student Forum",
+          "Educational Content Curation",
+          "Google Calendar Integration",
+          "Mobile App (iOS/Android)"
         ]
       },
       {
         "quarter": "Q3 2026",
         "status": "planned",
-        "title": "Personalização Avançada",
+        "title": "Advanced Personalization",
         "items": [
-          "Tutores de IA Personalizáveis",
-          "Dashboard de Estatísticas de Estudo",
-          "Gamificação e Conquistas",
-          "API Pública para Desenvolvedores"
+          "Customizable AI Tutors",
+          "Study Statistics Dashboard",
+          "Gamification and Achievements",
+          "Public API for Developers"
         ]
       }
     ]

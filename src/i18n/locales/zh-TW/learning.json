@@ -3,47 +3,47 @@
     "title": "引導式學習",
     "aria": {
       "close": "關閉",
-      "start_trail": "開始學習路徑",
+      "start_trail": "開始路徑",
       "export_trail": "匯出路徑",
       "delete_trail": "刪除路徑"
     },
     "tabs": {
       "trails": "學習路徑",
-      "flashcards": "練習抽認卡",
+      "flashcards": "練習快閃卡",
       "quizzes": "隨機測驗"
     },
     "alerts": {
-      "delete_confirm": "您確定要刪除此由 AI 生成的路徑嗎？",
-      "import_success": "路徑匯入成功！",
-      "import_error": "匯入錯誤。請先複製有效的 JSON 路徑代碼再匯入。",
+      "delete_confirm": "您確定要刪除此 AI 生成的路徑嗎？",
+      "import_success": "路徑已成功匯入！",
+      "import_error": "匯入錯誤。匯入前請複製有效的 JSON 路徑代碼。",
       "export_success": "路徑已複製到剪貼簿！與朋友分享吧。",
-      "export_error": "複製路徑時發生錯誤。",
-      "generate_error": "無法生成路徑。請嘗試更具體的主題。",
-      "generate_catch": "連線至 AI 發生錯誤。"
+      "export_error": "複製路徑時出錯。",
+      "generate_error": "無法生成路徑。請更具體描述主題。",
+      "generate_catch": "連接 AI 時出錯。"
     },
     "trails": {
       "active_back": "回到路徑",
-      "active_step": "第 {{step}} 步（共 {{total}} 步）",
-      "active_finished": "已完成",
+      "active_step": "第 {{step}} 步，共 {{total}} 步",
+      "active_finished": "完成",
       "completed": "已完成"
     },
     "completion": {
       "perfection_title": "完美！無錯誤！",
-      "excellent_title": "表現優異！",
+      "excellent_title": "太棒了！",
       "continue_title": "學習是一個持續的過程！",
-      "stats": "您在第一次嘗試中答對了 <strong>{{correct}}</strong> / <strong>{{total}}</strong> 題（{{percentage}}%）。",
+      "stats": "您第一次嘗試正確回答了 <strong>{{correct}}</strong> 道題中的 <strong>{{total}}</strong> 道（{{percentage}}%）。",
       "you_are_awesome": "你很棒！",
-      "title": "路徑完成！",
-      "action": "返回路徑",
-      "quizzes_title": "測驗已完成！",
-      "retry": "再試一次"
+      "title": "路徑已完成！",
+      "action": "回到路徑",
+      "quizzes_title": "測驗完成！",
+      "retry": "重試"
     },
     "flashcard": {
-      "flip_hint": "點擊以翻面",
+      "flip_hint": "點擊翻轉",
       "difficulty": {
-        "fail": "再來一次",
+        "fail": "再試一次",
         "hard": "困難",
-        "good": "良好",
+        "good": "好",
         "easy": "簡單"
       },
       "times": {
@@ -63,48 +63,48 @@
       "see_results": "查看結果"
     },
     "open_ended": {
-      "placeholder": "在此撰寫您的反思或答案...",
-      "evaluate_btn": "用 AI 評估答案",
+      "placeholder": "在此處寫下您的反思或答案...",
+      "evaluate_btn": "使用 AI 評估輸出",
       "evaluating": "評估中...",
-      "skip_btn": "跳過",
+      "skip_btn": "略過",
       "your_answer": "您的答案：",
       "ai_feedback": "AI 回饋：",
       "continue_trail": "繼續路徑"
     },
     "create": {
       "title": "您今天想學什麼？",
-      "desc": "描述一個主題、情緒挑戰或技能。我們的 AI 會建立一個客製化的互動計畫（抽認卡與測驗）。",
-      "placeholder": "例如：我想要一個關於在工作中用 5 分鐘練習正念的抽認卡路徑...",
-      "btn_create": "使用 AI 產生",
-      "btn_generating": "正在生成教材..."
+      "desc": "描述一個主題、情緒挑戰或技能。AI 會建立一個自訂的互動式計畫（快閃卡和測驗）。",
+      "placeholder": "例如：我想要一個有關如何在工作中用5分鐘練習正念的快閃卡路徑...",
+      "btn_create": "用 AI 生成",
+      "btn_generating": "正在生成材料..."
     },
     "explore": {
-      "title": "探索路徑或建立您的路徑",
+      "title": "探索路徑或建立你的",
       "import": "匯入",
-      "activities": "{{count}} 項活動",
+      "activities": "{{count}} 個活動",
       "generate": "用 AI 生成"
     },
     "empty_flashcards": {
-      "title": "尚無解鎖的抽認卡",
-      "desc": "完成「學習路徑」分頁中的一個路徑，即可解鎖供複習的抽認卡。"
+      "title": "沒有已解鎖的快閃卡",
+      "desc": "在「學習路徑」分頁完成路徑以解鎖復習用的快閃卡。"
     },
     "empty_quizzes": {
-      "title": "尚無解鎖的測驗",
-      "desc": "完成「學習路徑」分頁中的一個路徑，即可解鎖供練習的測驗。"
+      "title": "沒有已解鎖的測驗",
+      "desc": "在「學習路徑」分頁完成路徑以解鎖練習測驗。"
     },
     "status": {
-      "base_unlocked": "{{count}} 已在資料庫中解鎖",
-      "flashcard_status": "抽認卡 {{current}} / {{total}}",
-      "quiz_status": "題目 {{current}} / {{total}}",
-      "quick_quiz": "快速綜合測驗",
-      "practice": "練習抽認卡"
+      "base_unlocked": "{{count}} 已在基礎中解鎖",
+      "flashcard_status": "快閃卡 {{current}} / {{total}}",
+      "quiz_status": "問題 {{current}} / {{total}}",
+      "quick_quiz": "快速測驗",
+      "practice": "練習快閃卡"
     },
     "default_trails": [
       {
         "id": 1,
-        "title": "焦慮管理",
+        "title": "Anxiety Management",
         "icon": "psychology",
-        "description": "學習識別並管理焦慮的症狀。",
+        "description": "Learn to identify and manage anxiety symptoms.",
         "content": [
           {
             "type": "flashcard",
@@ -117,60 +117,60 @@
             "options": [
               {
                 "id": "A",
-                "text": "快速胸式呼吸"
+                "text": "Rapid chest breathing"
               },
               {
                 "id": "B",
-                "text": "屏住呼吸 1 分鐘"
+                "text": "Holding breath for 1 minute"
               },
               {
                 "id": "C",
-                "text": "橫隔膜呼吸（4-7-8）"
+                "text": "Diaphragmatic Breathing (4-7-8)"
               },
               {
                 "id": "D",
-                "text": "過度換氣"
+                "text": "Hyperventilation"
               }
             ],
             "correctOption": "C"
           },
           {
             "type": "flashcard",
-            "front": "接地（Grounding）",
-            "back": "將注意力帶回當下，關注身體感官（例如：你看到的 5 樣東西，觸到的 4 樣東西）。"
+            "front": "Grounding",
+            "back": "The act of bringing your attention to the present moment, focusing on physical senses (e.g., 5 things you see, 4 you touch)."
           }
         ]
       },
       {
         "id": 2,
-        "title": "非暴力溝通",
+        "title": "Nonviolent Communication",
         "icon": "forum",
-        "description": "透過富有同理心的溝通來改善關係。",
+        "description": "Improve your relationships by communicating empathetically.",
         "content": [
           {
             "type": "flashcard",
-            "front": "非暴力溝通的四個組成部分是什麼？",
-            "back": "1. 觀察、2. 感受、3. 需要、4. 請求。"
+            "front": "What are the 4 components of NVC?",
+            "back": "1. Observation, 2. Feeling, 3. Need, 4. Request."
           },
           {
             "type": "quiz",
-            "question": "以下哪句話是「觀察」而非評判的例子？",
+            "question": "Which of these phrases is an example of an 'Observation' (without judgment) in NVC?",
             "options": [
               {
                 "id": "A",
-                "text": "你非常不負責任。"
+                "text": "You are very irresponsible."
               },
               {
                 "id": "B",
-                "text": "你從不聽我說。"
+                "text": "You never listen to me."
               },
               {
                 "id": "C",
-                "text": "我注意到你在最近的會議中遲到 10 分鐘。"
+                "text": "I noticed you arrived 10 minutes late to the last meetings."
               },
               {
                 "id": "D",
-                "text": "你總是很懶惰。"
+                "text": "You are always lazy."
               }
             ],
             "correctOption": "C"
@@ -179,34 +179,34 @@
       },
       {
         "id": 3,
-        "title": "情緒智力",
+        "title": "Emotional Intelligence",
         "icon": "favorite",
-        "description": "識別並管理你自己的情緒。",
+        "description": "Recognize and control your own emotions.",
         "content": [
           {
             "type": "flashcard",
-            "front": "什麼是自我覺察？",
-            "back": "識別並理解自己的情緒、心情和衝動的能力。"
+            "front": "What is Self-awareness?",
+            "back": "The ability to recognize and understand your own moods, emotions, and drives."
           },
           {
             "type": "quiz",
-            "question": "在工作環境中，情緒智力的一個關鍵支柱是：",
+            "question": "A key pillar of emotional intelligence in the workplace is:",
             "options": [
               {
                 "id": "A",
-                "text": "隱藏你的感受。"
+                "text": "Hiding what you feel."
               },
               {
                 "id": "B",
-                "text": "對同事有同理心。"
+                "text": "Empathy for colleagues."
               },
               {
                 "id": "C",
-                "text": "工作到精疲力竭。"
+                "text": "Working to exhaustion."
               },
               {
                 "id": "D",
-                "text": "比別人說話更大聲。"
+                "text": "Speaking louder than others."
               }
             ],
             "correctOption": "B"
@@ -221,28 +221,28 @@
         "content": [
           {
             "type": "flashcard",
-            "front": "什麼是正念 (Mindfulness)？",
-            "back": "透過將意識集中在當下並識別、接納情緒而達到的一種心理狀態。"
+            "front": "What is Mindfulness?",
+            "back": "A mental state achieved by focusing one's awareness on the present moment, while calmly acknowledging and accepting one's feelings."
           },
           {
             "type": "quiz",
-            "question": "如果在冥想時走神，你應該怎麼做？",
+            "question": "When getting distracted during meditation, you should:",
             "options": [
               {
                 "id": "A",
-                "text": "為自己感到沮喪。"
+                "text": "Get frustrated with yourself."
               },
               {
                 "id": "B",
-                "text": "放棄並改天再試。"
+                "text": "Give up and try another day."
               },
               {
                 "id": "C",
-                "text": "注意到分心並溫和地回到呼吸上。"
+                "text": "Notice the distraction and gently return focus to the breath."
               },
               {
                 "id": "D",
-                "text": "任由思緒無限期游走。"
+                "text": "Let your mind wander indefinitely."
               }
             ],
             "correctOption": "C"
@@ -251,34 +251,34 @@
       },
       {
         "id": 5,
-        "title": "認知偏誤",
+        "title": "Cognitive Biases",
         "icon": "visibility",
-        "description": "理解影響我們決策的思維錯誤。",
+        "description": "Understand the thinking errors that affect our decisions.",
         "content": [
           {
             "type": "flashcard",
-            "front": "確認偏誤",
-            "back": "傾向於尋找並記住能證實既有信念的資訊。"
+            "front": "Confirmation Bias",
+            "back": "The tendency to search for and remember information that confirms one's preconceptions."
           },
           {
             "type": "quiz",
-            "question": "什麼是鄧寧–克魯格效應？",
+            "question": "What is the Dunning-Kruger Effect?",
             "options": [
               {
                 "id": "A",
-                "text": "在經驗不足的任務中高估自己的能力。"
+                "text": "Overestimating one's own ability in tasks where one has little experience."
               },
               {
                 "id": "B",
-                "text": "在公開演講時感到恐慌。"
+                "text": "Panic when speaking in public."
               },
               {
                 "id": "C",
-                "text": "喜歡在促銷時購買東西的習慣。"
+                "text": "The habit of buying things on sale."
               },
               {
                 "id": "D",
-                "text": "在壓力下忘記資訊。"
+                "text": "Forgetting information under stress."
               }
             ],
             "correctOption": "A"
@@ -287,34 +287,34 @@
       },
       {
         "id": 6,
-        "title": "學習組織",
+        "title": "Study Organization",
         "icon": "menu_book",
-        "description": "時間管理與學習規劃技巧。",
+        "description": "Time management and school planning techniques.",
         "content": [
           {
             "type": "flashcard",
-            "front": "什麼是番茄工作法？",
-            "back": "一種時間管理技術，將專注工作的時段（例如：25 分鐘）與短暫休息（例如：5 分鐘）交替，以保持生產力。"
+            "front": "What is the Pomodoro Technique?",
+            "back": "A time management method that alternates intense focus blocks (e.g., 25 mins) with short breaks (e.g., 5 mins) to maintain productivity."
           },
           {
             "type": "quiz",
-            "question": "如何最好地為有多場考試的一週做準備？",
+            "question": "What is the best way to prepare for a week with multiple exams?",
             "options": [
               {
                 "id": "A",
-                "text": "在考試前一晚把所有內容複習完。"
+                "text": "Study everything the night before the exam."
               },
               {
                 "id": "B",
-                "text": "制定一個把科目分配到整週的計畫表。"
+                "text": "Create a schedule distributing the subjects throughout the week."
               },
               {
                 "id": "C",
-                "text": "只複習最困難的科目。"
+                "text": "Study only the hardest subject."
               },
               {
                 "id": "D",
-                "text": "不複習，僅憑記憶應付。"
+                "text": "Don't study and rely only on what you remember from classes."
               }
             ],
             "correctOption": "B"
@@ -323,43 +323,264 @@
       },
       {
         "id": 7,
-        "title": "校園壓力與考試",
+        "title": "School Pressure and Exams",
         "icon": "school",
-        "description": "應對考前緊張並避免考試中「空白」的策略。",
+        "description": "Strategies to manage pre-exam nervousness and avoid going 'blank'.",
         "content": [
           {
             "type": "flashcard",
-            "front": "考試時著名的「空白」通常由什麼引起？",
-            "back": "通常由焦慮高峰引起；大腦將考試視為即時威脅，從而阻礙對記憶的存取。"
+            "front": "What causes you to go 'blank' during a test?",
+            "back": "Going 'blank' is usually caused by an anxiety spike. The brain perceives the exam as an immediate threat, blocking memory access."
           },
           {
             "type": "quiz",
-            "question": "如果你感覺在考試中可能會「空白」，你應該怎麼做？",
+            "question": "What to do if you feel you're going to go blank during an exam?",
             "options": [
               {
                 "id": "A",
-                "text": "默默地驚慌。"
+                "text": "Panic silently."
               },
               {
                 "id": "B",
-                "text": "休息一下，閉上眼睛，深呼吸，如可能可喝些水。"
+                "text": "Take a break, close your eyes, take a deep breath, and drink water if possible."
               },
               {
                 "id": "C",
-                "text": "盡快胡亂寫些東西。"
+                "text": "Answer anything as quickly as possible."
               },
               {
                 "id": "D",
-                "text": "立刻哭出來。"
+                "text": "Cry immediately."
               }
             ],
             "correctOption": "B"
           },
           {
             "type": "flashcard",
-            "front": "期望與現實",
-            "back": "壓力常來自父母或教師的期望。記住一次差成績並不能定義你的智力；理解這一點有助於減少並應對過度壓力。"
+            "front": "Expectations vs. Reality",
+            "back": "Often pressure comes from parents' or teachers' expectations. Remembering that a bad grade does not define your intelligence is key to reducing and dealing with this excessive pressure."
           }
+        ]
+      }
+    ]
+  },
+  "exams": {
+    "title": "Prep Course",
+    "close": "Close",
+    "back": "Back",
+    "hero_description": "Explore exams, reference matrices, and prep shortcuts.",
+    "vocational": {
+      "title": "Vocational Test",
+      "progress_aria": "Vocational test progress",
+      "introduction": {
+        "title": "Discover Your Professional Vocation",
+        "description": "This test is based on the RIASEC model, a scientific tool that identifies your professional preferences through six dimensions: Realistic, Investigative, Artistic, Social, Enterprising, and Conventional.",
+        "features": {
+          "riasec": "Based on RIASEC model",
+          "insights": "Personalized career insights",
+          "guidance": "Guidance for decision making"
+        },
+        "start_button": "Start Vocational Test"
+      },
+      "likert": {
+        "1": "I dislike it",
+        "2": "Find it boring",
+        "3": "Whatever / Neutral",
+        "4": "I like doing it",
+        "5": "I love it!"
+      },
+      "processing": "Analyzing your vocational profile...",
+      "result": {
+        "title": "Your Professional Profile",
+        "cta_plan": "Generate Study Plan",
+        "chat_input": "I would like a study plan focused on {{area}}"
+      },
+      "questions": {
+        "1": "Do you enjoy assembling or fixing mechanical objects in your daily life or occasionally?",
+        "2": "Do you like investigating scientific or mathematical problems to find solutions?",
+        "3": "Do you feel good expressing ideas through design, arts, or visual creation?",
+        "4": "Do you enjoy helping people learn something new or develop themselves?",
+        "5": "Are you excited about leading teams and making decisions in projects?",
+        "6": "Do you like organizing data, files, and following clear routines?",
+        "7": "Do you like working with tools, machines, or hands-on activities?",
+        "8": "Do you feel good observing details and testing hypotheses?",
+        "9": "Do you like creating something original, even if it's just for a hobby?",
+        "10": "Do you enjoy listening to people and offering support when they need it?",
+        "11": "Are you motivated by convincing, negotiating, or selling an idea?",
+        "12": "Do you feel good following clear processes and checking everything carefully?",
+        "13": "Do you like outdoor activities or those that involve using your body?",
+        "14": "Do you like learning on your own and exploring subjects in depth?",
+        "15": "Are you excited about telling stories, writing, or composing something?",
+        "16": "Do you like working in a team and creating a collaborative environment?",
+        "17": "Do you like taking the lead to organize people and goals?",
+        "18": "Do you enjoy spreadsheets, financial organization, or administrative tasks?"
+      },
+      "dimensions": {
+        "R": "Realistic",
+        "I": "Investigative",
+        "A": "Artistic",
+        "S": "Social",
+        "E": "Enterprising",
+        "C": "Conventional"
+      }
+    },
+    "sections": {
+      "categories": "Categories",
+      "subjects": "Subjects",
+      "subjects_caption": "Choose a focus area to generate a plan, strategy, or guided practice.",
+      "available_options_one": "{{count}} option available",
+      "available_options_other": "{{count}} options available"
+    },
+    "categories_title": {
+      "international": "International",
+      "national": "National",
+      "regional": "Regional",
+      "olympiads": "Olympiads"
+    },
+    "topics_header": "Reference Matrix and Contents",
+    "actions": {
+      "ai_plan": "Create AI Study Plan",
+      "ai_strategy": "Exam Strategy",
+      "ai_judge": "Prep Mode (OBI Judge)",
+      "explain_topic": "Explain topic",
+      "generate_quiz": "Generate Questions (Quiz)"
+    },
+    "calculator": {
+      "mode_simple": {
+        "title": "Simple Average",
+        "desc": "I already have my final grades and want to calculate the average."
+      },
+      "mode_advanced": {
+        "title": "By Hits",
+        "desc": "I only have the answer key and want to estimate my score."
+      },
+      "inputs": {
+        "course": "Desired Course (e.g. Medicine)",
+        "category": "Competition Category"
+      },
+      "subjects": {
+        "linguagens": "Languages",
+        "humanas": "Human Sciences",
+        "natureza": "Natural Sciences",
+        "matematica": "Mathematics",
+        "redacao": "Essay"
+      },
+      "correct_labels": {
+        "linguagens": "Language Hits (0-45)",
+        "humanas": "Human Sciences Hits (0-45)",
+        "natureza": "Natural Sciences Hits (0-45)",
+        "matematica": "Mathematics Hits (0-45)",
+        "redacao": "Essay Score (0-1000)"
+      },
+      "ignore_redacao": "I don't have the essay score yet",
+      "result": {
+        "simple_label": "Your Simple Average:",
+        "advanced_label": "Estimated Average (IRT Range):",
+        "avg": "Probable average: ~{{val}}",
+        "warning": "The Essay score <strong>WAS NOT</strong> included in this calculation. This average considers only the 4 objective areas.",
+        "note_simple": "*This is a simple average. SiSU and ProUni may use different weights depending on the course and university.",
+        "note_advanced": "*This is an estimate based on previous patterns. The real score depends on IRT (Item Response Theory) and question difficulty."
+      },
+      "buttons": {
+        "switch": "Switch Mode",
+        "calc_ai": "Calculate and Analyze with AI",
+        "calc": "Calculate Average"
+      },
+      "prompts": {
+        "simple": "🎓 ADMISSION FEASIBILITY ANALYSIS\n\n📊 MY TARGET SCORES:\n• Languages: {{linguagens}}\n• Human Sciences: {{humanas}}\n• Natural Sciences: {{natureza}}\n• Mathematics: {{matematica}}\n• Essay: {{redacao}}\n\n📈 Simple Average: {{avg}}\n\n🎯 GOAL:\n• Course: {{course}}\n• Category/Modality: {{category}}\n\nPlease help me with:\n\n1. 🏛️ VIABLE UNIVERSITIES\n   - List universities where I have a GOOD chance\n   - Mention recent cutoff scores\n\n2. ⚠️ RISKY OPTIONS\n   - Universities where it would be harder, but possible\n\n3. ⚖️ WEIGHT SYSTEM\n   - How does {{course}} usually weigh these areas?\n   - What is my estimated weighted score?\n\n4. 💡 STRATEGIES\n   - Should I focus on improving any specific area?\n   - Admission application tips\n\n5. 🧠 EMOTIONAL SUPPORT\n   - How to manage waiting anxiety?\n   - Personalized motivational message\n\nBe realistic but encouraging! 💪",
+        "advanced": "🎯 SCORE ESTIMATION ANALYSIS\n\n📝 MY HITS:\n• Languages: {{linguagens}}/45\n  📉 Estimated score: {{triLinguagensMin}} - {{triLinguagensMax}}\n  \n• Human Sciences: {{humanas}}/45\n  📉 Estimated score: {{triHumanasMin}} - {{triHumanasMax}}\n  \n• Natural Sciences: {{natureza}}/45\n  📉 Estimated score: {{triNaturezaMin}} - {{triNaturezaMax}}\n  \n• Mathematics: {{matematica}}/45\n  📉 Estimated score: {{triMatematicaMin}} - {{triMatematicaMax}}\n\n{{redacaoInfo}}\n\n📊 ESTIMATED AVERAGE:\n• Pessimistic scenario: {{totalMin}}\n• Optimistic scenario: {{totalMax}}\n• Probable average: ~{{totalAvg}}\n{{observacao}}\n\n🎯 MY GOAL:\n• Course: {{course}}\n• Modality: {{category}}\n\nI need a complete analysis:\n\n1. 🏛️ REAL CHANCES\n   - Considering the score range, which universities are viable?\n   - Compare with recent cutoff scores\n{{impactoRedacao}}\n\n2. 📈 AREA ANALYSIS\n   - In which areas did I do well?\n   - Where can I improve if I retake it?\n\n3. ⚖️ WEIGHTS & STRATEGY\n   - How does {{course}} weigh the areas?\n   - Do my strong areas favor this course?\n\n4. 🔄 PLAN B\n   - Alternative courses that match my score profile\n   - Nearby university options\n\n5. 💪 PSYCHOLOGICAL SUPPORT\n   - How to deal with the uncertainty of the estimation?\n   - Tips to stay calm until the official results\n   - Motivational message based on my performance\n\nBe honest about the chances, but also encouraging! 🌟"
+      }
+    },
+    "prompts": {
+      "plan": "Create a complete study plan for {{exam}} - {{subject}}:\n\n📚 TOPICS:\n{{topics}}\n\nPlease provide:\n1. Ideal study order\n2. Suggested time for each topic\n3. Specific study techniques\n4. Recommended resources\n5. How this content appears in exams\n6. Memorization and review tips\n\nBe practical and motivating! 💪",
+      "strategy": "Analyze the preparation strategy for {{exam}} - {{subject}}:\n\n🎯 How should I prioritize my studies?\n📊 Which topics are most frequent?\n⚡ Quick resolution techniques\n🧠 How to handle pre-exam anxiety\n📝 Time management tips during the exam\n\nGive practical and motivating advice!",
+      "explain": "Clearly and didactically explain the following topic of {{subject}} for {{exam}}:\n\n📌 {{topic}}\n\nIncluding:\n1. Fundamental concepts\n2. Practical examples\n3. How it appears on exams\n4. Memorization tips\n5. Common mistakes to avoid\n\nUse accessible language! 📚"
+    }
+  },
+  "quiz": {
+    "title": "Integrated Mock Exam: {{topic}}",
+    "close": "Close",
+    "loading": {
+      "title": "Generating fresh questions...",
+      "desc": "Our AI is formulating the educational mock exam in the format of {{exam}}."
+    },
+    "results": {
+      "title": "Training Complete!",
+      "score": "You got {{score}} out of {{total}} questions right.",
+      "finish": "Finish Review"
+    },
+    "active": {
+      "progress": "Question {{current}} of {{total}}",
+      "confirm": "Confirm Answer",
+      "next": "Next Question",
+      "see_results": "See Results",
+      "correct": "✨ Correct Answer!",
+      "incorrect": "❌ Incorrect Answer"
+    },
+    "messages": {
+      "error_comm": "There was an error communicating with the AI to generate the exam. Try again later.",
+      "try_again": "Try again",
+      "error_desc": "Network failure or malformed response."
+    },
+    "prompt": "Act as a mock exam question generator. Create 4 original questions at the level of the {{exam}} exam in the subject of {{subject}} focusing on the theme: {{topic}}.\n\nReturn ONLY a pure JSON array containing the questions. Do not write any other words outside the JSON braces. Do not include ```json at the beginning.\n\n[\n  {\n    \"pergunta\": \"Formatted text of the question...\",\n    \"alternativas\": [\"Option 1\", \"Option 2\", \"Option 3\", \"Option 4\", \"Option 5\"],\n    \"correta\": 0,\n    \"explicacao\": \"Detailed explanation of the correct option in Portuguese.\"\n  }\n]"
+  },
+  "roadmap": {
+    "title": "Roadmap",
+    "intro": "Overview of planned features and milestones."
+  },
+  "roadmap_page": {
+    "title": "Product Roadmap",
+    "subtitle": "Follow our journey and see what we're building for the future of emotional education.",
+    "back_home": "Back to home",
+    "statuses": {
+      "completed": "Completed",
+      "in_progress": "In Development",
+      "planned": "Planned"
+    },
+    "phases": [
+      {
+        "quarter": "Q4 2025",
+        "status": "completed",
+        "title": "Beta Launch",
+        "items": [
+          "Intuitive Chat Interface",
+          "Generative AI Integration",
+          "Dark/Light Mode",
+          "Voice Command Support"
+        ]
+      },
+      {
+        "quarter": "Q1 2026",
+        "status": "in_progress",
+        "title": "Feature Expansion",
+        "items": [
+          "Integrated Quizzes System",
+          "Competitive Judge Mode (C, C++, Python)",
+          "Olympiad and College Exam Interactive Integration",
+          "Advanced Pomodoro Module",
+          "Persistent Chat History"
+        ]
+      },
+      {
+        "quarter": "Q2 2026",
+        "status": "planned",
+        "title": "Community and Content",
+        "items": [
+          "Student Forum",
+          "Educational Content Curation",
+          "Google Calendar Integration",
+          "Mobile App (iOS/Android)"
+        ]
+      },
+      {
+        "quarter": "Q3 2026",
+        "status": "planned",
+        "title": "Advanced Personalization",
+        "items": [
+          "Customizable AI Tutors",
+          "Study Statistics Dashboard",
+          "Gamification and Achievements",
+          "Public API for Developers"
         ]
       }
     ]

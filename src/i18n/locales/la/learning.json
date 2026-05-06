@@ -1,103 +1,103 @@
 {
   "guided_learning": {
-    "title": "Guided Learning",
+    "title": "Doctrina Ducta",
     "aria": {
-      "close": "Close",
-      "start_trail": "Start trail",
-      "export_trail": "Export trail",
-      "delete_trail": "Delete trail"
+      "close": "Claudere",
+      "start_trail": "Iter inire",
+      "export_trail": "Iter exportare",
+      "delete_trail": "Iter delere"
     },
     "tabs": {
-      "trails": "Study Paths",
-      "flashcards": "Practice Flashcards",
-      "quizzes": "Random Quiz"
+      "trails": "Itineraria Studia",
+      "flashcards": "Chartae Practicae",
+      "quizzes": "Quaestiones Casuales"
     },
     "alerts": {
-      "delete_confirm": "Do you really want to remove this AI-generated trail?",
-      "import_success": "Trail imported successfully!",
-      "import_error": "Import error. Copy a valid JSON trail code before importing.",
-      "export_success": "Trail copied to clipboard! Share it with your friends.",
-      "export_error": "Error copying the trail.",
-      "generate_error": "Could not generate the trail. Try being more specific about the topic.",
-      "generate_catch": "Error connecting to AI."
+      "delete_confirm": "Visne re vera hunc iter a IA generatum delere?",
+      "import_success": "Iter importatum est!",
+      "import_error": "Error importandi. Codicem JSON validum copia ante importationem.",
+      "export_success": "Iter in clipboard comparatum! Parte cum amicis.",
+      "export_error": "Error dum iter copiatur.",
+      "generate_error": "Iter generari non potuit. Tema clarius indica.",
+      "generate_catch": "Error conexionis cum IA."
     },
     "trails": {
-      "active_back": "Back to Trails",
-      "active_step": "Step {{step}} of {{total}}",
-      "active_finished": "Completed",
-      "completed": "Completed"
+      "active_back": "Ad Itineraria Redire",
+      "active_step": "Gradus {{step}} ex {{total}}",
+      "active_finished": "Perfectum",
+      "completed": "Perfectum"
     },
     "completion": {
-      "perfection_title": "Perfection! No mistakes!",
-      "excellent_title": "Excellent work!",
-      "continue_title": "Learning is a continuous process!",
-      "stats": "You answered <strong>{{correct}}</strong> out of <strong>{{total}}</strong> questions correctly on the first try ({{percentage}}%).",
-      "you_are_awesome": "You are awesome!",
-      "title": "Trail Completed!",
-      "action": "Back to Trails",
-      "quizzes_title": "Quizzes Completed!",
-      "retry": "Try Again"
+      "perfection_title": "Perfectio! Nullae errores!",
+      "excellent_title": "Optime factum!",
+      "continue_title": "Disciplina est processus continuus!",
+      "stats": "Responditis <strong>{{correct}}</strong> ex <strong>{{total}}</strong> quaestionibus recte primum conatu ({{percentage}}%).",
+      "you_are_awesome": "Tu es mirabilis!",
+      "title": "Iter Perfectum!",
+      "action": "Ad Itineraria",
+      "quizzes_title": "Quaestiones Perfectae!",
+      "retry": "Iterum tenta"
     },
     "flashcard": {
-      "flip_hint": "Click to reveal",
+      "flip_hint": "Cliccare ad revelandum",
       "difficulty": {
-        "fail": "Again",
-        "hard": "Hard",
-        "good": "Good",
-        "easy": "Easy"
+        "fail": "Iterum",
+        "hard": "Difficile",
+        "good": "Bene",
+        "easy": "Facile"
       },
       "times": {
-        "30s": "30 sec",
-        "5m": "5 min",
-        "30m": "30 min",
-        "2h": "2 hr"
+        "30s": "30 s",
+        "5m": "5 m",
+        "30m": "30 m",
+        "2h": "2 h"
       }
     },
     "quiz": {
-      "verify": "Check Answer",
-      "explain_btn": "Explain with AI ✨",
-      "explaining": "Generating explanation...",
-      "tutor": "AI Tutor:",
-      "finish_trail": "Finish Trail",
-      "next_question": "Next Question",
-      "see_results": "See Results"
+      "verify": "Responsum Revidere",
+      "explain_btn": "Explica cum IA ✨",
+      "explaining": "Explicatio generatur...",
+      "tutor": "Tutor IA:",
+      "finish_trail": "Iter finire",
+      "next_question": "Proxima quaestio",
+      "see_results": "Vide eventus"
     },
     "open_ended": {
-      "placeholder": "Write your reflection or answer here...",
-      "evaluate_btn": "Evaluate Output with AI",
-      "evaluating": "Evaluating...",
-      "skip_btn": "Skip",
-      "your_answer": "Your Answer:",
-      "ai_feedback": "AI Feedback:",
-      "continue_trail": "Continue Trail"
+      "placeholder": "Scribe reflexionem vel responsum hic...",
+      "evaluate_btn": "Aestima cum IA",
+      "evaluating": "Aestimatur...",
+      "skip_btn": "Praeterire",
+      "your_answer": "Tuum Responsum:",
+      "ai_feedback": "Responsio IA:",
+      "continue_trail": "Iter pergere"
     },
     "create": {
-      "title": "What do you want to learn today?",
-      "desc": "Describe a topic, emotional challenge, or skill. Our artificial intelligence will build a customized interactive plan (Flashcards and Quizzes).",
-      "placeholder": "Ex: I want a trail with flashcards on how to practice mindfulness at work in 5 minutes...",
-      "btn_create": "Generate with AI",
-      "btn_generating": "Generating Material..."
+      "title": "Quid hodie discere vis?",
+      "desc": "Describas argumentum, provocationem emotionalem, aut artem. IA construet consilium interactivum personalizatum.",
+      "placeholder": "Ex: Volo iter cum chartis de mindfulness in opere in 5 minutis...",
+      "btn_create": "Genera cum IA",
+      "btn_generating": "Generantur materiae..."
     },
     "explore": {
-      "title": "Explore Trails or Create Yours",
-      "import": "Import",
-      "activities": "{{count}} Activities",
-      "generate": "Generate with AI"
+      "title": "Explora Itineraria aut Creare Tuum",
+      "import": "Importare",
+      "activities": "{{count}} Activitates",
+      "generate": "Genera cum IA"
     },
     "empty_flashcards": {
-      "title": "No Flashcards Unlocked",
-      "desc": "Complete a Study Path in the 'Study Paths' tab to unlock flashcards for review."
+      "title": "Nullae Chartae Unlockatae",
+      "desc": "Comple Iter ad Chartas revocandas unlockandas."
     },
     "empty_quizzes": {
-      "title": "No Quizzes Unlocked",
-      "desc": "Complete a Study Path in the 'Study Paths' tab to unlock quizzes for practice."
+      "title": "Nullae Quaestiones Unlockatae",
+      "desc": "Comple Iter ad quaestiones praticae unlockandas."
     },
     "status": {
-      "base_unlocked": "{{count}} Unlocked in Base",
-      "flashcard_status": "Flashcard {{current}} / {{total}}",
-      "quiz_status": "Question {{current}} / {{total}}",
-      "quick_quiz": "General Quick Quiz",
-      "practice": "Practice Flashcards"
+      "base_unlocked": "{{count}} in basi unlockatum",
+      "flashcard_status": "Charta {{current}} / {{total}}",
+      "quiz_status": "Quaestio {{current}} / {{total}}",
+      "quick_quiz": "Celer Quaestio",
+      "practice": "Chartas Practicae"
     },
     "default_trails": [
       {
