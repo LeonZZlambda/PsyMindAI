@@ -1,0 +1,55 @@
+{
+  "kindness": {
+    "title": "Taten der Freundlichkeit",
+    "categories": {
+      "random": "Zufällig",
+      "stranger": "Fremde",
+      "family": "Familie/​Freunde",
+      "self": "Für dich",
+      "work": "Arbeit/Schule"
+    },
+    "loading": "Die KI sucht die perfekte gute Tat...",
+    "completed": "Abgeschlossen",
+    "generate_new": "Neu generieren",
+    "will_do": "Ich mache das!",
+    "done": "Erledigt!",
+    "success_toast": "Glückwunsch! Die Welt ist ein bisschen besser geworden.",
+    "prompts": {
+      "random": "Schlage eine einfache, praktische gute Tat vor, die heute jeder tun kann (1 Satz).",
+      "stranger": "Schlage eine einfache gute Tat vor, die man einem Fremden tun kann (1 Satz).",
+      "family": "Schlage eine einfache gute Tat für Familie oder Freunde vor (1 Satz).",
+      "self": "Schlage eine einfache Selbstfürsorge- oder Mitgefühlsaktion vor (1 Satz).",
+      "work": "Schlage eine einfache gute Tat vor, die man bei der Arbeit oder in der Schule tun kann (1 Satz)."
+    },
+    "database": {
+      "stranger": [
+        "Mache einem Fremden ein aufrichtiges Kompliment zu Kleidung oder Accessoires.",
+        "Halte jemandem die Tür auf.",
+        "Lege einen positiven Zettel in ein Buch in der Bibliothek oder an einen öffentlichen Ort.",
+        "Lächle und grüße den Busfahrer oder die Kassiererin im Laden.",
+        "Zahle demjenigen hinter dir in der Schlange einen Kaffee (wenn möglich)."
+      ],
+      "family": [
+        "Rufe einen Angehörigen an, nur um zu sagen, dass du ihn liebst.",
+        "Übernimm eine Hausarbeit, die eigentlich nicht deine Verantwortung ist.",
+        "Schreibe einen Dankesbrief an jemanden, der dir in der Vergangenheit geholfen hat.",
+        "Koche das Lieblingsessen eines Familienmitglieds.",
+        "Höre jemandem aufmerksam zu, ohne zu unterbrechen oder aufs Handy zu schauen."
+      ],
+      "self": [
+        "Schreibe 3 Dinge auf, die du an dir magst.",
+        "Nimm dir 15 Minuten Zeit für etwas, das du liebst, ohne Schuldgefühle.",
+        "Vergib dir für einen kürzlichen Fehler.",
+        "Mache einen achtsamen Spaziergang und beobachte die Natur.",
+        "Schreibe in ein Tagebuch, wie du dich heute fühlst."
+      ],
+      "work": [
+        "Biete einem überlasteten Kollegen deine Hilfe an.",
+        "Lobe die Arbeit eines Kollegen öffentlich oder beim Vorgesetzten.",
+        "Bringe einen Snack oder eine Süßigkeit mit, um sie im Team zu teilen.",
+        "Hinterlasse einen ermutigenden Post-it auf dem Schreibtisch von jemandem.",
+        "Danke jemandem für etwas Konkretes, das er getan hat."
+      ]
+    }
+  }
+}

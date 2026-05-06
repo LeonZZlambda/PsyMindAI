@@ -1,0 +1,588 @@
+{
+  "guided_learning": {
+    "title": "引导式学习",
+    "aria": {
+      "close": "关闭",
+      "start_trail": "开始学习路径",
+      "export_trail": "导出路径",
+      "delete_trail": "删除路径"
+    },
+    "tabs": {
+      "trails": "学习路径",
+      "flashcards": "练习抽认卡",
+      "quizzes": "随机测验"
+    },
+    "alerts": {
+      "delete_confirm": "您确定要删除此由 AI 生成的路径吗？",
+      "import_success": "路径导入成功！",
+      "import_error": "导入错误。请先复制有效的 JSON 路径代码再导入。",
+      "export_success": "路径已复制到剪贴板！与朋友分享吧。",
+      "export_error": "复制路径时发生错误。",
+      "generate_error": "无法生成路径。请尝试更具体的主题。",
+      "generate_catch": "连接 AI 时出错。"
+    },
+    "trails": {
+      "active_back": "返回路径",
+      "active_step": "第 {{step}} 步（共 {{total}} 步）",
+      "active_finished": "已完成",
+      "completed": "已完成"
+    },
+    "completion": {
+      "perfection_title": "完美！无错误！",
+      "excellent_title": "表现优异！",
+      "continue_title": "学习是一个持续的过程！",
+      "stats": "您在第一次尝试中答对了 <strong>{{correct}}</strong> / <strong>{{total}}</strong> 题（{{percentage}}%）。",
+      "you_are_awesome": "你很棒！",
+      "title": "路径完成！",
+      "action": "返回路径",
+      "quizzes_title": "测验已完成！",
+      "retry": "再试一次"
+    },
+    "flashcard": {
+      "flip_hint": "点击以翻面",
+      "difficulty": {
+        "fail": "再来一次",
+        "hard": "困难",
+        "good": "良好",
+        "easy": "简单"
+      },
+      "times": {
+        "30s": "30 秒",
+        "5m": "5 分钟",
+        "30m": "30 分钟",
+        "2h": "2 小时"
+      }
+    },
+    "quiz": {
+      "verify": "检查答案",
+      "explain_btn": "用 AI 解释 ✨",
+      "explaining": "正在生成解释...",
+      "tutor": "AI 导师：",
+      "finish_trail": "完成路径",
+      "next_question": "下一题",
+      "see_results": "查看结果"
+    },
+    "open_ended": {
+      "placeholder": "在此撰写您的反思或答案...",
+      "evaluate_btn": "用 AI 评估答案",
+      "evaluating": "评估中...",
+      "skip_btn": "跳过",
+      "your_answer": "您的答案：",
+      "ai_feedback": "AI 回馈：",
+      "continue_trail": "继续路径"
+    },
+    "create": {
+      "title": "您今天想学什么？",
+      "desc": "描述一个主题、情绪挑战或技能。我们的 AI 会建立一个个性化的互动计划（抽认卡与测验）。",
+      "placeholder": "例如：我想要一个关于在工作中用 5 分钟练习正念的抽认卡路径...",
+      "btn_create": "使用 AI 生成",
+      "btn_generating": "正在生成教材..."
+    },
+    "explore": {
+      "title": "探索路径或建立您的路径",
+      "import": "导入",
+      "activities": "{{count}} 项活动",
+      "generate": "用 AI 生成"
+    },
+    "empty_flashcards": {
+      "title": "尚无解锁的抽认卡",
+      "desc": "完成「学习路径」分页中的一个路径，即可解锁供复习的抽认卡。"
+    },
+    "empty_quizzes": {
+      "title": "尚无解锁的测验",
+      "desc": "完成「学习路径」分页中的一个路径，即可解锁供练习的测验。"
+    },
+    "status": {
+      "base_unlocked": "{{count}} 已在数据库中解锁",
+      "flashcard_status": "抽认卡 {{current}} / {{total}}",
+      "quiz_status": "题目 {{current}} / {{total}}",
+      "quick_quiz": "快速综合测验",
+      "practice": "练习抽认卡"
+    },
+    "default_trails": [
+      {
+        "id": 1,
+        "title": "焦虑管理",
+        "icon": "psychology",
+        "description": "学习识别并管理焦虑的症状。",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "什么是“战斗或逃跑”反应？",
+            "back": "当人们将某些事件视为威胁或压力时，身体会产生的一种自动生理反应，会激活交感神经系统。"
+          },
+          {
+            "type": "quiz",
+            "question": "哪种呼吸技术最推荐用于缓解急性焦虑？",
+            "options": [
+              {
+                "id": "A",
+                "text": "快速胸式呼吸"
+              },
+              {
+                "id": "B",
+                "text": "屏住呼吸 1 分钟"
+              },
+              {
+                "id": "C",
+                "text": "隔膜呼吸（4-7-8）"
+              },
+              {
+                "id": "D",
+                "text": "过度换气"
+              }
+            ],
+            "correctOption": "C"
+          },
+          {
+            "type": "flashcard",
+            "front": "接地（Grounding）",
+            "back": "将注意力带回当下，关注身体感官（例如：你看到的 5 样东西，触到的 4 样东西）。"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "非暴力沟通",
+        "icon": "forum",
+        "description": "通过富有同理心的沟通来改善关系。",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "非暴力沟通的四个组成部分是什么？",
+            "back": "1. 观察，2. 感受，3. 需要，4. 请求。"
+          },
+          {
+            "type": "quiz",
+            "question": "以下哪句话是“观察”而非评判的例子？",
+            "options": [
+              {
+                "id": "A",
+                "text": "你非常不负责任。"
+              },
+              {
+                "id": "B",
+                "text": "你从不听我说。"
+              },
+              {
+                "id": "C",
+                "text": "我注意到你在最近的会议中迟到 10 分钟。"
+              },
+              {
+                "id": "D",
+                "text": "你总是很懒惰。"
+              }
+            ],
+            "correctOption": "C"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "情绪智力",
+        "icon": "favorite",
+        "description": "识别并管理你自己的情绪。",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "什么是自我觉察？",
+            "back": "识别并理解自己情绪、心情和冲动的能力。"
+          },
+          {
+            "type": "quiz",
+            "question": "在工作环境中，情绪智力的一个关键支柱是：",
+            "options": [
+              {
+                "id": "A",
+                "text": "隐藏你的感受。"
+              },
+              {
+                "id": "B",
+                "text": "对同事有同理心。"
+              },
+              {
+                "id": "C",
+                "text": "一直工作直到精疲力尽。"
+              },
+              {
+                "id": "D",
+                "text": "比别人说话更大声。"
+              }
+            ],
+            "correctOption": "B"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "正念与专注",
+        "icon": "self_improvement",
+        "description": "保持当下专注的正念技巧。",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "什么是正念 (Mindfulness)？",
+            "back": "通过将意识集中在当下并识别与接纳情绪而达到的一种心理状态。"
+          },
+          {
+            "type": "quiz",
+            "question": "如果在冥想时走神，你应该怎么做？",
+            "options": [
+              {
+                "id": "A",
+                "text": "对自己感到沮丧。"
+              },
+              {
+                "id": "B",
+                "text": "放弃并改天再试。"
+              },
+              {
+                "id": "C",
+                "text": "注意到分心并温和地回到呼吸上。"
+              },
+              {
+                "id": "D",
+                "text": "任由思绪无限制地游荡。"
+              }
+            ],
+            "correctOption": "C"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "认知偏见",
+        "icon": "visibility",
+        "description": "理解影响我们决策的思维错误。",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "确认偏误",
+            "back": "倾向于寻找并记住确认既有信念的信息。"
+          },
+          {
+            "type": "quiz",
+            "question": "什么是邓宁–克鲁格效应？",
+            "options": [
+              {
+                "id": "A",
+                "text": "在经验不足的任务中高估自己的能力。"
+              },
+              {
+                "id": "B",
+                "text": "在公开演讲时恐慌。"
+              },
+              {
+                "id": "C",
+                "text": "喜欢在促销时购买东西的习惯。"
+              },
+              {
+                "id": "D",
+                "text": "在压力下忘记信息。"
+              }
+            ],
+            "correctOption": "A"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "学习组织",
+        "icon": "menu_book",
+        "description": "时间管理与学习规划技巧。",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "什么是番茄工作法？",
+            "back": "一种时间管理技术，将专注工作时段（例如：25 分钟）与短暂休息（例如：5 分钟）交替，以保持生产力。"
+          },
+          {
+            "type": "quiz",
+            "question": "如何最好地为有多场考试的一周做准备？",
+            "options": [
+              {
+                "id": "A",
+                "text": "在考试前一晚把所有内容复习完。"
+              },
+              {
+                "id": "B",
+                "text": "制定一个将科目分配到整周的计划表。"
+              },
+              {
+                "id": "C",
+                "text": "只复习最困难的科目。"
+              },
+              {
+                "id": "D",
+                "text": "不复习，仅凭记忆应付。"
+              }
+            ],
+            "correctOption": "B"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "title": "校园压力与考试",
+        "icon": "school",
+        "description": "应对考前紧张并避免考试中“断片”的策略。",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "考试时著名的“断片”通常由什么引起？",
+            "back": "通常由焦虑峰值引起；大脑将考试视为即时威胁，从而阻碍对记忆的访问。"
+          },
+          {
+            "type": "quiz",
+            "question": "如果你感觉在考试中可能会“断片”，你应该怎么做？",
+            "options": [
+              {
+                "id": "A",
+                "text": "默默惊慌。"
+              },
+              {
+                "id": "B",
+                "text": "休息一下，闭上眼睛，深呼吸，如可能可喝水。"
+              },
+              {
+                "id": "C",
+                "text": "尽快随便写点东西。"
+              },
+              {
+                "id": "D",
+                "text": "立刻哭出来。"
+              }
+            ],
+            "correctOption": "B"
+          },
+          {
+            "type": "flashcard",
+            "front": "期望与现实",
+            "back": "压力常来源于父母或教师的期望。记住一次差成绩并不能定义你的智力，这对减轻并应对过度压力很重要。"
+          }
+        ]
+      }
+    ]
+  },
+  "exams": {
+    "title": "Preparatório",
+    "close": "Fechar",
+    "back": "Voltar",
+    "hero_description": "Explore provas, matrizes de referência e atalhos de preparação.",
+    "vocational": {
+      "title": "Teste Vocacional",
+      "progress_aria": "Progresso do teste vocacional",
+      "introduction": {
+        "title": "Descubra sua Vocação Profissional",
+        "description": "Este teste é baseado no modelo RIASEC, uma ferramenta científica que identifica suas preferências profissionais através de seis dimensões: Realista, Investigativo, Artístico, Social, Empreendedor e Convencional.",
+        "features": {
+          "riasec": "Baseado no modelo RIASEC",
+          "insights": "Insights personalizados sobre carreira",
+          "guidance": "Orientação para tomada de decisões"
+        },
+        "start_button": "Iniciar Teste Vocacional"
+      },
+      "likert": {
+        "1": "Não curto e evito",
+        "2": "Acho chato",
+        "3": "Tanto faz / Neutro",
+        "4": "Gosto de fazer",
+        "5": "Adoro! Faria sempre"
+      },
+      "processing": "Analisando seu perfil vocacional...",
+      "result": {
+        "title": "Seu Perfil Profissional",
+        "cta_plan": "Gerar Plano de Estudos",
+        "chat_input": "Gostaria de um plano de estudos focado em {{area}}"
+      },
+      "questions": {
+        "1": "Você gosta de montar ou consertar objetos mecânicos no dia a dia ou de vez em quando?",
+        "2": "Você curte investigar problemas científicos ou matemáticos para achar soluções?",
+        "3": "Você se sente bem expressando ideias com design, artes ou criação visual?",
+        "4": "Você gosta de ajudar pessoas a aprender algo novo ou se desenvolver?",
+        "5": "Você se anima em liderar equipes e tomar decisões em projetos?",
+        "6": "Você gosta de organizar dados, arquivos e seguir rotinas claras?",
+        "7": "Você gosta de mexer com ferramentas, máquinas ou atividades práticas?",
+        "8": "Você se sente bem observando detalhes e testando hipóteses?",
+        "9": "Você gosta de criar algo original, mesmo que seja só por hobby?",
+        "10": "Você curte ouvir as pessoas e oferecer apoio quando precisam?",
+        "11": "Você se motiva em convencer, negociar ou vender uma ideia?",
+        "12": "Você se sente bem seguindo processos claros e checando tudo com cuidado?",
+        "13": "Você gosta de atividades ao ar livre ou que envolvam uso do corpo?",
+        "14": "Você gosta de aprender por conta própria e explorar assuntos a fundo?",
+        "15": "Você se anima em contar histórias, escrever ou compor algo?",
+        "16": "Você gosta de trabalhar em equipe e criar um clima de colaboração?",
+        "17": "Você gosta de assumir a frente para organizar pessoas e metas?",
+        "18": "Você curte planilhas, organização financeira ou tarefas administrativas?"
+      },
+      "dimensions": {
+        "R": "Realista",
+        "I": "Investigativo",
+        "A": "Artístico",
+        "S": "Social",
+        "E": "Empreendedor",
+        "C": "Convencional"
+      }
+    },
+    "sections": {
+      "categories": "Categorias",
+      "subjects": "Matérias",
+      "subjects_caption": "Selecione um recorte para gerar plano, estratégia ou prática guiada.",
+      "available_options_one": "{{count}} opção disponível",
+      "available_options_other": "{{count}} opções disponíveis"
+    },
+    "categories_title": {
+      "international": "Internacionais",
+      "national": "Nacionais",
+      "regional": "Regionais",
+      "olympiads": "Olimpíadas"
+    },
+    "topics_header": "Matriz de Referência e Conteúdos",
+    "actions": {
+      "ai_plan": "Criar Plano de Estudos com IA",
+      "ai_strategy": "Estratégia de Prova",
+      "ai_judge": "Modo Preparatório (Juiz OBI)",
+      "explain_topic": "Explicar tópico",
+      "generate_quiz": "Gerar questões (Simulado)"
+    },
+    "calculator": {
+      "mode_simple": {
+        "title": "Média Simples",
+        "desc": "Já tenho minhas notas finais e quero calcular a média."
+      },
+      "mode_advanced": {
+        "title": "Por Acertos",
+        "desc": "Tenho apenas o gabarito e quero estimar minha nota."
+      },
+      "inputs": {
+        "course": "Curso Almejado (ex: Medicina)",
+        "category": "Categoria de Concorrência"
+      },
+      "subjects": {
+        "linguagens": "Linguagens",
+        "humanas": "Ciências Humanas",
+        "natureza": "Ciências da Natureza",
+        "matematica": "Matemática",
+        "redacao": "Redação"
+      },
+      "correct_labels": {
+        "linguagens": "Acertos Linguagens (0-45)",
+        "humanas": "Acertos Humanas (0-45)",
+        "natureza": "Acertos Natureza (0-45)",
+        "matematica": "Acertos Matemática (0-45)",
+        "redacao": "Nota Redação (0-1000)"
+      },
+      "ignore_redacao": "Ainda não tenho a nota da redação",
+      "result": {
+        "simple_label": "Sua Média Simples:",
+        "advanced_label": "Média Estimada (Intervalo TRI):",
+        "avg": "Média provável: ~{{val}}",
+        "warning": "A nota da Redação <strong>NÃO</strong> foi incluída neste cálculo. Esta média considera apenas as 4 áreas objetivas.",
+        "note_simple": "*Esta é uma média simples. O SiSU e ProUni podem usar pesos diferentes dependendo do curso e universidade.",
+        "note_advanced": "*Esta é uma estimativa baseada em padrões anteriores. A nota real depende do TRI (Teoria de Resposta ao Item) e da dificuldade das questões."
+      },
+      "buttons": {
+        "switch": "Trocar Modo",
+        "calc_ai": "Calcular e Analisar com IA",
+        "calc": "Calcular Média"
+      },
+      "prompts": {
+        "simple": "🎓 ANÁLISE DE VIABILIDADE SISU/PROUNI\n\n📊 MINHAS NOTAS DO ENEM:\n• Linguagens: {{linguagens}}\n• Ciências Humanas: {{humanas}}\n• Ciências da Natureza: {{natureza}}\n• Matemática: {{matematica}}\n• Redação: {{redacao}}\n\n📈 Média Simples: {{avg}}\n\n🎯 OBJETIVO:\n• Curso: {{course}}\n• Modalidade: {{category}}\n\nPor favor, me ajude com:\n\n1. 🏛️ UNIVERSIDADES VIÁVEIS\n   - Liste universidades federais/estaduais onde tenho BOA chance\n   - Mencione as notas de corte recentes\n\n2. ⚠️ OPÇÕES ARRISCADAS\n   - Universidades onde seria mais difícil, mas possível\n\n3. ⚖️ SISTEMA DE PESOS\n   - Como {{course}} costuma pesar as áreas?\n   - Qual minha nota ponderada estimada?\n\n4. 💡 ESTRATÉGIAS\n   - Devo focar em melhorar alguma área específica?\n   - Dicas para escolha de cursos no SiSU\n\n5. 🧠 APOIO EMOCIONAL\n   - Como lidar com a ansiedade da espera?\n   - Mensagem motivacional personalizada\n\nSeja realista mas encorajador! 💪",
+        "advanced": "🎯 ANÁLISE TRI - ESTIMATIVA DE DESEMPENHO\n\n📝 MEUS ACERTOS:\n• Linguagens: {{linguagens}}/45 questões\n  📉 Nota estimada: {{triLinguagensMin}} - {{triLinguagensMax}} pontos\n  \n• Humanas: {{humanas}}/45 questões\n  📉 Nota estimada: {{triHumanasMin}} - {{triHumanasMax}} pontos\n  \n• Natureza: {{natureza}}/45 questões\n  📉 Nota estimada: {{triNaturezaMin}} - {{triNaturezaMax}} pontos\n  \n• Matemática: {{matematica}}/45 questões\n  📉 Nota estimada: {{triMatematicaMin}} - {{triMatematicaMax}} pontos\n\n{{redacaoInfo}}\n\n📊 MÉDIA ESTIMADA:\n• Cenário pessimista: {{totalMin}}\n• Cenário otimista: {{totalMax}}\n• Média provável: ~{{totalAvg}}\n{{observacao}}\n\n🎯 MEU OBJETIVO:\n• Curso: {{course}}\n• Modalidade: {{category}}\n\nPreciso de uma análise completa:\n\n1. 🏛️ CHANCES REAIS\n   - Considerando o intervalo de notas, quais universidades são viáveis?\n   - Compare com notas de corte recentes\n{{impactoRedacao}}\n\n2. 📈 ANÁLISE POR ÁREA\n   - Em quais áreas fui bem?\n   - Onde posso melhorar se fizer novamente?\n\n3. ⚖️ PESOS E ESTRATÉGIA\n   - Como {{course}} pondera as áreas?\n   - Minhas áreas fortes favorecem este curso?\n\n4. 🔄 PLANO B\n   - Cursos alternativos que combinam com meu perfil de notas\n   - Opções em universidades próximas\n\n5. 💪 APOIO PSICOLÓGICO\n   - Como lidar com a incerteza da estimativa TRI?\n   - Dicas para manter a calma até o resultado oficial\n   - Mensagem motivacional baseada no meu desempenho\n\nSeja honesto sobre as chances, mas também encorajador! 🌟"
+      }
+    },
+    "prompts": {
+      "plan": "Crie um plano de estudos completo para {{exam}} - {{subject}}:\n\n📚 TÓPICOS:\n{{topics}}\n\nPor favor, forneça:\n1. Ordem ideal de estudo\n2. Tempo sugerido para cada tópico\n3. Técnicas de estudo específicas\n4. Recursos recomendados\n5. Como esse conteúdo aparece nas provas\n6. Dicas para fixação e revisão\n\nSeja prático e motivador! 💪",
+      "strategy": "Analise a estratégia de preparação para {{exam}} - {{subject}}:\n\n🎯 Como devo priorizar meus estudos?\n📊 Quais são os tópicos que mais caem?\n⚡ Técnicas de resolução rápida\n🧠 Como lidar com ansiedade pré-prova\n📝 Dicas de gestão de tempo durante o exame\n\nDê conselhos práticos e motivadores!",
+      "explain": "Explique de forma clara e didática o seguinte tópico de {{subject}} para {{exam}}:\n\n📌 {{topic}}\n\nIncluindo:\n1. Conceitos fundamentais\n2. Exemplos práticos\n3. Como aparece nas provas\n4. Dicas de memorização\n5. Erros comuns a evitar\n\nUse linguagem acessível! 📚"
+    }
+  },
+  "quiz": {
+    "title": "Simulado Integrado: {{topic}}",
+    "close": "Fechar",
+    "loading": {
+      "title": "Gerando questões inéditas...",
+      "desc": "Nossa IA está formulando o simulado pedagógico no formato de {{exam}}."
+    },
+    "results": {
+      "title": "Treinamento Concluído!",
+      "score": "Você acertou {{score}} de {{total}} questões.",
+      "finish": "Finalizar Revisão"
+    },
+    "active": {
+      "progress": "Questão {{current}} de {{total}}",
+      "confirm": "Confirmar Resposta",
+      "next": "Próxima Questão",
+      "see_results": "Ver Resultados",
+      "correct": "✨ Resposta Correta!",
+      "incorrect": "❌ Resposta Incorreta"
+    },
+    "messages": {
+      "error_comm": "Houve um erro na comunicação avançada com a IA para gerar este JSON. Tente novamente mais tarde.",
+      "try_again": "Tentar novamente",
+      "error_desc": "Falha de rede ou resposta mal formatada."
+    },
+    "prompt": "Atue como um gerador de questões para simulados. Crie 4 questões originais de nível do exame {{exam}} na matéria de {{subject}} focando no tema: {{topic}}.\n\nRetorne APENAS um array em formato JSON puro, contendo as questões. Em hipótese alguma escreva qualquer outra palavra fora das chaves do JSON. Não inclua ```json no início.\n\n[\n  {\n    \"pergunta\": \"Texto da pergunta formatado...\",\n    \"alternativas\": [\"Alternativa 1\", \"Alternativa 2\", \"Alternativa 3\", \"Alternativa 4\", \"Alternativa 5\"],\n    \"correta\": 0,\n    \"explicacao\": \"Explicação detalhada da alternativa correta.\"\n  }\n]"
+  },
+  "roadmap": {
+    "title": "Roadmap",
+    "intro": "Visão geral das funcionalidades planejadas e marcos."
+  },
+  "roadmap_page": {
+    "title": "Roadmap do Produto",
+    "subtitle": "Acompanhe nossa jornada e veja o que estamos construindo para o futuro da educação emocional.",
+    "back_home": "Voltar ao início",
+    "statuses": {
+      "completed": "Concluído",
+      "in_progress": "Em Desenvolvimento",
+      "planned": "Planejado"
+    },
+    "phases": [
+      {
+        "quarter": "Q4 2025",
+        "status": "completed",
+        "title": "Lançamento Beta",
+        "items": [
+          "Interface de Chat Intuitiva",
+          "Integração com IA Generativa",
+          "Modo Escuro/Claro",
+          "Suporte a Comandos de Voz"
+        ]
+      },
+      {
+        "quarter": "Q1 2026",
+        "status": "in_progress",
+        "title": "Expansão de Recursos",
+        "items": [
+          "Sistema de Simulados Integrados (Quizzes)",
+          "Modo Juiz Competitivo (C, C++, Python)",
+          "Integração Interativa de Olimpíadas e Vestibulares",
+          "Módulo de Pomodoro Avançado",
+          "Histórico de Conversas Persistente"
+        ]
+      },
+      {
+        "quarter": "Q2 2026",
+        "status": "planned",
+        "title": "Comunidade e Conteúdo",
+        "items": [
+          "Fórum de Estudantes",
+          "Curadoria de Conteúdos Educativos",
+          "Integração com Google Calendar",
+          "App Mobile (iOS/Android)"
+        ]
+      },
+      {
+        "quarter": "Q3 2026",
+        "status": "planned",
+        "title": "Personalização Avançada",
+        "items": [
+          "Tutores de IA Personalizáveis",
+          "Dashboard de Estatísticas de Estudo",
+          "Gamificação e Conquistas",
+          "API Pública para Desenvolvedores"
+        ]
+      }
+    ]
+  }
+}

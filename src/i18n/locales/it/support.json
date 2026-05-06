@@ -1,0 +1,329 @@
+{
+  "help": {
+    "title": "Centro assistenza",
+    "tabs": {
+      "faq": "Aiuto & FAQ",
+      "shortcuts": "Scorciatoie",
+      "feedback": "Invia feedback"
+    },
+    "about": {
+      "title": "Informazioni su PsyMindAI",
+      "text": "PsyMindAI è un assistente virtuale focalizzato sulla salute mentale e il benessere. Il nostro obiettivo è offrire uno spazio sicuro per conversazioni, consigli di studio e supporto emotivo."
+    },
+    "how_to": {
+      "title": "Come usare",
+      "items": {
+        "chat": {
+          "label": "Avvia una conversazione",
+          "desc": "Digita il tuo messaggio nella casella sottostante e premi Invio o clicca sul pulsante di invio."
+        },
+        "new": {
+          "label": "Nuova chat",
+          "desc": "Usa il pulsante 'Nuova chat' nella barra laterale per iniziare un nuovo argomento."
+        },
+        "settings": {
+          "label": "Personalizza",
+          "desc": "Vai alle impostazioni per regolare tema, dimensione del carattere e opzioni di accessibilità."
+        },
+        "support": {
+          "label": "Linea di supporto",
+          "desc": "Accedi alla Linea di Supporto nel menu strumenti per supporto emotivo immediato."
+        }
+      }
+    },
+    "faq": {
+      "title": "Domande frequenti",
+      "items": {
+        "q1": {
+          "question": "PsyMindAI sostituisce uno psicologo?",
+          "answer": "No. PsyMindAI è uno strumento di supporto e non sostituisce l'assistenza professionale. Se sei in crisi, cerca immediatamente aiuto professionale."
+        },
+        "q2": {
+          "question": "Le mie conversazioni sono private?",
+          "answer": "Sì, le tue conversazioni sono elaborate localmente e diamo priorità alla tua privacy. Nessuna informazione personale viene condivisa con terze parti."
+        },
+        "q3": {
+          "question": "Come funziona il Pomodoro?",
+          "answer": "La tecnica Pomodoro aiuta a migliorare la concentrazione. Il valore predefinito è 25 minuti di lavoro e 5 minuti di pausa. Puoi attivare il timer nel menu strumenti."
+        },
+        "q4": {
+          "question": "Posso usare l'app offline?",
+          "answer": "Attualmente PsyMindAI richiede una connessione a Internet per elaborare le risposte dell'intelligenza artificiale."
+        }
+      }
+    },
+    "shortcuts": {
+      "title": "Scorciatoie da tastiera",
+      "desc": "Accelera la navigazione con queste scorciatoie rapide.",
+      "items": {
+        "new_chat": "Nuova chat",
+        "settings": "Impostazioni",
+        "help": "Aiuto",
+        "view_shortcuts": "Mostra scorciatoie",
+        "focus_chat": "Focus sulla chat",
+        "send": "Invia messaggio",
+        "new_line": "Nuova riga",
+        "mic": "Attiva/disattiva microfono",
+        "attach": "Allega file"
+      }
+    },
+    "feedback": {
+      "title": "La tua opinione è importante",
+      "desc": "Aiutaci a migliorare PsyMindAI inviando suggerimenti, lodi o segnalando problemi.",
+      "type_label": "Tipo di feedback",
+      "types": {
+        "suggestion": "Suggerimento",
+        "problem": "Problema",
+        "praise": "Complimento"
+      },
+      "message_label": "Messaggio",
+      "message_placeholder": "Descrivi il tuo feedback in dettaglio...",
+      "image_label": "Allega immagine (Opzionale)",
+      "image_hint": "Clicca per aggiungere un'immagine",
+      "image_subhint": "JPG, PNG fino a 5MB",
+      "sending": "Invio in corso...",
+      "send": "Invia feedback",
+      "success": "Feedback inviato con successo!",
+      "success_desc": "Grazie per aiutarci a migliorare PsyMindAI.",
+      "error_size": "L'immagine deve essere al massimo 5MB",
+      "remove_image": "Rimuovi immagine"
+    },
+    "got_it": "Ho capito",
+    "close_aria": "Chiudi aiuto"
+  },
+  "support": {
+    "tabs": {
+      "immediate": "Supporto immediato",
+      "investigate": "Analisi delle cause",
+      "reframing": "Ristrutturazione"
+    },
+    "immediate": {
+      "title": "Come ti senti oggi?",
+      "desc": "La nostra IA può suggerire esercizi e risorse basate sul tuo stato emotivo.",
+      "placeholder": "Es: Mi sento molto ansioso per un esame domani...",
+      "analyzing": "Analisi in corso...",
+      "receive": "Ricevi supporto",
+      "chat": "Vorrei parlarne di più",
+      "call": "Chiama",
+      "fallbacks": {
+        "general": {
+          "msg": "Capisco che stai attraversando un momento difficile. Ecco alcune risorse che potrebbero aiutare:",
+          "res1": {
+            "title": "Respirazione guidata",
+            "desc": "Tecnica 4-7-8 per calmarsi"
+          },
+          "res2": {
+            "title": "Mindfulness",
+            "desc": "Esercizio rapido di consapevolezza"
+          }
+        },
+        "anxiety": {
+          "msg": "Sembra che tu stia provando ansia. Proviamo a calmarla insieme.",
+          "res1": {
+            "title": "Respirazione quadrata",
+            "desc": "Inspira 4s, trattieni 4s, espira 4s, trattieni 4s"
+          },
+          "res2": {
+            "title": "Tecnica 5-4-3-2-1",
+            "desc": "Identifica elementi intorno a te per radicarti"
+          }
+        },
+        "sadness": {
+          "msg": "Mi dispiace che tu ti senta così. Non sei solo.",
+          "res1": {
+            "title": "Autocompassione",
+            "desc": "Sii gentile con te stesso in questo momento"
+          },
+          "res2": {
+            "title": "Connessione",
+            "desc": "Prendi in considerazione parlare con una persona di fiducia"
+          }
+        },
+        "crisis": {
+          "msg": "Sei importante ed è disponibile aiuto. Contatta i professionisti ora.",
+          "res1": {
+            "title": "Numero di emergenza locale",
+            "desc": "Assistenza 24h"
+          },
+          "res2": {
+            "title": "Servizio di emergenza",
+            "desc": "Chiamata d'emergenza"
+          }
+        }
+      },
+      "prompt": "Analizza questo sentimento: \"{{feeling}}\". Identifica l'emozione principale (ansia, tristezza, rabbia, ecc.) e suggerisci 2 tecniche rapide di supporto emotivo (1 frase ciascuna). Formato: EMOZIONE: [nome]\nTECNICA 1: [titolo] - [descrizione]\nTECNICA 2: [titolo] - [descrizione]"
+    },
+    "investigate": {
+      "step0": {
+        "title": "Cosa senti principalmente?",
+        "ansiedade": "Ansia / Nervosismo",
+        "tristezza": "Tristezza / Demotivazione",
+        "cansaco": "Stanchezza / Esaurimento",
+        "confusao": "Confusione / Indecisione",
+        "raiva": "Rabbia / Frustrazione"
+      },
+      "step1": {
+        "title": "Qual ambito della vita è maggiormente influenzato ora?",
+        "estudos": "Studi / Esami",
+        "relacionamentos": "Relazioni",
+        "futuro": "Futuro / Carriera",
+        "saude": "Salute / Corpo",
+        "naosei": "Non so identificare"
+      },
+      "step2": {
+        "title": "Da quanto tempo ti senti così?",
+        "hoje": "Iniziato oggi",
+        "semana": "Alcuni giorni / Una settimana",
+        "mes": "Un mese o più",
+        "sempre": "Sembra sempre così"
+      },
+      "back": "Indietro",
+      "analyzing": "Analisi delle risposte in corso...",
+      "restart": "Nuova analisi",
+      "suggestion": "Suggerimento di PsyMind:",
+      "prompt": "Analizza: Emozione={{emotion}}, Contesto={{context}}, Durata={{duration}}. Fornisci: TITOLO: [nome]\nDESCRIZIONE: [2 frasi]\nCONSIGLIO: [1 frase pratica]",
+      "fallbacks": {
+        "general": {
+          "title": "Analisi iniziale",
+          "desc": "In base a quanto condiviso, sembra che tu stia affrontando un momento difficile.",
+          "advice": "Consigliamo di concentrarti su brevi pause e cura di te stesso."
+        },
+        "anxiety_studies": {
+          "title": "Ansia legata agli studi",
+          "desc": "È comune sentire pressione durante lo studio. L'ansia può nascere dalla paura di non farcela.",
+          "advice": "Prova a suddividere il contenuto in parti più piccole (Pomodoro) e ricordati che il tuo valore non è la tua votazione."
+        },
+        "anxiety_future": {
+          "title": "Ansia anticipatoria",
+          "desc": "Preoccuparsi per il futuro è naturale, ma può paralizzare.",
+          "advice": "Concentrati su ciò che puoi controllare oggi. Il futuro si costruisce un giorno alla volta."
+        },
+        "sadness": {
+          "title": "Accoglienza della tristezza",
+          "desc": "La tristezza è un'emozione valida e segnala che qualcosa necessita attenzione.",
+          "advice": "Permettiti di sentire senza giudizio. Scrivere i tuoi sentimenti può aiutare a elaborarli."
+        },
+        "tiredness": {
+          "title": "Esaurimento mentale",
+          "desc": "Potresti essere vicino al burnout se non ti riposi.",
+          "advice": "Il riposo è produttivo. Disconnettiti dagli schermi e fai qualcosa che non richieda sforzo mentale."
+        }
+      },
+      "chat_prompt": "Ciao, PsyMind. Sto passando un momento delicato e vorrei sfogarmi. Ho sentito {{emotion}} riguardo a {{context}}. Questo mi sta influenzando da {{duration}}. Potresti ascoltarmi e aiutarmi a capire meglio cosa sento?"
+    },
+    "reframing": {
+      "step0": {
+        "title": "Ristrutturazione cognitiva",
+        "desc": "Lavoriamo insieme per identificare e ristrutturare pensieri negativi.",
+        "start": "Inizia"
+      },
+      "step1": {
+        "title": "Sfida i tuoi pensieri",
+        "desc": "Individua un pensiero negativo e lavoriamo insieme per trovare una prospettiva più equilibrata.",
+        "q_situation": "Qual è la situazione scatenante?",
+        "q_situ_placeholder": "Es: Ho ricevuto una critica al lavoro...",
+        "q_thought": "Qual è stato il pensiero automatico?",
+        "q_thought_placeholder": "Es: Sono incompetente e sarò licenziato...",
+        "q_intensity": "Quanto ti fa sentire? (0-10)",
+        "analyze": "Analizza il pensiero",
+        "analyzing": "Analisi in corso..."
+      },
+      "result": {
+        "title": "Analisi cognitiva",
+        "distortion": "Possibile distorsione",
+        "challenge": "La sfida",
+        "alternative": "Prospettiva alternativa",
+        "reframe": "Nuovo pensiero suggerito",
+        "restart": "Analizza un altro pensiero"
+      },
+      "prompt": "Analizza questo pensiero negativo usando la TCC:\nSituazione: {{situation}}\nPensiero: {{thought}}\n\nFornisci:\nDISTORSIONE: [tipo di distorsione cognitiva]\nSFIDA: [1 frase che spiega la distorsione]\nALTERNATIVA: [1 frase con prospettiva alternativa]\nRISTRUTTURAZIONE: [nuovo pensiero equilibrato]",
+      "fallbacks": {
+        "general": {
+          "distortion": "Generalizzazione e catastrofizzazione",
+          "challenge": "Stai prendendo un evento isolato come un pattern universale o prevedendo il peggior scenario senza prove concrete.",
+          "alternative": "Cerca di vedere la situazione come un evento singolo e non come una definizione della tua persona. Chiediti: 'Quali sono le prove reali che ciò accadrà sempre?'",
+          "reframe": "Invece di pensare '{{thought}}', prova: 'Anche se questa situazione è stata difficile, non definisce tutto il mio futuro o le mie capacità.'"
+        },
+        "all_or_nothing": {
+          "distortion": "Pensiero tutto o niente",
+          "challenge": "La vita raramente è bianca o nera. L'uso di 'sempre' o 'mai' spesso indica una distorsione della realtà.",
+          "alternative": "Cerca eccezioni. Ci sono stati momenti in cui non è successo? Usa parole come 'a volte' o 'spesso'."
+        },
+        "should_statements": {
+          "distortion": "Affermazioni del tipo 'dovrei'",
+          "challenge": "L'uso di 'dovrei' crea senso di colpa e frustrazione. Ti imponi regole rigide a te stesso o agli altri.",
+          "alternative": "Sostituisci 'dovrei' con 'vorrei' o 'sarebbe preferibile'. Questo riduce la pressione e aumenta l'accettazione."
+        }
+      }
+    },
+    "chat_feeling_prompt": "Ciao, PsyMind. Sto passando un momento delicato e vorrei sfogarmi. {{feeling}}. Puoi ascoltarmi e aiutarmi a capire meglio cosa sto provando?"
+  },
+  "contributing": {
+    "title": "Come contribuire",
+    "intro": "Grazie per contribuire a PsyMind.AI. Questa sezione spiega come puoi aiutare, incluse le traduzioni.",
+    "translate": "Traduzione",
+    "translation_details": "Per contribuire con traduzioni, aggiungi le chiavi mancanti in questo file e apri una PR con le modifiche.",
+    "steps": {
+      "step1": "Fai fork del repository",
+      "step2": "Crea un branch descrittivo",
+      "step3": "Traduci le stringhe mancanti",
+      "step4": "Apri una PR con le istruzioni di test"
+    }
+  },
+  "contribute_page": {
+    "title": "Come contribuire",
+    "subtitle": "PsyMind.AI è un progetto open-source e ci piacerebbe il tuo aiuto per migliorarlo.",
+    "back_home": "Torna all'inizio",
+    "cards": [
+      {
+        "icon": "code",
+        "title": "Sviluppo",
+        "description": "Hai trovato un bug o vuoi aggiungere una funzionalità? Guarda le issue su GitHub o apri una Pull Request.",
+        "link_text": "Vai su GitHub"
+      },
+      {
+        "icon": "palette",
+        "title": "Design & UX",
+        "description": "Aiutaci a migliorare l'esperienza utente. Suggerimenti di design e miglioramenti dell'interfaccia sono benvenuti.",
+        "link_text": "Vedi guida di stile"
+      },
+      {
+        "icon": "menu_book",
+        "title": "Documentazione",
+        "description": "Una buona documentazione è essenziale. Aiutaci a migliorare guide, README e tutorial per i nuovi utenti.",
+        "link_text": "Contribuisci nella Wiki"
+      },
+      {
+        "icon": "language",
+        "title": "Traduzione",
+        "description": "Aiuta a rendere PsyMind.AI accessibile a più persone traducendo l'interfaccia in altre lingue.",
+        "link_text": "Aiuta con le traduzioni"
+      }
+    ],
+    "steps": {
+      "title": "Passaggi per contribuire",
+      "items": [
+        {
+          "number": "1",
+          "title": "Fai un Fork",
+          "description": "Crea una copia del repository nel tuo account GitHub."
+        },
+        {
+          "number": "2",
+          "title": "Crea un Branch",
+          "description": "Usa `git checkout -b feature/mia-feature` per lavorare."
+        },
+        {
+          "number": "3",
+          "title": "Commit & Push",
+          "description": "Esegui i commit e invia le modifiche al tuo fork."
+        },
+        {
+          "number": "4",
+          "title": "Apri una Pull Request",
+          "description": "Descrivi le modifiche e attendi la revisione del team."
+        }
+      ]
+    }
+  }
+}

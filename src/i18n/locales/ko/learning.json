@@ -102,75 +102,75 @@
     "default_trails": [
       {
         "id": 1,
-        "title": "Gestão de Ansiedade",
+        "title": "불안 관리",
         "icon": "psychology",
-        "description": "Aprenda a identificar e gerenciar sintomas de ansiedade.",
+        "description": "불안 증상을 식별하고 관리하는 방법을 배우세요.",
         "content": [
           {
             "type": "flashcard",
-            "front": "O que é o reflexo de 'Luta ou Fuga'?",
-            "back": "É uma reação fisiológica automática do corpo a eventos percebidos como ameaçadores ou estressantes, ativando o sistema nervoso simpático."
+            "front": "'투쟁-도피' 반응이란 무엇인가요?",
+            "back": "생존에 위협이 되거나 스트레스로 인식되는 사건에 대한 신체의 생리적 반응으로, 교감신경계가 활성화됩니다."
           },
           {
             "type": "quiz",
-            "question": "Qual a técnica de respiração mais recomendada para reduzir a ansiedade aguda?",
+            "question": "급성 불안을 줄이기 위해 가장 권장되는 호흡법은 무엇인가요?",
             "options": [
               {
                 "id": "A",
-                "text": "Respiração torácica rápida"
+                "text": "빠른 가슴 호흡"
               },
               {
                 "id": "B",
-                "text": "Prender a respiração por 1 minuto"
+                "text": "숨을 1분간 참기"
               },
               {
                 "id": "C",
-                "text": "Respiração Diafragmática (4-7-8)"
+                "text": "복식호흡 (4-7-8)"
               },
               {
                 "id": "D",
-                "text": "Hiperventilação"
+                "text": "과호흡"
               }
             ],
             "correctOption": "C"
           },
           {
             "type": "flashcard",
-            "front": "Aterramento (Grounding)",
-            "back": "Ato de trazer sua atenção para o momento presente, focando nos sentidos físicos (ex: 5 coisas que você vê, 4 que toca)."
+            "front": "접지 (Grounding)",
+            "back": "현재 순간에 주의를 돌리고 신체 감각에 집중하는 행위입니다 (예: 보이는 것 5가지, 만지는 것 4가지)."
           }
         ]
       },
       {
         "id": 2,
-        "title": "Comunicação Não-Violenta",
+        "title": "비폭력 대화",
         "icon": "forum",
-        "description": "Melhore seus relacionamentos se comunicando de forma empática.",
+        "description": "공감적으로 소통하여 관계를 개선하세요.",
         "content": [
           {
             "type": "flashcard",
-            "front": "Quais são os 4 componentes da CNV?",
-            "back": "1. Observação, 2. Sentimento, 3. Necessidade, 4. Pedido."
+            "front": "비폭력 대화의 4가지 구성 요소는 무엇인가요?",
+            "back": "1. 관찰, 2. 느낌, 3. 욕구, 4. 요청."
           },
           {
             "type": "quiz",
-            "question": "Qual destas frases é um exemplo de 'Observação' (sem julgamento) na CNV?",
+            "question": "다음 문장 중 비폭력 대화에서 '관찰' (판단 없이)의 예는 어떤 것인가요?",
             "options": [
               {
                 "id": "A",
-                "text": "Você é muito irresponsável."
+                "text": "당신은 매우 무책임해요."
               },
               {
                 "id": "B",
-                "text": "Você nunca me escuta."
+                "text": "당신은 절대 내 말을 듣지 않아요."
               },
               {
                 "id": "C",
-                "text": "Percebi que você chegou 10 minutos atrasado nas últimas reuniões."
+                "text": "최근 회의에서 10분 늦게 도착한 것을 알게 되었어요."
               },
               {
                 "id": "D",
-                "text": "Você é sempre preguiçoso."
+                "text": "당신은 항상 게을러요."
               }
             ],
             "correctOption": "C"
@@ -179,34 +179,34 @@
       },
       {
         "id": 3,
-        "title": "Inteligência Emocional",
+        "title": "감성 지능",
         "icon": "favorite",
-        "description": "Reconheça e controle as suas próprias emoções.",
+        "description": "자신의 감정을 인지하고 조절하는 법을 배우세요.",
         "content": [
           {
             "type": "flashcard",
-            "front": "O que é Autoconsciência?",
-            "back": "Habilidade de reconhecer e entender seus próprios humores, emoções e impulsos."
+            "front": "자기 인식이란 무엇인가요?",
+            "back": "자신의 기분, 감정 및 충동을 인식하고 이해하는 능력입니다."
           },
           {
             "type": "quiz",
-            "question": "Um pilar chave da inteligência emocional no ambiente de trabalho é:",
+            "question": "직장 내 감성 지능의 핵심 요소는 무엇인가요?",
             "options": [
               {
                 "id": "A",
-                "text": "Esconder o que você sente."
+                "text": "자신의 감정을 숨기기"
               },
               {
                 "id": "B",
-                "text": "Empatia por colegas."
+                "text": "동료에 대한 공감"
               },
               {
                 "id": "C",
-                "text": "Trabalhar até a exaustão."
+                "text": "과로까지 일하기"
               },
               {
                 "id": "D",
-                "text": "Falar mais alto que os outros."
+                "text": "다른 사람보다 크게 말하기"
               }
             ],
             "correctOption": "B"
@@ -215,34 +215,34 @@
       },
       {
         "id": 4,
-        "title": "Mindfulness e Foco",
+        "title": "마음챙김과 집중",
         "icon": "self_improvement",
-        "description": "Técnicas de atenção plena para manter o foco no presente.",
+        "description": "현재에 집중하기 위한 마음챙김 기법들입니다.",
         "content": [
           {
             "type": "flashcard",
-            "front": "O que é Atenção Plena (Mindfulness)?",
-            "back": "Estado mental alcançado focando a consciência no momento presente, reconhecendo e aceitando sentimentos."
+            "front": "마음챙김이란 무엇인가요?",
+            "back": "현재 순간에 자신의 인식을 집중하고 감정을 차분히 인정하고 받아들이는 정신 상태입니다."
           },
           {
             "type": "quiz",
-            "question": "Ao se distrair durante uma meditação, você deve:",
+            "question": "명상 중에 산만해지면 어떻게 해야 할까요?",
             "options": [
               {
                 "id": "A",
-                "text": "Ficar frustrado com você mesmo."
+                "text": "자신에게 화를 내기"
               },
               {
                 "id": "B",
-                "text": "Desistir e tentar outro dia."
+                "text": "포기하고 다른 날에 시도하기"
               },
               {
                 "id": "C",
-                "text": "Notar a distração e gentilmente voltar o foco à respiração."
+                "text": "산만함을 인식하고 부드럽게 호흡으로 다시 돌아오기"
               },
               {
                 "id": "D",
-                "text": "Deixar sua mente vagar indefinidamente."
+                "text": "마음을 무한히 떠돌게 하기"
               }
             ],
             "correctOption": "C"
@@ -251,34 +251,34 @@
       },
       {
         "id": 5,
-        "title": "Vieses Cognitivos",
+        "title": "인지 편향",
         "icon": "visibility",
-        "description": "Entenda os erros de pensamento que afetam nossas decisões.",
+        "description": "결정에 영향을 미치는 사고의 오류를 이해하세요.",
         "content": [
           {
             "type": "flashcard",
-            "front": "Viés de Confirmação",
-            "back": "A tendência de procurar e lembrar de informações que confirmem crenças pré-existentes."
+            "front": "확증 편향",
+            "back": "기존 신념을 확인하는 정보만 찾고 기억하려는 경향입니다."
           },
           {
             "type": "quiz",
-            "question": "O que é o Efeito Dunning-Kruger?",
+            "question": "던닝-크루거 효과는 무엇인가요?",
             "options": [
               {
                 "id": "A",
-                "text": "Superestimar a própria habilidade em tarefas onde se tem pouca experiência."
+                "text": "경험이 부족한 과제에서 자신의 능력을 과대평가하는 것"
               },
               {
                 "id": "B",
-                "text": "Pânico ao falar em público."
+                "text": "대중 연설 시 공황 상태에 빠지는 것"
               },
               {
                 "id": "C",
-                "text": "Hábito de comprar coisas em promoção."
+                "text": "세일 상품을 사는 습관"
               },
               {
                 "id": "D",
-                "text": "Esquecer informações sob estresse."
+                "text": "스트레스 상황에서 정보를 잊어버리는 것"
               }
             ],
             "correctOption": "A"
@@ -287,34 +287,34 @@
       },
       {
         "id": 6,
-        "title": "Organização nos Estudos",
+        "title": "학습의 조직화",
         "icon": "menu_book",
-        "description": "Técnicas de gestão de tempo e planejamento escolar.",
+        "description": "시간 관리 및 학습 계획 기법입니다.",
         "content": [
           {
             "type": "flashcard",
-            "front": "O que é o Método Pomodoro?",
-            "back": "Técnica de gestão de tempo que alterna blocos de foco intenso (ex: 25 min) com pausas curtas (ex: 5 min) para manter a produtividade."
+            "front": "포모도로 기법이란 무엇인가요?",
+            "back": "집중 블록(예: 25분)과 짧은 휴식(예: 5분)을 번갈아 수행하여 생산성을 유지하는 시간 관리 기법입니다."
           },
           {
             "type": "quiz",
-            "question": "Qual a melhor forma de se preparar para uma semana com várias provas?",
+            "question": "여러 시험이 있는 주를 준비하는 가장 좋은 방법은 무엇인가요?",
             "options": [
               {
                 "id": "A",
-                "text": "Estudar tudo na noite anterior da prova."
+                "text": "시험 전날 밤에 모든 것을 공부하기"
               },
               {
                 "id": "B",
-                "text": "Criar um cronograma distribuindo as matérias ao longo da semana."
+                "text": "일정을 만들고 과목을 주간에 분배하기"
               },
               {
                 "id": "C",
-                "text": "Estudar apenas a matéria mais difícil."
+                "text": "가장 어려운 과목만 공부하기"
               },
               {
                 "id": "D",
-                "text": "Não estudar e confiar apenas no que lembra das aulas."
+                "text": "공부하지 않고 수업에서 기억하는 것에만 의존하기"
               }
             ],
             "correctOption": "B"
@@ -323,42 +323,42 @@
       },
       {
         "id": 7,
-        "title": "Pressão Escolar e Exames",
+        "title": "학업 스트레스와 시험",
         "icon": "school",
-        "description": "Estratégias para manejar o nervosismo pré-prova e evitar o 'branco' ao estudar.",
+        "description": "시험 전 긴장을 관리하고 시험 중 블랙아웃을 피하는 전략입니다.",
         "content": [
           {
             "type": "flashcard",
-            "front": "O que causa o famoso 'branco' na hora da prova?",
-            "back": "O 'branco' geralmente é causado por um pico de ansiedade. O cérebro entende a prova como uma ameaça imediata, bloqueando o acesso à memória."
+            "front": "시험 중 유명한 '블랙아웃'은 무엇 때문에 발생하나요?",
+            "back": "블랙아웃은 종종 불안의 급증으로 인해 발생합니다: 뇌는 시험을 즉각적인 위협으로 인식해 기억 접근을 차단할 수 있습니다."
           },
           {
             "type": "quiz",
-            "question": "O que fazer se você sentir que vai ter um branco durante a prova?",
+            "question": "시험 중 블랙아웃이 올 것 같으면 무엇을 해야 하나요?",
             "options": [
               {
                 "id": "A",
-                "text": "Entrar em pânico silencioso."
+                "text": "조용히 공황 상태에 빠지기"
               },
               {
                 "id": "B",
-                "text": "Fazer uma pausa, fechar os olhos, respirar fundo e beber água se possível."
+                "text": "잠깐 쉬었다가 눈을 감고 깊게 숨 쉬고 가능하면 물을 마시기"
               },
               {
                 "id": "C",
-                "text": "Responder qualquer coisa o mais rápido possível."
+                "text": "무엇이든 빨리 답하기"
               },
               {
                 "id": "D",
-                "text": "Chorar imediatamente."
+                "text": "즉시 울기"
               }
             ],
             "correctOption": "B"
           },
           {
             "type": "flashcard",
-            "front": "Expectativas versus Realidade",
-            "back": "Muitas vezes a pressão vem da expectativa dos pais ou professores. Lembrar que uma nota ruim não define sua inteligência é fundamental para reduzir e lidar com essa cobrança excessiva."
+            "front": "기대 vs 현실",
+            "back": "압박은 종종 부모나 교사의 기대에서 옵니다. 나쁜 점수가 당신의 지능을 규정하지 않는다는 것을 기억하는 것은 과도한 압박을 줄이고 다루는 데 중요합니다."
           }
         ]
       }

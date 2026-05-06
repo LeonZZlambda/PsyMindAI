@@ -1,0 +1,329 @@
+{
+  "help": {
+    "title": "帮助中心",
+    "tabs": {
+      "faq": "帮助 & 常见问题",
+      "shortcuts": "快捷键",
+      "feedback": "提交反馈"
+    },
+    "about": {
+      "title": "关于 PsyMindAI",
+      "text": "PsyMindAI 是一个专注于心理健康和幸福感的虚拟助手。我们的目标是为对话、学习建议和情感支持提供一个安全的空间。"
+    },
+    "how_to": {
+      "title": "如何使用",
+      "items": {
+        "chat": {
+          "label": "开始对话",
+          "desc": "在下方文本框输入消息，按回车或点击发送按钮。"
+        },
+        "new": {
+          "label": "新会话",
+          "desc": "在侧边栏点击“新会话”按钮开始新的话题。"
+        },
+        "settings": {
+          "label": "个性化",
+          "desc": "进入设置以调整主题、字体大小和无障碍选项。"
+        },
+        "support": {
+          "label": "求助热线",
+          "desc": "在工具菜单中打开求助热线以获取即时情感支持。"
+        }
+      }
+    },
+    "faq": {
+      "title": "常见问题",
+      "items": {
+        "q1": {
+          "question": "PsyMindAI 可以代替心理医生吗？",
+          "answer": "不可以。PsyMindAI 是一款辅助工具，不能替代专业诊疗。如处于危机，请立即寻求专业帮助。"
+        },
+        "q2": {
+          "question": "我的对话是私密的吗？",
+          "answer": "是的，你的对话在本地处理，我们优先保护你的隐私。不会将个人信息分享给第三方。"
+        },
+        "q3": {
+          "question": "Pomodoro 是如何工作的？",
+          "answer": "Pomodoro 技术有助于提高专注力。默认为 25 分钟专注，5 分钟休息。你可以在工具菜单启用计时器。"
+        },
+        "q4": {
+          "question": "可以离线使用吗？",
+          "answer": "目前 PsyMindAI 需要联网以处理 AI 的回复。"
+        }
+      }
+    },
+    "shortcuts": {
+      "title": "快捷键",
+      "desc": "使用这些快捷键可以更快地导航。",
+      "items": {
+        "new_chat": "新会话",
+        "settings": "设置",
+        "help": "帮助",
+        "view_shortcuts": "查看快捷键",
+        "focus_chat": "聚焦聊天",
+        "send": "发送消息",
+        "new_line": "换行",
+        "mic": "切换麦克风",
+        "attach": "附加文件"
+      }
+    },
+    "feedback": {
+      "title": "你的反馈很重要",
+      "desc": "通过提交建议、表扬或问题报告来帮助我们改进 PsyMindAI。",
+      "type_label": "反馈类型",
+      "types": {
+        "suggestion": "建议",
+        "problem": "问题",
+        "praise": "表扬"
+      },
+      "message_label": "消息",
+      "message_placeholder": "详细描述你的反馈...",
+      "image_label": "附加图片（可选）",
+      "image_hint": "点击添加图片",
+      "image_subhint": "JPG、PNG，最大 5MB",
+      "sending": "发送中...",
+      "send": "发送反馈",
+      "success": "反馈发送成功！",
+      "success_desc": "感谢你帮助我们改进 PsyMindAI。",
+      "error_size": "图片大小不能超过 5MB",
+      "remove_image": "移除图片"
+    },
+    "got_it": "知道了",
+    "close_aria": "关闭帮助"
+  },
+  "support": {
+    "tabs": {
+      "immediate": "即时支持",
+      "investigate": "原因分析",
+      "reframing": "认知重构"
+    },
+    "immediate": {
+      "title": "你今天感觉如何？",
+      "desc": "我们的 AI 可以根据你的情绪状态建议练习和资源。",
+      "placeholder": "例如：我因为明天的考试感到非常焦虑...",
+      "analyzing": "分析中...",
+      "receive": "获取支持",
+      "chat": "我想进一步交流",
+      "call": "呼叫",
+      "fallbacks": {
+        "general": {
+          "msg": "理解你正在经历的困难。以下是一些可能有帮助的资源：",
+          "res1": {
+            "title": "引导呼吸",
+            "desc": "4-7-8 呼吸法有助平静情绪"
+          },
+          "res2": {
+            "title": "正念练习",
+            "desc": "一个快速的正念练习"
+          }
+        },
+        "anxiety": {
+          "msg": "看起来你正感到焦虑。我们来一起尝试缓解。",
+          "res1": {
+            "title": "方形呼吸",
+            "desc": "吸气 4s，屏气 4s，呼气 4s，屏气 4s"
+          },
+          "res2": {
+            "title": "5-4-3-2-1 技巧",
+            "desc": "识别周围的物体来帮助你稳住自己"
+          }
+        },
+        "sadness": {
+          "msg": "很抱歉你感到如此。你并不孤单。",
+          "res1": {
+            "title": "自我同情",
+            "desc": "此刻对自己保持温柔"
+          },
+          "res2": {
+            "title": "建立连接",
+            "desc": "考虑与值得信赖的人交谈"
+          }
+        },
+        "crisis": {
+          "msg": "你很重要，且有可用的帮助。请立即联系专业人士。",
+          "res1": {
+            "title": "本地求助电话",
+            "desc": "24 小时情感支持"
+          },
+          "res2": {
+            "title": "紧急服务",
+            "desc": "拨打紧急电话"
+          }
+        }
+      },
+      "prompt": "分析此情绪：\"{{feeling}}\"。识别主要情绪（焦虑、悲伤、愤怒等），并提出两种快速情绪支持技巧（每项一条句子）。格式：情绪: [名称]\n技巧 1: [标题] - [描述]\n技巧 2: [标题] - [描述]"
+    },
+    "investigate": {
+      "step0": {
+        "title": "你主要感觉到什么？",
+        "ansiedade": "焦虑 / 紧张",
+        "tristeza": "悲伤 / 意志消沉",
+        "cansaco": "疲劳 / 疲惫",
+        "confusao": "迷茫 / 优柔寡断",
+        "raiva": "愤怒 / 挫败"
+      },
+      "step1": {
+        "title": "这主要影响你生活的哪一方面？",
+        "estudos": "学习 / 考试",
+        "relacionamentos": "人际关系",
+        "futuro": "未来 / 职业",
+        "saude": "健康 / 身体",
+        "naosei": "无法确定"
+      },
+      "step2": {
+        "title": "你感觉这样多久了？",
+        "hoje": "今天开始",
+        "semana": "几天 / 一周",
+        "mes": "一个月或更久",
+        "sempre": "似乎一直如此"
+      },
+      "back": "返回",
+      "analyzing": "正在分析你的回答...",
+      "restart": "重新分析",
+      "suggestion": "PsyMind 建议：",
+      "prompt": "分析：情绪={{emotion}}，情境={{context}}，持续时间={{duration}}。提供：标题：[名称]\n描述：[2 句]\n建议：[1 句实用建议]",
+      "fallbacks": {
+        "general": {
+          "title": "初步分析",
+          "desc": "根据你分享的内容，似乎你正在经历一个具有挑战性的时期。",
+          "advice": "建议关注短暂的休息和自我照顾。"
+        },
+        "anxiety_studies": {
+          "title": "学习相关焦虑",
+          "desc": "在学习过程中感到压力是很常见的。焦虑可能来自于担心无法应对。",
+          "advice": "尝试将内容分解为更小的部分（Pomodoro），记住你的价值不等于成绩。"
+        },
+        "anxiety_future": {
+          "title": "预期性焦虑",
+          "desc": "对未来的担忧是自然的，但可能导致瘫痪。",
+          "advice": "专注于今天可控的事情。未来是每天积累起来的。"
+        },
+        "sadness": {
+          "title": "接纳悲伤",
+          "desc": "悲伤是一种有效的情绪，提示需要关注。",
+          "advice": "允许自己感受而不评判。将感受写下来有助于处理情绪。"
+        },
+        "tiredness": {
+          "title": "心理倦怠",
+          "desc": "如果不休息，可能会接近精疲力尽。",
+          "advice": "休息也是有成效的。远离屏幕，做一些不需要脑力的事情。"
+        }
+      },
+      "chat_prompt": "嗨，PsyMind。我正在经历一个微妙的时刻，想倾诉。我对 {{context}} 感到 {{emotion}}，这种感觉已持续 {{duration}}。你能倾听并帮助我更好地理解我的感受吗？"
+    },
+    "reframing": {
+      "step0": {
+        "title": "认知重构",
+        "desc": "我们一起识别并重构消极想法。",
+        "start": "开始"
+      },
+      "step1": {
+        "title": "挑战你的想法",
+        "desc": "找出一个消极想法，我们一起寻找更平衡的视角。",
+        "q_situation": "触发情境是什么？",
+        "q_situ_placeholder": "例如：我在工作中收到批评...",
+        "q_thought": "你自动产生了什么想法？",
+        "q_thought_placeholder": "例如：我不称职，会被解雇...",
+        "q_intensity": "这让你感觉多少分？ (0-10)",
+        "analyze": "分析想法",
+        "analyzing": "正在分析..."
+      },
+      "result": {
+        "title": "认知分析",
+        "distortion": "可能的认知扭曲",
+        "challenge": "挑战",
+        "alternative": "替代视角",
+        "reframe": "建议的新想法",
+        "restart": "分析另一个想法"
+      },
+      "prompt": "使用 CBT 分析此消极想法:\n情境: {{situation}}\n想法: {{thought}}\n\n提供:\n扭曲: [认知扭曲类型]\n挑战: [1 句解释该扭曲]\n替代: [1 句替代视角]\n重构: [新的平衡想法]",
+      "fallbacks": {
+        "general": {
+          "distortion": "过度概括或灾难化",
+          "challenge": "你将一次性事件视为普遍模式，或在没有具体证据的情况下预测最糟糕情形。",
+          "alternative": "尝试将情况视为单一事件而非对自我的定义。问自己：'有什么真实证据表明这会一直发生？'",
+          "reframe": "与其想 '{{thought}}'，不如尝试想：'尽管这次情况很困难，但它并不定义我的全部未来或能力。'"
+        },
+        "all_or_nothing": {
+          "distortion": "非黑即白思维",
+          "challenge": "生活很少是非黑即白。使用 '总是' 或 '从不' 往往表示对现实的扭曲。",
+          "alternative": "寻找例外。是否有时候并非如此？尝试使用 '有时' 或 '经常' 等词。"
+        },
+        "should_statements": {
+          "distortion": "'应该' 陈述",
+          "challenge": "使用 '应该' 会产生内疚和挫败感。你正在对自己或他人施加严格规则。",
+          "alternative": "将 '我应该' 替换为 '我希望' 或 '会更好'，以减少压力并增加接纳。"
+        }
+      }
+    },
+    "chat_feeling_prompt": "嗨，PsyMind。我正在经历一个微妙的时刻，想倾诉：{{feeling}}。你能倾听并帮我更好地理解我的感受吗？"
+  },
+  "contributing": {
+    "title": "如何贡献",
+    "intro": "感谢你为 PsyMind.AI 做出贡献。本节说明如何参与，包括翻译。",
+    "translate": "翻译",
+    "translation_details": "要贡献翻译，请在此文件中添加缺失的键并提交 PR。",
+    "steps": {
+      "step1": "Fork 仓库",
+      "step2": "创建描述性分支",
+      "step3": "翻译缺失的字符串",
+      "step4": "提交 PR 并附上测试说明"
+    }
+  },
+  "contribute_page": {
+    "title": "如何参与贡献",
+    "subtitle": "PsyMind.AI 是一个开源项目，欢迎你的帮助使其变得更好。",
+    "back_home": "返回首页",
+    "cards": [
+      {
+        "icon": "code",
+        "title": "开发",
+        "description": "发现 bug 或想添加新功能？查看我们的 GitHub issue 或提交 Pull Request。",
+        "link_text": "前往 GitHub"
+      },
+      {
+        "icon": "palette",
+        "title": "设计 & UX",
+        "description": "帮助我们改进用户体验。设计建议和界面改进都很受欢迎。",
+        "link_text": "查看风格指南"
+      },
+      {
+        "icon": "menu_book",
+        "title": "文档",
+        "description": "完善文档至关重要。帮助我们改进指南、README 和新用户教程。",
+        "link_text": "在 Wiki 中贡献"
+      },
+      {
+        "icon": "language",
+        "title": "翻译",
+        "description": "通过将界面翻译成其他语言，帮助更多人使用 PsyMind.AI。",
+        "link_text": "参与翻译"
+      }
+    ],
+    "steps": {
+      "title": "贡献步骤",
+      "items": [
+        {
+          "number": "1",
+          "title": "Fork 仓库",
+          "description": "在你的 GitHub 帐户中创建仓库副本。"
+        },
+        {
+          "number": "2",
+          "title": "创建分支",
+          "description": "使用 `git checkout -b feature/my-feature` 开始工作。"
+        },
+        {
+          "number": "3",
+          "title": "Commit & Push",
+          "description": "提交更改并推送到你的 fork。"
+        },
+        {
+          "number": "4",
+          "title": "打开 Pull Request",
+          "description": "描述你的更改并等待团队审查。"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,352 @@
+{
+  "api": {
+    "errors": {
+      "API_KEY_MISSING": "🔑 Pour discuter avec toutes les fonctionnalités, j'ai besoin qu'une clé API soit configurée dans votre fichier .env.",
+      "INVALID_KEY": "🔑 Oups — votre clé API a peut-être expiré ou est invalide. Essayez d'en créer une nouvelle sur https://aistudio.google.com/app/apikey 💜",
+      "RATE_LIMIT": "Désolé ! 💜 Je reçois beaucoup de requêtes en ce moment. Pouvez-vous patienter un instant et réessayer ?",
+      "FORBIDDEN": "🚫 Votre clé API actuelle semble ne pas disposer des autorisations nécessaires. Veuillez vérifier la configuration. 💜",
+      "NOT_FOUND": "❌ Une erreur est survenue — le modèle d'IA configuré est introuvable.",
+      "SERVER_ERROR": "⚠️ Mes systèmes rencontrent une instabilité temporaire. Veuillez réessayer dans quelques instants.",
+      "UNAVAILABLE": "🔧 Le service est temporairement indisponible. On réessaie bientôt ?",
+      "EMPTY_RESPONSE": "Je n'ai pas reçu de réponse complète de l'IA. Pouvez-vous renvoyer votre message ?",
+      "NETWORK": "Il semble y avoir un problème de connexion Internet ou avec le service. Vérifiez votre réseau et réessayez.",
+      "UNKNOWN": "Désolé — je n'ai pas pu me connecter pour le moment, j'étais en train de traiter trop d'informations. 💜 Veuillez renvoyer votre message dans quelques instants.",
+      "service_fallback": "Impossible d'exécuter cette action pour le moment. Réessayez bientôt."
+    }
+  },
+  "common": {
+    "close": "Fermer",
+    "close_modal": "Fermer la fenêtre",
+    "back": "Retour"
+  },
+  "sidebar": {
+    "new_chat": "Nouvelle conversation",
+    "anonymous_chat": "Session anonyme",
+    "anonymous_tooltip": "Conversation anonyme (aucun historique enregistré)",
+    "recent_label": "Récents",
+    "chat_deleted": "Conversation supprimée",
+    "help": "Aide",
+    "settings": "Paramètres",
+    "close_menu": "Fermer le menu latéral",
+    "menu_aria": "Menu latéral",
+    "time": {
+      "now": "À l'instant",
+      "minutes_ago": "il y a {{count}}m",
+      "hours_ago": "il y a {{count}}h",
+      "yesterday": "Hier",
+      "days_ago": "il y a {{count}}j",
+      "date": "{{day}}/{{month}}"
+    }
+  },
+  "settings": {
+    "title": "Paramètres",
+    "close_aria": "Fermer les paramètres",
+    "appearance": {
+      "title": "Apparence",
+      "language": {
+        "label": "Langue",
+        "desc": "Sélectionnez la langue de l'interface",
+        "pt": "Português (Brasil)",
+        "en": "English (US)"
+      }
+    },
+    "theme": {
+      "follow_system": {
+        "label": "Suivre le thème du système",
+        "desc": "S'adapte automatiquement aux paramètres de votre appareil",
+        "aria": "Basculer suivre le thème du système"
+      },
+      "dark": {
+        "label": "Thème sombre",
+        "desc": "Plus confortable en faible luminosité",
+        "aria": "Basculer thème sombre"
+      },
+      "dark_room": {
+        "label": "Mode salle sombre",
+        "desc": "Diminue la luminosité et adoucit les contrastes pour travailler la nuit",
+        "aria": "Basculer mode salle sombre"
+      }
+    },
+    "font": {
+      "label": "Taille de la police",
+      "desc": "Augmente la taille du texte pour une meilleure lisibilité",
+      "aria_group": "Choisissez la taille de police",
+      "normal": "Normale",
+      "large": "Grande"
+    },
+    "accessibility": {
+      "title": "Accessibilité",
+      "reduced_motion": {
+        "label": "Réduire les mouvements",
+        "desc": "Minimiser les animations et transitions",
+        "aria": "Basculer réduire les mouvements"
+      },
+      "high_contrast": {
+        "label": "Haut contraste",
+        "desc": "Augmenter le contraste des couleurs pour une meilleure visibilité",
+        "aria": "Basculer haut contraste"
+      },
+      "dyslexic_font": {
+        "label": "Police adaptée à la dyslexie",
+        "desc": "Utiliser des polices et espacement adaptés (OpenDyslexic)",
+        "aria": "Basculer police adaptée"
+      },
+      "colorblind": {
+        "label": "Modes daltoniens",
+        "desc": "Ajuster les couleurs pour différents types de vision",
+        "aria_select": "Sélectionner un mode daltonien",
+        "none": "Aucun",
+        "protanopia": "Protanopie (rouge)",
+        "deuteranopia": "Déutéranopie (vert)",
+        "tritanopia": "Tritanopie (bleu)",
+        "achromatopsia": "Achromatopsie (monochrome)"
+      },
+      "keyboard_nav": {
+        "label": "Indicateur de focus clavier",
+        "desc": "Afficher un contour de focus lors de la navigation au clavier (recommandé sur desktop)",
+        "aria": "Basculer indicateur de focus clavier"
+      }
+    },
+    "integration": {
+      "title": "Intégration",
+      "import": {
+        "label": "Importer le contexte",
+        "desc": "Importer des informations d'autres assistants IA pour personnaliser votre expérience.",
+        "button": "Importer"
+      }
+    },
+    "privacy": {
+      "title": "Données & confidentialité"
+    },
+    "api_key": {
+      "label": "Clé API Gemini",
+      "desc": "Entrez votre propre clé API pour alimenter l'assistant",
+      "placeholder": "AIzaSy...",
+      "save": "Enregistrer",
+      "remove_title": "Supprimer la clé API stockée",
+      "remove_toast": "Clé supprimée de cet appareil.",
+      "tooltip": "Votre clé est stockée localement dans le navigateur avec une obfuscation basique."
+    },
+    "usage_analytics": {
+      "label": "Envoyer des analytics anonymes",
+      "desc": "Aidez à améliorer l'app en partageant des statistiques d'utilisation basiques. Aucune conversation n'est lue.",
+      "aria": "Basculer la télémétrie"
+    },
+    "history": {
+      "label": "Effacer l'historique",
+      "desc": "Supprimer toutes les conversations enregistrées sur cet appareil",
+      "clear": "Tout effacer",
+      "confirm": "Supprimer tout l'historique des conversations ? Cela ne peut pas être annulé.",
+      "success_toast": "Historique supprimé."
+    },
+    "toasts": {
+      "telemetry_on": "Analytics anonymes activés.",
+      "telemetry_off": "Analytics anonymes désactivés.",
+      "api_saved": "Clé API enregistrée."
+    }
+  },
+  "header": {
+    "open_menu": "Ouvrir le menu",
+    "open_menu_aria": "Ouvrir le menu latéral",
+    "ambient_sounds": "Sons ambiants",
+    "ambient_sounds_aria": "Ouvrir les sons ambiants",
+    "light_mode": "Mode clair",
+    "dark_mode": "Mode sombre",
+    "activate_light_mode": "Activer le mode clair",
+    "activate_dark_mode": "Activer le mode sombre",
+    "user_account": "Compte Google",
+    "user_profile": "Profil utilisateur"
+  },
+  "account": {
+    "close": "Fermer",
+    "guest": "Invité",
+    "greeting": "Bonjour, {{name}} !",
+    "manage": "Gérer votre compte",
+    "menu": {
+      "personalize": "Personnaliser l'assistant",
+      "stats": "Statistiques et activité",
+      "add_account": "Ajouter un compte",
+      "logout": "Se déconnecter"
+    },
+    "links": {
+      "privacy": "Politique de confidentialité",
+      "terms": "Conditions d'utilisation"
+    },
+    "personalization": {
+      "title": "Personnalisation",
+      "profile": {
+        "title": "Profil de réponse",
+        "desc": "Choisissez un profil de comportement pour l'assistant.",
+        "modes": {
+          "default": {
+            "title": "Par défaut",
+            "desc": "Équilibré et adaptable"
+          },
+          "reflective": {
+            "title": "Réfléchi",
+            "desc": "Focus sur l'analyse émotionnelle"
+          },
+          "action": {
+            "title": "Action",
+            "desc": "Direct et orienté solutions"
+          },
+          "learning": {
+            "title": "Didactique",
+            "desc": "Explications étape par étape"
+          },
+          "support": {
+            "title": "Soutien",
+            "desc": "Validation et soutien émotionnel"
+          }
+        }
+      },
+      "fine_tuning": {
+        "title": "Ajustements optionnels",
+        "style": {
+          "label": "Style par défaut",
+          "desc": "Définissez le ton de l'assistant.",
+          "options": {
+            "default": "Par défaut",
+            "concise": "Plus concis",
+            "detailed": "Plus détaillé",
+            "casual": "Plus informel",
+            "formal": "Plus formel"
+          }
+        }
+      },
+      "traits": {
+        "title": "Traits",
+        "welcoming": "Accueillant",
+        "enthusiastic": "Enthousiaste",
+        "formatting": "Listes et titres",
+        "emojis": "Emojis",
+        "levels": {
+          "less": "Moins",
+          "default": "Par défaut",
+          "more": "Plus"
+        }
+      },
+      "instant": "Réponses instantanées",
+      "custom_instructions": {
+        "title": "Instructions personnalisées",
+        "placeholder": "Ex : Réponds comme si tu étais mon frère..."
+      },
+      "actions": {
+        "cancel": "Annuler",
+        "save": "Enregistrer"
+      }
+    }
+  },
+  "telemetry": {
+    "title": "Améliorer PsyMind.AI",
+    "description": "📊 Les données d'utilisation anonymes aident à améliorer PsyMind.AI.<br/><br/>🔒 Aucune conversation ni information personnelle n'est collectée.<br/>Tout reste sur votre appareil.<br/><br/>Vous pouvez désactiver cela à tout moment.",
+    "warning": "<strong>Avertissement :</strong> L'IA fournit un soutien éducatif et émotionnel de base, mais ne remplace pas le suivi d'un psychologue ou d'un professionnel de la santé mentale.",
+    "accept": "Accepter",
+    "decline": "Refuser",
+    "more_info": "En savoir plus"
+  },
+  "footer": {
+    "brand_desc": "Votre compagnon d'études et de bien-être émotionnel, disponible 24/7 pour vous aider à progresser.",
+    "nav_title": "Navigation",
+    "nav_home": "Accueil",
+    "nav_features": "Fonctionnalités",
+    "nav_education": "Éducation",
+    "legal_title": "Juridique",
+    "legal_license": "Licence",
+    "legal_privacy": "Politique de confidentialité",
+    "legal_terms": "Conditions d'utilisation",
+    "legal_transparency": "Portail de transparence",
+    "project_title": "Projet",
+    "project_repo": "Dépôt",
+    "project_contribute": "Comment contribuer",
+    "project_roadmap": "Feuille de route",
+    "project_dashboard": "Tableau de bord",
+    "disclaimer": "PsyMind.AI offre un soutien éducatif et émotionnel de base. Pour des problèmes graves de santé mentale, consultez un professionnel spécialisé.",
+    "legal_privacy_short": "Confidentialité",
+    "legal_terms_short": "Conditions",
+    "about": "À propos"
+  },
+  "error_fallback": {
+    "title": "Oups !",
+    "message": "Une erreur s'est produite lors du traitement de votre requête.",
+    "subtext": "Essayez de recharger la page ou réessayez plus tard.",
+    "details": "Détails techniques",
+    "reload": "Recharger la page"
+  },
+  "style_guide": {
+    "title": "Guide de style",
+    "intro": "Directives pour la rédaction, le ton, la typographie et l'utilisation des composants de l'interface."
+  },
+  "seo": {
+    "title": "PsyMind.AI - Soutien émotionnel éducatif",
+    "description": "PsyMind.AI : solution éducative de soutien émotionnel pour les étudiants. Comprenez vos émotions avec l'aide de l'IA.",
+    "og_title": "PsyMind.AI - Soutien émotionnel éducatif",
+    "og_description": "Intelligence artificielle pour le soutien émotionnel et éducatif des étudiants."
+  },
+  "privacy": {
+    "title": "Politique de confidentialité",
+    "subtitle": "Transparence totale sur l'utilisation (et en particulier, la non-utilisation) de vos données dans PsyMind.AI.",
+    "last_update": "Dernière mise à jour : 7 avril 2026",
+    "sections": {
+      "s1": {
+        "title": "1. Architecture locale (côté client)",
+        "p1": "PsyMind.AI est fondé sur la confidentialité *by design*. Nous sommes une application exécutée exclusivement côté client (Vite + React). <strong>Nous n'avons pas de serveurs de base de données</strong> qui interceptent, lisent ou stockent vos confidences, conversations ou données de profil de manière centralisée.",
+        "p2": "Toutes les informations personnelles, y compris votre historique de conversation, vos thèmes, la planification Pomodoro et votre journal émotionnel, sont enregistrées <strong>exclusivement dans le cache de votre propre navigateur (localStorage)</strong>."
+      },
+      "s2": {
+        "title": "2. Traitement par les intelligences artificielles",
+        "p1": "Pour fournir des réponses intelligentes, l'application établit un pont direct de votre navigateur vers des fournisseurs d'IA (comme l'API Google Gemini). Lors de l'envoi d'un message :",
+        "li1": "Votre texte (et le contexte du chat) est transmis via une couche technique directement aux serveurs de l'IA sélectionnée.",
+        "li2": "La clé API que vous fournissez est stockée chiffrée uniquement en mémoire locale sur votre appareil.",
+        "li3": "Nous recommandons de consulter les politiques de confidentialité de Google (fournisseur de Gemini) pour comprendre comment ils gèrent les requêtes API."
+      },
+      "s3": {
+        "title": "3. Mode anonyme",
+        "p1": "Pour garantir une confidentialité maximale lors de confidences ponctuelles, nous proposons le <strong>Mode anonyme</strong>. En utilisant ce mode, la conversation <strong>n'est pas</strong> enregistrée dans votre localStorage et disparaît définitivement à la relecture de l'onglet ou à la fermeture du chat."
+      },
+      "s4": {
+        "title": "4. Cookies et mise en cache",
+        "p1": "Nous utilisons uniquement les cookies essentiels et Web Storage local nécessaires au fonctionnement de base et à la personnalisation de l'interface, tels que :",
+        "li1": "Se souvenir de votre préférence mode sombre/clair.",
+        "li2": "Paramètres de police (agrandi/réduit).",
+        "li3": "Paramètres d'accessibilité ou de réduction des mouvements.",
+        "li4": "Statistiques locales de concentration (rapport quotidien Pomodoro)."
+      },
+      "s5": {
+        "title": "5. Sécurité et partage des données",
+        "p1": "Puisque nous ne collectons pas de données sur nos serveurs, il est techniquement impossible que PsyMind.AI vende, transmette ou partage vos messages en masse avec des agences publicitaires ou de marketing. Point final."
+      },
+      "s6": {
+        "title": "6. Suppression des données",
+        "p1": "Vous avez un contrôle total et pouvez supprimer n'importe quelles données à tout moment. Pour effacer complètement tout ce que l'application sait de vous, cliquez sur \"Effacer l'historique\" ou utilisez la fonction de nettoyage du cache (Local Storage) de votre navigateur. Aucune récupération ne sera possible (puisqu'il n'y a pas de serveurs cloud)."
+      },
+      "s7": {
+        "title": "7. Modifications de cette politique",
+        "p1": "PsyMind.AI est Open Source. Si à l'avenir une fonctionnalité nécessitant une intégration cloud devenait nécessaire (par exemple, une base de données officielle), cette politique serait mise à jour dans le dépôt, avec une large notification préalable à tous les utilisateurs."
+      }
+    }
+  },
+  "terms": {
+    "title": "Conditions d'utilisation",
+    "subtitle": "Conditions générales de navigation, responsabilités juridiques de l'intelligence artificielle et règles open-source.",
+    "last_update": "Dernière mise à jour : 7 avril 2026",
+    "sections": {
+      "s1": {
+        "title": "1. Avertissement légal essentiel sur la santé mentale ⚠️",
+        "p1": "PsyMind.AI est fourni <strong>exclusivement à des fins d'information et de soutien à l'apprentissage/développement personnel</strong>. L'IA de la plateforme peut fournir des réflexions émotionnelles, des citations, des routines d'étude et des exercices, mais <strong>NE REMPLACE PAS</strong> (et n'a pas la compétence pour) un traitement, un avis professionnel ou un diagnostic en santé mentale."
+      },
+      "s2": {
+        "title": "2. Responsabilité en cas d'\"hallucinations\" (erreurs de l'IA)",
+        "p1": "Le moteur de PsyMind.AI s'appuie sur des modèles de langage avancés. Ces modèles génèrent du texte par des probabilités statistiques. Cela comporte intrinsèquement le risque d'\"hallucinations de l'IA\" (des explications plausibles mais techniquement ou factuellement incorrectes)."
+      },
+      "s3": {
+        "title": "3. Droits d'auteur et culture open-source",
+        "p1": "Le dépôt PsyMind.AI est licencié sous <strong>Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)</strong>."
+      },
+      "s4": {
+        "title": "4. Utilisation des clés API (fournisseurs cloud)",
+        "p1": "Le service peut exiger que vous fournissiez votre propre clé de fournisseur (ex : clé Google Gemini). En le faisant, il est essentiel de comprendre les limites budgétaires et les quotas gratuits du fournisseur. <strong>PsyMind n'est pas responsable et ne garantit pas de remboursements ni n'interviendra pour des violations de quota ou des conditions associées du fournisseur (Google) concernant la clé que vous fournissez.</strong>"
+      }
+    }
+  }
+}

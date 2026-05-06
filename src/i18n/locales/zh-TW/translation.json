@@ -1,0 +1,352 @@
+{
+  "api": {
+    "errors": {
+      "API_KEY_MISSING": "🔑 若要使用全部功能，請在 .env 檔案中設定 API 密鑰（API Key）。",
+      "INVALID_KEY": "🔑 抱歉 — 您的 API 密鑰可能已過期或無效。請至 https://aistudio.google.com/app/apikey 產生新的金鑰。💜",
+      "RATE_LIMIT": "抱歉！💜 目前請求較多，請稍後再試。",
+      "FORBIDDEN": "🚫 目前的 API 金鑰似乎缺少必要權限，請檢查設定。💜",
+      "NOT_FOUND": "❌ 發生錯誤：在設定中找不到指定的 AI 模型。",
+      "SERVER_ERROR": "⚠️ 系統暫時不穩定，請稍後再試。",
+      "UNAVAILABLE": "🔧 服務暫時不可用，稍後再試試看？",
+      "EMPTY_RESPONSE": "未收到來自 AI 的完整回應。請重新傳送您的訊息。",
+      "NETWORK": "似乎出現網路或服務連線問題，請檢查網路後重試。",
+      "UNKNOWN": "抱歉，目前無法連線（系統忙碌）。💜 請稍候再試。",
+      "service_fallback": "目前無法完成此操作，請稍後再試。"
+    }
+  },
+  "common": {
+    "close": "關閉",
+    "close_modal": "關閉視窗",
+    "back": "返回"
+  },
+  "sidebar": {
+    "new_chat": "新對話",
+    "anonymous_chat": "匿名模式",
+    "anonymous_tooltip": "匿名對話（不會保存任何紀錄）",
+    "recent_label": "最近",
+    "chat_deleted": "對話已刪除",
+    "help": "說明",
+    "settings": "設定",
+    "close_menu": "關閉側邊選單",
+    "menu_aria": "側邊選單",
+    "time": {
+      "now": "剛剛",
+      "minutes_ago": "{{count}} 分鐘前",
+      "hours_ago": "{{count}} 小時前",
+      "yesterday": "昨天",
+      "days_ago": "{{count}} 天前",
+      "date": "{{day}}/{{month}}"
+    }
+  },
+  "settings": {
+    "title": "設定",
+    "close_aria": "關閉設定",
+    "appearance": {
+      "title": "外觀",
+      "language": {
+        "label": "語言",
+        "desc": "選擇介面語言",
+        "pt": "Português (Brasil)",
+        "en": "English (US)"
+      }
+    },
+    "theme": {
+      "follow_system": {
+        "label": "依系統設定",
+        "desc": "依據裝置設定自動切換主題",
+        "aria": "切換依系統主題"
+      },
+      "dark": {
+        "label": "深色模式",
+        "desc": "在較暗環境下更為舒適",
+        "aria": "切換深色模式"
+      },
+      "dark_room": {
+        "label": "暗室模式",
+        "desc": "降低亮度與對比，減少夜間用眼疲勞",
+        "aria": "切換暗室模式"
+      }
+    },
+    "font": {
+      "label": "字體大小",
+      "desc": "增大文字以提升可讀性",
+      "aria_group": "選擇字體大小",
+      "normal": "正常",
+      "large": "大"
+    },
+    "accessibility": {
+      "title": "無障礙",
+      "reduced_motion": {
+        "label": "減少動畫",
+        "desc": "最小化介面動畫與過場效果",
+        "aria": "切換減少動畫"
+      },
+      "high_contrast": {
+        "label": "高對比",
+        "desc": "提高顏色對比以增強可視性",
+        "aria": "切換高對比"
+      },
+      "dyslexic_font": {
+        "label": "閱讀障礙友善字體",
+        "desc": "使用易讀字體（如 OpenDyslexic）並增加間距",
+        "aria": "切換閱讀障礙友善字體"
+      },
+      "colorblind": {
+        "label": "色覺模式",
+        "desc": "為不同色覺類型調整配色",
+        "aria_select": "選擇色覺模式",
+        "none": "無",
+        "protanopia": "紅色弱（Protanopia）",
+        "deuteranopia": "綠色弱（Deuteranopia）",
+        "tritanopia": "藍色弱（Tritanopia）",
+        "achromatopsia": "全色盲（單色）"
+      },
+      "keyboard_nav": {
+        "label": "鍵盤焦點指示",
+        "desc": "以 Tab/鍵盤導航時顯示焦點邊框（建議桌面使用）",
+        "aria": "切換鍵盤焦點指示"
+      }
+    },
+    "integration": {
+      "title": "整合",
+      "import": {
+        "label": "匯入上下文",
+        "desc": "從其他 AI 匯入資訊以個人化您的體驗。",
+        "button": "匯入"
+      }
+    },
+    "privacy": {
+      "title": "資料與隱私"
+    },
+    "api_key": {
+      "label": "Gemini API 金鑰",
+      "desc": "輸入您的 API 金鑰以使用系統",
+      "placeholder": "AIzaSy...",
+      "save": "儲存",
+      "remove_title": "移除儲存的 API 金鑰",
+      "remove_toast": "金鑰已從裝置移除。",
+      "tooltip": "您的金鑰僅以簡單混淆方式儲存在瀏覽器本地。"
+    },
+    "usage_analytics": {
+      "label": "傳送匿名分析資料",
+      "desc": "分享基礎使用資料以協助改進應用。對話內容不會被讀取。",
+      "aria": "切換遙測"
+    },
+    "history": {
+      "label": "清除歷史",
+      "desc": "刪除此裝置上儲存的所有對話",
+      "clear": "全部清除",
+      "confirm": "確定要刪除所有聊天紀錄嗎？此操作無法復原。",
+      "success_toast": "歷史紀錄已刪除。"
+    },
+    "toasts": {
+      "telemetry_on": "匿名分析已啟用。",
+      "telemetry_off": "匿名分析已停用。",
+      "api_saved": "API 金鑰已儲存。"
+    }
+  },
+  "header": {
+    "open_menu": "開啟選單",
+    "open_menu_aria": "開啟側邊選單",
+    "ambient_sounds": "環境音",
+    "ambient_sounds_aria": "開啟環境音",
+    "light_mode": "淺色模式",
+    "dark_mode": "深色模式",
+    "activate_light_mode": "啟用淺色模式",
+    "activate_dark_mode": "啟用深色模式",
+    "user_account": "Google 帳戶",
+    "user_profile": "使用者檔案"
+  },
+  "account": {
+    "close": "關閉",
+    "guest": "訪客",
+    "greeting": "您好，{{name}}！",
+    "manage": "管理您的帳戶",
+    "menu": {
+      "personalize": "個性化助理",
+      "stats": "統計與活動",
+      "add_account": "新增其他帳戶",
+      "logout": "登出"
+    },
+    "links": {
+      "privacy": "隱私權政策",
+      "terms": "服務條款"
+    },
+    "personalization": {
+      "title": "個人化",
+      "profile": {
+        "title": "回應設定",
+        "desc": "選擇助理的行為設定。",
+        "modes": {
+          "default": {
+            "title": "預設",
+            "desc": "平衡且具適應性"
+          },
+          "reflective": {
+            "title": "反思型",
+            "desc": "著重情感分析"
+          },
+          "action": {
+            "title": "行動型",
+            "desc": "直接且以解決方案為導向"
+          },
+          "learning": {
+            "title": "教學型",
+            "desc": "逐步說明"
+          },
+          "support": {
+            "title": "支援型",
+            "desc": "肯定與情感支持"
+          }
+        }
+      },
+      "fine_tuning": {
+        "title": "選用微調",
+        "style": {
+          "label": "預設風格",
+          "desc": "設定助理的語氣。",
+          "options": {
+            "default": "預設",
+            "concise": "更精簡",
+            "detailed": "更詳盡",
+            "casual": "更隨性",
+            "formal": "更正式"
+          }
+        }
+      },
+      "traits": {
+        "title": "特性",
+        "welcoming": "親切",
+        "enthusiastic": "熱情",
+        "formatting": "清單與標題",
+        "emojis": "表情符號",
+        "levels": {
+          "less": "較少",
+          "default": "預設",
+          "more": "較多"
+        }
+      },
+      "instant": "即時回應",
+      "custom_instructions": {
+        "title": "自定義指示",
+        "placeholder": "例：請以我兄長的方式回答..."
+      },
+      "actions": {
+        "cancel": "取消",
+        "save": "儲存"
+      }
+    }
+  },
+  "telemetry": {
+    "title": "協助改進 PsyMind.AI",
+    "description": "📊 匿名使用資料有助於改進 PsyMind.AI。<br/><br/>🔒 不會收集對話或個人資訊。<br/>所有資料保存在您的裝置中。<br/><br/>您可隨時停用此功能。",
+    "warning": "<strong>注意：</strong> 本 AI 提供基礎的教育與情感支持，但無法取代心理學家或精神健康專業人員的專業協助。",
+    "accept": "接受",
+    "decline": "拒絕",
+    "more_info": "瞭解更多"
+  },
+  "footer": {
+    "brand_desc": "您學習與情緒健康的夥伴，隨時提供協助。",
+    "nav_title": "導覽",
+    "nav_home": "首頁",
+    "nav_features": "功能",
+    "nav_education": "教育",
+    "legal_title": "法律",
+    "legal_license": "授權",
+    "legal_privacy": "隱私政策",
+    "legal_terms": "使用條款",
+    "legal_transparency": "透明度入口",
+    "project_title": "專案",
+    "project_repo": "程式庫",
+    "project_contribute": "如何貢獻",
+    "project_roadmap": "路線圖",
+    "project_dashboard": "儀表板",
+    "disclaimer": "PsyMind.AI 提供基礎的教育與情感支持。若遇嚴重心理健康問題，請尋求專業協助。",
+    "legal_privacy_short": "隱私",
+    "legal_terms_short": "條款",
+    "about": "關於"
+  },
+  "error_fallback": {
+    "title": "哎呀！",
+    "message": "處理請求時發生錯誤。",
+    "subtext": "請嘗試重新整理頁面或稍後再試。",
+    "details": "技術細節",
+    "reload": "重新整理頁面"
+  },
+  "style_guide": {
+    "title": "樣式指南",
+    "intro": "介面用字、語氣、排版與元件使用的指引。"
+  },
+  "seo": {
+    "title": "PsyMind.AI - 教育性情感支持",
+    "description": "PsyMind.AI：為學生提供的教育性情感支持解決方案。透過 AI 更了解您的情緒。",
+    "og_title": "PsyMind.AI - 教育性情感支持",
+    "og_description": "以人工智慧支援學生的情緒與學習。"
+  },
+  "privacy": {
+    "title": "隱私政策",
+    "subtitle": "完整揭露 PsyMind.AI 如何（與如何不）使用您的資料。",
+    "last_update": "最後更新：2026年4月7日",
+    "sections": {
+      "s1": {
+        "title": "1. 本地架構（用戶端）",
+        "p1": "PsyMind.AI 以 privacy by design 為基礎，採用 Vite + React 的純用戶端應用。<strong>我們沒有集中式的資料庫伺服器</strong> 可以攔截、閱讀或集中儲存您的私人傾訴、對話或個人資料。",
+        "p2": "所有個人資料（例如聊天歷史、主題、番茄鐘計畫與情感日記）均僅保存在您瀏覽器的本地快取（localStorage）中。"
+      },
+      "s2": {
+        "title": "2. AI 的處理",
+        "p1": "為提供智慧回應，應用會從您的瀏覽器直接與 AI 供應商建立連線（如 Google Gemini API）。送出訊息時：",
+        "li1": "您的文字（以及當前聊天上下文）會透過技術層直接送至所選 AI 的伺服器。",
+        "li2": "您提供的 API 金鑰只會以加密/混淆方式保存在您裝置的本地儲存。",
+        "li3": "建議查閱 Google（Gemini）提供者的隱私政策，了解其如何處理 API 提示（prompts）。"
+      },
+      "s3": {
+        "title": "3. 匿名模式",
+        "p1": "為保障臨時傾訴時的最高隱私，我們提供 <strong>匿名模式</strong>。在此模式下，對話不會儲存在 localStorage，刷新頁籤或關閉聊天後即永久刪除。"
+      },
+      "s4": {
+        "title": "4. Cookies 與快取",
+        "p1": "我們僅使用實現基本功能與介面個人化所需的必要 cookies 與本地 Web Storage，例如：",
+        "li1": "記住您偏好的深色或淺色模式。",
+        "li2": "字體設定（放大/縮小）。",
+        "li3": "無障礙或減少動畫的設定。",
+        "li4": "本地的專注統計（每日番茄鐘報告）。"
+      },
+      "s5": {
+        "title": "5. 安全與資料共享",
+        "p1": "因為我們不在伺服器端收集資料，PsyMind.AI 無法將使用者訊息大規模賣給或分享予廣告或行銷機構。"
+      },
+      "s6": {
+        "title": "6. 資料刪除",
+        "p1": "您擁有完全控制權，並可隨時刪除任何資料。若要刪除應用所知的一切，請點選 \"清除歷史\" 或使用瀏覽器清除快取（Local Storage）功能。由於不涉及雲端伺服器，資料無法復原。"
+      },
+      "s7": {
+        "title": "7. 本政策變更",
+        "p1": "PsyMind.AI 為開源專案。若未來需引進雲端依賴的功能（如官方資料庫），本政策將在程式庫中更新，並提前通知所有使用者。"
+      }
+    }
+  },
+  "terms": {
+    "title": "使用條款",
+    "subtitle": "一般使用條件、AI 的法律責任與開源規範。",
+    "last_update": "最後更新：2026年4月7日",
+    "sections": {
+      "s1": {
+        "title": "1. 心理健康重要免責聲明 ⚠️",
+        "p1": "PsyMind.AI 僅供資訊與學習/自我成長用途。平台內的 AI 可提供情感反思、引用、學習例程與練習，但 <strong style={{color: 'var(--primary-color)'}}>絕不取代</strong> 專業心理師或精神健康專家的治療、建議或診斷。"
+      },
+      "s2": {
+        "title": "2. AI \"幻覺\"（錯誤）之責任",
+        "p1": "PsyMind.AI 引擎使用先進語言模型。這些模型以機率方式產生文字，因此存在 AI 產生看似合理但事實或技術上錯誤內容（\"幻覺\"）的風險。"
+      },
+      "s3": {
+        "title": "3. 著作權與開源文化",
+        "p1": "PsyMind.AI 倉庫以 <strong>Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)</strong> 授權。"
+      },
+      "s4": {
+        "title": "4. API 金鑰的使用（雲端供應商）",
+        "p1": "服務可能要求您提供個人的第三方供應商金鑰（例如 Google Gemini）。務必了解供應商的免費額度與收費限制。<strong>PsyMind 不承擔退款保證，亦不對您所提供金鑰涉及之供應商條款或配額違規負責。</strong>"
+      }
+    }
+  }
+}

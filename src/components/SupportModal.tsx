@@ -191,14 +191,14 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
       logger.error('AI analysis error:', error);
     }
 
-    const timer1 = setTimeout(() => {
+      const timer1 = setTimeout(() => {
       const input = feelingInput.toLowerCase();
       let response: AIResponse = {
         type: 'general',
-        message: 'Entendo que você esteja passando por isso. Aqui estão alguns recursos que podem ajudar:',
+        message: t('support.immediate.fallbacks.general.msg'),
         resources: [
-          { icon: 'self_improvement', title: 'Respiração Guiada', desc: 'Técnica 4-7-8 para acalmar' },
-          { icon: 'spa', title: 'Mindfulness', desc: 'Exercício rápido de atenção plena' }
+          { icon: 'self_improvement', title: t('support.immediate.fallbacks.general.res1.title'), desc: t('support.immediate.fallbacks.general.res1.desc') },
+          { icon: 'spa', title: t('support.immediate.fallbacks.general.res2.title'), desc: t('support.immediate.fallbacks.general.res2.desc') }
         ]
       };
 
@@ -263,9 +263,9 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
       
       if (result.success) {
         const lines = result.text.split('\n');
-        const title = lines.find(l => l.includes('TÍTULO'))?.split(':')[1]?.trim() || 'Análise Inicial';
-        const description = lines.find(l => l.includes('DESCRIÇÃO'))?.split(':')[1]?.trim() || 'Com base no que você compartilhou.';
-        const advice = lines.find(l => l.includes('CONSELHO'))?.split(':')[1]?.trim() || 'Recomendamos focar em pequenas pausas.';
+        const title = lines.find(l => l.includes('TÍTULO'))?.split(':')[1]?.trim() || t('support.investigate.fallbacks.general.title');
+        const description = lines.find(l => l.includes('DESCRIÇÃO'))?.split(':')[1]?.trim() || t('support.investigate.fallbacks.general.desc');
+        const advice = lines.find(l => l.includes('CONSELHO'))?.split(':')[1]?.trim() || t('support.investigate.fallbacks.general.advice');
         
         setInvestigationResult({ title, description, advice });
         setIsAnalyzing(false);
@@ -327,89 +327,10 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
   };
 
   // Reframing Logic
-  const handleReframingSelect = (field: string, value: string | number) => {
-    setReframingData(prev => ({ ...prev, [field]: value }));
-    if (field === 'alternative') {
-      analyzeReframing({ ...reframingData, [field]: value } as any);
-    } else {
-      setReframingStep(prev => prev + 1);
-    }
-  };
-
-  const analyzeReframing = (data: typeof reframingData & { alternative?: string }) => {
-    setIsAnalyzing(true);
-    const timer4 = setTimeout(() => {
-      let result = {
-        title: 'Reformulação Cognitiva',
-        description: 'Vamos trabalhar juntos para reformular seus pensamentos.',
-        advice: 'Tente olhar para a situação de uma nova perspectiva.'
-      };
-
-      if (data.distortion === 'catastrofizacao') {
-        result = {
-          title: 'Catastrofização Detectada',
-          description: 'Parece que você está imaginando o pior cenário possível.',
-          advice: 'Vamos tentar ver o lado positivo ou pelo menos o mais realista da situação.'
-        };
-      } else if (data.distortion === 'generalizacao') {
-        result = {
-          title: 'Generalização Excessiva',
-          description: 'Você está tirando conclusões gerais a partir de um único evento.',
-          advice: 'Lembre-se de que um revés não define todo o seu valor ou futuro.'
-        };
-      } else if (data.distortion === 'pensamento_dicotomico') {
-        result = {
-          title: 'Pensamento Dicotômico',
-          description: 'Você está vendo as coisas em preto e branco, sem meio-termo.',
-          advice: 'Tente encontrar uma terceira opção ou um meio-termo na situação.'
-        };
-      }
-
-      setReframingResult({
-        distortion: result.title,
-        challenge: result.description,
-        alternative: result.advice,
-        reframe: ''
-      });
-      setIsAnalyzing(false);
-      setReframingStep(3); // Result step
-    }, 1500);
-    timersRef.current.push(timer4);
-  };
-
-  const resetReframing = () => {
-    setReframingStep(0);
-    setReframingData({ situation: '', thought: '', intensity: 5, distortion: '' });
-    setReframingResult(null);
-  };
-
   const handleTalkAboutIt = () => {
-    const emotionMap = {
-      'ansiedade': 'ansiedade',
-      'tristeza': 'tristeza',
-      'cansaco': 'cansaço',
-      'confusao': 'confusão',
-      'raiva': 'raiva'
-    };
-    
-    const contextMap = {
-      'estudos': 'questões de estudos',
-      'relacionamentos': 'meus relacionamentos',
-      'futuro': 'o futuro',
-      'saude': 'minha saúde',
-      'naosei': 'algo que não sei identificar bem'
-    };
-
-    const durationMap = {
-      'hoje': 'hoje',
-      'semana': 'nos últimos dias',
-      'mes': 'há algum tempo',
-      'sempre': 'há bastante tempo'
-    };
-
-    const emotion = emotionMap[investigationData.emotion as keyof typeof emotionMap] || investigationData.emotion;
-    const context = contextMap[investigationData.context as keyof typeof contextMap] || investigationData.context;
-    const duration = durationMap[investigationData.duration as keyof typeof durationMap] || investigationData.duration;
+    const emotion = investigationData.emotion ? String(t(`support.investigate.step0.${investigationData.emotion}`)) : '';
+    const context = investigationData.context ? String(t(`support.investigate.step1.${investigationData.context}`)) : '';
+    const duration = investigationData.duration ? String(t(`support.investigate.step2.${investigationData.duration}`)) : '';
 
     const message = t('support.investigate.chat_prompt', { emotion, context, duration });
     
@@ -441,10 +362,10 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
       
       if (result.success) {
         const lines = result.text.split('\n');
-        const distortion = lines.find(l => l.includes('DISTORÇÃO'))?.split(':')[1]?.trim() || 'Distorção Cognitiva';
-        const challenge = lines.find(l => l.includes('DESAFIO'))?.split(':')[1]?.trim() || 'Você está interpretando a situação de forma negativa.';
-        const alternative = lines.find(l => l.includes('ALTERNATIVA'))?.split(':')[1]?.trim() || 'Tente ver a situação de outra perspectiva.';
-        const reframe = lines.find(l => l.includes('REFORMULAÇÃO'))?.split(':')[1]?.trim() || `Embora ${reframingData.situation}, isso não define quem eu sou.`;
+        const distortion = lines.find(l => l.includes('DISTORÇÃO'))?.split(':')[1]?.trim() || t('support.reframing.ai_fallbacks.distortion');
+        const challenge = lines.find(l => l.includes('DESAFIO'))?.split(':')[1]?.trim() || t('support.reframing.ai_fallbacks.challenge');
+        const alternative = lines.find(l => l.includes('ALTERNATIVA'))?.split(':')[1]?.trim() || t('support.reframing.ai_fallbacks.alternative');
+        const reframe = lines.find(l => l.includes('REFORMULAÇÃO'))?.split(':')[1]?.trim() || t('support.reframing.ai_fallbacks.reframe', { situation: reframingData.situation });
         
         setReframingResult({ distortion, challenge, alternative, reframe });
         setReframingStep(2);
@@ -469,7 +390,7 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
       if (thought.includes("nunca") || thought.includes("sempre")) {
         result.distortion = t('support.reframing.fallbacks.all_or_nothing.distortion');
         result.challenge = t('support.reframing.fallbacks.all_or_nothing.challenge');
-        result.alternative = "Procure exceções. Houve momentos em que isso não aconteceu? Tente usar palavras como 'às vezes' ou 'frequentemente'.";
+        result.alternative = t('support.reframing.fallbacks.all_or_nothing.alternative');
       } else if (thought.includes("deveria") || thought.includes("tenho que")) {
         result.distortion = t('support.reframing.fallbacks.should_statements.distortion');
         result.challenge = t('support.reframing.fallbacks.should_statements.challenge');
@@ -499,7 +420,7 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
 
     if (reframingStep === 1) {
       return (
-        <div className="reframing-step">
+      <div className="reframing-step">
           <div className="step-header">
             <div className="header-row">
               <button className="back-btn-icon" onClick={() => setReframingStep(0)}>
@@ -556,7 +477,7 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
 
             <button type="submit" className="action-btn primary" disabled={!reframingData.situation || !reframingData.thought || isAnalyzing}>
               {isAnalyzing ? (
-                <span className="loading-dots">Analisando<span>.</span><span>.</span><span>.</span></span>
+                <span className="loading-dots">{t("support.reframing.step1.analyzing")}<span>.</span><span>.</span><span>.</span></span>
               ) : (
                 <>
                   <span className="material-symbols-outlined">psychology</span>
@@ -615,7 +536,7 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
     <BaseModal
       isOpen={isOpen}
       onClose={onClose}
-      title={t("support.title", "Apoio Emocional")}
+      title={t("support.title")}
       icon="support_agent"
     >
       <div className="modal-tabs-container">

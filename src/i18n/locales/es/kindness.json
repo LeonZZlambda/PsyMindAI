@@ -1,0 +1,55 @@
+{
+  "kindness": {
+    "title": "Actos de bondad",
+    "categories": {
+      "random": "Aleatorio",
+      "stranger": "Extraños",
+      "family": "Familia/Amigos",
+      "self": "Para ti",
+      "work": "Trabajo/Escuela"
+    },
+    "loading": "La IA está buscando el acto perfecto...",
+    "completed": "Completado",
+    "generate_new": "Generar otro",
+    "will_do": "¡Lo haré!",
+    "done": "¡Hecho!",
+    "success_toast": "¡Enhorabuena! El mundo está un poco mejor.",
+    "prompts": {
+      "random": "Sugiere un acto de bondad simple y práctico que cualquiera pueda hacer hoy (1 frase).",
+      "stranger": "Sugiere un acto de bondad simple para hacer a un desconocido (1 frase).",
+      "family": "Sugiere un acto de bondad simple para hacer a la familia o a amigos (1 frase).",
+      "self": "Sugiere un acto de autocuidado o autocompasión simple (1 frase).",
+      "work": "Sugiere un acto de bondad simple para hacer en el trabajo o la escuela (1 frase)."
+    },
+    "database": {
+      "stranger": [
+        "Elogia sinceramente la ropa o accesorio de alguien que no conoces.",
+        "Sujeta la puerta para que alguien entre o salga.",
+        "Deja una nota positiva en un libro de la biblioteca o en un lugar público.",
+        "Sonríe y saluda al conductor del autobús o al cajero de la tienda.",
+        "Paga el café de la persona detrás de ti en la fila (si puedes)."
+      ],
+      "family": [
+        "Llama a un familiar solo para decirle que le quieres.",
+        "Haz una tarea doméstica que no sea tu responsabilidad.",
+        "Escribe una carta de agradecimiento a alguien que te ayudó en el pasado.",
+        "Prepara la comida favorita de alguien en tu hogar.",
+        "Escucha activamente a alguien sin interrumpir ni mirar el móvil."
+      ],
+      "self": [
+        "Enumera 3 cosas que te gustan de ti.",
+        "Tómate 15 minutos para hacer algo que amas sin culpa.",
+        "Perdónate por un error cometido recientemente.",
+        "Da un paseo consciente observando la naturaleza.",
+        "Escribe en un diario cómo te sientes hoy."
+      ],
+      "work": [
+        "Ofrece ayuda a un compañero que parece sobrecargado.",
+        "Elogia el trabajo de alguien públicamente o con su jefe.",
+        "Trae un tentempié o dulce para compartir con el equipo.",
+        "Deja un post-it de ánimo en el escritorio de alguien.",
+        "Agradece a alguien por algo específico que haya hecho."
+      ]
+    }
+  }
+}

@@ -1,0 +1,367 @@
+{
+  "guided_learning": {
+    "title": "引導式學習",
+    "aria": {
+      "close": "關閉",
+      "start_trail": "開始學習路徑",
+      "export_trail": "匯出路徑",
+      "delete_trail": "刪除路徑"
+    },
+    "tabs": {
+      "trails": "學習路徑",
+      "flashcards": "練習抽認卡",
+      "quizzes": "隨機測驗"
+    },
+    "alerts": {
+      "delete_confirm": "您確定要刪除此由 AI 生成的路徑嗎？",
+      "import_success": "路徑匯入成功！",
+      "import_error": "匯入錯誤。請先複製有效的 JSON 路徑代碼再匯入。",
+      "export_success": "路徑已複製到剪貼簿！與朋友分享吧。",
+      "export_error": "複製路徑時發生錯誤。",
+      "generate_error": "無法生成路徑。請嘗試更具體的主題。",
+      "generate_catch": "連線至 AI 發生錯誤。"
+    },
+    "trails": {
+      "active_back": "回到路徑",
+      "active_step": "第 {{step}} 步（共 {{total}} 步）",
+      "active_finished": "已完成",
+      "completed": "已完成"
+    },
+    "completion": {
+      "perfection_title": "完美！無錯誤！",
+      "excellent_title": "表現優異！",
+      "continue_title": "學習是一個持續的過程！",
+      "stats": "您在第一次嘗試中答對了 <strong>{{correct}}</strong> / <strong>{{total}}</strong> 題（{{percentage}}%）。",
+      "you_are_awesome": "你很棒！",
+      "title": "路徑完成！",
+      "action": "返回路徑",
+      "quizzes_title": "測驗已完成！",
+      "retry": "再試一次"
+    },
+    "flashcard": {
+      "flip_hint": "點擊以翻面",
+      "difficulty": {
+        "fail": "再來一次",
+        "hard": "困難",
+        "good": "良好",
+        "easy": "簡單"
+      },
+      "times": {
+        "30s": "30 秒",
+        "5m": "5 分鐘",
+        "30m": "30 分鐘",
+        "2h": "2 小時"
+      }
+    },
+    "quiz": {
+      "verify": "檢查答案",
+      "explain_btn": "用 AI 解釋 ✨",
+      "explaining": "正在生成解釋...",
+      "tutor": "AI 導師：",
+      "finish_trail": "完成路徑",
+      "next_question": "下一題",
+      "see_results": "查看結果"
+    },
+    "open_ended": {
+      "placeholder": "在此撰寫您的反思或答案...",
+      "evaluate_btn": "用 AI 評估答案",
+      "evaluating": "評估中...",
+      "skip_btn": "跳過",
+      "your_answer": "您的答案：",
+      "ai_feedback": "AI 回饋：",
+      "continue_trail": "繼續路徑"
+    },
+    "create": {
+      "title": "您今天想學什麼？",
+      "desc": "描述一個主題、情緒挑戰或技能。我們的 AI 會建立一個客製化的互動計畫（抽認卡與測驗）。",
+      "placeholder": "例如：我想要一個關於在工作中用 5 分鐘練習正念的抽認卡路徑...",
+      "btn_create": "使用 AI 產生",
+      "btn_generating": "正在生成教材..."
+    },
+    "explore": {
+      "title": "探索路徑或建立您的路徑",
+      "import": "匯入",
+      "activities": "{{count}} 項活動",
+      "generate": "用 AI 生成"
+    },
+    "empty_flashcards": {
+      "title": "尚無解鎖的抽認卡",
+      "desc": "完成「學習路徑」分頁中的一個路徑，即可解鎖供複習的抽認卡。"
+    },
+    "empty_quizzes": {
+      "title": "尚無解鎖的測驗",
+      "desc": "完成「學習路徑」分頁中的一個路徑，即可解鎖供練習的測驗。"
+    },
+    "status": {
+      "base_unlocked": "{{count}} 已在資料庫中解鎖",
+      "flashcard_status": "抽認卡 {{current}} / {{total}}",
+      "quiz_status": "題目 {{current}} / {{total}}",
+      "quick_quiz": "快速綜合測驗",
+      "practice": "練習抽認卡"
+    },
+    "default_trails": [
+      {
+        "id": 1,
+        "title": "焦慮管理",
+        "icon": "psychology",
+        "description": "學習識別並管理焦慮的症狀。",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "什麼是「戰鬥或逃跑」反應？",
+            "back": "當人們將某些事件視為威脅或壓力時，身體會產生的一種自動生理反應，會啟動交感神經系統。"
+          },
+          {
+            "type": "quiz",
+            "question": "哪種呼吸技術最推薦用於緩解急性焦慮？",
+            "options": [
+              {
+                "id": "A",
+                "text": "快速胸式呼吸"
+              },
+              {
+                "id": "B",
+                "text": "屏住呼吸 1 分鐘"
+              },
+              {
+                "id": "C",
+                "text": "橫隔膜呼吸（4-7-8）"
+              },
+              {
+                "id": "D",
+                "text": "過度換氣"
+              }
+            ],
+            "correctOption": "C"
+          },
+          {
+            "type": "flashcard",
+            "front": "接地（Grounding）",
+            "back": "將注意力帶回當下，關注身體感官（例如：你看到的 5 樣東西，觸到的 4 樣東西）。"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "非暴力溝通",
+        "icon": "forum",
+        "description": "透過富有同理心的溝通來改善關係。",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "非暴力溝通的四個組成部分是什麼？",
+            "back": "1. 觀察、2. 感受、3. 需要、4. 請求。"
+          },
+          {
+            "type": "quiz",
+            "question": "以下哪句話是「觀察」而非評判的例子？",
+            "options": [
+              {
+                "id": "A",
+                "text": "你非常不負責任。"
+              },
+              {
+                "id": "B",
+                "text": "你從不聽我說。"
+              },
+              {
+                "id": "C",
+                "text": "我注意到你在最近的會議中遲到 10 分鐘。"
+              },
+              {
+                "id": "D",
+                "text": "你總是很懶惰。"
+              }
+            ],
+            "correctOption": "C"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "情緒智力",
+        "icon": "favorite",
+        "description": "識別並管理你自己的情緒。",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "什麼是自我覺察？",
+            "back": "識別並理解自己的情緒、心情和衝動的能力。"
+          },
+          {
+            "type": "quiz",
+            "question": "在工作環境中，情緒智力的一個關鍵支柱是：",
+            "options": [
+              {
+                "id": "A",
+                "text": "隱藏你的感受。"
+              },
+              {
+                "id": "B",
+                "text": "對同事有同理心。"
+              },
+              {
+                "id": "C",
+                "text": "工作到精疲力竭。"
+              },
+              {
+                "id": "D",
+                "text": "比別人說話更大聲。"
+              }
+            ],
+            "correctOption": "B"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "正念與專注",
+        "icon": "self_improvement",
+        "description": "保持當下專注的正念技巧。",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "什麼是正念 (Mindfulness)？",
+            "back": "透過將意識集中在當下並識別、接納情緒而達到的一種心理狀態。"
+          },
+          {
+            "type": "quiz",
+            "question": "如果在冥想時走神，你應該怎麼做？",
+            "options": [
+              {
+                "id": "A",
+                "text": "為自己感到沮喪。"
+              },
+              {
+                "id": "B",
+                "text": "放棄並改天再試。"
+              },
+              {
+                "id": "C",
+                "text": "注意到分心並溫和地回到呼吸上。"
+              },
+              {
+                "id": "D",
+                "text": "任由思緒無限期游走。"
+              }
+            ],
+            "correctOption": "C"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "認知偏誤",
+        "icon": "visibility",
+        "description": "理解影響我們決策的思維錯誤。",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "確認偏誤",
+            "back": "傾向於尋找並記住能證實既有信念的資訊。"
+          },
+          {
+            "type": "quiz",
+            "question": "什麼是鄧寧–克魯格效應？",
+            "options": [
+              {
+                "id": "A",
+                "text": "在經驗不足的任務中高估自己的能力。"
+              },
+              {
+                "id": "B",
+                "text": "在公開演講時感到恐慌。"
+              },
+              {
+                "id": "C",
+                "text": "喜歡在促銷時購買東西的習慣。"
+              },
+              {
+                "id": "D",
+                "text": "在壓力下忘記資訊。"
+              }
+            ],
+            "correctOption": "A"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "學習組織",
+        "icon": "menu_book",
+        "description": "時間管理與學習規劃技巧。",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "什麼是番茄工作法？",
+            "back": "一種時間管理技術，將專注工作的時段（例如：25 分鐘）與短暫休息（例如：5 分鐘）交替，以保持生產力。"
+          },
+          {
+            "type": "quiz",
+            "question": "如何最好地為有多場考試的一週做準備？",
+            "options": [
+              {
+                "id": "A",
+                "text": "在考試前一晚把所有內容複習完。"
+              },
+              {
+                "id": "B",
+                "text": "制定一個把科目分配到整週的計畫表。"
+              },
+              {
+                "id": "C",
+                "text": "只複習最困難的科目。"
+              },
+              {
+                "id": "D",
+                "text": "不複習，僅憑記憶應付。"
+              }
+            ],
+            "correctOption": "B"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "title": "校園壓力與考試",
+        "icon": "school",
+        "description": "應對考前緊張並避免考試中「空白」的策略。",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "考試時著名的「空白」通常由什麼引起？",
+            "back": "通常由焦慮高峰引起；大腦將考試視為即時威脅，從而阻礙對記憶的存取。"
+          },
+          {
+            "type": "quiz",
+            "question": "如果你感覺在考試中可能會「空白」，你應該怎麼做？",
+            "options": [
+              {
+                "id": "A",
+                "text": "默默地驚慌。"
+              },
+              {
+                "id": "B",
+                "text": "休息一下，閉上眼睛，深呼吸，如可能可喝些水。"
+              },
+              {
+                "id": "C",
+                "text": "盡快胡亂寫些東西。"
+              },
+              {
+                "id": "D",
+                "text": "立刻哭出來。"
+              }
+            ],
+            "correctOption": "B"
+          },
+          {
+            "type": "flashcard",
+            "front": "期望與現實",
+            "back": "壓力常來自父母或教師的期望。記住一次差成績並不能定義你的智力；理解這一點有助於減少並應對過度壓力。"
+          }
+        ]
+      }
+    ]
+  }
+}

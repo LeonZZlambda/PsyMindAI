@@ -1,0 +1,352 @@
+{
+  "api": {
+    "errors": {
+      "API_KEY_MISSING": "🔑 フル機能で会話するには、.env に API キーを設定する必要があります。",
+      "INVALID_KEY": "🔑 申し訳ありません — API キーが無効か期限切れのようです。https://aistudio.google.com/app/apikey で新しいキーを作成してください。💜",
+      "RATE_LIMIT": "少し混み合っています。💜 しばらく待ってから再試行してください。",
+      "FORBIDDEN": "🚫 現在の API キーに必要な権限がないようです。設定を確認してください。💜",
+      "NOT_FOUND": "❌ 設定された AI モデルが見つかりませんでした。",
+      "SERVER_ERROR": "⚠️ システムが一時的に不安定です。時間をおいて再試行してください。",
+      "UNAVAILABLE": "🔧 サービスが一時的に利用できません。後ほどもう一度試しますか？",
+      "EMPTY_RESPONSE": "AI から完全な応答が得られませんでした。メッセージをもう一度送信してください。",
+      "NETWORK": "ネットワークまたはサービスへの接続に問題があるようです。接続を確認して再試行してください。",
+      "UNKNOWN": "申し訳ありません — 多くの処理が行われており接続できませんでした。💜 後で再送してください。",
+      "service_fallback": "現在、この操作を完了できません。しばらくしてから再度お試しください。"
+    }
+  },
+  "common": {
+    "close": "閉じる",
+    "close_modal": "モーダルを閉じる",
+    "back": "戻る"
+  },
+  "sidebar": {
+    "new_chat": "新しいチャット",
+    "anonymous_chat": "匿名セッション",
+    "anonymous_tooltip": "匿名チャット（履歴は保存されません）",
+    "recent_label": "最近",
+    "chat_deleted": "チャットが削除されました",
+    "help": "ヘルプ",
+    "settings": "設定",
+    "close_menu": "サイドメニューを閉じる",
+    "menu_aria": "サイドメニュー",
+    "time": {
+      "now": "たった今",
+      "minutes_ago": "{{count}}分前",
+      "hours_ago": "{{count}}時間前",
+      "yesterday": "昨日",
+      "days_ago": "{{count}}日前",
+      "date": "{{day}}/{{month}}"
+    }
+  },
+  "settings": {
+    "title": "設定",
+    "close_aria": "設定を閉じる",
+    "appearance": {
+      "title": "外観",
+      "language": {
+        "label": "言語",
+        "desc": "インターフェースの言語を選択してください",
+        "pt": "Português (Brasil)",
+        "en": "English (US)"
+      }
+    },
+    "theme": {
+      "follow_system": {
+        "label": "システムに合わせる",
+        "desc": "デバイス設定に基づいて自動で切り替えます",
+        "aria": "システムテーマに合わせる切り替え"
+      },
+      "dark": {
+        "label": "ダークモード",
+        "desc": "暗い環境で目に優しい表示",
+        "aria": "ダークモードの切り替え"
+      },
+      "dark_room": {
+        "label": "暗室モード",
+        "desc": "夜間の視認性を高めるために明るさとコントラストを抑えます",
+        "aria": "暗室モードの切り替え"
+      }
+    },
+    "font": {
+      "label": "フォントサイズ",
+      "desc": "読みやすさのためにテキストサイズを大きくします",
+      "aria_group": "フォントサイズを選択",
+      "normal": "標準",
+      "large": "大"
+    },
+    "accessibility": {
+      "title": "アクセシビリティ",
+      "reduced_motion": {
+        "label": "動きを減らす",
+        "desc": "アニメーションやトランジションを最小限にします",
+        "aria": "動き削減の切り替え"
+      },
+      "high_contrast": {
+        "label": "高コントラスト",
+        "desc": "視認性向上のために色のコントラストを上げます",
+        "aria": "高コントラストの切り替え"
+      },
+      "dyslexic_font": {
+        "label": "失読症向けフォント",
+        "desc": "OpenDyslexic などの読みやすいフォントと余白を使用します",
+        "aria": "失読症向けフォントの切り替え"
+      },
+      "colorblind": {
+        "label": "色覚モード",
+        "desc": "さまざまな色覚に合わせて色を調整します",
+        "aria_select": "色覚モードを選択",
+        "none": "なし",
+        "protanopia": "プロタノピア（赤）",
+        "deuteranopia": "デュータラノピア（緑）",
+        "tritanopia": "トリタノピア（青）",
+        "achromatopsia": "無色覚（モノクロ）"
+      },
+      "keyboard_nav": {
+        "label": "キーボードフォーカス表示",
+        "desc": "Tab/キーボードで操作する際にフォーカス枠を表示します（デスクトップ推奨）",
+        "aria": "キーボードフォーカス表示の切り替え"
+      }
+    },
+    "integration": {
+      "title": "連携",
+      "import": {
+        "label": "コンテキストをインポート",
+        "desc": "他の AI から情報を取り込んで PsyMind をパーソナライズします。",
+        "button": "インポート"
+      }
+    },
+    "privacy": {
+      "title": "データとプライバシー"
+    },
+    "api_key": {
+      "label": "Gemini API キー",
+      "desc": "システムを使うために自分の API キーを入力してください",
+      "placeholder": "AIzaSy...",
+      "save": "保存",
+      "remove_title": "保存された API キーを削除",
+      "remove_toast": "キーがデバイスから削除されました。",
+      "tooltip": "キーはブラウザのローカルに簡易的に難読化して保存されます。"
+    },
+    "usage_analytics": {
+      "label": "匿名解析を送信",
+      "desc": "基本的な使用状況を共有してアプリ改善に協力してください。会話内容は読み取られません。",
+      "aria": "テレメトリの切り替え"
+    },
+    "history": {
+      "label": "履歴をクリア",
+      "desc": "このデバイスに保存された全ての会話を削除します",
+      "clear": "すべて削除",
+      "confirm": "本当にすべてのチャット履歴を削除しますか？",
+      "success_toast": "履歴が削除されました。"
+    },
+    "toasts": {
+      "telemetry_on": "匿名解析が有効になりました。",
+      "telemetry_off": "匿名解析が無効になりました。",
+      "api_saved": "API キーを保存しました。"
+    }
+  },
+  "header": {
+    "open_menu": "メニューを開く",
+    "open_menu_aria": "サイドメニューを開く",
+    "ambient_sounds": "環境音",
+    "ambient_sounds_aria": "環境音を開く",
+    "light_mode": "ライトモード",
+    "dark_mode": "ダークモード",
+    "activate_light_mode": "ライトモードを有効にする",
+    "activate_dark_mode": "ダークモードを有効にする",
+    "user_account": "Google アカウント",
+    "user_profile": "ユーザープロフィール"
+  },
+  "account": {
+    "close": "閉じる",
+    "guest": "ゲスト",
+    "greeting": "こんにちは、{{name}} さん！",
+    "manage": "アカウントを管理",
+    "menu": {
+      "personalize": "アシスタントをカスタマイズ",
+      "stats": "統計とアクティビティ",
+      "add_account": "別のアカウントを追加",
+      "logout": "ログアウト"
+    },
+    "links": {
+      "privacy": "プライバシーポリシー",
+      "terms": "利用規約"
+    },
+    "personalization": {
+      "title": "パーソナライズ",
+      "profile": {
+        "title": "応答プロファイル",
+        "desc": "アシスタントの振る舞いプロファイルを選択します。",
+        "modes": {
+          "default": {
+            "title": "デフォルト",
+            "desc": "バランスの取れた適応型"
+          },
+          "reflective": {
+            "title": "反省的",
+            "desc": "感情の分析に注力"
+          },
+          "action": {
+            "title": "行動志向",
+            "desc": "直接的で解決志向"
+          },
+          "learning": {
+            "title": "教育的",
+            "desc": "ステップバイステップの説明"
+          },
+          "support": {
+            "title": "サポート",
+            "desc": "受容と感情的サポート"
+          }
+        }
+      },
+      "fine_tuning": {
+        "title": "オプションの微調整",
+        "style": {
+          "label": "デフォルトスタイル",
+          "desc": "アシスタントの口調を設定します。",
+          "options": {
+            "default": "デフォルト",
+            "concise": "簡潔",
+            "detailed": "詳細",
+            "casual": "カジュアル",
+            "formal": "フォーマル"
+          }
+        }
+      },
+      "traits": {
+        "title": "特性",
+        "welcoming": "歓迎的",
+        "enthusiastic": "熱意ある",
+        "formatting": "リストと見出し",
+        "emojis": "絵文字",
+        "levels": {
+          "less": "少なめ",
+          "default": "標準",
+          "more": "多め"
+        }
+      },
+      "instant": "即時応答",
+      "custom_instructions": {
+        "title": "カスタム指示",
+        "placeholder": "例：私の兄のように答えてください..."
+      },
+      "actions": {
+        "cancel": "キャンセル",
+        "save": "保存"
+      }
+    }
+  },
+  "telemetry": {
+    "title": "PsyMind.AI を改善する",
+    "description": "📊 匿名の利用データは PsyMind.AI の改善に役立ちます。<br/><br/>🔒 会話や個人情報は収集されません。<br/>すべてお使いのデバイス内に留まります。<br/><br/>いつでも無効にできます。",
+    "warning": "<strong>注意：</strong>本AIは教育的・感情的な基本サポートを提供しますが、心理学者や精神医療の専門家による支援の代替にはなりません。",
+    "accept": "同意する",
+    "decline": "拒否する",
+    "more_info": "詳しくはこちら"
+  },
+  "footer": {
+    "brand_desc": "学習と感情的ウェルビーイングのパートナー。いつでもあなたを支援します。",
+    "nav_title": "ナビゲーション",
+    "nav_home": "ホーム",
+    "nav_features": "機能",
+    "nav_education": "教育",
+    "legal_title": "法的",
+    "legal_license": "ライセンス",
+    "legal_privacy": "プライバシー",
+    "legal_terms": "利用規約",
+    "legal_transparency": "透明性ポータル",
+    "project_title": "プロジェクト",
+    "project_repo": "リポジトリ",
+    "project_contribute": "貢献方法",
+    "project_roadmap": "ロードマップ",
+    "project_dashboard": "ダッシュボード",
+    "disclaimer": "PsyMind.AI は教育的かつ感情的な基本サポートを提供します。深刻なメンタルヘルスの問題は専門家に相談してください。",
+    "legal_privacy_short": "プライバシー",
+    "legal_terms_short": "規約",
+    "about": "このプロジェクトについて"
+  },
+  "error_fallback": {
+    "title": "おっと！",
+    "message": "リクエストの処理中にエラーが発生しました。",
+    "subtext": "ページを再読み込みするか、後でもう一度お試しください。",
+    "details": "技術的な詳細",
+    "reload": "ページを再読み込み"
+  },
+  "style_guide": {
+    "title": "スタイルガイド",
+    "intro": "用語、トーン、タイポグラフィ、コンポーネント使用に関するガイドライン。"
+  },
+  "seo": {
+    "title": "PsyMind.AI - 教育的な感情サポート",
+    "description": "PsyMind.AI: 学生のための教育的な感情サポートソリューション。AIの助けで自分の感情を理解しましょう。",
+    "og_title": "PsyMind.AI - 教育的な感情サポート",
+    "og_description": "学生の感情と学習をサポートする人工知能。"
+  },
+  "privacy": {
+    "title": "プライバシーポリシー",
+    "subtitle": "PsyMind.AI におけるデータの取り扱い（および特に取り扱わない点）についての完全な透明性。",
+    "last_update": "最終更新: 2026年4月7日",
+    "sections": {
+      "s1": {
+        "title": "1. ローカルアーキテクチャ（クライアント側）",
+        "p1": "PsyMind.AI はプライバシーを設計に組み込んでいます。これは Vite + React によるクライアントサイド専用アプリです。<strong>中央管理されたデータベースサーバーは持ちません</strong>。ユーザーの告白や会話、プロファイルデータが外部で読み取られることはありません。",
+        "p2": "チャット履歴、テーマ、ポモドーロ設定、感情日記といった個人情報はすべて <strong>ローカルブラウザのキャッシュ（localStorage）</strong> のみに保存されます。"
+      },
+      "s2": {
+        "title": "2. AI の処理",
+        "p1": "インテリジェントな応答を提供するために、アプリはブラウザから直接 AI プロバイダ（例: Google Gemini API）へ接続します。メッセージを送信すると:",
+        "li1": "送信テキスト（および現在のチャットコンテキスト）は技術的な層を通して選択された AI のサーバーへ直接送られます。",
+        "li2": "あなたが提供した API キーはデバイスのローカルメモリにのみ（暗号化されて）保持されます。",
+        "li3": "Gemini を提供する Google のプライバシーポリシーを確認することを推奨します。"
+      },
+      "s3": {
+        "title": "3. 匿名モード",
+        "p1": "一時的な吐露の最大限のプライバシーのために、<strong>匿名モード</strong> を提供しています。このモードでは会話は localStorage に保存されず、タブをリロードするかチャットを閉じると永続的に消去されます。"
+      },
+      "s4": {
+        "title": "4. クッキーとキャッシュ",
+        "p1": "基本機能と UI のパーソナライズのために、必要最低限のクッキーとローカル Web Storage 技術のみを使用します。例:",
+        "li1": "ダークモードまたはライトモードの好みを記憶する。",
+        "li2": "フォント設定（拡大/縮小）。",
+        "li3": "アクセシビリティや動き削減の設定。",
+        "li4": "ローカルの集中統計（デイリーのポモドーロレポート）。"
+      },
+      "s5": {
+        "title": "5. セキュリティとデータ共有",
+        "p1": "当社がサーバーへデータを収集しないため、PsyMind.AI がユーザーのメッセージを広告業者などに大量販売・共有することは技術的に不可能です。"
+      },
+      "s6": {
+        "title": "6. データの削除",
+        "p1": "あなたはいつでもすべてのデータを削除できます。アプリがあなたについて持つすべてを消すには、\"履歴をクリア\" をクリックするか、ブラウザのキャッシュ（Local Storage）をクリアしてください。クラウドサーバーがないため復元はできません。"
+      },
+      "s7": {
+        "title": "7. ポリシーの変更",
+        "p1": "PsyMind.AI はオープンソースです。将来的に公式のデータベースなどクラウド依存の機能を導入する必要が生じた場合は、リポジトリでポリシーを更新し、事前にユーザーへ大きな通知を行います。"
+      }
+    }
+  },
+  "terms": {
+    "title": "利用規約",
+    "subtitle": "一般的な利用条件、AI の法的責任、オープンソースのルール。",
+    "last_update": "最終更新: 2026年4月7日",
+    "sections": {
+      "s1": {
+        "title": "1. 重要な免責事項（メンタルヘルス） ⚠️",
+        "p1": "PsyMind.AI は情報提供および学習・自己改善を目的として提供されます。プラットフォームの AI は感情に関する洞察、引用、学習ルーティンやエクササイズを提供できますが、精神医療の専門家による治療や診断に代わるものではありません。"
+      },
+      "s2": {
+        "title": "2. AI の \"幻覚\"（エラー）への責任",
+        "p1": "PsyMind.AI のエンジンは高度な言語モデルを使用しており、確率的にテキストを生成します。そのため、表面的にはもっともらしいが事実と異なる説明（\"AI の幻覚\"）が生じるリスクがあります。"
+      },
+      "s3": {
+        "title": "3. 著作権とオープンソース文化",
+        "p1": "PsyMind.AI リポジトリは <strong>Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)</strong> ライセンスの下にあります。"
+      },
+      "s4": {
+        "title": "4. API キーの使用（クラウドプロバイダ）",
+        "p1": "サービスは、あなたが個別にプロバイダ（例：Google Gemini）のキーを用意することを前提にする場合があります。プロバイダの無料枠や料金制限を理解することが重要です。<strong>PsyMind は返金を保証せず、キーに関連するプロバイダの条件やクォータ違反について責任を負いません。</strong>"
+      }
+    }
+  }
+}

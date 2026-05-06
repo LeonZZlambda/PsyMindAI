@@ -14,6 +14,11 @@ try {
 
 // https://vite.dev/config/
 export default defineConfig({
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: ['src/setupTests.ts'],
+  },
   server: {
     headers: {
       'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',

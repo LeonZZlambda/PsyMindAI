@@ -34,6 +34,40 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, onOpenIm
 
   const cb = (k: string) => String(t(`settings.accessibility.colorblind.${k}`));
 
+  const supportedLanguages = ((i18n.options?.supportedLngs as unknown as string[] | undefined) || ['pt', 'en'])
+    .filter((lng): lng is string => typeof lng === 'string' && lng !== 'cimode');
+
+  const currentLanguage = i18n.resolvedLanguage || i18n.language || 'pt';
+  const selectedLanguage =
+    (supportedLanguages.includes(currentLanguage) && currentLanguage) ||
+    (supportedLanguages.includes(currentLanguage.split('-')[0]) && currentLanguage.split('-')[0]) ||
+    (supportedLanguages.find((lng) => currentLanguage.startsWith(lng)) ?? 'pt');
+
+  const getLanguageLabel = (lng: string): string => {
+    try {
+      const displayNames = new Intl.DisplayNames([i18n.resolvedLanguage || 'en'], { type: 'language' });
+      return displayNames.of(lng) || lng;
+    } catch {
+      const fallback: Record<string, string> = {
+        pt: 'Português',
+        en: 'English',
+        es: 'Español',
+        fr: 'Français',
+        de: 'Deutsch',
+        it: 'Italiano',
+        ja: '日本語',
+        ko: '한국어',
+        zh: '中文',
+        'zh-TW': '中文（繁體）',
+        ru: 'Русский',
+        ar: 'العربية',
+        hi: 'हिन्दी',
+        la: 'Latina',
+      };
+      return fallback[lng] || lng;
+    }
+  };
+
   const handleOptInChange = () => {
     const newVal = !telemetryOptIn;
     setTelemetryOptIn(newVal);
@@ -71,11 +105,8 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, onOpenIm
                 <span className="setting-desc">{t('settings.appearance.language.desc')}</span>
               </div>
               <CustomSelect 
-                value={(i18n.resolvedLanguage || i18n.language || 'pt').startsWith('en') ? 'en' : 'pt'}
-                options={[
-                  { value: 'pt', label: t('settings.appearance.language.pt') },
-                  { value: 'en', label: t('settings.appearance.language.en') }
-                ]}
+                value={selectedLanguage}
+                options={supportedLanguages.map((lng) => ({ value: lng, label: getLanguageLabel(lng) }))}
                 onChange={(val) => i18n.changeLanguage(val)}
                 ariaLabel={t('settings.appearance.language.label')}
               />

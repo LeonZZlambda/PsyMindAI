@@ -1,0 +1,54 @@
+{
+  "pomodoro": {
+    "title": "Pomodoro",
+    "restart": "Riavvia",
+    "generating": "Generazione in corso...",
+    "focus_tip": "Suggerimento di concentrazione (IA)",
+    "break_tip": "Suggerimento per la pausa (IA)",
+    "error": "❌ Errore di connessione all'IA. Riprova.",
+    "focus": "Concentrazione",
+    "short_break": "Pausa breve",
+    "long_break": "Pausa lunga",
+    "time_up": "Tempo scaduto!",
+    "notification_title": "PsyMind Pomodoro"
+  },
+  "soundscapes": {
+    "title": "Paesaggi sonori",
+    "close": "Chiudi",
+    "status": {
+      "playing": "Riproduzione in corso",
+      "paused": "In pausa"
+    },
+    "no_sound": "Nessun suono",
+    "actions": {
+      "play": "Riproduci",
+      "pause": "Pausa"
+    },
+    "choose_env": "Scegli un ambiente",
+    "volume": "Volume ambiente",
+    "sounds": {
+      "rain": "Pioggia leggera",
+      "focus": "Concentrazione profonda",
+      "white": "Rumore bianco",
+      "binaural": "Battiti binaurali"
+    }
+  },
+  "judge": {
+    "title": "Modalità Giudice — Preparazione",
+    "close_aria": "Chiudi modalità giudice",
+    "loading_challenge": "Sto formulando una sfida inedita per te...",
+    "loading_eval": "Il giudice sta analizzando la tua sottomissione (simulazione)...",
+    "submit": "Invia",
+    "retry": "Genera un'altra sfida",
+    "default_subject": "Programmazione",
+    "code_placeholder": "Scrivi qui il tuo codice in {{language}}...\n\n// Leggi tutto l'input (scanf/cin/input) e stampa nel formato richiesto (printf/cout/print).",
+    "errors": {
+      "generate_failed": "Impossibile generare la sfida. Usa **Genera un'altra sfida** o riprova tra poco.",
+      "internal": "Errore interno durante la generazione della sfida. Riprova.",
+      "eval_failed": "Impossibile completare la valutazione.",
+      "submit_failed": "Errore nell'invio al giudice."
+    },
+    "prompt_generate": "Agisci ESCLUSIVAMENTE come Giudice Automatico della OBI (Olimpiade Brasiliana di Informatica). Non fornire consigli sulla salute mentale; limitati a generare un problema di programmazione competitiva.\n\nCompito: crea un problema INEDITO applicabile alla selezione di {{subject}} per l'esame {{examName}}, con focus su: {{topics}}.\n\nStruttura obbligatoria in Markdown:\n## 🏆 Nome del Problema Inedito\n**Descrizione:** (Una breve storia)\n**Compito:** Cosa deve fare il concorrente.\n**Input:** (Formato esatto dell'input)\n**Output:** (Formato esatto dell'output, incluse le interruzioni di riga)\n**Esempi:** (Almeno due esempi reali di stdin/stdout)\n**Vincoli e Punteggio:** (Limiti e complessità per 100 punti).",
+    "prompt_evaluate_lead": "Agisci ESCLUSIVAMENTE come Correttore Automatico di una gara di programmazione. Valuta con rigore la sottomissione sottostante nel linguaggio **{{language}}**.\n\nIstruzioni (rispondi in chiaro Markdown):\n1. **Compilazione**: Il codice sembra sintatticamente valido?\n2. **Casi di test**: Simula mentalmente input, inclusi i casi limite.\n3. **Complessità**: Analizza tempo e spazio in notazione Big-O.\n4. **Verdetto**: Un verdetto finale ben visibile in MAIUSCOLO: ACCEPTED ✅, WRONG ANSWER ❌, TIME LIMIT EXCEEDED ⏳, RUNTIME ERROR 💥 o COMPILATION ERROR 🚨.\n5. **Punteggio**: Assegna un punteggio da 0 a 100.\n6. Spiega il perché, indica possibili linee problematiche o suggerisci ottimizzazioni. Sii giusto e critico come un giudice.\n"
+  }
+}

@@ -1,0 +1,588 @@
+{
+  "guided_learning": {
+    "title": "Руководимое обучение",
+    "aria": {
+      "close": "Закрыть",
+      "start_trail": "Начать маршрут",
+      "export_trail": "Экспортировать маршрут",
+      "delete_trail": "Удалить маршрут"
+    },
+    "tabs": {
+      "trails": "Маршруты обучения",
+      "flashcards": "Практика карточек",
+      "quizzes": "Случайный тест"
+    },
+    "alerts": {
+      "delete_confirm": "Вы действительно хотите удалить этот маршрут, сгенерированный ИИ?",
+      "import_success": "Маршрут успешно импортирован!",
+      "import_error": "Ошибка импорта. Вставьте корректный JSON-код маршрута перед импортом.",
+      "export_success": "Маршрут скопирован в буфер обмена! Поделитесь с друзьями.",
+      "export_error": "Ошибка при копировании маршрута.",
+      "generate_error": "Не удалось сгенерировать маршрут. Попробуйте точнее указать тему.",
+      "generate_catch": "Ошибка при подключении к сервису ИИ."
+    },
+    "trails": {
+      "active_back": "Назад к маршрутам",
+      "active_step": "Шаг {{step}} из {{total}}",
+      "active_finished": "Завершено",
+      "completed": "Завершено"
+    },
+    "completion": {
+      "perfection_title": "Идеально! Нет ошибок!",
+      "excellent_title": "Отличная работа!",
+      "continue_title": "Обучение — это непрерывный процесс!",
+      "stats": "Вы ответили правильно на <strong>{{correct}}</strong> из <strong>{{total}}</strong> вопросов с первой попытки ({{percentage}}%).",
+      "you_are_awesome": "Вы великолепны!",
+      "title": "Маршрут завершён!",
+      "action": "Вернуться к маршрутам",
+      "quizzes_title": "Тесты завершены!",
+      "retry": "Попробовать снова"
+    },
+    "flashcard": {
+      "flip_hint": "Нажмите, чтобы открыть",
+      "difficulty": {
+        "fail": "Повторить",
+        "hard": "Сложно",
+        "good": "Хорошо",
+        "easy": "Легко"
+      },
+      "times": {
+        "30s": "30 с",
+        "5m": "5 мин",
+        "30m": "30 мин",
+        "2h": "2 ч"
+      }
+    },
+    "quiz": {
+      "verify": "Проверить ответ",
+      "explain_btn": "Объяснить с помощью ИИ ✨",
+      "explaining": "Генерируется объяснение...",
+      "tutor": "ИИ-репетитор:",
+      "finish_trail": "Завершить маршрут",
+      "next_question": "Следующий вопрос",
+      "see_results": "Посмотреть результаты"
+    },
+    "open_ended": {
+      "placeholder": "Напишите ваш ответ или размышление здесь...",
+      "evaluate_btn": "Оценить ответ с помощью ИИ",
+      "evaluating": "Идёт оценка...",
+      "skip_btn": "Пропустить",
+      "your_answer": "Ваш ответ:",
+      "ai_feedback": "Комментарий ИИ:",
+      "continue_trail": "Продолжить маршрут"
+    },
+    "create": {
+      "title": "Что вы хотите изучить сегодня?",
+      "desc": "Опишите тему, эмоциональную задачу или навык. Наш ИИ создаст персонализированный интерактивный план (карточки и тесты).",
+      "placeholder": "Напр.: Хочу маршрут с карточками о практиках осознанности на работе за 5 минут...",
+      "btn_create": "Создать с ИИ",
+      "btn_generating": "Генерация материалов..."
+    },
+    "explore": {
+      "title": "Исследуйте маршруты или создайте свой",
+      "import": "Импорт",
+      "activities": "{{count}} активностей",
+      "generate": "Сгенерировать с ИИ"
+    },
+    "empty_flashcards": {
+      "title": "Нет разблокированных карточек",
+      "desc": "Завершите маршрут во вкладке \"Маршруты обучения\", чтобы разблокировать карточки для повторения."
+    },
+    "empty_quizzes": {
+      "title": "Нет разблокированных тестов",
+      "desc": "Завершите маршрут во вкладке \"Маршруты обучения\", чтобы разблокировать тесты для практики."
+    },
+    "status": {
+      "base_unlocked": "{{count}} разблокировано в базе",
+      "flashcard_status": "Карточка {{current}} / {{total}}",
+      "quiz_status": "Вопрос {{current}} / {{total}}",
+      "quick_quiz": "Быстрый общий тест",
+      "practice": "Практика карточек"
+    },
+    "default_trails": [
+      {
+        "id": 1,
+        "title": "Управление тревожностью",
+        "icon": "psychology",
+        "description": "Научитесь распознавать и управлять симптомами тревоги.",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "Что такое реакция «Борьба или бегство»?",
+            "back": "Это автоматическая физиологическая реакция организма на события, воспринимаемые как угроза или стресс, с активацией симпатической нервной системы."
+          },
+          {
+            "type": "quiz",
+            "question": "Какая техника дыхания наиболее рекомендована для снижения острой тревоги?",
+            "options": [
+              {
+                "id": "A",
+                "text": "Быстрое грудное дыхание"
+              },
+              {
+                "id": "B",
+                "text": "Задержка дыхания на 1 минуту"
+              },
+              {
+                "id": "C",
+                "text": "Диафрагмальное дыхание (4-7-8)"
+              },
+              {
+                "id": "D",
+                "text": "Гипервентиляция"
+              }
+            ],
+            "correctOption": "C"
+          },
+          {
+            "type": "flashcard",
+            "front": "Заземление (Grounding)",
+            "back": "Действие, возвращающее внимание в настоящий момент через фокусировку на физических ощущениях (напр.: 5 вещей, которые вы видите; 4 вещи, которые вы чувствуете)."
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Ненасильственное общение",
+        "icon": "forum",
+        "description": "Улучшайте отношения через эмпатичное общение.",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "Каковы четыре компонента ненасильственного общения?",
+            "back": "1. Наблюдение, 2. Чувство, 3. Потребность, 4. Просьба."
+          },
+          {
+            "type": "quiz",
+            "question": "Какая из следующих фраз является примером 'наблюдения' без оценки?",
+            "options": [
+              {
+                "id": "A",
+                "text": "Вы очень безответственны."
+              },
+              {
+                "id": "B",
+                "text": "Вы меня никогда не слушаете."
+              },
+              {
+                "id": "C",
+                "text": "Я заметил, что вы опаздывали на 10 минут на последних встречах."
+              },
+              {
+                "id": "D",
+                "text": "Вы всегда ленивы."
+              }
+            ],
+            "correctOption": "C"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Эмоциональный интеллект",
+        "icon": "favorite",
+        "description": "Распознавайте и контролируйте свои эмоции.",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "Что такое самосознание?",
+            "back": "Способность распознавать и понимать собственные настроения, эмоции и побуждения."
+          },
+          {
+            "type": "quiz",
+            "question": "Ключевой столп эмоционального интеллекта на рабочем месте —",
+            "options": [
+              {
+                "id": "A",
+                "text": "Скрывать свои чувства."
+              },
+              {
+                "id": "B",
+                "text": "Эмпатия к коллегам."
+              },
+              {
+                "id": "C",
+                "text": "Работать до изнеможения."
+              },
+              {
+                "id": "D",
+                "text": "Говорить громче других."
+              }
+            ],
+            "correctOption": "B"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Осознанность и концентрация",
+        "icon": "self_improvement",
+        "description": "Техники осознанности для сохранения фокуса на настоящем.",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "Что такое осознанность (Mindfulness)?",
+            "back": "Состояние ума, достигаемое путем фокусировки внимания на настоящем моменте, признания и принятия чувств."
+          },
+          {
+            "type": "quiz",
+            "question": "Если вы отвлеклись во время медитации, что следует сделать?",
+            "options": [
+              {
+                "id": "A",
+                "text": "Расстраиваться на себя."
+              },
+              {
+                "id": "B",
+                "text": "Сдаться и попробовать в другой день."
+              },
+              {
+                "id": "C",
+                "text": "Отметить отвлечение и мягко вернуться к фокусу на дыхании."
+              },
+              {
+                "id": "D",
+                "text": "Позволить уму блуждать бесконечно."
+              }
+            ],
+            "correctOption": "C"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Когнитивные искажения",
+        "icon": "visibility",
+        "description": "Поймите ошибки мышления, которые влияют на наши решения.",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "Эффект подтверждения",
+            "back": "Тенденция искать и запоминать информацию, подтверждающую предшествующие убеждения."
+          },
+          {
+            "type": "quiz",
+            "question": "Что такое эффект Даннинга–Крюгера?",
+            "options": [
+              {
+                "id": "A",
+                "text": "Переоценка своих навыков в задачах, где у вас мало опыта."
+              },
+              {
+                "id": "B",
+                "text": "Паника при публичных выступлениях."
+              },
+              {
+                "id": "C",
+                "text": "Привычка покупать вещи по распродаже."
+              },
+              {
+                "id": "D",
+                "text": "Забывание информации под давлением."
+              }
+            ],
+            "correctOption": "A"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "Организация учёбы",
+        "icon": "menu_book",
+        "description": "Техники управления временем и планирования занятий.",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "Что такое метод Помодоро?",
+            "back": "Техника управления временем, чередующая периоды интенсивного фокуса (например, 25 минут) с короткими перерывами (например, 5 минут) для поддержания продуктивности."
+          },
+          {
+            "type": "quiz",
+            "question": "Как лучше подготовиться к неделе с несколькими экзаменами?",
+            "options": [
+              {
+                "id": "A",
+                "text": "Учить всё накануне экзамена."
+              },
+              {
+                "id": "B",
+                "text": "Составить расписание, распределив предметы по неделе."
+              },
+              {
+                "id": "C",
+                "text": "Учить только самый трудный предмет."
+              },
+              {
+                "id": "D",
+                "text": "Не готовиться и полагаться лишь на память."
+              }
+            ],
+            "correctOption": "B"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "title": "Школьное давление и экзамены",
+        "icon": "school",
+        "description": "Стратегии управления тревогой перед экзаменом и предотвращения провала.",
+        "content": [
+          {
+            "type": "flashcard",
+            "front": "Что вызывает знаменитую 'пустоту' во время экзамена?",
+            "back": "Чаще всего 'пустота' вызвана всплеском тревоги. Мозг воспринимает экзамен как непосредственную угрозу, что блокирует доступ к памяти."
+          },
+          {
+            "type": "quiz",
+            "question": "Что делать, если вы чувствуете, что у вас начнётся 'пустота' во время экзамена?",
+            "options": [
+              {
+                "id": "A",
+                "text": "Впасть в тихую панику."
+              },
+              {
+                "id": "B",
+                "text": "Сделать паузу, закрыть глаза, глубоко вдохнуть и, если возможно, выпить воды."
+              },
+              {
+                "id": "C",
+                "text": "Отвечать на всё как можно быстрее."
+              },
+              {
+                "id": "D",
+                "text": "Немедленно расплакаться."
+              }
+            ],
+            "correctOption": "B"
+          },
+          {
+            "type": "flashcard",
+            "front": "Ожидания против реальности",
+            "back": "Часто давление исходит из ожиданий родителей или учителей. Важно помнить, что плохая оценка не определяет ваш интеллект — это помогает снизить и справиться с этим давлением."
+          }
+        ]
+      }
+    ]
+  },
+  "exams": {
+    "title": "Preparatório",
+    "close": "Fechar",
+    "back": "Voltar",
+    "hero_description": "Explore provas, matrizes de referência e atalhos de preparação.",
+    "vocational": {
+      "title": "Teste Vocacional",
+      "progress_aria": "Progresso do teste vocacional",
+      "introduction": {
+        "title": "Descubra sua Vocação Profissional",
+        "description": "Este teste é baseado no modelo RIASEC, uma ferramenta científica que identifica suas preferências profissionais através de seis dimensões: Realista, Investigativo, Artístico, Social, Empreendedor e Convencional.",
+        "features": {
+          "riasec": "Baseado no modelo RIASEC",
+          "insights": "Insights personalizados sobre carreira",
+          "guidance": "Orientação para tomada de decisões"
+        },
+        "start_button": "Iniciar Teste Vocacional"
+      },
+      "likert": {
+        "1": "Não curto e evito",
+        "2": "Acho chato",
+        "3": "Tanto faz / Neutro",
+        "4": "Gosto de fazer",
+        "5": "Adoro! Faria sempre"
+      },
+      "processing": "Analisando seu perfil vocacional...",
+      "result": {
+        "title": "Seu Perfil Profissional",
+        "cta_plan": "Gerar Plano de Estudos",
+        "chat_input": "Gostaria de um plano de estudos focado em {{area}}"
+      },
+      "questions": {
+        "1": "Você gosta de montar ou consertar objetos mecânicos no dia a dia ou de vez em quando?",
+        "2": "Você curte investigar problemas científicos ou matemáticos para achar soluções?",
+        "3": "Você se sente bem expressando ideias com design, artes ou criação visual?",
+        "4": "Você gosta de ajudar pessoas a aprender algo novo ou se desenvolver?",
+        "5": "Você se anima em liderar equipes e tomar decisões em projetos?",
+        "6": "Você gosta de organizar dados, arquivos e seguir rotinas claras?",
+        "7": "Você gosta de mexer com ferramentas, máquinas ou atividades práticas?",
+        "8": "Você se sente bem observando detalhes e testando hipóteses?",
+        "9": "Você gosta de criar algo original, mesmo que seja só por hobby?",
+        "10": "Você curte ouvir as pessoas e oferecer apoio quando precisam?",
+        "11": "Você se motiva em convencer, negociar ou vender uma ideia?",
+        "12": "Você se sente bem seguindo processos claros e checando tudo com cuidado?",
+        "13": "Você gosta de atividades ao ar livre ou que envolvam uso do corpo?",
+        "14": "Você gosta de aprender por conta própria e explorar assuntos a fundo?",
+        "15": "Você se anima em contar histórias, escrever ou compor algo?",
+        "16": "Você gosta de trabalhar em equipe e criar um clima de colaboração?",
+        "17": "Você gosta de assumir a frente para organizar pessoas e metas?",
+        "18": "Você curte planilhas, organização financeira ou tarefas administrativas?"
+      },
+      "dimensions": {
+        "R": "Realista",
+        "I": "Investigativo",
+        "A": "Artístico",
+        "S": "Social",
+        "E": "Empreendedor",
+        "C": "Convencional"
+      }
+    },
+    "sections": {
+      "categories": "Categorias",
+      "subjects": "Matérias",
+      "subjects_caption": "Selecione um recorte para gerar plano, estratégia ou prática guiada.",
+      "available_options_one": "{{count}} opção disponível",
+      "available_options_other": "{{count}} opções disponíveis"
+    },
+    "categories_title": {
+      "international": "Internacionais",
+      "national": "Nacionais",
+      "regional": "Regionais",
+      "olympiads": "Olimpíadas"
+    },
+    "topics_header": "Matriz de Referência e Conteúdos",
+    "actions": {
+      "ai_plan": "Criar Plano de Estudos com IA",
+      "ai_strategy": "Estratégia de Prova",
+      "ai_judge": "Modo Preparatório (Juiz OBI)",
+      "explain_topic": "Explicar tópico",
+      "generate_quiz": "Gerar questões (Simulado)"
+    },
+    "calculator": {
+      "mode_simple": {
+        "title": "Média Simples",
+        "desc": "Já tenho minhas notas finais e quero calcular a média."
+      },
+      "mode_advanced": {
+        "title": "Por Acertos",
+        "desc": "Tenho apenas o gabarito e quero estimar minha nota."
+      },
+      "inputs": {
+        "course": "Curso Almejado (ex: Medicina)",
+        "category": "Categoria de Concorrência"
+      },
+      "subjects": {
+        "linguagens": "Linguagens",
+        "humanas": "Ciências Humanas",
+        "natureza": "Ciências da Natureza",
+        "matematica": "Matemática",
+        "redacao": "Redação"
+      },
+      "correct_labels": {
+        "linguagens": "Acertos Linguagens (0-45)",
+        "humanas": "Acertos Humanas (0-45)",
+        "natureza": "Acertos Natureza (0-45)",
+        "matematica": "Acertos Matemática (0-45)",
+        "redacao": "Nota Redação (0-1000)"
+      },
+      "ignore_redacao": "Ainda não tenho a nota da redação",
+      "result": {
+        "simple_label": "Sua Média Simples:",
+        "advanced_label": "Média Estimada (Intervalo TRI):",
+        "avg": "Média provável: ~{{val}}",
+        "warning": "A nota da Redação <strong>NÃO</strong> foi incluída neste cálculo. Esta média considera apenas as 4 áreas objetivas.",
+        "note_simple": "*Esta é uma média simples. O SiSU e ProUni podem usar pesos diferentes dependendo do curso e universidade.",
+        "note_advanced": "*Esta é uma estimativa baseada em padrões anteriores. A nota real depende do TRI (Teoria de Resposta ao Item) e da dificuldade das questões."
+      },
+      "buttons": {
+        "switch": "Trocar Modo",
+        "calc_ai": "Calcular e Analisar com IA",
+        "calc": "Calcular Média"
+      },
+      "prompts": {
+        "simple": "🎓 ANÁLISE DE VIABILIDADE SISU/PROUNI\n\n📊 MINHAS NOTAS DO ENEM:\n• Linguagens: {{linguagens}}\n• Ciências Humanas: {{humanas}}\n• Ciências da Natureza: {{natureza}}\n• Matemática: {{matematica}}\n• Redação: {{redacao}}\n\n📈 Média Simples: {{avg}}\n\n🎯 OBJETIVO:\n• Curso: {{course}}\n• Modalidade: {{category}}\n\nPor favor, me ajude com:\n\n1. 🏛️ UNIVERSIDADES VIÁVEIS\n   - Liste universidades federais/estaduais onde tenho BOA chance\n   - Mencione as notas de corte recentes\n\n2. ⚠️ OPÇÕES ARRISCADAS\n   - Universidades onde seria mais difícil, mas possível\n\n3. ⚖️ SISTEMA DE PESOS\n   - Como {{course}} costuma pesar as áreas?\n   - Qual minha nota ponderada estimada?\n\n4. 💡 ESTRATÉGIAS\n   - Devo focar em melhorar alguma área específica?\n   - Dicas para escolha de cursos no SiSU\n\n5. 🧠 APOIO EMOCIONAL\n   - Como lidar com a ansiedade da espera?\n   - Mensagem motivacional personalizada\n\nSeja realista mas encorajador! 💪",
+        "advanced": "🎯 ANÁLISE TRI - ESTIMATIVA DE DESEMPENHO\n\n📝 MEUS ACERTOS:\n• Linguagens: {{linguagens}}/45 questões\n  📉 Nota estimada: {{triLinguagensMin}} - {{triLinguagensMax}} pontos\n  \n• Humanas: {{humanas}}/45 questões\n  📉 Nota estimada: {{triHumanasMin}} - {{triHumanasMax}} pontos\n  \n• Natureza: {{natureza}}/45 questões\n  📉 Nota estimada: {{triNaturezaMin}} - {{triNaturezaMax}} pontos\n  \n• Matemática: {{matematica}}/45 questões\n  📉 Nota estimada: {{triMatematicaMin}} - {{triMatematicaMax}} pontos\n\n{{redacaoInfo}}\n\n📊 MÉDIA ESTIMADA:\n• Cenário pessimista: {{totalMin}}\n• Cenário otimista: {{totalMax}}\n• Média provável: ~{{totalAvg}}\n{{observacao}}\n\n🎯 MEU OBJETIVO:\n• Curso: {{course}}\n• Modalidade: {{category}}\n\nPreciso de uma análise completa:\n\n1. 🏛️ CHANCES REAIS\n   - Considerando o intervalo de notas, quais universidades são viáveis?\n   - Compare com notas de corte recentes\n{{impactoRedacao}}\n\n2. 📈 ANÁLISE POR ÁREA\n   - Em quais áreas fui bem?\n   - Onde posso melhorar se fizer novamente?\n\n3. ⚖️ PESOS E ESTRATÉGIA\n   - Como {{course}} pondera as áreas?\n   - Minhas áreas fortes favorecem este curso?\n\n4. 🔄 PLANO B\n   - Cursos alternativos que combinam com meu perfil de notas\n   - Opções em universidades próximas\n\n5. 💪 APOIO PSICOLÓGICO\n   - Como lidar com a incerteza da estimativa TRI?\n   - Dicas para manter a calma até o resultado oficial\n   - Mensagem motivacional baseada no meu desempenho\n\nSeja honesto sobre as chances, mas também encorajador! 🌟"
+      }
+    },
+    "prompts": {
+      "plan": "Crie um plano de estudos completo para {{exam}} - {{subject}}:\n\n📚 TÓPICOS:\n{{topics}}\n\nPor favor, forneça:\n1. Ordem ideal de estudo\n2. Tempo sugerido para cada tópico\n3. Técnicas de estudo específicas\n4. Recursos recomendados\n5. Como esse conteúdo aparece nas provas\n6. Dicas para fixação e revisão\n\nSeja prático e motivador! 💪",
+      "strategy": "Analise a estratégia de preparação para {{exam}} - {{subject}}:\n\n🎯 Como devo priorizar meus estudos?\n📊 Quais são os tópicos que mais caem?\n⚡ Técnicas de resolução rápida\n🧠 Como lidar com ansiedade pré-prova\n📝 Dicas de gestão de tempo durante o exame\n\nDê conselhos práticos e motivadores!",
+      "explain": "Explique de forma clara e didática o seguinte tópico de {{subject}} para {{exam}}:\n\n📌 {{topic}}\n\nIncluindo:\n1. Conceitos fundamentais\n2. Exemplos práticos\n3. Como aparece nas provas\n4. Dicas de memorização\n5. Erros comuns a evitar\n\nUse linguagem acessível! 📚"
+    }
+  },
+  "quiz": {
+    "title": "Simulado Integrado: {{topic}}",
+    "close": "Fechar",
+    "loading": {
+      "title": "Gerando questões inéditas...",
+      "desc": "Nossa IA está formulando o simulado pedagógico no formato de {{exam}}."
+    },
+    "results": {
+      "title": "Treinamento Concluído!",
+      "score": "Você acertou {{score}} de {{total}} questões.",
+      "finish": "Finalizar Revisão"
+    },
+    "active": {
+      "progress": "Questão {{current}} de {{total}}",
+      "confirm": "Confirmar Resposta",
+      "next": "Próxima Questão",
+      "see_results": "Ver Resultados",
+      "correct": "✨ Resposta Correta!",
+      "incorrect": "❌ Resposta Incorreta"
+    },
+    "messages": {
+      "error_comm": "Houve um erro na comunicação avançada com a IA para gerar este JSON. Tente novamente mais tarde.",
+      "try_again": "Tentar novamente",
+      "error_desc": "Falha de rede ou resposta mal formatada."
+    },
+    "prompt": "Atue como um gerador de questões para simulados. Crie 4 questões originais de nível do exame {{exam}} na matéria de {{subject}} focando no tema: {{topic}}.\n\nRetorne APENAS um array em formato JSON puro, contendo as questões. Em hipótese alguma escreva qualquer outra palavra fora das chaves do JSON. Não inclua ```json no início.\n\n[\n  {\n    \"pergunta\": \"Texto da pergunta formatado...\",\n    \"alternativas\": [\"Alternativa 1\", \"Alternativa 2\", \"Alternativa 3\", \"Alternativa 4\", \"Alternativa 5\"],\n    \"correta\": 0,\n    \"explicacao\": \"Explicação detalhada da alternativa correta.\"\n  }\n]"
+  },
+  "roadmap": {
+    "title": "Roadmap",
+    "intro": "Visão geral das funcionalidades planejadas e marcos."
+  },
+  "roadmap_page": {
+    "title": "Roadmap do Produto",
+    "subtitle": "Acompanhe nossa jornada e veja o que estamos construindo para o futuro da educação emocional.",
+    "back_home": "Voltar ao início",
+    "statuses": {
+      "completed": "Concluído",
+      "in_progress": "Em Desenvolvimento",
+      "planned": "Planejado"
+    },
+    "phases": [
+      {
+        "quarter": "Q4 2025",
+        "status": "completed",
+        "title": "Lançamento Beta",
+        "items": [
+          "Interface de Chat Intuitiva",
+          "Integração com IA Generativa",
+          "Modo Escuro/Claro",
+          "Suporte a Comandos de Voz"
+        ]
+      },
+      {
+        "quarter": "Q1 2026",
+        "status": "in_progress",
+        "title": "Expansão de Recursos",
+        "items": [
+          "Sistema de Simulados Integrados (Quizzes)",
+          "Modo Juiz Competitivo (C, C++, Python)",
+          "Integração Interativa de Olimpíadas e Vestibulares",
+          "Módulo de Pomodoro Avançado",
+          "Histórico de Conversas Persistente"
+        ]
+      },
+      {
+        "quarter": "Q2 2026",
+        "status": "planned",
+        "title": "Comunidade e Conteúdo",
+        "items": [
+          "Fórum de Estudantes",
+          "Curadoria de Conteúdos Educativos",
+          "Integração com Google Calendar",
+          "App Mobile (iOS/Android)"
+        ]
+      },
+      {
+        "quarter": "Q3 2026",
+        "status": "planned",
+        "title": "Personalização Avançada",
+        "items": [
+          "Tutores de IA Personalizáveis",
+          "Dashboard de Estatísticas de Estudo",
+          "Gamificação e Conquistas",
+          "API Pública para Desenvolvedores"
+        ]
+      }
+    ]
+  }
+}

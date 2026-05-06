@@ -86,7 +86,26 @@
     },
     "charts": {
       "top_features_community": "Top 5 Ferramentas (Comunidade)",
-      "top_features_personal": "Top 5 Ferramentas Utilizadas"
+      "top_features_personal": "Top 5 Ferramentas Utilizadas",
+      "empty_personal": "Ainda não há dados suficientes para plotar o uso. Que tal interagir mais com o app?"
+    },
+    "units": {
+      "minutes_short": "min",
+      "points_short": "pts",
+      "days_one": "{{count}} dia",
+      "days_other": "{{count}} dias",
+      "errors_one": "{{count}} erro",
+      "errors_other": "{{count}} erros"
+    },
+    "export_json": "Exportar Telemetria (JSON)",
+    "mock": {
+      "top_features": {
+        "assistant_chat": "Chat Assistente",
+        "emotional_journal": "Diário Emocional",
+        "pomodoro": "Pomodoro",
+        "resolution_wall": "Mural de Resoluções",
+        "mind_maps": "Mapas Mentais"
+      }
     },
     "meta_analysis": {
       "title": "Modo Meta: Análise de Padrão (IA)",

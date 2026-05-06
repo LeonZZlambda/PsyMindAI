@@ -1,0 +1,256 @@
+{
+  "dashboard": {
+    "title": "Painel",
+    "intro": "Visão geral com métricas-chave e insights."
+  },
+  "study_stats": {
+    "title": "Dashboard de Estudos",
+    "close": "Fechar",
+    "add_session": "Sessão",
+    "hide_form": "Ocultar registro",
+    "eyebrow": "Telemetria de estudo",
+    "hero_title": "Seu ritmo de estudo",
+    "hero_description": "Acompanhe foco, volume semanal e distribuição por disciplina.",
+    "weekly_caption": "Últimos 7 dias, com destaque para hoje",
+    "telemetry_off": "Telemetria desativada",
+    "telemetry_disabled": "Os dados do seu uso no app estão desativados em Configurações. O dashboard continua mostrando seus registros de estudo, mas os indicadores de jornada permanecem ocultos.",
+    "form": {
+      "title": "Registrar Estudo (Dia Atual)",
+      "topic_placeholder": "Matéria / Tópico",
+      "duration_aria": "Duração da sessão",
+      "durations": {
+        "15": "15 min",
+        "30": "30 min",
+        "45": "45 min",
+        "60": "1 hora",
+        "90": "1h 30m",
+        "120": "2 horas"
+      },
+      "save": "Salvar"
+    },
+    "metrics": {
+      "avg_focus": "Foco Médio",
+      "sessions": "Sessões no App",
+      "session": "sessão",
+      "app_sessions": "sessões no app",
+      "entries_logged_one": "{{count}} registro",
+      "entries_logged_other": "{{count}} registros",
+      "total_study_time": "Tempo Total",
+      "this_journey": "nesta jornada",
+      "transformation": "Transformação",
+      "active_days": "Dias Ativos"
+    },
+    "charts": {
+      "weekly_title": "Ritmo Semanal",
+      "discipline_title": "Foco por Disciplina"
+    },
+    "ai_tip": {
+      "label": "Dica da IA:",
+      "empty": "Nenhum tópico estudado recentemente. Retome os estudos para construir sua disciplina e ganhar pontos!",
+      "good": "Sua dedicação em {{topic}} está ótima. Mantenha os seus {{score}} pontos de Transformação subindo e tente não sobrecarregar!",
+      "no_telemetry": "Seu foco recente está puxado por {{topic}}. Ative a telemetria do app para combinar esse avanço com indicadores de jornada e retenção."
+    },
+    "empty": "Você ainda não tem registros de estudo. Comece a registrar para receber insights!",
+    "days": {
+      "mon": "Seg",
+      "tue": "Ter",
+      "wed": "Qua",
+      "thu": "Qui",
+      "fri": "Sex",
+      "sat": "Sáb",
+      "sun": "Dom"
+    }
+  },
+  "analytics_page": {
+    "title": "Dashboard de Uso",
+    "subtitle": "Acompanhe a evolução global da nossa comunidade e o seu progresso pessoal.",
+    "back_home": "Voltar ao início",
+    "tabs": {
+      "global": "Visão Geral",
+      "personal": "Meu Uso"
+    },
+    "mockup_warning": "⚠️ Aviso de Mockup: Esta é uma demonstração ilustrativa. Como o aplicativo roda 100% no seu dispositivo (sem backend), estes dados globais são simulados. No futuro, representarão a comunidade real.",
+    "alerts": {
+      "api_key": "Configure a chave da API do Gemini em Configurações (ou no chat) antes de continuar.",
+      "insufficient_data": "Não há dados suficientes para gerar a análise. Tente usar o diário ou as ferramentas de estudo com mais frequência.",
+      "connection_failed": "Falha ao conectar com a IA para a meta-análise.",
+      "telemetry_disabled": "Telemetria pessoal desativada. O registro de analytics está desligado em Configurações. Ative-o para desbloquear gráficos interativos do seu acompanhamento de jornada."
+    },
+    "metrics": {
+      "active_users": "Usuários Ativos",
+      "total_sessions": "Sessões Totais",
+      "avg_session": "Média de Sessão",
+      "transformation_score": "Pontos de Transformação",
+      "retention": "Retenção Semanal",
+      "error_count": "Taxa de Falhas"
+    },
+    "charts": {
+      "top_features_community": "Top 5 Ferramentas (Comunidade)",
+      "top_features_personal": "Top 5 Ferramentas Utilizadas"
+    },
+    "meta_analysis": {
+      "title": "Modo Meta: Análise de Padrão (IA)",
+      "description": "Deixe a inteligência artificial revisar passivamente cruzamentos entre seus focos, humores e sessões para te dar dicas ativas.",
+      "button": "Gerar Auto-Reflexão",
+      "generating": "Analisando dados...",
+      "pattern_label": "🧠 Padrão Observado:",
+      "suggestion_label": "⚡ Sugestão:",
+      "generate_new": "Gerar nova reflexão"
+    }
+  },
+  "emotional_journal": {
+    "title": "Repertório Emocional",
+    "close_aria": "Fechar repertório emocional",
+    "tabs": {
+      "new": "Novo Registro",
+      "history": "Histórico"
+    },
+    "subtitle": "Amplie seu vocabulário emocional. Quanto mais você nomeia o que sente, mais fácil é comunicar-se e conectar-se.",
+    "placeholder": "Escreva sua resposta...",
+    "save": "Salvar Registro",
+    "empty": "Nenhum registro encontrado. Comece seu diário emocional!",
+    "delete_aria": "Excluir registro",
+    "questions": {
+      "excited": "O que te deixou animado no dia de hoje?",
+      "irritated": "O que te irritou?",
+      "frustrated": "Algo te frustrou?",
+      "proud": "Quando você se sentiu bem consigo mesmo?"
+    }
+  },
+  "reflections": {
+    "title": "Reflexões",
+    "tabs": {
+      "daily": "Reflexão do Dia",
+      "explore": "Explorar Temas",
+      "breathing": "Respiração Guiada"
+    },
+    "close": "Fechar",
+    "daily_tab": {
+      "generating": "Gerando frase inspiradora...",
+      "new_button": "Nova Frase IA",
+      "ai_button": "Reflexão IA",
+      "ai_reflecting": "Refletindo...",
+      "chat_button": "Refletir no Chat",
+      "error": "❌ Erro ao conectar com IA. Tente novamente."
+    },
+    "explore_tab": {
+      "title": "Escolha um tema para refletir",
+      "categories": {
+        "resilience": "Resiliência",
+        "self_knowledge": "Autoconhecimento",
+        "purpose": "Propósito",
+        "anxiety": "Ansiedade",
+        "gratitude": "Gratidão",
+        "self_esteem": "Autoestima"
+      }
+    },
+    "breathing_tab": {
+      "title": "Escolha uma técnica de respiração",
+      "techniques": {
+        "478": {
+          "name": "4-7-8",
+          "desc": "Relaxamento profundo"
+        },
+        "box": {
+          "name": "Box Breathing",
+          "desc": "Equilíbrio e foco"
+        },
+        "calm": {
+          "name": "Respiração Calma",
+          "desc": "Redução de ansiedade"
+        },
+        "energy": {
+          "name": "Respiração Energizante",
+          "desc": "Aumenta energia"
+        }
+      },
+      "start": "Iniciar",
+      "stop": "Parar",
+      "phases": {
+        "inhale": "Inspire",
+        "hold": "Segure",
+        "exhale": "Expire",
+        "holdAfter": "Segure"
+      }
+    },
+    "chat_prompt": "Oi, PsyMind. Li essa frase de {{author}}: \"{{text}}\". Gostaria de refletir sobre o que ela significa para o meu momento atual.",
+    "default_quotes": [
+      {
+        "text": "A única maneira de fazer um excelente trabalho é amar o que você faz.",
+        "author": "Steve Jobs",
+        "category": "propósito"
+      },
+      {
+        "text": "Não é o que nos acontece, mas nossa reação ao que nos acontece que nos fere.",
+        "author": "Epiteto",
+        "category": "resiliência"
+      },
+      {
+        "text": "A felicidade não é algo pronto. Ela vem de suas próprias ações.",
+        "author": "Dalai Lama",
+        "category": "felicidade"
+      },
+      {
+        "text": "Conhece-te a ti mesmo e conhecerás o universo e os deuses.",
+        "author": "Sócrates",
+        "category": "autoconhecimento"
+      },
+      {
+        "text": "O sucesso é ir de fracasso em fracasso sem perder o entusiasmo.",
+        "author": "Winston Churchill",
+        "category": "resiliência"
+      },
+      {
+        "text": "Seja a mudança que você quer ver no mundo.",
+        "author": "Mahatma Gandhi",
+        "category": "propósito"
+      },
+      {
+        "text": "A ansiedade é a vertigem da liberdade.",
+        "author": "Søren Kierkegaard",
+        "category": "ansiedade"
+      },
+      {
+        "text": "O que você pensa, você se torna. O que você sente, você atrai. O que você imagina, você cria.",
+        "author": "Buda",
+        "category": "autoconhecimento"
+      },
+      {
+        "text": "Não deixe que o ruído da opinião alheia cale a sua própria voz interior.",
+        "author": "Steve Jobs",
+        "category": "autoestima"
+      },
+      {
+        "text": "A gratidão transforma o que temos em suficiente.",
+        "author": "Melody Beattie",
+        "category": "gratidão"
+      }
+    ]
+  },
+  "mood_tracker": {
+    "title": "Diário de Emoções",
+    "close_aria": "Fechar diário de emoções",
+    "tabs": {
+      "new": "Novo Registro",
+      "history": "Histórico"
+    },
+    "question": "Como você está se sentindo agora?",
+    "note_placeholder": "Adicione uma nota sobre o que está sentindo... (opcional)",
+    "save": "Salvar Registro",
+    "empty": "Nenhum registro encontrado.",
+    "ai_insight": {
+      "analyzing": "Analisando...",
+      "button": "Análise IA do Humor",
+      "error": "❌ Erro ao conectar com IA. Tente novamente."
+    },
+    "delete_aria": "Excluir registro",
+    "moods": {
+      "happy": "Feliz",
+      "calm": "Calmo",
+      "focused": "Focado",
+      "anxious": "Ansioso",
+      "tired": "Cansado",
+      "sad": "Triste"
+    }
+  }
+}

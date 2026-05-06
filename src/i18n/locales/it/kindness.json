@@ -1,0 +1,55 @@
+{
+  "kindness": {
+    "title": "Gesti di gentilezza",
+    "categories": {
+      "random": "Casuale",
+      "stranger": "Sconosciuti",
+      "family": "Famiglia/Amici",
+      "self": "Per te",
+      "work": "Lavoro/Scuola"
+    },
+    "loading": "L'IA sta trovando il gesto perfetto...",
+    "completed": "Completato",
+    "generate_new": "Genera un altro",
+    "will_do": "Lo farò!",
+    "done": "Fatto!",
+    "success_toast": "Congratulazioni! Il mondo è un po' migliore.",
+    "prompts": {
+      "random": "Suggerisci un gesto di gentilezza semplice e pratico che chiunque può fare oggi (1 frase).",
+      "stranger": "Suggerisci un gesto di gentilezza semplice da fare con uno sconosciuto (1 frase).",
+      "family": "Suggerisci un gesto di gentilezza semplice da fare con la famiglia o gli amici (1 frase).",
+      "self": "Suggerisci un gesto semplice di cura di sé o autocompassione (1 frase).",
+      "work": "Suggerisci un gesto di gentilezza semplice da fare al lavoro o a scuola (1 frase)."
+    },
+    "database": {
+      "stranger": [
+        "Fai un complimento sincero sull'abbigliamento o un accessorio di qualcuno che non conosci.",
+        "Tieni la porta per qualcuno che entra o esce.",
+        "Lascia un biglietto positivo in un libro in biblioteca o in un luogo pubblico.",
+        "Sorridi e saluta l'autista dell'autobus o il cassiere del negozio.",
+        "Offri il caffè alla persona dietro di te in fila (se puoi)."
+      ],
+      "family": [
+        "Chiama un parente solo per dirgli che lo ami.",
+        "Fai una faccenda domestica che non è di tua responsabilità.",
+        "Scrivi una lettera di ringraziamento a qualcuno che ti ha aiutato in passato.",
+        "Prepara il piatto preferito di qualcuno della tua casa.",
+        "Ascolta attivamente qualcuno senza interrompere o guardare il telefono."
+      ],
+      "self": [
+        "Elenca 3 cose che ti piacciono di te.",
+        "Prenditi 15 minuti per fare qualcosa che ami senza sensi di colpa.",
+        "Perdonati per un errore commesso di recente.",
+        "Fai una passeggiata consapevole osservando la natura.",
+        "Scrivi in un diario come ti senti oggi."
+      ],
+      "work": [
+        "Offri aiuto a un collega che sembra sovraccarico.",
+        "Loda pubblicamente il lavoro di qualcuno o parlane al capo.",
+        "Porta uno snack o un dolce da condividere con il team.",
+        "Lascia un post-it di incoraggiamento sulla scrivania di qualcuno.",
+        "Ringrazia qualcuno per qualcosa di specifico che ha fatto."
+      ]
+    }
+  }
+}

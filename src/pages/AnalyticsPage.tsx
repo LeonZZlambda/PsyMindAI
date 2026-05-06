@@ -83,11 +83,11 @@ const AnalyticsPage: React.FC = () => {
     avgSessionMinutes: '12.4',
     transformationScore: '89.4k',
     topFeatures: [
-      { label: 'Chat Assistente', val: 42500, pct: 100 },
-      { label: 'Diário Emocional', val: 28400, pct: 66.8 },
-      { label: 'Pomodoro', val: 19200, pct: 45.1 },
-      { label: 'Mural de Resoluções', val: 12400, pct: 29.1 },
-      { label: 'Mapas Mentais', val: 8900, pct: 20.9 }
+      { label: t('analytics_page.mock.top_features.assistant_chat'), val: 42500, pct: 100 },
+      { label: t('analytics_page.mock.top_features.emotional_journal'), val: 28400, pct: 66.8 },
+      { label: t('analytics_page.mock.top_features.pomodoro'), val: 19200, pct: 45.1 },
+      { label: t('analytics_page.mock.top_features.resolution_wall'), val: 12400, pct: 29.1 },
+      { label: t('analytics_page.mock.top_features.mind_maps'), val: 8900, pct: 20.9 }
     ]
   }
 
@@ -120,10 +120,10 @@ const AnalyticsPage: React.FC = () => {
       <LandingHeader />
 
       <main className="roadmap-content" style={{ maxWidth: '800px', margin: '0 auto', paddingBottom: '80px', width: '100%', boxSizing: 'border-box' }}>
-        <div className="roadmap-header">
-          <h1>{t('analytics_page.title')} <span className="gradient-text">Dashboard</span></h1>
-          <p>{t('analytics_page.subtitle')}</p>
-        </div>
+	          <div className="roadmap-header">
+	          <h1>{t('analytics_page.title')}</h1>
+	          <p>{t('analytics_page.subtitle')}</p>
+	        </div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -173,11 +173,11 @@ const AnalyticsPage: React.FC = () => {
                   <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{t('analytics_page.metrics.active_users')}</span>
                   <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{globalStats.activeUsers}</span>
                 </div>
-                <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
-                  <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>timer</span>
-                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{t('analytics_page.metrics.avg_session')}</span>
-                  <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{globalStats.avgSessionMinutes} min</span>
-                </div>
+	                <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
+	                  <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>timer</span>
+	                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{t('analytics_page.metrics.avg_session')}</span>
+	                  <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{globalStats.avgSessionMinutes} {t('analytics_page.units.minutes_short')}</span>
+	                </div>
                 <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
                   <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>psychology_alt</span>
                   <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{t('analytics_page.metrics.transformation_score')}</span>
@@ -277,27 +277,27 @@ const AnalyticsPage: React.FC = () => {
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '20px' }}>
-                <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
-                  <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>psychology_alt</span>
-                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{t('analytics_page.metrics.transformation_score')}</span>
-                  <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{derived.transformationScore} pts</span>
-                </div>
-                <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
-                  <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>timer</span>
-                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{t('analytics_page.metrics.avg_session')}</span>
-                  <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{derived.avgSessionMinutes} min</span>
-                </div>
-                <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
-                  <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>calendar_month</span>
-                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{t('analytics_page.metrics.retention')}</span>
-                  <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{derived.daysActive} dias</span>
-                </div>
-                <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
-                  <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>error</span>
-                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{t('analytics_page.metrics.error_count')}</span>
-                  <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{derived.errorCount} erros</span>
-                </div>
-              </div>
+	                <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
+	                  <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>psychology_alt</span>
+	                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{t('analytics_page.metrics.transformation_score')}</span>
+	                  <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{derived.transformationScore} {t('analytics_page.units.points_short')}</span>
+	                </div>
+	                <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
+	                  <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>timer</span>
+	                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{t('analytics_page.metrics.avg_session')}</span>
+	                  <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{derived.avgSessionMinutes} {t('analytics_page.units.minutes_short')}</span>
+	                </div>
+	                <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
+	                  <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>calendar_month</span>
+	                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{t('analytics_page.metrics.retention')}</span>
+	                  <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{t('analytics_page.units.days', { count: derived.daysActive })}</span>
+	                </div>
+	                <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
+	                  <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>error</span>
+	                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{t('analytics_page.metrics.error_count')}</span>
+	                  <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{t('analytics_page.units.errors', { count: derived.errorCount })}</span>
+	                </div>
+	              </div>
 
               {/* Chart Secao */}
               <div style={{ background: 'var(--card-background)', padding: '30px', borderRadius: '16px', border: '1px solid var(--border-color)' }}>
@@ -306,7 +306,7 @@ const AnalyticsPage: React.FC = () => {
                   {t('analytics_page.charts.top_features_personal')}
                 </h3>
                 
-                {chartData.length > 0 ? (
+	                {chartData.length > 0 ? (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
                     {chartData.map((item: FeatureUsedEntry, idx: number) => (
                       <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
@@ -327,22 +327,22 @@ const AnalyticsPage: React.FC = () => {
                       </div>
                     ))}
                   </div>
-                ) : (
-                  <p style={{ color: 'var(--text-light)', fontStyle: 'italic' }}>Ainda não há dados suficientes para plotar o uso. Que tal interagir mais com o app?</p>
-                )}
-              </div>
+	                ) : (
+	                  <p style={{ color: 'var(--text-light)', fontStyle: 'italic' }}>{t('analytics_page.charts.empty_personal')}</p>
+	                )}
+	              </div>
 
               {/* Botão de Exportação */}
               <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
-                <button 
-                  className="primary-btn pulse-animation" 
-                  onClick={handleExport} 
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', padding: '12px 24px', fontSize: '1.05rem', boxShadow: '0 4px 15px rgba(0, 121, 107, 0.25)' }}
-                >
-                  <span className="material-symbols-outlined">download</span>
-                  Exportar Telemetria (JSON)
-                </button>
-              </div>
+	                <button 
+	                  className="primary-btn pulse-animation" 
+	                  onClick={handleExport} 
+	                  style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', padding: '12px 24px', fontSize: '1.05rem', boxShadow: '0 4px 15px rgba(0, 121, 107, 0.25)' }}
+	                >
+	                  <span className="material-symbols-outlined">download</span>
+	                  {t('analytics_page.export_json')}
+	                </button>
+	              </div>
             </div>
             )
           )}

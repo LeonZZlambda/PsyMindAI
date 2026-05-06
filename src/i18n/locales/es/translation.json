@@ -1,0 +1,352 @@
+{
+  "api": {
+    "errors": {
+      "API_KEY_MISSING": "🔑 Para chatear con todas las funciones, necesito que configures una API Key en tu archivo .env.",
+      "INVALID_KEY": "🔑 Vaya — tu clave API puede haber caducado o ser inválida. Intenta crear una nueva en https://aistudio.google.com/app/apikey 💜",
+      "RATE_LIMIT": "¡Lo siento! 💜 Estoy recibiendo muchas peticiones ahora. ¿Puedes esperar un momento e intentarlo de nuevo?",
+      "FORBIDDEN": "🚫 Tu clave API actual parece no tener los permisos necesarios. Por favor, revisa la configuración. 💜",
+      "NOT_FOUND": "❌ Algo salió mal — no se encontró el modelo de IA en la configuración.",
+      "SERVER_ERROR": "⚠️ Mis sistemas están temporalmente inestables. Intenta de nuevo en unos instantes.",
+      "UNAVAILABLE": "🔧 El servicio está temporalmente indisponible. ¿Intentamos de nuevo en breve?",
+      "EMPTY_RESPONSE": "No recibí una respuesta completa de la IA. ¿Puedes enviar tu mensaje otra vez?",
+      "NETWORK": "Parece que hay un problema de conexión con Internet o con el servicio. Revisa tu red y prueba de nuevo.",
+      "UNKNOWN": "Lo siento — no pude conectarme ahora mismo, estaba procesando mucha información. 💜 Por favor, vuelve a enviar tu mensaje en unos instantes.",
+      "service_fallback": "No se pudo completar esta acción ahora. Intenta de nuevo en breve."
+    }
+  },
+  "common": {
+    "close": "Cerrar",
+    "close_modal": "Cerrar modal",
+    "back": "Atrás"
+  },
+  "sidebar": {
+    "new_chat": "Nuevo chat",
+    "anonymous_chat": "Sesión Anónima",
+    "anonymous_tooltip": "Chat anónimo (no se guardará historial)",
+    "recent_label": "Recientes",
+    "chat_deleted": "Chat eliminado",
+    "help": "Ayuda",
+    "settings": "Ajustes",
+    "close_menu": "Cerrar menú lateral",
+    "menu_aria": "Menú lateral",
+    "time": {
+      "now": "Ahora",
+      "minutes_ago": "hace {{count}}m",
+      "hours_ago": "hace {{count}}h",
+      "yesterday": "Ayer",
+      "days_ago": "hace {{count}}d",
+      "date": "{{day}}/{{month}}"
+    }
+  },
+  "settings": {
+    "title": "Ajustes",
+    "close_aria": "Cerrar ajustes",
+    "appearance": {
+      "title": "Apariencia",
+      "language": {
+        "label": "Idioma",
+        "desc": "Selecciona el idioma de la interfaz",
+        "pt": "Português (Brasil)",
+        "en": "English (US)"
+      }
+    },
+    "theme": {
+      "follow_system": {
+        "label": "Seguir tema del sistema",
+        "desc": "Ajustar automáticamente según la configuración del dispositivo",
+        "aria": "Alternar seguir tema del sistema"
+      },
+      "dark": {
+        "label": "Tema oscuro",
+        "desc": "Ideal para entornos con poca luz",
+        "aria": "Alternar tema oscuro"
+      },
+      "dark_room": {
+        "label": "Modo sala oscura",
+        "desc": "Atenua el brillo y suaviza la iluminación para concentración nocturna",
+        "aria": "Alternar modo sala oscura"
+      }
+    },
+    "font": {
+      "label": "Tamaño de fuente",
+      "desc": "Aumenta el tamaño del texto para mejorar la legibilidad",
+      "aria_group": "Selecciona tamaño de fuente",
+      "normal": "Normal",
+      "large": "Grande"
+    },
+    "accessibility": {
+      "title": "Accesibilidad",
+      "reduced_motion": {
+        "label": "Reducir movimiento",
+        "desc": "Minimizar animaciones y transiciones",
+        "aria": "Alternar reducir movimiento"
+      },
+      "high_contrast": {
+        "label": "Alto contraste",
+        "desc": "Aumentar contraste de colores para mejor visibilidad",
+        "aria": "Alternar alto contraste"
+      },
+      "dyslexic_font": {
+        "label": "Fuente para dislexia",
+        "desc": "Usar tipografías y espaciado amigables (OpenDyslexic)",
+        "aria": "Alternar fuente para dislexia"
+      },
+      "colorblind": {
+        "label": "Modos para daltonismo",
+        "desc": "Ajustar colores para distintos tipos de visión",
+        "aria_select": "Seleccionar modo de daltonismo",
+        "none": "Ninguno",
+        "protanopia": "Protanopia (rojo)",
+        "deuteranopia": "Deuteranopia (verde)",
+        "tritanopia": "Tritanopia (azul)",
+        "achromatopsia": "Acromatopsia (monocromo)"
+      },
+      "keyboard_nav": {
+        "label": "Indicador de foco por teclado",
+        "desc": "Mostrar borde de foco al navegar con Tab/teclado (recomendado en escritorio)",
+        "aria": "Alternar indicador de foco por teclado"
+      }
+    },
+    "integration": {
+      "title": "Integración",
+      "import": {
+        "label": "Importar contexto",
+        "desc": "Trae información de otras IA para personalizar tu experiencia.",
+        "button": "Importar"
+      }
+    },
+    "privacy": {
+      "title": "Datos y privacidad"
+    },
+    "api_key": {
+      "label": "Clave API de Gemini",
+      "desc": "Introduce tu propia API key para usar el asistente",
+      "placeholder": "AIzaSy...",
+      "save": "Guardar",
+      "remove_title": "Eliminar clave API almacenada",
+      "remove_toast": "Clave eliminada del dispositivo.",
+      "tooltip": "Tu clave se almacena localmente en el navegador con obfuscación básica."
+    },
+    "usage_analytics": {
+      "label": "Enviar analítica anónima",
+      "desc": "Ayuda a mejorar la app compartiendo estadísticas básicas. No se recopila contenido de chats.",
+      "aria": "Alternar telemetría"
+    },
+    "history": {
+      "label": "Borrar historial",
+      "desc": "Eliminar todas las conversaciones guardadas en este dispositivo",
+      "clear": "Borrar todo",
+      "confirm": "¿Eliminar todo el historial de chat? Esto no se puede deshacer.",
+      "success_toast": "Historial eliminado."
+    },
+    "toasts": {
+      "telemetry_on": "Analítica anónima habilitada.",
+      "telemetry_off": "Analítica anónima deshabilitada.",
+      "api_saved": "Clave API guardada."
+    }
+  },
+  "header": {
+    "open_menu": "Abrir menú",
+    "open_menu_aria": "Abrir menú lateral",
+    "ambient_sounds": "Sonidos ambientales",
+    "ambient_sounds_aria": "Abrir sonidos ambientales",
+    "light_mode": "Modo claro",
+    "dark_mode": "Modo oscuro",
+    "activate_light_mode": "Activar modo claro",
+    "activate_dark_mode": "Activar modo oscuro",
+    "user_account": "Cuenta de Google",
+    "user_profile": "Perfil de usuario"
+  },
+  "account": {
+    "close": "Cerrar",
+    "guest": "Invitado",
+    "greeting": "¡Hola, {{name}}!",
+    "manage": "Administrar tu cuenta",
+    "menu": {
+      "personalize": "Personalizar asistente",
+      "stats": "Estadísticas y actividad",
+      "add_account": "Agregar otra cuenta",
+      "logout": "Cerrar sesión"
+    },
+    "links": {
+      "privacy": "Política de privacidad",
+      "terms": "Términos de servicio"
+    },
+    "personalization": {
+      "title": "Personalización",
+      "profile": {
+        "title": "Perfil de respuesta",
+        "desc": "Elige un perfil de comportamiento para el asistente.",
+        "modes": {
+          "default": {
+            "title": "Predeterminado",
+            "desc": "Equilibrado y adaptable"
+          },
+          "reflective": {
+            "title": "Reflexivo",
+            "desc": "Enfoque en análisis emocional"
+          },
+          "action": {
+            "title": "Acción",
+            "desc": "Directo y orientado a soluciones"
+          },
+          "learning": {
+            "title": "Didáctico",
+            "desc": "Explicaciones paso a paso"
+          },
+          "support": {
+            "title": "Acompañamiento",
+            "desc": "Validación y apoyo emocional"
+          }
+        }
+      },
+      "fine_tuning": {
+        "title": "Ajustes finos opcionales",
+        "style": {
+          "label": "Estilo por defecto",
+          "desc": "Define el tono del asistente.",
+          "options": {
+            "default": "Predeterminado",
+            "concise": "Más conciso",
+            "detailed": "Más detallado",
+            "casual": "Más informal",
+            "formal": "Más formal"
+          }
+        }
+      },
+      "traits": {
+        "title": "Características",
+        "welcoming": "Acogedor",
+        "enthusiastic": "Entusiasta",
+        "formatting": "Listas y encabezados",
+        "emojis": "Emojis",
+        "levels": {
+          "less": "Menos",
+          "default": "Predeterminado",
+          "more": "Más"
+        }
+      },
+      "instant": "Respuestas instantáneas",
+      "custom_instructions": {
+        "title": "Instrucciones personalizadas",
+        "placeholder": "Ej: Responde como si fueras mi hermano..."
+      },
+      "actions": {
+        "cancel": "Cancelar",
+        "save": "Guardar"
+      }
+    }
+  },
+  "telemetry": {
+    "title": "Mejora PsyMind.AI",
+    "description": "📊 Datos de uso anónimos ayudan a mejorar PsyMind.AI.<br/><br/>🔒 No se recopilan conversaciones ni información personal.<br/>Todo permanece en tu dispositivo.<br/><br/>Puedes desactivar esto en cualquier momento.",
+    "warning": "<strong>Aviso:</strong> La IA ofrece apoyo educativo y emocional básico, pero no reemplaza el seguimiento de un psicólogo o profesional de la salud mental.",
+    "accept": "Aceptar",
+    "decline": "Rechazar",
+    "more_info": "Más información"
+  },
+  "footer": {
+    "brand_desc": "Tu compañero de estudio y bienestar emocional, disponible 24/7 para ayudarte a progresar.",
+    "nav_title": "Navegación",
+    "nav_home": "Inicio",
+    "nav_features": "Funciones",
+    "nav_education": "Educación",
+    "legal_title": "Legal",
+    "legal_license": "Licencia",
+    "legal_privacy": "Política de privacidad",
+    "legal_terms": "Términos de uso",
+    "legal_transparency": "Portal de transparencia",
+    "project_title": "Proyecto",
+    "project_repo": "Repositorio",
+    "project_contribute": "Cómo contribuir",
+    "project_roadmap": "Roadmap",
+    "project_dashboard": "Panel",
+    "disclaimer": "PsyMind.AI ofrece apoyo educativo y emocional básico. Para problemas serios de salud mental, busca ayuda profesional especializada.",
+    "legal_privacy_short": "Privacidad",
+    "legal_terms_short": "Términos",
+    "about": "Acerca de"
+  },
+  "error_fallback": {
+    "title": "¡Ups!",
+    "message": "Ocurrió un error al procesar tu solicitud.",
+    "subtext": "Intenta recargar la página o vuelve a intentarlo más tarde.",
+    "details": "Detalles técnicos",
+    "reload": "Recargar página"
+  },
+  "style_guide": {
+    "title": "Guía de estilo",
+    "intro": "Directrices para redacción, tono, tipografía y uso de componentes en la interfaz."
+  },
+  "seo": {
+    "title": "PsyMind.AI - Apoyo emocional educativo",
+    "description": "PsyMind.AI: solución educativa de apoyo emocional para estudiantes. Comprende tus emociones con ayuda de la IA.",
+    "og_title": "PsyMind.AI - Apoyo emocional educativo",
+    "og_description": "Inteligencia artificial para apoyo emocional y educativo de estudiantes."
+  },
+  "privacy": {
+    "title": "Política de privacidad",
+    "subtitle": "Transparencia total sobre cómo se usan (y especialmente, cómo NO se usan) tus datos en PsyMind.AI.",
+    "last_update": "Última actualización: 7 de abril de 2026",
+    "sections": {
+      "s1": {
+        "title": "1. Arquitectura local (lado cliente)",
+        "p1": "PsyMind.AI se basa en la privacidad *by design*. Somos una aplicación que se ejecuta exclusivamente del lado del cliente (Vite + React). <strong>No contamos con servidores de base de datos propios</strong> que intercepten, lean o almacenen tus confesiones, conversaciones o datos de perfil de forma centralizada.",
+        "p2": "Toda la información personal, incluyendo tu historial de chats, temas, planificación Pomodoro y diario emocional, se guarda <strong>exclusivamente en la caché de tu propio navegador (localStorage)</strong>."
+      },
+      "s2": {
+        "title": "2. Procesamiento por inteligencias artificiales",
+        "p1": "Para ofrecer respuestas inteligentes, la aplicación establece un puente directo desde tu navegador con proveedores de IA (como la API Google Gemini). Al enviar un mensaje:",
+        "li1": "Tu texto (y el contexto del chat actual) pasa por una capa técnica directamente a los servidores de la IA seleccionada.",
+        "li2": "La clave API que proporciones se almacena cifrada solo en la memoria local de tu dispositivo.",
+        "li3": "Recomendamos revisar las políticas de privacidad de Google (proveedora de Gemini) sobre cómo gestionan los prompts de API."
+      },
+      "s3": {
+        "title": "3. Modo anónimo",
+        "p1": "Para garantizar la máxima privacidad en desahogos puntuales, ofrecemos el <strong>Modo anónimo</strong>. Al interactuar con la IA en este modo, la conversación <strong>no</strong> se graba en ningún momento en tu localStorage, desapareciendo permanentemente de cualquier registro en la máquina al recargar la pestaña o cerrar el chat."
+      },
+      "s4": {
+        "title": "4. Cookies y almacenamiento en caché",
+        "p1": "Utilizamos solo cookies esenciales y la tecnología de Web Storage local necesarias para el funcionamiento básico y la personalización de la interfaz, tales como:",
+        "li1": "Recordar tu preferencia de modo oscuro o claro.",
+        "li2": "Configuraciones de fuente (aumentadas/reducidas).",
+        "li3": "Preferencias de accesibilidad o reducción de movimiento.",
+        "li4": "Estadísticas locales de enfoque (informe diario de pomodoros)."
+      },
+      "s5": {
+        "title": "5. Seguridad y compartición de datos",
+        "p1": "Al no recopilar datos en nuestro servidor, es técnicamente imposible que PsyMind.AI venda, ceda o comparta tus mensajes masivamente con agencias de publicidad o marketing. Punto final."
+      },
+      "s6": {
+        "title": "6. Eliminación de datos",
+        "p1": "Como tienes control total, puedes borrar cualquier dato en cualquier momento. Para eliminar por completo todo lo que la aplicación sabe sobre ti, solo haz clic en \"Borrar historial\" o usa la función del navegador para limpiar la caché (Local Storage). No habrá recuperación posible (ya que no hay servidores en la nube)."
+      },
+      "s7": {
+        "title": "7. Cambios en esta política",
+        "p1": "PsyMind.AI es Open Source. Si en el futuro fuese necesario integrar un servicio estrictamente dependiente de la nube (por ejemplo, una base de datos oficial), esta política se actualizará en el repositorio, con un gran aviso previo para todos los usuarios."
+      }
+    }
+  },
+  "terms": {
+    "title": "Términos de uso",
+    "subtitle": "Condiciones generales de navegación, responsabilidades legales de la IA y reglas open-source.",
+    "last_update": "Última actualización: 7 de abril de 2026",
+    "sections": {
+      "s1": {
+        "title": "1. Aviso legal esencial sobre salud mental ⚠️",
+        "p1": "PsyMind.AI se proporciona <strong>exclusivamente con fines informativos y de apoyo al aprendizaje/desarrollo personal</strong>. La IA de la plataforma puede ofrecer reflexiones emocionales, citas, rutinas de estudio y ejercicios, pero <strong>NO SUSTITUYE</strong> (y no tiene competencia para) el tratamiento, el consejo profesional o el diagnóstico en salud mental."
+      },
+      "s2": {
+        "title": "2. Responsabilidades por las \"alucinaciones\" (errores de la IA)",
+        "p1": "El motor de PsyMind.AI usa modelos de lenguaje avanzados. Estos modelos generan texto mediante estadística probabilística, lo que conlleva intrínsecamente el riesgo de \"alucinaciones de IA\" (explicaciones plausibles pero incorrectas técnica o fácticamente)."
+      },
+      "s3": {
+        "title": "3. Derechos de autor y cultura open-source",
+        "p1": "El repositorio PsyMind.AI está licenciado bajo <strong>Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)</strong>."
+      },
+      "s4": {
+        "title": "4. Uso de API Keys (proveedores en la nube)",
+        "p1": "El servicio puede requerir que suministres tu propia clave de proveedor (ej.: clave Google Gemini). Al hacerlo, es vital comprender las limitaciones de presupuesto y las cuotas gratuitas del proveedor. <strong>PsyMind no se responsabiliza ni garantiza reembolsos ni mediará por infracciones de cuota o términos asociados del proveedor (Google) respecto a la clave que proporciones.</strong>"
+      }
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "pomodoro": {
+    "title": "Pomodoro",
+    "restart": "Restart",
+    "generating": "Generating...",
+    "focus_tip": "AI Focus Tip",
+    "break_tip": "AI Break Suggestion",
+    "error": "❌ Error connecting to AI. Try again.",
+    "focus": "Focus",
+    "short_break": "Short Break",
+    "long_break": "Long Break",
+    "time_up": "Time's up!",
+    "notification_title": "PsyMind Pomodoro"
+  },
+  "soundscapes": {
+    "title": "Environmental Sounds",
+    "close": "Close",
+    "status": {
+      "playing": "Playing",
+      "paused": "Paused"
+    },
+    "no_sound": "No sound",
+    "actions": {
+      "play": "Play",
+      "pause": "Pause"
+    },
+    "choose_env": "Choose an Environment",
+    "volume": "Environment volume",
+    "sounds": {
+      "rain": "Soft Rain",
+      "focus": "Deep Focus",
+      "white": "White Noise",
+      "binaural": "Binaural Beats"
+    }
+  },
+  "judge": {
+    "title": "Judge mode — Prep",
+    "close_aria": "Close judge mode",
+    "loading_challenge": "Drafting a fresh challenge for you...",
+    "loading_eval": "The judge is reviewing your submission (simulated)...",
+    "submit": "Submit",
+    "retry": "New challenge",
+    "default_subject": "Programming",
+    "code_placeholder": "Write your {{language}} source code here...\n\n// Read all input (scanf/cin/input) and print answers in the required format (printf/cout/print).",
+    "errors": {
+      "generate_failed": "Could not generate the challenge. Tap **New challenge** or try again shortly.",
+      "internal": "Internal error while generating the challenge. Please try again.",
+      "eval_failed": "Could not complete the evaluation.",
+      "submit_failed": "Error submitting to the judge."
+    },
+    "prompt_generate": "Act EXCLUSIVELY as an automatic judge for the Brazilian Informatics Olympiad (OBI). Do not offer mental health counseling; only generate a competitive programming problem.\n\nTask: create an ORIGINAL problem suitable for the {{subject}} track of {{examName}}, focusing on: {{topics}}.\n\nRequired Markdown structure:\n## 🏆 Original Problem Title\n**Description:** (Short story/context)\n**Task:** What the contestant must compute.\n**Input:** (Exact input format)\n**Output:** (Exact output format, including newlines)\n**Examples:** (At least two real stdin/stdout examples)\n**Constraints & scoring:** (Limits and complexity for full score).",
+    "prompt_evaluate_lead": "Act EXCLUSIVELY as an automatic programming contest grader. Rigorously evaluate the submission below written in **{{language}}**.\n\nInstructions (answer in clear Markdown):\n1. **Compilation**: Does the code look syntactically valid?\n2. **Test cases**: Mentally simulate inputs, including edge cases.\n3. **Complexity**: Analyze time and space Big-O.\n4. **Verdict**: A prominent final verdict in ALL CAPS: ACCEPTED ✅, WRONG ANSWER ❌, TIME LIMIT EXCEEDED ⏳, RUNTIME ERROR 💥, or COMPILATION ERROR 🚨.\n5. **Score**: Assign a score from 0 to 100.\n6. Explain why, point to likely problematic lines, or suggest optimizations. Be fair and critical like a judge.\n"
+  }
+}

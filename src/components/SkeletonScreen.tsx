@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import './skeleton.css';
 
 /* ==========================================================================
@@ -145,50 +146,56 @@ export const SkeletonModalCard: React.FC = () => (
  * Full-page skeleton for the Landing Page.
  * Hero section (title + subtitle + CTA + visual card) + 3 feature cards.
  */
-export const SkeletonLandingPage: React.FC = () => (
-  <div className="skeleton-landing-page" role="status" aria-label="Carregando página...">
-    <div className="skeleton-landing-hero">
-      <div className="skeleton-landing-hero__text">
-        <Skeleton variant="title" />
-        <Skeleton variant="title" />
-        <div className="skeleton-landing-hero__subtitle">
-          <Skeleton variant="text" />
-          <Skeleton variant="text" />
+export const SkeletonLandingPage: React.FC = () => {
+  const { t } = useTranslation();
+  return (
+    <div className="skeleton-landing-page" role="status" aria-label={t('a11y.loading_page')}>
+      <div className="skeleton-landing-hero">
+        <div className="skeleton-landing-hero__text">
+          <Skeleton variant="title" />
+          <Skeleton variant="title" />
+          <div className="skeleton-landing-hero__subtitle">
+            <Skeleton variant="text" />
+            <Skeleton variant="text" />
+          </div>
+          <div className="skeleton-landing-hero__actions">
+            <Skeleton variant="button" width="180px" height="48px" />
+            <Skeleton variant="button" width="150px" height="48px" />
+          </div>
         </div>
-        <div className="skeleton-landing-hero__actions">
-          <Skeleton variant="button" width="180px" height="48px" />
-          <Skeleton variant="button" width="150px" height="48px" />
-        </div>
+        <Skeleton className="skeleton-landing-hero__visual" />
       </div>
-      <Skeleton className="skeleton-landing-hero__visual" />
+      <div className="skeleton-landing-features">
+        <SkeletonFeatureCard />
+        <SkeletonFeatureCard />
+        <SkeletonFeatureCard />
+      </div>
     </div>
-    <div className="skeleton-landing-features">
-      <SkeletonFeatureCard />
-      <SkeletonFeatureCard />
-      <SkeletonFeatureCard />
-    </div>
-  </div>
-);
+  );
+};
 
 /**
  * Full-page skeleton for the Chat Page.
  * Welcome title + 4 suggestion cards + input bar.
  */
-export const SkeletonChatPage: React.FC = () => (
-  <div className="skeleton-chat-page" role="status" aria-label="Carregando chat...">
-    <div className="skeleton-chat-welcome">
-      <Skeleton variant="title" />
-      <Skeleton variant="title" />
+export const SkeletonChatPage: React.FC = () => {
+  const { t } = useTranslation();
+  return (
+    <div className="skeleton-chat-page" role="status" aria-label={t('a11y.loading_chat')}>
+      <div className="skeleton-chat-welcome">
+        <Skeleton variant="title" />
+        <Skeleton variant="title" />
+      </div>
+      <div className="skeleton-chat-suggestions">
+        <SkeletonSuggestionCard />
+        <SkeletonSuggestionCard />
+        <SkeletonSuggestionCard />
+        <SkeletonSuggestionCard />
+      </div>
+      <Skeleton className="skeleton-chat-input" />
     </div>
-    <div className="skeleton-chat-suggestions">
-      <SkeletonSuggestionCard />
-      <SkeletonSuggestionCard />
-      <SkeletonSuggestionCard />
-      <SkeletonSuggestionCard />
-    </div>
-    <Skeleton className="skeleton-chat-input" />
-  </div>
-);
+  );
+};
 
 /* ==========================================================================
    Default export (backward compatibility)

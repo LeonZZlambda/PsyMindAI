@@ -1,0 +1,55 @@
+{
+  "kindness": {
+    "title": "Actes de gentillesse",
+    "categories": {
+      "random": "Aléatoire",
+      "stranger": "Étrangers",
+      "family": "Famille/Amis",
+      "self": "Pour vous",
+      "work": "Travail/École"
+    },
+    "loading": "L'IA cherche l'acte parfait...",
+    "completed": "Terminé",
+    "generate_new": "Générer un autre",
+    "will_do": "Je vais le faire !",
+    "done": "Fait !",
+    "success_toast": "Bravo ! Le monde est un peu meilleur.",
+    "prompts": {
+      "random": "Suggérez un acte de gentillesse simple et pratique que n'importe qui peut faire aujourd'hui (1 phrase).",
+      "stranger": "Suggérez un acte de gentillesse simple à faire envers un inconnu (1 phrase).",
+      "family": "Suggérez un acte de gentillesse simple à faire envers la famille ou des amis (1 phrase).",
+      "self": "Suggérez un acte de soin de soi ou d'autocompassion simple (1 phrase).",
+      "work": "Suggérez un acte de gentillesse simple à faire au travail ou à l'école (1 phrase)."
+    },
+    "database": {
+      "stranger": [
+        "Faites un compliment sincère sur les vêtements ou un accessoire d'une personne que vous ne connaissez pas.",
+        "Tenez la porte pour quelqu'un qui entre ou sort.",
+        "Laissez un mot positif dans un livre à la bibliothèque ou dans un lieu public.",
+        "Souriez et saluez le conducteur du bus ou la caissière du magasin.",
+        "Offrez le café à la personne derrière vous dans la file (si possible)."
+      ],
+      "family": [
+        "Appelez un proche juste pour lui dire que vous l'aimez.",
+        "Faites une tâche ménagère qui n'est pas de votre ressort.",
+        "Écrivez une lettre de remerciement à quelqu'un qui vous a aidé par le passé.",
+        "Cuisinez le plat préféré d'un membre de votre foyer.",
+        "Écoutez activement quelqu'un sans interrompre ni regarder votre téléphone."
+      ],
+      "self": [
+        "Listez 3 choses que vous appréciez chez vous.",
+        "Prenez 15 minutes pour faire quelque chose que vous aimez sans culpabilité.",
+        "Pardonnez-vous pour une erreur récente.",
+        "Faites une promenade en pleine conscience en observant la nature.",
+        "Écrivez dans un carnet comment vous vous sentez aujourd'hui."
+      ],
+      "work": [
+        "Proposez de l'aide à un collègue qui semble débordé.",
+        "Complimentez le travail de quelqu'un publiquement ou auprès du responsable.",
+        "Apportez une collation ou une friandise à partager avec l'équipe.",
+        "Laissez un post-it d'encouragement sur le bureau de quelqu'un.",
+        "Remerciez quelqu'un pour une action précise qu'il a faite."
+      ]
+    }
+  }
+}

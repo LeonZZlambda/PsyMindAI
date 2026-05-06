@@ -1,0 +1,54 @@
+{
+  "pomodoro": {
+    "title": "Pomodoro",
+    "restart": "Reiniciar",
+    "generating": "Gerando...",
+    "focus_tip": "Dica de Foco IA",
+    "break_tip": "Sugestão de Pausa IA",
+    "error": "❌ Erro ao conectar com IA. Tente novamente.",
+    "focus": "Foco",
+    "short_break": "Pausa Curta",
+    "long_break": "Pausa Longa",
+    "time_up": "O tempo acabou!",
+    "notification_title": "PsyMind Pomodoro"
+  },
+  "soundscapes": {
+    "title": "Sons Ambientais",
+    "close": "Fechar",
+    "status": {
+      "playing": "Reproduzindo",
+      "paused": "Pausado"
+    },
+    "no_sound": "Nenhum som",
+    "actions": {
+      "play": "Reproduzir",
+      "pause": "Pausar"
+    },
+    "choose_env": "Escolha um Ambiente",
+    "volume": "Volume do ambiente",
+    "sounds": {
+      "rain": "Chuva Suave",
+      "focus": "Foco Profundo",
+      "white": "Ruído Branco",
+      "binaural": "Batidas Binaurais"
+    }
+  },
+  "judge": {
+    "title": "Modo Juiz — Preparatório",
+    "close_aria": "Fechar modo juiz",
+    "loading_challenge": "Formulando desafio inédito para você...",
+    "loading_eval": "O juiz está analisando sua submissão (simulação)...",
+    "submit": "Submeter",
+    "retry": "Gerar outro desafio",
+    "default_subject": "Programação",
+    "code_placeholder": "Escreva seu código em {{language}} aqui...\n\n// Leia toda a entrada (scanf/cin/input) e imprima no formato pedido (printf/cout/print).",
+    "errors": {
+      "generate_failed": "Não foi possível gerar o desafio. Use **Gerar outro desafio** ou tente de novo em instantes.",
+      "internal": "Erro interno ao gerar o desafio. Tente novamente.",
+      "eval_failed": "Não foi possível concluir a avaliação.",
+      "submit_failed": "Erro ao enviar para o juiz."
+    },
+    "prompt_generate": "Atue EXCLUSIVAMENTE como Juiz Automático da OBI (Olimpíada Brasileira de Informática). Não ofereça aconselhamento de saúde mental; limite-se a gerar um problema de programação competitiva.\n\nTarefa: crie um problema INÉDITO aplicável à seletiva de {{subject}} da prova {{examName}}, com foco em: {{topics}}.\n\nEstrutura obrigatória em Markdown:\n## 🏆 Nome do Problema Inédito\n**Descrição:** (Uma historinha curta)\n**A Tarefa:** O que o competidor deve fazer.\n**Entrada:** (Formato exato da entrada)\n**Saída:** (Formato exato da saída, incluindo quebras de linha)\n**Exemplos:** (Pelo menos dois exemplos reais de stdin/stdout)\n**Restrições e Pontuação:** (Limites e complexidade para 100 pontos).",
+    "prompt_evaluate_lead": "Atue EXCLUSIVAMENTE como Corretor Automático de maratona de programação. Avalie com rigor a submissão abaixo na linguagem **{{language}}**.\n\nInstruções (responda em Markdown claro):\n1. **Compilação**: O código parece sintaticamente válido?\n2. **Casos de teste**: Simule mentalmente entradas, incluindo bordas.\n3. **Complexidade**: Analise tempo e espaço em notação Big-O.\n4. **Veredito**: Um veredito final bem visível em caixa alta: ACCEPTED ✅, WRONG ANSWER ❌, TIME LIMIT EXCEEDED ⏳, RUNTIME ERROR 💥 ou COMPILATION ERROR 🚨.\n5. **Nota**: Atribua uma pontuação de 0 a 100.\n6. Explique o porquê, aponte possíveis linhas problemáticas ou sugira otimizações. Seja justo e crítico como um juiz.\n"
+  }
+}

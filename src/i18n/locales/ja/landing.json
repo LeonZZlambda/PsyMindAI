@@ -1,0 +1,184 @@
+{
+  "landing": {
+    "hero": {
+      "title_main": "Equilíbrio mental",
+      "title_sub": "para seus estudos",
+      "subtitle": "O PsyMind.AI é seu companheiro para enfrentar o Ensino Médio e Vestibulares. Organize sua rotina, controle a ansiedade e conquiste seus objetivos com apoio da IA.",
+      "start_journey": "Experimentar Agora",
+      "learn_more": "Saiba mais",
+      "view_github": "Ver no GitHub"
+    },
+    "about": {
+      "title": "Sobre o Projeto",
+      "subtitle": "Um compromisso com a saúde mental e o sucesso acadêmico.",
+      "p1": "O PsyMind.AI nasceu da convicção de que a tecnologia deve ser o alicerce para o equilíbrio emocional. Unimos Inteligência Artificial de última geração a uma abordagem humanizada, criando um ambiente seguro para que cada estudante possa florescer em sua jornada de autodescoberta.",
+      "mission": {
+        "title": "Nossa Missão",
+        "desc": "Democratizar o acesso a ferramentas de autoconhecimento e produtividade consciente."
+      },
+      "vision": {
+        "title": "Nossa Visão",
+        "desc": "Ser a referência global em suporte emocional educativo, unindo ciência e tecnologia."
+      }
+    },
+    "technical": {
+      "title": "Decisões Técnicas & Trade-offs",
+      "subtitle": "Transparência arquitetural e rigor de engenharia.",
+      "table": {
+        "decision": "Decisão",
+        "advantage": "Vantagem",
+        "disadvantage": "Desvantagem",
+        "mitigation": "Mitigação / Futuro"
+      },
+      "items": {
+        "client_side": {
+          "decision": "Arquitetura Client-side",
+          "advantage": "Privacidade máxima e performance local.",
+          "disadvantage": "Sem sincronização entre dispositivos nativa.",
+          "mitigation": "Estudo de integração P2P ou Sync via Nuvem Criptografada."
+        },
+        "gemini_api": {
+          "decision": "Dependência Gemini API",
+          "advantage": "Processamento de linguagem natural de elite sem custo fixo.",
+          "disadvantage": "Latência de rede e dependência externa.",
+          "mitigation": "Implementação de streaming de texto e lógica de retry robusta."
+        },
+        "ts_strict": {
+          "decision": "TypeScript Strict Mode",
+          "advantage": "Eliminação de bugs em tempo de compilação.",
+          "disadvantage": "Desenvolvimento inicial mais rigoroso.",
+          "mitigation": "Uso zero de 'any' para garantir código autossustentável."
+        },
+        "context_api": {
+          "decision": "React Context API",
+          "advantage": "Gerenciamento de estado leve e direto.",
+          "disadvantage": "Risco de re-renders desnecessários em larga escala.",
+          "mitigation": "Contextos segmentados e Memoization estratégica."
+        }
+      }
+    },
+    "accessibility": {
+      "title": "Acessibilidade & Inclusão",
+      "subtitle": "Tecnologia para todos, sem exceções.",
+      "contrast": {
+        "title": "Alto Contraste",
+        "desc": "Temas otimizados para usuários com baixa visão ou fotossensibilidade."
+      },
+      "keyboard": {
+        "title": "Navegação por Teclado",
+        "desc": "Foco visual claro e atalhos intuitivos para navegação sem mouse."
+      },
+      "screen_reader": {
+        "title": "Leitores de Tela",
+        "desc": "Semântica HTML5 rigorosa e atributos ARIA para uma experiência auditiva fluida."
+      }
+    },
+    "tech_stack": {
+      "title": "Stack Tecnológica",
+      "subtitle": "Construído com as melhores ferramentas do ecossistema moderno."
+    },
+    "final_cta": {
+      "title": "Pronto para evoluir sua jornada?",
+      "button_chat": "Experimentar Agora",
+      "button_docs": "Documentação Técnica"
+    },
+    "modules": {
+      "title": "Módulos & Funcionalidades",
+      "subtitle": "Uma plataforma integrada para suporte emocional e organização de estudos.",
+      "psybot": {
+        "title": "PsyBot Tutor",
+        "desc": "Assistente interativo que acompanha sua trilha de aprendizado com feedback emocional."
+      },
+      "vocational": {
+        "title": "Teste Vocacional",
+        "desc": "Análise multidimensional baseada em IA para orientar sua escolha de carreira."
+      },
+      "insights": {
+        "title": "Meta-insights",
+        "desc": "Visualize padrões de humor e produtividade para decisões baseadas em dados pessoais."
+      }
+    },
+    "features": {
+      "study_focus": {
+        "title": "Foco nos Estudos",
+        "description": "Dicas de organização e cronogramas personalizados para o ENEM e vestibulares."
+      },
+      "anxiety_control": {
+        "title": "Controle da Ansiedade",
+        "description": "Técnicas de respiração e mindfulness para manter a calma antes de provas e redações."
+      },
+      "always_available": {
+        "title": "Disponível 24/7",
+        "description": "Tire dúvidas, desabafe ou peça dicas de estudo a qualquer hora do dia ou da noite."
+      }
+    },
+    "gemini": {
+      "title": "Powered by Google Gemini",
+      "description": "O PsyMind.AI utiliza o <1>Google Gemini 1.5 Flash</1>, modelo de IA de última geração, para oferecer respostas empáticas e cientificamente embasadas.",
+      "api": {
+        "title": "Gemini API",
+        "description": "Integração direta com a API do Google Gemini para conversas naturais e contextualizadas."
+      },
+      "notebooklm": {
+        "title": "NotebookLM",
+        "description": "Prompt engineering desenvolvido com NotebookLM, baseado em estudos de psicologia educacional."
+      },
+      "gems": {
+        "title": "Gemini Gems",
+        "description": "Personalidade e tom de voz otimizados através de Gems para suporte emocional adolescente."
+      }
+    },
+    "education": {
+      "title": "Foco Educacional",
+      "description": "O PsyMind.AI não é apenas um chat, é um companheiro de jornada para estudantes do <1>Ensino Fundamental e Médio</1>.",
+      "stress": {
+        "title": "Gestão de Estresse",
+        "description": "Suporte para lidar com a pressão de provas, simulados e a escolha da profissão."
+      },
+      "mentoring": {
+        "title": "Mentoria para Vestibulares",
+        "description": "Orientações estratégicas para o ENEM e principais vestibulares, mantendo o foco no resultado."
+      },
+      "self_knowledge": {
+        "title": "Autoconhecimento",
+        "description": "Ferramentas que auxiliam na descoberta de vocações e no amadurecimento emocional."
+      }
+    },
+    "license": {
+      "title": "Transparência e Código Aberto",
+      "description": "O PsyMind.AI é um projeto <1>Open Source</1> (Código Aberto), o que significa que sua tecnologia é acessível e auditável por todos.",
+      "transparency": {
+        "title": "Transparência",
+        "description": "Você sabe exatamente como seus dados são tratados, garantindo maior segurança e confiança."
+      },
+      "community": {
+        "title": "Comunidade",
+        "description": "Desenvolvedores, educadores e estudantes podem colaborar para evoluir a plataforma continuamente."
+      },
+      "education_code": {
+        "title": "Educação",
+        "description": "O código-fonte serve como material de estudo gratuito para quem deseja aprender programação e IA."
+      },
+      "terms": "Distribuído sob a licença <1>Creative Commons BY-SA 4.0</1>, permitindo o compartilhamento e adaptação com os devidos créditos.",
+      "read_full": "Ler licença completa"
+    },
+    "nav": {
+      "start": "Começar"
+    }
+  },
+  "faq": {
+    "title": "Dúvidas Frequentes",
+    "q1": {
+      "question": "O PsyMind.AI substitui um psicólogo?",
+      "answer": "Não. O PsyMind.AI é uma ferramenta educativa de apoio emocional e organização de estudos. Ele não oferece diagnósticos clínicos nem substitui o acompanhamento de profissionais de saúde mental."
+    },
+    "q2": {
+      "question": "Como a IA ajuda na minha rotina de estudos?",
+      "answer": "Nossa IA utiliza técnicas canônicas como Active Recall e Spaced Repetition para otimizar seu aprendizado, além de ajudar a identificar sinais de burnout e sugerir pausas estratégicas."
+    },
+    "q3": {
+      "question": "Meus dados e conversas são privados?",
+      "answer": "Sim. Priorizamos a privacidade. Você pode utilizar o chat de forma anônima e possui controle total sobre o histórico de conversas e dados de telemetria."
+    }
+  }
+}

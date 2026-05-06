@@ -1,0 +1,55 @@
+{
+  "kindness": {
+    "title": "Acts of Kindness",
+    "categories": {
+      "random": "Random",
+      "stranger": "Strangers",
+      "family": "Family/Friends",
+      "self": "For You",
+      "work": "Work/School"
+    },
+    "loading": "AI is finding the perfect act...",
+    "completed": "Completed",
+    "generate_new": "Generate Another",
+    "will_do": "I will do this!",
+    "done": "Done!",
+    "success_toast": "Congratulations! The world is a little bit better.",
+    "prompts": {
+      "random": "Suggest a simple and practical act of kindness anyone can do today (1 sentence).",
+      "stranger": "Suggest a simple act of kindness to do for a stranger (1 sentence).",
+      "family": "Suggest a simple act of kindness to do for family or friends (1 sentence).",
+      "self": "Suggest a simple act of self-care or self-compassion (1 sentence).",
+      "work": "Suggest a simple act of kindness to do at work or school (1 sentence)."
+    },
+    "database": {
+      "stranger": [
+        "Sincerely compliment the clothing or accessory of someone you don't know.",
+        "Hold the door for someone entering or exiting.",
+        "Leave a positive note in a library book or public place.",
+        "Smile and greet the bus driver or supermarket cashier.",
+        "Pay for the coffee of the person behind you in line (if you can)."
+      ],
+      "family": [
+        "Call a relative just to tell them you love them.",
+        "Do a household chore that isn't your responsibility.",
+        "Write a thank you letter to someone who helped you in the past.",
+        "Cook the favorite meal of someone in your house.",
+        "Actively listen to someone without interrupting or looking at your phone."
+      ],
+      "self": [
+        "List 3 things you like about yourself.",
+        "Take 15 minutes to do something you love without guilt.",
+        "Forgive yourself for a mistake made recently.",
+        "Take a mindful walk observing nature.",
+        "Write in a journal how you are feeling today."
+      ],
+      "work": [
+        "Offer help to a colleague who seems overwhelmed.",
+        "Praise someone's work publicly or to the boss.",
+        "Bring a snack or sweet to share with the team.",
+        "Leave an encouraging post-it on someone's desk.",
+        "Thank someone for something specific they did."
+      ]
+    }
+  }
+}

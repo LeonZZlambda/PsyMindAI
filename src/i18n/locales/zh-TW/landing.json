@@ -1,0 +1,184 @@
+{
+  "landing": {
+    "hero": {
+      "title_main": "心理平衡",
+      "title_sub": "為你的學習",
+      "subtitle": "PsyMind.AI 是你面對高中與入學考試的夥伴。規劃作息、掌握焦慮，並在 AI 的協助下達成你的學習目標。",
+      "start_journey": "立即體驗",
+      "learn_more": "了解更多",
+      "view_github": "在 GitHub 查看"
+    },
+    "about": {
+      "title": "關於專案",
+      "subtitle": "對心理健康與學業成功的承諾。",
+      "p1": "PsyMind.AI 源於一種信念：科技應成為情緒平衡的基礎。我們將最先進的人工智慧與以人為本的設計結合，打造一個安全的環境，讓每位學生在自我探索的旅程中茁壯。",
+      "mission": {
+        "title": "我們的使命",
+        "desc": "普及自我認識與有意識生產力工具的使用。"
+      },
+      "vision": {
+        "title": "我們的願景",
+        "desc": "成為結合科學與技術的全球教育情緒支持範例。"
+      }
+    },
+    "technical": {
+      "title": "技術決策與權衡",
+      "subtitle": "架構透明與工程嚴謹。",
+      "table": {
+        "decision": "決策",
+        "advantage": "優勢",
+        "disadvantage": "缺點",
+        "mitigation": "緩解 / 未來"
+      },
+      "items": {
+        "client_side": {
+          "decision": "客戶端架構",
+          "advantage": "最大化隱私與本地化效能。",
+          "disadvantage": "無原生跨裝置同步。",
+          "mitigation": "研究 P2P 或透過加密雲端的同步方案。"
+        },
+        "gemini_api": {
+          "decision": "依賴 Gemini API",
+          "advantage": "頂尖的自然語言處理能力，且無固定成本。",
+          "disadvantage": "網路延遲與外部依賴風險。",
+          "mitigation": "實作文字串流與健壯的重試機制。"
+        },
+        "ts_strict": {
+          "decision": "TypeScript 嚴格模式",
+          "advantage": "在編譯期間降低錯誤。",
+          "disadvantage": "初期開發較為嚴格。",
+          "mitigation": "避免使用 'any'，確保程式碼可維護性。"
+        },
+        "context_api": {
+          "decision": "React Context API",
+          "advantage": "輕量且直接的狀態管理。",
+          "disadvantage": "在大型應用可能導致不必要的重繪。",
+          "mitigation": "分割 Context 並採用策略性快取（memoization）。"
+        }
+      }
+    },
+    "accessibility": {
+      "title": "無障礙與共融",
+      "subtitle": "科技為所有人而設，沒有例外。",
+      "contrast": {
+        "title": "高對比",
+        "desc": "為低視力或光敏感使用者優化的主題。"
+      },
+      "keyboard": {
+        "title": "鍵盤導覽",
+        "desc": "清晰的焦點樣式與直覺的捷徑，方便在無滑鼠情況下操作。"
+      },
+      "screen_reader": {
+        "title": "螢幕閱讀器",
+        "desc": "嚴謹的 HTML5 語義與 ARIA 屬性，提供順暢的語音體驗。"
+      }
+    },
+    "tech_stack": {
+      "title": "技術棧",
+      "subtitle": "使用現代生態系統中最佳的工具構建。"
+    },
+    "final_cta": {
+      "title": "準備好推進你的學習旅程了嗎？",
+      "button_chat": "立即體驗",
+      "button_docs": "技術文件"
+    },
+    "modules": {
+      "title": "模組與功能",
+      "subtitle": "一個整合的平台，提供情緒支持與學習規劃。",
+      "psybot": {
+        "title": "PsyBot 導師",
+        "desc": "互動式助理，伴隨你的學習歷程並提供情緒回饋。"
+      },
+      "vocational": {
+        "title": "職業測評",
+        "desc": "基於 AI 的多維分析，協助職涯選擇。"
+      },
+      "insights": {
+        "title": "深層洞見",
+        "desc": "視覺化你的情緒與生產力模式，支持以個人數據為基礎的決策。"
+      }
+    },
+    "features": {
+      "study_focus": {
+        "title": "學習專注",
+        "description": "針對 ENEM 與入學考試的組織建議與個人化時程。"
+      },
+      "anxiety_control": {
+        "title": "焦慮管理",
+        "description": "呼吸練習與正念技巧，協助在考試與寫作前保持冷靜。"
+      },
+      "always_available": {
+        "title": "24/7 全天候",
+        "description": "任何時間都可以提問、抒發或尋求學習建議。"
+      }
+    },
+    "gemini": {
+      "title": "由 Google Gemini 提供技術支持",
+      "description": "PsyMind.AI 使用 <1>Google Gemini 1.5 Flash</1> — 最新一代的 AI 模型，提供具同理心且有科學依據的回覆。",
+      "api": {
+        "title": "Gemini API",
+        "description": "與 Google Gemini API 的直接整合，支援自然且具情境的對話。"
+      },
+      "notebooklm": {
+        "title": "NotebookLM",
+        "description": "使用 NotebookLM 開發的 prompt engineering，基於教育心理學研究。"
+      },
+      "gems": {
+        "title": "Gemini Gems",
+        "description": "透過 Gems 優化的人格與語氣，為青少年提供情緒支持。"
+      }
+    },
+    "education": {
+      "title": "教育重點",
+      "description": "PsyMind.AI 不僅是聊天工具，它是陪伴 <1>國小與高中生</1>的學習夥伴。",
+      "stress": {
+        "title": "壓力管理",
+        "description": "協助應對考試壓力、模擬考與職涯選擇的支持。"
+      },
+      "mentoring": {
+        "title": "入學考試指導",
+        "description": "針對 ENEM 與主要入學考試的策略建議，保持以結果為導向的準備。"
+      },
+      "self_knowledge": {
+        "title": "自我認識",
+        "description": "協助發現志向並促進情緒成熟的工具。"
+      }
+    },
+    "license": {
+      "title": "透明度與開源",
+      "description": "PsyMind.AI 是一個 <1>Open Source</1> 專案，技術對所有人開放且可審核。",
+      "transparency": {
+        "title": "透明度",
+        "description": "你可以清楚得知資料的處理方式，保障更高的安全性與信任。"
+      },
+      "community": {
+        "title": "社群",
+        "description": "開發者、教育者與學生可以共同協作，使平台持續進化。"
+      },
+      "education_code": {
+        "title": "教育",
+        "description": "原始程式碼可作為免費教學資料，供有志於學習程式與 AI 的人使用。"
+      },
+      "terms": "依據 <1>Creative Commons BY-SA 4.0</1> 授權發佈，允許在標示來源的情況下分享與改作。",
+      "read_full": "閱讀完整授權"
+    },
+    "nav": {
+      "start": "開始"
+    }
+  },
+  "faq": {
+    "title": "常見問題",
+    "q1": {
+      "question": "PsyMind.AI 會取代心理醫師嗎？",
+      "answer": "不會。PsyMind.AI 是一個提供情緒支持與學習組織的教育工具。它不提供臨床診斷，也無法取代專業心理健康人員的追蹤和治療。"
+    },
+    "q2": {
+      "question": "AI 如何協助我的學習日常？",
+      "answer": "我們的 AI 採用 Active Recall 與 Spaced Repetition 等經驗法則來優化學習，並協助識別倦怠徵兆，提出策略性休息建議。"
+    },
+    "q3": {
+      "question": "我的資料與對話是私密的嗎？",
+      "answer": "是的。我們以隱私為優先。你可以匿名使用聊天，並完全掌控你的對話歷史與遙測資料。"
+    }
+  }
+}

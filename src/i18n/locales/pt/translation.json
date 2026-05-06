@@ -19,6 +19,10 @@
     "close_modal": "Fechar modal",
     "back": "Voltar"
   },
+  "a11y": {
+    "loading_page": "Carregando página...",
+    "loading_chat": "Carregando chat..."
+  },
   "sidebar": {
     "new_chat": "Novo chat",
     "anonymous_chat": "Sessão Anônima",
@@ -275,13 +279,66 @@
   },
   "style_guide": {
     "title": "Guia de Estilo",
-    "intro": "Diretrizes para nomenclatura, tom de voz, tipografia e componentes usados na interface."
+    "intro": "Diretrizes para nomenclatura, tom de voz, tipografia e componentes usados na interface.",
+    "page_title": "Guia de Estilo & Acessibilidade",
+    "page_subtitle": "Diretrizes oficias de Interface, UX e Comportamento para manter o PsyMind.AI consistente.",
+    "sections": {
+      "palette": {
+        "title": "Paleta de Cores",
+        "intro": "O sistema foi concebido com uma paleta inspirada na fusão de serenidade (Psicologia) e foco (Estudo).",
+        "cards": {
+          "primary": "Primária (Foco)",
+          "background": "Fundo Principal",
+          "secondary": "Secundária / Painéis",
+          "text": "Texto (Alto Contraste)",
+          "gradient": "Gradiente (CTA)"
+        }
+      }
+    }
   },
   "seo": {
     "title": "PsyMind.AI - Apoio Emocional Educativo",
     "description": "PsyMind.AI: Solução educativa de apoio emocional para estudantes. Compreenda suas emoções com ajuda da IA.",
     "og_title": "PsyMind.AI - Apoio Emocional Educativo",
     "og_description": "Inteligência Artificial para apoio emocional e educativo de estudantes."
+  },
+  "transparency": {
+    "header": {
+      "title_prefix": "Centro de",
+      "title_highlight": "Transparência",
+      "subtitle": "Entenda exatamente como o PsyMind.AI funciona sob o capô, onde seus dados vivem e como a inteligência artificial toma decisões."
+    },
+    "sections": {
+      "s1": {
+        "title": "1. Quais dados são coletados?",
+        "p1": "O PsyMind.AI foi construído para respeitar ao máximo a sua privacidade. Nós coletamos passivamente apenas métricas de uso anônimas (caso o usuário aceite fornecer) para melhorar a ferramenta, que incluem:",
+        "li1": "<strong>Métricas de Sessão:</strong> Quanto tempo você passou no app e quantos dias você retornou.",
+        "li2": "<strong>Uso de Ferramentas:</strong> Quantas vezes você abriu ferramentas como o Pomodoro, Diário Emocional ou Chat.",
+        "li3": "<strong>Erros do Aplicativo:</strong> Registros técnicos caso algo quebre na sua tela, para podermos consertar.",
+        "li4": "<strong>Ganhos de Transformação:</strong> Uma pontuação abstrata gerada quando você conclui marcos positivos (como terminar trilhas de aprendizado).",
+        "important": "<strong>Importante:</strong> Nós absolutamente <strong>NÃO</strong> coletamos nem enviamos para nenhum lugar o teor das suas conversas, seus desabafos no diário, ou as emoções específicas que você registra."
+      },
+      "s2": {
+        "title": "2. Onde meus dados são armazenados?",
+        "p1": "<strong>Exclusivamente no seu dispositivo.</strong>",
+        "p2": "O PsyMind.AI é um aplicativo <em>100% Front-End (Client-Side)</em>. Isso significa que ele não possui um banco de dados centralizado em nossos servidores. Tudo o que você conversa com a IA, suas rotinas e histórico de humor ficam salvos no armazenamento local do seu próprio navegador (o <code>localStorage</code>).",
+        "p3": "Se você abrir o aplicativo em outro computador ou limpar os dados do seu navegador, seu histórico não estará lá. Você é o único dono e portador de suas informações pessoais."
+      },
+      "s3": {
+        "title": "3. Como a IA funciona? (Resumido)",
+        "p1": "A \"mágica\" por trás do assistente é impulsionada pela conexão do seu aplicativo com modelos de linguagem (LLMs), como o Google Gemini.",
+        "li1": "<strong>Comunicação Direta:</strong> Quando você envia uma mensagem, o seu aplicativo envia o seu texto — junto com instruções pedagógicas e as regras de segurança do PsyMind — diretamente para a API do Google. Nós não interceptamos essa mensagem no meio do caminho.",
+        "li2": "<strong>Consciência de Contexto:</strong> Para parecer inteligente, o aplicativo \"injeta\" silenciosamente no pedido algumas métricas que estão no seu dispositivo. Por exemplo, ele envia \"o usuário usou o pomodoro 3 vezes hoje\" para que a IA possa te parabenizar. Mas a IA esquece isso assim que responde (não é treinado nos seus dados).",
+        "li3": "<strong>Memória de Longo Prazo:</strong> A cada 5 mensagens que você envia, uma revisão assíncrona acontece. A IA resume seu padrão de estudo e humor e salva um pequeno arquivo de texto (JSON) <em>no seu dispositivo</em>. A partir disso, o Assistente se lembra que você tem \"dificuldade em matemática\", por exemplo, lendo esse arquivo salvo localmente antes de te responder."
+      },
+      "s4": {
+        "title": "4. Segurança e Seu Controle",
+        "p1": "Você pode acessar a seção de <strong>Configurações</strong> a qualquer momento para:",
+        "li1": "Desativar completamente a Telemetria Anônima.",
+        "li2": "Apagar totalmente o Histórico Mestre da IA e memórias de longo prazo.",
+        "li3": "Engajar com o Modo Anônimo (logo na página de chat), que processa a conversa temporariamente e apaga do seu navegador assim que a janela é fechada."
+      }
+    }
   },
   "privacy": {
     "title": "Política de Privacidade",

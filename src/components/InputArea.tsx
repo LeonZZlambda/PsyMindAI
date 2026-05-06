@@ -458,9 +458,9 @@ const InputArea: React.FC<InputAreaProps> = ({
           href="https://creativecommons.org/licenses/by-sa/4.0/"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Licença Creative Commons BY-SA 4.0"
+          aria-label={t('chat.input.license_aria')}
         >
-          Licenciado sob CC BY-SA 4.0
+          {t('chat.input.license_text')}
         </a>
       </p>
       <AnimatePresence></AnimatePresence>

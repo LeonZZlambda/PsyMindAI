@@ -1,0 +1,297 @@
+{
+  "api": {
+    "errors": {
+      "API_KEY_MISSING": "🔑 전체 기능을 사용하려면 .env 파일에 API 키를 설정해야 합니다.",
+      "INVALID_KEY": "🔑 오류 — API 키가 만료되었거나 유효하지 않은 것 같습니다. https://aistudio.google.com/app/apikey 에서 새 키를 생성해 보세요. 💜",
+      "RATE_LIMIT": "죄송합니다! 💜 현재 많은 요청을 처리 중입니다. 잠시 기다렸다가 다시 시도해주세요.",
+      "FORBIDDEN": "🚫 현재 API 키에 필요한 권한이 없는 것 같습니다. 설정을 확인해주세요. 💜",
+      "NOT_FOUND": "❌ 문제가 발생했습니다 — 설정된 AI 모델을 찾을 수 없습니다.",
+      "SERVER_ERROR": "⚠️ 시스템에 일시적인 문제가 발생했습니다. 잠시 후 다시 시도해주세요.",
+      "UNAVAILABLE": "🔧 서비스가 일시적으로 사용 불가입니다. 잠시 후 다시 시도하시겠어요?",
+      "EMPTY_RESPONSE": "이번에는 AI로부터 완전한 응답을 받지 못했습니다. 메시지를 다시 보내주시겠어요?",
+      "NETWORK": "인터넷 또는 서비스 연결에 문제가 있는 것 같습니다. 네트워크를 확인하고 다시 시도해주세요.",
+      "UNKNOWN": "죄송합니다 — 현재 연결할 수 없습니다. 많은 처리를 수행 중입니다. 💜 잠시 후에 다시 보내주세요.",
+      "service_fallback": "현재 이 작업을 완료할 수 없습니다. 잠시 후 다시 시도해주세요."
+    }
+  },
+  "common": {
+    "close": "닫기",
+    "close_modal": "모달 닫기",
+    "back": "뒤로"
+  },
+  "sidebar": {
+    "new_chat": "새 채팅",
+    "anonymous_chat": "익명 세션",
+    "anonymous_tooltip": "익명 채팅 (기록이 저장되지 않습니다)",
+    "recent_label": "최근",
+    "chat_deleted": "채팅이 삭제되었습니다",
+    "help": "도움말",
+    "settings": "설정",
+    "close_menu": "사이드 메뉴 닫기",
+    "menu_aria": "사이드 메뉴",
+    "time": {
+      "now": "방금",
+      "minutes_ago": "{{count}}분 전",
+      "hours_ago": "{{count}}시간 전",
+      "yesterday": "어제",
+      "days_ago": "{{count}}일 전",
+      "date": "{{day}}/{{month}}"
+    }
+  },
+  "settings": {
+    "title": "설정",
+    "close_aria": "설정 닫기",
+    "appearance": {
+      "title": "모양",
+      "language": {
+        "label": "언어",
+        "desc": "인터페이스 언어를 선택하세요",
+        "pt": "Português (Brasil)",
+        "en": "English (US)"
+      }
+    },
+    "theme": {
+      "follow_system": {
+        "label": "시스템 설정 따르기",
+        "desc": "기기 설정에 따라 자동으로 밝기/어두움을 조절합니다",
+        "aria": "시스템 테마 토글"
+      },
+      "dark": {
+        "label": "다크 모드",
+        "desc": "어두운 환경에서 눈에 편안합니다",
+        "aria": "다크 모드 토글"
+      },
+      "dark_room": {
+        "label": "다크룸 모드",
+        "desc": "야간 사용 시 눈의 피로를 줄이기 위해 밝기와 대비를 낮춥니다",
+        "aria": "다크룸 모드 토글"
+      }
+    },
+    "font": {
+      "label": "글꼴 크기",
+      "desc": "가독성을 위해 텍스트 크기를 키웁니다",
+      "aria_group": "글꼴 크기 선택",
+      "normal": "보통",
+      "large": "크게"
+    },
+    "accessibility": {
+      "title": "접근성",
+      "reduced_motion": {
+        "label": "움직임 줄이기",
+        "desc": "애니메이션과 전환을 최소화합니다",
+        "aria": "움직임 줄이기 토글"
+      },
+      "high_contrast": {
+        "label": "고대비",
+        "desc": "가시성을 위해 색상 대비를 높입니다",
+        "aria": "고대비 토글"
+      },
+      "dyslexic_font": {
+        "label": "난독증용 글꼴",
+        "desc": "OpenDyslexic 같은 읽기 쉬운 글꼴과 여백을 사용합니다",
+        "aria": "난독증용 글꼴 토글"
+      },
+      "colorblind": {
+        "label": "색맹 모드",
+        "desc": "다양한 색각에 맞게 색을 조정합니다",
+        "aria_select": "색맹 모드 선택",
+        "none": "없음",
+        "protanopia": "적색약(프로타노피아)",
+        "deuteranopia": "녹색약(듀테라노피아)",
+        "tritanopia": "청색약(트리타노피아)",
+        "achromatopsia": "무색각(모노크롬)"
+      },
+      "keyboard_nav": {
+        "label": "키보드 포커스 표시",
+        "desc": "Tab/키보드로 탐색할 때 포커스 테두리를 표시합니다 (데스크톱 권장)",
+        "aria": "키보드 포커스 표시 토글"
+      }
+    },
+    "integration": {
+      "title": "통합",
+      "import": {
+        "label": "컨텍스트 가져오기",
+        "desc": "다른 AI에서 정보를 가져와 PsyMind를 개인화합니다.",
+        "button": "가져오기"
+      }
+    },
+    "privacy": {
+      "title": "데이터 및 개인 정보"
+    },
+    "api_key": {
+      "label": "Gemini API 키",
+      "desc": "시스템을 사용하려면 개인 API 키를 입력하세요",
+      "placeholder": "AIzaSy...",
+      "save": "저장",
+      "remove_title": "저장된 API 키 제거",
+      "remove_toast": "키가 기기에서 제거되었습니다.",
+      "tooltip": "키는 브라우저 로컬에 간단히 난독화되어 저장됩니다."
+    },
+    "usage_analytics": {
+      "label": "익명 분석 전송",
+      "desc": "기본 사용 통계를 공유하여 앱 개선에 도움을 주세요. 대화 내용은 읽지 않습니다.",
+      "aria": "텔레메트리 토글"
+    },
+    "history": {
+      "label": "기록 지우기",
+      "desc": "이 기기에 저장된 모든 대화를 삭제합니다",
+      "clear": "모두 지우기",
+      "confirm": "정말 모든 채팅 기록을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+      "success_toast": "기록이 삭제되었습니다."
+    },
+    "toasts": {
+      "telemetry_on": "익명 분석이 활성화되었습니다.",
+      "telemetry_off": "익명 분석이 비활성화되었습니다.",
+      "api_saved": "API 키가 저장되었습니다."
+    }
+  },
+  "header": {
+    "open_menu": "메뉴 열기",
+    "open_menu_aria": "사이드 메뉴 열기",
+    "ambient_sounds": "환경음",
+    "ambient_sounds_aria": "환경음 열기",
+    "light_mode": "라이트 모드",
+    "dark_mode": "다크 모드",
+    "activate_light_mode": "라이트 모드 활성화",
+    "activate_dark_mode": "다크 모드 활성화",
+    "user_account": "Google 계정",
+    "user_profile": "사용자 프로필"
+  },
+  "account": {
+    "close": "닫기",
+    "guest": "게스트",
+    "greeting": "안녕하세요, {{name}}님!",
+    "manage": "계정 관리",
+    "menu": {
+      "personalize": "도우미 개인화",
+      "stats": "통계 및 활동",
+      "add_account": "다른 계정 추가",
+      "logout": "로그아웃"
+    },
+    "links": {
+      "privacy": "개인정보 처리방침",
+      "terms": "이용 약관"
+    },
+    "personalization": {
+      "title": "개인화",
+      "profile": {
+        "title": "응답 프로필",
+        "desc": "도우미의 동작 프로필을 선택하세요.",
+        "modes": {
+          "default": {
+            "title": "기본",
+            "desc": "균형 잡히고 적응적"
+          },
+          "reflective": {
+            "title": "반성적",
+            "desc": "감정 분석에 초점"
+          },
+          "action": {
+            "title": "행동 지향",
+            "desc": "직접적이고 해결 지향적"
+          },
+          "learning": {
+            "title": "교육적",
+            "desc": "단계별 설명"
+          },
+          "support": {
+            "title": "지원",
+            "desc": "수용 및 감정적 지원"
+          }
+        }
+      },
+      "fine_tuning": {
+        "title": "선택적 미세 조정",
+        "style": {
+          "label": "기본 스타일",
+          "desc": "도우미의 어조를 설정하세요.",
+          "options": {
+            "default": "기본",
+            "concise": "간결",
+            "detailed": "상세",
+            "casual": "캐주얼",
+            "formal": "공식적"
+          }
+        }
+      },
+      "traits": {
+        "title": "특성",
+        "welcoming": "환영하는",
+        "enthusiastic": "열정적인",
+        "formatting": "목록 및 헤더",
+        "emojis": "이모지",
+        "levels": {
+          "less": "적게",
+          "default": "기본",
+          "more": "더 많이"
+        }
+      },
+      "instant": "즉시 응답",
+      "custom_instructions": {
+        "title": "맞춤 지시문",
+        "placeholder": "예: 마치 제 형처럼 답해 주세요..."
+      },
+      "actions": {
+        "cancel": "취소",
+        "save": "저장"
+      }
+    }
+  },
+  "telemetry": {
+    "title": "PsyMind.AI 개선",
+    "description": "📊 익명의 사용 데이터는 PsyMind.AI 개선에 도움이 됩니다.<br/><br/>🔒 대화나 개인 정보는 수집되지 않습니다.<br/>모든 데이터는 기기에만 남습니다.<br/><br/>언제든無효化할 수 있습니다.",
+    "warning": "<strong>주의:</strong> 이 AI는 기본적인 교육 및 정서적 지원을 제공하지만, 심리 상담사나 정신건강 전문가의 대체가 아닙니다.",
+    "accept": "동의",
+    "decline": "거부",
+    "more_info": "자세히 보기"
+  },
+  "footer": {
+    "brand_desc": "학습 및 정서적 웰빙을 위한 동반자, 연중무휴 도움을 제공합니다.",
+    "nav_title": "내비게이션",
+    "nav_home": "홈",
+    "nav_features": "기능",
+    "nav_education": "교육",
+    "legal_title": "법적",
+    "legal_license": "라이선스",
+    "legal_privacy": "개인정보",
+    "legal_terms": "이용약관",
+    "legal_transparency": "투명성 포털",
+    "project_title": "프로젝트",
+    "project_repo": "리포지토리",
+    "project_contribute": "기여 방법",
+    "project_roadmap": "로드맵",
+    "project_dashboard": "대시보드",
+    "disclaimer": "PsyMind.AI는 기초적인 교육 및 정서적 지원을 제공합니다. 심각한 정신건강 문제는 전문가에게 문의하세요.",
+    "legal_privacy_short": "개인정보",
+    "legal_terms_short": "약관",
+    "about": "정보"
+  },
+  "error_fallback": {
+    "title": "앗!",
+    "message": "요청을 처리하는 동안 오류가 발생했습니다.",
+    "subtext": "페이지를 새로고침하거나 나중에 다시 시도하세요.",
+    "details": "기술적 세부정보",
+    "reload": "페이지 새로고침"
+  },
+  "style_guide": {
+    "title": "스타일 가이드",
+    "intro": "인터페이스에서 사용하는 용어, 톤, 타이포그래피 및 컴포넌트 사용 지침입니다."
+  },
+  "seo": {
+    "title": "PsyMind.AI - 교육적 정서 지원",
+    "description": "PsyMind.AI: 학생들을 위한 교육적 정서 지원 솔루션입니다. AI의 도움으로 자신의 감정을 이해하세요.",
+    "og_title": "PsyMind.AI - 교육적 정서 지원",
+    "og_description": "학생들의 정서 및 학습을 지원하는 인공지능."
+  },
+  "privacy": {
+    "title": "개인정보 처리방침",
+    "subtitle": "PsyMind.AI에서 데이터가 어떻게 사용되는지（そして使用されない点）についての透明性。",
+    "last_update": "최종 업데이트: 2026년 4월 7일",
+    "sections": {
+      "s1": {
+        "title": "1. 로컬 아키텍처（클라이언트 측）",
+        "p1": "PsyMind.AI는 프라이バシー・バイ・デザインに基づいています。Vite + React によるクライアントサイド専用のアプリケーションです。<strong>中央管理されたデータベースサーバーを持ちません</strong>。"
+      }
+    }
+  }
+}

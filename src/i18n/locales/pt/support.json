@@ -92,6 +92,7 @@
     "close_aria": "Fechar ajuda"
   },
   "support": {
+    "title": "Apoio Emocional",
     "tabs": {
       "immediate": "Apoio Imediato",
       "investigate": "Investigar Causas",
@@ -237,6 +238,12 @@
         "restart": "Analisar Outro Pensamento"
       },
       "prompt": "Analise este pensamento negativo usando TCC:\\nSituação: {{situation}}\\nPensamento: {{thought}}\\n\\nForneça:\\nDISTORÇÃO: [tipo de distorção cognitiva]\\nDESAFIO: [1 frase explicando a distorção]\\nALTERNATIVA: [1 frase com perspectiva alternativa]\\nREFORMULAÇÃO: [novo pensamento equilibrado]",
+      "ai_fallbacks": {
+        "distortion": "Distorção Cognitiva",
+        "challenge": "Você está interpretando a situação de forma negativa.",
+        "alternative": "Tente ver a situação de outra perspectiva.",
+        "reframe": "Embora {{situation}}, isso não define quem eu sou."
+      },
       "fallbacks": {
         "general": {
           "distortion": "Generalização Excessiva ou Catastrofização",
