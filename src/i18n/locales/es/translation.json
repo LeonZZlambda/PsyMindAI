@@ -45,9 +45,7 @@
       "title": "Apariencia",
       "language": {
         "label": "Idioma",
-        "desc": "Selecciona el idioma de la interfaz",
-        "pt": "Português (Brasil)",
-        "en": "English (US)"
+        "desc": "Selecciona el idioma de la interfaz"
       }
     },
     "theme": {

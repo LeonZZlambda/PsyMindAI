@@ -49,9 +49,7 @@
       "title": "Appearance",
       "language": {
         "label": "Language",
-        "desc": "Select the interface language",
-        "pt": "Português (Brasil)",
-        "en": "English (US)"
+        "desc": "Select the interface language"
       }
     },
     "theme": {

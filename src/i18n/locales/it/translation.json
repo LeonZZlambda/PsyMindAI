@@ -45,9 +45,7 @@
       "title": "Aspetto",
       "language": {
         "label": "Lingua",
-        "desc": "Seleziona la lingua dell'interfaccia",
-        "pt": "Português (Brasil)",
-        "en": "English (US)"
+        "desc": "Seleziona la lingua dell'interfaccia"
       }
     },
     "theme": {

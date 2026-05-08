@@ -45,9 +45,7 @@
       "title": "المظهر",
       "language": {
         "label": "اللغة",
-        "desc": "اختر لغة الواجهة",
-        "pt": "Português (Brasil)",
-        "en": "English (US)"
+        "desc": "اختر لغة الواجهة"
       }
     },
     "theme": {

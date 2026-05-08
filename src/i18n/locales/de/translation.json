@@ -43,12 +43,10 @@
     "close_aria": "Einstellungen schließen",
     "appearance": {
       "title": "Darstellung",
-      "language": {
-        "label": "Sprache",
-        "desc": "Wähle die Sprache der Oberfläche",
-        "pt": "Português (Brasil)",
-        "en": "English (US)"
-      }
+        "language": {
+          "label": "Sprache",
+          "desc": "Wähle die Sprache der Oberfläche"
+        }
     },
     "theme": {
       "follow_system": {

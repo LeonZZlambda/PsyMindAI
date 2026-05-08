@@ -45,9 +45,7 @@
       "title": "दिखावट",
       "language": {
         "label": "भाषा",
-        "desc": "इंटरफ़ेस की भाषा चुनें",
-        "pt": "Português (Brasil)",
-        "en": "English (US)"
+        "desc": "इंटरफ़ेस की भाषा चुनें"
       }
     },
     "theme": {

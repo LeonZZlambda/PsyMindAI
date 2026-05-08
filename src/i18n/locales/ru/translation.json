@@ -45,9 +45,7 @@
       "title": "Внешний вид",
       "language": {
         "label": "Язык",
-        "desc": "Выберите язык интерфейса",
-        "pt": "Português (Brasil)",
-        "en": "English (US)"
+        "desc": "Выберите язык интерфейса"
       }
     },
     "theme": {

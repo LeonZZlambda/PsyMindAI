@@ -45,9 +45,7 @@
       "title": "外觀",
       "language": {
         "label": "語言",
-        "desc": "選擇介面語言",
-        "pt": "Português (Brasil)",
-        "en": "English (US)"
+        "desc": "選擇介面語言"
       }
     },
     "theme": {
