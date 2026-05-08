@@ -168,3 +168,36 @@
   border: 2px solid var(--hc-border);
 }
 
+/* Loading spinner for language selector */
+.custom-select-trigger.loading {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.loading-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--text-color-secondary);
+  border-top: 2px solid var(--accent-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.app.dark .spinner {
+  border-color: rgba(255, 255, 255, 0.3);
+  border-top-color: var(--accent-color);
+}
+

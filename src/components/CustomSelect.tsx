@@ -10,9 +10,10 @@ type CustomSelectProps = {
   onChange: (value: string) => void
   ariaLabel?: string
   className?: string
+  loading?: boolean
 }
 
-const CustomSelect: React.FC<CustomSelectProps> = ({ value, options, onChange, ariaLabel, className }) => {
+const CustomSelect: React.FC<CustomSelectProps> = ({ value, options, onChange, ariaLabel, className, loading = false }) => {
   const [isOpen, setIsOpen] = useState(false)
   const selectRef = useRef<HTMLDivElement | null>(null)
 
@@ -32,14 +33,21 @@ const CustomSelect: React.FC<CustomSelectProps> = ({ value, options, onChange, a
     <div className={`custom-select-container ${className || ''}`} ref={selectRef}>
       <button
         type="button"
-        className={`custom-select-trigger ${isOpen ? 'open' : ''}`}
-        onClick={() => setIsOpen((v) => !v)}
+        className={`custom-select-trigger ${isOpen ? 'open' : ''} ${loading ? 'loading' : ''}`}
+        onClick={() => !loading && setIsOpen((v) => !v)}
+        disabled={loading}
         aria-label={ariaLabel}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
       >
         <span>{selectedOption ? selectedOption.label : ''}</span>
-        <span className="material-symbols-outlined dropdown-icon">expand_more</span>
+        {loading ? (
+          <div className="loading-spinner" aria-hidden="true">
+            <div className="spinner"></div>
+          </div>
+        ) : (
+          <span className="material-symbols-outlined dropdown-icon">expand_more</span>
+        )}
       </button>
 
       <AnimatePresence>

@@ -83,6 +83,35 @@ export default defineConfig({
           },
         ],
       },
+      workbox: {
+        // Optimize precache: exclude large assets and development files
+        globPatterns: [
+          '**/*.{js,css,html,ico,png,svg,woff2}',
+        ],
+        // Exclude large files from precache to reduce initial load
+        globIgnores: [
+          '**/stats.html', // Build analyzer output
+          '**/*-legacy.*', // Legacy browser chunks
+          '**/sw.js.map', // Source maps
+        ],
+        // Runtime caching for dynamic assets
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'google-fonts',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
+              },
+              cacheKeyWillBeUsed: async ({ request }) => {
+                return `${request.url}?v=1` // Cache-busting for font updates
+              },
+            },
+          },
+        ],
+      },
     }),
   ],
   build: {
@@ -108,6 +137,14 @@ export default defineConfig({
             id.includes('node_modules/scheduler/')
           ) {
             return 'core-vendor'
+          }
+          // Stable libraries — rarely updated, can be cached long-term
+          if (
+            id.includes('node_modules/date-fns/') ||
+            id.includes('node_modules/@mui/') ||
+            id.includes('node_modules/@emotion/')
+          ) {
+            return 'stable-vendor'
           }
           // Framer Motion — animation library, tree-shaken with LazyMotion
           if (id.includes('node_modules/framer-motion/')) {

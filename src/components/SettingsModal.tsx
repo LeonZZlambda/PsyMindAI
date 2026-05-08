@@ -20,6 +20,7 @@ interface SettingsModalProps {
 
 const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, onOpenImportContext }) => {
   const { t, i18n } = useTranslation();
+  const [isLanguageLoading, setIsLanguageLoading] = useState(false);
   const { 
     isDarkMode, toggleTheme, themeMode, setThemeMode, 
     fontSize, setFontSize, reducedMotion, setReducedMotion, 
@@ -28,6 +29,20 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, onOpenIm
     darkRoom, setDarkRoom
   } = useTheme();
   const { clearHistory } = useChat();
+
+  // Handle language loading state
+  useEffect(() => {
+    const handleLanguageChanging = () => setIsLanguageLoading(true);
+    const handleLanguageChanged = () => setIsLanguageLoading(false);
+
+    i18n.on('languageChanging', handleLanguageChanging);
+    i18n.on('languageChanged', handleLanguageChanged);
+
+    return () => {
+      i18n.off('languageChanging', handleLanguageChanging);
+      i18n.off('languageChanged', handleLanguageChanged);
+    };
+  }, [i18n]);
   
   const [apiKey, setApiKey] = useState(defaultConfig.getApiKey() || '');
   const [telemetryOptIn, setTelemetryOptIn] = useState(Telemetry.isOptedIn());
@@ -116,6 +131,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, onOpenIm
                 value={selectedLanguage}
                 options={supportedLanguages.map((lng) => ({ value: lng, label: getLanguageLabel(lng) }))}
                 onChange={(val) => i18n.changeLanguage(val)}
+                loading={isLanguageLoading}
                 ariaLabel={t('settings.appearance.language.label')}
               />
             </div>
