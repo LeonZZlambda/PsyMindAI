@@ -143,8 +143,6 @@ function App() {
     startAnonymousChat()
     setInput('')
     inputRef.current?.focus()
-    setIsNewChatAnimating(true)
-    setTimeout(() => setIsNewChatAnimating(false), 2000)
     if (window.innerWidth <= 768) {
       setIsSidebarOpen(false)
     }
