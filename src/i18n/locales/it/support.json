@@ -92,12 +92,11 @@
     "close_aria": "Chiudi aiuto"
   },
   "support": {
+    "title": "Supporto emotivo",
     "tabs": {
-    "immediate": "Supporto immediato",
-    "investigate": "Analisi delle cause",
-    "reframing": "Ristrutturazione"
-  },
-  "title": "Supporto emotivo",
+      "immediate": "Supporto immediato",
+      "investigate": "Analisi delle cause",
+      "reframing": "Ristrutturazione"
     },
     "immediate": {
       "title": "Come ti senti oggi?",
