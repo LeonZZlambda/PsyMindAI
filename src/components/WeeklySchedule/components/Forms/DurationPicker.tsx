@@ -1,4 +1,3 @@
-import { Box, Button, Stack, TextField } from '@mui/material'
 import { memo, useCallback, useMemo } from 'react'
 
 interface DurationPickerProps {
@@ -40,17 +39,17 @@ export const DurationPicker = memo(({ label, minutes, onChange }: DurationPicker
   )
 
   return (
-    <Stack spacing={1} sx={{ width: '100%' }}>
-      <TextField
+    <div className="duration-picker-field">
+      <label className="duration-picker-label">{label}</label>
+      <input
         type="number"
-        label={label}
         value={minutes}
         onChange={handleMinutesChange}
-        variant="outlined"
-        fullWidth
-        inputProps={{ min: 15, step: 15 }}
+        className="duration-picker-input"
+        min={15}
+        step={15}
       />
-      <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', justifyContent: 'center' }}>
+      <div className="duration-picker-quick-buttons">
         {[
           { label: '15m', minutes: 15 },
           { label: '30m', minutes: 30 },
@@ -59,18 +58,17 @@ export const DurationPicker = memo(({ label, minutes, onChange }: DurationPicker
           { label: '1.5h', minutes: 90 },
           { label: '2h', minutes: 120 },
         ].map(({ label: btnLabel, minutes: btnMinutes }) => (
-          <Button
+          <button
             key={btnLabel}
-            size="small"
-            variant={minutes === btnMinutes ? 'contained' : 'outlined'}
+            type="button"
+            className={`duration-picker-btn ${minutes === btnMinutes ? 'active' : ''}`}
             onClick={() => handleQuickSet(btnMinutes)}
-            sx={{ borderRadius: '20px', textTransform: 'none', fontWeight: 500 }}
           >
             {btnLabel}
-          </Button>
+          </button>
         ))}
-      </Box>
-    </Stack>
+      </div>
+    </div>
   )
 })
 

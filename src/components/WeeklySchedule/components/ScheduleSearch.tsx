@@ -1,6 +1,6 @@
-import { Box, Stack, TextField } from '@mui/material'
 import { memo, useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import MaterialIcon from '../../MaterialIcon'
 import { Activity, ActivityType } from '../types'
 
 interface ScheduleSearchProps {
@@ -58,47 +58,33 @@ export const ScheduleSearch = memo(
     }, [])
 
     return (
-      <Stack spacing={2}>
-        <TextField
-          placeholder={t('schedule.search.placeholder', { defaultValue: 'Buscar atividades...' })}
-          value={searchQuery}
-          onChange={handleSearchChange}
-          variant="outlined"
-          size="small"
-          fullWidth
-          slotProps={{
-            input: {
-              'aria-label': t('schedule.search.placeholder', { defaultValue: 'Buscar atividades' }),
-            },
-          }}
-        />
-        <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', justifyContent: 'center' }}>
+      <div className="weekly-schedule__search">
+        <div className="weekly-schedule__search-input-wrapper">
+          <MaterialIcon name="search" className="weekly-schedule__search-icon" />
+          <input
+            type="text"
+            placeholder={t('schedule.search.placeholder', { defaultValue: 'Buscar atividades...' })}
+            value={searchQuery}
+            onChange={handleSearchChange}
+            className="weekly-schedule__search-input"
+            aria-label={t('schedule.search.placeholder', { defaultValue: 'Buscar atividades' })}
+          />
+        </div>
+        <div className="weekly-schedule__type-filters">
           {Object.values(ActivityType).map((type) => (
-            <Box
+            <button
               key={type}
-              component="button"
               onClick={() => handleTypeToggle(type)}
-              sx={{
-                px: 2,
-                py: 1,
-                borderRadius: '20px',
-                border: '1px solid',
-                bgcolor: selectedTypes.has(type) ? 'primary.main' : 'transparent',
-                color: selectedTypes.has(type) ? 'primary.contrastText' : 'inherit',
-                borderColor: 'divider',
-                cursor: 'pointer',
-                '&:hover': {
-                  bgcolor: selectedTypes.has(type) ? 'primary.dark' : 'action.hover',
-                },
-                transition: 'all 0.2s ease-in-out',
-              }}
+              className={`weekly-schedule__type-filter ${
+                selectedTypes.has(type) ? 'active' : ''
+              }`}
               aria-pressed={selectedTypes.has(type)}
             >
               {t(`schedule.type.${type}`, { defaultValue: type })}
-            </Box>
+            </button>
           ))}
-        </Box>
-      </Stack>
+        </div>
+      </div>
     )
   },
 )

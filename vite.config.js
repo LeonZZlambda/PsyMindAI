@@ -14,6 +14,11 @@ try {
 
 // https://vite.dev/config/
 export default defineConfig({
+  resolve: {
+    alias: {
+      '@': '/src',
+    },
+  },
   test: {
     environment: 'jsdom',
     globals: true,

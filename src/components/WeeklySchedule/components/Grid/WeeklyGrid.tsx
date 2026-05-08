@@ -1,28 +1,11 @@
 import { DndContext, DragEndEvent } from '@dnd-kit/core'
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers'
-import AddIcon from '@mui/icons-material/Add'
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
-import RedoIcon from '@mui/icons-material/Redo'
-import UndoIcon from '@mui/icons-material/Undo'
-import {
-  Alert,
-  Box,
-  Fab,
-  IconButton,
-  Pagination,
-  Paper,
-  Stack,
-  Toolbar,
-  Tooltip,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material'
 import { addDays, format, isSameDay, startOfDay } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { AnimatePresence, m } from 'framer-motion'
 import { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import MaterialIcon from '../../../MaterialIcon'
 import { useScheduleCalculations } from '../../hooks/useScheduleCalculations'
 import { useScheduleStore } from '../../store/useScheduleStore'
 import { Activity, ActivityFormInput, DayOfWeek } from '../../types'
@@ -42,23 +25,31 @@ interface TimeSlotCellProps {
 }
 
 const TimeSlotCell = memo(({ label, rowHeight }: TimeSlotCellProps) => (
-  <Box
-    sx={{
+  <div
+    className="weekly-schedule__time-slot"
+    style={{
       position: 'sticky',
       left: 0,
       width: 88,
       minWidth: 88,
       height: rowHeight,
-      px: 1,
-      pt: 0.5,
-      bgcolor: 'background.default',
+      paddingLeft: 8,
+      paddingRight: 8,
+      paddingTop: 2,
+      backgroundColor: 'var(--background-color)',
       zIndex: 2,
     }}
   >
-    <Typography variant="caption" sx={{ opacity: 0.7 }}>
+    <span
+      style={{
+        fontSize: '0.75rem',
+        opacity: 0.7,
+        color: 'var(--text-color)',
+      }}
+    >
       {label}
-    </Typography>
-  </Box>
+    </span>
+  </div>
 ))
 
 const weekdays = ['EEE', 'dd/MM']
@@ -74,8 +65,7 @@ const dayOrder: DayOfWeek[] = [
 
 export const WeeklyGrid = ({ initialDate = new Date() }: WeeklyGridProps) => {
   const { t } = useTranslation()
-  const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  const isMobile = false // TODO: Add proper mobile detection hook
   const {
     activities,
     settings,
@@ -189,188 +179,146 @@ export const WeeklyGrid = ({ initialDate = new Date() }: WeeklyGridProps) => {
   )
 
   return (
-    <Box>
-      <Stack spacing={2}>
+    <div className="weekly-schedule">
+      <div className="weekly-schedule__content">
         <ScheduleSearch
           activities={activities}
           onFilterChange={setFilteredActivities}
           onSearchChange={setSearchQuery}
         />
 
-        <Toolbar sx={{ px: 0, minHeight: 'auto', justifyContent: 'space-between' }}>
-          <Stack spacing={1} sx={{ alignItems: 'center', flex: 1 }}>
-            <Typography variant="h6" sx={{ textAlign: 'center' }}>
-              {headerDateLabel}
-            </Typography>
-            <Pagination
-              page={selectedDay}
-              onChange={(_, page) => setSelectedDay(page)}
-              count={7}
-              color="primary"
-              sx={{ mx: 'auto' }}
-            />
-          </Stack>
-          <Stack direction="row" spacing={1}>
+        <div className="weekly-schedule__toolbar">
+          <div className="weekly-schedule__header-info">
+            <h6 className="weekly-schedule__title">{headerDateLabel}</h6>
+            <div className="weekly-schedule__pagination">
+              {/* TODO: Custom pagination component */}
+              <button
+                onClick={() => setSelectedDay(Math.max(1, selectedDay - 1))}
+                disabled={selectedDay === 1}
+                className="weekly-schedule__pagination-btn"
+              >
+                ‹
+              </button>
+              <span>{selectedDay} / 7</span>
+              <button
+                onClick={() => setSelectedDay(Math.min(7, selectedDay + 1))}
+                disabled={selectedDay === 7}
+                className="weekly-schedule__pagination-btn"
+              >
+                ›
+              </button>
+            </div>
+          </div>
+          <div className="weekly-schedule__actions">
             <ExportButton
               activities={filteredActivities.length > 0 ? filteredActivities : activities}
             />
-            <Tooltip title={t('schedule.actions.undo', { defaultValue: 'Desfazer (Ctrl+Z)' })}>
-              <span>
-                <IconButton
-                  size="small"
-                  onClick={undo}
-                  disabled={!canUndo()}
-                  aria-label={t('schedule.actions.undo', { defaultValue: 'Desfazer' })}
-                >
-                  <UndoIcon />
-                </IconButton>
-              </span>
-            </Tooltip>
-            <Tooltip title={t('schedule.actions.redo', { defaultValue: 'Refazer (Ctrl+Y)' })}>
-              <span>
-                <IconButton
-                  size="small"
-                  onClick={redo}
-                  disabled={!canRedo()}
-                  aria-label={t('schedule.actions.redo', { defaultValue: 'Refazer' })}
-                >
-                  <RedoIcon />
-                </IconButton>
-              </span>
-            </Tooltip>
-          </Stack>
-        </Toolbar>
+            <button
+              className="weekly-schedule__icon-btn"
+              onClick={undo}
+              disabled={!canUndo()}
+              title={t('schedule.actions.undo', { defaultValue: 'Desfazer (Ctrl+Z)' })}
+              aria-label={t('schedule.actions.undo', { defaultValue: 'Desfazer' })}
+            >
+              <MaterialIcon name="undo" />
+            </button>
+            <button
+              className="weekly-schedule__icon-btn"
+              onClick={redo}
+              disabled={!canRedo()}
+              title={t('schedule.actions.redo', { defaultValue: 'Refazer (Ctrl+Y)' })}
+              aria-label={t('schedule.actions.redo', { defaultValue: 'Refazer' })}
+            >
+              <MaterialIcon name="redo" />
+            </button>
+          </div>
+        </div>
 
         {(filteredActivities.length === 0 && activities.length === 0) ||
         (searchQuery && filteredActivities.length === 0) ? (
-          <Paper variant="outlined" sx={{ p: 4, textAlign: 'center', borderRadius: 4 }}>
-            <CalendarMonthIcon sx={{ fontSize: 42, opacity: 0.7 }} />
+          <div className="weekly-schedule__empty-state">
+            <MaterialIcon name="calendar_month" className="weekly-schedule__empty-icon" />
             {searchQuery ? (
               <>
-                <Typography variant="h6">
+                <h6 className="weekly-schedule__empty-title">
                   {t('schedule.search.noResults', { defaultValue: 'Nenhuma atividade encontrada' })}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
+                </h6>
+                <p className="weekly-schedule__empty-description">
                   {t('schedule.search.tryDifferent', {
                     defaultValue: 'Tente uma busca diferente.',
                   })}
-                </Typography>
+                </p>
               </>
             ) : (
               <>
-                <Typography variant="h6">
+                <h6 className="weekly-schedule__empty-title">
                   {t('schedule.empty.title', { defaultValue: 'Sem atividades na semana' })}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
+                </h6>
+                <p className="weekly-schedule__empty-description">
                   {t('schedule.empty.description', {
                     defaultValue: 'Comece criando sua primeira atividade.',
                   })}
-                </Typography>
+                </p>
               </>
             )}
-          </Paper>
+          </div>
         ) : null}
 
-        <Alert severity="info">
+        <div className="weekly-schedule__alert">
           {t('schedule.resizeHint', {
             defaultValue: 'Arraste a base do card para redimensionar em passos configurados.',
           })}
-        </Alert>
+        </div>
 
         <DndContext onDragEnd={onDragEnd} modifiers={[restrictToVerticalAxis]}>
-          <Box
-            className="weekly-grid-shell bg-surface-container-lowest border-outline-variant"
-            sx={{
-              overflowX: { xs: 'auto', md: 'hidden' },
-              scrollSnapType: isMobile ? 'x mandatory' : 'none',
-              borderRadius: 3,
-              bgcolor: 'var(--background-color)',
-            }}
-          >
-            <Box sx={{ minWidth: { xs: 840, md: '100%' } }}>
-              <Box
-                className="weekly-grid-header"
-                sx={{
-                  display: 'grid',
-                  gridTemplateColumns: {
-                    xs: '88px repeat(7, 128px)',
-                    md: '88px repeat(7, minmax(0, 1fr))',
-                  },
-                  position: 'sticky',
-                  top: 0,
-                  zIndex: 4,
-                  bgcolor: 'var(--secondary-color)',
-                }}
-              >
-                <Box sx={{}} />
+          <div className="weekly-grid-shell">
+            <div className="weekly-grid-container">
+              <div className="weekly-grid-header">
+                <div></div>
                 {dayColumns.map(({ date, index }) => (
-                  <Box
+                  <div
                     key={date.toISOString()}
-                    sx={{
-                      minWidth: 0,
-                      py: 1,
-                      textAlign: 'center',
-                      scrollSnapAlign: isMobile
-                        ? selectedDay === index + 1
-                          ? 'center'
-                          : undefined
-                        : undefined,
+                    className="weekly-grid-header-day"
+                    style={{
+                      scrollSnapAlign: isMobile && selectedDay === index + 1 ? 'center' : undefined,
                     }}
                   >
-                    <Typography variant="caption" sx={{ display: 'block', opacity: 0.7 }}>
+                    <span className="weekly-grid-header-day-weekday">
                       {format(date, weekdays[0], { locale: ptBR })}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      sx={{ fontWeight: isSameDay(date, new Date()) ? 700 : 500 }}
+                    </span>
+                    <span
+                      className={`weekly-grid-header-day-date ${
+                        isSameDay(date, new Date()) ? 'today' : ''
+                      }`}
                     >
                       {format(date, weekdays[1], { locale: ptBR })}
-                    </Typography>
-                  </Box>
+                    </span>
+                  </div>
                 ))}
-              </Box>
+              </div>
 
-              <Box sx={{ position: 'relative' }}>
+              <div className="weekly-grid-body">
                 {slots.map((slot) => (
-                  <Box
-                    key={slot.id}
-                    sx={{
-                      display: 'grid',
-                      gridTemplateColumns: {
-                        xs: '88px repeat(7, 128px)',
-                        md: '88px repeat(7, minmax(0, 1fr))',
-                      },
-                    }}
-                  >
+                  <div key={slot.id} className="weekly-grid-row">
                     <TimeSlotCell label={slot.label} rowHeight={rowHeightPx} />
                     {dayColumns.map(({ date }) => (
-                      <Box
+                      <div
                         key={`${slot.id}-${date.toISOString()}`}
-                        sx={{
-                          minWidth: 0,
-                          height: rowHeightPx,
-                          borderBottom: '1px solid',
-                          borderColor: 'color-mix(in srgb, var(--border-color) 40%, transparent)',
-                        }}
+                        className="weekly-grid-cell"
+                        style={{ height: rowHeightPx }}
                       />
                     ))}
-                  </Box>
+                  </div>
                 ))}
 
                 {dayColumns.map(({ day, date, index }) => (
-                  <Box
+                  <div
                     key={`activities-layer-${day}`}
-                    sx={{
-                      position: 'absolute',
-                      left: {
-                        xs: `${88 + dayColumns.findIndex((column) => column.day === day) * 128}px`,
-                        md: 0,
-                      },
-                      top: 0,
-                      width: { xs: 128, md: `calc((100% - 88px) / 7)` },
-                      ml: {
-                        md: `calc(88px + (${dayColumns.findIndex((column) => column.day === day)} * ((100% - 88px) / 7))`,
-                      },
+                    className="weekly-activities-layer"
+                    style={{
+                      left: isMobile ? `${88 + index * 128}px` : 0,
+                      width: isMobile ? 128 : `calc((100% - 88px) / 7)`,
+                      marginLeft: !isMobile ? `calc(88px + (${index} * ((100% - 88px) / 7)))` : 0,
                       height: rowHeightPx * slots.length,
                     }}
                   >
@@ -414,25 +362,24 @@ export const WeeklyGrid = ({ initialDate = new Date() }: WeeklyGridProps) => {
                           ))}
                       </m.div>
                     </AnimatePresence>
-                  </Box>
+                  </div>
                 ))}
-              </Box>
-            </Box>
-          </Box>
+              </div>
+            </div>
+          </div>
         </DndContext>
-      </Stack>
+      </div>
 
-      <Fab
-        color="primary"
-        sx={{ position: 'fixed', bottom: 32, right: 32 }}
+      <button
+        className="weekly-schedule__fab"
         aria-label={t('schedule.actions.new', { defaultValue: 'Novo' })}
         onClick={() => {
           setEditingActivity(undefined)
           setIsFormOpen(true)
         }}
       >
-        <AddIcon />
-      </Fab>
+        <MaterialIcon name="add" />
+      </button>
 
       <ActivityForm
         isOpen={isFormOpen}
@@ -444,7 +391,7 @@ export const WeeklyGrid = ({ initialDate = new Date() }: WeeklyGridProps) => {
         onDelete={removeActivity}
         initialActivity={editingActivity}
       />
-    </Box>
+    </div>
   )
 }
 

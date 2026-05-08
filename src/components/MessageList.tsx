@@ -213,7 +213,7 @@ const MessageList: React.FC = () => {
 
       loadedPrismLanguagesRef.current.add(lang)
       try {
-        await import(`prismjs/components/prism-${lang}.js`)
+        await import(/* @vite-ignore */ `prismjs/components/prism-${lang}.js`)
         setPrismLangTick((x) => x + 1)
       } catch {
         // ignore unknown languages

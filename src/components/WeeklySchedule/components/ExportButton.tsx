@@ -1,19 +1,7 @@
-import DownloadIcon from '@mui/icons-material/Download'
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  MenuItem,
-  Stack,
-  TextField,
-  Tooltip,
-} from '@mui/material'
 import { memo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import BaseModal from '@/components/BaseModal'
+import MaterialIcon from '@/components/MaterialIcon'
 import { Activity } from '../types'
 import { exportSchedule } from '../utils/exportSchedule'
 
@@ -40,87 +28,100 @@ export const ExportButton = memo(({ activities }: ExportButtonProps) => {
 
   return (
     <>
-      <Tooltip title={t('schedule.actions.export', { defaultValue: 'Exportar agendamento' })}>
-        <IconButton
-          size="small"
-          onClick={() => setIsDialogOpen(true)}
-          aria-label={t('schedule.actions.export', { defaultValue: 'Exportar' })}
-        >
-          <DownloadIcon />
-        </IconButton>
-      </Tooltip>
+      <button
+        className="weekly-schedule__icon-btn"
+        onClick={() => setIsDialogOpen(true)}
+        title={t('schedule.actions.export', { defaultValue: 'Exportar agendamento' })}
+        aria-label={t('schedule.actions.export', { defaultValue: 'Exportar' })}
+      >
+        <MaterialIcon name="download" />
+      </button>
 
-      <Dialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)} fullWidth maxWidth="sm">
-        <DialogTitle>
-          {t('schedule.export.title', { defaultValue: 'Exportar agendamento' })}
-        </DialogTitle>
-        <DialogContent>
-          <Stack spacing={2} sx={{ mt: 2 }}>
-            <TextField
-              select
-              label={t('schedule.export.format', { defaultValue: 'Formato' })}
+      <BaseModal
+        isOpen={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)}
+        title={t('schedule.export.title', { defaultValue: 'Exportar agendamento' })}
+        icon="download"
+        size="small"
+        className="export-modal"
+      >
+        <div className="export-form">
+          <div className="export-field">
+            <label htmlFor="export-format" className="export-label">
+              {t('schedule.export.format', { defaultValue: 'Formato' })}
+            </label>
+            <select
+              id="export-format"
               value={format}
               onChange={(e) => setFormat(e.target.value as 'csv' | 'json' | 'ical')}
-              fullWidth
+              className="export-select"
             >
-              <MenuItem value="json">JSON</MenuItem>
-              <MenuItem value="csv">CSV (Planilha)</MenuItem>
-              <MenuItem value="ical">iCal (Calendário)</MenuItem>
-            </TextField>
+              <option value="json">JSON</option>
+              <option value="csv">CSV (Planilha)</option>
+              <option value="ical">iCal (Calendário)</option>
+            </select>
+          </div>
 
-            <TextField
-              label={t('schedule.export.fileName', { defaultValue: 'Nome do arquivo' })}
+          <div className="export-field">
+            <label htmlFor="export-filename" className="export-label">
+              {t('schedule.export.fileName', { defaultValue: 'Nome do arquivo' })}
+            </label>
+            <input
+              id="export-filename"
+              type="text"
               value={fileName}
               onChange={(e) => setFileName(e.target.value)}
-              fullWidth
-              helperText={t('schedule.export.fileNameHelper', {
+              className="export-input"
+            />
+            <span className="export-helper">
+              {t('schedule.export.fileNameHelper', {
                 defaultValue: 'Extensão será adicionada automaticamente',
               })}
-            />
+            </span>
+          </div>
 
-            <Box sx={{ p: 2, bgcolor: 'action.hover', borderRadius: 2 }}>
-              {format === 'json' && (
-                <p>
-                  {t('schedule.export.jsonDescription', {
-                    defaultValue: 'Exporta em formato JSON para importação posterior.',
-                  })}
-                </p>
-              )}
-              {format === 'csv' && (
-                <p>
-                  {t('schedule.export.csvDescription', {
-                    defaultValue: 'Exporta em formato CSV compatível com Excel/Sheets.',
-                  })}
-                </p>
-              )}
-              {format === 'ical' && (
-                <p>
-                  {t('schedule.export.icalDescription', {
-                    defaultValue:
-                      'Exporta em formato iCalendar para sincronizar com seu calendário.',
-                  })}
-                </p>
-              )}
-            </Box>
-          </Stack>
-        </DialogContent>
-        <DialogActions sx={{ justifyContent: 'center', gap: 1, pb: 2 }}>
-          <Button
-            onClick={() => setIsDialogOpen(false)}
-            sx={{ borderRadius: '20px', px: 3, textTransform: 'none' }}
-          >
-            {t('schedule.actions.cancel', { defaultValue: 'Cancelar' })}
-          </Button>
-          <Button
-            variant="contained"
-            onClick={handleExport}
-            startIcon={<DownloadIcon />}
-            sx={{ borderRadius: '20px', px: 3, textTransform: 'none' }}
-          >
-            {t('schedule.actions.export', { defaultValue: 'Exportar' })}
-          </Button>
-        </DialogActions>
-      </Dialog>
+          <div className="export-info">
+            {format === 'json' && (
+              <p>
+                {t('schedule.export.jsonDescription', {
+                  defaultValue: 'Exporta em formato JSON para importação posterior.',
+                })}
+              </p>
+            )}
+            {format === 'csv' && (
+              <p>
+                {t('schedule.export.csvDescription', {
+                  defaultValue: 'Exporta em formato CSV compatível com Excel/Sheets.',
+                })}
+              </p>
+            )}
+            {format === 'ical' && (
+              <p>
+                {t('schedule.export.icalDescription', {
+                  defaultValue: 'Exporta em formato iCalendar para sincronizar com seu calendário.',
+                })}
+              </p>
+            )}
+          </div>
+          <div className="export-actions">
+            <button
+              type="button"
+              onClick={() => setIsDialogOpen(false)}
+              className="export-btn secondary"
+            >
+              {t('schedule.actions.cancel', { defaultValue: 'Cancelar' })}
+            </button>
+            <button
+              type="button"
+              onClick={handleExport}
+              className="export-btn primary"
+            >
+              <MaterialIcon name="download" />
+              {t('schedule.actions.export', { defaultValue: 'Exportar' })}
+            </button>
+          </div>
+        </div>
+      </BaseModal>
     </>
   )
 })

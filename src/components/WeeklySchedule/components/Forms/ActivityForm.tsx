@@ -1,22 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import DeleteIcon from '@mui/icons-material/Delete'
-import {
-  Box,
-  Button,
-  Chip,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  Stack,
-  TextField,
-} from '@mui/material'
 import { useMemo } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
+import BaseModal from '../../../BaseModal'
 import CustomSelect from '../../../CustomSelect'
+import MaterialIcon from '../../../MaterialIcon'
 import {
   Activity,
   ActivityColorPreset,
@@ -176,55 +165,61 @@ export const ActivityForm = ({
   }
 
   return (
-    <Dialog open={isOpen} onClose={handleClose} fullWidth maxWidth="sm">
-      <DialogTitle
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          pr: 1,
-          textAlign: 'center',
-        }}
-      >
-        <span>
-          {t(initialActivity ? 'schedule.form.edit' : 'schedule.form.new', {
-            defaultValue: 'Nova atividade',
-          })}
-        </span>
-        {initialActivity && (
-          <IconButton
-            size="small"
-            color="error"
-            onClick={handleDeleteClick}
-            aria-label={t('schedule.actions.delete', { defaultValue: 'Deletar' })}
-            title={t('schedule.actions.delete', { defaultValue: 'Deletar' })}
-            sx={{ borderRadius: '50%' }}
-          >
-            <DeleteIcon />
-          </IconButton>
-        )}
-      </DialogTitle>
-      <DialogContent>
-        <Stack spacing={2} sx={{ mt: 1 }}>
-          <TextField
-            {...register('title')}
-            label={t('schedule.form.title', { defaultValue: 'Titulo' })}
-            variant="outlined"
-            error={Boolean(errors.title)}
-            helperText={
-              errors.title
-                ? t('schedule.form.errors.title', { defaultValue: 'Informe um titulo valido.' })
-                : undefined
-            }
-          />
+    <BaseModal
+      isOpen={isOpen}
+      onClose={handleClose}
+      title={t(initialActivity ? 'schedule.form.edit' : 'schedule.form.new', {
+        defaultValue: 'Nova atividade',
+      })}
+      icon="event"
+      size="small"
+      className="activity-form-modal"
+    >
+      <div className="activity-form-content">
+        <form className="activity-form-grid" onSubmit={handleSubmit(internalSubmit)}>
+          <div className="activity-form-field">
+            <label htmlFor="title" className="activity-form-label">
+              {t('schedule.form.title', { defaultValue: 'Titulo' })}
+            </label>
+            <div className="activity-form-input-wrapper">
+              <input
+                {...register('title')}
+                id="title"
+                type="text"
+                className={`activity-form-input ${errors.title ? 'error' : ''}`}
+                placeholder={t('schedule.form.title', { defaultValue: 'Titulo' })}
+              />
+              {initialActivity && (
+                <button
+                  type="button"
+                  className="activity-form-delete-btn"
+                  onClick={handleDeleteClick}
+                  aria-label={t('schedule.actions.delete', { defaultValue: 'Deletar' })}
+                  title={t('schedule.actions.delete', { defaultValue: 'Deletar' })}
+                >
+                  <MaterialIcon name="delete" />
+                </button>
+              )}
+            </div>
+            {errors.title && (
+              <span className="activity-form-error">
+                {t('schedule.form.errors.title', { defaultValue: 'Informe um titulo valido.' })}
+              </span>
+            )}
+          </div>
 
-          <TextField
-            {...register('description')}
-            label={t('schedule.form.description', { defaultValue: 'Descricao' })}
-            multiline
-            minRows={3}
-            variant="outlined"
-          />
+          <div className="activity-form-field">
+            <label htmlFor="description" className="activity-form-label">
+              {t('schedule.form.description', { defaultValue: 'Descricao' })}
+            </label>
+            <textarea
+              {...register('description')}
+              id="description"
+              className="activity-form-textarea"
+              rows={3}
+              placeholder={t('schedule.form.description', { defaultValue: 'Descricao' })}
+            />
+          </div>
 
           <Controller
             control={control}
@@ -243,135 +238,157 @@ export const ActivityForm = ({
             )}
           />
 
-          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-            <Controller
-              control={control}
-              name="days"
-              render={({ field }) => (
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, flex: 1 }}>
-                  {dayOptions.map((day) => {
-                    const isSelected = field.value.includes(day)
-                    return (
-                      <Chip
-                        key={day}
-                        label={t(`schedule.days.${day}`, { defaultValue: day.slice(0, 3) })}
-                        variant={isSelected ? 'filled' : 'outlined'}
-                        color={isSelected ? 'primary' : 'default'}
-                        onClick={() => {
-                          field.onChange(
-                            isSelected
-                              ? field.value.filter((value) => value !== day)
-                              : [...field.value, day],
-                          )
-                        }}
-                        sx={{ borderRadius: '16px' }}
-                      />
-                    )
-                  })}
-                </Box>
-              )}
-            />
-          </Stack>
+          <Controller
+            control={control}
+            name="days"
+            render={({ field }) => (
+              <div className="activity-form-days">
+                {dayOptions.map((day) => {
+                  const isSelected = field.value.includes(day)
+                  return (
+                    <button
+                      key={day}
+                      type="button"
+                      className={`activity-form-day-chip ${isSelected ? 'selected' : ''}`}
+                      onClick={() => {
+                        field.onChange(
+                          isSelected
+                            ? field.value.filter((value) => value !== day)
+                            : [...field.value, day],
+                        )
+                      }}
+                    >
+                      {t(`schedule.days.${day}`, { defaultValue: day.slice(0, 3) })}
+                    </button>
+                  )
+                })}
+              </div>
+            )}
+          />
 
-          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+          <div className="activity-form-time-row">
             <Controller
               control={control}
               name="startMinutes"
               render={({ field }) => (
-                <Box sx={{ flex: 1 }}>
+                <div className="activity-form-field">
                   <TimePickerField
                     label={t('schedule.form.start', { defaultValue: 'Hora de início' })}
                     minutes={field.value}
                     onChange={field.onChange}
                   />
-                </Box>
+                </div>
               )}
             />
             <Controller
               control={control}
               name="durationMinutes"
               render={({ field }) => (
-                <Box sx={{ flex: 1 }}>
+                <div className="activity-form-field">
                   <DurationPicker
                     label={t('schedule.form.duration', { defaultValue: 'Duração' })}
                     minutes={field.value}
                     onChange={field.onChange}
                   />
-                </Box>
+                </div>
               )}
             />
-          </Stack>
+          </div>
 
           <Controller
             control={control}
             name="colorPreset"
             render={({ field }) => (
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+              <div className="activity-form-colors">
                 {colorPalette.map((item) => (
-                  <Chip
+                  <button
                     key={item.preset}
-                    label={t(`schedule.colors.${item.preset}`, { defaultValue: item.preset })}
+                    type="button"
+                    className={`activity-form-color-chip ${field.value === item.preset ? 'selected' : ''}`}
                     onClick={() => field.onChange(item.preset)}
-                    variant={field.value === item.preset ? 'filled' : 'outlined'}
-                    sx={{
+                    style={{
                       borderColor: item.color,
-                      bgcolor: field.value === item.preset ? item.color : 'transparent',
-                      color: field.value === item.preset ? '#fff' : 'inherit',
-                      borderRadius: '16px',
+                      backgroundColor: field.value === item.preset ? item.color : 'transparent',
+                      color: field.value === item.preset ? '#fff' : 'var(--text-color)',
                     }}
-                  />
+                  >
+                    {t(`schedule.colors.${item.preset}`, { defaultValue: item.preset })}
+                  </button>
                 ))}
-              </Box>
+              </div>
             )}
           />
+
           <Controller
             control={control}
             name="colorPreset"
             render={({ field }) => (
               <>
-                {field.value === ActivityColorPreset.CUSTOM ? (
-                  <TextField
-                    {...register('customColor')}
-                    label={t('schedule.form.customColor', {
-                      defaultValue: 'Cor customizada (Hex/RGB)',
-                    })}
-                    variant="outlined"
-                  />
-                ) : (
-                  <></>
+                {field.value === ActivityColorPreset.CUSTOM && (
+                  <div className="activity-form-field">
+                    <label htmlFor="customColor" className="activity-form-label">
+                      {t('schedule.form.customColor', {
+                        defaultValue: 'Cor customizada (Hex/RGB)',
+                      })}
+                    </label>
+                    <input
+                      {...register('customColor')}
+                      id="customColor"
+                      type="text"
+                      className="activity-form-input"
+                      placeholder="#6750A4"
+                    />
+                  </div>
                 )}
               </>
             )}
           />
-          <TextField
-            {...register('meetingUrl')}
-            label={t('schedule.form.meetingUrl', { defaultValue: 'Link rapido' })}
-            variant="outlined"
-          />
-          <TextField
-            {...register('locationUrl')}
-            label={t('schedule.form.locationUrl', { defaultValue: 'Maps URL' })}
-            variant="outlined"
-          />
-        </Stack>
-      </DialogContent>
-      <DialogActions sx={{ justifyContent: 'center', pb: 2, gap: 1 }}>
-        <Button
-          onClick={handleClose}
-          sx={{ borderRadius: '20px', px: 3, textTransform: 'none', fontWeight: 500 }}
-        >
-          {t('schedule.actions.cancel', { defaultValue: 'Cancelar' })}
-        </Button>
-        <Button
-          variant="contained"
-          onClick={handleSubmit(internalSubmit)}
-          disabled={isSubmitting}
-          sx={{ borderRadius: '20px', px: 3, textTransform: 'none', fontWeight: 500 }}
-        >
-          {t('schedule.actions.save', { defaultValue: 'Salvar' })}
-        </Button>
-      </DialogActions>
-    </Dialog>
+
+          <div className="activity-form-field">
+            <label htmlFor="meetingUrl" className="activity-form-label">
+              {t('schedule.form.meetingUrl', { defaultValue: 'Link rapido' })}
+            </label>
+            <input
+              {...register('meetingUrl')}
+              id="meetingUrl"
+              type="url"
+              className="activity-form-input"
+              placeholder="https://..."
+            />
+          </div>
+
+          <div className="activity-form-field">
+            <label htmlFor="locationUrl" className="activity-form-label">
+              {t('schedule.form.locationUrl', { defaultValue: 'Maps URL' })}
+            </label>
+            <input
+              {...register('locationUrl')}
+              id="locationUrl"
+              type="url"
+              className="activity-form-input"
+              placeholder="https://..."
+            />
+          </div>
+
+          <div className="activity-form-actions">
+            <button
+              type="button"
+              onClick={handleClose}
+              className="activity-form-btn secondary"
+            >
+              {t('schedule.actions.cancel', { defaultValue: 'Cancelar' })}
+            </button>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="activity-form-btn primary"
+            >
+              {t('schedule.actions.save', { defaultValue: 'Salvar' })}
+            </button>
+          </div>
+        </form>
+      </div>
+    </BaseModal>
   )
 }
 

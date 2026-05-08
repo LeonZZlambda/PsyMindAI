@@ -1,4 +1,3 @@
-import { Box, Button, Stack, TextField, Typography } from '@mui/material'
 import { memo, useCallback, useMemo } from 'react'
 
 interface TimePickerFieldProps {
@@ -45,21 +44,15 @@ export const TimePickerField = memo(({ label, minutes, onChange }: TimePickerFie
   )
 
   return (
-    <Stack spacing={1} sx={{ width: '100%' }}>
-      <TextField
+    <div className="time-picker-field">
+      <label className="time-picker-label">{label}</label>
+      <input
         type="time"
-        label={label}
         value={timeValue}
         onChange={handleTimeChange}
-        variant="outlined"
-        fullWidth
-        slotProps={{
-          inputLabel: {
-            shrink: true,
-          },
-        }}
+        className="time-picker-input"
       />
-      <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', justifyContent: 'center' }}>
+      <div className="time-picker-quick-buttons">
         {[
           { label: '08:00', minutes: 8 * 60 },
           { label: '09:00', minutes: 9 * 60 },
@@ -68,18 +61,17 @@ export const TimePickerField = memo(({ label, minutes, onChange }: TimePickerFie
           { label: '17:00', minutes: 17 * 60 },
           { label: '19:00', minutes: 19 * 60 },
         ].map(({ label: btnLabel, minutes: btnMinutes }) => (
-          <Button
+          <button
             key={btnLabel}
-            size="small"
-            variant={timeValue === btnLabel ? 'contained' : 'outlined'}
+            type="button"
+            className={`time-picker-btn ${timeValue === btnLabel ? 'active' : ''}`}
             onClick={() => handleQuickSet(btnMinutes)}
-            sx={{ borderRadius: '20px', textTransform: 'none', fontWeight: 500 }}
           >
             {btnLabel}
-          </Button>
+          </button>
         ))}
-      </Box>
-    </Stack>
+      </div>
+    </div>
   )
 })
 

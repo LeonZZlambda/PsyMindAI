@@ -1,9 +1,7 @@
 import { useDraggable } from '@dnd-kit/core'
-import LinkIcon from '@mui/icons-material/Link'
-import MapIcon from '@mui/icons-material/Map'
-import { Box, IconButton, Typography } from '@mui/material'
 import { memo, PointerEvent as ReactPointerEvent, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
+import MaterialIcon from '../../../MaterialIcon'
 import { Activity } from '../../types'
 
 interface ActivityCardProps {
@@ -89,41 +87,21 @@ const ActivityCardComponent = ({
   }
 
   return (
-    <Box
+    <div
       ref={setNodeRef}
       {...listeners}
       {...attributes}
       onClick={() => onSelect(activity)}
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
-      sx={{
-        position: 'absolute',
-        left: 6,
-        right: 6,
-        top,
-        height,
+      className="weekly-schedule__activity"
+      style={{
+        top: `${top}px`,
+        height: `${height}px`,
         transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
-        borderRadius: 3,
-        bgcolor: withOpacity(activity.color.value, 0.2),
-        border: '1px solid',
-        borderColor: 'var(--border-color)',
-        boxShadow: 1,
-        display: 'flex',
-        overflow: 'hidden',
-        cursor: 'grab',
-        transition: 'all 0.2s ease-in-out',
-        '&:hover': {
-          boxShadow: 4,
-          bgcolor: withOpacity(activity.color.value, 0.3),
-        },
-        '&:focus-visible': {
-          outline: '2px solid',
-          outlineColor: 'primary.main',
-          outlineOffset: 2,
-        },
-        minHeight: { xs: 44, sm: 56 }, // Better touch targets on mobile
+        '--activity-bg-color': withOpacity(activity.color.value, 0.15),
+        minHeight: isDesktop ? '56px' : '44px',
       }}
-      className="weekly-activity-card"
       role="button"
       tabIndex={0}
       aria-label={`${activity.title} - ${activity.type}`}
@@ -134,57 +112,58 @@ const ActivityCardComponent = ({
         }
       }}
     >
-      <Box sx={{ width: 6, bgcolor: activity.color.value, flexShrink: 0 }} />
-      <Box sx={{ flex: 1, p: isDesktop ? 1.5 : 1 }}>
-        <Typography variant="caption" sx={{ opacity: 0.8, fontWeight: 500 }}>
+      <div
+        className="weekly-schedule__activity-color-bar"
+        style={{ backgroundColor: activity.color.value }}
+      />
+      <div className="weekly-schedule__activity-content">
+        <span className="weekly-schedule__activity-type">
           {t(`schedule.type.${activity.type}`, { defaultValue: activity.type })}
-        </Typography>
-        <Typography variant="body2" sx={{ fontWeight: 700 }}>
-          {activity.title}
-        </Typography>
-        <Box sx={{ display: 'flex', gap: 0.5, mt: 0.5 }}>
+        </span>
+        <div className="weekly-schedule__activity-title">{activity.title}</div>
+        {activity.description && (
+          <div className="weekly-schedule__activity-description">
+            {activity.description.length > 50
+              ? `${activity.description.substring(0, 50)}...`
+              : activity.description}
+          </div>
+        )}
+        <div className="weekly-schedule__activity-actions">
           {activity.meetingUrl ? (
-            <IconButton
-              size="small"
-              component="a"
+            <a
               href={activity.meetingUrl}
               target="_blank"
               rel="noreferrer"
               aria-label={t('schedule.actions.openMeeting', { defaultValue: 'Abrir meeting' })}
               onClick={(e) => e.stopPropagation()}
+              className="weekly-schedule__activity-action-btn"
             >
-              <LinkIcon fontSize="inherit" />
-            </IconButton>
+              <MaterialIcon name="link" />
+            </a>
           ) : null}
           {activity.locationUrl ? (
-            <IconButton
-              size="small"
-              component="a"
+            <a
               href={activity.locationUrl}
               target="_blank"
               rel="noreferrer"
               aria-label={t('schedule.actions.openLocation', { defaultValue: 'Abrir localização' })}
               onClick={(e) => e.stopPropagation()}
+              className="weekly-schedule__activity-action-btn"
             >
-              <MapIcon fontSize="inherit" />
-            </IconButton>
+              <MaterialIcon name="map" />
+            </a>
           ) : null}
-        </Box>
-      </Box>
-      <Box
+        </div>
+      </div>
+      <div
         onPointerDown={onResizePointerDown}
-        sx={{
-          width: '100%',
-          height: 10,
-          position: 'absolute',
-          bottom: 0,
-          cursor: 'ns-resize',
-          bgcolor: 'transparent',
-        }}
+        className="weekly-schedule__resize-handle"
         role="slider"
         aria-label={t('schedule.actions.resize', { defaultValue: 'Redimensionar duração' })}
-      />
-    </Box>
+      >
+        <MaterialIcon name="height" />
+      </div>
+    </div>
   )
 }
 
