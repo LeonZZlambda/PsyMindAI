@@ -1,329 +1,171 @@
 {
-  "help": {
-    "title": "Central de Ajuda",
-    "tabs": {
-      "faq": "Ajuda & FAQ",
-      "shortcuts": "Atalhos",
-      "feedback": "Enviar Feedback"
-    },
-    "about": {
-      "title": "Sobre o PsyMindAI",
-      "text": "O PsyMindAI é um assistente virtual focado em saúde mental e bem-estar. Nosso objetivo é fornecer um espaço seguro para conversas, dicas de estudo e suporte emocional."
-    },
-    "how_to": {
-      "title": "Como usar",
-      "items": {
-        "chat": {
-          "label": "Inicie uma conversa",
-          "desc": "Digite sua mensagem na caixa de texto abaixo e pressione Enter ou clique no botão de enviar."
-        },
-        "new": {
-          "label": "Novo Chat",
-          "desc": "Use o botão 'Novo chat' na barra lateral para começar um novo tópico."
-        },
-        "settings": {
-          "label": "Personalize",
-          "desc": "Acesse as configurações para ajustar o tema, tamanho da fonte e opções de acessibilidade."
-        },
-        "support": {
-          "label": "Linha de Apoio",
-          "desc": "Acesse a Linha de Apoio no menu de ferramentas para suporte emocional imediato."
-        }
-      }
-    },
-    "faq": {
-      "title": "Perguntas Frequentes",
-      "items": {
-        "q1": {
-          "question": "O PsyMindAI substitui um psicólogo?",
-          "answer": "Não. O PsyMindAI é uma ferramenta de apoio e não substitui o acompanhamento profissional. Se você estiver em crise, procure ajuda profissional imediatamente."
-        },
-        "q2": {
-          "question": "Minhas conversas são privadas?",
-          "answer": "Sim, suas conversas são processadas localmente e priorizamos sua privacidade. Nenhuma informação pessoal é compartilhada com terceiros."
-        },
-        "q3": {
-          "question": "Como funciona o Pomodoro?",
-          "answer": "A técnica Pomodoro ajuda no foco. O padrão é 25 minutos de foco e 5 de pausa. Você pode ativar o timer no menu de ferramentas."
-        },
-        "q4": {
-          "question": "Posso usar offline?",
-          "answer": "Atualmente o PsyMindAI requer conexão com a internet para processar as respostas da inteligência artificial."
-        }
-      }
-    },
-    "shortcuts": {
-      "title": "Atalhos de Teclado",
-      "desc": "Agilize sua navegação com estes atalhos rápidos.",
-      "items": {
-        "new_chat": "Novo Chat",
-        "settings": "Configurações",
-        "help": "Ajuda",
-        "view_shortcuts": "Ver Atalhos",
-        "focus_chat": "Focar no Chat",
-        "send": "Enviar Mensagem",
-        "new_line": "Quebra de Linha",
-        "mic": "Alternar Microfone",
-        "attach": "Anexar Arquivo"
-      }
-    },
-    "feedback": {
-      "title": "Sua opinião é importante",
-      "desc": "Ajude-nos a melhorar o PsyMindAI enviando suas sugestões, elogios ou reportando problemas.",
-      "type_label": "Tipo de Feedback",
-      "types": {
-        "suggestion": "Sugestão",
-        "problem": "Problema",
-        "praise": "Elogio"
-      },
-      "message_label": "Mensagem",
-      "message_placeholder": "Descreva seu feedback em detalhes...",
-      "image_label": "Anexar Imagem (Opcional)",
-      "image_hint": "Clique para adicionar uma imagem",
-      "image_subhint": "JPG, PNG até 5MB",
-      "sending": "Enviando...",
-      "send": "Enviar Feedback",
-      "success": "Feedback enviado com sucesso!",
-      "success_desc": "Obrigado por nos ajudar a melhorar o PsyMindAI.",
-      "error_size": "A imagem deve ter no máximo 5MB",
-      "remove_image": "Remover imagem"
-    },
-    "got_it": "Entendi",
-    "close_aria": "Fechar ajuda"
-  },
   "support": {
+    "title": "感情サポート",
     "tabs": {
-      "immediate": "Apoio Imediato",
-      "investigate": "Investigar Causas",
-      "reframing": "Reestruturação"
+      "immediate": "即時サポート",
+      "investigate": "原因を探る",
+      "reframing": "認知の再構成"
     },
     "immediate": {
-      "title": "Como você está se sentindo hoje?",
-      "desc": "Nossa IA pode sugerir exercícios e recursos baseados no seu estado emocional.",
-      "placeholder": "Ex: Estou me sentindo muito ansioso com uma prova amanhã...",
-      "analyzing": "Analisando...",
-      "receive": "Receber Apoio",
-      "chat": "Quero conversar mais sobre isso",
-      "call": "Ligar",
+      "title": "今日の気分はどうですか？",
+      "desc": "当AIは、あなたの感情状態に基づき、簡単なエクササイズやリソースを提案できます。",
+      "placeholder": "例：明日の試験が不安でとても緊張しています…",
+      "analyzing": "分析中…",
+      "receive": "サポートを受ける",
+      "chat": "このことについてもっと話したいです",
+      "call": "電話する",
       "fallbacks": {
         "general": {
-          "msg": "Entendo que você esteja passando por isso. Aqui estão alguns recursos que podem ajudar:",
+          "msg": "お辛い状況にあることを理解しています。以下のリソースが役立つかもしれません：",
           "res1": {
-            "title": "Respiração Guiada",
-            "desc": "Técnica 4-7-8 para acalmar"
+            "title": "ガイド付き呼吸法",
+            "desc": "4-7-8呼吸法で落ち着く"
           },
           "res2": {
-            "title": "Mindfulness",
-            "desc": "Exercício rápido de atenção plena"
+            "title": "マインドフルネス",
+            "desc": "短時間のマインドフルネス練習"
           }
         },
         "anxiety": {
-          "msg": "Parece que você está sentindo ansiedade. Vamos tentar acalmar isso juntos.",
+          "msg": "不安を感じているようですね。一緒に落ち着く方法を試してみましょう。",
           "res1": {
-            "title": "Respiração Quadrada",
-            "desc": "Inspire 4s, Segure 4s, Expire 4s, Segure 4s"
+            "title": "ボックス呼吸",
+            "desc": "吸う4秒、止める4秒、吐く4秒、止める4秒"
           },
           "res2": {
-            "title": "Técnica 5-4-3-2-1",
-            "desc": "Identifique coisas ao seu redor para se aterrar"
+            "title": "5-4-3-2-1テクニック",
+            "desc": "周囲のものを数えてグラウンディングする"
           }
         },
         "sadness": {
-          "msg": "Sinto muito que você esteja se sentindo assim. Você não está sozinho.",
+          "msg": "そのように感じていることに心を痛めています。あなたは一人ではありません。",
           "res1": {
-            "title": "Autocompaixão",
-            "desc": "Seja gentil consigo mesmo neste momento"
+            "title": "セルフコンパッション",
+            "desc": "今は自分に優しくしてください"
           },
           "res2": {
-            "title": "Conexão",
-            "desc": "Considere conversar com alguém de confiança"
+            "title": "つながりを持つ",
+            "desc": "信頼できる人に話してみることを検討してください"
           }
         },
         "crisis": {
-          "msg": "Você é importante e há ajuda disponível. Por favor, entre em contato com profissionais agora.",
+          "msg": "あなたは大切な存在です。すぐに専門の支援に連絡してください。",
           "res1": {
-            "title": "CVV - 188",
-            "desc": "Apoio Emocional 24h (Ligação Gratuita)"
+            "title": "こころの相談窓口（24時間）",
+            "desc": "無料で相談できる窓口"
           },
           "res2": {
-            "title": "Emergência - 192",
-            "desc": "SAMU"
+            "title": "緊急：119",
+            "desc": "救急へ連絡してください"
           }
         }
       },
-      "prompt": "Analise este sentimento: \"{{feeling}}\". Identifique a emoção principal (ansiedade, tristeza, raiva, etc) e sugira 2 técnicas rápidas de apoio emocional (1 frase cada). Formato: EMOÇÃO: [nome]\nTÉCNICA 1: [título] - [descrição]\nTÉCNICA 2: [título] - [descrição]"
+      "prompt": "この感情を分析してください：「{{feeling}}」。主要な感情（例：不安、悲しみ、怒りなど）を特定し、支援のための短いテクニックを2つ提案してください（各1文）。形式：\\n感情: [名前]\\nテクニック1: [タイトル] - [説明]\\nテクニック2: [タイトル] - [説明]"
     },
     "investigate": {
       "step0": {
-        "title": "O que você está sentindo principalmente?",
-        "ansiedade": "Ansiedade / Nervosismo",
-        "tristeza": "Tristeza / Desânimo",
-        "cansaco": "Cansaço / Esgotamento",
-        "confusao": "Confusão / Indecisão",
-        "raiva": "Raiva / Frustração"
+        "title": "今、主にどのように感じていますか？",
+        "ansiedade": "不安／緊張",
+        "tristeza": "悲しみ／落ち込み",
+        "cansaco": "疲労／消耗",
+        "confusao": "混乱／優柔不断",
+        "raiva": "怒り／フラストレーション"
       },
       "step1": {
-        "title": "Qual área da vida isso mais afeta agora?",
-        "estudos": "Estudos / Vestibular",
-        "relacionamentos": "Relacionamentos",
-        "futuro": "Futuro / Carreira",
-        "saude": "Saúde / Corpo",
-        "naosei": "Não sei identificar"
+        "title": "これが今、どの生活領域に最も影響していますか？",
+        "estudos": "学業／入試",
+        "relacionamentos": "人間関係",
+        "futuro": "将来／キャリア",
+        "saude": "健康／身体",
+        "naosei": "特にわからない"
       },
       "step2": {
-        "title": "Há quanto tempo você se sente assim?",
-        "hoje": "Começou hoje",
-        "semana": "Alguns dias / Uma semana",
-        "mes": "Um mês ou mais",
-        "sempre": "Parece que é sempre assim"
+        "title": "どのくらいの期間そう感じていますか？",
+        "hoje": "今日から",
+        "semana": "数日／1週間程度",
+        "mes": "1か月以上",
+        "sempre": "いつもそう感じる"
       },
-      "back": "Voltar",
-      "analyzing": "Analisando suas respostas...",
-      "restart": "Nova Investigação",
-      "suggestion": "Sugestão do PsyMind:",
-      "prompt": "Analise: Emoção={{emotion}}, Contexto={{context}}, Duração={{duration}}. Forneça: TÍTULO: [nome]\nDESCRIÇÃO: [2 frases]\nCONSELHO: [1 frase prática]",
+      "back": "戻る",
+      "analyzing": "回答を分析中…",
+      "restart": "再調査",
+      "suggestion": "PsyMindの提案：",
+      "prompt": "分析：感情={{emotion}}、状況={{context}}、期間={{duration}}。提供する内容：\\nタイトル: [名前]\\n説明: [2文]\\nアドバイス: [実用的な1文]",
       "fallbacks": {
         "general": {
-          "title": "Análise Inicial",
-          "desc": "Com base no que você compartilhou, parece que você está enfrentando um momento desafiador.",
-          "advice": "Recomendamos focar em pequenas pausas e autocuidado."
+          "title": "初期分析",
+          "desc": "共有いただいた内容から、困難な時期であるようです。",
+          "advice": "小さな休憩とセルフケアに取り組むことをおすすめします。"
         },
         "anxiety_studies": {
-          "title": "Ansiedade Acadêmica",
-          "desc": "É comum sentir pressão com os estudos. A ansiedade pode vir do medo de não dar conta.",
-          "advice": "Tente dividir o conteúdo em partes menores (Pomodoro) e lembre-se que seu valor não é sua nota."
+          "title": "学業の不安",
+          "desc": "試験などのプレッシャーによる不安はよくあることです。",
+          "advice": "内容を小さな単位に分けて（ポモドーロなど）取り組んでください。あなたの価値は成績だけではありません。"
         },
         "anxiety_future": {
-          "title": "Ansiedade Antecipatória",
-          "desc": "Preocupar-se com o futuro é natural, mas pode paralisar.",
-          "advice": "Foque no que você pode controlar hoje. O futuro é construído um dia de cada vez."
+          "title": "将来への不安",
+          "desc": "未来についての心配は自然な反応ですが、行動を止めることがあります。",
+          "advice": "今日できることに集中してください。一歩ずつ未来は作られていきます。"
         },
         "sadness": {
-          "title": "Acolhimento da Tristeza",
-          "desc": "A tristeza é uma emoção válida e sinaliza que algo precisa de atenção.",
-          "advice": "Permita-se sentir sem julgamento. Escrever sobre seus sentimentos pode ajudar a processá-los."
+          "title": "悲しみの受容",
+          "desc": "悲しみは有効な感情で、注意を要するサインです。",
+          "advice": "判断せずに感じることを受け入れ、書き出すことで整理できることがあります。"
         },
         "tiredness": {
-          "title": "Esgotamento Mental",
-          "desc": "Você pode estar próximo de um burnout se não descansar.",
-          "advice": "O descanso é produtivo. Desconecte-se das telas e faça algo que não exija esforço mental."
+          "title": "心身の疲労",
+          "desc": "休息が必要な状態かもしれません。",
+          "advice": "休息は大切です。画面から離れてリラックスする時間を取りましょう。"
         }
       },
-      "chat_prompt": "Oi, PsyMind. Estou passando por um momento delicado e gostaria de desabafar. Tenho sentido {{emotion}} em relação a {{context}}. Isso tem me afetado {{duration}}. Você poderia me ouvir e me ajudar a entender melhor o que estou sentindo?"
+      "chat_prompt": "こんにちは、PsyMind。今、とても繊細な状況にあります。私は{{emotion}}を感じており、これは{{context}}に関連しています。これにより{{duration}}の影響があります。聞いていただき、私の気持ちを理解するのを手伝っていただけますか？"
     },
     "reframing": {
       "step0": {
-        "title": "Reestruturação Cognitiva",
-        "desc": "Vamos trabalhar juntos para identificar e reestruturar pensamentos negativos.",
-        "start": "Começar"
+        "title": "認知の再構成",
+        "desc": "ネガティブな思考を特定し、よりバランスの取れた見方を一緒に探します。",
+        "start": "開始"
       },
       "step1": {
-        "title": "Desafie seus Pensamentos",
-        "desc": "Identifique um pensamento negativo e vamos trabalhar juntos para encontrar uma perspectiva mais equilibrada.",
-        "q_situation": "Qual é a situação gatilho?",
-        "q_situ_placeholder": "Ex: Recebi uma crítica no trabalho...",
-        "q_thought": "O que você pensou automaticamente?",
-        "q_thought_placeholder": "Ex: Eu sou incompetente e vou ser demitido...",
-        "q_intensity": "Como isso faz você se sentir? (0-10)",
-        "analyze": "Analisar Pensamento",
-        "analyzing": "Analisando..."
+        "title": "思考に挑戦する",
+        "desc": "ネガティブな考えを特定し、より均衡の取れた視点を見つけましょう。",
+        "q_situation": "きっかけとなった状況は何ですか？",
+        "q_situ_placeholder": "例：仕事で批判を受けた...",
+        "q_thought": "自動的に浮かんだ考えは何ですか？",
+        "q_thought_placeholder": "例：私は無能で解雇される...",
+        "q_intensity": "どの程度感じますか？ (0-10)",
+        "analyze": "思考を分析する",
+        "analyzing": "分析中..."
       },
       "result": {
-        "title": "Análise Cognitiva",
-        "distortion": "Possível Distorção",
-        "challenge": "O Desafio",
-        "alternative": "Perspectiva Alternativa",
-        "reframe": "Novo Pensamento Sugerido",
-        "restart": "Analisar Outro Pensamento"
+        "title": "認知分析",
+        "distortion": "考えの歪み",
+        "challenge": "挑戦",
+        "alternative": "代替の視点",
+        "reframe": "新しい思考の提案",
+        "restart": "別の思考を分析する"
       },
-      "prompt": "Analise este pensamento negativo usando TCC:\\nSituação: {{situation}}\\nPensamento: {{thought}}\\n\\nForneça:\\nDISTORÇÃO: [tipo de distorção cognitiva]\\nDESAFIO: [1 frase explicando a distorção]\\nALTERNATIVA: [1 frase com perspectiva alternativa]\\nREFORMULAÇÃO: [novo pensamento equilibrado]",
+      "prompt": "このネガティブな思考を認知行動療法（CBT）の観点で分析してください:\\n状況: {{situation}}\\n思考: {{thought}}\\n\\n提供するもの:\\n歪み: [歪みの種類]\\n挑戦: [1文で歪みを説明]\\n代替: [1文で代替の視点]\\n再構成: [新しい均衡の取れた思考]",
       "fallbacks": {
         "general": {
-          "distortion": "Generalização Excessiva ou Catastrofização",
-          "challenge": "Você está tomando um evento isolado como um padrão universal ou prevendo o pior cenário possível sem evidências concretas.",
-          "alternative": "Tente ver a situação como um evento único e não como uma definição de quem você é. Pergunte-se: 'Qual é a evidência real de que isso sempre acontecerá?'",
-          "reframe": "Em vez de pensar '{{thought}}', tente pensar: 'Embora essa situação tenha sido difícil, ela não define todo o meu futuro ou capacidade.'"
+          "distortion": "過度の一般化や破局化",
+          "challenge": "出来事を全体のパターンと見なしたり、証拠なしに最悪のシナリオを予測している可能性があります。",
+          "alternative": "状況を単一の出来事として見るようにし、'いつも'や'絶対に'といった言葉を避けてみましょう。",
+          "reframe": "『{{thought}}』と考える代わりに、『この出来事はつらかったが、私の全てを決定づけるものではない』と考えてみてください。"
         },
         "all_or_nothing": {
-          "distortion": "Pensamento Tudo ou Nada",
-          "challenge": "A vida raramente é preta ou branca. O uso de 'sempre' ou 'nunca' geralmente indica uma distorção da realidade.",
-          "alternative": "Procure exceções. Houve momentos em que isso não aconteceu? Tente usar palavras como 'às vezes' ou 'frequentemente'."
+          "distortion": "全か無か思考",
+          "challenge": "物事はめったに白黒ではありません。'いつも'や'決して'といった極端な言葉は現実の歪みを示すことが多いです。",
+          "alternative": "例外を探してみてください。この状況が常に起きているかを見直しましょう。",
+          "reframe": "より柔軟な言葉（例：'ときどき'、'しばしば'）を使ってみてください。"
         },
         "should_statements": {
-          "distortion": "Declarações de 'Deveria'",
-          "challenge": "O uso de 'deveria' cria culpa e frustração. Você está impondo regras rígidas a si mesmo ou aos outros.",
-          "alternative": "Substitua 'eu deveria' por 'eu gostaria' ou 'seria preferível'. Isso reduz a pressão e aumenta a aceitação."
+          "distortion": "べき思考",
+          "challenge": "「〜すべき」という考えは罪悪感やフラストレーションを生みます。自分や他人に対して厳しいルールを課している可能性があります。",
+          "alternative": "『私は〜したい』や『〜の方が望ましい』という表現に置き換えると、プレッシャーが和らぎます。"
         }
       }
     },
-    "chat_feeling_prompt": "Oi, PsyMind. Estou passando por um momento delicado e gostaria de desabafar. {{feeling}}. Você poderia me ouvir e me ajudar a entender melhor o que estou sentindo?"
-  },
-  "contributing": {
-    "title": "Como Contribuir",
-    "intro": "Obrigado por contribuir para PsyMind.AI. Esta seção explica como você pode ajudar, incluindo traduções.",
-    "translate": "Tradução",
-    "translation_details": "Para contribuir com traduções, adicione as chaves ausentes neste arquivo e envie um PR com as atualizações.",
-    "steps": {
-      "step1": "Fazer fork do repositório",
-      "step2": "Criar uma branch descritiva",
-      "step3": "Traduzir as strings faltantes",
-      "step4": "Abrir PR com instruções de teste"
-    }
-  },
-  "contribute_page": {
-    "title": "Como Contribuir",
-    "subtitle": "O PsyMind.AI é um projeto open-source e adoraríamos ter sua ajuda para torná-lo ainda melhor.",
-    "back_home": "Voltar ao início",
-    "cards": [
-      {
-        "icon": "code",
-        "title": "Desenvolvimento",
-        "description": "Encontrou um bug ou quer adicionar uma nova funcionalidade? Confira nossas issues no GitHub ou abra um Pull Request.",
-        "link_text": "Ir para o GitHub"
-      },
-      {
-        "icon": "palette",
-        "title": "Design & UX",
-        "description": "Ajude-nos a melhorar a experiência do usuário. Sugestões de design e melhorias de interface são sempre bem-vindas.",
-        "link_text": "Ver Guia de Estilo"
-      },
-      {
-        "icon": "menu_book",
-        "title": "Documentação",
-        "description": "Uma boa documentação é essencial. Ajude-nos a melhorar nossos guias, README e tutoriais para novos usuários.",
-        "link_text": "Contribuir na Wiki"
-      },
-      {
-        "icon": "language",
-        "title": "Tradução",
-        "description": "Ajude a tornar o PsyMind.AI acessível para mais pessoas traduzindo a interface para diferentes idiomas.",
-        "link_text": "Ajudar com Tradução"
-      }
-    ],
-    "steps": {
-      "title": "Passo a Passo para Contribuir",
-      "items": [
-        {
-          "number": "1",
-          "title": "Faça um Fork",
-          "description": "Crie uma cópia do repositório na sua conta do GitHub."
-        },
-        {
-          "number": "2",
-          "title": "Crie uma Branch",
-          "description": "Use git checkout -b feature/minha-feature para trabalhar."
-        },
-        {
-          "number": "3",
-          "title": "Commit & Push",
-          "description": "Faça seus commits e envie para o seu fork."
-        },
-        {
-          "number": "4",
-          "title": "Abra um Pull Request",
-          "description": "Descreva suas mudanças e aguarde a revisão da equipe."
-        }
-      ]
-    }
+    "chat_feeling_prompt": "こんにちは、PsyMind。今、辛い気持ちで、話を聞いてほしいです。{{feeling}}。私の気持ちを整理するのを手伝ってもらえますか？"
   }
 }

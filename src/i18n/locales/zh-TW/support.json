@@ -92,11 +92,11 @@
     "close_aria": "关闭帮助"
   },
   "support": {
-    "title": "情感支持",
+    "title": "情緒支持",
     "tabs": {
       "immediate": "即时支持",
       "investigate": "原因分析",
-      "reframing": "认知重构"
+      "reframing": "認知重構"
     },
     "immediate": {
       "title": "你今天感觉如何？",
@@ -141,190 +141,128 @@
           }
         },
         "crisis": {
-          "msg": "你很重要，且有可用的帮助。请立即联系专业人士。",
+          "msg": "你很重要，有可用的帮助。请立即联系专业人员。",
           "res1": {
-            "title": "本地求助电话",
+            "title": "紧急热线",
             "desc": "24 小时情感支持"
           },
           "res2": {
             "title": "紧急服务",
-            "desc": "拨打紧急电话"
+            "desc": "医疗急救"
           }
         }
       },
-      "prompt": "分析此情绪：\"{{feeling}}\"。识别主要情绪（焦虑、悲伤、愤怒等），并提出两种快速情绪支持技巧（每项一条句子）。格式：情绪: [名称]\n技巧 1: [标题] - [描述]\n技巧 2: [标题] - [描述]"
+      "prompt": "分析此情绪: \"{{feeling}}\"。识别主要情绪（焦虑、悲伤、愤怒等），并建议两种快速的情绪支持技巧（每项一句话）。格式: EMOÇÃO: [nome]\nTÉCNICA 1: [título] - [descrição]\nTÉCNICA 2: [título] - [descrição]"
     },
     "investigate": {
       "step0": {
         "title": "你主要感觉到什么？",
         "ansiedade": "焦虑 / 紧张",
-        "tristeza": "悲伤 / 意志消沉",
-        "cansaco": "疲劳 / 疲惫",
-        "confusao": "迷茫 / 优柔寡断",
+        "tristeza": "悲伤 / 沮丧",
+        "cansaco": "疲劳 / 精疲力尽",
+        "confusao": "困惑 / 犹豫不决",
         "raiva": "愤怒 / 挫败"
       },
       "step1": {
-        "title": "这主要影响你生活的哪一方面？",
+        "title": "这在生活的哪个方面影响最大？",
         "estudos": "学习 / 考试",
         "relacionamentos": "人际关系",
         "futuro": "未来 / 职业",
         "saude": "健康 / 身体",
-        "naosei": "无法确定"
+        "naosei": "我无法确定"
       },
       "step2": {
-        "title": "你感觉这样多久了？",
+        "title": "你这种感觉持续了多久？",
         "hoje": "今天开始",
         "semana": "几天 / 一周",
-        "mes": "一个月或更久",
-        "sempre": "似乎一直如此"
+        "mes": "一个月或更长",
+        "sempre": "感觉好像一直是这样"
       },
       "back": "返回",
       "analyzing": "正在分析你的回答...",
-      "restart": "重新分析",
-      "suggestion": "PsyMind 建议：",
-      "prompt": "分析：情绪={{emotion}}，情境={{context}}，持续时间={{duration}}。提供：标题：[名称]\n描述：[2 句]\n建议：[1 句实用建议]",
+      "restart": "新的调查",
+      "suggestion": "PsyMind 建议:",
+      "prompt": "分析: Emoção={{emotion}}, Contexto={{context}}, Duração={{duration}}. Forneça: TÍTULO: [nome]\nDESCRIÇÃO: [2 frases]\nCONSELHO: [1 frase prática]",
       "fallbacks": {
         "general": {
           "title": "初步分析",
-          "desc": "根据你分享的内容，似乎你正在经历一个具有挑战性的时期。",
-          "advice": "建议关注短暂的休息和自我照顾。"
+          "desc": "根据你分享的内容，似乎你正在经历一段有挑战的时期。",
+          "advice": "我们建议注意短暂休息和自我照顾。"
         },
         "anxiety_studies": {
-          "title": "学习相关焦虑",
-          "desc": "在学习过程中感到压力是很常见的。焦虑可能来自于担心无法应对。",
-          "advice": "尝试将内容分解为更小的部分（Pomodoro），记住你的价值不等于成绩。"
+          "title": "学业焦虑",
+          "desc": "在学习上感到压力是常见的。焦虑可能来自于害怕无法应对。",
+          "advice": "尝试将内容分成更小的部分（Pomodoro），并记住你的价值并非由分数决定。"
         },
         "anxiety_future": {
           "title": "预期性焦虑",
-          "desc": "对未来的担忧是自然的，但可能导致瘫痪。",
-          "advice": "专注于今天可控的事情。未来是每天积累起来的。"
+          "desc": "担心未来是自然的，但它可能会使人瘫痪。",
+          "advice": "专注于你今天能控制的事情。未来是一步步建立的。"
         },
         "sadness": {
           "title": "接纳悲伤",
-          "desc": "悲伤是一种有效的情绪，提示需要关注。",
-          "advice": "允许自己感受而不评判。将感受写下来有助于处理情绪。"
+          "desc": "悲伤是一种有效的情绪，表明有些东西需要关注。",
+          "advice": "允许自己感受而不评判。写下感受有助于处理它们。"
         },
         "tiredness": {
-          "title": "心理倦怠",
-          "desc": "如果不休息，可能会接近精疲力尽。",
-          "advice": "休息也是有成效的。远离屏幕，做一些不需要脑力的事情。"
+          "title": "心理疲惫",
+          "desc": "如果你不休息，可能接近倦怠。",
+          "advice": "休息是有益的。断开屏幕连接，做一些不需要脑力的事情。"
         }
       },
-      "chat_prompt": "嗨，PsyMind。我正在经历一个微妙的时刻，想倾诉。我对 {{context}} 感到 {{emotion}}，这种感觉已持续 {{duration}}。你能倾听并帮助我更好地理解我的感受吗？"
+      "chat_prompt": "嗨，PsyMind。我正在经历一段脆弱的时刻，想倾诉。我对 {{context}} 感到 {{emotion}}。这已经影响了我 {{duration}}。你能听我说并帮我更好地理解我在感受什么吗？"
     },
     "reframing": {
       "step0": {
         "title": "认知重构",
-        "desc": "我们一起识别并重构消极想法。",
+        "desc": "让我们一起识别并重构消极思维。",
         "start": "开始"
       },
       "step1": {
         "title": "挑战你的想法",
-        "desc": "找出一个消极想法，我们一起寻找更平衡的视角。",
+        "desc": "识别一个消极想法，我们将一起努力寻找更平衡的视角。",
         "q_situation": "触发情境是什么？",
-        "q_situ_placeholder": "例如：我在工作中收到批评...",
-        "q_thought": "你自动产生了什么想法？",
-        "q_thought_placeholder": "例如：我不称职，会被解雇...",
-        "q_intensity": "这让你感觉多少分？ (0-10)",
+        "q_situ_placeholder": "例如：我在工作中收到了一条批评...",
+        "q_thought": "你自动想到了什么？",
+        "q_thought_placeholder": "例如：我很无能，会被解雇...",
+        "q_intensity": "这让你感觉如何？ (0-10)",
         "analyze": "分析想法",
-        "analyzing": "正在分析..."
+        "analyzing": "分析中..."
       },
       "result": {
         "title": "认知分析",
-        "distortion": "可能的认知扭曲",
+        "distortion": "可能的扭曲",
         "challenge": "挑战",
         "alternative": "替代视角",
         "reframe": "建议的新想法",
         "restart": "分析另一个想法"
       },
-      "prompt": "使用 CBT 分析此消极想法:\n情境: {{situation}}\n想法: {{thought}}\n\n提供:\n扭曲: [认知扭曲类型]\n挑战: [1 句解释该扭曲]\n替代: [1 句替代视角]\n重构: [新的平衡想法]",
+      "prompt": "用 CBT 分析这个消极想法:\\n情境: {{situation}}\\n想法: {{thought}}\\n\\n提供:\\nDISTORÇÃO: [tipo de distorção cognitiva]\\nDESAFIO: [1 frase解释扭曲]\\nALTERNATIVA: [1 frase替代视角]\\nREFORMULAÇÃO: [新的平衡想法]",
+      "ai_fallbacks": {
+        "distortion": "认知扭曲",
+        "challenge": "你可能以负面的方式解读了情境。",
+        "alternative": "尝试从不同角度看待情况。",
+        "reframe": "尽管有 {{situation}}，但这并不定义我是谁。"
+      },
       "fallbacks": {
         "general": {
           "distortion": "过度概括或灾难化",
-          "challenge": "你将一次性事件视为普遍模式，或在没有具体证据的情况下预测最糟糕情形。",
-          "alternative": "尝试将情况视为单一事件而非对自我的定义。问自己：'有什么真实证据表明这会一直发生？'",
-          "reframe": "与其想 '{{thought}}'，不如尝试想：'尽管这次情况很困难，但它并不定义我的全部未来或能力。'"
+          "challenge": "你将一个孤立事件当作普遍模式或在没有确凿证据的情况下预测最坏的情景。",
+          "alternative": "尝试将情况视为单一事件，而不是定义你的人。问自己：‘真的有证据说明这总会发生吗？’",
+          "reframe": "不要再想 '{{thought}}'，试着想：'尽管这个情境很困难，但它并不定义我的未来或能力。'"
         },
         "all_or_nothing": {
           "distortion": "非黑即白思维",
-          "challenge": "生活很少是非黑即白。使用 '总是' 或 '从不' 往往表示对现实的扭曲。",
-          "alternative": "寻找例外。是否有时候并非如此？尝试使用 '有时' 或 '经常' 等词。"
+          "challenge": "生活很少是非黑即白。使用'总是'或'从不'通常表示对现实的扭曲。",
+          "alternative": "寻找例外情况。有没有不发生的时候？试着用'有时候'或'经常'。"
         },
         "should_statements": {
-          "distortion": "'应该' 陈述",
-          "challenge": "使用 '应该' 会产生内疚和挫败感。你正在对自己或他人施加严格规则。",
-          "alternative": "将 '我应该' 替换为 '我希望' 或 '会更好'，以减少压力并增加接纳。"
+          "distortion": "'应该'陈述",
+          "challenge": "使用'应该'会产生内疚和挫败感。你在对自己或他人强加严格规则。",
+          "alternative": "用'我想'或'比较好'替换'我应该'，这会减少压力并增加接受度。"
         }
       }
     },
-    "chat_feeling_prompt": "嗨，PsyMind。我正在经历一个微妙的时刻，想倾诉：{{feeling}}。你能倾听并帮我更好地理解我的感受吗？"
-  },
-  "contributing": {
-    "title": "如何贡献",
-    "intro": "感谢你为 PsyMind.AI 做出贡献。本节说明如何参与，包括翻译。",
-    "translate": "翻译",
-    "translation_details": "要贡献翻译，请在此文件中添加缺失的键并提交 PR。",
-    "steps": {
-      "step1": "Fork 仓库",
-      "step2": "创建描述性分支",
-      "step3": "翻译缺失的字符串",
-      "step4": "提交 PR 并附上测试说明"
-    }
-  },
-  "contribute_page": {
-    "title": "如何参与贡献",
-    "subtitle": "PsyMind.AI 是一个开源项目，欢迎你的帮助使其变得更好。",
-    "back_home": "返回首页",
-    "cards": [
-      {
-        "icon": "code",
-        "title": "开发",
-        "description": "发现 bug 或想添加新功能？查看我们的 GitHub issue 或提交 Pull Request。",
-        "link_text": "前往 GitHub"
-      },
-      {
-        "icon": "palette",
-        "title": "设计 & UX",
-        "description": "帮助我们改进用户体验。设计建议和界面改进都很受欢迎。",
-        "link_text": "查看风格指南"
-      },
-      {
-        "icon": "menu_book",
-        "title": "文档",
-        "description": "完善文档至关重要。帮助我们改进指南、README 和新用户教程。",
-        "link_text": "在 Wiki 中贡献"
-      },
-      {
-        "icon": "language",
-        "title": "翻译",
-        "description": "通过将界面翻译成其他语言，帮助更多人使用 PsyMind.AI。",
-        "link_text": "参与翻译"
-      }
-    ],
-    "steps": {
-      "title": "贡献步骤",
-      "items": [
-        {
-          "number": "1",
-          "title": "Fork 仓库",
-          "description": "在你的 GitHub 帐户中创建仓库副本。"
-        },
-        {
-          "number": "2",
-          "title": "创建分支",
-          "description": "使用 `git checkout -b feature/my-feature` 开始工作。"
-        },
-        {
-          "number": "3",
-          "title": "Commit & Push",
-          "description": "提交更改并推送到你的 fork。"
-        },
-        {
-          "number": "4",
-          "title": "打开 Pull Request",
-          "description": "描述你的更改并等待团队审查。"
-        }
-      ]
-    }
+    "chat_feeling_prompt": "嗨，PsyMind。我正在经历一段脆弱的时刻，想倾诉。{{feeling}}。你能听我说并帮我更好地理解我在感受什么吗？"
   }
 }

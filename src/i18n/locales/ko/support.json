@@ -92,6 +92,7 @@
     "close_aria": "Fechar ajuda"
   },
   "support": {
+    "title": "정서적 지원",
     "tabs": {
       "immediate": "Apoio Imediato",
       "investigate": "Investigar Causas",
