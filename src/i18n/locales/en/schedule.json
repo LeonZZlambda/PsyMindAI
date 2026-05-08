@@ -1,0 +1,75 @@
+{
+  "title": "Weekly Schedule",
+  "today": "Today",
+  "of": "of",
+  "empty": {
+    "title": "No activities scheduled",
+    "description": "Create your first activity to get started with your weekly planning."
+  },
+  "actions": {
+    "new": "New Activity",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "export": "Export",
+    "undo": "Undo",
+    "redo": "Redo",
+    "resize": "Resize",
+    "openMeeting": "Open meeting",
+    "openLocation": "Open location"
+  },
+  "form": {
+    "new": "New Activity",
+    "edit": "Edit Activity",
+    "title": "Title",
+    "description": "Description",
+    "type": "Type",
+    "start": "Start time",
+    "duration": "Duration",
+    "locationUrl": "Location URL",
+    "meetingUrl": "Meeting URL",
+    "customColor": "Custom color (Hex/RGB)",
+    "deleteConfirm": "Are you sure you want to delete this activity?",
+    "errors": {
+      "title": "Title is required"
+    }
+  },
+  "type": {
+    "CLASS": "Class",
+    "STUDY": "Study",
+    "REVIEW": "Review",
+    "EXTRA": "Extra"
+  },
+  "days": {
+    "MONDAY": "Mon",
+    "TUESDAY": "Tue",
+    "WEDNESDAY": "Wed",
+    "THURSDAY": "Thu",
+    "FRIDAY": "Fri",
+    "SATURDAY": "Sat",
+    "SUNDAY": "Sun"
+  },
+  "colors": {
+    "PRIMARY": "Primary",
+    "SECONDARY": "Secondary",
+    "TERTIARY": "Tertiary",
+    "ERROR": "Error",
+    "CUSTOM": "Custom"
+  },
+  "search": {
+    "placeholder": "Search activities...",
+    "noResults": "No activities found",
+    "tryDifferent": "Try a different search term"
+  },
+  "export": {
+    "title": "Export Schedule",
+    "format": "Format",
+    "fileName": "File name",
+    "fileNameHelper": "Extension will be added automatically",
+    "jsonDescription": "Exports in JSON format for later import.",
+    "csvDescription": "Exports in CSV format compatible with Excel/Sheets.",
+    "icalDescription": "Exports in iCalendar format to sync with your calendar.",
+    "noActivities": "No activities to export."
+  },
+  "resizeHint": "Drag the bottom edge to resize"
+}

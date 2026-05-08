@@ -98,7 +98,7 @@ export const ActivityForm = ({
   onDelete,
   initialActivity,
 }: ActivityFormProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['schedule', 'translation'])
   const resolver = useMemo(() => zodResolver(formSchema), [])
 
   const {
@@ -128,7 +128,7 @@ export const ActivityForm = ({
       initialActivity &&
       onDelete &&
       window.confirm(
-        t('schedule.form.deleteConfirm', {
+        t('form.deleteConfirm', {
           defaultValue: 'Tem certeza que deseja deletar esta atividade?',
         }),
       )
@@ -168,7 +168,7 @@ export const ActivityForm = ({
     <BaseModal
       isOpen={isOpen}
       onClose={handleClose}
-      title={t(initialActivity ? 'schedule.form.edit' : 'schedule.form.new', {
+      title={t(initialActivity ? 'form.edit' : 'form.new', {
         defaultValue: 'Nova atividade',
       })}
       icon="event"
@@ -179,7 +179,7 @@ export const ActivityForm = ({
         <form className="activity-form-grid" onSubmit={handleSubmit(internalSubmit)}>
           <div className="activity-form-field">
             <label htmlFor="title" className="activity-form-label">
-              {t('schedule.form.title', { defaultValue: 'Titulo' })}
+              {t('form.title', { defaultValue: 'Titulo' })}
             </label>
             <div className="activity-form-input-wrapper">
               <input
@@ -187,15 +187,15 @@ export const ActivityForm = ({
                 id="title"
                 type="text"
                 className={`activity-form-input ${errors.title ? 'error' : ''}`}
-                placeholder={t('schedule.form.title', { defaultValue: 'Titulo' })}
+                placeholder={t('form.title', { defaultValue: 'Titulo' })}
               />
               {initialActivity && (
                 <button
                   type="button"
                   className="activity-form-delete-btn"
                   onClick={handleDeleteClick}
-                  aria-label={t('schedule.actions.delete', { defaultValue: 'Deletar' })}
-                  title={t('schedule.actions.delete', { defaultValue: 'Deletar' })}
+                  aria-label={t('actions.delete', { defaultValue: 'Deletar' })}
+                  title={t('actions.delete', { defaultValue: 'Deletar' })}
                 >
                   <MaterialIcon name="delete" />
                 </button>
@@ -203,21 +203,21 @@ export const ActivityForm = ({
             </div>
             {errors.title && (
               <span className="activity-form-error">
-                {t('schedule.form.errors.title', { defaultValue: 'Informe um titulo valido.' })}
+                {t('form.errors.title', { defaultValue: 'Informe um titulo valido.' })}
               </span>
             )}
           </div>
 
           <div className="activity-form-field">
             <label htmlFor="description" className="activity-form-label">
-              {t('schedule.form.description', { defaultValue: 'Descricao' })}
+              {t('form.description', { defaultValue: 'Descricao' })}
             </label>
             <textarea
               {...register('description')}
               id="description"
               className="activity-form-textarea"
               rows={3}
-              placeholder={t('schedule.form.description', { defaultValue: 'Descricao' })}
+              placeholder={t('form.description', { defaultValue: 'Descricao' })}
             />
           </div>
 
@@ -231,9 +231,9 @@ export const ActivityForm = ({
                 onChange={(value) => field.onChange(value as ActivityType)}
                 options={activityTypeOptions.map((option) => ({
                   value: option,
-                  label: t(`schedule.type.${option}`, { defaultValue: option }),
+                  label: t(`type.${option}`, { defaultValue: option }),
                 }))}
-                ariaLabel={t('schedule.form.type', { defaultValue: 'Tipo' })}
+                ariaLabel={t('form.type', { defaultValue: 'Tipo' })}
               />
             )}
           />
@@ -258,7 +258,7 @@ export const ActivityForm = ({
                         )
                       }}
                     >
-                      {t(`schedule.days.${day}`, { defaultValue: day.slice(0, 3) })}
+                      {t(`days.${day}`, { defaultValue: day.slice(0, 3) })}
                     </button>
                   )
                 })}
@@ -273,7 +273,7 @@ export const ActivityForm = ({
               render={({ field }) => (
                 <div className="activity-form-field">
                   <TimePickerField
-                    label={t('schedule.form.start', { defaultValue: 'Hora de início' })}
+                    label={t('form.start', { defaultValue: 'Hora de início' })}
                     minutes={field.value}
                     onChange={field.onChange}
                   />
@@ -286,7 +286,7 @@ export const ActivityForm = ({
               render={({ field }) => (
                 <div className="activity-form-field">
                   <DurationPicker
-                    label={t('schedule.form.duration', { defaultValue: 'Duração' })}
+                    label={t('form.duration', { defaultValue: 'Duração' })}
                     minutes={field.value}
                     onChange={field.onChange}
                   />
@@ -312,7 +312,7 @@ export const ActivityForm = ({
                       color: field.value === item.preset ? '#fff' : 'var(--text-color)',
                     }}
                   >
-                    {t(`schedule.colors.${item.preset}`, { defaultValue: item.preset })}
+                    {t(`colors.${item.preset}`, { defaultValue: item.preset })}
                   </button>
                 ))}
               </div>
@@ -327,7 +327,7 @@ export const ActivityForm = ({
                 {field.value === ActivityColorPreset.CUSTOM && (
                   <div className="activity-form-field">
                     <label htmlFor="customColor" className="activity-form-label">
-                      {t('schedule.form.customColor', {
+                      {t('form.customColor', {
                         defaultValue: 'Cor customizada (Hex/RGB)',
                       })}
                     </label>
@@ -346,7 +346,7 @@ export const ActivityForm = ({
 
           <div className="activity-form-field">
             <label htmlFor="meetingUrl" className="activity-form-label">
-              {t('schedule.form.meetingUrl', { defaultValue: 'Link rapido' })}
+              {t('form.meetingUrl', { defaultValue: 'Link rapido' })}
             </label>
             <input
               {...register('meetingUrl')}
@@ -359,7 +359,7 @@ export const ActivityForm = ({
 
           <div className="activity-form-field">
             <label htmlFor="locationUrl" className="activity-form-label">
-              {t('schedule.form.locationUrl', { defaultValue: 'Maps URL' })}
+              {t('form.locationUrl', { defaultValue: 'Maps URL' })}
             </label>
             <input
               {...register('locationUrl')}
@@ -376,14 +376,14 @@ export const ActivityForm = ({
               onClick={handleClose}
               className="activity-form-btn secondary"
             >
-              {t('schedule.actions.cancel', { defaultValue: 'Cancelar' })}
+              {t('actions.cancel', { defaultValue: 'Cancelar' })}
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
               className="activity-form-btn primary"
             >
-              {t('schedule.actions.save', { defaultValue: 'Salvar' })}
+              {t('actions.save', { defaultValue: 'Salvar' })}
             </button>
           </div>
         </form>

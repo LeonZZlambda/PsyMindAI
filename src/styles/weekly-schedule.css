@@ -516,6 +516,15 @@
   flex: 1;
 }
 
+/* Mobile layout: pagination buttons below the date */
+@media (max-width: 767px) {
+  .weekly-schedule__header-info {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+
 .weekly-schedule__title {
   margin: 0;
   font-size: 1.25rem;

@@ -1,0 +1,75 @@
+{
+  "title": "週計劃",
+  "today": "今天",
+  "of": "of",
+  "empty": {
+    "title": "沒有計劃的活動",
+    "description": "創建您的第一個活動以開始規劃您的一週。"
+  },
+  "actions": {
+    "new": "新活動",
+    "save": "儲存",
+    "cancel": "取消",
+    "delete": "刪除",
+    "export": "匯出",
+    "undo": "復原",
+    "redo": "重做",
+    "resize": "調整大小",
+    "openMeeting": "開啟會議",
+    "openLocation": "開啟位置"
+  },
+  "form": {
+    "new": "新活動",
+    "edit": "編輯活動",
+    "title": "標題",
+    "description": "描述",
+    "type": "類型",
+    "start": "開始時間",
+    "duration": "持續時間",
+    "locationUrl": "位置URL",
+    "meetingUrl": "會議URL",
+    "customColor": "自訂顏色 (Hex/RGB)",
+    "deleteConfirm": "您確定要刪除此活動嗎？",
+    "errors": {
+      "title": "標題是必需的"
+    }
+  },
+  "type": {
+    "CLASS": "課程",
+    "STUDY": "學習",
+    "REVIEW": "複習",
+    "EXTRA": "額外"
+  },
+  "days": {
+    "MONDAY": "週一",
+    "TUESDAY": "週二",
+    "WEDNESDAY": "週三",
+    "THURSDAY": "週四",
+    "FRIDAY": "週五",
+    "SATURDAY": "週六",
+    "SUNDAY": "週日"
+  },
+  "colors": {
+    "PRIMARY": "主要",
+    "SECONDARY": "次要",
+    "TERTIARY": "第三",
+    "ERROR": "錯誤",
+    "CUSTOM": "自訂"
+  },
+  "search": {
+    "placeholder": "搜尋活動...",
+    "noResults": "未找到活動",
+    "tryDifferent": "嘗試不同的搜尋詞"
+  },
+  "export": {
+    "title": "匯出計劃",
+    "format": "格式",
+    "fileName": "檔案名稱",
+    "fileNameHelper": "副檔名將自動添加",
+    "jsonDescription": "匯出為JSON格式以供後續匯入。",
+    "csvDescription": "匯出為與Excel/Sheets相容的CSV格式。",
+    "icalDescription": "匯出為iCalendar格式以與您的日曆同步。",
+    "noActivities": "沒有要匯出的活動。"
+  },
+  "resizeHint": "拖動下邊框調整大小"
+}

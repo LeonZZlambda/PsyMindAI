@@ -1,0 +1,75 @@
+{
+  "title": "Wochenplan",
+  "today": "Heute",
+  "of": "von",
+  "empty": {
+    "title": "Keine Aktivitäten geplant",
+    "description": "Erstellen Sie Ihre erste Aktivität, um mit der Wochenplanung zu beginnen."
+  },
+  "actions": {
+    "new": "Neue Aktivität",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "export": "Exportieren",
+    "undo": "Rückgängig",
+    "redo": "Wiederholen",
+    "resize": "Größe ändern",
+    "openMeeting": "Besprechung öffnen",
+    "openLocation": "Standort öffnen"
+  },
+  "form": {
+    "new": "Neue Aktivität",
+    "edit": "Aktivität bearbeiten",
+    "title": "Titel",
+    "description": "Beschreibung",
+    "type": "Typ",
+    "start": "Startzeit",
+    "duration": "Dauer",
+    "locationUrl": "Standort-URL",
+    "meetingUrl": "Besprechungs-URL",
+    "customColor": "Benutzerdefinierte Farbe (Hex/RGB)",
+    "deleteConfirm": "Sind Sie sicher, dass Sie diese Aktivität löschen möchten?",
+    "errors": {
+      "title": "Titel ist erforderlich"
+    }
+  },
+  "type": {
+    "CLASS": "Klasse",
+    "STUDY": "Lernen",
+    "REVIEW": "Wiederholung",
+    "EXTRA": "Zusätzlich"
+  },
+  "days": {
+    "MONDAY": "Mo",
+    "TUESDAY": "Di",
+    "WEDNESDAY": "Mi",
+    "THURSDAY": "Do",
+    "FRIDAY": "Fr",
+    "SATURDAY": "Sa",
+    "SUNDAY": "So"
+  },
+  "colors": {
+    "PRIMARY": "Primär",
+    "SECONDARY": "Sekundär",
+    "TERTIARY": "Tertiär",
+    "ERROR": "Fehler",
+    "CUSTOM": "Benutzerdefiniert"
+  },
+  "search": {
+    "placeholder": "Aktivitäten suchen...",
+    "noResults": "Keine Aktivitäten gefunden",
+    "tryDifferent": "Versuchen Sie einen anderen Suchbegriff"
+  },
+  "export": {
+    "title": "Zeitplan exportieren",
+    "format": "Format",
+    "fileName": "Dateiname",
+    "fileNameHelper": "Erweiterung wird automatisch hinzugefügt",
+    "jsonDescription": "Exportiert im JSON-Format für spätere Importierung.",
+    "csvDescription": "Exportiert im CSV-Format kompatibel mit Excel/Sheets.",
+    "icalDescription": "Exportiert im iCalendar-Format zur Synchronisation mit Ihrem Kalender.",
+    "noActivities": "Keine Aktivitäten zum Exportieren."
+  },
+  "resizeHint": "Ziehen Sie den unteren Rand, um die Größe zu ändern"
+}

@@ -9,7 +9,7 @@ interface WeeklyScheduleModalProps {
 }
 
 export const WeeklyScheduleModal = ({ isOpen, onClose }: WeeklyScheduleModalProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['schedule', 'translation'])
 
   if (!isOpen) return null
 
@@ -17,7 +17,7 @@ export const WeeklyScheduleModal = ({ isOpen, onClose }: WeeklyScheduleModalProp
     <BaseModal
       isOpen={isOpen}
       onClose={onClose}
-      title={t('schedule.title', { defaultValue: 'Weekly Schedule Builder' })}
+      title={t('title', { defaultValue: 'Weekly Schedule Builder' })}
       icon="calendar_month"
       size="large"
       className="weekly-schedule-modal"

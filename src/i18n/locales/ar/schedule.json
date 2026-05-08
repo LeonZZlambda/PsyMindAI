@@ -1,0 +1,75 @@
+{
+  "title": "الجدول الأسبوعي",
+  "today": "اليوم",
+  "of": "of",
+  "empty": {
+    "title": "لا توجد أنشطة مجدولة",
+    "description": "أنشئ نشاطك الأول لبدء التخطيط لأسبوعك."
+  },
+  "actions": {
+    "new": "نشاط جديد",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "export": "تصدير",
+    "undo": "تراجع",
+    "redo": "إعادة",
+    "resize": "تغيير الحجم",
+    "openMeeting": "فتح الاجتماع",
+    "openLocation": "فتح الموقع"
+  },
+  "form": {
+    "new": "نشاط جديد",
+    "edit": "تحرير النشاط",
+    "title": "العنوان",
+    "description": "الوصف",
+    "type": "النوع",
+    "start": "وقت البدء",
+    "duration": "المدة",
+    "locationUrl": "رابط الموقع",
+    "meetingUrl": "رابط الاجتماع",
+    "customColor": "لون مخصص (Hex/RGB)",
+    "deleteConfirm": "هل أنت متأكد من حذف هذا النشاط؟",
+    "errors": {
+      "title": "العنوان مطلوب"
+    }
+  },
+  "type": {
+    "CLASS": "درس",
+    "STUDY": "دراسة",
+    "REVIEW": "مراجعة",
+    "EXTRA": "إضافي"
+  },
+  "days": {
+    "MONDAY": "الاثنين",
+    "TUESDAY": "الثلاثاء",
+    "WEDNESDAY": "الأربعاء",
+    "THURSDAY": "الخميس",
+    "FRIDAY": "الجمعة",
+    "SATURDAY": "السبت",
+    "SUNDAY": "الأحد"
+  },
+  "colors": {
+    "PRIMARY": "أساسي",
+    "SECONDARY": "ثانوي",
+    "TERTIARY": "ثالث",
+    "ERROR": "خطأ",
+    "CUSTOM": "مخصص"
+  },
+  "search": {
+    "placeholder": "البحث عن الأنشطة...",
+    "noResults": "لم يتم العثور على أنشطة",
+    "tryDifferent": "جرب مصطلح بحث مختلف"
+  },
+  "export": {
+    "title": "تصدير الجدول",
+    "format": "التنسيق",
+    "fileName": "اسم الملف",
+    "fileNameHelper": "سيتم إضافة الامتداد تلقائياً",
+    "jsonDescription": "تصدير بتنسيق JSON للاستيراد لاحقاً.",
+    "csvDescription": "تصدير بتنسيق CSV متوافق مع Excel/Sheets.",
+    "icalDescription": "تصدير بتنسيق iCalendar للمزامنة مع تقويمك.",
+    "noActivities": "لا توجد أنشطة للتصدير."
+  },
+  "resizeHint": "اسحب الحافة السفلية لتغيير الحجم"
+}

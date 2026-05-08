@@ -1,0 +1,75 @@
+{
+  "title": "साप्ताहिक अनुसूची",
+  "today": "आज",
+  "of": "of",
+  "empty": {
+    "title": "कोई गतिविधियाँ निर्धारित नहीं",
+    "description": "अपने सप्ताह की योजना शुरू करने के लिए अपनी पहली गतिविधि बनाएं।"
+  },
+  "actions": {
+    "new": "नई गतिविधि",
+    "save": "सहेजें",
+    "cancel": "रद्द करें",
+    "delete": "मिटाएं",
+    "export": "निर्यात करें",
+    "undo": "पूर्ववत करें",
+    "redo": "पुनः करें",
+    "resize": "आकार बदलें",
+    "openMeeting": "बैठक खोलें",
+    "openLocation": "स्थान खोलें"
+  },
+  "form": {
+    "new": "नई गतिविधि",
+    "edit": "गतिविधि संपादित करें",
+    "title": "शीर्षक",
+    "description": "विवरण",
+    "type": "प्रकार",
+    "start": "प्रारंभ समय",
+    "duration": "अवधि",
+    "locationUrl": "स्थान URL",
+    "meetingUrl": "बैठक URL",
+    "customColor": "कस्टम रंग (Hex/RGB)",
+    "deleteConfirm": "क्या आप वाकई इस गतिविधि को मिटाना चाहते हैं?",
+    "errors": {
+      "title": "शीर्षक आवश्यक है"
+    }
+  },
+  "type": {
+    "CLASS": "कक्षा",
+    "STUDY": "अध्ययन",
+    "REVIEW": "समीक्षा",
+    "EXTRA": "अतिरिक्त"
+  },
+  "days": {
+    "MONDAY": "सोम",
+    "TUESDAY": "मंगल",
+    "WEDNESDAY": "बुध",
+    "THURSDAY": "गुरु",
+    "FRIDAY": "शुक्र",
+    "SATURDAY": "शनि",
+    "SUNDAY": "रवि"
+  },
+  "colors": {
+    "PRIMARY": "प्राथमिक",
+    "SECONDARY": "द्वितीयक",
+    "TERTIARY": "तृतीयक",
+    "ERROR": "त्रुटि",
+    "CUSTOM": "कस्टम"
+  },
+  "search": {
+    "placeholder": "गतिविधियाँ खोजें...",
+    "noResults": "कोई गतिविधियाँ नहीं मिलीं",
+    "tryDifferent": "कोई भिन्न खोज शब्द आज़माएं"
+  },
+  "export": {
+    "title": "अनुसूची निर्यात करें",
+    "format": "प्रारूप",
+    "fileName": "फ़ाइल नाम",
+    "fileNameHelper": "एक्सटेंशन स्वचालित रूप से जोड़ा जाएगा",
+    "jsonDescription": "बाद में आयात के लिए JSON प्रारूप में निर्यात करता है।",
+    "csvDescription": "Excel/Sheets के साथ संगत CSV प्रारूप में निर्यात करता है।",
+    "icalDescription": "अपने कैलेंडर के साथ सिंक करने के लिए iCalendar प्रारूप में निर्यात करता है।",
+    "noActivities": "निर्यात करने के लिए कोई गतिविधियाँ नहीं।"
+  },
+  "resizeHint": "आकार बदलने के लिए निचली किनारे को खींचें"
+}

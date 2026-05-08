@@ -1,0 +1,75 @@
+{
+  "title": "Emploi du Temps Hebdomadaire",
+  "today": "Aujourd'hui",
+  "of": "de",
+  "empty": {
+    "title": "Aucune activité planifiée",
+    "description": "Créez votre première activité pour commencer à planifier votre semaine."
+  },
+  "actions": {
+    "new": "Nouvelle Activité",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "export": "Exporter",
+    "undo": "Annuler",
+    "redo": "Rétablir",
+    "resize": "Redimensionner",
+    "openMeeting": "Ouvrir la réunion",
+    "openLocation": "Ouvrir l'emplacement"
+  },
+  "form": {
+    "new": "Nouvelle Activité",
+    "edit": "Modifier l'Activité",
+    "title": "Titre",
+    "description": "Description",
+    "type": "Type",
+    "start": "Heure de début",
+    "duration": "Durée",
+    "locationUrl": "URL de l'emplacement",
+    "meetingUrl": "URL de la réunion",
+    "customColor": "Couleur personnalisée (Hex/RGB)",
+    "deleteConfirm": "Êtes-vous sûr de vouloir supprimer cette activité ?",
+    "errors": {
+      "title": "Le titre est obligatoire"
+    }
+  },
+  "type": {
+    "CLASS": "Cours",
+    "STUDY": "Étude",
+    "REVIEW": "Révision",
+    "EXTRA": "Supplémentaire"
+  },
+  "days": {
+    "MONDAY": "Lun",
+    "TUESDAY": "Mar",
+    "WEDNESDAY": "Mer",
+    "THURSDAY": "Jeu",
+    "FRIDAY": "Ven",
+    "SATURDAY": "Sam",
+    "SUNDAY": "Dim"
+  },
+  "colors": {
+    "PRIMARY": "Primaire",
+    "SECONDARY": "Secondaire",
+    "TERTIARY": "Tertiaire",
+    "ERROR": "Erreur",
+    "CUSTOM": "Personnalisé"
+  },
+  "search": {
+    "placeholder": "Rechercher des activités...",
+    "noResults": "Aucune activité trouvée",
+    "tryDifferent": "Essayez un terme de recherche différent"
+  },
+  "export": {
+    "title": "Exporter l'Emploi du Temps",
+    "format": "Format",
+    "fileName": "Nom du fichier",
+    "fileNameHelper": "L'extension sera ajoutée automatiquement",
+    "jsonDescription": "Exporte au format JSON pour une importation ultérieure.",
+    "csvDescription": "Exporte au format CSV compatible avec Excel/Sheets.",
+    "icalDescription": "Exporte au format iCalendar pour synchroniser avec votre calendrier.",
+    "noActivities": "Aucune activité à exporter."
+  },
+  "resizeHint": "Faites glisser le bord inférieur pour redimensionner"
+}

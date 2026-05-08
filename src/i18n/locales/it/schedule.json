@@ -1,0 +1,75 @@
+{
+  "title": "Orario Settimanale",
+  "today": "Oggi",
+  "of": "of",
+  "empty": {
+    "title": "Nessuna attività programmata",
+    "description": "Crea la tua prima attività per iniziare a pianificare la tua settimana."
+  },
+  "actions": {
+    "new": "Nuova Attività",
+    "save": "Salva",
+    "cancel": "Annulla",
+    "delete": "Elimina",
+    "export": "Esporta",
+    "undo": "Annulla",
+    "redo": "Ripeti",
+    "resize": "Ridimensiona",
+    "openMeeting": "Apri riunione",
+    "openLocation": "Apri posizione"
+  },
+  "form": {
+    "new": "Nuova Attività",
+    "edit": "Modifica Attività",
+    "title": "Titolo",
+    "description": "Descrizione",
+    "type": "Tipo",
+    "start": "Ora di inizio",
+    "duration": "Durata",
+    "locationUrl": "URL posizione",
+    "meetingUrl": "URL riunione",
+    "customColor": "Colore personalizzato (Hex/RGB)",
+    "deleteConfirm": "Sei sicuro di voler eliminare questa attività?",
+    "errors": {
+      "title": "Il titolo è obbligatorio"
+    }
+  },
+  "type": {
+    "CLASS": "Lezione",
+    "STUDY": "Studio",
+    "REVIEW": "Ripasso",
+    "EXTRA": "Extra"
+  },
+  "days": {
+    "MONDAY": "Lun",
+    "TUESDAY": "Mar",
+    "WEDNESDAY": "Mer",
+    "THURSDAY": "Gio",
+    "FRIDAY": "Ven",
+    "SATURDAY": "Sab",
+    "SUNDAY": "Dom"
+  },
+  "colors": {
+    "PRIMARY": "Primario",
+    "SECONDARY": "Secondario",
+    "TERTIARY": "Terziario",
+    "ERROR": "Errore",
+    "CUSTOM": "Personalizzato"
+  },
+  "search": {
+    "placeholder": "Cerca attività...",
+    "noResults": "Nessuna attività trovata",
+    "tryDifferent": "Prova un termine di ricerca diverso"
+  },
+  "export": {
+    "title": "Esporta Orario",
+    "format": "Formato",
+    "fileName": "Nome file",
+    "fileNameHelper": "L'estensione verrà aggiunta automaticamente",
+    "jsonDescription": "Esporta in formato JSON per importazione successiva.",
+    "csvDescription": "Esporta in formato CSV compatibile con Excel/Sheets.",
+    "icalDescription": "Esporta in formato iCalendar per sincronizzare con il tuo calendario.",
+    "noActivities": "Nessuna attività da esportare."
+  },
+  "resizeHint": "Trascina il bordo inferiore per ridimensionare"
+}

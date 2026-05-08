@@ -1,0 +1,75 @@
+{
+  "title": "周计划",
+  "today": "今天",
+  "of": "of",
+  "empty": {
+    "title": "没有计划的活动",
+    "description": "创建您的第一个活动以开始规划您的一周。"
+  },
+  "actions": {
+    "new": "新活动",
+    "save": "保存",
+    "cancel": "取消",
+    "delete": "删除",
+    "export": "导出",
+    "undo": "撤销",
+    "redo": "重做",
+    "resize": "调整大小",
+    "openMeeting": "打开会议",
+    "openLocation": "打开位置"
+  },
+  "form": {
+    "new": "新活动",
+    "edit": "编辑活动",
+    "title": "标题",
+    "description": "描述",
+    "type": "类型",
+    "start": "开始时间",
+    "duration": "持续时间",
+    "locationUrl": "位置URL",
+    "meetingUrl": "会议URL",
+    "customColor": "自定义颜色 (Hex/RGB)",
+    "deleteConfirm": "您确定要删除此活动吗？",
+    "errors": {
+      "title": "标题是必需的"
+    }
+  },
+  "type": {
+    "CLASS": "课程",
+    "STUDY": "学习",
+    "REVIEW": "复习",
+    "EXTRA": "额外"
+  },
+  "days": {
+    "MONDAY": "周一",
+    "TUESDAY": "周二",
+    "WEDNESDAY": "周三",
+    "THURSDAY": "周四",
+    "FRIDAY": "周五",
+    "SATURDAY": "周六",
+    "SUNDAY": "周日"
+  },
+  "colors": {
+    "PRIMARY": "主要",
+    "SECONDARY": "次要",
+    "TERTIARY": "第三",
+    "ERROR": "错误",
+    "CUSTOM": "自定义"
+  },
+  "search": {
+    "placeholder": "搜索活动...",
+    "noResults": "未找到活动",
+    "tryDifferent": "尝试不同的搜索词"
+  },
+  "export": {
+    "title": "导出计划",
+    "format": "格式",
+    "fileName": "文件名",
+    "fileNameHelper": "扩展名将自动添加",
+    "jsonDescription": "导出为JSON格式以供后续导入。",
+    "csvDescription": "导出为与Excel/Sheets兼容的CSV格式。",
+    "icalDescription": "导出为iCalendar格式以与您的日历同步。",
+    "noActivities": "没有要导出的活动。"
+  },
+  "resizeHint": "拖动下边框调整大小"
+}

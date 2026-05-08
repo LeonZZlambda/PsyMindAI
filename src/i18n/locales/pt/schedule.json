@@ -1,0 +1,75 @@
+{
+  "title": "Agenda Semanal",
+  "today": "Hoje",
+  "of": "de",
+  "empty": {
+    "title": "Nenhuma atividade agendada",
+    "description": "Crie sua primeira atividade para começar a planejar sua semana."
+  },
+  "actions": {
+    "new": "Nova Atividade",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "delete": "Excluir",
+    "export": "Exportar",
+    "undo": "Desfazer",
+    "redo": "Refazer",
+    "resize": "Redimensionar",
+    "openMeeting": "Abrir reunião",
+    "openLocation": "Abrir localização"
+  },
+  "form": {
+    "new": "Nova Atividade",
+    "edit": "Editar Atividade",
+    "title": "Título",
+    "description": "Descrição",
+    "type": "Tipo",
+    "start": "Horário de início",
+    "duration": "Duração",
+    "locationUrl": "URL do local",
+    "meetingUrl": "URL da reunião",
+    "customColor": "Cor customizada (Hex/RGB)",
+    "deleteConfirm": "Tem certeza que deseja excluir esta atividade?",
+    "errors": {
+      "title": "Título é obrigatório"
+    }
+  },
+  "type": {
+    "CLASS": "Aula",
+    "STUDY": "Estudo",
+    "REVIEW": "Revisão",
+    "EXTRA": "Extra"
+  },
+  "days": {
+    "MONDAY": "Seg",
+    "TUESDAY": "Ter",
+    "WEDNESDAY": "Qua",
+    "THURSDAY": "Qui",
+    "FRIDAY": "Sex",
+    "SATURDAY": "Sáb",
+    "SUNDAY": "Dom"
+  },
+  "colors": {
+    "PRIMARY": "Primária",
+    "SECONDARY": "Secundária",
+    "TERTIARY": "Terciária",
+    "ERROR": "Erro",
+    "CUSTOM": "Personalizada"
+  },
+  "search": {
+    "placeholder": "Buscar atividades...",
+    "noResults": "Nenhuma atividade encontrada",
+    "tryDifferent": "Tente um termo de busca diferente"
+  },
+  "export": {
+    "title": "Exportar Agenda",
+    "format": "Formato",
+    "fileName": "Nome do arquivo",
+    "fileNameHelper": "Extensão será adicionada automaticamente",
+    "jsonDescription": "Exporta em formato JSON para importação posterior.",
+    "csvDescription": "Exporta em formato CSV compatível com Excel/Sheets.",
+    "icalDescription": "Exporta em formato iCalendar para sincronizar com seu calendário.",
+    "noActivities": "Nenhuma atividade para exportar."
+  },
+  "resizeHint": "Arraste a borda inferior para redimensionar"
+}

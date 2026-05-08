@@ -1,0 +1,75 @@
+{
+  "title": "Horarium Hebdomadale",
+  "today": "Hodie",
+  "of": "of",
+  "empty": {
+    "title": "Nullae actiones programmatae",
+    "description": "Crea primam actionem tuam ut incipias hebdomadem tuam ordinare."
+  },
+  "actions": {
+    "new": "Nova Actio",
+    "save": "Serva",
+    "cancel": "Cancele",
+    "delete": "Dele",
+    "export": "Exporta",
+    "undo": "Revoca",
+    "redo": "Refac",
+    "resize": "Redimensiona",
+    "openMeeting": "Aperi conventum",
+    "openLocation": "Aperi locum"
+  },
+  "form": {
+    "new": "Nova Actio",
+    "edit": "Edita Actionem",
+    "title": "Titulus",
+    "description": "Descriptio",
+    "type": "Typus",
+    "start": "Tempus initii",
+    "duration": "Duratio",
+    "locationUrl": "URL loci",
+    "meetingUrl": "URL conventus",
+    "customColor": "Color personalis (Hex/RGB)",
+    "deleteConfirm": "Esne certus hanc actionem delere velle?",
+    "errors": {
+      "title": "Titulus requiritur"
+    }
+  },
+  "type": {
+    "CLASS": "Lectio",
+    "STUDY": "Studium",
+    "REVIEW": "Recensio",
+    "EXTRA": "Extra"
+  },
+  "days": {
+    "MONDAY": "Dies Lunae",
+    "TUESDAY": "Dies Martis",
+    "WEDNESDAY": "Dies Mercurii",
+    "THURSDAY": "Dies Iovis",
+    "FRIDAY": "Dies Veneris",
+    "SATURDAY": "Dies Saturni",
+    "SUNDAY": "Dies Solis"
+  },
+  "colors": {
+    "PRIMARY": "Primarius",
+    "SECONDARY": "Secundarius",
+    "TERTIARY": "Tertiarius",
+    "ERROR": "Error",
+    "CUSTOM": "Proprius"
+  },
+  "search": {
+    "placeholder": "Quaere actiones...",
+    "noResults": "Nullae actiones inventae",
+    "tryDifferent": "Conare alium terminum quaerendi"
+  },
+  "export": {
+    "title": "Exporta Horarium",
+    "format": "Formatum",
+    "fileName": "Nomen fasciculi",
+    "fileNameHelper": "Extensio automatice addetur",
+    "jsonDescription": "Exportat in formato JSON pro importatione futura.",
+    "csvDescription": "Exportat in formato CSV compatibili cum Excel/Sheets.",
+    "icalDescription": "Exportat in formato iCalendar ad synchronizandum cum calendario tuo.",
+    "noActivities": "Nullae actiones ad exportandum."
+  },
+  "resizeHint": "Trahe marginem inferiorem ad redimensionandum"
+}

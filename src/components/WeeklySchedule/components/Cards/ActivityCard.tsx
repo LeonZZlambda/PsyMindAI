@@ -41,7 +41,7 @@ const ActivityCardComponent = ({
   onSelect,
   onRequestResize,
 }: ActivityCardProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['schedule', 'translation'])
   const longPressRef = useRef<number | null>(null)
   const initialYRef = useRef<number | null>(null)
 
@@ -118,7 +118,7 @@ const ActivityCardComponent = ({
       />
       <div className="weekly-schedule__activity-content">
         <span className="weekly-schedule__activity-type">
-          {t(`schedule.type.${activity.type}`, { defaultValue: activity.type })}
+          {t(`type.${activity.type}`, { defaultValue: activity.type })}
         </span>
         <div className="weekly-schedule__activity-title">{activity.title}</div>
         {activity.description && (
@@ -134,7 +134,7 @@ const ActivityCardComponent = ({
               href={activity.meetingUrl}
               target="_blank"
               rel="noreferrer"
-              aria-label={t('schedule.actions.openMeeting', { defaultValue: 'Abrir meeting' })}
+              aria-label={t('actions.openMeeting', { defaultValue: 'Abrir meeting' })}
               onClick={(e) => e.stopPropagation()}
               className="weekly-schedule__activity-action-btn"
             >
@@ -146,7 +146,7 @@ const ActivityCardComponent = ({
               href={activity.locationUrl}
               target="_blank"
               rel="noreferrer"
-              aria-label={t('schedule.actions.openLocation', { defaultValue: 'Abrir localização' })}
+              aria-label={t('actions.openLocation', { defaultValue: 'Abrir localização' })}
               onClick={(e) => e.stopPropagation()}
               className="weekly-schedule__activity-action-btn"
             >
@@ -159,7 +159,7 @@ const ActivityCardComponent = ({
         onPointerDown={onResizePointerDown}
         className="weekly-schedule__resize-handle"
         role="slider"
-        aria-label={t('schedule.actions.resize', { defaultValue: 'Redimensionar duração' })}
+        aria-label={t('actions.resize', { defaultValue: 'Redimensionar duração' })}
       >
         <MaterialIcon name="height" />
       </div>

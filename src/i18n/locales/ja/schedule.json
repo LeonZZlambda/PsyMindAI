@@ -1,0 +1,75 @@
+{
+  "title": "週間スケジュール",
+  "today": "今日",
+  "of": "of",
+  "empty": {
+    "title": "スケジュールされた活動はありません",
+    "description": "週の計画を開始するために最初の活動を作成してください。"
+  },
+  "actions": {
+    "new": "新しい活動",
+    "save": "保存",
+    "cancel": "キャンセル",
+    "delete": "削除",
+    "export": "エクスポート",
+    "undo": "元に戻す",
+    "redo": "やり直し",
+    "resize": "サイズ変更",
+    "openMeeting": "会議を開く",
+    "openLocation": "場所を開く"
+  },
+  "form": {
+    "new": "新しい活動",
+    "edit": "活動を編集",
+    "title": "タイトル",
+    "description": "説明",
+    "type": "タイプ",
+    "start": "開始時間",
+    "duration": "期間",
+    "locationUrl": "場所URL",
+    "meetingUrl": "会議URL",
+    "customColor": "カスタムカラー (Hex/RGB)",
+    "deleteConfirm": "この活動を削除してもよろしいですか？",
+    "errors": {
+      "title": "タイトルは必須です"
+    }
+  },
+  "type": {
+    "CLASS": "授業",
+    "STUDY": "学習",
+    "REVIEW": "復習",
+    "EXTRA": "追加"
+  },
+  "days": {
+    "MONDAY": "月",
+    "TUESDAY": "火",
+    "WEDNESDAY": "水",
+    "THURSDAY": "木",
+    "FRIDAY": "金",
+    "SATURDAY": "土",
+    "SUNDAY": "日"
+  },
+  "colors": {
+    "PRIMARY": "プライマリ",
+    "SECONDARY": "セカンダリ",
+    "TERTIARY": "ターシャリ",
+    "ERROR": "エラー",
+    "CUSTOM": "カスタム"
+  },
+  "search": {
+    "placeholder": "活動を検索...",
+    "noResults": "活動が見つかりません",
+    "tryDifferent": "別の検索語を試してください"
+  },
+  "export": {
+    "title": "スケジュールをエクスポート",
+    "format": "フォーマット",
+    "fileName": "ファイル名",
+    "fileNameHelper": "拡張子は自動的に追加されます",
+    "jsonDescription": "後でインポートするためにJSON形式でエクスポートします。",
+    "csvDescription": "Excel/Sheetsと互換性のあるCSV形式でエクスポートします。",
+    "icalDescription": "カレンダーと同期するためにiCalendar形式でエクスポートします。",
+    "noActivities": "エクスポートする活動がありません。"
+  },
+  "resizeHint": "サイズを変更するには下辺をドラッグしてください"
+}

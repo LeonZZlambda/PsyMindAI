@@ -1,7 +1,6 @@
 import { DndContext, DragEndEvent } from '@dnd-kit/core'
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers'
 import { addDays, format, isSameDay, startOfDay } from 'date-fns'
-import { ptBR } from 'date-fns/locale'
 import { AnimatePresence, m } from 'framer-motion'
 import { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -63,8 +62,21 @@ const dayOrder: DayOfWeek[] = [
   DayOfWeek.SUNDAY,
 ]
 
+const getDayName = (day: DayOfWeek, t: (key: string, options?: any) => string): string => {
+  const dayNames: Record<DayOfWeek, string> = {
+    [DayOfWeek.MONDAY]: t('days.MONDAY', { defaultValue: 'Mon' }),
+    [DayOfWeek.TUESDAY]: t('days.TUESDAY', { defaultValue: 'Tue' }),
+    [DayOfWeek.WEDNESDAY]: t('days.WEDNESDAY', { defaultValue: 'Wed' }),
+    [DayOfWeek.THURSDAY]: t('days.THURSDAY', { defaultValue: 'Thu' }),
+    [DayOfWeek.FRIDAY]: t('days.FRIDAY', { defaultValue: 'Fri' }),
+    [DayOfWeek.SATURDAY]: t('days.SATURDAY', { defaultValue: 'Sat' }),
+    [DayOfWeek.SUNDAY]: t('days.SUNDAY', { defaultValue: 'Sun' }),
+  }
+  return dayNames[day]
+}
+
 export const WeeklyGrid = ({ initialDate = new Date() }: WeeklyGridProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['schedule', 'translation'])
   const isMobile = false // TODO: Add proper mobile detection hook
   const {
     activities,
@@ -103,7 +115,10 @@ export const WeeklyGrid = ({ initialDate = new Date() }: WeeklyGridProps) => {
 
   const headerDateLabel = useMemo(() => {
     const now = new Date()
-    return `${t('schedule.today', { defaultValue: 'Hoje' })} • ${format(now, "EEEE, dd 'de' MMMM", { locale: ptBR })}`
+    const dayName = format(now, 'EEEE')
+    const day = format(now, 'dd')
+    const month = format(now, 'MMMM')
+    return `${t('today', { defaultValue: 'Hoje' })} • ${dayName}, ${day} ${t('of', { defaultValue: 'de' })} ${month}`
   }, [t])
 
   const onCardSelect = useCallback((activity: Activity) => {
@@ -217,8 +232,8 @@ export const WeeklyGrid = ({ initialDate = new Date() }: WeeklyGridProps) => {
               className="weekly-schedule__icon-btn"
               onClick={undo}
               disabled={!canUndo()}
-              title={t('schedule.actions.undo', { defaultValue: 'Desfazer (Ctrl+Z)' })}
-              aria-label={t('schedule.actions.undo', { defaultValue: 'Desfazer' })}
+              title={t('actions.undo', { defaultValue: 'Desfazer (Ctrl+Z)' })}
+              aria-label={t('actions.undo', { defaultValue: 'Desfazer' })}
             >
               <MaterialIcon name="undo" />
             </button>
@@ -226,8 +241,8 @@ export const WeeklyGrid = ({ initialDate = new Date() }: WeeklyGridProps) => {
               className="weekly-schedule__icon-btn"
               onClick={redo}
               disabled={!canRedo()}
-              title={t('schedule.actions.redo', { defaultValue: 'Refazer (Ctrl+Y)' })}
-              aria-label={t('schedule.actions.redo', { defaultValue: 'Refazer' })}
+              title={t('actions.redo', { defaultValue: 'Refazer (Ctrl+Y)' })}
+              aria-label={t('actions.redo', { defaultValue: 'Refazer' })}
             >
               <MaterialIcon name="redo" />
             </button>
@@ -241,10 +256,10 @@ export const WeeklyGrid = ({ initialDate = new Date() }: WeeklyGridProps) => {
             {searchQuery ? (
               <>
                 <h6 className="weekly-schedule__empty-title">
-                  {t('schedule.search.noResults', { defaultValue: 'Nenhuma atividade encontrada' })}
+                  {t('search.noResults', { defaultValue: 'Nenhuma atividade encontrada' })}
                 </h6>
                 <p className="weekly-schedule__empty-description">
-                  {t('schedule.search.tryDifferent', {
+                  {t('search.tryDifferent', {
                     defaultValue: 'Tente uma busca diferente.',
                   })}
                 </p>
@@ -252,10 +267,10 @@ export const WeeklyGrid = ({ initialDate = new Date() }: WeeklyGridProps) => {
             ) : (
               <>
                 <h6 className="weekly-schedule__empty-title">
-                  {t('schedule.empty.title', { defaultValue: 'Sem atividades na semana' })}
+                  {t('empty.title', { defaultValue: 'Sem atividades na semana' })}
                 </h6>
                 <p className="weekly-schedule__empty-description">
-                  {t('schedule.empty.description', {
+                  {t('empty.description', {
                     defaultValue: 'Comece criando sua primeira atividade.',
                   })}
                 </p>
@@ -265,7 +280,7 @@ export const WeeklyGrid = ({ initialDate = new Date() }: WeeklyGridProps) => {
         ) : null}
 
         <div className="weekly-schedule__alert">
-          {t('schedule.resizeHint', {
+          {t('resizeHint', {
             defaultValue: 'Arraste a base do card para redimensionar em passos configurados.',
           })}
         </div>
@@ -275,7 +290,7 @@ export const WeeklyGrid = ({ initialDate = new Date() }: WeeklyGridProps) => {
             <div className="weekly-grid-container">
               <div className="weekly-grid-header">
                 <div></div>
-                {dayColumns.map(({ date, index }) => (
+                {dayColumns.map(({ day, date, index }) => (
                   <div
                     key={date.toISOString()}
                     className="weekly-grid-header-day"
@@ -284,14 +299,14 @@ export const WeeklyGrid = ({ initialDate = new Date() }: WeeklyGridProps) => {
                     }}
                   >
                     <span className="weekly-grid-header-day-weekday">
-                      {format(date, weekdays[0], { locale: ptBR })}
+                      {getDayName(day, t)}
                     </span>
                     <span
                       className={`weekly-grid-header-day-date ${
                         isSameDay(date, new Date()) ? 'today' : ''
                       }`}
                     >
-                      {format(date, weekdays[1], { locale: ptBR })}
+                      {format(date, weekdays[1])}
                     </span>
                   </div>
                 ))}
@@ -372,7 +387,7 @@ export const WeeklyGrid = ({ initialDate = new Date() }: WeeklyGridProps) => {
 
       <button
         className="weekly-schedule__fab"
-        aria-label={t('schedule.actions.new', { defaultValue: 'Novo' })}
+        aria-label={t('actions.new', { defaultValue: 'Novo' })}
         onClick={() => {
           setEditingActivity(undefined)
           setIsFormOpen(true)

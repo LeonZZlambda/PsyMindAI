@@ -10,14 +10,14 @@ interface ExportButtonProps {
 }
 
 export const ExportButton = memo(({ activities }: ExportButtonProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['schedule', 'translation'])
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [format, setFormat] = useState<'csv' | 'json' | 'ical'>('json')
   const [fileName, setFileName] = useState(`schedule-${new Date().toISOString().split('T')[0]}`)
 
   const handleExport = () => {
     if (activities.length === 0) {
-      alert(t('schedule.export.noActivities', { defaultValue: 'Nenhuma atividade para exportar.' }))
+      alert(t('export.noActivities', { defaultValue: 'Nenhuma atividade para exportar.' }))
       return
     }
 
@@ -31,8 +31,8 @@ export const ExportButton = memo(({ activities }: ExportButtonProps) => {
       <button
         className="weekly-schedule__icon-btn"
         onClick={() => setIsDialogOpen(true)}
-        title={t('schedule.actions.export', { defaultValue: 'Exportar agendamento' })}
-        aria-label={t('schedule.actions.export', { defaultValue: 'Exportar' })}
+        title={t('actions.export', { defaultValue: 'Exportar agendamento' })}
+        aria-label={t('actions.export', { defaultValue: 'Exportar' })}
       >
         <MaterialIcon name="download" />
       </button>
@@ -40,7 +40,7 @@ export const ExportButton = memo(({ activities }: ExportButtonProps) => {
       <BaseModal
         isOpen={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}
-        title={t('schedule.export.title', { defaultValue: 'Exportar agendamento' })}
+        title={t('export.title', { defaultValue: 'Exportar agendamento' })}
         icon="download"
         size="small"
         className="export-modal"
@@ -48,7 +48,7 @@ export const ExportButton = memo(({ activities }: ExportButtonProps) => {
         <div className="export-form">
           <div className="export-field">
             <label htmlFor="export-format" className="export-label">
-              {t('schedule.export.format', { defaultValue: 'Formato' })}
+              {t('export.format', { defaultValue: 'Formato' })}
             </label>
             <select
               id="export-format"
@@ -64,7 +64,7 @@ export const ExportButton = memo(({ activities }: ExportButtonProps) => {
 
           <div className="export-field">
             <label htmlFor="export-filename" className="export-label">
-              {t('schedule.export.fileName', { defaultValue: 'Nome do arquivo' })}
+              {t('export.fileName', { defaultValue: 'Nome do arquivo' })}
             </label>
             <input
               id="export-filename"
@@ -74,7 +74,7 @@ export const ExportButton = memo(({ activities }: ExportButtonProps) => {
               className="export-input"
             />
             <span className="export-helper">
-              {t('schedule.export.fileNameHelper', {
+              {t('export.fileNameHelper', {
                 defaultValue: 'Extensão será adicionada automaticamente',
               })}
             </span>
@@ -83,21 +83,21 @@ export const ExportButton = memo(({ activities }: ExportButtonProps) => {
           <div className="export-info">
             {format === 'json' && (
               <p>
-                {t('schedule.export.jsonDescription', {
+                {t('export.jsonDescription', {
                   defaultValue: 'Exporta em formato JSON para importação posterior.',
                 })}
               </p>
             )}
             {format === 'csv' && (
               <p>
-                {t('schedule.export.csvDescription', {
+                {t('export.csvDescription', {
                   defaultValue: 'Exporta em formato CSV compatível com Excel/Sheets.',
                 })}
               </p>
             )}
             {format === 'ical' && (
               <p>
-                {t('schedule.export.icalDescription', {
+                {t('export.icalDescription', {
                   defaultValue: 'Exporta em formato iCalendar para sincronizar com seu calendário.',
                 })}
               </p>
@@ -109,7 +109,7 @@ export const ExportButton = memo(({ activities }: ExportButtonProps) => {
               onClick={() => setIsDialogOpen(false)}
               className="export-btn secondary"
             >
-              {t('schedule.actions.cancel', { defaultValue: 'Cancelar' })}
+              {t('actions.cancel', { defaultValue: 'Cancelar' })}
             </button>
             <button
               type="button"
@@ -117,7 +117,7 @@ export const ExportButton = memo(({ activities }: ExportButtonProps) => {
               className="export-btn primary"
             >
               <MaterialIcon name="download" />
-              {t('schedule.actions.export', { defaultValue: 'Exportar' })}
+              {t('actions.export', { defaultValue: 'Exportar' })}
             </button>
           </div>
         </div>

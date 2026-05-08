@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo, useState } from 'react'
+import { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import MaterialIcon from '../../MaterialIcon'
 import { Activity, ActivityType } from '../types'
@@ -11,7 +11,7 @@ interface ScheduleSearchProps {
 
 export const ScheduleSearch = memo(
   ({ activities, onFilterChange, onSearchChange }: ScheduleSearchProps) => {
-    const { t } = useTranslation()
+    const { t } = useTranslation(['schedule', 'translation'])
     const [searchQuery, setSearchQuery] = useState('')
     const [selectedTypes, setSelectedTypes] = useState<Set<ActivityType>>(new Set())
 
@@ -36,10 +36,10 @@ export const ScheduleSearch = memo(
       return result
     }, [activities, searchQuery, selectedTypes])
 
-    useCallback(() => {
+    useEffect(() => {
       onFilterChange(filtered)
       onSearchChange(searchQuery)
-    }, [filtered, searchQuery, onFilterChange, onSearchChange])()
+    }, [filtered, searchQuery, onFilterChange, onSearchChange])
 
     const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
       setSearchQuery(e.target.value)
@@ -63,11 +63,11 @@ export const ScheduleSearch = memo(
           <MaterialIcon name="search" className="weekly-schedule__search-icon" />
           <input
             type="text"
-            placeholder={t('schedule.search.placeholder', { defaultValue: 'Buscar atividades...' })}
+            placeholder={t('search.placeholder', { defaultValue: 'Buscar atividades...' })}
             value={searchQuery}
             onChange={handleSearchChange}
             className="weekly-schedule__search-input"
-            aria-label={t('schedule.search.placeholder', { defaultValue: 'Buscar atividades' })}
+            aria-label={t('search.placeholder', { defaultValue: 'Buscar atividades' })}
           />
         </div>
         <div className="weekly-schedule__type-filters">
@@ -80,7 +80,7 @@ export const ScheduleSearch = memo(
               }`}
               aria-pressed={selectedTypes.has(type)}
             >
-              {t(`schedule.type.${type}`, { defaultValue: type })}
+              {t(`type.${type}`, { defaultValue: type })}
             </button>
           ))}
         </div>

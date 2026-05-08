@@ -1,0 +1,59 @@
+{
+  "title": "Horario Semanal",
+  "today": "Hoy",
+  "of": "de",
+  "empty": {
+    "title": "No hay actividades programadas",
+    "description": "Crea tu primera actividad para comenzar a planificar tu semana."
+  },
+  "actions": {
+    "new": "Nueva Actividad",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "export": "Exportar",
+    "undo": "Deshacer",
+    "redo": "Rehacer",
+    "resize": "Redimensionar",
+    "openMeeting": "Abrir reunión",
+    "openLocation": "Abrir ubicación"
+  },
+  "form": {
+    "new": "Nueva Actividad",
+    "edit": "Editar Actividad",
+    "title": "Título",
+    "description": "Descripción",
+    "type": "Tipo",
+    "start": "Hora de inicio",
+    "duration": "Duración",
+    "locationUrl": "URL de ubicación",
+    "meetingUrl": "URL de reunión",
+    "customColor": "Color personalizado (Hex/RGB)",
+    "deleteConfirm": "¿Estás seguro de que quieres eliminar esta actividad?",
+    "errors": {
+      "title": "El título es obligatorio"
+    }
+  },
+  "type": {
+    "CLASS": "Clase",
+    "STUDY": "Estudio",
+    "REVIEW": "Repaso",
+    "EXTRA": "Extra"
+  },
+  "search": {
+    "placeholder": "Buscar actividades...",
+    "noResults": "No se encontraron actividades",
+    "tryDifferent": "Prueba un término de búsqueda diferente"
+  },
+  "export": {
+    "title": "Exportar Horario",
+    "format": "Formato",
+    "fileName": "Nombre del archivo",
+    "fileNameHelper": "La extensión se agregará automáticamente",
+    "jsonDescription": "Exporta en formato JSON para importación posterior.",
+    "csvDescription": "Exporta en formato CSV compatible con Excel/Sheets.",
+    "icalDescription": "Exporta en formato iCalendar para sincronizar con tu calendario.",
+    "noActivities": "No hay actividades para exportar."
+  },
+  "resizeHint": "Arrastra el borde inferior para redimensionar"
+}
