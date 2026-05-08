@@ -1,0 +1,63 @@
+/* ==========================================================================
+   Material Icons Protection Layer
+   
+   Prevents icon text from displaying when:
+   - Font fails to load (old browsers, network issues)
+   - Google Translate is active
+   - Font ligatures are not supported
+   ========================================================================== */
+
+/* Base Material Symbols styling with translation blocking */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  
+  /* Prevent Google Translate from processing */
+  translate: no;
+  -webkit-user-select: none;
+  user-select: none;
+  
+  /* Ensure ligatures are enabled */
+  font-feature-settings: 'liga' 1;
+  -webkit-font-feature-settings: 'liga' 1;
+  -moz-font-feature-settings: 'liga' 1;
+}
+
+/* Fallback: Hide text if font fails to load */
+.material-symbols-outlined[style*="color: transparent"] {
+  font-size: 0;
+  width: 1em;
+  height: 1em;
+  overflow: hidden;
+}
+
+/* Ensure proper sizing for all icon sizes */
+.material-symbols-outlined[style*="font-size"] {
+  width: auto;
+  height: auto;
+}
+
+/* Accessibility: Ensure aria-labels are respected */
+.material-symbols-outlined[aria-label] {
+  position: relative;
+}
+
+/* Prevent text selection on icons */
+.material-symbols-outlined::selection {
+  background: transparent;
+}
+
+.material-symbols-outlined::-moz-selection {
+  background: transparent;
+}
