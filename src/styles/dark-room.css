@@ -20,7 +20,11 @@
 /* CSS variables NÃO suportam !important. Por isso usamos           */
 /* html.dark-room-mode (especificidade maior que :root) para        */
 /* sobrescrever --primary-color e impedir bordas/glows azuis/roxos. */
-html.dark-room-mode {
+html.dark-room-mode,
+html.dark-room-mode body,
+html.dark-room-mode body.dark,
+html.dark-room-mode .app,
+html.dark-room-mode .app.dark {
   /* Cores primárias → vermelho */
   --primary-color: #FF2200;
   --primary-light: #FF4500;
@@ -36,6 +40,13 @@ html.dark-room-mode {
   --card-background: #0a0000;
   --surface: #0d0000;
   --modal-bg: #0a0000;
+  
+  /* M3 Surface Containers - Override dark mode */
+  --surface-container-lowest: #020000 !important;
+  --surface-container-low: #050000 !important;
+  --surface-container: #0d0000 !important;
+  --surface-container-high: #0d0000 !important;
+  --surface-container-highest: #130000 !important;
 
   /* Texto */
   --text-color: #FF4500;
@@ -126,6 +137,36 @@ html.dark-room-mode {
   border-bottom-color: #FF2200 !important;
   color: #FF2200 !important;
   -webkit-text-fill-color: #FF2200 !important;
+}
+
+/* Tab active ::after pseudo-element */
+.dark-room-mode [class*="tab"].active::after,
+.dark-room-mode [class*="tab-btn"].active::after,
+.dark-room-mode .tab-btn.active::after {
+  background-color: #FF2200 !important;
+  border-color: #FF2200 !important;
+}
+
+
+
+/* Mood Tab Button - força background e bordas */
+.dark-room-mode .mood-tab-btn,
+.dark-room-mode [class*="mood-tab"] {
+  background-color: #0d0000 !important;
+  border-color: #4a0000 !important;
+  color: #FF4500 !important;
+}
+
+.dark-room-mode .mood-tab-btn.active,
+.dark-room-mode .mood-tab-btn.active::before {
+  background-color: #1a0000 !important;
+  border-color: #FF2200 !important;
+  color: #FF2200 !important;
+}
+
+.dark-room-mode .mood-tabs {
+  background-color: #070000 !important;
+  border-color: #4a0000 !important;
 }
 
 /* Pomodoro / Botões de Modo com borda de destaque ativa.
@@ -237,6 +278,34 @@ html.dark-room-mode {
 .dark-room-mode .base-modal,
 .dark-room-mode [class*="modal"] {
   background-color: #0d0000 !important;
+}
+
+/* ── Modal Header Específico ─────────────────────────────────── */
+.dark-room-mode div.modal-header,
+.dark-room-mode .modal-content .modal-header,
+.dark-room-mode [class*="modal-header"] {
+  background: #0d0000 !important;
+  border-bottom: none !important;
+}
+
+.dark-room-mode .modal-header h2,
+.dark-room-mode .modal-header h3,
+.dark-room-mode .modal-header .modal-header-title {
+  color: #FF2200 !important;
+  -webkit-text-fill-color: #FF2200 !important;
+}
+
+.dark-room-mode .modal-header .close-btn,
+.dark-room-mode .modal-header .modal-close-btn {
+  background-color: transparent !important;
+  color: #FF4500 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.dark-room-mode .modal-header .close-btn:hover,
+.dark-room-mode .modal-header .modal-close-btn:hover {
+  background-color: #1a0000 !important;
 }
 
 /* ── Atalhos de Teclado ──────────────────────────────────────── */
