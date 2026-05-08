@@ -39,3 +39,40 @@ h1, h2, h3, h4, h5, h6 {
 p {
   margin: 0;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   Keyboard Shortcuts - Global Styles
+   ═══════════════════════════════════════════════════════════════ */
+
+.shortcut-keys {
+  display: flex;
+  gap: 0.35rem;
+}
+
+kbd {
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.25rem 0.5rem;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  min-width: 24px;
+  text-align: center;
+  box-shadow: 0 2px 0 var(--border-color);
+  text-transform: uppercase;
+}
+
+/* Hide keyboard shortcuts on touch devices */
+@media (hover: none) and (pointer: coarse), (max-width: 768px) {
+  .shortcut-keys { 
+    display: none !important; 
+  }
+}
+
+
+/* Align shortcuts to the right in sidebar context */
+.sidebar .shortcut-keys {
+  margin-left: auto;
+}

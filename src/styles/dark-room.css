@@ -240,8 +240,7 @@ html.dark-room-mode {
 }
 
 /* ── Atalhos de Teclado ──────────────────────────────────────── */
-/* keyboard-shortcut escapava por ter background sólido próprio */
-.dark-room-mode .keyboard-shortcut,
+.dark-room-mode .shortcut-keys,
 .dark-room-mode kbd,
 .dark-room-mode [class*="shortcut"],
 .dark-room-mode [class*="keyboard"] {

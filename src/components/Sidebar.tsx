@@ -78,10 +78,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, onNewChat, onA
         <span className="material-symbols-outlined">add</span>
         <span>{t('sidebar.new_chat')}</span>
         {isOpen && (
-          <span className="keyboard-shortcut">
-            <span className="key">{cmdKey}</span>
-            <span className="key">O</span>
-          </span>
+          <div className="shortcut-keys">
+            <kbd>{cmdKey}</kbd>
+            <kbd>O</kbd>
+          </div>
         )}
       </button>
 
@@ -133,10 +133,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, onNewChat, onA
           <span className="material-symbols-outlined">help</span>
           <span>{t('sidebar.help')}</span>
           {isOpen && (
-            <span className="keyboard-shortcut">
-              <span className="key">{cmdKey}</span>
-              <span className="key">/</span>
-            </span>
+            <div className="shortcut-keys">
+              <kbd>{cmdKey}</kbd>
+              <kbd>/</kbd>
+            </div>
           )}
         </button>
         <button 
@@ -148,10 +148,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, onNewChat, onA
           <span className="material-symbols-outlined">settings</span>
           <span>{t('sidebar.settings')}</span>
           {isOpen && (
-            <span className="keyboard-shortcut">
-              <span className="key">{cmdKey}</span>
-              <span className="key">,</span>
-            </span>
+            <div className="shortcut-keys">
+              <kbd>{cmdKey}</kbd>
+              <kbd>,</kbd>
+            </div>
           )}
         </button>
       </div>

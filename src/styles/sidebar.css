@@ -223,31 +223,9 @@
   font-size: 20px;
 }
 
-/* Keyboard shortcuts in sidebar */
-.keyboard-shortcut {
-  margin-left: auto;
-  display: flex;
-  gap: 4px;
-  align-items: center;
-}
-
-.key {
-  font-size: 11px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background-color: rgba(0, 0, 0, 0.06);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  padding: 2px 6px;
-  min-width: 14px;
-  text-align: center;
-  color: var(--text-light);
-  line-height: 1.2;
-  font-weight: 500;
-}
-
 /* Hide keyboard shortcuts on touch devices */
 @media (hover: none) and (pointer: coarse), (max-width: 768px) {
-  .keyboard-shortcut { display: none !important; }
+  .shortcut-keys { display: none !important; }
 }
 
 /* ── Mobile sidebar: drawer over content ───────────────────────── */
@@ -327,12 +305,6 @@
 
 .app.dark .sidebar-item:active {
   background: rgba(255, 255, 255, 0.1);
-}
-
-.app.dark .key {
-  background-color: var(--border-color);
-  border-color: var(--text-light);
-  color: var(--text-color);
 }
 
 /* 4K Screens */
