@@ -45,7 +45,7 @@ export const ModalRenderer: React.FC<ModalRendererProps> = ({ openModals, toggle
           isOpen={openModals.account}
           onClose={() => toggleModal('account')}
           onOpenStudyStats={() => toggleModal('studyStats')}
-          initialView="personalization"
+          initialView="account"
         />
       )}
 

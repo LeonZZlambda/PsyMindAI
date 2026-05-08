@@ -1,29 +1,31 @@
+/* Weekly Schedule Modal - Material Design 3 Expressive */
 .weekly-schedule-modal .modal-content {
-  background: var(--background-color);
+  background: var(--surface-container-low);
   border: 1px solid var(--border-color);
+  border-radius: var(--shape-corner-extra-large);
+  box-shadow: var(--elevation-4);
 }
 
-.weekly-schedule-modal .modal-header {
-  background: var(--secondary-color);
-  border-bottom: 1px solid var(--border-color);
-}
-
+/* Remove custom header styles - use BaseModal defaults */
 .weekly-grid-shell {
-  background: var(--background-color);
+  background: var(--surface-container);
+  border-radius: var(--shape-corner-large);
+  box-shadow: var(--elevation-1);
 }
 
 .weekly-activity-card {
   color: var(--text-color);
-  font-family: 'Roboto', 'Google Sans', sans-serif;
+  font-family: 'Google Sans', 'Roboto', sans-serif;
 }
 
 .weekly-schedule-select .custom-select-trigger {
   border-color: var(--border-color);
+  border-radius: var(--shape-corner-medium);
 }
 
-/* Weekly Schedule Button Radius */
+/* Weekly Schedule - M3E */
 :root {
-  --ws-button-radius: 24px;
+  --ws-button-radius: var(--shape-corner-extra-large);
 }
 @media (min-width: 768px) {
   .weekly-schedule-modal {
@@ -39,8 +41,8 @@
 .weekly-schedule {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding: 0.75rem;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-md);
   color: var(--text-color);
 }
 
@@ -55,7 +57,7 @@
 .weekly-schedule__sheet-footer {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--spacing-md);
 }
 
 .weekly-schedule__header {
@@ -65,15 +67,19 @@
 
 .weekly-schedule__today {
   justify-content: space-between;
-  background: var(--card-background);
-  border: 1px solid var(--border-color);
-  border-radius: 1rem;
-  padding: 0.625rem 0.875rem;
+  background: var(--surface-container);
+  border: 2px solid var(--border-color);
+  border-radius: var(--shape-corner-large);
+  padding: var(--spacing-md) var(--spacing-lg);
+  box-shadow: var(--elevation-1);
 }
 
 .weekly-schedule__label {
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
   color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .weekly-schedule__week-nav {
@@ -88,12 +94,23 @@
 .weekly-schedule__notes-header select,
 .weekly-schedule__form-grid select,
 .weekly-schedule__form-grid input {
-  min-height: 42px;
-  border-radius: 0.875rem;
-  border: 1px solid var(--border-color);
-  background: var(--background-color);
+  min-height: 48px;
+  border-radius: var(--shape-corner-medium);
+  border: 2px solid var(--border-color);
+  background: var(--surface-container);
   color: var(--text-color);
-  padding: 0 0.75rem;
+  padding: 0 var(--spacing-md);
+  font-weight: 500;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.weekly-schedule__controls select:focus,
+.weekly-schedule__notes-header select:focus,
+.weekly-schedule__form-grid select:focus,
+.weekly-schedule__form-grid input:focus {
+  border-color: var(--primary-color);
+  box-shadow: var(--elevation-1);
+  outline: none;
 }
 
 .weekly-schedule__chip-btn,
@@ -101,54 +118,86 @@
 .weekly-schedule__primary-btn,
 .weekly-schedule__secondary-btn,
 .weekly-schedule__danger-btn {
-  min-height: 40px;
-  border-radius: 999px;
-  border: 1px solid transparent;
+  min-height: 48px;
+  border-radius: var(--shape-corner-full);
+  border: 2px solid transparent;
   cursor: pointer;
   font: inherit;
-  transition:
-    transform 0.15s ease,
-    background-color 0.2s ease,
-    opacity 0.2s ease;
+  font-weight: 600;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .weekly-schedule__icon-btn {
-  width: 40px;
+  width: 48px;
   padding: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: color-mix(in srgb, var(--primary-color) 10%, var(--card-background));
+  background: var(--primary-container);
   color: var(--primary-color);
+  box-shadow: var(--elevation-1);
+}
+
+.weekly-schedule__icon-btn:hover {
+  transform: scale(1.05);
+  box-shadow: var(--elevation-2);
 }
 
 .weekly-schedule__chip-btn {
-  padding: 0 1rem;
+  padding: 0 var(--spacing-lg);
   border-color: var(--border-color);
-  background: var(--card-background);
+  background: var(--surface-container);
   color: var(--text-color);
+}
+
+.weekly-schedule__chip-btn:hover {
+  background: var(--surface-container-high);
+  transform: translateY(-2px);
+  box-shadow: var(--elevation-1);
 }
 
 .weekly-schedule__chip-btn.is-active,
 .weekly-schedule__primary-btn {
   background: var(--primary-color);
   color: #fff;
+  box-shadow: var(--elevation-2);
+}
+
+.weekly-schedule__chip-btn.is-active:hover,
+.weekly-schedule__primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--elevation-3);
 }
 
 .weekly-schedule__primary-btn,
 .weekly-schedule__secondary-btn,
 .weekly-schedule__danger-btn {
-  padding: 0 1rem;
+  padding: 0 var(--spacing-xl);
 }
 
 .weekly-schedule__secondary-btn {
-  background: color-mix(in srgb, var(--primary-color) 10%, var(--card-background));
+  background: var(--primary-container);
   color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.weekly-schedule__secondary-btn:hover {
+  background: var(--surface-container-high);
+  transform: translateY(-2px);
+  box-shadow: var(--elevation-1);
 }
 
 .weekly-schedule__danger-btn {
-  background: color-mix(in srgb, var(--danger-color) 18%, var(--card-background));
+  background: var(--danger-bg);
   color: var(--danger-color);
+  border-color: var(--danger-color);
+}
+
+.weekly-schedule__danger-btn:hover {
+  background: var(--danger-color);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: var(--elevation-2);
 }
 
 .weekly-schedule__weekdays-toggle {
@@ -180,14 +229,16 @@
 
 .weekly-schedule__column {
   min-width: 180px;
-  border-radius: 1rem;
+  border-radius: var(--shape-corner-large);
   overflow: hidden;
-  background: var(--card-background);
+  background: var(--surface-container);
   position: relative;
+  box-shadow: var(--elevation-1);
 }
 
 .weekly-schedule__column.is-current .weekly-schedule__column-header {
-  background: color-mix(in srgb, var(--primary-color) 14%, var(--card-background));
+  background: var(--primary-container);
+  border-bottom: 2px solid var(--primary-color);
 }
 
 .weekly-schedule__column-header {
@@ -196,15 +247,18 @@
   z-index: 3;
   display: flex;
   flex-direction: column;
-  gap: 0.125rem;
-  padding: 0.5rem;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-md);
   border-bottom: 1px solid var(--border-color);
-  background: var(--card-background);
+  background: var(--surface-container);
 }
 
 .weekly-schedule__column-header span {
   color: var(--text-light);
-  font-size: 0.72rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .weekly-schedule__column-slots {
@@ -244,18 +298,19 @@
   position: absolute;
   left: 6px;
   right: 6px;
-  border-radius: 0.75rem;
-  border: 1px solid var(--border-color);
-  background: var(--activity-bg-color, var(--card-background));
+  border-radius: var(--shape-corner-medium);
+  border: 2px solid var(--border-color);
+  background: var(--activity-bg-color, var(--surface-container));
   display: flex;
   overflow: hidden;
   cursor: grab;
-  transition: all 0.2s ease-in-out;
-  box-shadow: 0 1px 3px var(--shadow-color);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--elevation-1);
 }
 
 .weekly-schedule__activity:hover {
-  box-shadow: 0 4px 12px var(--shadow-color);
+  box-shadow: var(--elevation-3);
+  transform: scale(1.02);
 }
 
 .weekly-schedule__activity:focus-visible {
@@ -264,35 +319,37 @@
 }
 
 .weekly-schedule__activity-color-bar {
-  width: 6px;
+  width: 8px;
   flex-shrink: 0;
 }
 
 .weekly-schedule__activity-content {
   flex: 1;
-  padding: 0.5rem;
+  padding: var(--spacing-md);
 }
 
 .weekly-schedule__activity-type {
   opacity: 0.8;
-  font-weight: 500;
-  font-size: 0.75rem;
+  font-weight: 600;
+  font-size: 0.8125rem;
   color: inherit;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .weekly-schedule__activity-title {
   font-weight: 700;
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   color: inherit;
-  margin: 0.25rem 0;
+  margin: var(--spacing-xs) 0;
 }
 
 .weekly-schedule__activity-description {
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   color: inherit;
   opacity: 0.8;
-  margin: 0.125rem 0;
-  line-height: 1.2;
+  margin: var(--spacing-xs) 0;
+  line-height: 1.4;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -300,13 +357,13 @@
 
 .weekly-schedule__activity-actions {
   display: flex;
-  gap: 0.25rem;
-  margin-top: 0.25rem;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-xs);
 }
 
 .weekly-schedule__activity-action-btn {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   background: var(--hover-color);
   color: var(--text-color);
@@ -314,14 +371,16 @@
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  font-size: 0.875rem;
-  border: 1px solid var(--border-color);
+  font-size: 1rem;
+  border: 2px solid var(--border-color);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .weekly-schedule__activity-action-btn:hover {
   background: var(--primary-color);
   color: white;
   border-color: var(--primary-color);
+  transform: scale(1.1);
 }
 
 .weekly-schedule__resize-handle {
@@ -342,28 +401,38 @@
 }
 
 .weekly-schedule__notes {
-  border: 1px solid var(--border-color);
-  border-radius: 1rem;
-  background: var(--card-background);
-  padding: 0.75rem;
+  border: 2px solid var(--border-color);
+  border-radius: var(--shape-corner-large);
+  background: var(--surface-container);
+  padding: var(--spacing-lg);
+  box-shadow: var(--elevation-1);
 }
 
 .weekly-schedule__notes-header {
   justify-content: space-between;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--spacing-md);
 }
 
 .weekly-schedule__notes-header h3 {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 1.125rem;
+  font-weight: 700;
 }
 
 .weekly-schedule__notes-editor {
-  min-height: 120px;
-  border: 1px solid var(--border-color);
-  border-radius: 0.75rem;
-  padding: 0.625rem;
-  line-height: 1.4;
+  min-height: 140px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--shape-corner-medium);
+  padding: var(--spacing-md);
+  line-height: 1.6;
+  background: var(--surface);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.weekly-schedule__notes-editor:focus {
+  border-color: var(--primary-color);
+  box-shadow: var(--elevation-1);
+  outline: none;
 }
 
 .weekly-schedule__sheet-backdrop {
@@ -680,10 +749,10 @@
 
 .weekly-schedule__fab {
   position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  width: 56px;
-  height: 56px;
+  bottom: var(--spacing-3xl);
+  right: var(--spacing-3xl);
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   background: var(--primary-color);
   color: white;
@@ -692,13 +761,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--elevation-4);
   z-index: 1000;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .weekly-schedule__fab:hover {
   background: var(--primary-hover);
+  transform: scale(1.1);
+  box-shadow: var(--elevation-5);
 }
 
 /* Activity Form Styles */

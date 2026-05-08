@@ -1,5 +1,5 @@
 .header {
-  padding: 1rem 1.5rem;
+  padding: var(--spacing-md) var(--spacing-xl) var(--spacing-md) 0;
   background: transparent;
   display: flex;
   align-items: center;

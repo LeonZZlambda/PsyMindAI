@@ -1,19 +1,22 @@
 /* Shared Components */
+
+/* Primary Button - Text variant */
 .primary-btn {
   background: transparent;
   color: var(--primary-color);
   border: none;
-  padding: 0 1.5rem;
-  height: 40px;
-  border-radius: 20px;
-  font-weight: 500;
-  font-size: 0.875rem;
+  padding: 0 var(--spacing-lg);
+  height: 48px;
+  border-radius: var(--shape-corner-full);
+  font-weight: 600;
+  font-size: 0.9375rem;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .primary-btn:hover {
-  background: rgba(0, 121, 107, 0.08); /* Teal opacity */
+  background: var(--hover-color);
+  transform: scale(1.02);
 }
 
 .app.dark .primary-btn {
@@ -21,57 +24,59 @@
 }
 
 .app.dark .primary-btn:hover {
-  background: rgba(128, 203, 196, 0.08);
+  background: var(--hover-color);
 }
 
-/* Filled CTA variant for prominent actions (consistent across modals and result actions) */
+/* Filled CTA variant - M3E Expressive */
 .primary-btn.cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0.9rem 1.5rem;
-  font-size: 0.95rem;
-  font-weight: 600;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-xl);
+  font-size: 1rem;
+  font-weight: 700;
   color: #ffffff;
   background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-mid) 60%, var(--gradient-end) 100%);
   border: none;
-  border-radius: 24px;
-  transition: transform 0.18s ease, background 0.2s ease;
+  border-radius: var(--shape-corner-extra-large);
+  box-shadow: var(--elevation-2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .primary-btn.cta:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: var(--elevation-4);
 }
 
 .app.dark .primary-btn.cta {
-  /* Lighter gradient for dark mode for better contrast */
   background: linear-gradient(135deg, var(--gradient-mid) 0%, var(--gradient-end) 100%);
   color: #001d35;
 }
 
-/* Secondary Button — outline style, for secondary actions */
+/* Secondary Button - M3E Outlined */
 .secondary-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0.9rem 1.5rem;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-xl);
   background: transparent;
   color: var(--primary-color);
-  border: 1.5px solid var(--primary-color);
-  border-radius: 24px;
+  border: 2px solid var(--primary-color);
+  border-radius: var(--shape-corner-extra-large);
   font-family: inherit;
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.18s ease, background 0.2s ease, border-color 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
 }
 
 .secondary-btn:hover:not(:disabled) {
   transform: translateY(-2px);
-  background: rgba(0, 121, 107, 0.06);
+  background: var(--hover-color);
+  box-shadow: var(--elevation-1);
 }
 
 .app.dark .secondary-btn {
@@ -80,8 +85,7 @@
 }
 
 .app.dark .secondary-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  background: rgba(128, 203, 196, 0.08);
+  background: var(--hover-color);
 }
 
 .secondary-btn:disabled {
@@ -90,33 +94,34 @@
   transform: none;
 }
 
-/* secondary-btn full-width variant */
 .secondary-btn.w-full {
   width: 100%;
 }
 
-/* Filled primary button — for prominent standalone actions */
+/* Filled Primary Button - M3E */
 .primary-btn.filled {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 0 1.5rem;
-  height: 40px;
+  gap: var(--spacing-sm);
+  padding: 0 var(--spacing-xl);
+  height: 48px;
   background: var(--primary-color);
   color: #fff;
   border: none;
-  border-radius: 20px;
+  border-radius: var(--shape-corner-full);
   font-family: inherit;
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 0.9375rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: filter 0.2s ease;
+  box-shadow: var(--elevation-1);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
 }
 
 .primary-btn.filled:hover:not(:disabled) {
-  filter: brightness(1.08);
+  transform: translateY(-2px);
+  box-shadow: var(--elevation-3);
 }
 
 .app.dark .primary-btn.filled {
@@ -128,21 +133,20 @@
   cursor: not-allowed;
 }
 
-/* filled full-width variant */
 .primary-btn.filled.w-full {
   width: 100%;
 }
 
-/* Toggle Switch */
+/* Toggle Switch - M3E */
 .toggle-switch {
-  width: 3.25rem;
-  height: 2rem;
-  background: var(--toggle-bg);
-  border-radius: 1rem;
-  border: none;
+  width: 52px;
+  height: 32px;
+  background: var(--surface-container-highest);
+  border-radius: var(--shape-corner-full);
+  border: 2px solid var(--border-color);
   position: relative;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   padding: 0;
 }
 
@@ -153,22 +157,28 @@
 
 .toggle-switch.active {
   background: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 .toggle-thumb {
   width: 24px;
   height: 24px;
-  background: #fff;
+  background: var(--surface);
   border-radius: 50%;
   position: absolute;
-  top: 4px;
-  left: 4px;
-  transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--elevation-2);
 }
 
 .toggle-switch.active .toggle-thumb {
   transform: translateX(20px);
+  background: var(--surface);
+}
+
+.app.dark .toggle-switch {
+  background: var(--surface-container);
 }
 
 .app.dark .toggle-switch.active {
@@ -176,29 +186,30 @@
 }
 
 .app.dark .toggle-thumb {
-  background: var(--text-color);
+  background: var(--surface-container-highest);
 }
 
 
 
-/* Danger Button */
+/* Danger Button - M3E */
 .danger-btn {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-xl);
   background: var(--danger-bg);
   color: var(--danger-color);
   border: none;
-  border-radius: 1.5rem;
-  font-size: 0.875rem;
-  font-weight: 500;
+  border-radius: var(--shape-corner-extra-large);
+  font-size: 0.9375rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: filter 0.2s ease, background 0.2s ease;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .danger-btn:hover {
-  filter: brightness(0.95);
+  transform: translateY(-2px);
+  box-shadow: var(--elevation-2);
 }
 
 
@@ -228,27 +239,28 @@
 }
 
 
-/* Kindness Modal Styles */
+/* Kindness Modal Styles - M3E */
 .act-display-container {
-  min-height: 14rem;
+  min-height: 16rem;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin: 1.5rem 0;
-  background: var(--card-background);
-  border-radius: 1rem;
+  margin: var(--spacing-lg) 0;
+  background: var(--surface-container-low);
+  border-radius: var(--shape-corner-extra-large);
   border: 1px solid var(--border-color);
-  transition: all 0.3s ease;
+  box-shadow: var(--elevation-1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-sizing: border-box;
-  padding: 1.25rem;
+  padding: var(--spacing-xl);
 }
 
 .act-loading {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
+  gap: var(--spacing-md);
 }
 
 /* Removido bloco solto e duplicado que causava erro de sintaxe */
@@ -272,25 +284,25 @@
 .completion-badge {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--spacing-sm);
   color: #10b981;
-  font-weight: 500;
-  font-size: 0.95rem;
+  font-weight: 600;
+  font-size: 0.9375rem;
   background: rgba(16, 185, 129, 0.1);
-  padding: 0.4rem 1rem;
-  border-radius: 1rem;
-  margin-top: 0.5rem;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--shape-corner-full);
+  margin-top: var(--spacing-sm);
 }
 
 .kindness-controls {
   display: flex;
-  gap: 1rem;
+  gap: var(--spacing-md);
   justify-content: center;
 }
 
 .kindness-categories {
   display: flex;
-  gap: 0.75rem;
+  gap: var(--spacing-md);
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -298,20 +310,21 @@
 .category-btn {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  background: var(--secondary-color);
-  border: 1px solid transparent;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--shape-corner-full);
+  background: var(--surface-container);
+  border: 2px solid transparent;
   color: var(--text-color);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .category-btn.active {
   background: var(--primary-color);
   color: #fff;
   border-color: var(--primary-color);
+  box-shadow: var(--elevation-2);
 }
 @media (max-width: 320px) {
   .custom-select-trigger {

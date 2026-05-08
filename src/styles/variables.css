@@ -1,11 +1,14 @@
-/* Global Styles */
+/* Global Styles - Material Design 3 Expressive */
 :root {
-  /* Psychology & Studies Theme - Google Material Inspired */
+  /* Psychology & Studies Theme - M3 Expressive */
 
   /* Primary: Teal 700 - Focus, Calm, Growth */
   --primary-color: #00796b;
   /* Primary Hover: Teal 800 */
   --primary-hover: #00695c;
+  /* Primary Container - M3E */
+  --primary-container: #b2dfdb;
+  --on-primary-container: #004d40;
 
   /* Secondary: Light Blue/Grey - Clarity */
   --secondary-color: #f1f3f4; /* Google Grey 100 */
@@ -14,15 +17,24 @@
   --text-color: #202124; /* Google Grey 900 */
   --text-light: #5f6368; /* Google Grey 700 */
 
-  /* Backgrounds */
-  --background-color: #ffffff;
-  --background-dark: #202124;
-  --card-background: #ffffff; /* Clean cards */
+  /* M3 Surface Containers - Expressive Elevation System */
+  --surface: #ffffff;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f7f9fa;
+  --surface-container: #f1f3f4;
+  --surface-container-high: #e8eaed;
+  --surface-container-highest: #dfe1e3;
 
-  /* Borders & Shadows */
-  --border-color: #dadce0; /* Google Grey 300 */
-  --shadow-color: rgba(60, 64, 67, 0.3); /* Material Shadow */
-  --hover-color: rgba(0, 0, 0, 0.05);
+  /* Backgrounds */
+  --background-color: #fafbfc;
+  --background-dark: #202124;
+  --card-background: var(--surface-container-low);
+
+  /* Borders & Shadows - M3E Colored Shadows */
+  --border-color: #dadce0;
+  --shadow-color: rgba(0, 121, 107, 0.08); /* Tinted shadow */
+  --shadow-ambient: rgba(0, 0, 0, 0.04);
+  --hover-color: rgba(0, 121, 107, 0.04);
 
   /* Semantic Colors */
   --danger-color: #d93025;
@@ -38,6 +50,31 @@
   --toggle-bg: #e3e3e3;
   --overlay-bg: rgba(0, 0, 0, 0.4);
 
+  /* M3 Expressive - Shape System */
+  --shape-corner-none: 0px;
+  --shape-corner-extra-small: 4px;
+  --shape-corner-small: 8px;
+  --shape-corner-medium: 12px;
+  --shape-corner-large: 16px;
+  --shape-corner-extra-large: 28px;
+  --shape-corner-full: 9999px;
+
+  /* M3 Expressive - Elevation (Colored Shadows) */
+  --elevation-1: 0 1px 3px var(--shadow-ambient), 0 1px 2px var(--shadow-color);
+  --elevation-2: 0 2px 6px var(--shadow-ambient), 0 2px 4px var(--shadow-color);
+  --elevation-3: 0 4px 12px var(--shadow-ambient), 0 4px 8px var(--shadow-color);
+  --elevation-4: 0 8px 24px var(--shadow-ambient), 0 8px 16px var(--shadow-color);
+  --elevation-5: 0 16px 48px var(--shadow-ambient), 0 16px 32px var(--shadow-color);
+
+  /* M3 Expressive - Spacing Scale */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 64px;
+
   /* Scrollbars - M3 Style */
   --scrollbar-width: 8px;
   --scrollbar-thumb: rgba(0, 0, 0, 0.2);
@@ -52,29 +89,41 @@
 
 body.dark,
 .app.dark {
-  /* Dark Mode Overrides */
+  /* Dark Mode Overrides - M3 Expressive */
 
   /* Primary: Teal 200 - Better visibility on dark */
   --primary-color: #80cbc4;
   /* Primary Hover: Teal 300 */
   --primary-hover: #4db6ac;
+  /* Primary Container - M3E Dark */
+  --primary-container: #004d40;
+  --on-primary-container: #b2dfdb;
 
   /* Secondary: Dark Grey - Surface */
-  --secondary-color: #303134; /* Google Grey 800 */
+  --secondary-color: #303134;
 
   /* Text: High Contrast Light */
-  --text-color: #e8eaed; /* Google Grey 100 */
-  --text-light: #bdc1c6; /* Google Grey 400 */
+  --text-color: #e8eaed;
+  --text-light: #bdc1c6;
+
+  /* M3 Surface Containers - Dark Mode */
+  --surface: #1a1c1e;
+  --surface-container-lowest: #0f1011;
+  --surface-container-low: #1a1c1e;
+  --surface-container: #1e2022;
+  --surface-container-high: #282a2c;
+  --surface-container-highest: #33353a;
 
   /* Backgrounds */
-  --background-color: #202124; /* Google Grey 900 */
+  --background-color: #131416;
   --background-dark: #000000;
-  --card-background: #303134; /* Google Grey 800 */
+  --card-background: var(--surface-container-low);
 
-  /* Borders & Shadows */
-  --border-color: #5f6368; /* Google Grey 700 */
-  --shadow-color: rgba(0, 0, 0, 0.5);
-  --hover-color: rgba(255, 255, 255, 0.05);
+  /* Borders & Shadows - M3E Dark */
+  --border-color: #5f6368;
+  --shadow-color: rgba(128, 203, 196, 0.12);
+  --shadow-ambient: rgba(0, 0, 0, 0.6);
+  --hover-color: rgba(128, 203, 196, 0.08);
 
   /* Semantic Colors - Dark Mode */
   --danger-color: #ffb4ab;
