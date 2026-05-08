@@ -45,27 +45,35 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, onOpenIm
 
   const getLanguageLabel = (lng: string): string => {
     try {
-      const displayNames = new Intl.DisplayNames([i18n.resolvedLanguage || 'en'], { type: 'language' });
-      return displayNames.of(lng) || lng;
+      // Prefer to display the language name in its own locale (autonym).
+      // e.g. 'en' -> 'English', 'es' -> 'Español', 'fr' -> 'Français'
+      const primaryLocale = lng || i18n.resolvedLanguage || 'en'
+      const base = primaryLocale.split('-')[0]
+      const displayNames = new Intl.DisplayNames([primaryLocale, base, 'en'], { type: 'language' })
+      const resolved = displayNames.of(lng) || displayNames.of(base)
+      if (resolved) return resolved
     } catch {
-      const fallback: Record<string, string> = {
-        pt: 'Português',
-        en: 'English',
-        es: 'Español',
-        fr: 'Français',
-        de: 'Deutsch',
-        it: 'Italiano',
-        ja: '日本語',
-        ko: '한국어',
-        zh: '中文',
-        'zh-TW': '中文（繁體）',
-        ru: 'Русский',
-        ar: 'العربية',
-        hi: 'हिन्दी',
-        la: 'Latina',
-      };
-      return fallback[lng] || lng;
+      // fall through to static fallback
     }
+
+    const fallback: Record<string, string> = {
+      pt: 'Português',
+      'pt-BR': 'Português (Brasil)',
+      en: 'English',
+      es: 'Español',
+      fr: 'Français',
+      de: 'Deutsch',
+      it: 'Italiano',
+      ja: '日本語',
+      ko: '한국어',
+      zh: '中文',
+      'zh-TW': '中文（繁體）',
+      ru: 'Русский',
+      ar: 'العربية',
+      hi: 'हिन्दी',
+      la: 'Latina',
+    }
+    return fallback[lng] || fallback[lng.split('-')[0]] || lng
   };
 
   const handleOptInChange = () => {

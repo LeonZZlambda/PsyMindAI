@@ -390,13 +390,36 @@ const MessageList: React.FC = () => {
                       </span>
                     </div>
                     <p className="quote-date">
-                      {new Date()
-                        .toLocaleDateString(i18n.language === 'en' ? 'en-US' : 'pt-BR', {
-                          weekday: 'long',
-                          day: 'numeric',
-                          month: 'long',
-                        })
-                        .replace(/^[a-z]/i, (c) => c.toUpperCase())}
+                      {(() => {
+                        const localeMap: Record<string, string> = {
+                          en: 'en-US',
+                          pt: 'pt-BR',
+                          'pt-BR': 'pt-BR',
+                          es: 'es-ES',
+                          fr: 'fr-FR',
+                          de: 'de-DE',
+                          it: 'it-IT',
+                          ja: 'ja-JP',
+                          'zh-TW': 'zh-TW',
+                          zh: 'zh-CN',
+                          ru: 'ru-RU',
+                          ko: 'ko-KR',
+                        }
+                        const locale = localeMap[i18n.language] || i18n.language || 'en-US'
+                        try {
+                          return new Date().toLocaleDateString(locale, {
+                            weekday: 'long',
+                            day: 'numeric',
+                            month: 'long',
+                          })
+                        } catch (e) {
+                          return new Date().toLocaleDateString('en-US', {
+                            weekday: 'long',
+                            day: 'numeric',
+                            month: 'long',
+                          })
+                        }
+                      })()}
                     </p>
                   </>
                 )}
