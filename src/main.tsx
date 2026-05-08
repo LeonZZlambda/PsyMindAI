@@ -7,6 +7,9 @@ initSecurityPolicies();
 
 import './i18n/config'
 import './index.css'
+import './styles/variables.css'
+import './styles/components.css'
+import './styles/standardization.css'
 import './styles/material-icons.css'
 import App from './App'
 import { ThemeProvider } from './context/ThemeContext'

@@ -21,7 +21,7 @@
 }
 
 .modal-content.account-modal .modal-body {
-  padding: 0;
+  padding: 0 !important;
   max-height: calc(100vh - 120px);
   overflow-y: auto;
   overflow-x: hidden;

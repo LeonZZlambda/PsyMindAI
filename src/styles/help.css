@@ -298,10 +298,18 @@
 }
 
 .type-btn.active {
-  background-color: var(--primary-background-light);
+  background-color: var(--primary-color);
   border-color: var(--primary-color);
-  color: var(--primary-color);
-  box-shadow: 0 2px 8px rgba(var(--primary-rgb), 0.15);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 121, 107, 0.3);
+  font-weight: 600;
+}
+
+.app.dark .type-btn.active {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: #001d35;
+  box-shadow: 0 2px 8px rgba(128, 203, 196, 0.4);
 }
 
 .type-btn .material-symbols-outlined {

@@ -1,0 +1,172 @@
+/* ==========================================================================
+   DESIGN SYSTEM STANDARDIZATION - Material Design 3 Expressive
+   ========================================================================== */
+
+/* --- Modal Header Icon Spacing ------------------------------------------- */
+.modal-header-title .material-symbols-outlined,
+.learning-header-icon {
+  margin-right: var(--spacing-sm) !important;
+}
+
+/* Ensure consistent spacing for all modal title icons */
+.modal-header h2 > span:first-child,
+.modal-header-title > span:first-child {
+  margin-right: var(--spacing-sm);
+}
+
+/* --- Button Standardization ---------------------------------------------- */
+/* Override any inconsistent button styles in account modal */
+.account-pref-actions .primary-btn.filled,
+.account-pref-actions .secondary-btn {
+  height: 48px;
+  border-radius: var(--shape-corner-full);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  padding: 0 var(--spacing-xl);
+}
+
+.account-pref-actions .secondary-btn {
+  border-width: 2px;
+}
+
+/* --- Modal Header Consistency -------------------------------------------- */
+/* Ensure all modal headers have the same background */
+.modal-header {
+  background: var(--surface-container) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+.app.dark .modal-header {
+  background: var(--surface-container) !important;
+  border-bottom-color: var(--border-color) !important;
+}
+
+/* --- Icon + Text Spacing Pattern ----------------------------------------- */
+/* Standard pattern for icon + text combinations */
+.icon-text-combo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+/* Apply to common patterns */
+button > .material-symbols-outlined + *,
+span > .material-symbols-outlined + * {
+  margin-left: var(--spacing-sm);
+}
+
+/* --- Border Radius Standardization --------------------------------------- */
+/* Ensure all cards use consistent border radius */
+.modal-card,
+.quiz-card,
+.flashcard,
+.trail-card,
+.act-display-container {
+  border-radius: var(--shape-corner-extra-large) !important;
+}
+
+/* --- Elevation Standardization ------------------------------------------- */
+/* Ensure consistent shadows */
+.modal-content {
+  box-shadow: var(--elevation-5) !important;
+}
+
+.modal-card,
+.quiz-card {
+  box-shadow: var(--elevation-1) !important;
+}
+
+.primary-btn.filled,
+.primary-btn.cta {
+  box-shadow: var(--elevation-2) !important;
+}
+
+.primary-btn.filled:hover,
+.primary-btn.cta:hover {
+  box-shadow: var(--elevation-4) !important;
+}
+
+/* --- Typography Standardization ------------------------------------------ */
+/* Ensure consistent heading sizes */
+.modal-header h2 {
+  font-size: 1.75rem !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+}
+
+.modal-section-title {
+  font-size: 0.8125rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  color: var(--primary-color) !important;
+}
+
+/* --- Spacing Standardization --------------------------------------------- */
+/* Ensure consistent padding */
+.modal-body {
+  padding: var(--spacing-xl) !important;
+}
+
+.modal-footer {
+  padding: var(--spacing-md) var(--spacing-xl) var(--spacing-xl) !important;
+}
+
+/* --- Color Standardization ----------------------------------------------- */
+/* Ensure primary color is used consistently */
+.primary-btn,
+.primary-btn.filled,
+.primary-btn.cta {
+  --btn-primary: var(--primary-color);
+}
+
+/* --- Transition Standardization ------------------------------------------ */
+/* Ensure consistent transitions */
+button,
+.toggle-switch,
+.modal-card,
+.trail-card {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* --- Focus States Standardization ---------------------------------------- */
+/* Ensure consistent focus states */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* --- Disabled States Standardization ------------------------------------- */
+/* Ensure consistent disabled states */
+button:disabled,
+input:disabled,
+textarea:disabled,
+select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* --- Responsive Standardization ------------------------------------------ */
+@media (max-width: 768px) {
+  .modal-header h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  .modal-body {
+    padding: var(--spacing-lg) !important;
+  }
+}
+
+/* --- Accessibility Standardization --------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
