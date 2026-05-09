@@ -130,6 +130,52 @@ kbd {
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   M3 Expressive - Global Polish & Focus System
+   ═══════════════════════════════════════════════════════════════ */
+
+/* M3 Focus Ring System - Follows element border-radius */
+:focus-visible {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 3px;
+  /* Use transition for smooth focus appearance */
+  transition: outline-offset 0.15s var(--md-sys-motion-easing-standard);
+}
+
+/* Force inherit border-radius for focus outlines where possible */
+button:focus-visible, 
+input:focus-visible, 
+textarea:focus-visible, 
+a:focus-visible,
+[role="button"]:focus-visible {
+  border-radius: inherit;
+}
+
+/* Custom Scrollbars - M3 Style */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--surface-container-highest);
+  border: 3px solid var(--background-color);
+  border-radius: var(--shape-corner-full);
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-light);
+}
+
+.app.dark ::-webkit-scrollbar-thumb {
+  border-color: var(--background-color);
+}
+
 /* Hide keyboard shortcuts on touch devices */
 @media (hover: none) and (pointer: coarse), (max-width: 768px) {
   .shortcut-keys { 

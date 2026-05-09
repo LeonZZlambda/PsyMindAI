@@ -364,6 +364,7 @@ const MessageList: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
+
           <div className="welcome-icon">
             <span className="material-symbols-outlined">psychology</span>
           </div>

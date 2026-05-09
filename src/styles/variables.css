@@ -50,6 +50,10 @@
   /* UI Elements */
   --toggle-bg: #e3e3e3;
   --overlay-bg: rgba(0, 0, 0, 0.4);
+  
+  /* Focus Rings */
+  --md-sys-color-focus-ring: var(--primary-color);
+  --md-sys-color-focus-outline: rgba(255, 255, 255, 0.8);
 
   /* M3 Expressive - Shape System */
   --shape-corner-none: 0px;

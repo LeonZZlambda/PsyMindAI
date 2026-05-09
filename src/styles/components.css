@@ -145,6 +145,31 @@
   width: 100%;
 }
 
+/* Button Loading State - M3 Style */
+.primary-btn.loading, 
+.secondary-btn.loading, 
+.danger-btn.loading {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.primary-btn.loading .btn-loader,
+.secondary-btn.loading .btn-loader,
+.danger-btn.loading .btn-loader {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: btn-spin 0.6s linear infinite;
+}
+
+@keyframes btn-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 /* Toggle Switch - M3E */
 .toggle-switch {
   width: 52px;
