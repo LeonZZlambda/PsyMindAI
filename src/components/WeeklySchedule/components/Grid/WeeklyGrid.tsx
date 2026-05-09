@@ -21,16 +21,17 @@ interface WeeklyGridProps {
 interface TimeSlotCellProps {
   label: string
   rowHeight: number
+  isMobile: boolean
 }
 
-const TimeSlotCell = memo(({ label, rowHeight }: TimeSlotCellProps) => (
+const TimeSlotCell = memo(({ label, rowHeight, isMobile }: TimeSlotCellProps) => (
   <div
     className="weekly-schedule__time-slot"
     style={{
       position: 'sticky',
       insetInlineStart: 0,
-      width: 88,
-      minWidth: 88,
+      width: isMobile ? 72 : 88,
+      minWidth: isMobile ? 72 : 88,
       height: rowHeight,
       paddingLeft: 8,
       paddingRight: 8,
@@ -77,7 +78,13 @@ const getDayName = (day: DayOfWeek, t: (key: string, options?: any) => string): 
 
 export const WeeklyGrid = ({ initialDate = new Date() }: WeeklyGridProps) => {
   const { t } = useTranslation(['schedule', 'translation'])
-  const isMobile = false // TODO: Add proper mobile detection hook
+  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth < 768 : false)
+  
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
   const {
     activities,
     settings,
@@ -206,21 +213,26 @@ export const WeeklyGrid = ({ initialDate = new Date() }: WeeklyGridProps) => {
           <div className="weekly-schedule__header-info">
             <h6 className="weekly-schedule__title">{headerDateLabel}</h6>
             <div className="weekly-schedule__pagination">
-              {/* TODO: Custom pagination component */}
               <button
                 onClick={() => setSelectedDay(Math.max(1, selectedDay - 1))}
                 disabled={selectedDay === 1}
                 className="weekly-schedule__pagination-btn"
+                aria-label={t('pagination.prev', { defaultValue: 'Anterior' })}
               >
-                ‹
+                <MaterialIcon name="chevron_left" />
               </button>
-              <span>{selectedDay} / 7</span>
+              <div className="weekly-schedule__pagination-label">
+                <span className="current">{selectedDay}</span>
+                <span className="separator">/</span>
+                <span className="total">7</span>
+              </div>
               <button
                 onClick={() => setSelectedDay(Math.min(7, selectedDay + 1))}
                 disabled={selectedDay === 7}
                 className="weekly-schedule__pagination-btn"
+                aria-label={t('pagination.next', { defaultValue: 'Próximo' })}
               >
-                ›
+                <MaterialIcon name="chevron_right" />
               </button>
             </div>
           </div>
@@ -288,15 +300,17 @@ export const WeeklyGrid = ({ initialDate = new Date() }: WeeklyGridProps) => {
         <DndContext onDragEnd={onDragEnd} modifiers={[restrictToVerticalAxis]}>
           <div className="weekly-grid-shell">
             <div className="weekly-grid-container">
-              <div className="weekly-grid-header">
+              <div 
+                className="weekly-grid-header"
+                style={{ 
+                  gridTemplateColumns: '88px repeat(7, 128px)' 
+                }}
+              >
                 <div></div>
                 {dayColumns.map(({ day, date, index }) => (
                   <div
                     key={date.toISOString()}
                     className="weekly-grid-header-day"
-                    style={{
-                      scrollSnapAlign: isMobile && selectedDay === index + 1 ? 'center' : undefined,
-                    }}
                   >
                     <span className="weekly-grid-header-day-weekday">
                       {getDayName(day, t)}
@@ -314,8 +328,14 @@ export const WeeklyGrid = ({ initialDate = new Date() }: WeeklyGridProps) => {
 
               <div className="weekly-grid-body">
                 {slots.map((slot) => (
-                  <div key={slot.id} className="weekly-grid-row">
-                    <TimeSlotCell label={slot.label} rowHeight={rowHeightPx} />
+                  <div 
+                    key={slot.id} 
+                    className="weekly-grid-row"
+                    style={{ 
+                      gridTemplateColumns: '88px repeat(7, 128px)' 
+                    }}
+                  >
+                    <TimeSlotCell label={slot.label} rowHeight={rowHeightPx} isMobile={isMobile} />
                     {dayColumns.map(({ date }) => (
                       <div
                         key={`${slot.id}-${date.toISOString()}`}
@@ -326,59 +346,60 @@ export const WeeklyGrid = ({ initialDate = new Date() }: WeeklyGridProps) => {
                   </div>
                 ))}
 
-                {dayColumns.map(({ day, date, index }) => (
-                  <div
-                    key={`activities-layer-${day}`}
-                    className="weekly-activities-layer"
-                    style={{
-                      insetInlineStart: isMobile ? `${88 + index * 128}px` : 0,
-                      width: isMobile ? 128 : `calc((100% - 88px) / 7)`,
-                      marginLeft: !isMobile ? `calc(88px + (${index} * ((100% - 88px) / 7)))` : 0,
-                      height: rowHeightPx * slots.length,
-                    }}
-                  >
-                    <CurrentTimeIndicator
-                      dayIndex={index}
-                      timeToPixels={timeToPixels}
-                      rowHeightPx={rowHeightPx}
-                      dayStartHour={settings.dayStartHour}
-                      dayEndHour={settings.dayEndHour}
-                    />
-                    <AnimatePresence>
-                      <m.div
-                        initial="hidden"
-                        animate="show"
-                        variants={{ hidden: {}, show: { transition: { staggerChildren: 0.06 } } }}
-                        style={{ position: 'relative', height: '100%' }}
-                      >
-                        {(filteredActivities.length > 0 ? filteredActivities : activities)
-                          .filter(
-                            (activity) =>
-                              Array.isArray((activity as any).days) && activity.days.includes(day),
-                          )
-                          .map((activity) => (
-                            <m.div
-                              key={`${activity.id}-${day}`}
-                              variants={{
-                                hidden: { opacity: 0, y: 8 },
-                                show: { opacity: 1, y: 0 },
-                              }}
-                            >
-                              <ActivityCard
-                                dayKey={day}
-                                activity={activity}
-                                top={timeToPixels(activity.startMinutes)}
-                                height={durationToPixels(activity.durationMinutes)}
-                                isDesktop={!isMobile}
-                                onSelect={onCardSelect}
-                                onRequestResize={onRequestResize}
-                              />
-                            </m.div>
-                          ))}
-                      </m.div>
-                    </AnimatePresence>
-                  </div>
-                ))}
+                {dayColumns.map(({ day, date, index }) => {
+                  return (
+                    <div
+                      key={`activities-layer-${day}`}
+                      className="weekly-activities-layer"
+                      style={{
+                        insetInlineStart: `${88 + index * 128}px`,
+                        width: 128,
+                        height: rowHeightPx * slots.length,
+                      }}
+                    >
+                      <CurrentTimeIndicator
+                        dayIndex={index}
+                        timeToPixels={timeToPixels}
+                        rowHeightPx={rowHeightPx}
+                        dayStartHour={settings.dayStartHour}
+                        dayEndHour={settings.dayEndHour}
+                      />
+                      <AnimatePresence>
+                        <m.div
+                          initial="hidden"
+                          animate="show"
+                          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.06 } } }}
+                          style={{ position: 'relative', height: '100%' }}
+                        >
+                          {(filteredActivities.length > 0 ? filteredActivities : activities)
+                            .filter(
+                              (activity) =>
+                                Array.isArray((activity as any).days) && activity.days.includes(day),
+                            )
+                            .map((activity) => (
+                              <m.div
+                                key={`${activity.id}-${day}`}
+                                variants={{
+                                  hidden: { opacity: 0, y: 8 },
+                                  show: { opacity: 1, y: 0 },
+                                }}
+                              >
+                                <ActivityCard
+                                  dayKey={day}
+                                  activity={activity}
+                                  top={timeToPixels(activity.startMinutes)}
+                                  height={durationToPixels(activity.durationMinutes)}
+                                  isDesktop={!isMobile}
+                                  onSelect={onCardSelect}
+                                  onRequestResize={onRequestResize}
+                                />
+                              </m.div>
+                            ))}
+                        </m.div>
+                      </AnimatePresence>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>

@@ -1069,6 +1069,12 @@
     bottom: calc(160px + env(safe-area-inset-bottom));
     inset-inline-end: 1rem;
   }
+
+  @media (max-width: 380px) {
+    .scroll-top-btn {
+      inset-inline-end: 0.5rem; /* Move more to the right to occupy less space */
+    }
+  }
 }
 
 /* ── Small mobile (≤480px) ─────────────────────────────────────── */
