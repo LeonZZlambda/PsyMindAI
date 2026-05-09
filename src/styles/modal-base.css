@@ -46,6 +46,23 @@
   .modal-overlay.closing .modal-content {
     animation: modalSlideDown var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-accelerated) forwards;
   }
+
+  /* Mobile S/M Refinements */
+  @media (max-width: 414px) {
+    .modal-header {
+      padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-sm);
+    }
+    
+    .modal-header h2 {
+      font-size: 1.25rem;
+    }
+  }
+
+  @media (max-width: 320px) {
+    .modal-header h2 {
+      font-size: 1.1rem;
+    }
+  }
 }
 
 .modal-overlay.closing {

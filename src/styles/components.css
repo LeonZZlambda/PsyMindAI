@@ -340,7 +340,7 @@
   border-color: var(--primary-color);
   box-shadow: var(--elevation-2);
 }
-@media (max-width: 320px) {
+@media (max-width: 380px) {
   .custom-select-trigger {
     padding: 10px 16px;
     width: 100%;
@@ -348,5 +348,26 @@
     justify-content: center;
     text-align: center;
     box-sizing: border-box;
+  }
+
+  /* Standardize all CTA buttons for small screens */
+  .primary-btn, 
+  .secondary-btn, 
+  .danger-btn,
+  .api-key-save-btn {
+    height: 44px !important;
+    padding: 0 16px !important;
+    font-size: 0.875rem !important;
+    border-radius: 22px !important;
+    min-height: 44px !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 8px !important;
+  }
+
+  .primary-btn.cta {
+    padding: 0 20px !important;
+    font-size: 0.9rem !important;
   }
 }
