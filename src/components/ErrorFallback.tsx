@@ -66,7 +66,7 @@ const ErrorFallback: React.FC<ErrorFallbackProps> = ({ error, resetErrorBoundary
         .crash-icon {
           position: absolute;
           top: 0;
-          right: -10px;
+          inset-inline-end: -10px;
           font-size: 40px;
           color: #ea4335; /* Google Red */
           background: var(--bg-color, #fff);
@@ -90,7 +90,7 @@ const ErrorFallback: React.FC<ErrorFallbackProps> = ({ error, resetErrorBoundary
         }
         .error-details {
           margin: 20px auto;
-          text-align: left;
+          text-align: start;
           background: rgba(0,0,0,0.03);
           border-radius: 8px;
           padding: 10px;

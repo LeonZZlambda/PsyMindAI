@@ -411,7 +411,7 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
           <h3>{t("support.reframing.step0.title")}</h3>
           <p>{t("support.reframing.step0.desc")}</p>
           <button className="action-btn primary" onClick={() => setReframingStep(1)}>
-            <span className="material-symbols-outlined">arrow_forward</span>
+            <span className="material-symbols-outlined icon-rtl-flip">arrow_forward</span>
             {t("support.reframing.step0.start")}
           </button>
         </div>
@@ -424,7 +424,7 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
           <div className="step-header">
             <div className="header-row">
               <button className="back-btn-icon" onClick={() => setReframingStep(0)}>
-                <span className="material-symbols-outlined">arrow_back</span>
+                <span className="material-symbols-outlined icon-rtl-flip">arrow_back</span>
               </button>
               <h3>{t("support.reframing.step1.title")}</h3>
             </div>

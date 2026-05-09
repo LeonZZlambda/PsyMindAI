@@ -101,7 +101,7 @@ const ActivityCardComponent = ({
         transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
         '--activity-bg-color': withOpacity(activity.color.value, 0.15),
         minHeight: isDesktop ? '56px' : '44px',
-      }}
+      } as React.CSSProperties}
       role="button"
       tabIndex={0}
       aria-label={`${activity.title} - ${activity.type}`}

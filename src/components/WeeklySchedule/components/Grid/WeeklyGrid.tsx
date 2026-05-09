@@ -28,7 +28,7 @@ const TimeSlotCell = memo(({ label, rowHeight }: TimeSlotCellProps) => (
     className="weekly-schedule__time-slot"
     style={{
       position: 'sticky',
-      left: 0,
+      insetInlineStart: 0,
       width: 88,
       minWidth: 88,
       height: rowHeight,
@@ -331,7 +331,7 @@ export const WeeklyGrid = ({ initialDate = new Date() }: WeeklyGridProps) => {
                     key={`activities-layer-${day}`}
                     className="weekly-activities-layer"
                     style={{
-                      left: isMobile ? `${88 + index * 128}px` : 0,
+                      insetInlineStart: isMobile ? `${88 + index * 128}px` : 0,
                       width: isMobile ? 128 : `calc((100% - 88px) / 7)`,
                       marginLeft: !isMobile ? `calc(88px + (${index} * ((100% - 88px) / 7)))` : 0,
                       height: rowHeightPx * slots.length,

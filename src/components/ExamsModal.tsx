@@ -117,7 +117,7 @@ const ExamsModal: React.FC<ExamsModalProps> = ({ isOpen, onClose }) => {
           {selectedCategory || selectedExam || selectedSubject ? (
             <div className="exams-stage-bar" aria-label="breadcrumb">
               <button className="back-btn exams-back-btn" onClick={handleBack}>
-                <span className="material-symbols-outlined">arrow_back</span>
+                <span className="material-symbols-outlined icon-rtl-flip">arrow_back</span>
                 {t('exams.back')}
               </button>
               <div className="exams-stage-chips">

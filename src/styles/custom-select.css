@@ -83,8 +83,8 @@
 }
 
 .custom-select-trigger.open {
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
+  border-end-start-radius: 4px;
+  border-end-end-radius: 4px;
   background-color: #e1e5ea;
 }
 
@@ -100,8 +100,8 @@
 .custom-select-dropdown {
   position: absolute;
   top: calc(100% + 4px);
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   background-color: var(--card-background);
   border: 1px solid var(--border-color);
   border-radius: 12px;
@@ -120,7 +120,7 @@
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--text-color);
-  text-align: left;
+  text-align: start;
   cursor: pointer;
   transition: background 0.1s ease;
 }

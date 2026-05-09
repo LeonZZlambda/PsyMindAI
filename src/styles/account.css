@@ -71,7 +71,7 @@
 .account-close-btn {
   position: absolute;
   top: 12px;
-  right: 12px;
+  inset-inline-end: 12px;
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -110,8 +110,8 @@
   content: '';
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   height: 100%;
   background: linear-gradient(
     160deg,
@@ -224,7 +224,7 @@
   background: transparent;
   border: none;
   width: 100%;
-  text-align: left;
+  text-align: start;
   color: var(--text-color);
   font-size: 0.9rem;
   font-weight: 400;
@@ -382,7 +382,7 @@
   font-family: inherit;
   cursor: pointer;
   transition: all 0.18s ease;
-  text-align: left;
+  text-align: start;
   min-height: 40px;
 }
 
@@ -456,7 +456,7 @@
 
 .account-segment-btn + .account-segment-btn {
   /* subtle internal divider between contiguous segments */
-  border-left: 1px solid color-mix(in srgb, var(--border-color) 80%, transparent);
+  border-inline-start: 1px solid color-mix(in srgb, var(--border-color) 80%, transparent);
 }
 
 .account-segment-btn.active,

@@ -106,8 +106,8 @@
 .equalizer-bg {
   position: absolute;
   bottom: 0;
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   height: 80px;
   display: flex;
   align-items: flex-end;

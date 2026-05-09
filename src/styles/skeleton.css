@@ -1,0 +1,94 @@
+/* Material Design 3 Skeleton Styles */
+.skeleton {
+  display: block;
+  background-color: var(--surface-container-highest);
+  position: relative;
+  overflow: hidden;
+  /* Shimmer gradient overlay */
+  isolation: isolate;
+}
+
+.skeleton::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.2) 20%,
+    rgba(255, 255, 255, 0.5) 60%,
+    rgba(255, 255, 255, 0)
+  );
+  animation: shimmer 1.5s infinite;
+  z-index: 1;
+}
+
+.app.dark .skeleton::after {
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.05) 20%,
+    rgba(255, 255, 255, 0.1) 60%,
+    rgba(255, 255, 255, 0)
+  );
+}
+
+[dir="rtl"] .skeleton::after {
+  transform: translateX(100%);
+  animation: shimmer-rtl 1.5s infinite;
+  background-image: linear-gradient(
+    -90deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.2) 20%,
+    rgba(255, 255, 255, 0.5) 60%,
+    rgba(255, 255, 255, 0)
+  );
+}
+
+[dir="rtl"] .app.dark .skeleton::after {
+  background-image: linear-gradient(
+    -90deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.05) 20%,
+    rgba(255, 255, 255, 0.1) 60%,
+    rgba(255, 255, 255, 0)
+  );
+}
+
+/* Variants */
+.skeleton-text {
+  height: 1.2em; /* Emulates standard text line height */
+  margin-top: 0;
+  margin-bottom: 0;
+  border-radius: var(--shape-corner-extra-small);
+  width: 100%;
+}
+
+.skeleton-circular {
+  border-radius: 50%;
+}
+
+.skeleton-rectangular {
+  border-radius: var(--shape-corner-none);
+}
+
+.skeleton-rounded {
+  border-radius: var(--shape-corner-medium);
+}
+
+/* Animations */
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes shimmer-rtl {
+  100% {
+    transform: translateX(-100%);
+  }
+}

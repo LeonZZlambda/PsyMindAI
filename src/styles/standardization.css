@@ -5,13 +5,13 @@
 /* --- Modal Header Icon Spacing ------------------------------------------- */
 .modal-header-title .material-symbols-outlined,
 .learning-header-icon {
-  margin-right: var(--spacing-sm) !important;
+  margin-inline-end: var(--spacing-sm) !important;
 }
 
 /* Ensure consistent spacing for all modal title icons */
 .modal-header h2 > span:first-child,
 .modal-header-title > span:first-child {
-  margin-right: var(--spacing-sm);
+  margin-inline-end: var(--spacing-sm);
 }
 
 /* --- Button Standardization ---------------------------------------------- */
@@ -52,7 +52,7 @@
 /* Apply to common patterns */
 button > .material-symbols-outlined + *,
 span > .material-symbols-outlined + * {
-  margin-left: var(--spacing-sm);
+  margin-inline-start: var(--spacing-sm);
 }
 
 /* --- Border Radius Standardization --------------------------------------- */

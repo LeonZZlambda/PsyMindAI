@@ -131,7 +131,7 @@
 }
 
 .footer-logo-small .copyright-text {
-  margin-left: 0.5rem;
+  margin-inline-start: 0.5rem;
   font-weight: 400;
   font-size: 0.875rem;
 }

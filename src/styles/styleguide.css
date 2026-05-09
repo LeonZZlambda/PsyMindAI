@@ -179,7 +179,7 @@
 
 /* Features List */
 .sg-list {
-  padding-left: 20px;
+  padding-inline-start: 20px;
   margin: 0;
   color: var(--text-light);
   line-height: 1.8;
@@ -218,8 +218,8 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  border-left: 2px solid var(--primary-color);
-  padding-left: 16px;
+  border-inline-start: 2px solid var(--primary-color);
+  padding-inline-start: 16px;
 }
 
 .app.dark .typo-item {

@@ -31,7 +31,7 @@ export const SecurityView: React.FC<SecurityViewProps> = ({ onBack, onSave }) =>
           aria-label={t('account.close')}
           type="button"
         >
-          <span className="material-symbols-outlined">arrow_back</span>
+          <span className="material-symbols-outlined icon-rtl-flip">arrow_back</span>
         </button>
         <h2 className="account-pref-title">Segurança</h2>
       </div>

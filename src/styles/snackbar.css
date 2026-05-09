@@ -1,0 +1,134 @@
+/* Material Design 3 Snackbar Styles */
+.snackbar-container {
+  position: fixed;
+  bottom: var(--spacing-lg);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+/* On Desktop, M3 prefers anchoring to bottom-start */
+@media (min-width: 768px) {
+  .snackbar-container {
+    left: var(--spacing-lg);
+    transform: none;
+    inset-inline-start: var(--spacing-lg);
+    /* For RTL */
+    right: auto;
+  }
+  
+  [dir="rtl"] .snackbar-container {
+    left: auto;
+    right: var(--spacing-lg);
+    transform: none;
+  }
+}
+
+.snackbar-content {
+  background-color: var(--text-color); /* M3 uses inverse-surface */
+  color: var(--surface-container-lowest); /* M3 uses inverse-on-surface */
+  min-width: 288px;
+  max-width: 568px;
+  padding: 14px var(--spacing-md);
+  border-radius: var(--shape-corner-extra-small);
+  box-shadow: var(--elevation-3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  pointer-events: auto;
+}
+
+.snackbar-container.dark .snackbar-content {
+  background-color: #e3e3e3;
+  color: #1a1c1e;
+}
+
+.snackbar-message {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  letter-spacing: 0.25px;
+  flex-grow: 1;
+}
+
+.snackbar-action {
+  background: transparent;
+  border: none;
+  color: var(--primary-container);
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.1px;
+  text-transform: uppercase;
+  padding: 0 var(--spacing-sm);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity var(--md-sys-motion-duration-short) ease;
+}
+
+.snackbar-container.dark .snackbar-action {
+  color: #004d40;
+}
+
+.snackbar-action:hover {
+  opacity: 0.8;
+}
+
+/* M3 Animations */
+.snackbar-enter {
+  animation: snackbarSlideUp var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-emphasized) forwards;
+}
+
+.snackbar-exit {
+  animation: snackbarSlideDown var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-accelerated) forwards;
+}
+
+@keyframes snackbarSlideUp {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes snackbarSlideDown {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+/* Adjust Desktop Animations */
+@media (min-width: 768px) {
+  @keyframes snackbarSlideUp {
+    0% {
+      transform: translateY(20px) scale(0.95);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes snackbarSlideDown {
+    0% {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(20px) scale(0.95);
+      opacity: 0;
+    }
+  }
+}

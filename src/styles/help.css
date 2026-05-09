@@ -192,8 +192,8 @@
   content: '';
   position: absolute;
   bottom: 0;
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   height: 3px;
   background-color: var(--primary-color);
   border-radius: 3px 3px 0 0;
@@ -594,15 +594,15 @@ textarea#feedback-text:focus {
   background: var(--background-color);
   padding: 1.5rem;
   border-radius: 12px;
-  border-left: 4px solid #0b57d0;
-  text-align: left;
+  border-inline-start: 4px solid #0b57d0;
+  text-align: start;
   margin-bottom: 2rem;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .app.dark .advice-box {
   background: #2d2e31;
-  border-left-color: #a8c7fa;
+  border-inline-start-color: #a8c7fa;
 }
 
 .advice-box h4 {
@@ -779,7 +779,7 @@ textarea#feedback-text:focus {
 .remove-image-btn {
   position: absolute;
   top: 8px;
-  right: 8px;
+  inset-inline-end: 8px;
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -982,7 +982,7 @@ textarea#feedback-text:focus {
   cursor: pointer;
   transition: all 0.2s ease;
   align-self: flex-end;
-  margin-right: 0.5rem;
+  margin-inline-end: 0.5rem;
   margin-bottom: 0.5rem;
 }
 .app.dark .analyze-btn {
@@ -1313,12 +1313,12 @@ textarea#feedback-text:focus {
   background: var(--primary-background-light);
   padding: 1.25rem;
   border-radius: 8px;
-  border-left: 4px solid #0b57d0;
+  border-inline-start: 4px solid #0b57d0;
 }
 
 .app.dark .reframe-box {
   background: #041e49;
-  border-left-color: #a8c7fa;
+  border-inline-start-color: #a8c7fa;
 }
 
 .reframe-box h4 {
@@ -1374,7 +1374,7 @@ textarea#feedback-text:focus {
   align-items: center;
   justify-content: center;
   transition: background-color 0.2s;
-  margin-left: -8px; /* Align with the edge */
+  margin-inline-start: -8px; /* Align with the edge */
 }
 
 .back-btn-icon:hover {
@@ -1452,7 +1452,7 @@ textarea#feedback-text:focus {
 
 .app.dark .reframe-box {
   background: #1e1f20;
-  border-left-color: var(--primary-color);
+  border-inline-start-color: var(--primary-color);
 }
 
 
@@ -1469,10 +1469,10 @@ textarea#feedback-text:focus {
   background: #2d2e31;
   border-color: var(--border-color);
 }
-.ai-response-card.anxiety { border-left: 4px solid #fbbc04; }
-.ai-response-card.sadness { border-left: 4px solid #4285f4; }
-.ai-response-card.crisis { border-left: 4px solid #ea4335; }
-.ai-response-card.general { border-left: 4px solid #34a853; }
+.ai-response-card.anxiety { border-inline-start: 4px solid #fbbc04; }
+.ai-response-card.sadness { border-inline-start: 4px solid #4285f4; }
+.ai-response-card.crisis { border-inline-start: 4px solid #ea4335; }
+.ai-response-card.general { border-inline-start: 4px solid #34a853; }
 
 .response-header {
   display: flex;

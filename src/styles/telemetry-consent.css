@@ -2,7 +2,7 @@
 .telemetry-consent-toast {
   position: fixed;
   bottom: 2rem;
-  right: 2rem;
+  inset-inline-end: 2rem;
   z-index: 9999;
   background: var(--card-background);
   border: 1px solid var(--border-color);
@@ -58,14 +58,14 @@ body.dark .telemetry-consent-toast {
   color: var(--text-color);
   line-height: 1.5;
   opacity: 0.85;
-  text-align: left;
+  text-align: start;
 }
 
 .telemetry-consent-content .disclaimer {
   font-size: 0.85rem;
   color: var(--text-color);
   background: rgba(245, 158, 11, 0.1);
-  border-left: 4px solid #f59e0b;
+  border-inline-start: 4px solid #f59e0b;
   padding: 0.75rem 1rem;
   border-radius: 0 8px 8px 0;
   opacity: 1;
@@ -74,7 +74,7 @@ body.dark .telemetry-consent-toast {
 .app.dark .telemetry-consent-content .disclaimer,
 body.dark .telemetry-consent-content .disclaimer {
   background: rgba(245, 158, 11, 0.08);
-  border-left-color: rgba(245, 158, 11, 0.8);
+  border-inline-start-color: rgba(245, 158, 11, 0.8);
 }
 .telemetry-consent-actions {
   display: flex;
@@ -133,7 +133,7 @@ body.dark .btn-decline:hover {
   font-weight: 500;
   text-decoration: none;
   order: -1;
-  margin-right: auto;
+  margin-inline-end: auto;
 }
 
 .btn-more-info:hover {
@@ -142,15 +142,15 @@ body.dark .btn-decline:hover {
 
 @media (max-width: 768px) {
   .telemetry-consent-toast {
-    right: 0;
-    left: 0;
+    inset-inline-end: 0;
+    inset-inline-start: 0;
     bottom: 0;
     width: 100%;
     max-width: none;
     border-radius: 24px 24px 0 0;
     border-bottom: none;
-    border-left: none;
-    border-right: none;
+    border-inline-start: none;
+    border-inline-end: none;
     animation: bottomSheetSlideUp 0.4s cubic-bezier(0.2, 0, 0, 1) forwards;
   }
 
@@ -168,7 +168,7 @@ body.dark .btn-decline:hover {
   }
 
   .btn-more-info {
-    margin-right: 0;
+    margin-inline-end: 0;
     text-align: center;
     padding: 0.5rem 0;
     order: 3;

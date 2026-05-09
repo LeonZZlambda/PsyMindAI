@@ -19,8 +19,11 @@ import { SoundProvider } from './context/SoundContext'
 import { MoodProvider } from './context/MoodContext'
 import { EmotionalJournalProvider } from './context/EmotionalJournalContext'
 import { ModalProvider } from './context/ModalContext'
+import { DirectionProvider } from './context/DirectionContext'
+import { SnackbarProvider } from './context/SnackbarContext'
 import { BrowserRouter } from 'react-router-dom'
 import { protectMaterialIcons } from './utils/protectMaterialIcons'
+import GlobalRipple from './components/GlobalRipple'
 
 const rootElement = document.getElementById('root')
 if (!rootElement) throw new Error('Root element not found')
@@ -32,19 +35,24 @@ createRoot(rootElement).render(
   <StrictMode>
     <BrowserRouter>
       <ModalProvider>
-        <ThemeProvider>
-          <ChatProvider>
-            <PomodoroProvider>
-              <SoundProvider>
-                <MoodProvider>
-                  <EmotionalJournalProvider>
-                    <App />
-                  </EmotionalJournalProvider>
-                </MoodProvider>
-              </SoundProvider>
-            </PomodoroProvider>
-          </ChatProvider>
-        </ThemeProvider>
+        <DirectionProvider>
+          <ThemeProvider>
+            <ChatProvider>
+              <PomodoroProvider>
+                <SoundProvider>
+                  <MoodProvider>
+                    <EmotionalJournalProvider>
+                      <SnackbarProvider>
+                        <GlobalRipple />
+                        <App />
+                      </SnackbarProvider>
+                    </EmotionalJournalProvider>
+                  </MoodProvider>
+                </SoundProvider>
+              </PomodoroProvider>
+            </ChatProvider>
+          </ThemeProvider>
+        </DirectionProvider>
       </ModalProvider>
     </BrowserRouter>
   </StrictMode>,

@@ -59,15 +59,15 @@ export const CurrentTimeIndicator = memo(
         sx={{
           position: 'absolute',
           top,
-          left: 0,
-          right: 0,
+          insetInlineStart: 0,
+          insetInlineEnd: 0,
           height: 2,
           bgcolor: 'error.main',
           zIndex: 10,
           '&::before': {
             content: '""',
             position: 'absolute',
-            left: -8,
+            insetInlineStart: -8,
             top: -3,
             width: 8,
             height: 8,

@@ -2,8 +2,8 @@
 .modal-overlay {
   position: fixed;
   top: 0;
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
@@ -14,7 +14,7 @@
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
   box-sizing: border-box;
-  animation: modalFadeIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: modalFadeIn var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
 }
 
 .modal-content {
@@ -27,7 +27,7 @@
   flex-direction: column;
   box-shadow: var(--elevation-5);
   overflow: hidden;
-  animation: modalSlideUp 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: modalSlideUp var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-emphasized);
 }
 
 @media (max-width: 768px) {
@@ -40,11 +40,11 @@
     width: 95%;
     max-width: 500px;
     border-radius: var(--shape-corner-extra-large);
-    animation: modalSlideUp 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: modalSlideUp var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-emphasized);
   }
 
   .modal-overlay.closing .modal-content {
-    animation: modalSlideDown 0.3s cubic-bezier(0.4, 0, 1, 1) forwards;
+    animation: modalSlideDown var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-accelerated) forwards;
   }
 }
 

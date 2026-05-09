@@ -226,7 +226,7 @@
   color: var(--text-color);
   transition: all 0.2s;
   width: 100%;
-  text-align: left;
+  text-align: start;
 }
 
 .exam-item-modal:hover:not(.no-hover) {
@@ -600,7 +600,7 @@
   .topic-actions {
     width: 100%;
     justify-content: flex-end;
-    margin-left: 0;
+    margin-inline-start: 0;
     margin-top: 8px;
   }
 
@@ -676,12 +676,12 @@
 /* Input Icons */
 .md-input-group.has-icon input,
 .md-input-group.has-icon select {
-  padding-left: 44px;
+  padding-inline-start: 44px;
 }
 
 .field-icon {
   position: absolute;
-  left: 12px;
+  inset-inline-start: 12px;
   top: 50%;
   transform: translateY(-50%);
   color: #5f6368;
@@ -698,14 +698,14 @@
 
 /* Fix label position when icon is present */
 .md-input-group.has-icon label {
-  left: 44px;
+  inset-inline-start: 44px;
 }
 
 .md-input-group.has-icon input:focus + label,
 .md-input-group.has-icon input:not(:placeholder-shown) + label,
 .md-input-group.has-icon select:focus + label,
 .md-input-group.has-icon select + label {
-  left: 12px;
+  inset-inline-start: 12px;
 }
 
 /* Dark Mode Updates */
@@ -878,7 +878,7 @@
   padding: 16px;
   border-radius: 12px;
   margin-top: 8px;
-  text-align: left;
+  text-align: start;
   color: #c5221f;
   border: 1px solid transparent;
 }
@@ -954,7 +954,7 @@
   display: flex;
   align-items: center;
   position: relative;
-  padding-left: 60px; /* Space for switch */
+  padding-inline-start: 60px; /* Space for switch */
   cursor: pointer;
   font-size: 1rem;
   user-select: none;
@@ -974,7 +974,7 @@
 .checkmark {
   position: absolute;
   top: 0;
-  left: 0;
+  inset-inline-start: 0;
   height: 32px;
   width: 52px;
   background-color: #e3e3e3;
@@ -986,7 +986,7 @@
 .checkmark:after {
   content: "";
   position: absolute;
-  left: 4px;
+  inset-inline-start: 4px;
   top: 4px;
   width: 24px;
   height: 24px;
@@ -1084,12 +1084,12 @@
 .md-input-group select:focus {
   border-color: #0b57d0;
   border-width: 2px;
-  padding-left: 15px; /* Adjust for border width change to prevent layout shift if needed, or box-sizing handles it */
+  padding-inline-start: 15px; /* Adjust for border width change to prevent layout shift if needed, or box-sizing handles it */
 }
 
 .md-input-group label {
   position: absolute;
-  left: 16px;
+  inset-inline-start: 16px;
   top: 50%;
   transform: translateY(-50%);
   background: transparent;
@@ -1115,18 +1115,18 @@
 /* Icon adjustments */
 .md-input-group.has-icon input,
 .md-input-group.has-icon select {
-  padding-left: 48px;
+  padding-inline-start: 48px;
 }
 
 .md-input-group.has-icon label {
-  left: 48px;
+  inset-inline-start: 48px;
 }
 
 .md-input-group.has-icon input:focus + label,
 .md-input-group.has-icon input:not(:placeholder-shown) + label,
 .md-input-group.has-icon select:focus + label,
 .md-input-group.has-icon select + label {
-  left: 48px; /* Keep label aligned with text start */
+  inset-inline-start: 48px; /* Keep label aligned with text start */
   top: 8px;
 }
 
@@ -1327,7 +1327,7 @@
 .topic-actions {
   display: flex;
   gap: 8px;
-  margin-left: auto;
+  margin-inline-start: auto;
 }
 
 .topic-action-btn {
@@ -1466,7 +1466,7 @@
 
 .exams-search-box .search-icon {
   position: absolute;
-  left: 16px;
+  inset-inline-start: 16px;
   top: 50%;
   transform: translateY(-50%);
   color: var(--text-light);
@@ -1514,7 +1514,7 @@
 
 .exam-favorite-btn {
   position: absolute;
-  right: 12px;
+  inset-inline-end: 12px;
   top: 12px;
   color: #f59e0b;
   padding: 6px;

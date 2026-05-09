@@ -13,8 +13,8 @@
 
 .sidebar.closed {
   width: 0;
-  padding-left: 0;
-  padding-right: 0;
+  padding-inline-start: 0;
+  padding-inline-end: 0;
   pointer-events: none;
 }
 
@@ -118,7 +118,7 @@
   font-family: inherit;
   font-size: 0.875rem;
   cursor: pointer;
-  text-align: left;
+  text-align: start;
   transition: background 0.2s ease, transform 0.1s ease;
   position: relative;
 }
@@ -206,7 +206,7 @@
   font-family: inherit;
   font-size: 0.875rem;
   cursor: pointer;
-  text-align: left;
+  text-align: start;
   transition: background 0.2s ease, transform 0.1s ease;
 }
 
@@ -236,7 +236,7 @@
   .app .sidebar {
     position: fixed;
     top: 0;
-    left: 0;
+    inset-inline-start: 0;
     height: 100dvh;
     z-index: 200;
     transform: translateX(0);
@@ -249,6 +249,10 @@
     transform: translateX(-100%);
     width: 17.5rem;
     pointer-events: none;
+  }
+
+  [dir="rtl"] .app .sidebar.closed {
+    transform: translateX(100%);
   }
 
   .sidebar>* {

@@ -132,7 +132,7 @@ const AnalyticsPage: React.FC = () => {
         >
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '40px', flexWrap: 'wrap', gap: '15px' }}>
             <button className="secondary-btn" onClick={() => navigate('/')} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span className="material-symbols-outlined">arrow_back</span>
+              <span className="material-symbols-outlined icon-rtl-flip">arrow_back</span>
               {t('analytics_page.back_home')}
             </button>
 
@@ -206,7 +206,7 @@ const AnalyticsPage: React.FC = () => {
                             initial={{ width: 0 }}
                             animate={{ width: `${item.pct}%` }}
                             transition={{ duration: 1, delay: idx * 0.1, ease: 'easeOut' }}
-                            style={{ position: 'absolute', top: 0, left: 0, height: '100%', backgroundColor: 'var(--primary-color)', borderRadius: '12px' }}
+                            style={{ position: 'absolute', top: 0, insetInlineStart: 0, height: '100%', backgroundColor: 'var(--primary-color)', borderRadius: '12px' }}
                           />
                         </div>
                         <span style={{ width: '50px', fontSize: '0.9rem', fontWeight: 'bold', color: 'var(--text-color)', textAlign: 'right' }}>
@@ -318,7 +318,7 @@ const AnalyticsPage: React.FC = () => {
                             initial={{ width: 0 }}
                             animate={{ width: `${item.pct}%` }}
                             transition={{ duration: 1, delay: idx * 0.1, ease: 'easeOut' }}
-                            style={{ position: 'absolute', top: 0, left: 0, height: '100%', backgroundColor: 'var(--primary-color)', borderRadius: '12px' }}
+                            style={{ position: 'absolute', top: 0, insetInlineStart: 0, height: '100%', backgroundColor: 'var(--primary-color)', borderRadius: '12px' }}
                           />
                         </div>
                         <span style={{ width: '30px', fontSize: '0.9rem', fontWeight: 'bold', color: 'var(--text-color)', textAlign: 'right' }}>

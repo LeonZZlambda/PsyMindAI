@@ -60,7 +60,7 @@ const ContributePage: React.FC = () => {
                   }
                 }}
               >
-                {card.link_text} <span className="material-symbols-outlined">arrow_forward</span>
+                {card.link_text} <span className="material-symbols-outlined icon-rtl-flip">arrow_forward</span>
               </a>
             </motion.div>
           ))}

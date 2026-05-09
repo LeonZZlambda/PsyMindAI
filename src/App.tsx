@@ -89,11 +89,7 @@ function App() {
   }, [isSidebarOpen])
 
   // Initial tracking & SEO
-  useEffect(() => {
-    const lang = i18n.language || 'pt-BR'
-    document.documentElement.lang = lang
-
-    // Dynamic SEO
+  useEffect(() => {    // Dynamic SEO
     document.title = t('seo.title')
     const metaDescription = document.querySelector('meta[name="description"]')
     if (metaDescription) {

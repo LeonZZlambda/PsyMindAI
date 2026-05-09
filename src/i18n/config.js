@@ -39,7 +39,7 @@ i18n
     defaultNS: 'translation',
     fallbackNS: ['translation', 'schedule'],
     fallbackLng: 'pt',
-    supportedLngs: ['pt', 'en', 'es', 'fr', 'de', 'it', 'ja', 'ko', 'zh', 'zh-TW', 'ru', 'ar', 'hi', 'la'],
+    supportedLngs: ['pt', 'en', 'es', 'fr', 'de', 'it', 'ja', 'ko', 'zh', 'zh-TW', 'ru', 'ar', 'fa', 'ur', 'hi', 'la'],
     interpolation: {
       escapeValue: false,
     },

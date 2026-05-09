@@ -19,7 +19,7 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: left;
+  text-align: start;
   width: 100%;
 }
 
@@ -94,7 +94,7 @@
   color: var(--text-color);
   cursor: pointer;
   transition: all 0.2s ease;
-  text-align: left;
+  text-align: start;
   box-shadow: 0 2px 6px var(--shadow-color);
   min-width: 200px;
   flex: 1;
@@ -249,7 +249,7 @@
 
 .message-content ul,
 .message-content ol {
-  margin-left: 1.5rem;
+  margin-inline-start: 1.5rem;
   margin-bottom: 0.5rem;
 }
 
@@ -471,7 +471,7 @@
 .scroll-top-btn {
   position: fixed;
   bottom: 2rem;
-  right: 2rem;
+  inset-inline-end: 2rem;
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -578,7 +578,7 @@
 .remove-file-btn {
   position: absolute;
   top: 4px;
-  right: 4px;
+  inset-inline-end: 4px;
   width: 20px;
   height: 20px;
   border-radius: 50%;
@@ -720,7 +720,7 @@
   animation: gemini-gradient-move 2s linear infinite;
   position: absolute;
   bottom: 0;
-  left: 0;
+  inset-inline-start: 0;
   z-index: 5;
   box-shadow: 0 2px 8px rgba(66, 133, 244, 0.4);
   /* CSS transition replaces Framer Motion AnimatePresence */
@@ -794,7 +794,7 @@
   content: '●';
   display: inline-block;
   color: #4285f4;
-  margin-left: 4px;
+  margin-inline-start: 4px;
   animation: blink 1s infinite;
   vertical-align: baseline;
   font-size: 0.8em;
@@ -863,7 +863,7 @@
 .tools-menu {
   position: absolute;
   bottom: 100%;
-  left: 0;
+  inset-inline-start: 0;
   margin-bottom: 0.5rem;
   background: #ffffff;
   border-radius: 12px;
@@ -888,7 +888,7 @@
   font-family: inherit;
   font-size: 0.875rem;
   cursor: pointer;
-  text-align: left;
+  text-align: start;
   transition:
     background 0.2s ease,
     transform 0.1s ease;
@@ -913,8 +913,8 @@
 .image-viewer-overlay {
   position: fixed;
   top: 0;
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.95);
   z-index: 2000; /* High z-index to cover everything */
@@ -927,8 +927,8 @@
 .viewer-header {
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   padding: 1.5rem;
   display: flex;
   justify-content: flex-end;
@@ -1060,14 +1060,14 @@
   }
 
   .tools-menu {
-    left: 0;
-    right: auto;
+    inset-inline-start: 0;
+    inset-inline-end: auto;
     min-width: 180px;
   }
 
   .scroll-top-btn {
     bottom: calc(160px + env(safe-area-inset-bottom));
-    right: 1rem;
+    inset-inline-end: 1rem;
   }
 }
 
@@ -1414,8 +1414,8 @@
   content: '';
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   height: 4px;
   background: linear-gradient(90deg, #6c757d, #adb5bd, #6c757d);
   z-index: 3;
@@ -1426,8 +1426,8 @@
   content: '';
   position: absolute;
   top: -50%;
-  left: -50%;
-  right: -50%;
+  inset-inline-start: -50%;
+  inset-inline-end: -50%;
   bottom: -50%;
   background-image: 
     radial-gradient(ellipse at 50% 50%, rgba(200, 200, 200, 0.08) 0%, transparent 60%),

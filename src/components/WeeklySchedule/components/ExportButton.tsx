@@ -1,5 +1,6 @@
 import { memo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSnackbar } from '../../../context/SnackbarContext'
 import BaseModal from '@/components/BaseModal'
 import MaterialIcon from '@/components/MaterialIcon'
 import { Activity } from '../types'
@@ -11,13 +12,14 @@ interface ExportButtonProps {
 
 export const ExportButton = memo(({ activities }: ExportButtonProps) => {
   const { t } = useTranslation(['schedule', 'translation'])
+  const { showSnackbar } = useSnackbar()
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [format, setFormat] = useState<'csv' | 'json' | 'ical'>('json')
   const [fileName, setFileName] = useState(`schedule-${new Date().toISOString().split('T')[0]}`)
 
   const handleExport = () => {
     if (activities.length === 0) {
-      alert(t('export.noActivities', { defaultValue: 'Nenhuma atividade para exportar.' }))
+      showSnackbar(t('export.noActivities', { defaultValue: 'Nenhuma atividade para exportar.' }))
       return
     }
 

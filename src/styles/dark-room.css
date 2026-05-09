@@ -99,9 +99,9 @@ html.dark-room-mode .app.dark {
   /* ── Bordas — TODAS as propriedades individuais ──────────── */
   border-color: #4a0000 !important;
   border-top-color: #4a0000 !important;
-  border-right-color: #4a0000 !important;
+  border-inline-end-color: #4a0000 !important;
   border-bottom-color: #4a0000 !important;
-  border-left-color: #4a0000 !important;
+  border-inline-start-color: #4a0000 !important;
 
   /* ── Shadows e Outlines ──────────────────────────────────── */
   /* box-shadow: none causa perda de profundidade — substituímos por sombra vermelha */
@@ -180,9 +180,9 @@ html.dark-room-mode .app.dark {
 .dark-room-mode .active {
   border-color: #FF2200 !important;
   border-top-color: #FF2200 !important;
-  border-right-color: #FF2200 !important;
+  border-inline-end-color: #FF2200 !important;
   border-bottom-color: #FF2200 !important;
-  border-left-color: #FF2200 !important;
+  border-inline-start-color: #FF2200 !important;
   color: #FF4500 !important;
   -webkit-text-fill-color: #FF4500 !important;
   background-color: #1f0000 !important;
@@ -192,15 +192,15 @@ html.dark-room-mode .app.dark {
 .dark-room-mode [style*="border-color"],
 .dark-room-mode [style*="border:"],
 .dark-room-mode [style*="border-top"],
-.dark-room-mode [style*="border-right"],
+.dark-room-mode [style*="border-inline-end"],
 .dark-room-mode [style*="border-bottom"],
-.dark-room-mode [style*="border-left"],
+.dark-room-mode [style*="border-inline-start"],
 .dark-room-mode [style*="outline"] {
   border-color: #4a0000 !important;
   border-top-color: #4a0000 !important;
-  border-right-color: #4a0000 !important;
+  border-inline-end-color: #4a0000 !important;
   border-bottom-color: #4a0000 !important;
-  border-left-color: #4a0000 !important;
+  border-inline-start-color: #4a0000 !important;
   outline-color: #4a0000 !important;
 }
 

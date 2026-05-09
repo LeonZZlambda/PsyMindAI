@@ -39,14 +39,14 @@
 .landing-page::before {
   background: #80deea; /* Cyan/Teal */
   top: -100px;
-  left: -100px;
+  inset-inline-start: -100px;
   animation: float-blob-1 20s infinite alternate;
 }
 
 .landing-page::after {
   background: #ce93d8; /* Purple */
   bottom: -100px;
-  right: -100px;
+  inset-inline-end: -100px;
   animation: float-blob-2 25s infinite alternate;
 }
 
@@ -233,7 +233,7 @@
   content: '';
   position: absolute;
   top: -50%;
-  left: -50%;
+  inset-inline-start: -50%;
   width: 200%;
   height: 200%;
   background: radial-gradient(circle at 50% 50%, rgba(66, 133, 244, 0.1), transparent 60%);
@@ -292,7 +292,7 @@
   background: rgba(241, 243, 244, 0.8);
   padding: 1rem;
   border-radius: 16px;
-  border-top-left-radius: 4px;
+  border-start-start-radius: 4px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -302,7 +302,7 @@
 .chat-bubble.user .text {
   background: rgba(232, 240, 254, 0.8);
   border-radius: 16px;
-  border-top-right-radius: 4px;
+  border-start-end-radius: 4px;
 }
 
 .line {
@@ -439,7 +439,7 @@
   border: 1px solid rgba(255, 255, 255, 0.5);
   box-shadow: 0 4px 12px rgba(0,0,0,0.02);
   transition: transform 0.2s ease, background 0.2s ease;
-  text-align: left;
+  text-align: start;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -486,7 +486,7 @@
 .scroll-top-btn {
   position: fixed;
   bottom: 2rem;
-  right: 2rem;
+  inset-inline-end: 2rem;
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -751,7 +751,7 @@
 }
 
 .footer-logo-small .copyright-text {
-  margin-left: 0.5rem;
+  margin-inline-start: 0.5rem;
   font-weight: 400;
   font-size: 0.875rem;
 }
@@ -829,7 +829,7 @@
 @media (max-width: 768px) {
   .app .landing-footer {
     padding: 3rem 1.5rem 6rem; /* Extra bottom padding for mobile nav if needed */
-    text-align: left;
+    text-align: start;
   }
 
   .footer-content {
@@ -1213,8 +1213,8 @@
     gap: 1.5rem;
     padding-bottom: 0;
     margin: 2rem 0; /* Reset margin */
-    padding-left: 0;
-    padding-right: 0;
+    padding-inline-start: 0;
+    padding-inline-end: 0;
   }
   
   .info-cards-container::-webkit-scrollbar {
@@ -1855,8 +1855,8 @@
   .tech-stack-section,
   .about-section,
   .final-cta {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-inline-start: 1rem;
+    padding-inline-end: 1rem;
   }
 
   .features-grid,

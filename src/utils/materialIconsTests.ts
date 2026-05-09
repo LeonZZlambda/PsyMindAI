@@ -112,14 +112,14 @@ export function testFontDisplayStrategy() {
       for (let j = 0; j < rules.length; j++) {
         const rule = rules[j];
         
-        if (rule.href && rule.href.includes('Material+Symbols')) {
+        if ((rule as any).href && (rule as any).href.includes('Material+Symbols')) {
           console.log('✓ Material Symbols font found');
-          console.log('  URL:', rule.href);
+          console.log('  URL:', (rule as any).href);
           
-          if (rule.href.includes('display=block')) {
+          if ((rule as any).href.includes('display=block')) {
             console.log('  ✓ Using font-display: block');
             materialSymbolsFound = true;
-          } else if (rule.href.includes('display=swap')) {
+          } else if ((rule as any).href.includes('display=swap')) {
             console.warn('  ⚠ Using font-display: swap (should be block for icons)');
           }
         }
@@ -167,8 +167,8 @@ export function testFontFailure() {
   
   icons.forEach((icon) => {
     // Simulate font failure by setting transparent color
-    icon.style.color = 'transparent';
-    icon.style.fontSize = '0';
+    (icon as HTMLElement).style.color = 'transparent';
+    (icon as HTMLElement).style.fontSize = '0';
     
     console.log(`✓ Applied fallback styling to: "${icon.textContent}"`);
   });
@@ -202,7 +202,7 @@ export function testPerformanceMetrics() {
     const lcpObserver = new PerformanceObserver((list) => {
       const entries = list.getEntries();
       const lastEntry = entries[entries.length - 1];
-      console.log(`LCP: ${lastEntry.renderTime || lastEntry.loadTime}ms`);
+      console.log(`LCP: ${(lastEntry as any).renderTime || (lastEntry as any).loadTime}ms`);
     });
     
     lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });

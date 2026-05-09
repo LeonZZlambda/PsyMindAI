@@ -86,7 +86,7 @@
 .quiz-option-btn {
   display: flex;
   align-items: flex-start;
-  text-align: left;
+  text-align: start;
   gap: 12px;
   padding: 16px;
   background: var(--secondary-color);
@@ -160,17 +160,17 @@
   padding: 16px;
   border-radius: 8px;
   margin-bottom: 24px;
-  border-left: 4px solid transparent;
+  border-inline-start: 4px solid transparent;
 }
 
 .success-box {
   background: rgba(76, 175, 80, 0.1);
-  border-left-color: #4caf50;
+  border-inline-start-color: #4caf50;
 }
 
 .error-box {
   background: rgba(244, 67, 54, 0.1);
-  border-left-color: #f44336;
+  border-inline-start-color: #f44336;
 }
 
 .quiz-explanation h4 {

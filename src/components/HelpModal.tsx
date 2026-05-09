@@ -378,7 +378,7 @@ const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose, initialTab = 'fa
                         </>
                       ) : (
                         <>
-                          <span className="material-symbols-outlined">send</span>
+                          <span className="material-symbols-outlined icon-rtl-flip">send</span>
                           {t('help.feedback.send')}
                         </>
                       )}

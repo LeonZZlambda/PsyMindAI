@@ -30,11 +30,12 @@
   --background-dark: #202124;
   --card-background: var(--surface-container-low);
 
-  /* Borders & Shadows - M3E Colored Shadows */
+  /* Borders & Shadows - M3E Tonal Elevation */
   --border-color: #dadce0;
-  --shadow-color: rgba(0, 121, 107, 0.08); /* Tinted shadow */
-  --shadow-ambient: rgba(0, 0, 0, 0.04);
+  --shadow-color: rgba(0, 121, 107, 0.04); /* M3 Tonal Tint */
+  --shadow-ambient: rgba(0, 0, 0, 0.02); /* Very soft ambient */
   --hover-color: rgba(0, 121, 107, 0.04);
+  --surface-tint: rgba(0, 121, 107, 0.05); /* Applied to elevated surfaces */
 
   /* Semantic Colors */
   --danger-color: #d93025;
@@ -59,6 +60,14 @@
   --shape-corner-extra-large: 28px;
   --shape-corner-full: 9999px;
 
+  /* M3 Expressive - Motion & Easing Curves */
+  --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1); /* Simplified in M3 */
+  --md-sys-motion-easing-accelerated: cubic-bezier(0.3, 0, 1, 1); /* For exiting/closing */
+  --md-sys-motion-duration-short: 200ms;
+  --md-sys-motion-duration-medium: 400ms;
+  --md-sys-motion-duration-long: 600ms;
+
   /* M3 Expressive - Elevation (Colored Shadows) */
   --elevation-1: 0 1px 3px var(--shadow-ambient), 0 1px 2px var(--shadow-color);
   --elevation-2: 0 2px 6px var(--shadow-ambient), 0 2px 4px var(--shadow-color);
@@ -74,6 +83,13 @@
   --spacing-xl: 32px;
   --spacing-2xl: 48px;
   --spacing-3xl: 64px;
+
+  /* RTL-First Semantic Spacing Tokens */
+  --spacing-inline-xs: var(--spacing-xs);
+  --spacing-inline-sm: var(--spacing-sm);
+  --spacing-inline-md: var(--spacing-md);
+  --spacing-inline-lg: var(--spacing-lg);
+  --spacing-inline-xl: var(--spacing-xl);
 
   /* Scrollbars - M3 Style */
   --scrollbar-width: 8px;
@@ -121,9 +137,10 @@ body.dark,
 
   /* Borders & Shadows - M3E Dark */
   --border-color: #5f6368;
-  --shadow-color: rgba(128, 203, 196, 0.12);
-  --shadow-ambient: rgba(0, 0, 0, 0.6);
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --shadow-ambient: rgba(0, 0, 0, 0.3);
   --hover-color: rgba(128, 203, 196, 0.08);
+  --surface-tint: rgba(255, 255, 255, 0.05); /* Lightens surfaces in dark mode */
 
   /* Semantic Colors - Dark Mode */
   --danger-color: #ffb4ab;

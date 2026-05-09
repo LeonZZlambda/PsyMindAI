@@ -93,7 +93,7 @@ export const ExamsListView: React.FC<ExamsListViewProps> = ({ category, onSelect
               <span className="exam-name">{exam.name}</span>
               <span className="exam-fullname">{exam.fullName}</span>
             </div>
-            <span className="material-symbols-outlined arrow-icon">chevron_right</span>
+            <span className="material-symbols-outlined icon-rtl-flip arrow-icon">chevron_right</span>
           </button>
         ))}
       </div>

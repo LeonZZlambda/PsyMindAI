@@ -6,8 +6,8 @@
   justify-content: space-between;
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   z-index: 10;
 }
 
@@ -18,7 +18,7 @@
 }
 
 .menu-toggle {
-  margin-right: 0.5rem;
+  margin-inline-end: 0.5rem;
 }
 
 .user-profile {
@@ -108,7 +108,7 @@
   content: '';
   position: absolute;
   top: 8px;
-  right: 8px;
+  inset-inline-end: 8px;
   width: 8px;
   height: 8px;
   background-color: var(--primary-color);
@@ -152,8 +152,8 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
     position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
     box-shadow: 0 1px 2px rgba(0,0,0,0.05);
   }
 

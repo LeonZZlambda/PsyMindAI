@@ -420,7 +420,7 @@ const VocationalTestModal: React.FC<{ isOpen: boolean; onClose: () => void }> = 
                   </div>
                 </div>
                 <button className="primary-btn vocational-start-btn" onClick={handleStartTest}>
-                  <span className="material-symbols-outlined">play_arrow</span>
+                  <span className="material-symbols-outlined icon-rtl-flip">play_arrow</span>
                   {t('exams.vocational.introduction.start_button')}
                 </button>
               </div>

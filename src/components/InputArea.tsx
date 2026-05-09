@@ -442,7 +442,7 @@ const InputArea: React.FC<InputAreaProps> = ({
                   title={`${t('chat.input.send_message')} (Enter)`}
                   aria-label={t('chat.input.send_message')}
                 >
-                  <span className="material-symbols-outlined">send</span>
+                  <span className="material-symbols-outlined icon-rtl-flip">send</span>
                 </button>
               )
             )}

@@ -65,7 +65,7 @@ export const PersonalizationView: React.FC<PersonalizationViewProps> = ({
           aria-label={t('account.close')}
           type="button"
         >
-          <span className="material-symbols-outlined">arrow_back</span>
+          <span className="material-symbols-outlined icon-rtl-flip">arrow_back</span>
         </button>
         <h2 className="account-pref-title">{t('account.personalization.title')}</h2>
       </div>

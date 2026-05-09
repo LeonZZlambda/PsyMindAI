@@ -198,7 +198,7 @@ const JudgeModal: React.FC<JudgeModalProps> = ({ isOpen, onClose, config }) => {
                   onClick={submitCode}
                   disabled={evaluating || loading || !code.trim()}
                 >
-                  <span className="material-symbols-outlined">play_arrow</span>
+                  <span className="material-symbols-outlined icon-rtl-flip">play_arrow</span>
                   {t('judge.submit')}
                 </button>
               </div>

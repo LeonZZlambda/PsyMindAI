@@ -28,8 +28,10 @@ button {
   -webkit-user-select: none;
 }
 
-input {
+input, textarea {
   font-family: inherit;
+  unicode-bidi: plaintext;
+  text-align: start;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -76,5 +78,41 @@ kbd {
 
 /* Align shortcuts to the right in sidebar context */
 .sidebar .shortcut-keys {
-  margin-left: auto;
+  margin-inline-start: auto;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RTL-First Utilities
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Spacing */
+.ps-1 { padding-inline-start: var(--spacing-inline-xs); }
+.ps-2 { padding-inline-start: var(--spacing-inline-sm); }
+.ps-3 { padding-inline-start: var(--spacing-inline-md); }
+
+.pe-1 { padding-inline-end: var(--spacing-inline-xs); }
+.pe-2 { padding-inline-end: var(--spacing-inline-sm); }
+.pe-3 { padding-inline-end: var(--spacing-inline-md); }
+
+.ms-1 { margin-inline-start: var(--spacing-inline-xs); }
+.ms-2 { margin-inline-start: var(--spacing-inline-sm); }
+.ms-3 { margin-inline-start: var(--spacing-inline-md); }
+
+.me-1 { margin-inline-end: var(--spacing-inline-xs); }
+.me-2 { margin-inline-end: var(--spacing-inline-sm); }
+.me-3 { margin-inline-end: var(--spacing-inline-md); }
+
+/* Positioning */
+.start-0 { inset-inline-start: 0; }
+.end-0 { inset-inline-end: 0; }
+
+/* Flex/Grid Alignment */
+.text-start { text-align: start; }
+.text-end { text-align: end; }
+
+/* Icon Mirroring */
+[dir="rtl"] .icon-rtl-flip,
+[dir="rtl"] [data-direction="forward"],
+[dir="rtl"] [data-direction="back"] {
+  transform: scaleX(-1);
 }

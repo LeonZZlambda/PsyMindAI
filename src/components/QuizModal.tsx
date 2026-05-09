@@ -233,7 +233,7 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, config }) => {
                             onClick={handleNext}
                         >
                             {currentIndex + 1 === questions.length ? t('quiz.active.see_results') : t('quiz.active.next')}
-                            <span className="material-symbols-outlined">arrow_forward</span>
+                            <span className="material-symbols-outlined icon-rtl-flip">arrow_forward</span>
                         </button>
                     )}
                 </div>

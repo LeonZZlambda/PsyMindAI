@@ -3,6 +3,7 @@ import { useTranslation, Trans } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
 import ReactMarkdown from 'react-markdown';
 import logger from '../utils/logger';
+import { useSnackbar } from '../context/SnackbarContext';
 import BaseModal from './BaseModal';
 import { generateLearningTrail, explainQuizError, evaluateOpenEnded } from "../services/tools/learningService";
 import "../styles/learning.css";
@@ -66,6 +67,7 @@ interface GuidedLearningModalProps {
 
 export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningModalProps) {
   const { t } = useTranslation(['learning', 'translation']);
+  const { showSnackbar } = useSnackbar();
   const DEFAULT_TRAILS = useMemo(() => t("guided_learning.default_trails", { returnObjects: true }) as LearningTrail[] || [], [t]);
   const [customTrails, setCustomTrails] = useState<LearningTrail[]>(() => {
     try {
@@ -163,19 +165,19 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
     // Fisher-Yates pra ordem real das questões sem alterar os originais do 'trails'
     const shuffled = [...pool];
     for (let i = shuffled.length - 1; i > 0; i--) {
-      // eslint-disable-next-line react-hooks/purity
+       
       const j = Math.floor(Math.random() * (i + 1));
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
 
     // Adiciona algumas questões duplicadas aleatoriamente
     if (shuffled.length >= 3) {
-      // eslint-disable-next-line react-hooks/purity
+       
       const dupCount = Math.floor(Math.random() * 3) + 1;
       for (let k = 0; k < dupCount; k++) {
-         // eslint-disable-next-line react-hooks/purity
+          
          const randomPoolItem = pool[Math.floor(Math.random() * pool.length)];
-         // eslint-disable-next-line react-hooks/purity
+          
          shuffled.splice(Math.floor(Math.random() * shuffled.length), 0, randomPoolItem);
       }
     }
@@ -186,7 +188,7 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
         // Deep copy das opções para não mutar o objeto de trails original
         const opts = q.options.map(o => ({ ...o }));
         for (let i = opts.length - 1; i > 0; i--) {
-            // eslint-disable-next-line react-hooks/purity
+             
             const j = Math.floor(Math.random() * (i + 1));
             [opts[i], opts[j]] = [opts[j], opts[i]];
          }
@@ -215,7 +217,7 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
   const handleSrsAction = (flashcard: FlashcardItem, difficulty: number, isTrailMode: boolean) => {
     // difficulty: 0 (Errei), 1 (Difícil), 2 (Bom), 3 (Fácil)
     const intervals = [1000 * 30, 1000 * 60 * 5, 1000 * 60 * 30, 1000 * 60 * 60 * 2]; // Reduced intervals: 30s, 5m, 30m, 2h
-    // eslint-disable-next-line react-hooks/purity
+     
     const now = Date.now();
     const nextReview = now + intervals[difficulty];
     const newSrs = { ...srsData, [flashcard.front]: { nextReview, difficulty } };
@@ -368,19 +370,19 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
             localStorage.setItem("psy_mind_custom_trails", JSON.stringify(updated));
             return updated;
          });
-         alert(t("guided_learning.alerts.import_success"));
+         showSnackbar(t("guided_learning.alerts.import_success"));
       }
     } catch {
-      alert(t("guided_learning.alerts.import_error"));
+      showSnackbar(t("guided_learning.alerts.import_error"));
     }
   };
 
   const handleExportTrail = async (trail: LearningTrail) => {
     try {
       await navigator.clipboard.writeText(JSON.stringify(trail));
-      alert(t("guided_learning.alerts.export_success"));
+      showSnackbar(t("guided_learning.alerts.export_success"));
     } catch {
-      alert(t("guided_learning.alerts.export_error"));
+      showSnackbar(t("guided_learning.alerts.export_error"));
     }
   };
 
@@ -412,12 +414,12 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
           setNewTrailTopic("");
           startTrail(mappedTrail);
        } else {
-          alert(t("guided_learning.alerts.generate_error"));
+          showSnackbar(t("guided_learning.alerts.generate_error"));
           setIsGenerating(false);
        }
     } catch (e) {
        logger.error("Erro gerando trilha:", e);
-       alert(t("guided_learning.alerts.generate_catch"));
+       showSnackbar(t("guided_learning.alerts.generate_catch"));
        setIsGenerating(false);
     }
   };
@@ -475,7 +477,7 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
                       </div>
                    </div>
                    <button className="primary-btn cta" onClick={isTrail ? nextTrailStep : undefined} style={{width: '100%'}}>
-                      {t("guided_learning.open_ended.continue_trail")} <span className="material-symbols-outlined">arrow_forward</span>
+                      {t("guided_learning.open_ended.continue_trail")} <span className="material-symbols-outlined icon-rtl-flip">arrow_forward</span>
                    </button>
                  </div>
                )}
@@ -550,11 +552,11 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
                   {isTrail ? (
                      (activeTrailContent && trailStepIndex >= activeTrailContent.length - 1) ? 
                         <><span className="material-symbols-outlined">done_all</span> {t("guided_learning.quiz.finish_trail")}</> : 
-                        <><span className="material-symbols-outlined">arrow_forward</span> {t("guided_learning.quiz.next_question")}</>
+                        <><span className="material-symbols-outlined icon-rtl-flip">arrow_forward</span> {t("guided_learning.quiz.next_question")}</>
                   ) : (
                      (genericQuizIndex >= ALL_QUIZZES.length - 1) ? 
                         <><span className="material-symbols-outlined">done_all</span> {t("guided_learning.quiz.see_results")}</> : 
-                        <><span className="material-symbols-outlined">arrow_forward</span> {t("guided_learning.quiz.next_question")}</>
+                        <><span className="material-symbols-outlined icon-rtl-flip">arrow_forward</span> {t("guided_learning.quiz.next_question")}</>
                   )}
                </button>
             )}
@@ -657,7 +659,7 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
           <div className="trail-active-header">
             <div className="trail-active-header-left">
               <button className="trail-active-back-btn" onClick={closeTrail}>
-                        <span className="material-symbols-outlined" style={{marginRight: '8px'}}>arrow_back</span> {t("guided_learning.trails.active_back")}
+                        <span className="material-symbols-outlined icon-rtl-flip" style={{marginRight: '8px'}}>arrow_back</span> {t("guided_learning.trails.active_back")}
                      </button>
                      <h3 className="trail-active-title">
                         {selectedTrail.icon && <span className="material-symbols-outlined" style={{ color: 'var(--primary-color)'}}>{selectedTrail.icon}</span>} 
@@ -772,12 +774,12 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
                                                 </div>
                                                 {trail.isAiGenerated ? (
                                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                                                      <button type="button" className="icon-btn" aria-label={t('guided_learning.aria.start_trail')}><span className="material-symbols-outlined">play_arrow</span></button>
+                                                      <button type="button" className="icon-btn" aria-label={t('guided_learning.aria.start_trail')}><span className="material-symbols-outlined icon-rtl-flip">play_arrow</span></button>
                                                       <button type="button" className="icon-btn" onClick={(e) => { e.stopPropagation(); handleExportTrail(trail); }} aria-label={t('guided_learning.aria.export_trail')} style={{ color: 'var(--primary-color)' }}><span className="material-symbols-outlined">ios_share</span></button>
                                                       <button type="button" className="icon-btn" onClick={(e) => handleDeleteTrail(e, trail.id)} aria-label={t('guided_learning.aria.delete_trail')} style={{ color: 'var(--error-color, #ef4444)' }}><span className="material-symbols-outlined">delete</span></button>
                                                    </div>
                                                 ) : (
-                                                   <button type="button" className="icon-btn" aria-label={t('guided_learning.aria.start_trail')}><span className="material-symbols-outlined">play_arrow</span></button>
+                                                   <button type="button" className="icon-btn" aria-label={t('guided_learning.aria.start_trail')}><span className="material-symbols-outlined icon-rtl-flip">play_arrow</span></button>
                                                 )}
                                              </div>
                                           );

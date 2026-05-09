@@ -547,7 +547,7 @@ const MessageList: React.FC = () => {
                   </span>
                 </div>
                 <div className="message-content-wrapper">
-                  <div className="message-content">
+                  <div className="message-content" dir="auto">
                     {message.files && message.files.length > 0 && (
                       <div className="message-files">
                         {message.files.map((file, i) => (
