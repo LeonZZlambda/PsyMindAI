@@ -91,6 +91,32 @@
   --spacing-inline-lg: var(--spacing-lg);
   --spacing-inline-xl: var(--spacing-xl);
 
+  /* M3 Expressive - Typography Scale */
+  /* Display */
+  --ts-display-l: 3.5rem;   --lh-display-l: 4rem;   --fw-display-l: 400; --ls-display-l: -0.25px;
+  --ts-display-m: 2.8125rem;--lh-display-m: 3.25rem;--fw-display-m: 400; --ls-display-m: 0px;
+  --ts-display-s: 2.25rem;  --lh-display-s: 2.75rem;--fw-display-s: 400; --ls-display-s: 0px;
+
+  /* Headline */
+  --ts-headline-l: 2rem;    --lh-headline-l: 2.5rem;--fw-headline-l: 400; --ls-headline-l: 0px;
+  --ts-headline-m: 1.75rem; --lh-headline-m: 2.25rem;--fw-headline-m: 400; --ls-headline-m: 0px;
+  --ts-headline-s: 1.5rem;  --lh-headline-s: 2rem;  --fw-headline-s: 400; --ls-headline-s: 0px;
+
+  /* Title */
+  --ts-title-l: 1.375rem;   --lh-title-l: 1.75rem;  --fw-title-l: 400; --ls-title-l: 0px;
+  --ts-title-m: 1rem;       --lh-title-m: 1.5rem;   --fw-title-m: 500; --ls-title-m: 0.15px;
+  --ts-title-s: 0.875rem;   --lh-title-s: 1.25rem;  --fw-title-s: 500; --ls-title-s: 0.1px;
+
+  /* Body */
+  --ts-body-l: 1rem;        --lh-body-l: 1.5rem;    --fw-body-l: 400; --ls-body-l: 0.5px;
+  --ts-body-m: 0.875rem;    --lh-body-m: 1.25rem;   --fw-body-m: 400; --ls-body-m: 0.25px;
+  --ts-body-s: 0.75rem;     --lh-body-s: 1rem;      --fw-body-s: 400; --ls-body-s: 0.4px;
+
+  /* Label */
+  --ts-label-l: 0.875rem;   --lh-label-l: 1.25rem;  --fw-label-l: 500; --ls-label-l: 0.1px;
+  --ts-label-m: 0.75rem;    --lh-label-m: 1rem;     --fw-label-m: 500; --ls-label-m: 0.5px;
+  --ts-label-s: 0.6875rem;  --lh-label-s: 1rem;     --fw-label-s: 500; --ls-label-s: 0.5px;
+
   /* Scrollbars - M3 Style */
   --scrollbar-width: 8px;
   --scrollbar-thumb: rgba(0, 0, 0, 0.2);

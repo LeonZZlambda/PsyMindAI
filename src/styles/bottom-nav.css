@@ -1,0 +1,96 @@
+/* Material Design 3 Bottom Navigation */
+.bottom-nav {
+  display: none; /* Hidden on desktop */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background-color: var(--surface-container);
+  border-top: 1px solid var(--border-color);
+  z-index: 900;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  /* iOS Safe Area */
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--text-light);
+  gap: 4px;
+  min-width: 64px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.bottom-nav-indicator {
+  width: 64px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  transition: background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
+              color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+}
+
+.bottom-nav-item.active .bottom-nav-indicator {
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+}
+
+.bottom-nav-item.active .bottom-nav-label {
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.bottom-nav-label {
+  font-size: var(--ts-label-m);
+  letter-spacing: var(--ls-label-m);
+}
+
+/* FAB within Bottom Nav */
+.bottom-nav-fab-container {
+  width: 56px;
+  height: 56px;
+  background-color: var(--primary-color);
+  color: #fff;
+  border-radius: 16px; /* Squircle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--elevation-3);
+}
+
+.bottom-nav-fab-container .material-symbols-outlined {
+  font-size: 24px;
+}
+
+.app.dark .bottom-nav-fab-container {
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+}
+
+/* Media Query */
+@media (max-width: 768px) {
+  .bottom-nav {
+    display: flex;
+  }
+
+  .app .main-content {
+    /* Prevent overlap with bottom nav */
+    padding-bottom: calc(80px + env(safe-area-inset-bottom));
+  }
+
+  /* Hide Sidebar entirely on mobile since we have BottomNav */
+  .sidebar, .sidebar-overlay {
+    display: none !important;
+  }
+}

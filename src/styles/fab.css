@@ -1,0 +1,100 @@
+/* Material Design 3 FAB (Floating Action Button) */
+.md-fab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  box-shadow: var(--elevation-3);
+  transition: box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
+              transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
+              width var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard),
+              border-radius var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.md-fab:hover {
+  box-shadow: var(--elevation-4);
+}
+
+.md-fab:active {
+  box-shadow: var(--elevation-2);
+}
+
+/* Squircles (Rounded corners mapped to sizes) */
+.md-fab--small {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+}
+
+.md-fab--small .md-fab__icon {
+  font-size: 24px;
+}
+
+.md-fab--regular {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+}
+
+.md-fab--regular .md-fab__icon {
+  font-size: 24px;
+}
+
+.md-fab--large {
+  width: 96px;
+  height: 96px;
+  border-radius: 28px;
+}
+
+.md-fab--large .md-fab__icon {
+  font-size: 36px;
+}
+
+/* Extended FAB */
+.md-fab--extended {
+  width: auto;
+  min-width: 80px;
+  height: 56px;
+  border-radius: 16px;
+  padding: 0 16px;
+  justify-content: flex-start;
+  gap: 12px;
+}
+
+.md-fab__text {
+  font-size: var(--ts-label-l);
+  line-height: var(--lh-label-l);
+  font-weight: var(--fw-label-l);
+  letter-spacing: var(--ls-label-l);
+  white-space: nowrap;
+}
+
+/* Color Variants */
+.md-fab--surface {
+  background-color: var(--surface-container-high);
+  color: var(--primary-color);
+}
+
+.md-fab--primary {
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+}
+
+.md-fab--secondary {
+  background-color: var(--secondary-container, #cce8e4);
+  color: var(--on-secondary-container, #005047);
+}
+
+.md-fab--tertiary {
+  background-color: var(--tertiary-container, #eaddff);
+  color: var(--on-tertiary-container, #21005d);
+}
+
+.app.dark .md-fab--primary {
+  background-color: var(--primary-container); /* It's inverted in variables.css for dark mode */
+  color: var(--on-primary-container);
+}

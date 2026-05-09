@@ -34,12 +34,74 @@ input, textarea {
   text-align: start;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1 {
   margin: 0;
+  font-size: var(--ts-display-s);
+  line-height: var(--lh-display-s);
+  font-weight: var(--fw-display-s);
+  letter-spacing: var(--ls-display-s);
+}
+
+h2 {
+  margin: 0;
+  font-size: var(--ts-headline-m);
+  line-height: var(--lh-headline-m);
+  font-weight: var(--fw-headline-m);
+  letter-spacing: var(--ls-headline-m);
+}
+
+h3 {
+  margin: 0;
+  font-size: var(--ts-headline-s);
+  line-height: var(--lh-headline-s);
+  font-weight: var(--fw-headline-s);
+  letter-spacing: var(--ls-headline-s);
+}
+
+h4 {
+  margin: 0;
+  font-size: var(--ts-title-l);
+  line-height: var(--lh-title-l);
+  font-weight: var(--fw-title-l);
+  letter-spacing: var(--ls-title-l);
+}
+
+h5 {
+  margin: 0;
+  font-size: var(--ts-title-m);
+  line-height: var(--lh-title-m);
+  font-weight: var(--fw-title-m);
+  letter-spacing: var(--ls-title-m);
+}
+
+h6 {
+  margin: 0;
+  font-size: var(--ts-title-s);
+  line-height: var(--lh-title-s);
+  font-weight: var(--fw-title-s);
+  letter-spacing: var(--ls-title-s);
 }
 
 p {
   margin: 0;
+  font-size: var(--ts-body-l);
+  line-height: var(--lh-body-l);
+  font-weight: var(--fw-body-l);
+  letter-spacing: var(--ls-body-l);
+}
+
+small {
+  font-size: var(--ts-body-s);
+  line-height: var(--lh-body-s);
+  font-weight: var(--fw-body-s);
+  letter-spacing: var(--ls-body-s);
+}
+
+label, .label-text {
+  font-size: var(--ts-label-l);
+  line-height: var(--lh-label-l);
+  font-weight: var(--fw-label-l);
+  letter-spacing: var(--ls-label-l);
 }
 
 /* ═══════════════════════════════════════════════════════════════

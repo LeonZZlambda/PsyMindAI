@@ -69,31 +69,34 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, onNewChat, onA
           <span className="material-symbols-outlined">menu</span>
         </button>
       </div>
-      <button 
-        className={`new-chat-btn ${isNewChatAnimating ? 'active' : ''}`}
-        onClick={onNewChat} 
-        title={`${t('sidebar.new_chat')} (${cmdKey} + ${shiftKey} + O)`}
-        aria-label={t('sidebar.new_chat')}
-      >
-        <span className="material-symbols-outlined">add</span>
-        <span>{t('sidebar.new_chat')}</span>
-        {isOpen && (
-          <div className="shortcut-keys">
-            <kbd>{cmdKey}</kbd>
-            <kbd>O</kbd>
-          </div>
-        )}
-      </button>
+      <div style={{ padding: '0 12px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <button 
+          className={`new-chat-btn ${isNewChatAnimating ? 'active' : ''}`}
+          onClick={onNewChat} 
+          title={`${t('sidebar.new_chat')} (${cmdKey} + ${shiftKey} + O)`}
+          aria-label={t('sidebar.new_chat')}
+        >
+          <span className="material-symbols-outlined">add</span>
+          <span>{t('sidebar.new_chat')}</span>
+          {isOpen && (
+            <div className="shortcut-keys">
+              <kbd>{cmdKey}</kbd>
+              <kbd>{shiftKey}</kbd>
+              <kbd>O</kbd>
+            </div>
+          )}
+        </button>
 
-      <button 
-        className="new-chat-btn secondary anonymous-btn"
-        onClick={onAnonymousChat} 
-        title={t('sidebar.anonymous_tooltip')}
-        aria-label={t('sidebar.anonymous_chat')}
-      >
-        <span className="material-symbols-outlined">visibility_off</span>
-        <span>{t('sidebar.anonymous_chat')}</span>
-      </button>
+        <button 
+          className="new-chat-btn secondary anonymous-btn"
+          onClick={onAnonymousChat} 
+          title={t('sidebar.anonymous_tooltip')}
+          aria-label={t('sidebar.anonymous_chat')}
+        >
+          <span className="material-symbols-outlined">visibility_off</span>
+          <span>{t('sidebar.anonymous_chat')}</span>
+        </button>
+      </div>
       
       <div className="recent-chats" role="group" aria-label={t('sidebar.recent_label')}>
         {chats.length > 0 && <span className="recent-label">{t('sidebar.recent_label')}</span>}

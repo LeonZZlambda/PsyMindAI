@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import BaseModal from './BaseModal';
 import CustomSelect from './CustomSelect';
+import TextField from './TextField';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -327,13 +328,14 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, onOpenIm
               </div>
               <div className="api-key-container">
                 <div className="api-key-input-group">
-                  <input 
+                  <TextField 
                     id="api-key-input"
                     type="password"
-                    className="input-field api-key-input"
-                    placeholder={t('settings.api_key.placeholder')}
+                    label={t('settings.api_key.placeholder')}
                     value={apiKey}
                     onChange={(e) => setApiKey(e.target.value)}
+                    variant="filled"
+                    className="api-key-input"
                   />
                   <button className="primary-btn api-key-save-btn" onClick={handleSaveApiKey}>
                     {t('settings.api_key.save')}

@@ -6,7 +6,7 @@ export const GlobalRipple: React.FC = () => {
     const handlePointerDown = (e: PointerEvent) => {
       // Check if the target is a button or has a button-like class
       const target = (e.target as HTMLElement).closest(
-        '.primary-btn, .secondary-btn, .danger-btn, .action-btn, .sidebar-item, .toggle-switch'
+        '.primary-btn, .secondary-btn, .danger-btn, .action-btn, .sidebar-item, .toggle-switch, .md-fab'
       ) as HTMLElement;
 
       if (!target) return;

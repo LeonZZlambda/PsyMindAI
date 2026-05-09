@@ -13,6 +13,7 @@ import { SkeletonLandingPage, SkeletonChatPage } from './components/SkeletonScre
 import ErrorFallback from './components/ErrorFallback'
 import TelemetryConsent from './components/TelemetryConsent'
 import ModalRenderer from './components/ModalRenderer'
+import BottomNav from './components/BottomNav'
 import ScrollToTop from './components/ScrollToTop'
 import useKeyboardShortcuts from './components/KeyboardShortcuts'
 import { useTheme } from './context/ThemeContext'
@@ -214,6 +215,10 @@ function App() {
                     aria-hidden="true"
                   />
                 )}
+                <BottomNav 
+                  onNewChat={handleNewChat}
+                  onOpenSettings={() => toggleModal('settings')}
+                />
               </>
             )}
 

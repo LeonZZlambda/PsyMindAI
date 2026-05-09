@@ -12,22 +12,26 @@
 }
 
 .sidebar.closed {
-  width: 0;
+  width: 80px;
   padding-inline-start: 0;
   padding-inline-end: 0;
-  pointer-events: none;
+  pointer-events: auto;
+  align-items: center;
 }
 
 /* Prevent content squashing during animation */
 .sidebar>* {
-  min-width: 16.75rem;
+  min-width: 100%;
   opacity: 1;
   transition: opacity 0.15s ease-out;
 }
 
-.sidebar.closed>* {
+.sidebar.closed .recent-chats,
+.sidebar.closed .sidebar-footer span:not(.material-symbols-outlined),
+.sidebar.closed .shortcut-keys,
+.sidebar.closed .anonymous-btn span:not(.material-symbols-outlined) {
   opacity: 0;
-  transition: opacity 0.1s ease-in;
+  display: none;
 }
 
 .sidebar-header {
@@ -67,6 +71,7 @@
   cursor: pointer;
   transition: background 0.2s ease;
   margin-bottom: 1.5rem;
+  width: 100%;
 }
 
 .new-chat-btn:hover {
@@ -88,6 +93,48 @@
 .new-chat-btn .material-symbols-outlined {
   font-size: 20px;
   color: var(--text-light);
+}
+
+.sidebar.closed .new-chat-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  justify-content: center;
+  padding: 0;
+  margin: 0 auto 1.5rem auto;
+}
+
+.sidebar.closed .new-chat-btn span:not(.material-symbols-outlined),
+.sidebar.closed .new-chat-btn .shortcut-keys {
+  display: none;
+}
+
+/* Anonymous Btn - adapting for Rail */
+.anonymous-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 24px;
+  background: transparent;
+  color: var(--text-color);
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+.anonymous-btn:hover {
+  background: var(--surface-container-high);
+}
+.sidebar.closed .anonymous-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  justify-content: center;
+  padding: 0;
 }
 
 .recent-chats {
@@ -188,10 +235,10 @@
 
 .sidebar-footer {
   margin-top: auto;
-  padding-top: 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  padding: 1rem 12px;
 }
 
 .sidebar-item {
@@ -201,13 +248,25 @@
   padding: 0.75rem 1rem;
   background: transparent;
   border: none;
-  border-radius: 24px;
-  color: var(--text-light);
+  border-radius: var(--shape-corner-medium);
+  color: var(--text-color);
   font-family: inherit;
   font-size: 0.875rem;
   cursor: pointer;
-  text-align: start;
-  transition: background 0.2s ease, transform 0.1s ease;
+  transition: background 0.2s ease;
+  width: 100%;
+}
+
+.sidebar.closed .sidebar-item {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 0;
+  gap: 4px;
+}
+
+.sidebar.closed .sidebar-item .material-symbols-outlined {
+  margin-right: 0;
 }
 
 .sidebar-item:hover {
