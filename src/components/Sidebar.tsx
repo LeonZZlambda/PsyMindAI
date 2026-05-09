@@ -137,7 +137,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, onNewChat, onA
           <span>{t('sidebar.help')}</span>
           {isOpen && (
             <div className="shortcut-keys">
-              <kbd>{cmdKey}</kbd>
+              <kbd className={cmdKey.length > 1 ? 'wide' : ''}>{cmdKey}</kbd>
               <kbd>/</kbd>
             </div>
           )}
@@ -152,7 +152,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, onNewChat, onA
           <span>{t('sidebar.settings')}</span>
           {isOpen && (
             <div className="shortcut-keys">
-              <kbd>{cmdKey}</kbd>
+              <kbd className={cmdKey.length > 1 ? 'wide' : ''}>{cmdKey}</kbd>
               <kbd>,</kbd>
             </div>
           )}

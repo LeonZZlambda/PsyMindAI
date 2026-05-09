@@ -118,46 +118,43 @@
 }
 
 .suggestion strong .material-symbols-outlined {
-  font-size: 24px;
-  background: rgba(255, 255, 255, 0.6);
-  padding: 8px;
-  border-radius: 10px;
-  color: #4285f4;
-  -webkit-text-fill-color: initial;
-  background-clip: border-box;
-  -webkit-background-clip: border-box;
-  animation: none;
+  font-size: 22px;
+  background: var(--surface-container-highest);
+  color: var(--primary-color);
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--shape-corner-medium);
+  box-shadow: var(--elevation-1);
+  transition: all 0.3s var(--md-sys-motion-easing-standard);
+  flex-shrink: 0;
 }
 
-.suggestion:nth-child(2) strong .material-symbols-outlined {
-  background: linear-gradient(135deg, #7c4dff, #b388ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  background-size: 200% 200%;
-  animation: gemini-gradient-move 4s linear infinite;
-  color: transparent;
+.suggestion:hover strong .material-symbols-outlined {
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+  transform: scale(1.05);
 }
 
-.suggestion:nth-child(3) strong .material-symbols-outlined {
-  background: linear-gradient(135deg, #009688, #4db6ac);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  background-size: 200% 200%;
-  animation: gemini-gradient-move 4s linear infinite;
-  color: transparent;
+.suggestion:nth-child(1) strong .material-symbols-outlined { color: #00796b; background: rgba(0, 121, 107, 0.1); }
+.suggestion:nth-child(2) strong .material-symbols-outlined { color: #7c4dff; background: rgba(124, 77, 255, 0.1); }
+.suggestion:nth-child(3) strong .material-symbols-outlined { color: #009688; background: rgba(0, 150, 136, 0.1); }
+.suggestion:nth-child(4) strong .material-symbols-outlined { color: #4285f4; background: rgba(66, 133, 244, 0.1); }
+.suggestion:nth-child(5) strong .material-symbols-outlined { color: #f4b400; background: rgba(244, 180, 0, 0.1); }
+.suggestion:nth-child(6) strong .material-symbols-outlined { color: #0f9d58; background: rgba(15, 157, 88, 0.1); }
+
+.app.dark .suggestion strong .material-symbols-outlined {
+  background: var(--surface-container-high);
 }
 
-.suggestion:nth-child(4) strong .material-symbols-outlined {
-  background: linear-gradient(135deg, #4285f4, #8ab4f8);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  background-size: 200% 200%;
-  animation: gemini-gradient-move 4s linear infinite;
-  color: transparent;
-}
+.app.dark .suggestion:nth-child(1) strong .material-symbols-outlined { color: #80cbc4; }
+.app.dark .suggestion:nth-child(2) strong .material-symbols-outlined { color: #b388ff; }
+.app.dark .suggestion:nth-child(3) strong .material-symbols-outlined { color: #4db6ac; }
+.app.dark .suggestion:nth-child(4) strong .material-symbols-outlined { color: #8ab4f8; }
+.app.dark .suggestion:nth-child(5) strong .material-symbols-outlined { color: #fdd663; }
+.app.dark .suggestion:nth-child(6) strong .material-symbols-outlined { color: #81c995; }
 
 .suggestion span {
   color: var(--text-light);

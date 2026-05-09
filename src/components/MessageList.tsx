@@ -365,9 +365,7 @@ const MessageList: React.FC = () => {
           transition={{ duration: 0.5 }}
         >
 
-          <div className="welcome-icon">
-            <span className="material-symbols-outlined">psychology</span>
-          </div>
+
           <h2>
             <span>{t('chat.messages.welcome_title')}</span>
           </h2>

@@ -10,15 +10,21 @@
 .md-text-field__container {
   display: flex;
   position: relative;
-  border-radius: var(--shape-corner-extra-small) var(--shape-corner-extra-small) 0 0;
+  border-radius: var(--shape-corner-small);
   box-sizing: border-box;
   align-items: stretch;
   cursor: text;
+  transition: all 0.2s var(--md-sys-motion-easing-standard);
 }
 
 .md-text-field--filled .md-text-field__container {
+  background-color: var(--surface-container-high);
+  border-bottom: 2px solid transparent;
+}
+
+.md-text-field--filled.md-text-field--focused .md-text-field__container {
   background-color: var(--surface-container-highest);
-  border-bottom: 1px solid var(--text-color);
+  border-bottom-color: var(--primary-color);
 }
 
 .app.dark .md-text-field--filled .md-text-field__container {
@@ -90,14 +96,7 @@
 
 /* Filled Style Active Indicator (Bottom Line) */
 .md-text-field__active-indicator {
-  position: absolute;
-  bottom: -1px; /* Align with border-bottom */
-  left: 0;
-  right: 0;
-  height: 2px;
-  background-color: var(--primary-color);
-  transform: scaleX(0);
-  transition: transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-emphasized);
+  display: none; /* Removed in favor of border-bottom on container */
 }
 
 .md-text-field--focused .md-text-field__active-indicator {

@@ -208,8 +208,8 @@ const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose, initialTab = 'fa
                     <div className="shortcut-item">
                       <span className="shortcut-desc">{t('help.shortcuts.items.new_chat')}</span>
                       <div className="shortcut-keys">
-                        <kbd>{cmdKey}</kbd>
-                        <kbd>{shiftKey}</kbd>
+                        <kbd className={cmdKey.length > 1 ? 'wide' : ''}>{cmdKey}</kbd>
+                        <kbd className={shiftKey.length > 1 ? 'wide' : ''}>{shiftKey}</kbd>
                         <kbd>O</kbd>
                       </div>
                     </div>
@@ -217,7 +217,7 @@ const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose, initialTab = 'fa
                     <div className="shortcut-item">
                       <span className="shortcut-desc">{t('help.shortcuts.items.settings')}</span>
                       <div className="shortcut-keys">
-                        <kbd>{cmdKey}</kbd>
+                        <kbd className={cmdKey.length > 1 ? 'wide' : ''}>{cmdKey}</kbd>
                         <kbd>,</kbd>
                       </div>
                     </div>
@@ -225,7 +225,7 @@ const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose, initialTab = 'fa
                     <div className="shortcut-item">
                       <span className="shortcut-desc">{t('help.shortcuts.items.help')}</span>
                       <div className="shortcut-keys">
-                        <kbd>{cmdKey}</kbd>
+                        <kbd className={cmdKey.length > 1 ? 'wide' : ''}>{cmdKey}</kbd>
                         <kbd>/</kbd>
                       </div>
                     </div>
@@ -233,8 +233,8 @@ const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose, initialTab = 'fa
                     <div className="shortcut-item">
                       <span className="shortcut-desc">{t('help.shortcuts.items.view_shortcuts')}</span>
                       <div className="shortcut-keys">
-                        <kbd>{cmdKey}</kbd>
-                        <kbd>{shiftKey}</kbd>
+                        <kbd className={cmdKey.length > 1 ? 'wide' : ''}>{cmdKey}</kbd>
+                        <kbd className={shiftKey.length > 1 ? 'wide' : ''}>{shiftKey}</kbd>
                         <kbd>/</kbd>
                       </div>
                     </div>
@@ -249,23 +249,23 @@ const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose, initialTab = 'fa
                     <div className="shortcut-item">
                       <span className="shortcut-desc">{t('help.shortcuts.items.send')}</span>
                       <div className="shortcut-keys">
-                        <kbd>Enter</kbd>
+                        <kbd className="wide">Enter</kbd>
                       </div>
                     </div>
 
                     <div className="shortcut-item">
                       <span className="shortcut-desc">{t('help.shortcuts.items.new_line')}</span>
                       <div className="shortcut-keys">
-                        <kbd>{shiftKey}</kbd>
-                        <kbd>Enter</kbd>
+                        <kbd className={shiftKey.length > 1 ? 'wide' : ''}>{shiftKey}</kbd>
+                        <kbd className="wide">Enter</kbd>
                       </div>
                     </div>
 
                     <div className="shortcut-item">
                       <span className="shortcut-desc">{t('help.shortcuts.items.mic')}</span>
                       <div className="shortcut-keys">
-                        <kbd>{cmdKey}</kbd>
-                        <kbd>{shiftKey}</kbd>
+                        <kbd className={cmdKey.length > 1 ? 'wide' : ''}>{cmdKey}</kbd>
+                        <kbd className={shiftKey.length > 1 ? 'wide' : ''}>{shiftKey}</kbd>
                         <kbd>.</kbd>
                       </div>
                     </div>
@@ -273,8 +273,8 @@ const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose, initialTab = 'fa
                     <div className="shortcut-item">
                       <span className="shortcut-desc">{t('help.shortcuts.items.attach')}</span>
                       <div className="shortcut-keys">
-                        <kbd>{cmdKey}</kbd>
-                        <kbd>{shiftKey}</kbd>
+                        <kbd className={cmdKey.length > 1 ? 'wide' : ''}>{cmdKey}</kbd>
+                        <kbd className={shiftKey.length > 1 ? 'wide' : ''}>{shiftKey}</kbd>
                         <kbd>U</kbd>
                       </div>
                     </div>

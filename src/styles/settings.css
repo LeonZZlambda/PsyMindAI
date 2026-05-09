@@ -317,7 +317,7 @@
 /* API Key Input Group */
 .api-key-input-group {
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* Align with the top of the input container */
   gap: 12px;
   width: 100%;
 }
@@ -325,7 +325,7 @@
 .api-key-input {
   flex: 1;
   min-width: 200px;
-  margin-bottom: 0;
+  margin-bottom: 0 !important;
 }
 
 .api-key-save-btn {
@@ -340,11 +340,22 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.1s active;
+  transition: all 0.2s ease;
+  box-shadow: var(--elevation-1);
+}
+
+.api-key-save-btn:hover {
+  box-shadow: var(--elevation-2);
+  filter: brightness(1.1);
+}
+
+.api-key-save-btn:active {
+  transform: scale(0.98);
 }
 
 .app.dark .api-key-save-btn {
-  color: #001d35; /* Dark navy text for high contrast on light teal background */
+  color: var(--on-primary-container);
+  background-color: var(--primary-container);
   font-weight: 600;
 }
 
