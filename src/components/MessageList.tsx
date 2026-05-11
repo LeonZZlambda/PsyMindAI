@@ -312,15 +312,22 @@ const MessageList: React.FC = () => {
     if (!userScrolledUpRef.current) scrollToBottom()
   }, [messages, isTyping])
 
+  const scrollThrottleRef = useRef<NodeJS.Timeout | null>(null)
   const handleScroll = () => {
-    const el = chatContainerRef.current as HTMLElement | null
-    if (!el) return
-    const { scrollTop, scrollHeight, clientHeight } = el
-    const atBottom = scrollHeight - scrollTop - clientHeight < 60
-    if (!isAutoScrollingRef.current) {
-      userScrolledUpRef.current = !atBottom
-    }
-    setShowScrollTop(scrollTop > 300)
+    if (scrollThrottleRef.current) return
+
+    scrollThrottleRef.current = setTimeout(() => {
+      const el = chatContainerRef.current as HTMLElement | null
+      if (el) {
+        const { scrollTop, scrollHeight, clientHeight } = el
+        const atBottom = scrollHeight - scrollTop - clientHeight < 60
+        if (!isAutoScrollingRef.current) {
+          userScrolledUpRef.current = !atBottom
+        }
+        setShowScrollTop(scrollTop > 300)
+      }
+      scrollThrottleRef.current = null
+    }, 100)
   }
 
   const speakMessage = (text: string, id: number) => {
@@ -352,6 +359,7 @@ const MessageList: React.FC = () => {
         window.speechSynthesis.cancel()
       }
       if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current)
+      if (scrollThrottleRef.current) clearTimeout(scrollThrottleRef.current)
     }
   }, [])
 
