@@ -1097,19 +1097,21 @@ textarea#feedback-text:focus {
   }
 }
 
-/* Make reframing primary actions fill their column on desktop/tablet too */
+/* Make primary actions fill their container width */
 .reframing-step .action-btn.primary,
 .step-container .action-btn.primary,
-.reframing-result .action-btn.primary {
+.reframing-result .action-btn.primary,
+.feeling-input-container .action-btn.primary {
   width: 100%;
   max-width: 100%;
   display: flex;
 }
 
-/* Make reframing secondary actions fill their column as well */
+/* Make secondary actions fill their container width as well */
 .reframing-step .action-btn.secondary,
 .step-container .action-btn.secondary,
-.reframing-result .action-btn.secondary {
+.reframing-result .action-btn.secondary,
+.feeling-input-container .action-btn.secondary {
   width: 100%;
   max-width: 100%;
   display: flex;

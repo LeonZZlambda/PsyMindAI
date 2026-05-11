@@ -91,18 +91,27 @@
   border-top: 1px solid var(--border-color);
   background: var(--card-background);
   border-radius: 0 0 28px 28px;
+  display: flex;
+  gap: 12px;
+  padding: 1.5rem;
+}
+
+.kindness-controls .action-btn {
+  flex: 1;
+  padding: 14px 24px;
+  min-width: 0;
 }
 
 .action-btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 10px 24px;
+  gap: 0.6rem;
+  padding: 0.75rem 1.5rem;
   border-radius: 100px;
   font-family: 'Google Sans', Roboto, sans-serif;
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 0.95rem;
+  font-weight: 600;
   line-height: 1.2;
   cursor: pointer;
   transition: all 0.2s ease;
