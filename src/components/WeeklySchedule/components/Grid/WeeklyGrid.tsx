@@ -1,3 +1,4 @@
+// Force HMR Refresh - Today Highlight Update
 import { DndContext, DragEndEvent } from '@dnd-kit/core'
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers'
 import { addDays, format, isSameDay, startOfDay } from 'date-fns'
@@ -307,11 +308,13 @@ export const WeeklyGrid = ({ initialDate = new Date() }: WeeklyGridProps) => {
                 }}
               >
                 <div></div>
-                {dayColumns.map(({ day, date, index }) => (
-                  <div
-                    key={date.toISOString()}
-                    className="weekly-grid-header-day"
-                  >
+                {dayColumns.map(({ day, date, index }) => {
+                  const today = isSameDay(date, new Date());
+                  return (
+                    <div
+                      key={date.toISOString()}
+                      className={`weekly-grid-header-day ${today ? 'is-today' : ''}`}
+                    >
                     <span className="weekly-grid-header-day-weekday">
                       {getDayName(day, t)}
                     </span>
@@ -322,8 +325,9 @@ export const WeeklyGrid = ({ initialDate = new Date() }: WeeklyGridProps) => {
                     >
                       {format(date, weekdays[1])}
                     </span>
-                  </div>
-                ))}
+                    </div>
+                  );
+                })}
               </div>
 
               <div className="weekly-grid-body">
@@ -336,13 +340,16 @@ export const WeeklyGrid = ({ initialDate = new Date() }: WeeklyGridProps) => {
                     }}
                   >
                     <TimeSlotCell label={slot.label} rowHeight={rowHeightPx} isMobile={isMobile} />
-                    {dayColumns.map(({ date }) => (
-                      <div
-                        key={`${slot.id}-${date.toISOString()}`}
-                        className="weekly-grid-cell"
-                        style={{ height: rowHeightPx }}
-                      />
-                    ))}
+                    {dayColumns.map(({ date }) => {
+                      const today = isSameDay(date, new Date());
+                      return (
+                        <div
+                          key={`${slot.id}-${date.toISOString()}`}
+                          className={`weekly-grid-cell ${today ? 'is-today' : ''}`}
+                          style={{ height: rowHeightPx }}
+                        />
+                      );
+                    })}
                   </div>
                 ))}
 

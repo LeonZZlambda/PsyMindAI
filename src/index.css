@@ -178,24 +178,25 @@ a:focus-visible,
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--surface-container-highest);
-  border: 4px solid var(--background-color);
+  background: rgba(0, 0, 0, 0.35);
   border-radius: var(--shape-corner-full);
-  transition: all 0.3s ease;
+  transition: background 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-light);
-  border-width: 2px; /* Makes the visible thumb look wider */
+  background: rgba(0, 0, 0, 0.55);
 }
 
 ::-webkit-scrollbar-thumb:active {
   background: var(--primary-color);
-  border-width: 1px; /* Even wider when dragging */
 }
 
 .app.dark ::-webkit-scrollbar-thumb {
-  border-color: var(--background-color);
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.app.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.45);
 }
 
 /* Hide keyboard shortcuts on touch devices */

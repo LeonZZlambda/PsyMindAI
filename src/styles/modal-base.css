@@ -33,35 +33,31 @@
 @media (max-width: 768px) {
   .modal-overlay {
     align-items: center;
-    padding: var(--spacing-md);
+    padding: var(--spacing-sm);
   }
 
   .modal-content {
-    width: 95%;
+    width: 100%;
     max-width: 500px;
     border-radius: var(--shape-corner-extra-large);
     animation: modalSlideUp var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-emphasized);
   }
 
-  .modal-overlay.closing .modal-content {
-    animation: modalSlideDown var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-accelerated) forwards;
-  }
-
-  /* Mobile S/M Refinements */
-  @media (max-width: 414px) {
-    .modal-header {
-      padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-sm);
+  @media (max-width: 480px) {
+    .modal-content {
+      width: 100%;
+      height: 100%;
+      max-height: 100dvh;
+      border-radius: 0;
     }
     
-    .modal-header h2 {
-      font-size: 1.25rem;
+    .modal-body {
+      padding: var(--spacing-md);
     }
   }
 
-  @media (max-width: 320px) {
-    .modal-header h2 {
-      font-size: 1.1rem;
-    }
+  .modal-overlay.closing .modal-content {
+    animation: modalSlideDown var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-accelerated) forwards;
   }
 }
 

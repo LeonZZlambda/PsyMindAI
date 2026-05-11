@@ -16,6 +16,71 @@ import {
 import DurationPicker from './DurationPicker'
 import TimePickerField from './TimePickerField'
 
+/**
+ * Calculates the best contrasting color (black or white) for a given hex/rgb background
+ */
+const getContrastingColor = (bgColor: string): string => {
+  if (!bgColor) return '#fff'
+
+  // Standardize color to RGB
+  let r, g, b
+
+  // Handle color names (basic support for common ones)
+  const colorNames: Record<string, string> = {
+    white: '#ffffff',
+    black: '#000000',
+    red: '#ff0000',
+    green: '#00ff00',
+    blue: '#0000ff',
+    yellow: '#ffff00',
+    cyan: '#00ffff',
+    magenta: '#ff00ff',
+    silver: '#c0c0c0',
+    gray: '#808080',
+    grey: '#808080',
+    maroon: '#800000',
+    olive: '#808000',
+    purple: '#800080',
+    teal: '#008080',
+    navy: '#000080',
+  }
+
+  let color = bgColor.toLowerCase().trim()
+  if (colorNames[color]) {
+    color = colorNames[color]
+  }
+
+  if (color.startsWith('#')) {
+    const hex = color.replace('#', '')
+    if (hex.length === 3) {
+      r = parseInt(hex[0] + hex[0], 16)
+      g = parseInt(hex[1] + hex[1], 16)
+      b = parseInt(hex[2] + hex[2], 16)
+    } else {
+      r = parseInt(hex.substring(0, 2), 16)
+      g = parseInt(hex.substring(2, 4), 16)
+      b = parseInt(hex.substring(4, 6), 16)
+    }
+  } else if (color.startsWith('rgb')) {
+    const rgbValues = color.match(/\d+/g)
+    if (rgbValues && rgbValues.length >= 3) {
+      r = parseInt(rgbValues[0])
+      g = parseInt(rgbValues[1])
+      b = parseInt(rgbValues[2])
+    }
+  }
+
+  if (r === undefined || g === undefined || b === undefined || isNaN(r) || isNaN(g) || isNaN(b)) {
+    return '#fff'
+  }
+
+  // HSP equation for perceived brightness
+  const hsp = Math.sqrt(0.299 * (r * r) + 0.587 * (g * g) + 0.114 * (b * b))
+
+  // If brightness is more than 155 (out of 255), use black text
+  return hsp > 155 ? '#000000' : '#ffffff'
+}
+
 interface ActivityFormProps {
   isOpen: boolean
   onClose: () => void
@@ -106,6 +171,7 @@ export const ActivityForm = ({
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<FormSchema>({
     resolver,
@@ -177,7 +243,7 @@ export const ActivityForm = ({
     >
       <div className="activity-form-content">
         <form className="activity-form-grid" onSubmit={handleSubmit(internalSubmit)}>
-          <div className="activity-form-field">
+          <div className="activity-form-field full-width">
             <label htmlFor="title" className="activity-form-label">
               {t('form.title', { defaultValue: 'Titulo' })}
             </label>
@@ -208,7 +274,7 @@ export const ActivityForm = ({
             )}
           </div>
 
-          <div className="activity-form-field">
+          <div className="activity-form-field full-width">
             <label htmlFor="description" className="activity-form-label">
               {t('form.description', { defaultValue: 'Descricao' })}
             </label>
@@ -221,52 +287,62 @@ export const ActivityForm = ({
             />
           </div>
 
-          <Controller
-            control={control}
-            name="type"
-            render={({ field }) => (
-              <CustomSelect
-                className="weekly-schedule-select"
-                value={field.value}
-                onChange={(value) => field.onChange(value as ActivityType)}
-                options={activityTypeOptions.map((option) => ({
-                  value: option,
-                  label: t(`type.${option}`, { defaultValue: option }),
-                }))}
-                ariaLabel={t('form.type', { defaultValue: 'Tipo' })}
-              />
-            )}
-          />
+          <div className="activity-form-field full-width">
+            <label className="activity-form-label">
+              {t('form.type', { defaultValue: 'Tipo' })}
+            </label>
+            <Controller
+              control={control}
+              name="type"
+              render={({ field }) => (
+                <CustomSelect
+                  className="weekly-schedule-select"
+                  value={field.value}
+                  onChange={(value) => field.onChange(value as ActivityType)}
+                  options={activityTypeOptions.map((option) => ({
+                    value: option,
+                    label: t(`type.${option}`, { defaultValue: option }),
+                  }))}
+                  ariaLabel={t('form.type', { defaultValue: 'Tipo' })}
+                />
+              )}
+            />
+          </div>
 
-          <Controller
-            control={control}
-            name="days"
-            render={({ field }) => (
-              <div className="activity-form-days">
-                {dayOptions.map((day) => {
-                  const isSelected = field.value.includes(day)
-                  return (
-                    <button
-                      key={day}
-                      type="button"
-                      className={`activity-form-day-chip ${isSelected ? 'selected' : ''}`}
-                      onClick={() => {
-                        field.onChange(
-                          isSelected
-                            ? field.value.filter((value) => value !== day)
-                            : [...field.value, day],
-                        )
-                      }}
-                    >
-                      {t(`days.${day}`, { defaultValue: day.slice(0, 3) })}
-                    </button>
-                  )
-                })}
-              </div>
-            )}
-          />
+          <div className="activity-form-field full-width">
+            <label className="activity-form-label">
+              {t('form.days', { defaultValue: 'Dias' })}
+            </label>
+            <Controller
+              control={control}
+              name="days"
+              render={({ field }) => (
+                <div className="activity-form-days">
+                  {dayOptions.map((day) => {
+                    const isSelected = field.value.includes(day)
+                    return (
+                      <button
+                        key={day}
+                        type="button"
+                        className={`activity-form-day-chip ${isSelected ? 'selected' : ''}`}
+                        onClick={() => {
+                          field.onChange(
+                            isSelected
+                              ? field.value.filter((value) => value !== day)
+                              : [...field.value, day],
+                          )
+                        }}
+                      >
+                        {t(`days.${day}`, { defaultValue: day.slice(0, 3) })}
+                      </button>
+                    )
+                  })}
+                </div>
+              )}
+            />
+          </div>
 
-          <div className="activity-form-time-row">
+          <div className="activity-form-time-row full-width">
             <Controller
               control={control}
               name="startMinutes"
@@ -295,29 +371,48 @@ export const ActivityForm = ({
             />
           </div>
 
-          <Controller
-            control={control}
-            name="colorPreset"
-            render={({ field }) => (
-              <div className="activity-form-colors">
-                {colorPalette.map((item) => (
-                  <button
-                    key={item.preset}
-                    type="button"
-                    className={`activity-form-color-chip ${field.value === item.preset ? 'selected' : ''}`}
-                    onClick={() => field.onChange(item.preset)}
-                    style={{
-                      borderColor: item.color,
-                      backgroundColor: field.value === item.preset ? item.color : 'transparent',
-                      color: field.value === item.preset ? '#fff' : 'var(--text-color)',
-                    }}
-                  >
-                    {t(`colors.${item.preset}`, { defaultValue: item.preset })}
-                  </button>
-                ))}
-              </div>
-            )}
-          />
+          <div className="activity-form-field full-width">
+            <label className="activity-form-label">
+              {t('form.color', { defaultValue: 'Cor' })}
+            </label>
+            <Controller
+              control={control}
+              name="colorPreset"
+              render={({ field }) => {
+                const customColorValue = watch('customColor')
+                return (
+                  <div className="activity-form-colors">
+                    {colorPalette.map((item) => {
+                      const displayColor =
+                        item.preset === ActivityColorPreset.CUSTOM
+                          ? customColorValue || item.color
+                          : item.color
+
+                      return (
+                        <button
+                          key={item.preset}
+                          type="button"
+                          className={`activity-form-color-chip ${field.value === item.preset ? 'selected' : ''}`}
+                          onClick={() => field.onChange(item.preset)}
+                          style={{
+                            borderColor: displayColor,
+                            backgroundColor:
+                              field.value === item.preset ? displayColor : 'transparent',
+                            color:
+                              field.value === item.preset
+                                ? getContrastingColor(displayColor)
+                                : 'var(--text-color)',
+                          }}
+                        >
+                          {t(`colors.${item.preset}`, { defaultValue: item.preset })}
+                        </button>
+                      )
+                    })}
+                  </div>
+                )
+              }}
+            />
+          </div>
 
           <Controller
             control={control}
@@ -325,7 +420,7 @@ export const ActivityForm = ({
             render={({ field }) => (
               <>
                 {field.value === ActivityColorPreset.CUSTOM && (
-                  <div className="activity-form-field">
+                  <div className="activity-form-field full-width">
                     <label htmlFor="customColor" className="activity-form-label">
                       {t('form.customColor', {
                         defaultValue: 'Cor customizada (Hex/RGB)',
@@ -370,7 +465,7 @@ export const ActivityForm = ({
             />
           </div>
 
-          <div className="activity-form-actions">
+          <div className="activity-form-actions full-width">
             <button
               type="button"
               onClick={handleClose}
