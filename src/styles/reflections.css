@@ -171,7 +171,7 @@
 
 .btn-chat {
   background: var(--primary-color);
-  color: white;
+  color: var(--on-primary);
   border: none;
 }
 

@@ -98,7 +98,7 @@
 .exams-stage-chip.is-active {
   background: var(--primary-color);
   border-color: var(--primary-color);
-  color: #fff;
+  color: var(--on-primary);
 }
 
 .exams-back-btn {
@@ -1246,7 +1246,7 @@
 
 .ai-action-btn.primary {
   background: var(--primary-color);
-  color: #fff;
+  color: var(--on-primary);
 }
 
 .ai-action-btn.primary:hover {
@@ -1346,7 +1346,7 @@
 
 .topic-action-btn:hover {
   background: var(--primary-color);
-  color: #fff;
+  color: var(--on-primary);
   border-color: var(--primary-color);
   transform: translateY(-1px);
 }
@@ -1358,10 +1358,12 @@
 /* Dark Mode AI Actions */
 .app.dark .ai-action-btn.primary {
   background: var(--primary-color);
+  color: var(--on-primary);
 }
 
 .app.dark .ai-action-btn.primary:hover {
   background: var(--primary-hover);
+  color: var(--on-primary);
 }
 
 .app.dark .ai-action-btn.secondary {

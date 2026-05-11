@@ -19,9 +19,9 @@
 
 .app.dark .telemetry-consent-toast,
 body.dark .telemetry-consent-toast {
-  background: #202124;
-  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.6);
-  border: 1px solid #5F6368;
+  background: var(--surface-container-high);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--border-color);
 }
 
 .telemetry-consent-content {
@@ -37,27 +37,27 @@ body.dark .telemetry-consent-toast {
   gap: 0.75rem;
 }
 
-.telemetry-consent-header h4 {
+.telemetry-consent-header h2 {
   margin: 0;
   color: var(--text-color);
-  font-size: 1.2rem;
+  font-size: 1.125rem;
   font-weight: 500;
+  letter-spacing: -0.01em;
 }
 
 .telemetry-consent-header .icon {
   color: var(--primary-color);
-  font-size: 1.5rem;
-  background: var(--card-hover, rgba(0, 121, 107, 0.1));
-  padding: 8px;
-  border-radius: 50%;
+  font-size: 1.25rem;
+  background: var(--surface-container-highest);
+  padding: 6px;
+  border-radius: 12px; /* Squircle icon container */
 }
 
 .telemetry-consent-content p {
   margin: 0;
-  font-size: 0.95rem;
-  color: var(--text-color);
+  font-size: 0.875rem;
+  color: var(--text-light);
   line-height: 1.5;
-  opacity: 0.85;
   text-align: start;
 }
 
@@ -87,29 +87,43 @@ body.dark .telemetry-consent-content .disclaimer {
 
 /* Acessibilidade: cor mais escura para contraste AA */
 .btn-accept {
-  background: #0b5cab; /* Azul escuro acessível */
-  color: #fff;
+  background: var(--primary-color);
+  color: var(--on-primary);
   border: none;
-  padding: 0.6rem 1.5rem;
+  padding: 0.5rem 1.5rem;
   border-radius: 20px;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.9375rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
   order: 2;
-  box-shadow: 0 0 0 2px rgba(11,92,171,0.15);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
-/* Removido fechamento de chave extra que causava erro de sintaxe */
+
 .btn-accept:hover {
-  filter: brightness(1.1);
+  background: var(--primary-hover);
+  color: var(--on-primary);
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.app.dark .btn-accept {
+  background: var(--primary-color);
+  color: var(--on-primary);
+}
+
+.app.dark .btn-accept:hover {
+  background: var(--primary-hover);
+  color: var(--on-primary);
 }
 
 .btn-decline {
   background: transparent;
   color: var(--text-color);
   border: 1px solid var(--border-color);
-  padding: 0.6rem 1.25rem;
+  padding: 0.5rem 1.25rem;
   border-radius: 20px;
   font-weight: 500;
   font-size: 0.9rem;
@@ -119,7 +133,8 @@ body.dark .telemetry-consent-content .disclaimer {
 }
 
 .btn-decline:hover {
-  background: var(--secondary-color);
+  background: var(--hover-color);
+  border-color: var(--primary-color);
 }
 
 .app.dark .btn-decline:hover,

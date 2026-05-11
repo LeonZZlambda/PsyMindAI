@@ -113,7 +113,7 @@
   padding: 0 var(--spacing-xl);
   height: 48px;
   background: var(--primary-color);
-  color: #fff;
+  color: var(--on-primary);
   border: none;
   border-radius: var(--shape-corner-full);
   font-family: inherit;
@@ -133,7 +133,7 @@
 }
 
 .app.dark .primary-btn.filled {
-  color: #001d35;
+  color: var(--on-primary);
 }
 
 .primary-btn.filled:disabled {

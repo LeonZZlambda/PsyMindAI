@@ -75,7 +75,7 @@
   border: 1px solid transparent;
   border-radius: 999px;
   background: var(--primary-color);
-  color: #fff;
+  color: var(--on-primary);
   cursor: pointer;
   display: inline-flex;
   align-items: center;

@@ -4,11 +4,12 @@
 
   /* Primary: Teal 700 - Focus, Calm, Growth */
   --primary-color: #00796b;
+  --on-primary: #ffffff;
   /* Primary Hover: Teal 800 */
   --primary-hover: #00695c;
   /* Primary Container - M3E */
   --primary-container: #b2dfdb;
-  --on-primary-container: #004d40;
+  --on-primary-container: #00201d;
 
   /* Secondary: Light Blue/Grey - Clarity */
   --secondary-color: #f1f3f4; /* Google Grey 100 */
@@ -139,6 +140,7 @@ body.dark,
 
   /* Primary: Teal 200 - Better visibility on dark */
   --primary-color: #80cbc4;
+  --on-primary: #003732;
   /* Primary Hover: Teal 300 */
   --primary-hover: #4db6ac;
   /* Primary Container - M3E Dark */
