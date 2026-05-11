@@ -9,6 +9,7 @@ interface PsyBotProps {
   isSmiling?: boolean;
   isWinking?: boolean;
   isDizzy?: boolean;
+  isConfused?: boolean;
   eyePos?: { x: number; y: number };
   reducedMotion?: boolean;
   isOpen?: boolean;
@@ -22,6 +23,7 @@ const PsyBot: React.FC<PsyBotProps> = ({
   isSmiling = false,
   isWinking = false,
   isDizzy = false,
+  isConfused = false,
   eyePos = { x: 0, y: 0 },
   reducedMotion = false,
   isOpen = true,
@@ -141,8 +143,8 @@ const PsyBot: React.FC<PsyBotProps> = ({
           <circle 
             cx="60" 
             cy="10" 
-            r={isAnalyzing || isInputFocused || isHappy ? "7" : "5"} 
-            fill={isSleeping ? "rgba(255,255,255,0.2)" : isHappy ? "#FDE047" : isAnalyzing ? "#F59E0B" : isInputFocused ? "#10B981" : "var(--primary-color, #0b57d0)"} 
+            r={isAnalyzing || isInputFocused || isHappy || isConfused ? "7" : "5"} 
+            fill={isSleeping ? "rgba(255,255,255,0.2)" : isHappy ? "#FDE047" : isAnalyzing ? "#F59E0B" : isInputFocused ? "#10B981" : isConfused ? "#A855F7" : "var(--primary-color, #0b57d0)"} 
             style={{ 
               transition: 'all 0.3s ease',
               filter: isSleeping 
@@ -153,7 +155,9 @@ const PsyBot: React.FC<PsyBotProps> = ({
                     ? 'drop-shadow(0 0 6px #F59E0B)' 
                     : isInputFocused 
                       ? 'drop-shadow(0 0 6px #10B981)' 
-                      : 'none'
+                      : isConfused
+                        ? 'drop-shadow(0 0 6px #A855F7)'
+                        : 'none'
             }}
           />
 
@@ -216,6 +220,8 @@ const PsyBot: React.FC<PsyBotProps> = ({
               <path d="M 40 64 Q 45 60 50 64" fill="none" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
             ) : effectiveDizzy ? (
               <path d="M 40 58 L 50 68 M 40 68 L 50 58" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
+            ) : isConfused ? (
+              <circle cx="45" cy="58" r="3.5" fill="#38BDF8" style={{ filter: 'drop-shadow(0 0 4px #38BDF8)' }} />
             ) : (effectiveWink || isBlinking) ? (
               <path d="M 40 62 L 50 62" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
             ) : (isSmiling || isHappy) ? (
@@ -229,6 +235,8 @@ const PsyBot: React.FC<PsyBotProps> = ({
               <path d="M 70 64 Q 75 60 80 64" fill="none" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
             ) : effectiveDizzy ? (
               <path d="M 70 58 L 80 68 M 70 68 L 80 58" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
+            ) : isConfused ? (
+              <circle cx="75" cy="66" r="6.5" fill="#38BDF8" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
             ) : (isBlinking && !effectiveWink) ? (
               <path d="M 70 62 L 80 62" stroke="#38BDF8" strokeWidth="4" strokeLinecap="round" style={{ filter: 'drop-shadow(0 0 6px #38BDF8)' }} />
             ) : (isSmiling || isHappy) ? (
@@ -240,12 +248,12 @@ const PsyBot: React.FC<PsyBotProps> = ({
           
           {/* Mouth */}
           <path 
-            d={effectiveDizzy ? "M 55 75 Q 60 70 65 75" : (isSmiling || isHappy) ? "M 56 74 Q 60 78 64 74" : "M 58 74 L 62 74"} 
+            d={effectiveDizzy ? "M 55 75 Q 60 70 65 75" : isConfused ? "M 54 74 Q 56 72 58 74 Q 60 76 62 74 Q 64 72 66 74" : (isSmiling || isHappy) ? "M 56 74 Q 60 78 64 74" : "M 58 74 L 62 74"} 
             fill="none" 
             stroke="#38BDF8" 
             strokeWidth="2.5" 
             strokeLinecap="round" 
-            opacity={isSleeping ? "0" : (isSmiling || isAnalyzing || effectiveDizzy || isHappy) ? "1" : "0.2"}
+            opacity={isSleeping ? "0" : (isSmiling || isAnalyzing || effectiveDizzy || isHappy || isConfused) ? "1" : "0.2"}
             style={{ transition: 'all 0.3s ease' }}
           />
         </g>

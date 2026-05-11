@@ -1101,9 +1101,15 @@ textarea#feedback-text:focus {
 .reframing-step .action-btn.primary,
 .step-container .action-btn.primary,
 .reframing-result .action-btn.primary,
-.feeling-input-container .action-btn.primary {
+.feeling-input-container .action-btn.primary,
+.action-btn-wrapper .action-btn {
   width: 100%;
   max-width: 100%;
+  display: flex;
+}
+
+.action-btn-wrapper {
+  width: 100%;
   display: flex;
 }
 

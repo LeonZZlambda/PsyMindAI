@@ -56,6 +56,7 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
   const [feelingInput, setFeelingInput] = useState('');
   const [aiResponse, setAiResponse] = useState<AIResponse | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [isConfused, setIsConfused] = useState(false);
 
   // Investigation State
   const [investigationStep, setInvestigationStep] = useState(0);
@@ -191,53 +192,59 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
       logger.error('AI analysis error:', error);
     }
 
-      const timer1 = setTimeout(() => {
-      const input = feelingInput.toLowerCase();
-      let response: AIResponse = {
-        type: 'general',
-        message: t('support.immediate.fallbacks.general.msg'),
-        resources: [
-          { icon: 'self_improvement', title: t('support.immediate.fallbacks.general.res1.title'), desc: t('support.immediate.fallbacks.general.res1.desc') },
-          { icon: 'spa', title: t('support.immediate.fallbacks.general.res2.title'), desc: t('support.immediate.fallbacks.general.res2.desc') }
-        ]
-      };
+    // Fallback logic if AI fails or takes too long (but only if we didn't return yet)
+    const timer1 = setTimeout(() => {
+      // Check if we are still analyzing (if AI succeeded, isAnalyzing would be false)
+      setIsAnalyzing(current => {
+        if (!current) return false;
+        
+        const input = feelingInput.toLowerCase();
+        let response: AIResponse = {
+          type: 'general',
+          message: t('support.immediate.fallbacks.general.msg'),
+          resources: [
+            { icon: 'self_improvement', title: t('support.immediate.fallbacks.general.res1.title'), desc: t('support.immediate.fallbacks.general.res1.desc') },
+            { icon: 'spa', title: t('support.immediate.fallbacks.general.res2.title'), desc: t('support.immediate.fallbacks.general.res2.desc') }
+          ]
+        };
 
-      if (input.includes('ansios') || input.includes('medo') || input.includes('pânico')) {
-        response = {
-          type: 'anxiety',
-          message: t('support.immediate.fallbacks.anxiety.msg'),
-          resources: [
-            { icon: 'air', title: t('support.immediate.fallbacks.anxiety.res1.title'), desc: t('support.immediate.fallbacks.anxiety.res1.desc') },
-            { icon: 'landscape', title: t('support.immediate.fallbacks.anxiety.res2.title'), desc: t('support.immediate.fallbacks.anxiety.res2.desc') }
-          ]
-        };
-      } else if (input.includes('triste') || input.includes('depre') || input.includes('sozinho')) {
-        response = {
-          type: 'sadness',
-          message: t('support.immediate.fallbacks.sadness.msg'),
-          resources: [
-            { icon: 'favorite', title: t('support.immediate.fallbacks.sadness.res1.title'), desc: t('support.immediate.fallbacks.sadness.res1.desc') },
-            { icon: 'connect_without_contact', title: t('support.immediate.fallbacks.sadness.res2.title'), desc: t('support.immediate.fallbacks.sadness.res2.desc') }
-          ]
-        };
-      } else if (input.includes('morrer') || input.includes('suic') || input.includes('acabar')) {
-        response = {
-          type: 'crisis',
-          message: t('support.immediate.fallbacks.crisis.msg'),
-          resources: [
-            { icon: 'phone_in_talk', title: t('support.immediate.fallbacks.crisis.res1.title'), desc: t('support.immediate.fallbacks.crisis.res1.desc'), action: 'tel:188', urgent: true },
-            { icon: 'local_hospital', title: t('support.immediate.fallbacks.crisis.res2.title'), desc: t('support.immediate.fallbacks.crisis.res2.desc'), action: 'tel:192', urgent: true }
-          ]
-        };
-      }
+        if (input.includes('ansios') || input.includes('medo') || input.includes('pânico')) {
+          response = {
+            type: 'anxiety',
+            message: t('support.immediate.fallbacks.anxiety.msg'),
+            resources: [
+              { icon: 'air', title: t('support.immediate.fallbacks.anxiety.res1.title'), desc: t('support.immediate.fallbacks.anxiety.res1.desc') },
+              { icon: 'landscape', title: t('support.immediate.fallbacks.anxiety.res2.title'), desc: t('support.immediate.fallbacks.anxiety.res2.desc') }
+            ]
+          };
+        } else if (input.includes('triste') || input.includes('depre') || input.includes('sozinho')) {
+          response = {
+            type: 'sadness',
+            message: t('support.immediate.fallbacks.sadness.msg'),
+            resources: [
+              { icon: 'favorite', title: t('support.immediate.fallbacks.sadness.res1.title'), desc: t('support.immediate.fallbacks.sadness.res1.desc') },
+              { icon: 'connect_without_contact', title: t('support.immediate.fallbacks.sadness.res2.title'), desc: t('support.immediate.fallbacks.sadness.res2.desc') }
+            ]
+          };
+        } else if (input.includes('morrer') || input.includes('suic') || input.includes('acabar')) {
+          response = {
+            type: 'crisis',
+            message: t('support.immediate.fallbacks.crisis.msg'),
+            resources: [
+              { icon: 'phone_in_talk', title: t('support.immediate.fallbacks.crisis.res1.title'), desc: t('support.immediate.fallbacks.crisis.res1.desc'), action: 'tel:188', urgent: true },
+              { icon: 'local_hospital', title: t('support.immediate.fallbacks.crisis.res2.title'), desc: t('support.immediate.fallbacks.crisis.res2.desc'), action: 'tel:192', urgent: true }
+            ]
+          };
+        }
 
-      setAiResponse(response);
-      setIsAnalyzing(false);
-      setIsSmiling(false);
-      setIsHappy(true);
-      const timer2 = setTimeout(() => setIsHappy(false), 2500);
-      timersRef.current.push(timer2);
-    }, 1500);
+        setAiResponse(response);
+        setIsSmiling(false);
+        setIsHappy(true);
+        const timer2 = setTimeout(() => setIsHappy(false), 2500);
+        timersRef.current.push(timer2);
+        return false;
+      });
+    }, 4000); // Give AI more time before fallback
     timersRef.current.push(timer1);
   };
 
@@ -569,6 +576,7 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
                   eyePos={eyePos}
                   reducedMotion={reducedMotion}
                   isOpen={isOpen}
+                  isConfused={isConfused}
                 />
               </div>
               <h3>{t("support.immediate.title")}</h3>
@@ -596,23 +604,34 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
                   if (!reducedMotion) setEyePos({ x: 0, y: 0 });
                 }}
               />
-              <button 
-                className="action-btn primary"
-                onClick={handleAnalyzeFeeling}
-                disabled={isAnalyzing || !feelingInput.trim()}
+              <div 
+                className="action-btn-wrapper" 
+                onClick={() => {
+                  if (!feelingInput.trim() && !isAnalyzing) {
+                    setIsConfused(true);
+                    setTimeout(() => setIsConfused(false), 2000);
+                  }
+                }}
               >
-                {isAnalyzing ? (
-                  <>
-                    <span className="material-symbols-outlined spin">sync</span>
-                    {t("support.immediate.analyzing")}
-                  </>
-                ) : (
-                  <>
-                    <span className="material-symbols-outlined">auto_awesome</span>
-                    {t("support.immediate.receive")}
-                  </>
-                )}
-              </button>
+                <button 
+                  className="action-btn primary"
+                  onClick={handleAnalyzeFeeling}
+                  disabled={isAnalyzing || !feelingInput.trim()}
+                  style={{ pointerEvents: !feelingInput.trim() && !isAnalyzing ? 'none' : 'auto' }}
+                >
+                  {isAnalyzing ? (
+                    <>
+                      <span className="material-symbols-outlined spin">sync</span>
+                      {t("support.immediate.analyzing")}
+                    </>
+                  ) : (
+                    <>
+                      <span className="material-symbols-outlined">auto_awesome</span>
+                      {t("support.immediate.receive")}
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
 
             {aiResponse && (
