@@ -128,7 +128,6 @@ export default defineConfig({
       ].filter(Boolean),
       output: {
         // Preload critical chunks for better FCP/LCP
-        experimentalMinChunkSize: 10000,
         manualChunks(id) {
           // Core React ecosystem — largest chunk, loaded first
           if (
@@ -153,53 +152,28 @@ export default defineConfig({
             return 'chat-core'
           }
 
-          // Stable libraries — rarely updated, can be cached long-term
-          if (
-            id.includes('node_modules/date-fns/') ||
-            id.includes('node_modules/@mui/') ||
-            id.includes('node_modules/@emotion/')
-          ) {
-            return 'stable-vendor'
+          // Heavy dynamic libraries - move to dedicated chunks
+          if (id.includes('node_modules/react-markdown/') || id.includes('node_modules/remark') || id.includes('node_modules/rehype')) {
+            return 'markdown-vendor'
           }
-          // Framer Motion — animation library, tree-shaken with LazyMotion
-          if (id.includes('node_modules/framer-motion/')) {
-            return 'motion-vendor'
-          }
-          // i18n core runtime — small, loaded early for translations
-          if (
-            id.includes('node_modules/i18next/') ||
-            id.includes('node_modules/react-i18next/') ||
-            id.includes('node_modules/i18next-browser-languagedetector/') ||
-            id.includes('node_modules/i18next-resources-to-backend/')
-          ) {
-            return 'i18n-vendor'
-          }
-          // Google GenAI SDK — large, only needed when chat is active
           if (id.includes('node_modules/@google/genai/')) {
             return 'genai-vendor'
           }
-          // Markdown + syntax highlighting — only loaded in chat/modals
-          if (
-            id.includes('node_modules/react-markdown/') ||
-            id.includes('node_modules/remark') ||
-            id.includes('node_modules/rehype') ||
-            id.includes('node_modules/unified') ||
-            id.includes('node_modules/prismjs/')
-          ) {
-            return 'markdown-vendor'
+          if (id.includes('node_modules/prismjs/')) {
+            return 'prism-vendor'
           }
-          // Zod — validation library, only used in chatService and study-dashboard
+          if (id.includes('node_modules/framer-motion/')) {
+            return 'motion-vendor'
+          }
           if (id.includes('node_modules/zod/')) {
             return 'zod-vendor'
           }
-          // Sonner — toast library, small but can be separate from initial bundle
           if (id.includes('node_modules/sonner/')) {
             return 'sonner-vendor'
           }
-          // All remaining node_modules: dompurify, react-simple-code-editor, etc.
-          if (id.includes('node_modules/')) {
-            return 'misc-vendor'
-          }
+          
+          // Let Vite handle the rest of node_modules automatically
+          // This avoids the "misc-vendor" bloat on initial load
         },
       },
     },
