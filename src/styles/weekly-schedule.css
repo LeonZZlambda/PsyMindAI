@@ -682,15 +682,21 @@
 }
 
 .weekly-grid-shell {
+  width: 100%;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   border-radius: 0.75rem;
   background: var(--background-color);
   border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
 }
 
 .weekly-grid-container {
-  min-width: 840px;
+  width: 100%;
+  min-width: 1000px;
+  display: flex;
+  flex-direction: column;
 }
 
 @media (max-width: 767px) {
@@ -727,7 +733,8 @@
 
 .weekly-grid-header {
   display: grid;
-  grid-template-columns: 88px repeat(7, 128px);
+  grid-template-columns: 88px repeat(7, 1fr);
+  width: 100%;
   position: sticky;
   top: 0;
   z-index: 4;
@@ -765,7 +772,8 @@
 
 .weekly-grid-row {
   display: grid;
-  grid-template-columns: 88px repeat(7, 128px);
+  grid-template-columns: 88px repeat(7, 1fr);
+  width: 100%;
 }
 
 .weekly-grid-cell {

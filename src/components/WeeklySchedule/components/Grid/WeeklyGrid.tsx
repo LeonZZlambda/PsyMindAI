@@ -303,7 +303,7 @@ export const WeeklyGrid = ({ initialDate = new Date() }: WeeklyGridProps) => {
               <div 
                 className="weekly-grid-header"
                 style={{ 
-                  gridTemplateColumns: '88px repeat(7, 128px)' 
+                  gridTemplateColumns: isMobile ? '72px repeat(7, 120px)' : '88px repeat(7, 1fr)' 
                 }}
               >
                 <div></div>
@@ -332,7 +332,7 @@ export const WeeklyGrid = ({ initialDate = new Date() }: WeeklyGridProps) => {
                     key={slot.id} 
                     className="weekly-grid-row"
                     style={{ 
-                      gridTemplateColumns: '88px repeat(7, 128px)' 
+                      gridTemplateColumns: isMobile ? '72px repeat(7, 120px)' : '88px repeat(7, 1fr)' 
                     }}
                   >
                     <TimeSlotCell label={slot.label} rowHeight={rowHeightPx} isMobile={isMobile} />
@@ -352,8 +352,12 @@ export const WeeklyGrid = ({ initialDate = new Date() }: WeeklyGridProps) => {
                       key={`activities-layer-${day}`}
                       className="weekly-activities-layer"
                       style={{
-                        insetInlineStart: `${88 + index * 128}px`,
-                        width: 128,
+                        insetInlineStart: isMobile 
+                          ? `${72 + index * 120}px` 
+                          : `calc(88px + (${index} * (100% - 88px) / 7))`,
+                        width: isMobile 
+                          ? '120px' 
+                          : `calc((100% - 88px) / 7)`,
                         height: rowHeightPx * slots.length,
                       }}
                     >
