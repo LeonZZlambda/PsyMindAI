@@ -280,9 +280,14 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const clearHistory = useCallback((): void => {
-    setIsAnonymous(false);
+    // Clear all persisted chats from storage
+    saveChats([]);
+    // Reset all in-memory state
+    setChats([]);
     setMessages([]);
     setCurrentChatId(null);
+    setIsAnonymous(false);
+    setInput('');
   }, []);
 
   const loadChat = useCallback(

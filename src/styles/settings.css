@@ -561,6 +561,18 @@
     width: 100%;
     justify-content: center;
   }
+
+  /* Confirmation row: stack vertically on tablet/mobile */
+  .clear-confirm-row {
+    flex-direction: column !important;
+    width: 100%;
+  }
+
+  .clear-confirm-row .settings-cancel-btn,
+  .clear-confirm-row .danger-btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
 }
 
 /* Mobile S Specific Refinements (Very small screens) */
@@ -585,5 +597,19 @@
   .custom-select-trigger {
     width: 100% !important;
     justify-content: space-between !important;
+  }
+
+  /* Confirmation row: full width on very small screens */
+  .clear-confirm-row {
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 0.5rem !important;
+  }
+
+  .clear-confirm-row .settings-cancel-btn,
+  .clear-confirm-row .danger-btn {
+    width: 100% !important;
+    justify-content: center !important;
+    font-size: 0.875rem !important;
   }
 }

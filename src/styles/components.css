@@ -251,6 +251,34 @@
   box-shadow: var(--elevation-2);
 }
 
+.danger-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Secondary cancel button for inline destructive confirmations */
+.settings-cancel-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-xl);
+  background: var(--surface-container-high);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--shape-corner-extra-large);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+  white-space: nowrap;
+}
+
+.settings-cancel-btn:hover {
+  background: var(--hover-color);
+}
+
 
 
 

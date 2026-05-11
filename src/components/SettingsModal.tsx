@@ -29,7 +29,8 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, onOpenIm
     dyslexicFont, setDyslexicFont, keyboardNavigation, setKeyboardNavigation,
     darkRoom, setDarkRoom
   } = useTheme();
-  const { clearHistory } = useChat();
+  const { clearHistory, chats } = useChat();
+  const [confirmingClear, setConfirmingClear] = useState(false);
 
   // Handle language loading state
   useEffect(() => {
@@ -105,10 +106,17 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, onOpenIm
   };
 
   const handleClearHistory = () => {
-    if (window.confirm(t('settings.history.confirm'))) {
-      clearHistory();
-      toast.success(t('settings.history.success_toast'));
-    }
+    setConfirmingClear(true);
+  };
+
+  const handleConfirmClear = () => {
+    clearHistory();
+    setConfirmingClear(false);
+    toast.success(t('settings.history.success_toast'));
+  };
+
+  const handleCancelClear = () => {
+    setConfirmingClear(false);
   };
 
   return (
@@ -383,12 +391,60 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, onOpenIm
             <div className="setting-item">
               <div className="setting-info">
                 <span className="setting-label">{t('settings.history.label')}</span>
-                <span className="setting-desc">{t('settings.history.desc')}</span>
+                <span className="setting-desc">
+                  {t('settings.history.desc')}
+                  {chats.length > 0 && (
+                    <strong style={{ color: 'var(--error-color, #b3261e)', marginLeft: '0.35rem' }}>
+                      ({chats.length} {chats.length === 1 ? 'chat' : 'chats'})
+                    </strong>
+                  )}
+                </span>
               </div>
-              <button className="danger-btn" onClick={handleClearHistory} type="button">
-                <span className="material-symbols-outlined">delete_forever</span>
-                {t('settings.history.clear')}
-              </button>
+
+              <AnimatePresence mode="wait">
+                {!confirmingClear ? (
+                  <motion.button
+                    key="clear-btn"
+                    className="danger-btn"
+                    onClick={handleClearHistory}
+                    type="button"
+                    disabled={chats.length === 0}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.15 }}
+                  >
+                    <span className="material-symbols-outlined">delete_forever</span>
+                    {t('settings.history.clear')}
+                  </motion.button>
+                ) : (
+                  <motion.div
+                    key="confirm-row"
+                    className="clear-confirm-row"
+                    initial={{ opacity: 0, x: 16 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 16 }}
+                    transition={{ duration: 0.2 }}
+                    style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}
+                  >
+                    <button
+                      className="settings-cancel-btn"
+                      onClick={handleCancelClear}
+                      type="button"
+                    >
+                      {t('common.cancel', { defaultValue: 'Cancelar' })}
+                    </button>
+                    <button
+                      className="danger-btn"
+                      onClick={handleConfirmClear}
+                      type="button"
+                    >
+                      <span className="material-symbols-outlined">delete_forever</span>
+                      {t('settings.history.confirm_btn', { defaultValue: 'Confirmar' })}
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
           </div>

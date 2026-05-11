@@ -168,16 +168,35 @@
 
 @media (max-width: 768px) {
   .app .header {
-    padding: 0.625rem 0.75rem;
-    padding-top: calc(0.625rem + env(safe-area-inset-top));
+    padding: 0.5rem 0.75rem;
+    padding-top: calc(0.5rem + env(safe-area-inset-top));
   }
 
   .header-btn {
-    width: 2.75rem;
-    height: 2.75rem;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .header-btn .material-symbols-outlined {
+    font-size: 1.25rem;
+  }
+
+  .user-profile {
+    width: 2.5rem;
+    height: 2.5rem;
   }
 
   .logo h1 {
-    font-size: 1.125rem;
+    font-size: 1rem;
+  }
+
+  .logo-icon .material-symbols-outlined {
+    font-size: 1.625rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo h1 {
+    font-size: 0.9375rem;
   }
 }
