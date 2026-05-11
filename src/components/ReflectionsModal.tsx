@@ -46,7 +46,7 @@ interface ReflectionsModalProps {
 }
 
 const ReflectionsModal: React.FC<ReflectionsModalProps> = ({ isOpen, onClose }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('reflections');
   const { setInput } = useChat();
   const { darkRoom, reducedMotion } = useTheme();
   const [activeTab, setActiveTab] = useState('daily'); // 'daily', 'explore', or 'breathing'

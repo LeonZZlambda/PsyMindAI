@@ -55,7 +55,7 @@ export const useChat = (): ChatContextValue => {
 };
 
 export const ChatProvider = ({ children }: { children: ReactNode }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['chat', 'translation']);
   const { reducedMotion } = useTheme();
   const [chats, setChats] = useState<Chat[]>([]);
   const [chatsLoaded, setChatsLoaded] = useState(false);

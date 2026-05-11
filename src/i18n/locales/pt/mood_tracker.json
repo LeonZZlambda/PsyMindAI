@@ -1,0 +1,28 @@
+{
+  "mood_tracker": {
+    "title": "Diário de Emoções",
+    "close_aria": "Fechar diário de emoções",
+    "tabs": {
+      "new": "Novo Registro",
+      "history": "Histórico"
+    },
+    "question": "Como você está se sentindo agora?",
+    "note_placeholder": "Adicione uma nota sobre o que está sentindo... (opcional)",
+    "save": "Salvar Registro",
+    "empty": "Nenhum registro encontrado.",
+    "ai_insight": {
+      "analyzing": "Analisando...",
+      "button": "Análise IA do Humor",
+      "error": "❌ Erro ao conectar com IA. Tente novamente."
+    },
+    "delete_aria": "Excluir registro",
+    "moods": {
+      "happy": "Feliz",
+      "calm": "Calmo",
+      "focused": "Focado",
+      "anxious": "Ansioso",
+      "tired": "Cansado",
+      "sad": "Triste"
+    }
+  }
+}

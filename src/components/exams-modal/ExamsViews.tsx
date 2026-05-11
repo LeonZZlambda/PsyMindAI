@@ -35,7 +35,7 @@ type TopicsViewProps = {
 };
 
 export const CategoriesView: React.FC<CategoriesViewProps> = ({ categories, onSelectCategory }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['learning', 'translation']);
   const { trackFunnel } = useExamTelemetry();
 
   const handleSelect = (category: ExamCategory) => {
@@ -46,7 +46,7 @@ export const CategoriesView: React.FC<CategoriesViewProps> = ({ categories, onSe
   return (
     <div className="exams-section">
       <div className="exams-section__header">
-        <h4 className="modal-section-title">{t('exams.sections.categories')}</h4>
+        <h4 className="modal-section-title">{t('learning:exams.sections.categories')}</h4>
       </div>
       <div className="exams-categories-grid">
         {categories.map((category) => (
@@ -54,7 +54,7 @@ export const CategoriesView: React.FC<CategoriesViewProps> = ({ categories, onSe
             <div className="exam-category-btn__icon" style={{ color: category.color }}>
               <span className="material-symbols-outlined">{category.icon}</span>
             </div>
-            <span>{t(`exams.categories_title.${category.id}`)}</span>
+            <span>{t(`learning:exams.categories_title.${category.id}`)}</span>
           </button>
         ))}
       </div>
@@ -63,7 +63,7 @@ export const CategoriesView: React.FC<CategoriesViewProps> = ({ categories, onSe
 };
 
 export const ExamsListView: React.FC<ExamsListViewProps> = ({ category, onSelectExam }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['learning', 'translation']);
   const { trackFunnel } = useExamTelemetry();
 
   const handleSelect = (exam: ExamDefinition) => {
@@ -78,8 +78,8 @@ export const ExamsListView: React.FC<ExamsListViewProps> = ({ category, onSelect
           {category.icon}
         </span>
         <div className="exam-info">
-          <span className="exam-name">{t(`exams.categories_title.${category.id}`)}</span>
-          <span className="exam-fullname">{t('exams.sections.available_options', { count: category.exams.length })}</span>
+          <span className="exam-name">{t(`learning:exams.categories_title.${category.id}`)}</span>
+          <span className="exam-fullname">{t('learning:exams.sections.available_options', { count: category.exams.length })}</span>
         </div>
       </div>
 
@@ -102,7 +102,7 @@ export const ExamsListView: React.FC<ExamsListViewProps> = ({ category, onSelect
 };
 
 export const SubjectsView: React.FC<SubjectsViewProps> = ({ exam, onClose, onSelectSubject }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['learning', 'translation']);
   const { trackInteraction } = useExamTelemetry();
 
   const handleSelect = (subject: string) => {
@@ -124,8 +124,8 @@ export const SubjectsView: React.FC<SubjectsViewProps> = ({ exam, onClose, onSel
     <div className="exams-subjects-view">
       <div className="exams-section">
         <div className="exams-section__header">
-          <h4 className="modal-section-title">{t('exams.sections.subjects')}</h4>
-          <p className="exams-section__caption">{t('exams.sections.subjects_caption')}</p>
+          <h4 className="modal-section-title">{t('learning:exams.sections.subjects')}</h4>
+          <p className="exams-section__caption">{t('learning:exams.sections.subjects_caption')}</p>
         </div>
 
         <div className="subjects-grid">
@@ -157,7 +157,7 @@ export const TopicsView: React.FC<TopicsViewProps> = ({
   subject,
   topics,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['learning', 'translation']);
   const { trackInteraction, trackConversion } = useExamTelemetry();
 
   return (

@@ -1,0 +1,28 @@
+{
+  "mood_tracker": {
+    "title": "Mood Diary",
+    "close_aria": "Close mood diary",
+    "tabs": {
+      "new": "New Entry",
+      "history": "History"
+    },
+    "question": "How are you feeling right now?",
+    "note_placeholder": "Add a note about how you feel... (optional)",
+    "save": "Save Entry",
+    "empty": "No record found.",
+    "ai_insight": {
+      "analyzing": "Analyzing...",
+      "button": "AI Mood Analysis",
+      "error": "❌ Error connecting to AI. Try again."
+    },
+    "delete_aria": "Delete entry",
+    "moods": {
+      "happy": "Happy",
+      "calm": "Calm",
+      "focused": "Focused",
+      "anxious": "Anxious",
+      "tired": "Tired",
+      "sad": "Sad"
+    }
+  }
+}

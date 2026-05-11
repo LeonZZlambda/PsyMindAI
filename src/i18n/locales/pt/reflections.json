@@ -1,0 +1,112 @@
+{
+  "reflections": {
+    "title": "Reflexões",
+    "tabs": {
+      "daily": "Reflexão do Dia",
+      "explore": "Explorar Temas",
+      "breathing": "Respiração Guiada"
+    },
+    "close": "Fechar",
+    "daily_tab": {
+      "generating": "Gerando frase inspiradora...",
+      "new_button": "Nova Frase IA",
+      "ai_button": "Reflexão IA",
+      "ai_reflecting": "Refletindo...",
+      "chat_button": "Refletir no Chat",
+      "error": "❌ Erro ao conectar com IA. Tente novamente."
+    },
+    "explore_tab": {
+      "title": "Escolha um tema para refletir",
+      "categories": {
+        "resilience": "Resiliência",
+        "self_knowledge": "Autoconhecimento",
+        "purpose": "Propósito",
+        "anxiety": "Ansiedade",
+        "gratitude": "Gratidão",
+        "self_esteem": "Autoestima"
+      }
+    },
+    "breathing_tab": {
+      "title": "Escolha uma técnica de respiração",
+      "techniques": {
+        "478": {
+          "name": "4-7-8",
+          "desc": "Relaxamento profundo"
+        },
+        "box": {
+          "name": "Box Breathing",
+          "desc": "Equilíbrio e foco"
+        },
+        "calm": {
+          "name": "Respiração Calma",
+          "desc": "Redução de ansiedade"
+        },
+        "energy": {
+          "name": "Respiração Energizante",
+          "desc": "Aumenta energia"
+        }
+      },
+      "start": "Iniciar",
+      "stop": "Parar",
+      "phases": {
+        "inhale": "Inspire",
+        "hold": "Segure",
+        "exhale": "Expire",
+        "holdAfter": "Segure"
+      }
+    },
+    "chat_prompt": "Oi, PsyMind. Li essa frase de {{author}}: \"{{text}}\". Gostaria de refletir sobre o que ela significa para o meu momento atual.",
+    "default_quotes": [
+      {
+        "text": "A única maneira de fazer um excelente trabalho é amar o que você faz.",
+        "author": "Steve Jobs",
+        "category": "propósito"
+      },
+      {
+        "text": "Não é o que nos acontece, mas nossa reação ao que nos acontece que nos fere.",
+        "author": "Epiteto",
+        "category": "resiliência"
+      },
+      {
+        "text": "A felicidade não é algo pronto. Ela vem de suas próprias ações.",
+        "author": "Dalai Lama",
+        "category": "felicidade"
+      },
+      {
+        "text": "Conhece-te a ti mesmo e conhecerás o universo e os deuses.",
+        "author": "Sócrates",
+        "category": "autoconhecimento"
+      },
+      {
+        "text": "O sucesso é ir de fracasso em fracasso sem perder o entusiasmo.",
+        "author": "Winston Churchill",
+        "category": "resiliência"
+      },
+      {
+        "text": "Seja a mudança que você quer ver no mundo.",
+        "author": "Mahatma Gandhi",
+        "category": "propósito"
+      },
+      {
+        "text": "A ansiedade é a vertigem da liberdade.",
+        "author": "Søren Kierkegaard",
+        "category": "ansiedade"
+      },
+      {
+        "text": "O que você pensa, você se torna. O que você sente, você atrai. O que você imagina, você cria.",
+        "author": "Buda",
+        "category": "autoconhecimento"
+      },
+      {
+        "text": "Não deixe que o ruído da opinião alheia cale a sua própria voz interior.",
+        "author": "Steve Jobs",
+        "category": "autoestima"
+      },
+      {
+        "text": "A gratidão transforma o que temos em suficiente.",
+        "author": "Melody Beattie",
+        "category": "gratidão"
+      }
+    ]
+  }
+}

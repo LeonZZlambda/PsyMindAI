@@ -47,7 +47,7 @@ const initialScores: ScoreFields = {
 
 export const EnemCalculator: React.FC<EnemCalculatorProps> = ({ onClose }) => {
   const { sendMessage } = useChat();
-  const { t } = useTranslation();
+  const { t } = useTranslation(['learning', 'translation']);
   const [mode, setMode] = useState<CalculatorMode>('select');
   const [scores, setScores] = useState<ScoreFields>(initialScores);
   const [correctAnswers, setCorrectAnswers] = useState<ScoreFields>(initialScores);
@@ -205,15 +205,15 @@ export const EnemCalculator: React.FC<EnemCalculatorProps> = ({ onClose }) => {
             <div className="calc-mode-icon">
               <span className="material-symbols-outlined">calculate</span>
             </div>
-            <h4>{t('exams.calculator.mode_simple.title')}</h4>
-            <p>{t('exams.calculator.mode_simple.desc')}</p>
+            <h4>{t('learning:exams.calculator.mode_simple.title')}</h4>
+            <p>{t('learning:exams.calculator.mode_simple.desc')}</p>
           </div>
           <div className="calc-mode-card" onClick={() => setMode('advanced')}>
             <div className="calc-mode-icon">
               <span className="material-symbols-outlined">fact_check</span>
             </div>
-            <h4>{t('exams.calculator.mode_advanced.title')}</h4>
-            <p>{t('exams.calculator.mode_advanced.desc')}</p>
+            <h4>{t('learning:exams.calculator.mode_advanced.title')}</h4>
+            <p>{t('learning:exams.calculator.mode_advanced.desc')}</p>
           </div>
         </div>
       </div>

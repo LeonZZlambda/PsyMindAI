@@ -35,6 +35,8 @@ i18n
       'quotes',
       'kindness',
       'schedule',
+      'reflections',
+      'mood_tracker',
     ],
     defaultNS: 'translation',
     fallbackNS: ['translation', 'schedule'],

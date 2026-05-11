@@ -84,21 +84,21 @@ const ExamsModal: React.FC<ExamsModalProps> = ({ isOpen, onClose }) => {
   const heroEyebrow = selectedSubject
     ? selectedExam?.name
     : selectedExam
-      ? t(`exams.categories_title.${selectedCategory?.id}`)
-      : t('exams.title');
+      ? t(`learning:exams.categories_title.${selectedCategory?.id}`)
+      : t('learning:exams.title');
 
-  const heroTitle = selectedSubject ?? selectedExam?.name ?? t('exams.title');
+  const heroTitle = selectedSubject ?? selectedExam?.name ?? t('learning:exams.title');
   const heroDescription = selectedSubject
-    ? t('exams.topics_header')
+    ? t('learning:exams.topics_header')
     : selectedExam
       ? selectedExam.fullName
-      : t('exams.hero_description');
+      : t('learning:exams.hero_description');
 
   return (
     <BaseModal
       isOpen={isOpen}
       onClose={handleClose}
-      title={t('exams.title')}
+      title={t('learning:exams.title')}
       icon="school"
       size="large"
       className="exams-modal"
@@ -118,7 +118,7 @@ const ExamsModal: React.FC<ExamsModalProps> = ({ isOpen, onClose }) => {
             <div className="exams-stage-bar" aria-label="breadcrumb">
               <button className="back-btn exams-back-btn" onClick={handleBack}>
                 <span className="material-symbols-outlined icon-rtl-flip">arrow_back</span>
-                {t('exams.back')}
+                {t('learning:exams.back')}
               </button>
               <div className="exams-stage-chips">
                 <span className={`exams-stage-chip ${selectedCategory ? 'is-active' : ''}`}>1</span>

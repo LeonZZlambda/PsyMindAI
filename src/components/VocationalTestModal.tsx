@@ -371,7 +371,7 @@ const VocationalTestModal: React.FC<{ isOpen: boolean; onClose: () => void }> = 
     <BaseModal
       isOpen={isOpen}
       onClose={onClose}
-      title={t('exams.vocational.title')}
+      title={t('learning:exams.vocational.title')}
       icon="explore"
       maxWidth="600px"
     >
@@ -400,7 +400,7 @@ const VocationalTestModal: React.FC<{ isOpen: boolean; onClose: () => void }> = 
                   <span className="material-symbols-outlined vocational-intro-icon">
                     psychology
                   </span>
-                  <h2>{t('exams.vocational.introduction.title')}</h2>
+                  <h2>{t('learning:exams.vocational.introduction.title')}</h2>
                 </div>
                 <div className="vocational-intro-description">
                   <p>{t('exams.vocational.introduction.description')}</p>

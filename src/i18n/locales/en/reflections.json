@@ -1,0 +1,112 @@
+{
+  "reflections": {
+    "title": "Reflections",
+    "tabs": {
+      "daily": "Daily Reflection",
+      "explore": "Explore Themes",
+      "breathing": "Guided Breathing"
+    },
+    "close": "Close",
+    "daily_tab": {
+      "generating": "Generating inspiring quote...",
+      "new_button": "New AI Quote",
+      "ai_button": "AI Reflection",
+      "ai_reflecting": "Reflecting...",
+      "chat_button": "Reflect in Chat",
+      "error": "❌ Error connecting to AI. Try again."
+    },
+    "explore_tab": {
+      "title": "Choose a theme to reflect on",
+      "categories": {
+        "resilience": "Resilience",
+        "self_knowledge": "Self Knowledge",
+        "purpose": "Purpose",
+        "anxiety": "Anxiety",
+        "gratitude": "Gratitude",
+        "self_esteem": "Self Esteem"
+      }
+    },
+    "breathing_tab": {
+      "title": "Choose a breathing technique",
+      "techniques": {
+        "478": {
+          "name": "4-7-8",
+          "desc": "Deep relaxation"
+        },
+        "box": {
+          "name": "Box Breathing",
+          "desc": "Balance and focus"
+        },
+        "calm": {
+          "name": "Calm Breathing",
+          "desc": "Anxiety reduction"
+        },
+        "energy": {
+          "name": "Energizing Breathing",
+          "desc": "Increases energy"
+        }
+      },
+      "start": "Start",
+      "stop": "Stop",
+      "phases": {
+        "inhale": "Inhale",
+        "hold": "Hold",
+        "exhale": "Exhale",
+        "holdAfter": "Hold"
+      }
+    },
+    "chat_prompt": "Hi, PsyMind. I read this quote from {{author}}: \"{{text}}\". I would like to reflect on what it means for my current moment.",
+    "default_quotes": [
+      {
+        "text": "The only way to do great work is to love what you do.",
+        "author": "Steve Jobs",
+        "category": "purpose"
+      },
+      {
+        "text": "It's not what happens to you, but how you react to it that matters.",
+        "author": "Epictetus",
+        "category": "resilience"
+      },
+      {
+        "text": "Happiness is not something ready made. It comes from your own actions.",
+        "author": "Dalai Lama",
+        "category": "happiness"
+      },
+      {
+        "text": "Know thyself and thou shalt know all the mysteries of the gods and of the universe.",
+        "author": "Socrates",
+        "category": "self knowledge"
+      },
+      {
+        "text": "Success consists of going from failure to failure without loss of enthusiasm.",
+        "author": "Winston Churchill",
+        "category": "resilience"
+      },
+      {
+        "text": "Be the change that you wish to see in the world.",
+        "author": "Mahatma Gandhi",
+        "category": "purpose"
+      },
+      {
+        "text": "Anxiety is the dizziness of freedom.",
+        "author": "Søren Kierkegaard",
+        "category": "anxiety"
+      },
+      {
+        "text": "What you think, you become. What you feel, you attract. What you imagine, you create.",
+        "author": "Buddha",
+        "category": "self knowledge"
+      },
+      {
+        "text": "Don't let the noise of others' opinions drown out your own inner voice.",
+        "author": "Steve Jobs",
+        "category": "self esteem"
+      },
+      {
+        "text": "Gratitude turns what we have into enough.",
+        "author": "Melody Beattie",
+        "category": "gratitude"
+      }
+    ]
+  }
+}
