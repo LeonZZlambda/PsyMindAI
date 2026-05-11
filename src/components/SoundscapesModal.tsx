@@ -14,10 +14,16 @@ const SoundscapesModal: React.FC<SoundscapesModalProps> = ({ isOpen, onClose }) 
   const { isPlaying, currentSound, volume, toggleSound, changeSound, setVolume } = useSound();
 
   const sounds = [
-    { id: 'rain',  label: t('soundscapes.sounds.rain'),   icon: 'water_drop' },
-    { id: 'focus', label: t('soundscapes.sounds.focus'), icon: 'self_improvement' },
-    { id: 'white', label: t('soundscapes.sounds.white'),  icon: 'graphic_eq' },
-    { id: 'binaural', label: t('soundscapes.sounds.binaural'), icon: 'waves' },
+    { id: 'rain',     label: t('soundscapes.sounds.rain'),     icon: 'water_drop'       },
+    { id: 'ocean',    label: t('soundscapes.sounds.ocean',    { defaultValue: 'Ocean'    }), icon: 'waves'            },
+    { id: 'forest',   label: t('soundscapes.sounds.forest',   { defaultValue: 'Forest'   }), icon: 'forest'           },
+    { id: 'fire',     label: t('soundscapes.sounds.fire',     { defaultValue: 'Fireplace'}), icon: 'local_fire_department' },
+    { id: 'thunder',  label: t('soundscapes.sounds.thunder',  { defaultValue: 'Thunder'  }), icon: 'thunderstorm'     },
+    { id: 'coffee',   label: t('soundscapes.sounds.coffee',   { defaultValue: 'Café'     }), icon: 'coffee'           },
+    { id: 'cave',     label: t('soundscapes.sounds.cave',     { defaultValue: 'Cave'     }), icon: 'terrain'          },
+    { id: 'focus',    label: t('soundscapes.sounds.focus'),   icon: 'self_improvement'  },
+    { id: 'white',    label: t('soundscapes.sounds.white'),   icon: 'graphic_eq'        },
+    { id: 'binaural', label: t('soundscapes.sounds.binaural'), icon: 'waves'            },
   ];
 
   const currentSoundData = sounds.find(s => s.id === currentSound);

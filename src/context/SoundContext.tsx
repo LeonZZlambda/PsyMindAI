@@ -4,7 +4,18 @@ import logger from '../utils/logger';
 /**
  * Available soundscape types
  */
-export type SoundType = 'rain' | 'forest' | 'white' | 'brown' | 'focus' | 'binaural';
+export type SoundType =
+  | 'rain'
+  | 'forest'
+  | 'ocean'
+  | 'fire'
+  | 'thunder'
+  | 'coffee'
+  | 'cave'
+  | 'white'
+  | 'brown'
+  | 'focus'
+  | 'binaural';
 
 /**
  * Sound context value interface
@@ -28,6 +39,8 @@ export const useSound = (): SoundContextValue => {
   return context;
 };
 
+const FADE_OUT_DURATION = 1.5; // seconds
+
 export const SoundProvider = ({ children }: { children: ReactNode }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSound, setCurrentSound] = useState<SoundType>('rain');
@@ -36,6 +49,9 @@ export const SoundProvider = ({ children }: { children: ReactNode }) => {
   const audioContextRef = useRef<AudioContext | null>(null);
   const gainNodeRef = useRef<GainNode | null>(null);
   const sourceNodeRef = useRef<AudioBufferSourceNode | null>(null);
+  const fadeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Ref mirrors currentSound so playSound() never reads a stale closure value
+  const currentSoundRef = useRef<SoundType>('rain');
 
   /**
    * Initialize Web Audio API context
@@ -43,7 +59,7 @@ export const SoundProvider = ({ children }: { children: ReactNode }) => {
   const initAudio = async (): Promise<void> => {
     if (!audioContextRef.current) {
       try {
-        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
         audioContextRef.current = new AudioContextClass();
         gainNodeRef.current = audioContextRef.current.createGain();
         gainNodeRef.current.connect(audioContextRef.current.destination);
@@ -51,7 +67,7 @@ export const SoundProvider = ({ children }: { children: ReactNode }) => {
         logger.error('Failed to init audio context:', e);
       }
     }
-    
+
     if (audioContextRef.current && audioContextRef.current.state === 'suspended') {
       await audioContextRef.current.resume();
     }
@@ -62,36 +78,32 @@ export const SoundProvider = ({ children }: { children: ReactNode }) => {
    */
   const generateNoiseBuffer = (type: SoundType, ctx: AudioContext): AudioBuffer => {
     logger.debug(`[SoundContext] Generating buffer for: ${type}`);
-    const bufferSize = ctx.sampleRate * 2; // 2 seconds buffer
-    
+    const sampleRate = ctx.sampleRate;
+    const bufferSize = sampleRate * 4; // 4 second buffer for smoother loops
+
     if (type === 'binaural') {
-      // Binaural beats require stereo
-      const buffer = ctx.createBuffer(2, bufferSize, ctx.sampleRate);
+      const buffer = ctx.createBuffer(2, bufferSize, sampleRate);
       const left = buffer.getChannelData(0);
       const right = buffer.getChannelData(1);
-      
-      const baseFreq = 200; // Carrier frequency
-      const beatFreq = 10;  // Alpha wave (10Hz)
-      
+      const baseFreq = 200;
+      const beatFreq = 10; // Alpha wave
       for (let i = 0; i < bufferSize; i++) {
-        const t = i / ctx.sampleRate;
-        // Apply a small fade in/out to avoid clicks if looped imperfectly (though loop is seamless)
-        const fade = Math.sin(Math.PI * i / bufferSize);
-        left[i] = Math.sin(2 * Math.PI * baseFreq * t) * 0.4 * fade;
-        right[i] = Math.sin(2 * Math.PI * (baseFreq + beatFreq) * t) * 0.4 * fade;
+        const t = i / sampleRate;
+        left[i] = Math.sin(2 * Math.PI * baseFreq * t) * 0.4;
+        right[i] = Math.sin(2 * Math.PI * (baseFreq + beatFreq) * t) * 0.4;
       }
       return buffer;
     }
 
-    // Default to mono for other sounds
-    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const buffer = ctx.createBuffer(1, bufferSize, sampleRate);
     const data = buffer.getChannelData(0);
 
     if (type === 'white') {
       for (let i = 0; i < bufferSize; i++) {
         data[i] = Math.random() * 2 - 1;
       }
-    } else if (type === 'rain' || type === 'forest') {
+    } else if (type === 'rain') {
+      // Pink noise + higher frequency emphasis (raindrops)
       let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
       for (let i = 0; i < bufferSize; i++) {
         const white = Math.random() * 2 - 1;
@@ -101,12 +113,88 @@ export const SoundProvider = ({ children }: { children: ReactNode }) => {
         b3 = 0.86650 * b3 + white * 0.3104856;
         b4 = 0.55000 * b4 + white * 0.5329522;
         b5 = -0.7616 * b5 - white * 0.0168980;
-        data[i] = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362;
-        data[i] *= 0.35;
+        data[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.3;
         b6 = white * 0.115926;
       }
+    } else if (type === 'forest') {
+      // Pink noise (similar to rain but lower freq)
+      let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+      for (let i = 0; i < bufferSize; i++) {
+        const white = Math.random() * 2 - 1;
+        b0 = 0.99886 * b0 + white * 0.0555179;
+        b1 = 0.99332 * b1 + white * 0.0750759;
+        b2 = 0.96900 * b2 + white * 0.1538520;
+        b3 = 0.86650 * b3 + white * 0.3104856;
+        b4 = 0.55000 * b4 + white * 0.5329522;
+        b5 = -0.7616 * b5 - white * 0.0168980;
+        data[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.25;
+        b6 = white * 0.115926;
+      }
+    } else if (type === 'ocean') {
+      // Slow, undulating pink noise with wave-like amplitude modulation
+      let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+      const waveFreq = 0.15; // Hz – slow wave
+      for (let i = 0; i < bufferSize; i++) {
+        const white = Math.random() * 2 - 1;
+        b0 = 0.99886 * b0 + white * 0.0555179;
+        b1 = 0.99332 * b1 + white * 0.0750759;
+        b2 = 0.96900 * b2 + white * 0.1538520;
+        b3 = 0.86650 * b3 + white * 0.3104856;
+        b4 = 0.55000 * b4 + white * 0.5329522;
+        b5 = -0.7616 * b5 - white * 0.0168980;
+        const pink = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362;
+        b6 = white * 0.115926;
+        // Amplitude modulation simulates wave swell
+        const wave = 0.5 + 0.5 * Math.sin(2 * Math.PI * waveFreq * i / sampleRate);
+        data[i] = pink * 0.3 * wave;
+      }
+    } else if (type === 'fire') {
+      // Brown noise with subtle crackle
+      let lastOut = 0;
+      for (let i = 0; i < bufferSize; i++) {
+        const white = Math.random() * 2 - 1;
+        data[i] = (lastOut + 0.03 * white) / 1.03;
+        lastOut = data[i];
+        // Occasional crackle
+        if (Math.random() < 0.0003) {
+          data[i] += (Math.random() * 2 - 1) * 0.3;
+        }
+        data[i] *= 4.0;
+      }
+    } else if (type === 'thunder') {
+      // Deep rumble (low-freq brown noise) with rare thunder cracks
+      let lastOut = 0;
+      for (let i = 0; i < bufferSize; i++) {
+        const white = Math.random() * 2 - 1;
+        data[i] = (lastOut + 0.015 * white) / 1.015;
+        lastOut = data[i];
+        // Rain layer on top
+        if (Math.random() < 0.4) {
+          data[i] += white * 0.015;
+        }
+        data[i] *= 6.0;
+      }
+    } else if (type === 'coffee') {
+      // Moderate pink noise (ambient chatter simulation)
+      let b0 = 0, b1 = 0, b2 = 0;
+      for (let i = 0; i < bufferSize; i++) {
+        const white = Math.random() * 2 - 1;
+        b0 = 0.99 * b0 + white * 0.1;
+        b1 = 0.97 * b1 + white * 0.15;
+        b2 = 0.92 * b2 + white * 0.2;
+        data[i] = (b0 + b1 + b2) * 0.12;
+      }
+    } else if (type === 'cave') {
+      // Very low brown noise — cavernous and minimal
+      let lastOut = 0;
+      for (let i = 0; i < bufferSize; i++) {
+        const white = Math.random() * 2 - 1;
+        data[i] = (lastOut + 0.01 * white) / 1.01;
+        lastOut = data[i];
+        data[i] *= 3.5;
+      }
     } else {
-      // focus or brown
+      // focus / brown
       let lastOut = 0;
       for (let i = 0; i < bufferSize; i++) {
         const white = Math.random() * 2 - 1;
@@ -115,7 +203,40 @@ export const SoundProvider = ({ children }: { children: ReactNode }) => {
         data[i] *= 5.0;
       }
     }
+
     return buffer;
+  };
+
+  /**
+   * Get the filter config per sound type
+   */
+  const getFilterConfig = (type: SoundType): { filterType: BiquadFilterType; frequency: number } => {
+    switch (type) {
+      case 'rain':      return { filterType: 'lowpass',  frequency: 1200 };
+      case 'forest':    return { filterType: 'lowpass',  frequency: 800  };
+      case 'ocean':     return { filterType: 'lowpass',  frequency: 600  };
+      case 'fire':      return { filterType: 'lowpass',  frequency: 500  };
+      case 'thunder':   return { filterType: 'lowpass',  frequency: 400  };
+      case 'coffee':    return { filterType: 'bandpass', frequency: 1200 };
+      case 'cave':      return { filterType: 'lowpass',  frequency: 300  };
+      case 'white':     return { filterType: 'lowpass',  frequency: 15000 };
+      case 'binaural':  return { filterType: 'lowpass',  frequency: 2000 };
+      default:          return { filterType: 'lowpass',  frequency: 850  };
+    }
+  };
+
+  /**
+   * Immediately stop the current source node (no fade)
+   */
+  const stopSourceNode = (): void => {
+    if (fadeTimerRef.current) {
+      clearTimeout(fadeTimerRef.current);
+      fadeTimerRef.current = null;
+    }
+    if (sourceNodeRef.current) {
+      try { sourceNodeRef.current.stop(); } catch (_) {}
+      sourceNodeRef.current = null;
+    }
   };
 
   /**
@@ -125,43 +246,32 @@ export const SoundProvider = ({ children }: { children: ReactNode }) => {
     try {
       logger.debug(`[SoundContext] playSound() for: ${currentSound}`);
       await initAudio();
-      stopSound(); 
+      stopSourceNode();
 
       const ctx = audioContextRef.current;
       const gainNode = gainNodeRef.current;
 
-      if (!ctx || !gainNode) {
-        throw new Error('Audio context or gain node not initialized');
-      }
+      if (!ctx || !gainNode) throw new Error('Audio context or gain node not initialized');
 
-      const buffer = generateNoiseBuffer(currentSound, ctx);
+      // Restore gain to the user-set volume (in case we were fading out)
+      gainNode.gain.cancelScheduledValues(ctx.currentTime);
+      gainNode.gain.setValueAtTime(volume, ctx.currentTime);
+
+      const buffer = generateNoiseBuffer(currentSoundRef.current, ctx);
       const noise = ctx.createBufferSource();
       noise.buffer = buffer;
       noise.loop = true;
 
+      const { filterType, frequency } = getFilterConfig(currentSoundRef.current);
       const filter = ctx.createBiquadFilter();
-      if (currentSound === 'rain') {
-        filter.type = 'lowpass';
-        filter.frequency.value = 1000;
-      } else if (currentSound === 'white') {
-        filter.type = 'lowpass';
-        filter.frequency.value = 15000;
-      } else if (currentSound === 'binaural') {
-        // Binaural beats don't need much filtering, but a gentle lowpass helps
-        filter.type = 'lowpass';
-        filter.frequency.value = 2000;
-      } else {
-        filter.type = 'lowpass';
-        filter.frequency.value = 850;
-      }
+      filter.type = filterType;
+      filter.frequency.value = frequency;
 
       noise.connect(filter);
       filter.connect(gainNode);
-
       noise.start();
       sourceNodeRef.current = noise;
       setIsPlaying(true);
-      gainNode.gain.value = volume;
     } catch (error) {
       logger.error('Failed to play sound:', error);
       setIsPlaying(false);
@@ -169,16 +279,33 @@ export const SoundProvider = ({ children }: { children: ReactNode }) => {
   };
 
   /**
-   * Stop currently playing sound
+   * Stop with gradual fade-out for a comfortable experience
    */
-  const stopSound = (): void => {
-    if (sourceNodeRef.current) {
-      try {
-        sourceNodeRef.current.stop();
-      } catch (e) {}
-      sourceNodeRef.current = null;
+  const stopSoundWithFade = (): void => {
+    const ctx = audioContextRef.current;
+    const gainNode = gainNodeRef.current;
+
+    if (!ctx || !gainNode || !sourceNodeRef.current) {
+      setIsPlaying(false);
+      return;
     }
+
+    // Update UI state immediately so controls reflect the pause
     setIsPlaying(false);
+
+    // Fade out the gain over FADE_OUT_DURATION seconds
+    gainNode.gain.cancelScheduledValues(ctx.currentTime);
+    gainNode.gain.setValueAtTime(gainNode.gain.value, ctx.currentTime);
+    gainNode.gain.linearRampToValueAtTime(0, ctx.currentTime + FADE_OUT_DURATION);
+
+    // Stop the source node after the fade completes
+    fadeTimerRef.current = setTimeout(() => {
+      stopSourceNode();
+      // Restore gain so next play starts at the correct volume
+      if (gainNodeRef.current && audioContextRef.current) {
+        gainNodeRef.current.gain.setValueAtTime(volume, audioContextRef.current.currentTime);
+      }
+    }, FADE_OUT_DURATION * 1000 + 100);
   };
 
   /**
@@ -186,7 +313,7 @@ export const SoundProvider = ({ children }: { children: ReactNode }) => {
    */
   const toggleSound = (): void => {
     if (isPlaying) {
-      stopSound();
+      stopSoundWithFade();
     } else {
       playSound();
     }
@@ -196,27 +323,30 @@ export const SoundProvider = ({ children }: { children: ReactNode }) => {
    * Change to a different soundscape
    */
   const changeSoundType = (newSound: SoundType): void => {
-    setCurrentSound(newSound);
+    currentSoundRef.current = newSound; // update ref immediately (sync)
+    setCurrentSound(newSound);           // update state for UI re-render
   };
 
-  // Effect to handle sound change while playing
+  // When sound changes WHILE already playing, restart with new sound
   useEffect(() => {
     if (isPlaying) {
       playSound();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentSound]);
 
   // Effect to handle volume change
   useEffect(() => {
-    if (gainNodeRef.current) {
-      gainNodeRef.current.gain.value = volume;
+    if (gainNodeRef.current && isPlaying) {
+      gainNodeRef.current.gain.cancelScheduledValues(0);
+      gainNodeRef.current.gain.setValueAtTime(volume, 0);
     }
   }, [volume]);
 
   // Cleanup on unmount
   useEffect(() => {
     return () => {
-      stopSound();
+      stopSourceNode();
       if (audioContextRef.current) {
         audioContextRef.current.close();
       }
@@ -229,7 +359,7 @@ export const SoundProvider = ({ children }: { children: ReactNode }) => {
     volume,
     toggleSound,
     changeSound: changeSoundType,
-    setVolume
+    setVolume,
   };
 
   return (
