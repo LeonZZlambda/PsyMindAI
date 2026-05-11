@@ -488,11 +488,13 @@
       }
     </style>
 
-    <!-- Preload critical resources for LCP optimization -->
-    <link rel="preload" href="/src/core-vendor-IZ--yGvI.js" as="script" crossorigin />
-    <link rel="preload" href="/src/i18n-vendor-D7Yliq8f.js" as="script" crossorigin />
-    <link rel="modulepreload" href="/src/core-vendor-IZ--yGvI.js" />
-    <link rel="modulepreload" href="/src/i18n-vendor-D7Yliq8f.js" />
+    <!-- Recovery script: handle chunk loading errors (404s after new deploy) -->
+    <script>
+      window.addEventListener('vite:preloadError', (event) => {
+        console.warn('[Vite] Preload error detected, reloading page...', event.payload);
+        window.location.reload();
+      });
+    </script>
 
     <!-- Preload critical CSS -->
     <link

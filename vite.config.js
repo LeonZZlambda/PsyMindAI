@@ -117,6 +117,9 @@ export default defineConfig({
   build: {
     target: 'esnext',
     sourcemap: true,
+    modulePreload: {
+      polyfill: true
+    },
     rollupOptions: {
       // Optional visualizer plugin - only active if devDependency is installed
       plugins: [
@@ -125,7 +128,7 @@ export default defineConfig({
       ].filter(Boolean),
       output: {
         // Preload critical chunks for better FCP/LCP
-        experimentalMinChunkSize: 1000,
+        experimentalMinChunkSize: 10000,
         manualChunks(id) {
           // Core React ecosystem — largest chunk, loaded first
           if (
@@ -138,6 +141,18 @@ export default defineConfig({
           ) {
             return 'core-vendor'
           }
+
+          // Main App Shell & Chat Logic — group together to avoid chaining
+          if (
+            id.includes('src/pages/ChatPage') ||
+            id.includes('src/components/MessageList') ||
+            id.includes('src/components/Header') ||
+            id.includes('src/components/Sidebar') ||
+            id.includes('src/components/ChatInput')
+          ) {
+            return 'chat-core'
+          }
+
           // Stable libraries — rarely updated, can be cached long-term
           if (
             id.includes('node_modules/date-fns/') ||
