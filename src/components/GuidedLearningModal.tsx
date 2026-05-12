@@ -3,9 +3,13 @@ import { useTranslation, Trans } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
 import ReactMarkdown from 'react-markdown';
 import logger from '../utils/logger';
-import { useSnackbar } from '../context/SnackbarContext';
+import { SmartReminderSystem } from '../utils/smartReminders';
+import { useChat } from '../context/ChatContext';
+import { useLearningGoals } from '../context/LearningGoalsContext';
 import BaseModal from './BaseModal';
 import { generateLearningTrail, explainQuizError, evaluateOpenEnded } from "../services/tools/learningService";
+import { calculateNextReview, SRSItem } from "../utils/srsAlgorithm";
+import { recommendationEngine, TopicProficiency, QuestionMetadata, IRTItemParameters } from "../utils/recommendationEngine";
 import "../styles/learning.css";
 import "../styles/ai-learning.css";
 
@@ -34,6 +38,7 @@ export interface QuizItem {
   correctOption: string;
   _uid?: string;
   isRetry?: boolean;
+  irtParams?: IRTItemParameters;
 }
 
 export interface OpenEndedItem {
@@ -68,6 +73,9 @@ interface GuidedLearningModalProps {
 export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningModalProps) {
   const { t } = useTranslation(['learning', 'translation']);
   const { showSnackbar } = useSnackbar();
+  const { sendMessage } = useChat();
+  const { updateProgress } = useGamification();
+  const { updateGoalProgress } = useLearningGoals();
   const DEFAULT_TRAILS = useMemo(() => t("guided_learning.default_trails", { returnObjects: true }) as LearningTrail[] || [], [t]);
   const [customTrails, setCustomTrails] = useState<LearningTrail[]>(() => {
     try {
@@ -130,8 +138,42 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
   const [genericQuizStats, setGenericQuizStats] = useState({ correct: 0 });
   const [isGenericQuizFinished, setIsGenericQuizFinished] = useState(false);
 
-  const [srsData, setSrsData] = useState<Record<string, { nextReview: number; difficulty: number }>>(() => {
-    try { return JSON.parse(localStorage.getItem("psy_mind_srs_data") || "{}"); }
+  const [srsData, setSrsData] = useState<Record<string, SRSItem>>(() => {
+    try {
+      const stored = localStorage.getItem("psy_mind_srs_data_v2");
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        // Convert dates back from strings
+        Object.keys(parsed).forEach(key => {
+          if (parsed[key].nextReview) {
+            parsed[key].nextReview = new Date(parsed[key].nextReview);
+          }
+          parsed[key].reviewHistory = parsed[key].reviewHistory.map((h: any) => ({
+            ...h,
+            date: new Date(h.date)
+          }));
+        });
+        return parsed;
+      }
+
+      // Migration from old format
+      const oldData = JSON.parse(localStorage.getItem("psy_mind_srs_data") || "{}");
+      const migrated: Record<string, SRSItem> = {};
+      Object.keys(oldData).forEach(key => {
+        const old = oldData[key];
+        migrated[key] = {
+          itemId: key,
+          easeFactor: 2.5,
+          interval: 1,
+          nextReview: new Date(old.nextReview || Date.now()),
+          reviewHistory: [{ date: new Date(), quality: old.difficulty + 2 }], // Approximate mapping
+          examType: 'ENEM' // Default, can be updated later
+        };
+      });
+      localStorage.setItem("psy_mind_srs_data_v2", JSON.stringify(migrated));
+      localStorage.removeItem("psy_mind_srs_data"); // Clean up old data
+      return migrated;
+    }
     catch { return {}; }
   });
   const [aiExplanation, setAiExplanation] = useState<string | null>(null);
@@ -139,6 +181,22 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
   const [discursiveResp, setDiscursiveResp] = useState("");
   const [discursiveFeedback, setDiscursiveFeedback] = useState<string | null>(null);
   const [isEvaluating, setIsEvaluating] = useState(false);
+
+  // Recommendation Engine State
+  const [topicProficiencies, setTopicProficiencies] = useState<Record<string, TopicProficiency>>(() => {
+    try {
+      const stored = localStorage.getItem("psy_mind_topic_proficiencies");
+      return stored ? JSON.parse(stored) : {};
+    } catch {
+      return {};
+    }
+  });
+  const [sessionQuestionHistory, setSessionQuestionHistory] = useState<string[]>([]);
+
+  // Save topic proficiencies to localStorage
+  useEffect(() => {
+    localStorage.setItem("psy_mind_topic_proficiencies", JSON.stringify(topicProficiencies));
+  }, [topicProficiencies]);
 
   // SRS Filter for Flashcards Tab
   const now = useMemo(() => Date.now(), []); // Stable reference for a single render cycle, though it might need periodic update if session is long. Actually better to use it in useMemo dependencies.
@@ -152,7 +210,7 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
   
   // ALL_FLASHCARDS merges due flashcards and any that failed in this session but haven't been re-answered correctly
   const ALL_FLASHCARDS = useMemo(() => 
-    [...new Set([...baseFlashcards.filter(f => !srsData[f.front] || srsData[f.front].nextReview <= Date.now()), ...sessionFailedFlashcards])],
+    [...new Set([...baseFlashcards.filter(f => !srsData[f.front] || srsData[f.front].nextReview <= new Date()), ...sessionFailedFlashcards])],
     [baseFlashcards, srsData, sessionFailedFlashcards]
   );
 
@@ -162,52 +220,63 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
     const pool = trails.filter(t => completedTrails[t.id]).flatMap(t => t.content.filter((c): c is QuizItem => c.type === "quiz"));
     if (pool.length === 0) return [];
 
-    // Fisher-Yates pra ordem real das questões sem alterar os originais do 'trails'
-    const shuffled = [...pool];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-       
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
+    // Converter para QuestionMetadata para o motor de recomendação
+    const availableQuestions: QuestionMetadata[] = pool.map((q, idx) => ({
+      id: `quiz_${idx}_${q.question.substring(0, 20)}`, // ID único baseado no conteúdo
+      topic: q.question.length > 50 ? 'General' : 'Specific', // Simplificado - em produção seria categorizado por IA
+      difficulty: 3, // Default médio - em produção seria calculado por análise
+      examType: 'ENEM', // Default
+      tags: [],
+      irtParams: recommendationEngine.generateIRTParameters({
+        id: `quiz_${idx}_${q.question.substring(0, 20)}`,
+        topic: q.question.length > 50 ? 'General' : 'Specific',
+        difficulty: 3,
+        examType: 'ENEM',
+        tags: []
+      })
+    }));
 
-    // Adiciona algumas questões duplicadas aleatoriamente
-    if (shuffled.length >= 3) {
-       
-      const dupCount = Math.floor(Math.random() * 3) + 1;
-      for (let k = 0; k < dupCount; k++) {
-          
-         const randomPoolItem = pool[Math.floor(Math.random() * pool.length)];
-          
-         shuffled.splice(Math.floor(Math.random() * shuffled.length), 0, randomPoolItem);
+    // Usar motor de recomendação para obter as melhores questões
+    const recommended = recommendationEngine.getRecommendations(
+      topicProficiencies,
+      srsData,
+      availableQuestions,
+      sessionQuestionHistory,
+      Math.min(20, pool.length) // Limitar a 20 questões recomendadas
+    );
+
+    // Mapear de volta para QuizItem com embaralhamento
+    return recommended.map((rec, idx) => {
+      // Encontrar a questão original correspondente
+      const originalQuiz = pool.find(q =>
+        `quiz_${pool.indexOf(q)}_${q.question.substring(0, 20)}` === rec.id
+      ) || pool[idx % pool.length];
+
+      const correctText = originalQuiz.options.find(o => o.id === originalQuiz.correctOption)?.text;
+
+      // Deep copy das opções para não mutar o objeto de trails original
+      const opts = originalQuiz.options.map(o => ({ ...o }));
+      for (let i = opts.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [opts[i], opts[j]] = [opts[j], opts[i]];
       }
-    }
 
-    return shuffled.map((q, idx) => {
-        const correctText = q.options.find(o => o.id === q.correctOption)?.text;
-        
-        // Deep copy das opções para não mutar o objeto de trails original
-        const opts = q.options.map(o => ({ ...o }));
-        for (let i = opts.length - 1; i > 0; i--) {
-             
-            const j = Math.floor(Math.random() * (i + 1));
-            [opts[i], opts[j]] = [opts[j], opts[i]];
-         }
-         
-         const ids = ["A", "B", "C", "D", "E", "F"];
-         let newCorrectID = "A";
-         opts.forEach((o, i) => {
-            if (o.text === correctText) newCorrectID = ids[i];
-            o.id = ids[i];
-         });
+      const ids = ["A", "B", "C", "D", "E", "F"];
+      let newCorrectID = "A";
+      opts.forEach((o, i) => {
+        if (o.text === correctText) newCorrectID = ids[i];
+        o.id = ids[i];
+      });
 
-         return {
-            ...q,
-            _uid: `quiz_${idx}_${crypto.randomUUID()}`, // UID para React renderizar
-           options: opts,
-           correctOption: newCorrectID
-        };
+      return {
+        ...originalQuiz,
+        _uid: `quiz_${idx}_${crypto.randomUUID()}`, // UID para React renderizar
+        options: opts,
+        correctOption: newCorrectID,
+        irtParams: rec.irtParams // Incluir parâmetros IRT da recomendação
+      };
     });
-  }, [completedTrails, trails]);
+  }, [completedTrails, trails, topicProficiencies, srsData, sessionQuestionHistory]);
 
   const ALL_QUIZZES = [...baseQuizzes, ...sessionFailedQuizzes];
   
@@ -215,14 +284,22 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
 
   const handleFlip = () => setIsFlipped(!isFlipped);
   const handleSrsAction = (flashcard: FlashcardItem, difficulty: number, isTrailMode: boolean) => {
-    // difficulty: 0 (Errei), 1 (Difícil), 2 (Bom), 3 (Fácil)
-    const intervals = [1000 * 30, 1000 * 60 * 5, 1000 * 60 * 30, 1000 * 60 * 60 * 2]; // Reduced intervals: 30s, 5m, 30m, 2h
-     
-    const now = Date.now();
-    const nextReview = now + intervals[difficulty];
-    const newSrs = { ...srsData, [flashcard.front]: { nextReview, difficulty } };
+    // Map difficulty to SM-2 quality: 0 (Errei) -> 0, 1 (Difícil) -> 2, 2 (Bom) -> 4, 3 (Fácil) -> 5
+    const quality = [0, 2, 4, 5][difficulty] || 3;
+
+    const currentItem = srsData[flashcard.front] || {
+      itemId: flashcard.front,
+      easeFactor: 2.5,
+      interval: 1,
+      nextReview: new Date(),
+      reviewHistory: [],
+      examType: 'ENEM'
+    };
+
+    const updatedItem = calculateNextReview(currentItem, quality);
+    const newSrs = { ...srsData, [flashcard.front]: updatedItem };
     setSrsData(newSrs);
-    localStorage.setItem("psy_mind_srs_data", JSON.stringify(newSrs));
+    localStorage.setItem("psy_mind_srs_data_v2", JSON.stringify(newSrs));
 
     if (difficulty === 0) {
       if (!sessionFailedFlashcards.find(f => f.front === flashcard.front)) {
@@ -240,14 +317,99 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
   
   const currentStep = activeTrailContent ? activeTrailContent[trailStepIndex] : null;
 
+  const generateQuizExplanation = async (quiz: QuizItem, selectedOption: string | null) => {
+    if (!selectedOption) return;
+
+    setIsExplaining(true);
+    try {
+      const selectedText = quiz.options.find(o => o.id === selectedOption)?.text || 'N/A';
+      const correctText = quiz.options.find(o => o.id === quiz.correctOption)?.text || 'N/A';
+
+      const prompt = `Explique por que a resposta "${selectedText}" está incorreta e por que "${correctText}" é a resposta correta para esta questão: "${quiz.question}". Forneça uma explicação clara e concisa, incluindo conceitos fundamentais e possíveis erros comuns.`;
+
+      const response = await sendMessage(prompt);
+      setAiExplanation(response);
+    } catch (error) {
+      logger.error('Error generating quiz explanation', error);
+      setAiExplanation('Erro ao gerar explicação. Tente novamente.');
+    } finally {
+      setIsExplaining(false);
+    }
+  };
+
+  const updateTopicProficiency = (topicId: string, wasCorrect: boolean, irtParams?: { difficulty: number; discrimination: number; guessing: number }) => {
+    setTopicProficiencies(prev => {
+      const current = prev[topicId] || {
+        topicId,
+        theta: 0, // Começar com proficiência neutra
+        lastReviewed: new Date(),
+        reviewCount: 0,
+        correctCount: 0,
+        difficultyHistory: []
+      };
+
+      let newTheta = current.theta;
+
+      if (irtParams) {
+        // Usar modelo IRT completo para estimativa de habilidade
+        const { difficulty, discrimination, guessing } = irtParams;
+
+        // Probabilidade esperada usando modelo 3PL
+        const expectedProb = guessing + (1 - guessing) / (1 + Math.exp(-discrimination * (current.theta - difficulty)));
+
+        // Atualização bayesiana da habilidade usando EAP (Expected A Posteriori)
+        const actualProb = wasCorrect ? 1 : 0;
+        const likelihood = actualProb * expectedProb + (1 - actualProb) * (1 - expectedProb);
+
+        // Atualização incremental baseada na diferença
+        const learningRate = 0.15;
+        const error = actualProb - expectedProb;
+        newTheta = current.theta + learningRate * error * discrimination;
+
+        // Aplicar regularização para evitar overfitting
+        newTheta = 0.9 * newTheta + 0.1 * current.theta;
+      } else {
+        // Fallback para método simples se não houver parâmetros IRT
+        const learningRate = 0.1;
+        const expectedProb = 1 / (1 + Math.exp(-current.theta));
+        const actualProb = wasCorrect ? 1 : 0;
+        const error = actualProb - expectedProb;
+        newTheta = current.theta + learningRate * error;
+      }
+
+      return {
+        ...prev,
+        [topicId]: {
+          ...current,
+          theta: Math.max(-3, Math.min(3, newTheta)), // Limitar range
+          lastReviewed: new Date(),
+          reviewCount: current.reviewCount + 1,
+          correctCount: current.correctCount + (wasCorrect ? 1 : 0),
+          difficultyHistory: [...current.difficultyHistory.slice(-9), irtParams?.difficulty || 0] // Manter últimos 10
+        }
+      };
+    });
+  };
+
   const handleQuizSubmit = () => {
     setQuizSubmitted(true);
     if (activeTrailContent && currentStep && currentStep.type === "quiz") {
-       if (selectedOption === currentStep.correctOption) {
+       const isCorrect = selectedOption === currentStep.correctOption;
+       if (isCorrect) {
           if (!currentStep.isRetry) {
              setCurrentTrailStats(prev => ({ ...prev, correct: prev.correct + 1 }));
           }
+          // Atualizar proficiência para acertos
+          updateTopicProficiency('trail_topic', true);
+          // Atualizar progresso gamificação
+          updateProgress({ type: 'correct_answer' });
+          // Atualizar progresso das metas
+          updateGoalProgress('all', { type: 'correct_answer' });
+          // Agendar lembretes inteligentes
+          SmartReminderSystem.scheduleReminders(srsData);
        } else {
+          // Generate explanation for wrong answer
+          generateQuizExplanation(currentStep, selectedOption);
           // Send failed trail question to the end of the trail content
           setActiveTrailContent(prev => {
              if (!prev) return null;
@@ -257,16 +419,48 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
              updated.push(rep);
              return updated;
           });
+          // Atualizar proficiência para erros
+          updateTopicProficiency('trail_topic', false);
+          // Atualizar progresso gamificação
+          updateProgress({ type: 'question_answered' });
+          // Atualizar progresso das metas
+          updateGoalProgress('all', { type: 'question_answered' });
+          // Agendar lembretes inteligentes
+          SmartReminderSystem.scheduleReminders(srsData);
        }
     } else if (!isTrailActive) {
-       if (selectedOption === currentGenericQuiz.correctOption) {
+       const isCorrect = selectedOption === currentGenericQuiz.correctOption;
+       if (isCorrect) {
           if (genericQuizIndex < baseQuizzes.length) {
              setGenericQuizStats(prev => ({ ...prev, correct: prev.correct + 1 }));
           }
+          // Atualizar proficiência para acertos com parâmetros IRT
+          const irtParams = currentGenericQuiz.irtParams;
+          updateTopicProficiency('generic_quiz', true, irtParams);
+          // Atualizar progresso gamificação
+          updateProgress({ type: 'correct_answer' });
+          // Atualizar progresso das metas
+          updateGoalProgress('all', { type: 'correct_answer' });
+          // Agendar lembretes inteligentes
+          SmartReminderSystem.scheduleReminders(srsData);
        } else {
+          // Generate explanation for wrong answer
+          generateQuizExplanation(currentGenericQuiz, selectedOption);
           // ALWAYS add failed questions to the end of the line, even if they are already there!
           setSessionFailedQuizzes(prev => [...prev, currentGenericQuiz]);
+          // Atualizar proficiência para erros com parâmetros IRT
+          const irtParams = currentGenericQuiz.irtParams;
+          updateTopicProficiency('generic_quiz', false, irtParams);
+          // Atualizar progresso gamificação
+          updateProgress({ type: 'question_answered' });
+          // Atualizar progresso das metas
+          updateGoalProgress('all', { type: 'question_answered' });
+          // Agendar lembretes inteligentes
+          SmartReminderSystem.scheduleReminders(srsData);
        }
+
+       // Adicionar ao histórico da sessão
+       setSessionQuestionHistory(prev => [...prev, currentGenericQuiz._uid || currentGenericQuiz.question]);
     }
   };
   
@@ -355,6 +549,10 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
             ...prev,
             [selectedTrail.id]: { correct: currentTrailStats.correct, total: currentTrailStats.total }
          }));
+         // Atualizar progresso gamificação
+         updateProgress({ type: 'trail_completed' });
+         // Atualizar progresso das metas
+         updateGoalProgress('all', { type: 'trail_completed' });
        }
        setIsTrailFinished(true);
     }

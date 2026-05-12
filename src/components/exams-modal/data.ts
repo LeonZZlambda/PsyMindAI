@@ -33,6 +33,71 @@ export const examCategories: ExamCategory[] = [
         fullName: 'International Baccalaureate',
         subjects: ['Studies in Language and Literature', 'Language Acquisition', 'Individuals and Societies', 'Sciences', 'Mathematics', 'The Arts'],
       },
+      {
+        name: 'Cambridge English',
+        fullName: 'Cambridge English Qualifications',
+        subjects: ['Key (KET)', 'Preliminary (PET)', 'First (FCE)', 'Advanced (CAE)', 'Proficiency (CPE)'],
+      },
+      {
+        name: 'GMAT',
+        fullName: 'Graduate Management Admission Test',
+        subjects: ['Quantitative Reasoning', 'Verbal Reasoning', 'Integrated Reasoning', 'Analytical Writing'],
+      },
+      {
+        name: 'GRE',
+        fullName: 'Graduate Record Examination',
+        subjects: ['Verbal Reasoning', 'Quantitative Reasoning', 'Analytical Writing'],
+      },
+      {
+        name: 'AP Exams',
+        fullName: 'Advanced Placement',
+        subjects: ['Calculus AB', 'Calculus BC', 'Statistics', 'Physics 1', 'Physics 2', 'Physics C', 'Chemistry', 'Biology', 'English Language', 'English Literature', 'World History', 'US History', 'Psychology', 'Computer Science A'],
+      },
+      {
+        name: 'DELF/DALF',
+        fullName: 'Diplôme d\'Études en Langue Française',
+        subjects: ['DELF A1', 'DELF A2', 'DELF B1', 'DELF B2', 'DALF C1', 'DALF C2'],
+      },
+      {
+        name: 'TestDaF',
+        fullName: 'Test Deutsch als Fremdsprache',
+        subjects: ['Reading', 'Listening', 'Writing', 'Speaking'],
+      },
+      {
+        name: 'HSK',
+        fullName: 'Hanyu Shuiping Kaoshi (Chinese Proficiency Test)',
+        subjects: ['HSK 1', 'HSK 2', 'HSK 3', 'HSK 4', 'HSK 5', 'HSK 6'],
+      },
+      {
+        name: 'JLPT',
+        fullName: 'Japanese Language Proficiency Test',
+        subjects: ['N5', 'N4', 'N3', 'N2', 'N1'],
+      },
+      {
+        name: 'DELE',
+        fullName: 'Diplomas de Español como Lengua Extranjera',
+        subjects: ['DELE A1', 'DELE A2', 'DELE B1', 'DELE B2', 'DELE C1', 'DELE C2'],
+      },
+      {
+        name: 'A-Levels',
+        fullName: 'General Certificate of Education Advanced Level (UK)',
+        subjects: ['Mathematics', 'Further Mathematics', 'Physics', 'Chemistry', 'Biology', 'English Literature', 'English Language', 'History', 'Geography', 'Economics', 'Psychology', 'Sociology', 'Computer Science', 'French', 'German', 'Spanish'],
+      },
+      {
+        name: 'Abitur',
+        fullName: 'Abitur (Germany)',
+        subjects: ['Mathematics', 'German', 'English', 'French', 'Latin', 'Ancient Greek', 'History', 'Geography', 'Politics/Social Studies', 'Philosophy', 'Ethics', 'Religion', 'Physics', 'Chemistry', 'Biology', 'Computer Science', 'Music', 'Art', 'Sports'],
+      },
+      {
+        name: 'Baccalauréat',
+        fullName: 'Baccalauréat (France)',
+        subjects: ['French Literature', 'Philosophy', 'History-Geography', 'Modern Languages', 'Ancient Languages', 'Mathematics', 'Physics-Chemistry', 'Life and Earth Sciences', 'Engineering Sciences', 'Economics and Social Sciences', 'Arts', 'Music', 'Physical Education'],
+      },
+      {
+        name: 'Maturità',
+        fullName: 'Esame di Stato (Italy)',
+        subjects: ['Italian', 'History', 'Philosophy', 'English', 'French', 'German', 'Spanish', 'Latin', 'Greek', 'Mathematics', 'Physics', 'Chemistry', 'Biology', 'Geography', 'History of Art', 'Physical Education', 'Computer Science'],
+      },
     ],
   },
   {
@@ -105,18 +170,198 @@ export const examCategories: ExamCategory[] = [
     ],
   },
   {
+    id: 'military',
+    title: 'Militares',
+    icon: 'military_tech',
+    color: '#dc2626',
+    className: 'category-military',
+    exams: [
+      {
+        name: 'ITA',
+        fullName: 'Instituto Tecnológico de Aeronáutica',
+        subjects: ['Matemática', 'Física', 'Química', 'Português', 'Inglês', 'Geografia', 'História', 'Filosofia', 'Sociologia', 'Biologia', 'Literatura'],
+      },
+      {
+        name: 'IME',
+        fullName: 'Instituto Militar de Engenharia',
+        subjects: ['Matemática', 'Física', 'Química', 'Português', 'Inglês', 'Geografia', 'História', 'Filosofia', 'Sociologia', 'Biologia', 'Literatura'],
+      },
+      {
+        name: 'IME-RJ',
+        fullName: 'Instituto Militar de Engenharia - Rio de Janeiro',
+        subjects: ['Matemática', 'Física', 'Química', 'Português', 'Inglês', 'Geografia', 'História', 'Filosofia', 'Sociologia', 'Biologia', 'Literatura'],
+      },
+      {
+        name: 'AMAN',
+        fullName: 'Academia Militar das Agulhas Negras',
+        subjects: ['Matemática', 'Física', 'Química', 'Português', 'Inglês', 'Geografia', 'História', 'Filosofia', 'Sociologia', 'Biologia', 'Literatura'],
+      },
+      {
+        name: 'ENA',
+        fullName: 'Escola Nacional de Administração',
+        subjects: ['Matemática', 'Português', 'Inglês', 'Geografia', 'História', 'Filosofia', 'Sociologia', 'Economia', 'Direito', 'Administração'],
+      },
+      {
+        name: 'EsPCEx',
+        fullName: 'Escola Preparatória de Cadetes do Exército',
+        subjects: ['Matemática', 'Física', 'Química', 'Português', 'Inglês', 'Geografia', 'História', 'Filosofia', 'Sociologia', 'Biologia'],
+      },
+    ],
+  },
+  {
     id: 'olympiads',
     title: 'Olimpíadas',
     icon: 'emoji_events',
     color: '#8b5cf6',
     className: 'category-olympiads',
     exams: [
-      { name: 'OBMEP', fullName: 'Matemática', subjects: ['Nível 1', 'Nível 2', 'Nível 3', 'Nível Júnior'] },
-      { name: 'OBA', fullName: 'Astronomia', subjects: ['Nível 1', 'Nível 2', 'Nível 3', 'Nível 4'] },
-      { name: 'OBI', fullName: 'Informática', subjects: ['Iniciação', 'Programação Júnior', 'Programação 1', 'Programação 2'] },
-      { name: 'OBF', fullName: 'Física', subjects: ['Nível 1', 'Nível 2', 'Nível 3'] },
-      { name: 'OBQ', fullName: 'Química', subjects: ['OBQjr', 'Fase I', 'Fase II', 'Fase III'] },
-      { name: 'ONC', fullName: 'Ciências', subjects: ['Nível A', 'Nível B', 'Nível C', 'Nível D', 'Nível E'] },
+      { name: 'OBMEP', fullName: 'Olimpíada Brasileira de Matemática das Escolas Públicas', subjects: [
+        'Aritmética (Mínimo Múltiplo Comum, Divisibilidade)',
+        'Álgebra (Equações, Inequações, Funções)',
+        'Geometria (Triângulos, Círculos, Áreas)',
+        'Probabilidade e Estatística (Análise Combinatória)',
+        'Raciocínio Lógico (Sequências, Padrões)',
+        'Problemas Aplicados (Situações do Cotidiano)',
+        'Desafios Avançados (Matemática Criativa)'
+      ] },
+      { name: 'OBA', fullName: 'Olimpíada Brasileira de Astronomia', subjects: [
+        'Sistema Solar (Planetas, Satélites, Asteroides)',
+        'Estrelas e Galáxias (Ciclo de Vida, Classificação)',
+        'Cosmologia (Big Bang, Expansão do Universo)',
+        'Astronomia Observacional (Constelações, Telescópios)',
+        'Física Espacial (Gravitação, Órbitas)',
+        'Astrofísica (Radiação, Espectros)',
+        'Astronomia Cultural (Mitologia, História)'
+      ] },
+      { name: 'OBI', fullName: 'Olimpíada Brasileira de Informática', subjects: [
+        'Lógica de Programação (Algoritmos, Pseudocódigo)',
+        'Estruturas de Dados (Vetores, Matrizes, Listas)',
+        'Programação Básica (Condicionais, Loops)',
+        'Funções e Procedimentos (Modularização)',
+        'Recursão (Problemas Recursivos)',
+        'Algoritmos de Busca e Ordenação',
+        'Introdução à Complexidade Computacional'
+      ] },
+      { name: 'OBF', fullName: 'Olimpíada Brasileira de Física', subjects: [
+        'Mecânica Básica (Movimento, Forças, Energia)',
+        'Eletricidade e Magnetismo (Circuitos, Campos)',
+        'Ondas e Óptica (Reflexão, Refração, Interferência)',
+        'Termodinâmica (Calor, Temperatura, Entropia)',
+        'Física Moderna (Relatividade, Quântica)',
+        'Experimentos Práticos (Laboratório)',
+        'Resolução de Problemas (Aplicações)'
+      ] },
+      { name: 'OBQ', fullName: 'Olimpíada Brasileira de Química', subjects: [
+        'Química Geral (Átomos, Moléculas, Ligações)',
+        'Química Orgânica (Funções Orgânicas, Reações)',
+        'Química Inorgânica (Tabela Periódica, Compostos)',
+        'Físico-Química (Equilíbrio, Cinética)',
+        'Química Experimental (Laboratório, Análises)',
+        'Química Ambiental (Poluição, Sustentabilidade)',
+        'História da Química (Descobertas, Cientistas)'
+      ] },
+      { name: 'ONC', fullName: 'Olimpíada Nacional de Ciências', subjects: [
+        'Biologia (Ecologia, Evolução, Genética)',
+        'Física (Mecânica, Eletricidade, Ondas)',
+        'Química (Matéria, Energia, Reações)',
+        'Matemática (Álgebra, Geometria, Estatística)',
+        'Ciências da Terra (Geologia, Meteorologia)',
+        'Astronomia (Sistema Solar, Universo)',
+        'Interdisciplinar (Integração de Conhecimentos)'
+      ] },
+      { name: 'IOI', fullName: 'International Olympiad in Informatics', subjects: [
+        'Algoritmos (Grafos, Árvores, Fluxo Máximo)',
+        'Estruturas de Dados (Segment Trees, Fenwick Trees, Tries)',
+        'Programação Dinâmica (Knapsack, LCS, Matriz Chain)',
+        'Teoria dos Grafos (Matching, Coloração, Conectividade)',
+        'Geometria Computacional (Convex Hull, Interseções)',
+        'Teoria dos Números (Primos, FFT, Combinatória)',
+        'Programação Competitiva (Complexidade, Otimização)'
+      ] },
+      { name: 'IMO', fullName: 'International Mathematical Olympiad', subjects: [
+        'Álgebra (Grupos, Anéis, Corpos, Teoria de Galois)',
+        'Análise (Cálculo Diferencial/Integral, Séries, Análise Complexa)',
+        'Geometria (Geometria Euclidiana, Coordenadas, Transformações)',
+        'Teoria dos Números (Congruências, Primos, Função Totiente)',
+        'Combinatória (Princípio da Casa dos Pombos, Inclusão-Exclusão)',
+        'Inequações (AM-GM, Cauchy-Schwarz, Titu\'s Lemma)',
+        'Problemas de Raciocínio (Invariantes, Indução Forte)'
+      ] },
+      { name: 'IPhO', fullName: 'International Physics Olympiad', subjects: [
+        'Mecânica (Dinâmica, Energia, Momento Angular, Oscilações)',
+        'Eletromagnetismo (Campos Elétricos/Magnéticos, Circuitos, Ondas)',
+        'Termodinâmica (Leis da Termodinâmica, Ciclos, Entropia)',
+        'Óptica (Reflexão/Refração, Interferência, Difração, Polarização)',
+        'Física Moderna (Relatividade, Mecânica Quântica, Física Nuclear)',
+        'Física Experimental (Instrumentação, Análise de Dados, Erros)',
+        'Problemas Integrados (Aplicações Interdisciplinares)'
+      ] },
+      { name: 'IChO', fullName: 'International Chemistry Olympiad', subjects: [
+        'Química Orgânica (Mecanismos, Síntese, Espectroscopia)',
+        'Química Inorgânica (Estrutura Atômica, Ligações, Complexos)',
+        'Físico-Química (Termodinâmica, Cinética, Equilíbrio)',
+        'Química Analítica (Titulações, Cromatografia, Espectrometria)',
+        'Química Experimental (Técnicas Laboratoriais, Análise Quantitativa)',
+        'Bioquímica (Metabolismo, Enzimas, Ácidos Nucleicos)',
+        'Problemas Integrados (Aplicações Industriais/Ambientais)'
+      ] },
+      { name: 'IBO', fullName: 'International Biology Olympiad', subjects: [
+        'Biologia Celular (Organelas, Membranas, Ciclo Celular)',
+        'Genética e Biologia Molecular (DNA, RNA, Proteínas, Herança)',
+        'Fisiologia Humana (Sistemas Orgânicos, Homeostase)',
+        'Ecologia (Ecossistemas, Biodiversidade, Conservação)',
+        'Evolução (Teoria Darwiniana, Seleção Natural, Filogenia)',
+        'Microbiologia (Bactérias, Vírus, Imunologia)',
+        'Biologia Experimental (Técnicas Laboratoriais, Análise de Dados)'
+      ] },
+      { name: 'IAAO', fullName: 'International Astronomy Olympiad', subjects: [
+        'Astrofísica (Estrelas, Galáxias, Cosmologia)',
+        'Mecânica Celeste (Órbitas, Leis de Kepler, Gravitação)',
+        'Astronomia Observacional (Telescópios, Espectroscopia)',
+        'Física Solar e Planetária (Sistema Solar, Exoplanetas)',
+        'Astroquímica (Formação de Moléculas, Meio Interestelar)',
+        'Análise de Dados Astronômicos (Fotometria, Astrometria)',
+        'Problemas Integrados (Modelagem e Simulação)'
+      ] },
+    ],
+  },
+  {
+    id: 'public_service',
+    title: 'Concursos Públicos',
+    icon: 'work',
+    color: '#059669',
+    className: 'category-public-service',
+    exams: [
+      {
+        name: 'CESPE/CEBRASPE',
+        fullName: 'Centro Brasileiro de Pesquisa em Avaliação e Seleção',
+        subjects: ['Português', 'Matemática', 'Conhecimentos Gerais', 'Direito', 'Administração', 'Economia', 'Contabilidade'],
+      },
+      {
+        name: 'FCC',
+        fullName: 'Fundação Carlos Chagas',
+        subjects: ['Português', 'Matemática', 'Conhecimentos Gerais', 'Direito', 'Administração', 'Economia'],
+      },
+      {
+        name: 'FGV',
+        fullName: 'Fundação Getulio Vargas',
+        subjects: ['Português', 'Matemática', 'Conhecimentos Gerais', 'Direito', 'Administração', 'Economia', 'Contabilidade'],
+      },
+      {
+        name: 'TJ/SP',
+        fullName: 'Tribunal de Justiça de São Paulo',
+        subjects: ['Português', 'Direito Civil', 'Direito Processual Civil', 'Direito Penal', 'Direito Processual Penal', 'Direito Constitucional'],
+      },
+      {
+        name: 'MP/SP',
+        fullName: 'Ministério Público de São Paulo',
+        subjects: ['Português', 'Direito Civil', 'Direito Processual Civil', 'Direito Penal', 'Direito Processual Penal', 'Direito Constitucional'],
+      },
+      {
+        name: 'PF',
+        fullName: 'Polícia Federal',
+        subjects: ['Português', 'Direito', 'Criminologia', 'Informática', 'Contabilidade', 'Raciocínio Lógico'],
+      },
     ],
   },
 ];
@@ -362,3 +607,76 @@ export const getSubjectConfig = (subjectName: string, examName?: string): Subjec
 
   return { icon: 'menu_book', className: 'subject-default' };
 };
+
+export const examSystems = {
+  national: examCategories.find(cat => cat.id === 'national')?.exams || [],
+  international: {
+    aLevels: {
+      subjects: [
+        'Mathematics', 'Further Mathematics', 'Physics', 'Chemistry', 'Biology',
+        'English Literature', 'History', 'Geography', 'Economics', 'Psychology'
+      ],
+      weights: {
+        'Mathematics': 1.0, 'Further Mathematics': 1.0, 'Physics': 1.0, 'Chemistry': 1.0, 'Biology': 1.0,
+        'English Literature': 0.8, 'History': 0.8, 'Geography': 0.8, 'Economics': 0.8, 'Psychology': 0.8
+      },
+      minScore: 40,
+      maxScore: 90,
+      gradeBoundaries: { A: 80, B: 70, C: 60, D: 50, E: 40 }
+    },
+    ibDiploma: {
+      core: ['Theory of Knowledge (TOK)', 'Extended Essay (EE)', 'Creativity, Activity, Service (CAS)'],
+      subjects: [
+        'Language A: Literature', 'Language A: Language and Literature', 'Language B',
+        'Individuals and Societies', 'Sciences', 'Mathematics: Analysis and Approaches',
+        'Mathematics: Applications and Interpretation', 'The Arts'
+      ],
+      minPoints: 24,
+      maxPoints: 45,
+      gradeBoundaries: { '7': 85, '6': 75, '5': 65, '4': 55, '3': 45, '2': 35, '1': 25 }
+    },
+    abitur: {
+      subjects: [
+        'Deutsch', 'Mathematik', 'Englisch', 'Physik', 'Chemie', 'Biologie',
+        'Geschichte', 'Geografie', 'Sozialkunde', 'Kunst', 'Musik'
+      ],
+      weights: {
+        'Deutsch': 1.0, 'Matematik': 1.0, 'Englisch': 1.0,
+        'Physik': 0.8, 'Chemie': 0.8, 'Biologie': 0.8,
+        'Geschichte': 0.6, 'Geografie': 0.6, 'Sozialkunde': 0.6,
+        'Kunst': 0.4, 'Musik': 0.4
+      },
+      minScore: 4.0,
+      maxScore: 1.0,
+      gradeBoundaries: { '1': 15, '2': 11, '3': 8, '4': 5 }
+    },
+    baccalaureat: {
+      subjects: [
+        'Français', 'Mathématiques', 'Histoire-Géographie', 'Langue Vivante 1',
+        'Langue Vivante 2', 'Philosophie', 'Sciences', 'Littérature', 'Arts'
+      ],
+      weights: {
+        'Français': 1.0, 'Mathématiques': 1.0, 'Philosophie': 1.0,
+        'Histoire-Géographie': 0.8, 'Langue Vivante 1': 0.8,
+        'Sciences': 0.7, 'Littérature': 0.6, 'Langue Vivante 2': 0.5, 'Arts': 0.4
+      },
+      minScore: 10,
+      maxScore: 20,
+      gradeBoundaries: { 'TB': 16, 'B': 14, 'AB': 12, 'Passable': 10 }
+    },
+    maturita: {
+      subjects: [
+        'Italiano', 'Matematica', 'Storia', 'Geografia', 'Scienze', 'Lingua Straniera',
+        'Filosofia', 'Latino', 'Greco', 'Arte', 'Musica'
+      ],
+      weights: {
+        'Italiano': 1.0, 'Matematica': 1.0, 'Lingua Straniera': 1.0,
+        'Storia': 0.8, 'Scienze': 0.8, 'Filosofia': 0.7,
+        'Geografia': 0.6, 'Latino': 0.5, 'Greco': 0.5, 'Arte': 0.4, 'Musica': 0.4
+      },
+      minScore: 60,
+      maxScore: 100,
+      gradeBoundaries: { 'A': 90, 'B': 80, 'C': 70, 'D': 60 }
+    }
+  }
+} as const;

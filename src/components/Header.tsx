@@ -62,6 +62,22 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, toggleSidebar, isLoading
           </span>
         </button>
         <button 
+          className="header-btn" 
+          onClick={() => toggleModal('achievements')} 
+          title={t('header.achievements', 'Conquistas')}
+          aria-label={t('header.achievements_aria', 'Ver conquistas')}
+        >
+          <span className="material-symbols-outlined">emoji_events</span>
+        </button>
+        <button 
+          className="header-btn" 
+          onClick={() => toggleModal('learningGoals')} 
+          title="Metas de Aprendizado"
+          aria-label="Ver metas de aprendizado"
+        >
+          <span className="material-symbols-outlined">flag</span>
+        </button>
+        <button 
           className="user-profile" 
           onClick={(e) => { e.stopPropagation(); toggleModal('account'); }} 
           title={t('header.user_account')} 

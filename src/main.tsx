@@ -20,7 +20,9 @@ import { MoodProvider } from './context/MoodContext'
 import { EmotionalJournalProvider } from './context/EmotionalJournalContext'
 import { ModalProvider } from './context/ModalContext'
 import { DirectionProvider } from './context/DirectionContext'
+import { LearningGoalsProvider } from './context/LearningGoalsContext'
 import { SnackbarProvider } from './context/SnackbarContext'
+import { GamificationProvider } from './context/GamificationContext'
 import { BrowserRouter } from 'react-router-dom'
 import { protectMaterialIcons } from './utils/protectMaterialIcons'
 import GlobalRipple from './components/GlobalRipple'
@@ -43,8 +45,12 @@ createRoot(rootElement).render(
                   <MoodProvider>
                     <EmotionalJournalProvider>
                       <SnackbarProvider>
-                        <GlobalRipple />
-                        <App />
+                        <GamificationProvider>
+                          <LearningGoalsProvider>
+                            <GlobalRipple />
+                            <App />
+                          </LearningGoalsProvider>
+                        </GamificationProvider>
                       </SnackbarProvider>
                     </EmotionalJournalProvider>
                   </MoodProvider>

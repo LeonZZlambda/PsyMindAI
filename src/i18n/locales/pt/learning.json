@@ -435,7 +435,9 @@
       "international": "Internacionais",
       "national": "Nacionais",
       "regional": "Regionais",
-      "olympiads": "Olimpíadas"
+      "military": "Militares",
+      "olympiads": "Olimpíadas",
+      "public_service": "Concursos Públicos"
     },
     "topics_header": "Matriz de Referência e Conteúdos",
     "actions": {

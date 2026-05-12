@@ -435,7 +435,9 @@
       "international": "International",
       "national": "National",
       "regional": "Regional",
-      "olympiads": "Olympiads"
+      "military": "Military",
+      "olympiads": "Olympiads",
+      "public_service": "Public Service Exams"
     },
     "topics_header": "Reference Matrix and Contents",
     "actions": {

@@ -19,7 +19,9 @@ export type ModalName =
   | 'soundscapes'
   | 'studyStats'
   | 'importContext'
-  | 'weeklySchedule';
+  | 'weeklySchedule'
+  | 'achievements'
+  | 'learningGoals';
 
 /**
  * Modal state: mapping of modal names to open/closed status
@@ -79,6 +81,7 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
     studyStats: false,
     importContext: false,
     weeklySchedule: false,
+    achievements: false,
   });
 
   /**
