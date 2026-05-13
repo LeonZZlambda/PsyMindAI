@@ -1,6 +1,6 @@
 import React, { Suspense, lazy, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useChat } from '../context/ChatContext';
+import { useChat } from '../hooks/context/useChat';
 import TelemetryService from '../services/TelemetryService';
 import BaseModal from './BaseModal';
 import { examCategories, getTopicsForSubject } from './exams-modal/data';

@@ -29,7 +29,7 @@ export interface GoalTemplate {
   id: string;
   title: string;
   description: string;
-  type: 'daily' | 'weekly' | 'monthly';
+  type: 'daily' | 'weekly' | 'monthly' | 'custom';
   target: LearningGoal['target'];
   icon: string;
 }
@@ -132,15 +132,17 @@ export class LearningGoalsSystem {
     };
   }
 
-  private static calculateDeadline(type: 'daily' | 'weekly' | 'monthly'): Date {
+  private static calculateDeadline(type: 'daily' | 'weekly' | 'monthly' | 'custom'): Date | undefined {
+    if (type === 'custom') return undefined;
     const now = new Date();
     switch (type) {
       case 'daily':
         return new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
-      case 'weekly':
+      case 'weekly': {
         const nextWeek = new Date(now);
         nextWeek.setDate(now.getDate() + (7 - now.getDay()));
         return nextWeek;
+      }
       case 'monthly':
         return new Date(now.getFullYear(), now.getMonth() + 1, 1);
       default:

@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 import { useNavigate } from 'react-router-dom'
 import { m, AnimatePresence } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
-import { useTheme } from '../context/ThemeContext'
+import { useTheme } from '../hooks/context/useTheme'
 import AccountModal from './AccountModal'
 import '../styles/landing-header.css'
 

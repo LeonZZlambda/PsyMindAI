@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { useChat } from '../../context/ChatContext';
+import { useChat } from '../../hooks/context/useChat';
 
 type EnemCalculatorProps = {
   onClose: () => void;

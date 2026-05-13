@@ -3,7 +3,7 @@ import '../styles/kindness.css';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import BaseModal from './BaseModal';
-import { useTheme } from '../context/ThemeContext';
+import { useTheme } from '../hooks/context/useTheme';
 import PsyBot from './PsyBot';
 
 interface KindnessModalProps {

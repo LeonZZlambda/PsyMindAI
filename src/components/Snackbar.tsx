@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTheme } from '../context/ThemeContext';
+import { useTheme } from '../hooks/context/useTheme';
 import '../styles/snackbar.css';
 
 interface SnackbarProps {

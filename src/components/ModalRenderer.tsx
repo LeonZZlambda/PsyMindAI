@@ -18,8 +18,6 @@ const VocationalTestModal = lazy(() => import('./VocationalTestModal'));
 const KindnessModal = lazy(() => import('./KindnessModal'));
 const SoundscapesModal = lazy(() => import('./SoundscapesModal'));
 const WeeklyScheduleModal = lazy(() => import('./WeeklySchedule/components/WeeklyScheduleModal'));
-const AchievementsModal = lazy(() => import('./AchievementsModal'));
-const LearningGoalsModal = lazy(() => import('./LearningGoalsModal'));
 
 import { ModalState, ModalName } from '../context/ModalContext';
 
@@ -190,25 +188,6 @@ export const ModalRenderer: React.FC<ModalRendererProps> = ({ openModals, toggle
         )}
       </AnimatePresence>
 
-      {/* Achievements Modal */}
-      <AnimatePresence>
-        {openModals.achievements && (
-          <AchievementsModal
-            isOpen={openModals.achievements}
-            onClose={() => toggleModal('achievements')}
-          />
-        )}
-      </AnimatePresence>
-
-      {/* Learning Goals Modal */}
-      <AnimatePresence>
-        {openModals.learningGoals && (
-          <LearningGoalsModal
-            isOpen={openModals.learningGoals}
-            onClose={() => toggleModal('learningGoals')}
-          />
-        )}
-      </AnimatePresence>
     </Suspense>
   );
 };

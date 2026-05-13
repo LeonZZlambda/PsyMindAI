@@ -4,6 +4,8 @@ import BaseModal from './BaseModal';
 import StudyDashboardSkeleton from './study-dashboard/StudyDashboardSkeleton';
 import { useStudyDashboardData } from '../hooks/useStudyDashboardData';
 import type { DisciplineBreakdownItem, StudyMetricCard, WeeklyStudyPoint } from './study-dashboard/types';
+import LearningGoalsModal from './LearningGoalsModal';
+import AchievementsModal from './AchievementsModal';
 import '../styles/study-dashboard.css';
 
 type Props = {
@@ -172,6 +174,7 @@ const DisciplineBreakdown: React.FC<DisciplineBreakdownProps> = ({ emptyMessage,
 const StudyStatsModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const { t } = useTranslation(['dashboard', 'translation']);
   const [isFormVisible, setIsFormVisible] = useState(false);
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'goals' | 'achievements'>('dashboard');
   const { addLog, status, viewModel } = useStudyDashboardData(isOpen, t);
 
   if (!isOpen) return null;
@@ -179,6 +182,74 @@ const StudyStatsModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const handleAddLog = (topic: string, minutes: number) => {
     addLog(topic, minutes);
     setIsFormVisible(false);
+  };
+
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case 'goals':
+        return <LearningGoalsModal isEmbedded />;
+      case 'achievements':
+        return <AchievementsModal isEmbedded />;
+      default:
+        return (
+          <div className="study-dashboard">
+            <div className="modal-hero study-dashboard__hero">
+              <div className="study-dashboard__hero-copy">
+                <span className="modal-hero__eyebrow">
+                  <span className="material-symbols-outlined">monitoring</span>
+                  {t('study_stats.eyebrow')}
+                </span>
+                <h3>{t('study_stats.hero_title')}</h3>
+                <p>{t('study_stats.hero_description')}</p>
+              </div>
+
+              <button
+                className="study-dashboard__action-btn"
+                onClick={() => setIsFormVisible((currentValue) => !currentValue)}
+                type="button"
+              >
+                <span className="material-symbols-outlined">
+                  {isFormVisible ? 'remove' : 'add'}
+                </span>
+                {isFormVisible ? t('study_stats.hide_form') : t('study_stats.add_session')}
+              </button>
+            </div>
+
+            {isFormVisible ? <StudySessionForm onSubmit={handleAddLog} /> : null}
+
+            <StudyMetricsGrid items={viewModel.metricCards} />
+
+            {!viewModel.telemetryEnabled ? (
+              <div className="study-dashboard__telemetry-banner">
+                <span className="material-symbols-outlined">visibility_off</span>
+                <p>{viewModel.telemetryDisabledMessage}</p>
+              </div>
+            ) : null}
+
+            <div className="study-dashboard__content-grid">
+              <WeeklyStudyChart
+                caption={t('study_stats.weekly_caption')}
+                items={viewModel.weeklyStudy}
+                title={t('study_stats.charts.weekly_title')}
+              />
+
+              <DisciplineBreakdown
+                emptyMessage={t('study_stats.empty')}
+                items={viewModel.disciplineBreakdown}
+                title={t('study_stats.charts.discipline_title')}
+              />
+            </div>
+
+            <div className={`study-dashboard__insight study-dashboard__insight--${viewModel.insight.tone}`}>
+              <span className="material-symbols-outlined study-dashboard__insight-icon">lightbulb</span>
+              <div className="study-dashboard__insight-copy">
+                <strong className="study-dashboard__insight-title">{viewModel.insight.title}</strong>
+                <p>{viewModel.insight.body}</p>
+              </div>
+            </div>
+          </div>
+        );
+    }
   };
 
   return (
@@ -190,65 +261,38 @@ const StudyStatsModal: React.FC<Props> = ({ isOpen, onClose }) => {
       size="large"
       className="study-stats-modal"
     >
-      {status === 'loading' ? (
+      {status === 'loading' && activeTab === 'dashboard' ? (
         <StudyDashboardSkeleton />
       ) : (
-        <div className="study-dashboard">
-          <div className="modal-hero study-dashboard__hero">
-            <div className="study-dashboard__hero-copy">
-              <span className="study-dashboard__hero-eyebrow">
-                <span className="material-symbols-outlined">monitoring</span>
-                {t('study_stats.eyebrow')}
-              </span>
-              <h3>{t('study_stats.hero_title')}</h3>
-              <p>{t('study_stats.hero_description')}</p>
-            </div>
-
+        <>
+          <div className="study-dashboard__tabs">
             <button
-              className="study-dashboard__action-btn"
-              onClick={() => setIsFormVisible((currentValue) => !currentValue)}
+              className={`study-dashboard__tab ${activeTab === 'dashboard' ? 'study-dashboard__tab--active' : ''}`}
+              onClick={() => setActiveTab('dashboard')}
               type="button"
             >
-              <span className="material-symbols-outlined">
-                {isFormVisible ? 'remove' : 'add'}
-              </span>
-              {isFormVisible ? t('study_stats.hide_form') : t('study_stats.add_session')}
+              <span className="material-symbols-outlined">dashboard</span>
+              {t('study_stats.tabs.dashboard', 'Dashboard')}
+            </button>
+            <button
+              className={`study-dashboard__tab ${activeTab === 'goals' ? 'study-dashboard__tab--active' : ''}`}
+              onClick={() => setActiveTab('goals')}
+              type="button"
+            >
+              <span className="material-symbols-outlined">target</span>
+              {t('study_stats.tabs.goals', 'Metas')}
+            </button>
+            <button
+              className={`study-dashboard__tab ${activeTab === 'achievements' ? 'study-dashboard__tab--active' : ''}`}
+              onClick={() => setActiveTab('achievements')}
+              type="button"
+            >
+              <span className="material-symbols-outlined">trophy</span>
+              {t('study_stats.tabs.achievements', 'Conquistas')}
             </button>
           </div>
-
-          {isFormVisible ? <StudySessionForm onSubmit={handleAddLog} /> : null}
-
-          <StudyMetricsGrid items={viewModel.metricCards} />
-
-          {!viewModel.telemetryEnabled ? (
-            <div className="study-dashboard__telemetry-banner">
-              <span className="material-symbols-outlined">visibility_off</span>
-              <p>{viewModel.telemetryDisabledMessage}</p>
-            </div>
-          ) : null}
-
-          <div className="study-dashboard__content-grid">
-            <WeeklyStudyChart
-              caption={t('study_stats.weekly_caption')}
-              items={viewModel.weeklyStudy}
-              title={t('study_stats.charts.weekly_title')}
-            />
-
-            <DisciplineBreakdown
-              emptyMessage={t('study_stats.empty')}
-              items={viewModel.disciplineBreakdown}
-              title={t('study_stats.charts.discipline_title')}
-            />
-          </div>
-
-          <div className={`study-dashboard__insight study-dashboard__insight--${viewModel.insight.tone}`}>
-            <span className="material-symbols-outlined study-dashboard__insight-icon">lightbulb</span>
-            <div className="study-dashboard__insight-copy">
-              <strong className="study-dashboard__insight-title">{viewModel.insight.title}</strong>
-              <p>{viewModel.insight.body}</p>
-            </div>
-          </div>
-        </div>
+          {renderTabContent()}
+        </>
       )}
     </BaseModal>
   );

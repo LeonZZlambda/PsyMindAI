@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useChat } from '../context/ChatContext';
-import { useTheme } from '../context/ThemeContext';
+import { useChat } from '../hooks/context/useChat';
+import { useTheme } from '../hooks/context/useTheme';
 import { useTranslation } from 'react-i18next';
 import logger from '../utils/logger';
 import BaseModal from './BaseModal';

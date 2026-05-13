@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useEmotionalJournal } from '../context/EmotionalJournalContext';
+import { useEmotionalJournal } from '../hooks/context/useEmotionalJournal';
 import BaseModal from './BaseModal';
 import '../styles/emotional-journal.css';
 

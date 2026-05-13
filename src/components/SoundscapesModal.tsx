@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSound } from '../context/SoundContext';
+import { useSound } from '../hooks/context/useSound';
 import BaseModal from './BaseModal';
 import '../styles/soundscapes.css';
 

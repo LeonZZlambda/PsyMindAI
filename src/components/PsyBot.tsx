@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useTheme } from '../context/ThemeContext';
+import { useTheme } from '../hooks/context/useTheme';
 import '../styles/psybot.css';
 
 interface PsyBotProps {

@@ -11,7 +11,7 @@ import 'prismjs/themes/prism-tomorrow.css';
 import BaseModal from './BaseModal';
 import { sendMessage } from '../services/chat/chatService';
 import { SYSTEM_PROMPTS } from '../services/prompts/systemPrompts';
-import { useTheme } from '../context/ThemeContext';
+import { useTheme } from '../hooks/context/useTheme';
 import PsyBot from './PsyBot';
 import '../styles/judge.css';
 

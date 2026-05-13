@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import '../styles/sidebar.css'
 import { toast } from 'sonner'
 import { useTranslation } from 'react-i18next'
-import { useChat } from '../context/ChatContext'
+import { useChat } from '../hooks/context/useChat'
 import { Telemetry } from '../services/analytics/telemetry'
 
 interface SidebarProps {

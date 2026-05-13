@@ -35,6 +35,6 @@ export const calculateNextReview = (item: SRSItem, quality: number): SRSItem => 
     easeFactor: Number(easeFactor.toFixed(2)),
     interval: adjustedInterval,
     nextReview: new Date(Date.now() + adjustedInterval * 86400000),
-    reviewHistory: [...item.reviewHistory, { date: new Date(), quality, theta: item.reviewHistory.at(-1)?.theta }]
+    reviewHistory: [...item.reviewHistory, { date: new Date(), quality, theta: item.reviewHistory.length > 0 ? item.reviewHistory[item.reviewHistory.length - 1].theta : undefined }]
   };
 };

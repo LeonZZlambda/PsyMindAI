@@ -1,13 +1,7 @@
-import React, { createContext, useContext, useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { isRTL as checkIsRTL } from '../i18n/direction';
-
-interface DirectionContextType {
-  isRTL: boolean;
-  direction: 'rtl' | 'ltr';
-}
-
-const DirectionContext = createContext<DirectionContextType | undefined>(undefined);
+import { DirectionContext } from './types/DirectionContext';
 
 export const DirectionProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { i18n } = useTranslation();
@@ -33,12 +27,4 @@ export const DirectionProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       {children}
     </DirectionContext.Provider>
   );
-};
-
-export const useDirection = (): DirectionContextType => {
-  const context = useContext(DirectionContext);
-  if (context === undefined) {
-    throw new Error('useDirection must be used within a DirectionProvider');
-  }
-  return context;
 };

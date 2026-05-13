@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useTranslation } from 'react-i18next';
 import { sendMessage } from '../services/chat/chatService';
-import { useTheme } from '../context/ThemeContext';
+import { useTheme } from '../hooks/context/useTheme';
 import PsyBot from './PsyBot';
 import logger from '../utils/logger';
 import '../styles/quiz.css';

@@ -1,6 +1,6 @@
 import { memo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useSnackbar } from '../../../context/SnackbarContext'
+import { useSnackbar } from '../../../hooks/context/useSnackbar'
 import BaseModal from '@/components/BaseModal'
 import MaterialIcon from '@/components/MaterialIcon'
 import { Activity } from '../types'

@@ -1,9 +1,9 @@
 import React from 'react'
 import '../styles/header.css'
 import { useTranslation } from 'react-i18next'
-import { useTheme } from '../context/ThemeContext'
-import { useSound } from '../context/SoundContext'
-import { useModal } from '../context/ModalContext'
+import { useTheme } from '../hooks/context/useTheme'
+import { useSound } from '../hooks/context/useSound'
+import { useModal } from '../hooks/context/useModal'
 
 interface HeaderProps {
   isSidebarOpen: boolean;
@@ -60,22 +60,6 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, toggleSidebar, isLoading
           <span className="material-symbols-outlined">
             {isDarkMode ? 'light_mode' : 'dark_mode'}
           </span>
-        </button>
-        <button 
-          className="header-btn" 
-          onClick={() => toggleModal('achievements')} 
-          title={t('header.achievements', 'Conquistas')}
-          aria-label={t('header.achievements_aria', 'Ver conquistas')}
-        >
-          <span className="material-symbols-outlined">emoji_events</span>
-        </button>
-        <button 
-          className="header-btn" 
-          onClick={() => toggleModal('learningGoals')} 
-          title="Metas de Aprendizado"
-          aria-label="Ver metas de aprendizado"
-        >
-          <span className="material-symbols-outlined">flag</span>
         </button>
         <button 
           className="user-profile" 

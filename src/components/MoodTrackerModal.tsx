@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Mood, useMood } from '../context/MoodContext';
+import { Mood } from '../context/MoodContext';
+import { useMood } from '../hooks/context/useMood';
 import { generateMoodInsight } from '../services/tools/moodService';
 import BaseModal from './BaseModal';
-import { useTheme } from '../context/ThemeContext';
+import { useTheme } from '../hooks/context/useTheme';
 import PsyBot from './PsyBot';
 import '../styles/mood.css';
 

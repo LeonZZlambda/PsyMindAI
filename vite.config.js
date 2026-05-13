@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 import { createRequire } from 'module'
+import { cspNonce } from './src/plugins/cspNonce.js'
 
 // optional circular-require-friendly import for optional plugins
 const require = createRequire(import.meta.url)
@@ -14,49 +15,9 @@ try {
 
 // https://vite.dev/config/
 export default defineConfig({
-  resolve: {
-    alias: {
-      '@': '/src',
-    },
-  },
-  test: {
-    environment: 'jsdom',
-    globals: true,
-    setupFiles: ['src/setupTests.ts'],
-  },
-  server: {
-    headers: {
-      'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
-      'X-Frame-Options': 'DENY',
-      'X-Content-Type-Options': 'nosniff',
-      'Referrer-Policy': 'strict-origin-when-cross-origin',
-      'Cross-Origin-Opener-Policy': 'same-origin',
-      'Cross-Origin-Embedder-Policy': 'credentialless',
-      'Content-Security-Policy':
-        "upgrade-insecure-requests; default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://generativelanguage.googleapis.com https://fonts.googleapis.com https://fonts.gstatic.com; frame-ancestors 'none'; require-trusted-types-for 'script'; trusted-types default goog#html vue dompurify 'allow-duplicates';",
-    },
-  },
-  preview: {
-    headers: {
-      'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
-      'X-Frame-Options': 'DENY',
-      'X-Content-Type-Options': 'nosniff',
-      'Referrer-Policy': 'strict-origin-when-cross-origin',
-      'Cross-Origin-Opener-Policy': 'same-origin',
-      'Cross-Origin-Embedder-Policy': 'credentialless',
-      'Content-Security-Policy':
-        "upgrade-insecure-requests; default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://generativelanguage.googleapis.com https://fonts.googleapis.com https://fonts.gstatic.com; frame-ancestors 'none'; require-trusted-types-for 'script'; trusted-types default goog#html vue dompurify 'allow-duplicates';",
-    },
-  },
-  // Ensure certain i18n libs are pre-bundled / not externalized by SSR/PWA builds
-  optimizeDeps: {
-    include: ['react-i18next', 'i18next'],
-  },
-  ssr: {
-    noExternal: ['react-i18next', 'i18next'],
-  },
   plugins: [
     react(),
+    cspNonce(),
     VitePWA({
       strategies: 'injectManifest',
       srcDir: 'src',
@@ -113,7 +74,52 @@ export default defineConfig({
         ],
       },
     }),
-  ],
+    visualizer ? visualizer({
+      filename: 'dist/stats.html',
+      open: false,
+      gzipSize: true,
+      brotliSize: true
+    }) : null
+  ].filter(Boolean),
+  resolve: {
+    alias: {
+      '@': '/src',
+    },
+  },
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: ['src/setupTests.ts'],
+  },
+  server: {
+    headers: {
+      'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
+      'X-Frame-Options': 'DENY',
+      'X-Content-Type-Options': 'nosniff',
+      'Referrer-Policy': 'strict-origin-when-cross-origin',
+      'Cross-Origin-Opener-Policy': 'same-origin',
+      'Cross-Origin-Embedder-Policy': 'credentialless',
+      // CSP will be set by the cspNonce plugin
+    },
+  },
+  preview: {
+    headers: {
+      'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
+      'X-Frame-Options': 'DENY',
+      'X-Content-Type-Options': 'nosniff',
+      'Referrer-Policy': 'strict-origin-when-cross-origin',
+      'Cross-Origin-Opener-Policy': 'same-origin',
+      'Cross-Origin-Embedder-Policy': 'credentialless',
+      // CSP will be set by the cspNonce plugin for preview as well
+    },
+  },
+  // Ensure certain i18n libs are pre-bundled / not externalized by SSR/PWA builds
+  optimizeDeps: {
+    include: ['react-i18next', 'i18next'],
+  },
+  ssr: {
+    noExternal: ['react-i18next', 'i18next'],
+  },
   build: {
     target: 'esnext',
     sourcemap: true,

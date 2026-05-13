@@ -10,7 +10,7 @@ export interface ExamCategory {
   color: string;
   exams: ExamDefinition[];
   icon: string;
-  id: 'international' | 'national' | 'regional' | 'olympiads';
+  id: 'international' | 'national' | 'regional' | 'olympiads' | 'military' | 'public_service';
   title: string;
 }
 

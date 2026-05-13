@@ -4,8 +4,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import ReactMarkdown from 'react-markdown';
 import logger from '../utils/logger';
 import { SmartReminderSystem } from '../utils/smartReminders';
-import { useChat } from '../context/ChatContext';
-import { useLearningGoals } from '../context/LearningGoalsContext';
+import { useChat } from '../hooks/context/useChat';
+import { useLearningGoals } from '../hooks/context/useLearningGoals';
+import { useSnackbar } from '../hooks/context/useSnackbar';
+import { useGamification } from '../hooks/context/useGamification';
 import BaseModal from './BaseModal';
 import { generateLearningTrail, explainQuizError, evaluateOpenEnded } from "../services/tools/learningService";
 import { calculateNextReview, SRSItem } from "../utils/srsAlgorithm";
@@ -227,13 +229,15 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
       difficulty: 3, // Default médio - em produção seria calculado por análise
       examType: 'ENEM', // Default
       tags: [],
-      irtParams: recommendationEngine.generateIRTParameters({
+      irtParams: {
         id: `quiz_${idx}_${q.question.substring(0, 20)}`,
         topic: q.question.length > 50 ? 'General' : 'Specific',
         difficulty: 3,
+        discrimination: 1.0,
+        guessing: 0.25,
         examType: 'ENEM',
         tags: []
-      })
+      }
     }));
 
     // Usar motor de recomendação para obter as melhores questões
@@ -327,8 +331,9 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
 
       const prompt = `Explique por que a resposta "${selectedText}" está incorreta e por que "${correctText}" é a resposta correta para esta questão: "${quiz.question}". Forneça uma explicação clara e concisa, incluindo conceitos fundamentais e possíveis erros comuns.`;
 
-      const response = await sendMessage(prompt);
-      setAiExplanation(response);
+      await sendMessage(prompt);
+      // Por enquanto, definir uma explicação padrão até implementar resposta real
+      setAiExplanation(`Explicação para: "${quiz.question}"\n\nA resposta correta é: ${correctText}\nSua resposta foi: ${selectedText}`);
     } catch (error) {
       logger.error('Error generating quiz explanation', error);
       setAiExplanation('Erro ao gerar explicação. Tente novamente.');

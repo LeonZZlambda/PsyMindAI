@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMemo } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { Controller, useForm, useWatch } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { z } from 'zod'
 import BaseModal from '../../../BaseModal'
@@ -182,6 +182,12 @@ export const ActivityForm = ({
           customColor: initialActivity.color.value,
         }
       : defaultValues,
+  })
+
+  // Watch customColor for dynamic color updates
+  const customColorValue = useWatch({
+    control,
+    name: 'customColor',
   })
 
   const handleClose = () => {
@@ -379,7 +385,6 @@ export const ActivityForm = ({
               control={control}
               name="colorPreset"
               render={({ field }) => {
-                const customColorValue = watch('customColor')
                 return (
                   <div className="activity-form-colors">
                     {colorPalette.map((item) => {

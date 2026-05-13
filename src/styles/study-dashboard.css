@@ -411,3 +411,42 @@
     justify-content: center;
   }
 }
+
+/* Study Dashboard Tabs */
+.study-dashboard__tabs {
+  display: flex;
+  gap: 0.25rem;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 1.5rem;
+}
+
+.study-dashboard__tab {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 8px 8px 0 0;
+}
+
+.study-dashboard__tab:hover {
+  background-color: var(--hover-bg);
+  color: var(--text-primary);
+}
+
+.study-dashboard__tab--active {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+  background-color: rgba(var(--primary-rgb), 0.05);
+}
+
+.study-dashboard__tab .material-symbols-outlined {
+  font-size: 1.1rem;
+}

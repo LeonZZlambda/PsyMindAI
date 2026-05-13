@@ -1,7 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
-import { useTheme } from '../context/ThemeContext'
+import { useTheme } from '../hooks/context/useTheme'
 import Footer from '../components/Footer'
 import ScrollToTopButton from '../components/ScrollToTopButton'
 import LandingHeader from '../components/LandingHeader'

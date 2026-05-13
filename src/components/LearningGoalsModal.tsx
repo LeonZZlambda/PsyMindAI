@@ -2,16 +2,17 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import BaseModal from './BaseModal';
-import { useLearningGoals } from '../context/LearningGoalsContext';
+import { useLearningGoals } from '../hooks/context/useLearningGoals';
 import { LearningGoalsSystem, GoalTemplate } from '../utils/learningGoals';
 import '../styles/learning-goals.css';
 
 interface LearningGoalsModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+  isOpen?: boolean;
+  onClose?: () => void;
+  isEmbedded?: boolean;
 }
 
-const LearningGoalsModal: React.FC<LearningGoalsModalProps> = ({ isOpen, onClose }) => {
+const LearningGoalsModal: React.FC<LearningGoalsModalProps> = ({ isOpen = true, onClose, isEmbedded = false }) => {
   const { t } = useTranslation();
   const { activeGoals, completedGoals, templates, createGoal, createCustomGoal, deleteGoal, getGoalProgress } = useLearningGoals();
   const [activeTab, setActiveTab] = useState<'active' | 'completed' | 'create'>('active');
@@ -151,232 +152,245 @@ const LearningGoalsModal: React.FC<LearningGoalsModalProps> = ({ isOpen, onClose
     );
   };
 
-  return (
-    <BaseModal isOpen={isOpen} onClose={onClose} title="🎯 Metas de Aprendizado">
-      <div className="learning-goals-modal">
-        <div className="goals-tabs">
-          <button
-            className={`tab-btn ${activeTab === 'active' ? 'active' : ''}`}
-            onClick={() => setActiveTab('active')}
-          >
-            Ativas ({activeGoals.length})
-          </button>
-          <button
-            className={`tab-btn ${activeTab === 'completed' ? 'active' : ''}`}
-            onClick={() => setActiveTab('completed')}
-          >
-            Concluídas ({completedGoals.length})
-          </button>
-          <button
-            className={`tab-btn ${activeTab === 'create' ? 'active' : ''}`}
-            onClick={() => setActiveTab('create')}
-          >
-            Criar Meta
-          </button>
-        </div>
+  const content = (
+    <div className="learning-goals-modal">
+      <div className="goals-tabs">
+        <button
+          className={`tab-btn ${activeTab === 'active' ? 'active' : ''}`}
+          onClick={() => setActiveTab('active')}
+        >
+          Ativas ({activeGoals.length})
+        </button>
+        <button
+          className={`tab-btn ${activeTab === 'completed' ? 'active' : ''}`}
+          onClick={() => setActiveTab('completed')}
+        >
+          Concluídas ({completedGoals.length})
+        </button>
+        <button
+          className={`tab-btn ${activeTab === 'create' ? 'active' : ''}`}
+          onClick={() => setActiveTab('create')}
+        >
+          Criar Meta
+        </button>
+      </div>
 
-        <AnimatePresence mode="wait">
-          {activeTab === 'active' && (
-            <motion.div
-              key="active"
-              className="goals-content"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-            >
-              {activeGoals.length === 0 ? (
-                <div className="empty-state">
-                  <p>Você não tem metas ativas.</p>
-                  <p>Crie sua primeira meta para começar!</p>
-                </div>
-              ) : (
-                <div className="goals-grid">
-                  {activeGoals.map(goal => (
-                    <GoalCard key={goal.id} goal={goal} />
-                  ))}
-                </div>
-              )}
-            </motion.div>
-          )}
+      <AnimatePresence mode="wait">
+        {activeTab === 'active' && (
+          <motion.div
+            key="active"
+            className="goals-content"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+            transition={{ duration: 0.3 }}
+          >
+            {activeGoals.length === 0 ? (
+              <div className="empty-state">
+                <span className="material-symbols-outlined">target</span>
+                <h3>Nenhuma meta ativa</h3>
+                <p>Crie sua primeira meta de aprendizado para começar!</p>
+              </div>
+            ) : (
+              <div className="goals-grid">
+                {activeGoals.map(goal => (
+                  <GoalCard key={goal.id} goal={goal} />
+                ))}
+              </div>
+            )}
+          </motion.div>
+        )}
 
-          {activeTab === 'completed' && (
-            <motion.div
-              key="completed"
-              className="goals-content"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-            >
-              {completedGoals.length === 0 ? (
-                <div className="empty-state">
-                  <p>Você ainda não concluiu nenhuma meta.</p>
-                  <p>Continue estudando para alcançar seus objetivos!</p>
-                </div>
-              ) : (
-                <div className="goals-grid">
-                  {completedGoals.map(goal => (
-                    <GoalCard key={goal.id} goal={goal} isCompleted />
-                  ))}
-                </div>
-              )}
-            </motion.div>
-          )}
+        {activeTab === 'completed' && (
+          <motion.div
+            key="completed"
+            className="goals-content"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+            transition={{ duration: 0.3 }}
+          >
+            {completedGoals.length === 0 ? (
+              <div className="empty-state">
+                <span className="material-symbols-outlined">celebration</span>
+                <h3>Nenhuma meta concluída</h3>
+                <p>Complete suas metas para vê-las aqui!</p>
+              </div>
+            ) : (
+              <div className="goals-grid">
+                {completedGoals.map(goal => (
+                  <GoalCard key={goal.id} goal={goal} isCompleted />
+                ))}
+              </div>
+            )}
+          </motion.div>
+        )}
 
-          {activeTab === 'create' && (
-            <motion.div
-              key="create"
-              className="goals-content"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-            >
-              <div className="create-goals-section">
-                <h3>Templates de Metas</h3>
-                <div className="templates-grid">
-                  {templates.map(template => (
-                    <div key={template.id} className="template-card">
-                      <div className="template-header">
-                        <span className="template-icon">{template.icon}</span>
-                        <h4>{template.title}</h4>
-                      </div>
-                      <p>{template.description}</p>
-                      <button
-                        className="create-from-template-btn"
-                        onClick={() => handleCreateFromTemplate(template)}
-                      >
-                        Criar Meta
-                      </button>
+        {activeTab === 'create' && (
+          <motion.div
+            key="create"
+            className="goals-content"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="create-goals-section">
+              <h3>Templates de Metas</h3>
+              <div className="templates-grid">
+                {templates.map(template => (
+                  <div key={template.id} className="template-card">
+                    <div className="template-header">
+                      <span className="template-icon">{template.icon}</span>
+                      <h4>{template.title}</h4>
                     </div>
-                  ))}
-                </div>
-
-                <div className="custom-goal-section">
-                  <button
-                    className="toggle-custom-form-btn"
-                    onClick={() => setShowCreateForm(!showCreateForm)}
-                  >
-                    {showCreateForm ? 'Cancelar' : '+ Criar Meta Personalizada'}
-                  </button>
-
-                  {showCreateForm && (
-                    <motion.div
-                      className="custom-goal-form"
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
+                    <p>{template.description}</p>
+                    <button
+                      className="create-from-template-btn"
+                      onClick={() => handleCreateFromTemplate(template)}
                     >
-                      <div className="form-group">
-                        <label>Título da Meta</label>
-                        <input
-                          type="text"
-                          value={customTitle}
-                          onChange={(e) => setCustomTitle(e.target.value)}
-                          placeholder="Ex: Estudar matemática por 2 horas"
-                        />
-                      </div>
+                      Criar Meta
+                    </button>
+                  </div>
+                ))}
+              </div>
 
-                      <div className="form-group">
-                        <label>Descrição</label>
-                        <textarea
-                          value={customDescription}
-                          onChange={(e) => setCustomDescription(e.target.value)}
-                          placeholder="Descreva sua meta em detalhes..."
-                        />
-                      </div>
+              <div className="custom-goal-section">
+                <button
+                  className="toggle-custom-form-btn"
+                  onClick={() => setShowCreateForm(!showCreateForm)}
+                >
+                  {showCreateForm ? 'Cancelar' : '+ Criar Meta Personalizada'}
+                </button>
 
-                      <div className="targets-section">
-                        <h4>Objetivos (configure pelo menos um)</h4>
-                        <div className="targets-grid">
-                          <div className="form-group">
-                            <label>Questões respondidas</label>
-                            <input
-                              type="number"
-                              min="0"
-                              value={customTarget.questionsAnswered}
-                              onChange={(e) => setCustomTarget(prev => ({
-                                ...prev,
-                                questionsAnswered: parseInt(e.target.value) || 0
-                              }))}
-                            />
-                          </div>
-                          <div className="form-group">
-                            <label>Acertos</label>
-                            <input
-                              type="number"
-                              min="0"
-                              value={customTarget.correctAnswers}
-                              onChange={(e) => setCustomTarget(prev => ({
-                                ...prev,
-                                correctAnswers: parseInt(e.target.value) || 0
-                              }))}
-                            />
-                          </div>
-                          <div className="form-group">
-                            <label>Tempo de estudo (min)</label>
-                            <input
-                              type="number"
-                              min="0"
-                              value={customTarget.studyTime}
-                              onChange={(e) => setCustomTarget(prev => ({
-                                ...prev,
-                                studyTime: parseInt(e.target.value) || 0
-                              }))}
-                            />
-                          </div>
-                          <div className="form-group">
-                            <label>Tópicos dominados</label>
-                            <input
-                              type="number"
-                              min="0"
-                              value={customTarget.topicsMastered}
-                              onChange={(e) => setCustomTarget(prev => ({
-                                ...prev,
-                                topicsMastered: parseInt(e.target.value) || 0
-                              }))}
-                            />
-                          </div>
-                          <div className="form-group">
-                            <label>Trilhas completadas</label>
-                            <input
-                              type="number"
-                              min="0"
-                              value={customTarget.trailsCompleted}
-                              onChange={(e) => setCustomTarget(prev => ({
-                                ...prev,
-                                trailsCompleted: parseInt(e.target.value) || 0
-                              }))}
-                            />
-                          </div>
-                          <div className="form-group">
-                            <label>Dias de sequência</label>
-                            <input
-                              type="number"
-                              min="0"
-                              value={customTarget.streakDays}
-                              onChange={(e) => setCustomTarget(prev => ({
-                                ...prev,
-                                streakDays: parseInt(e.target.value) || 0
-                              }))}
-                            />
-                          </div>
+                {showCreateForm && (
+                  <motion.div
+                    className="custom-goal-form"
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                  >
+                    <div className="form-group">
+                      <label>Título da Meta</label>
+                      <input
+                        type="text"
+                        value={customTitle}
+                        onChange={(e) => setCustomTitle(e.target.value)}
+                        placeholder="Ex: Estudar matemática por 2 horas"
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label>Descrição</label>
+                      <textarea
+                        value={customDescription}
+                        onChange={(e) => setCustomDescription(e.target.value)}
+                        placeholder="Descreva sua meta em detalhes..."
+                      />
+                    </div>
+
+                    <div className="targets-section">
+                      <h4>Objetivos (configure pelo menos um)</h4>
+                      <div className="targets-grid">
+                        <div className="form-group">
+                          <label>Questões respondidas</label>
+                          <input
+                            type="number"
+                            min="0"
+                            value={customTarget.questionsAnswered}
+                            onChange={(e) => setCustomTarget(prev => ({
+                              ...prev,
+                              questionsAnswered: parseInt(e.target.value) || 0
+                            }))}
+                          />
+                        </div>
+                        <div className="form-group">
+                          <label>Acertos</label>
+                          <input
+                            type="number"
+                            min="0"
+                            value={customTarget.correctAnswers}
+                            onChange={(e) => setCustomTarget(prev => ({
+                              ...prev,
+                              correctAnswers: parseInt(e.target.value) || 0
+                            }))}
+                          />
+                        </div>
+                        <div className="form-group">
+                          <label>Tempo de estudo (min)</label>
+                          <input
+                            type="number"
+                            min="0"
+                            value={customTarget.studyTime}
+                            onChange={(e) => setCustomTarget(prev => ({
+                              ...prev,
+                              studyTime: parseInt(e.target.value) || 0
+                            }))}
+                          />
+                        </div>
+                        <div className="form-group">
+                          <label>Tópicos dominados</label>
+                          <input
+                            type="number"
+                            min="0"
+                            value={customTarget.topicsMastered}
+                            onChange={(e) => setCustomTarget(prev => ({
+                              ...prev,
+                              topicsMastered: parseInt(e.target.value) || 0
+                            }))}
+                          />
+                        </div>
+                        <div className="form-group">
+                          <label>Trilhas completadas</label>
+                          <input
+                            type="number"
+                            min="0"
+                            value={customTarget.trailsCompleted}
+                            onChange={(e) => setCustomTarget(prev => ({
+                              ...prev,
+                              trailsCompleted: parseInt(e.target.value) || 0
+                            }))}
+                          />
+                        </div>
+                        <div className="form-group">
+                          <label>Dias de sequência</label>
+                          <input
+                            type="number"
+                            min="0"
+                            value={customTarget.streakDays}
+                            onChange={(e) => setCustomTarget(prev => ({
+                              ...prev,
+                              streakDays: parseInt(e.target.value) || 0
+                            }))}
+                          />
                         </div>
                       </div>
+                    </div>
 
-                      <button
-                        className="create-custom-goal-btn"
-                        onClick={handleCreateCustom}
-                        disabled={!customTitle.trim() || !customDescription.trim()}
-                      >
-                        Criar Meta Personalizada
-                      </button>
-                    </motion.div>
-                  )}
-                </div>
+                    <button
+                      className="create-custom-goal-btn"
+                      onClick={handleCreateCustom}
+                      disabled={!customTitle.trim() || !customDescription.trim()}
+                    >
+                      Criar Meta Personalizada
+                    </button>
+                  </motion.div>
+                )}
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+
+  if (isEmbedded) {
+    return content;
+  }
+
+  return (
+    <BaseModal isOpen={isOpen} onClose={onClose || (() => {})} title="🎯 Metas de Aprendizado">
+      {content}
     </BaseModal>
   );
 };

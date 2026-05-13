@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../styles/settings.css';
 import { toast } from 'sonner';
-import { useTheme, ColorBlindMode } from '../context/ThemeContext';
-import { useChat } from '../context/ChatContext';
+import { useTheme } from '../hooks/context/useTheme';
+import { ColorBlindMode } from '../context/ThemeContext';
+import { useChat } from '../hooks/context/useChat';
 import { defaultConfig } from '../services/config/apiConfig';
 import { setApiKey as updateApiKey } from '../services/chat/chatService';
 import { Telemetry } from '../services/analytics/telemetry';

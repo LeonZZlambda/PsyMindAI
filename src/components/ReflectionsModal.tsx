@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useChat } from '../context/ChatContext';
+import { useChat } from '../hooks/context/useChat';
 import BaseModal from './BaseModal';
-import { useTheme } from '../context/ThemeContext';
+import { useTheme } from '../hooks/context/useTheme';
 import { Reflection, generateReflection, generateReflectionAnalysis } from '../services/tools/reflectionService';
 import PsyBot from './PsyBot';
 import '../styles/reflections.css';

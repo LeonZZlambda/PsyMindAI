@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/pomodoro.css';
 import { useTranslation } from 'react-i18next';
-import { usePomodoro, PomodoroMode } from '../context/PomodoroContext';
+import { PomodoroMode } from '../context/PomodoroContext';
+import { usePomodoro } from '../hooks/context/usePomodoro';
 import { generatePomodoroTip } from '../services/tools/pomodoroService';
 import BaseModal from './BaseModal';
-import { useTheme } from '../context/ThemeContext';
+import { useTheme } from '../hooks/context/useTheme';
 import PsyBot from './PsyBot';
 
 type Props = {
