@@ -5,15 +5,18 @@ import { join } from 'node:path';
 
 export function cspNonce(): Plugin {
   const nonceFile = join(process.cwd(), 'dist', '.csp-nonce');
+  let devNonce = ''; // Nonce for dev server - generated once at startup
 
   return {
     name: 'csp-nonce',
     configureServer(server) {
+      // Generate nonce once for entire dev session
+      devNonce = randomBytes(16).toString('base64');
+      
       // Set CSP header with per-request nonce for development
       server.middlewares.use((req, res, next) => {
-        const nonce = randomBytes(16).toString('base64');
         res.setHeader('Content-Security-Policy',
-          `upgrade-insecure-requests; default-src 'self'; script-src 'self' 'nonce-${nonce}'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://generativelanguage.googleapis.com https://fonts.googleapis.com https://fonts.gstatic.com; frame-ancestors 'none'; require-trusted-types-for 'script'; trusted-types default goog#html vue dompurify 'allow-duplicates';`
+          `upgrade-insecure-requests; default-src 'self'; script-src 'self' 'nonce-${devNonce}'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://generativelanguage.googleapis.com https://fonts.googleapis.com https://fonts.gstatic.com; frame-ancestors 'none'; require-trusted-types-for 'script'; trusted-types default goog#html vue dompurify 'allow-duplicates';`
         );
         next();
       });
@@ -47,12 +50,13 @@ export function cspNonce(): Plugin {
       }
     },
     transformIndexHtml(html, ctx) {
-      // Use production nonce for builds, generate new one for dev
+      // Use production nonce for builds, dev nonce generated at server startup
       const isDevelopment = ctx.bundle === undefined;
       let nonce: string;
 
       if (isDevelopment) {
-        nonce = randomBytes(16).toString('base64');
+        // Use the nonce generated at dev server startup
+        nonce = devNonce || randomBytes(16).toString('base64');
       } else {
         // For production build, read from file or generate new
         try {

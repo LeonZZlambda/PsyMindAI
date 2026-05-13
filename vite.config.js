@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 import { createRequire } from 'module'
-import { cspNonce } from './src/plugins/cspNonce.js'
+import { cspNonce } from './src/plugins/cspNonce.ts'
 
 // optional circular-require-friendly import for optional plugins
 const require = createRequire(import.meta.url)
