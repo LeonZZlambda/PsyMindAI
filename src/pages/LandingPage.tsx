@@ -1,10 +1,10 @@
 import React, { useRef, lazy, Suspense } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
 import { m } from 'framer-motion'
-import { useTranslation, Trans } from 'react-i18next'
-import { useTheme } from '../hooks/context/useTheme'
+import { useTranslation } from 'react-i18next'
 import '../styles/landing.css'
+import '../styles/landing-enhanced.css'
 import LandingHeader from '../components/LandingHeader'
+import CTAButton from '../components/CTAButton'
 import TelemetryService from '../services/TelemetryService'
 
 // Lazy load non-critical components
@@ -13,10 +13,7 @@ const ScrollToTopButton = lazy(() => import('../components/ScrollToTopButton'))
 const PsyBot = lazy(() => import('../components/PsyBot'))
 const LandingSections = lazy(() => import('../components/LandingSections'))
 
-const MotionLink = m.create(Link)
-
 const LandingPage: React.FC = () => {
-  const { isDarkMode } = useTheme()
   const landingPageRef = useRef<HTMLDivElement | null>(null)
   const { t } = useTranslation(['landing', 'translation'])
 
@@ -47,41 +44,30 @@ const LandingPage: React.FC = () => {
             <p className="hero-subtitle">{t('landing.hero.subtitle')}</p>
 
             <div className="hero-actions">
-              <MotionLink
-                to="/chat"
-                className="cta-btn"
-                style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none' }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span className="material-symbols-outlined" aria-hidden="true">
-                  rocket_launch
-                </span>
-                {t('landing.hero.start_journey')}
-              </MotionLink>
-              <m.a
+              <CTAButton
+                href="/chat"
+                label={t('landing.hero.start_journey')}
+                icon="rocket_launch"
+                variant="primary"
+                type="internal"
+                onClick={() =>
+                  TelemetryService.trackEvent('landing_cta_click', { target: 'start_journey' })
+                }
+                ariaLabel={t('landing.hero.start_journey')}
+              />
+              <CTAButton
                 href="https://github.com/LeonZZlambda/PsyMindAI"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="secondary-btn"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  textDecoration: 'none',
-                  gap: '0.5rem',
-                }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                label={t('landing.hero.view_github')}
+                icon="code"
+                variant="secondary"
+                type="external"
                 onClick={() =>
                   TelemetryService.trackEvent('landing_cta_click', { target: 'github_hero' })
                 }
-              >
-                <span className="material-symbols-outlined" aria-hidden="true">
-                  code
-                </span>
-                {t('landing.hero.view_github')}
-              </m.a>
+                ariaLabel={t('landing.hero.view_github')}
+              />
             </div>
+
           </m.div>
 
           <m.div
@@ -143,29 +129,26 @@ const LandingPage: React.FC = () => {
               <PsyBot isHappy={true} />
             </Suspense>
             <div className="hero-actions" style={{ justifyContent: 'center' }}>
-              <MotionLink
-                to="/chat"
-                className="cta-btn"
-                style={{ textDecoration: 'none' }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {t('landing.final_cta.button_chat')}
-              </MotionLink>
-              <m.a
+              <CTAButton
+                href="/chat"
+                label={t('landing.final_cta.button_chat')}
+                variant="primary"
+                type="internal"
+                onClick={() =>
+                  TelemetryService.trackEvent('landing_cta_click', { target: 'start_journey_final' })
+                }
+                ariaLabel={t('landing.final_cta.button_chat')}
+              />
+              <CTAButton
                 href="https://github.com/LeonZZlambda/PsyMindAI"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="secondary-btn"
-                style={{ textDecoration: 'none' }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                label={t('landing.final_cta.button_docs')}
+                variant="secondary"
+                type="external"
                 onClick={() =>
                   TelemetryService.trackEvent('landing_cta_click', { target: 'github_final' })
                 }
-              >
-                {t('landing.final_cta.button_docs')}
-              </m.a>
+                ariaLabel={t('landing.final_cta.button_docs')}
+              />
             </div>
           </m.div>
         </section>

@@ -83,19 +83,69 @@
       "button_docs": "Documentação Técnica"
     },
     "modules": {
-      "title": "Módulos & Funcionalidades",
-      "subtitle": "Uma plataforma integrada para suporte emocional e organização de estudos.",
-      "psybot": {
-        "title": "PsyBot Tutor",
-        "desc": "Assistente interativo que acompanha sua trilha de aprendizado com feedback emocional."
+      "title": "Módulos y funcionalidades",
+      "subtitle": "Las funciones principales del app, en lectura rápida.",
+      "intro": {
+        "eyebrow": "Lo que entrega el app",
+        "title": "Acceso rápido a las funciones más usadas",
+        "description": "Cada bloque abajo representa una función real del app, escrita en texto corto para leer en el celular.",
+        "aria_label": "Resumen de las herramientas principales"
       },
-      "vocational": {
-        "title": "Teste Vocacional",
-        "desc": "Análise multidimensional baseada em IA para orientar sua escolha de carreira."
+      "stats": {
+        "tools": "6 herramientas",
+        "focus": "3 focos",
+        "flow": "1 rutina"
       },
-      "insights": {
-        "title": "Meta-insights",
-        "desc": "Visualize padrões de humor e produtividade para decisões baseadas em dados pessoais."
+      "card_eyebrow": "Función del app",
+      "tools": {
+        "support": {
+          "title": "Soporte rápido",
+          "description": "Ayuda rápida para bajar el ritmo y retomar el control.",
+          "bullets": [
+            "Contención rápida",
+            "Recursos prácticos"
+          ]
+        },
+        "guided_learning": {
+          "title": "Aprendizaje guiado",
+          "description": "Rutas con flashcards y quizzes para repasar con método.",
+          "bullets": [
+            "Importar y exportar",
+            "Progreso visible"
+          ]
+        },
+        "exams": {
+          "title": "Pruebas y materias",
+          "description": "Elige examen, materia y tema para armar el plan.",
+          "bullets": [
+            "Plan de estudio",
+            "Quiz y Judge"
+          ]
+        },
+        "reflections": {
+          "title": "Reflexiones y respiración",
+          "description": "Frases, temas y respiración para pausas cortas.",
+          "bullets": [
+            "Reflexión",
+            "Respiración guiada"
+          ]
+        },
+        "mood_tracker": {
+          "title": "Humor y patrones",
+          "description": "Registra el humor y ve patrones con el tiempo.",
+          "bullets": [
+            "Check-in diario",
+            "Patrones"
+          ]
+        },
+        "emotional_journal": {
+          "title": "Diario emocional",
+          "description": "Escribe libremente y ordena lo que sentiste.",
+          "bullets": [
+            "Desahogo",
+            "Volver después"
+          ]
+        }
       }
     },
     "features": {
@@ -164,6 +214,104 @@
     },
     "nav": {
       "start": "Começar"
+    },
+    "demo": {
+      "title": "Veja o PsyMind.AI em Ação",
+      "subtitle": "Explore as funcionalidades através de demonstrações interativas e reais.",
+      "chat": {
+        "title": "Chat Emocional Inteligente",
+        "description": "Conversas naturais e empáticas com IA especializada em suporte emocional adolescente.",
+        "preview": {
+          "message1": "Olá! Estou sentindo muita ansiedade com o ENEM se aproximando. Você pode me ajudar?",
+          "message2": "Claro! Vamos trabalhar juntos nessa ansiedade. Primeiro, que tal fazermos uma respiração profunda?"
+        },
+        "features": [
+          "Respostas contextualizadas baseadas em psicologia",
+          "Suporte 24/7 sem julgamentos",
+          "Técnicas de mindfulness personalizadas"
+        ]
+      },
+      "dashboard": {
+        "title": "Dashboard de Bem-Estar",
+        "description": "Acompanhe seu progresso emocional e acadêmico com métricas visuais intuitivas.",
+        "stats": {
+          "mood": "Humor Médio",
+          "sessions": "Sessões Realizadas"
+        },
+        "features": [
+          "Gráficos de evolução do humor",
+          "Relatórios de progresso semanal",
+          "Metas personalizadas alcançáveis"
+        ]
+      },
+      "insights": {
+        "title": "Insights Personalizados",
+        "description": "Análises profundas do seu padrão emocional para crescimento pessoal contínuo.",
+        "preview": {
+          "title": "Padrão Identificado",
+          "description": "Você tende a ter mais ansiedade nas segundas-feiras. Que tal começarmos a semana com uma rotina de mindfulness?"
+        },
+        "features": [
+          "Análises baseadas em dados reais",
+          "Recomendações personalizadas",
+          "Acompanhamento de evolução"
+        ]
+      }
+    },
+    "trust": {
+      "privacy": "Privacidade Garantida",
+      "security": "Dados Seguros",
+      "expertise": "Baseado em Ciência"
+    },
+    "journey": {
+      "title": "Sua Jornada com o PsyMind.AI",
+      "subtitle": "Acompanhe como estudantes reais transformam sua experiência de aprendizado.",
+      "scenario_title": "Cenário Típico",
+      "benefits_title": "Benefícios Obtidos",
+      "benefits": {
+        "emotional": "Equilíbrio Emocional",
+        "academic": "Melhoria Acadêmica",
+        "personal": "Crescimento Pessoal"
+      },
+      "discovery": {
+        "title": "Descoberta",
+        "description": "Primeiro contato e curiosidade inicial",
+        "scenario": "Você encontra o PsyMind.AI através de uma recomendação e decide experimentar. A interface intuitiva e o foco em saúde mental chamam sua atenção.",
+        "duration": "1-2 dias"
+      },
+      "first_chat": {
+        "title": "Primeira Conversa",
+        "description": "Interação inicial e estabelecimento de confiança",
+        "scenario": "Você compartilha suas preocupações sobre o vestibular. O PsyMind.AI responde de forma empática, oferecendo técnicas práticas de controle da ansiedade.",
+        "duration": "1 semana"
+      },
+      "daily_routine": {
+        "title": "Rotina Diária",
+        "description": "Integração no dia a dia de estudos",
+        "scenario": "Você começa a usar o PsyMind.AI diariamente para organizar seus estudos, controlar o estresse e manter o foco durante as revisões.",
+        "duration": "2-4 semanas"
+      },
+      "exam_prep": {
+        "title": "Preparação para Provas",
+        "description": "Suporte intensivo durante períodos críticos",
+        "scenario": "Com o ENEM se aproximando, você intensifica o uso. O PsyMind.AI ajuda com técnicas de estudo, gerenciamento de tempo e equilíbrio emocional.",
+        "duration": "1-3 meses"
+      },
+      "growth": {
+        "title": "Crescimento Contínuo",
+        "description": "Transformação pessoal e acadêmica completa",
+        "scenario": "Você desenvolve hábitos saudáveis de estudo, conhece melhor suas emoções e se sente preparado para os desafios acadêmicos e pessoais.",
+        "duration": "3+ meses"
+      },
+      "cta": {
+        "title": "Pronto para Começar Sua Jornada?",
+        "description": "Junte-se a milhares de estudantes que já transformaram sua relação com os estudos e o bem-estar emocional."
+      },
+      "stats": {
+        "satisfaction": "Satisfação dos Usuários",
+        "availability": "Disponibilidade",
+        "privacy": "Privacidade"
+      }
     }
   },
   "faq": {

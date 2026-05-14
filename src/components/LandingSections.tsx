@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { m } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import TelemetryService from '../services/TelemetryService'
+import DemoShowcase from './DemoShowcase'
+import UserJourney from './UserJourney'
 
 const LandingSections: React.FC = () => {
   const { t } = useTranslation(['landing', 'translation'])
+  const [selectedTechnicalId, setSelectedTechnicalId] = useState('client_side')
 
   const techStack = [
     { name: 'TypeScript', icon: 'code', label: 'Strict Mode' },
@@ -15,9 +18,105 @@ const LandingSections: React.FC = () => {
     { name: 'i18next', icon: 'language', label: 'Localization' },
   ]
 
+  const moduleCards = [
+    {
+      id: 'support',
+      icon: 'support_agent',
+      title: t('landing.modules.tools.support.title'),
+      description: t('landing.modules.tools.support.description'),
+      bullets: t('landing.modules.tools.support.bullets', { returnObjects: true }) as string[],
+      accent: 'support',
+    },
+    {
+      id: 'guided_learning',
+      icon: 'school',
+      title: t('landing.modules.tools.guided_learning.title'),
+      description: t('landing.modules.tools.guided_learning.description'),
+      bullets: t('landing.modules.tools.guided_learning.bullets', { returnObjects: true }) as string[],
+      accent: 'guided',
+    },
+    {
+      id: 'exams',
+      icon: 'assignment',
+      title: t('landing.modules.tools.exams.title'),
+      description: t('landing.modules.tools.exams.description'),
+      bullets: t('landing.modules.tools.exams.bullets', { returnObjects: true }) as string[],
+      accent: 'exams',
+    },
+    {
+      id: 'reflections',
+      icon: 'auto_awesome',
+      title: t('landing.modules.tools.reflections.title'),
+      description: t('landing.modules.tools.reflections.description'),
+      bullets: t('landing.modules.tools.reflections.bullets', { returnObjects: true }) as string[],
+      accent: 'reflections',
+    },
+    {
+      id: 'mood_tracker',
+      icon: 'monitor_heart',
+      title: t('landing.modules.tools.mood_tracker.title'),
+      description: t('landing.modules.tools.mood_tracker.description'),
+      bullets: t('landing.modules.tools.mood_tracker.bullets', { returnObjects: true }) as string[],
+      accent: 'mood',
+    },
+    {
+      id: 'emotional_journal',
+      icon: 'menu_book',
+      title: t('landing.modules.tools.emotional_journal.title'),
+      description: t('landing.modules.tools.emotional_journal.description'),
+      bullets: t('landing.modules.tools.emotional_journal.bullets', { returnObjects: true }) as string[],
+      accent: 'journal',
+    },
+  ]
+
+  const technicalItems = [
+    {
+      id: 'client_side',
+      icon: 'shield',
+      title: t('landing.technical.items.client_side.decision'),
+      advantage: t('landing.technical.items.client_side.advantage'),
+      disadvantage: t('landing.technical.items.client_side.disadvantage'),
+      mitigation: t('landing.technical.items.client_side.mitigation'),
+    },
+    {
+      id: 'gemini_api',
+      icon: 'api',
+      title: t('landing.technical.items.gemini_api.decision'),
+      advantage: t('landing.technical.items.gemini_api.advantage'),
+      disadvantage: t('landing.technical.items.gemini_api.disadvantage'),
+      mitigation: t('landing.technical.items.gemini_api.mitigation'),
+    },
+    {
+      id: 'ts_strict',
+      icon: 'verified',
+      title: t('landing.technical.items.ts_strict.decision'),
+      advantage: t('landing.technical.items.ts_strict.advantage'),
+      disadvantage: t('landing.technical.items.ts_strict.disadvantage'),
+      mitigation: t('landing.technical.items.ts_strict.mitigation'),
+    },
+    {
+      id: 'context_api',
+      icon: 'account_tree',
+      title: t('landing.technical.items.context_api.decision'),
+      advantage: t('landing.technical.items.context_api.advantage'),
+      disadvantage: t('landing.technical.items.context_api.disadvantage'),
+      mitigation: t('landing.technical.items.context_api.mitigation'),
+    },
+  ]
+
+  const activeTechnicalItem =
+    technicalItems.find((item) => item.id === selectedTechnicalId) ?? technicalItems[0]
+
   return (
     <>
       <section id="about" className="about-section">
+        <m.div
+          className="section-header"
+          onViewportEnter={() => TelemetryService.trackEvent('section_view', { section: 'about' })}
+        >
+          <h2>{t('landing.about.title')}</h2>
+          <p>{t('landing.about.subtitle')}</p>
+        </m.div>
         <div className="about-grid">
           <m.div
             className="about-text"
@@ -26,8 +125,7 @@ const LandingSections: React.FC = () => {
             viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
           >
-            <h2>{t('landing.about.title')}</h2>
-            <p>{t('landing.about.p1')}</p>
+            <p className="about-prose">{t('landing.about.p1')}</p>
             <div className="about-stats">
               <div className="stat-item">
                 <h3>{t('landing.about.mission.title')}</h3>
@@ -58,6 +156,35 @@ const LandingSections: React.FC = () => {
       </section>
 
       <section id="modules" className="features-section">
+        <div className="modules-grid">
+          {moduleCards.map((item) => (
+            <m.article
+              key={item.id}
+              className={`module-card module-card--${item.accent}`}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.35 }}
+            >
+              <div className="module-card__header">
+                <span className="material-symbols-outlined module-card__icon" aria-hidden="true">
+                  {item.icon}
+                </span>
+                <div>
+                  <p className="module-card__eyebrow">{t('landing.modules.card_eyebrow')}</p>
+                  <h3>{item.title}</h3>
+                </div>
+              </div>
+              <p className="module-card__description">{item.description}</p>
+              <ul className="module-card__bullets">
+                {item.bullets.map((bullet) => (
+                  <li key={bullet}>{bullet}</li>
+                ))}
+              </ul>
+            </m.article>
+          ))}
+        </div>
+
         <m.div
           className="section-header"
           onViewportEnter={() =>
@@ -67,63 +194,18 @@ const LandingSections: React.FC = () => {
           <h2>{t('landing.modules.title')}</h2>
           <p>{t('landing.modules.subtitle')}</p>
         </m.div>
-        <div className="features-grid">
-          <m.div
-            className="feature-card"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            whileHover={{
-              scale: 1.05,
-              transition: { type: 'spring', stiffness: 300, damping: 15 },
-            }}
-          >
-            <span className="material-symbols-outlined feature-icon" aria-hidden="true">
-              psychology_alt
-            </span>
-            <h3>{t('landing.modules.psybot.title')}</h3>
-            <p>{t('landing.modules.psybot.desc')}</p>
-          </m.div>
-          <m.div
-            className="feature-card"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            whileHover={{
-              scale: 1.05,
-              transition: { type: 'spring', stiffness: 300, damping: 15 },
-            }}
-          >
-            <span className="material-symbols-outlined feature-icon" aria-hidden="true">
-              assignment_ind
-            </span>
-            <h3>{t('landing.modules.vocational.title')}</h3>
-            <p>{t('landing.modules.vocational.desc')}</p>
-          </m.div>
-          <m.div
-            className="feature-card"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            whileHover={{
-              scale: 1.05,
-              transition: { type: 'spring', stiffness: 300, damping: 15 },
-            }}
-          >
-            <span className="material-symbols-outlined feature-icon" aria-hidden="true">
-              auto_graph
-            </span>
-            <h3>{t('landing.modules.insights.title')}</h3>
-            <p>{t('landing.modules.insights.desc')}</p>
-          </m.div>
-        </div>
       </section>
 
       <section id="accessibility" className="accessibility-section">
-        <div className="section-header">
+        <m.div
+          className="section-header"
+          onViewportEnter={() =>
+            TelemetryService.trackEvent('section_view', { section: 'accessibility' })
+          }
+        >
           <h2>{t('landing.accessibility.title')}</h2>
           <p>{t('landing.accessibility.subtitle')}</p>
-        </div>
+        </m.div>
         <div className="accessibility-grid">
           <m.div
             className="a11y-card"
@@ -166,6 +248,12 @@ const LandingSections: React.FC = () => {
         </div>
       </section>
 
+      {/* Demo Showcase Section */}
+      <DemoShowcase />
+
+      {/* User Journey Section */}
+      <UserJourney />
+
       <section id="technical" className="technical-section">
         <m.div
           className="section-header"
@@ -176,54 +264,84 @@ const LandingSections: React.FC = () => {
           <h2>{t('landing.technical.title')}</h2>
           <p>{t('landing.technical.subtitle')}</p>
         </m.div>
-        <div className="technical-grid">
-          {['client_side', 'gemini_api', 'ts_strict', 'context_api'].map((item, idx) => (
-            <m.div
-              key={item}
-              className="tradeoff-card"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-            >
-              <div className="tradeoff-header">
-                <span className="material-symbols-outlined">
-                  {item === 'client_side'
-                    ? 'shield'
-                    : item === 'gemini_api'
-                      ? 'api'
-                      : item === 'ts_strict'
-                        ? 'verified'
-                        : 'account_tree'}
-                </span>
-                <h3>{t(`landing.technical.items.${item}.decision`)}</h3>
-              </div>
-              <div className="tradeoff-content">
-                <div className="tradeoff-item advantage">
-                  <span className="tradeoff-label">{t('landing.technical.table.advantage')}</span>
-                  {t(`landing.technical.items.${item}.advantage`)}
-                </div>
-                <div className="tradeoff-item disadvantage">
-                  <span className="tradeoff-label">
-                    {t('landing.technical.table.disadvantage')}
+        <div className="technical-layout">
+          <div className="technical-pill-row" aria-label={t('landing.technical.title')}>
+            {technicalItems.map((item) => {
+              const isActive = item.id === selectedTechnicalId
+
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  aria-pressed={isActive}
+                  aria-controls="technical-tradeoffs-panel"
+                  className={`tech-pill ${isActive ? 'is-active' : ''}`}
+                  onClick={() => {
+                    setSelectedTechnicalId(item.id)
+                    TelemetryService.trackEvent('technical_decision_click', { item: item.id })
+                  }}
+                >
+                  <span className="material-symbols-outlined" aria-hidden="true">
+                    {item.icon}
                   </span>
-                  {t(`landing.technical.items.${item}.disadvantage`)}
+                  <span>{item.title}</span>
+                </button>
+              )
+            })}
+          </div>
+          <div className="technical-accordion-shell">
+            <m.div
+              key={activeTechnicalItem.id}
+              className="technical-shell"
+              id="technical-tradeoffs-panel"
+              role="region"
+              aria-live="polite"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.25 }}
+            >
+              <div className="technical-shell__header">
+                <div className="technical-shell__icon">
+                  <span className="material-symbols-outlined" aria-hidden="true">
+                    {activeTechnicalItem.icon}
+                  </span>
                 </div>
-                <div className="tradeoff-item mitigation">
-                  <span className="tradeoff-label">{t('landing.technical.table.mitigation')}</span>
-                  {t(`landing.technical.items.${item}.mitigation`)}
+                <div>
+                  <p className="technical-shell__eyebrow">{t('landing.technical.table.decision')}</p>
+                  <h3>{activeTechnicalItem.title}</h3>
+                  <p>{t('landing.technical.summary.description')}</p>
+                </div>
+              </div>
+
+              <div className="technical-tradeoffs-grid">
+                <div className="tradeoff-card advantage">
+                  <span className="tradeoff-label">✓ {t('landing.technical.table.advantage')}</span>
+                  <p>{activeTechnicalItem.advantage}</p>
+                </div>
+                <div className="tradeoff-card disadvantage">
+                  <span className="tradeoff-label">⚠ {t('landing.technical.table.disadvantage')}</span>
+                  <p>{activeTechnicalItem.disadvantage}</p>
+                </div>
+                <div className="tradeoff-card mitigation">
+                  <span className="tradeoff-label">🔧 {t('landing.technical.table.mitigation')}</span>
+                  <p>{activeTechnicalItem.mitigation}</p>
                 </div>
               </div>
             </m.div>
-          ))}
+          </div>
         </div>
       </section>
 
       <section id="tech-stack" className="tech-stack-section">
-        <div className="section-header">
+        <m.div
+          className="section-header"
+          onViewportEnter={() =>
+            TelemetryService.trackEvent('section_view', { section: 'tech_stack' })
+          }
+        >
           <h2>{t('landing.tech_stack.title')}</h2>
           <p>{t('landing.tech_stack.subtitle')}</p>
-        </div>
+        </m.div>
         <m.div
           className="tech-badges"
           initial="hidden"

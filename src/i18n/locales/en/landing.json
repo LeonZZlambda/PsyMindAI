@@ -24,6 +24,11 @@
     "technical": {
       "title": "Technical Decisions & Trade-offs",
       "subtitle": "Architectural transparency and engineering rigor.",
+      "summary": {
+        "title": "How these decisions connect",
+        "description": "The choices below prioritize privacy, predictability, and a simpler codebase to evolve.",
+        "note": "The goal is to make the trade-offs and the evolution path explicit."
+      },
       "table": {
         "decision": "Decision",
         "advantage": "Advantage",
@@ -84,18 +89,68 @@
     },
     "modules": {
       "title": "Modules & Features",
-      "subtitle": "An integrated platform for emotional support and study organization.",
-      "psybot": {
-        "title": "PsyBot Tutor",
-        "desc": "Interactive assistant that tracks your learning path with emotional feedback."
+      "subtitle": "The main app tools, in a quick read.",
+      "intro": {
+        "eyebrow": "What the app delivers",
+        "title": "Fast access to the most used functions",
+        "description": "Each block below represents a real app feature, written in short text for mobile reading.",
+        "aria_label": "Summary of the main tools"
       },
-      "vocational": {
-        "title": "Vocational Test",
-        "desc": "AI-based multidimensional analysis to guide your career choice."
+      "stats": {
+        "tools": "6 tools",
+        "focus": "3 focus areas",
+        "flow": "1 routine"
       },
-      "insights": {
-        "title": "Meta-insights",
-        "desc": "Visualize mood and productivity patterns for decisions based on personal data."
+      "card_eyebrow": "In-app feature",
+      "tools": {
+        "support": {
+          "title": "Quick support",
+          "description": "Fast support to slow down and regain control.",
+          "bullets": [
+            "Quick welcome",
+            "Practical resources"
+          ]
+        },
+        "guided_learning": {
+          "title": "Guided learning",
+          "description": "Tracks with flashcards and quizzes for active review.",
+          "bullets": [
+            "Import and export",
+            "Visible progress"
+          ]
+        },
+        "exams": {
+          "title": "Tests and subjects",
+          "description": "Pick an exam, subject, and topic to build the plan.",
+          "bullets": [
+            "Study plan",
+            "Quiz and Judge"
+          ]
+        },
+        "reflections": {
+          "title": "Reflections and breathing",
+          "description": "Quotes, themes, and breathing for short breaks.",
+          "bullets": [
+            "Reflection",
+            "Guided breathing"
+          ]
+        },
+        "mood_tracker": {
+          "title": "Mood and patterns",
+          "description": "Log mood and spot patterns over time.",
+          "bullets": [
+            "Daily check-in",
+            "Patterns"
+          ]
+        },
+        "emotional_journal": {
+          "title": "Emotional journal",
+          "description": "Write freely and organize what you felt.",
+          "bullets": [
+            "Vent freely",
+            "Come back later"
+          ]
+        }
       }
     },
     "features": {
@@ -164,6 +219,155 @@
     },
     "nav": {
       "start": "Start"
+    },
+    "demo": {
+      "title": "See PsyMind.AI in Action",
+      "subtitle": "Core tools from the app in a short, consistent preview.",
+      "guided_learning": {
+        "description": "Guided trails with flashcards, quizzes, and progress for methodical review.",
+        "features": [
+          "Trails, flashcards, and quizzes",
+          "Trail import and export",
+          "Step progress and active review"
+        ],
+        "preview": {
+          "title": "Active trail",
+          "badge": "Study mode",
+          "trail_title": "Anxiety management",
+          "trail_description": "Flashcards and a quick quiz to review before the exam.",
+          "step_active": "Quiz in progress",
+          "footer": "Real flow from the guided learning modal."
+        }
+      },
+      "exams": {
+        "description": "Exams, subjects, and topics with a path to plans, quizzes, and Judge.",
+        "features": [
+          "Exam categories",
+          "Subject and topic selection",
+          "Plan, quiz, and Judge"
+        ],
+        "preview": {
+          "title": "Exam selection",
+          "badge": "ENEM focus",
+          "exam_name": "ENEM",
+          "exam_subtitle": "Natural Sciences · 12 topics",
+          "score": "3 steps",
+          "action_plan": "Plan",
+          "action_quiz": "Quiz",
+          "action_judge": "Judge",
+          "footer": "Real flow from the exams modal."
+        }
+      },
+      "reflections": {
+        "description": "Quotes, themes, and guided breathing for reflection and regulation.",
+        "features": [
+          "Daily reflection",
+          "Themes and categories",
+          "Guided breathing"
+        ],
+        "preview": {
+          "title": "Daily reflection",
+          "badge": "Active calm",
+          "quote": "Happiness is not something ready made. It comes from your own actions.",
+          "author": "Dalai Lama",
+          "action_reflect": "Reflect now",
+          "action_breathe": "Guided breathing",
+          "action_explore": "Explore themes",
+          "footer": "Real flow from the reflections modal."
+        }
+      }
+    },
+    "trust": {
+      "privacy": "Guaranteed Privacy",
+      "security": "Secure Data",
+      "expertise": "Science-Based"
+    },
+    "journey": {
+      "title": "Your Journey with PsyMind.AI",
+      "subtitle": "See how the product supports each moment of a student’s routine.",
+      "scenario_title": "Typical Scenario",
+      "benefits_title": "Benefits at this stage",
+      "step_benefits": {
+        "discovery": {
+          "title": "Early wins",
+          "items": {
+            "1": "Frictionless start",
+            "2": "Clear flow overview",
+            "3": "First practical direction"
+          }
+        },
+        "first_chat": {
+          "title": "Immediate support",
+          "items": {
+            "1": "Empathic listening",
+            "2": "Guided breathing",
+            "3": "Sense of safety"
+          }
+        },
+        "daily_routine": {
+          "title": "Daily consistency",
+          "items": {
+            "1": "Structured routine",
+            "2": "Focus blocks",
+            "3": "Recurring review"
+          }
+        },
+        "exam_prep": {
+          "title": "Pressure under control",
+          "items": {
+            "1": "Clearer priorities",
+            "2": "Time management",
+            "3": "Calm before the exam"
+          }
+        },
+        "growth": {
+          "title": "Continuous growth",
+          "items": {
+            "1": "Self-knowledge",
+            "2": "Sustainable habits",
+            "3": "More autonomy"
+          }
+        }
+      },
+      "discovery": {
+        "title": "Discovery",
+        "description": "First contact and initial curiosity",
+        "scenario": "You find PsyMind.AI through a recommendation and decide to try it. The intuitive interface and focus on mental health catch your attention.",
+        "duration": "1-2 days"
+      },
+      "first_chat": {
+        "title": "First Chat",
+        "description": "Initial interaction and establishing trust",
+        "scenario": "You share your concerns about your exams. PsyMind.AI responds empathetically, offering practical anxiety-control techniques.",
+        "duration": "1 week"
+      },
+      "daily_routine": {
+        "title": "Daily Routine",
+        "description": "Integration into the study routine",
+        "scenario": "You start using PsyMind.AI daily to organize your studies, manage stress, and stay focused during revisions.",
+        "duration": "2-4 weeks"
+      },
+      "exam_prep": {
+        "title": "Exam Preparation",
+        "description": "Intensive support during critical periods",
+        "scenario": "With the exams approaching, you intensify its use. PsyMind.AI helps with study techniques, time management, and emotional balance.",
+        "duration": "1-3 months"
+      },
+      "growth": {
+        "title": "Continuous Growth",
+        "description": "Complete personal and academic transformation",
+        "scenario": "You develop healthy study habits, know your emotions better, and feel prepared for academic and personal challenges.",
+        "duration": "3+ months"
+      },
+      "cta": {
+        "title": "Ready to Start Your Journey?",
+        "description": "Join thousands of students who have already transformed their relationship with studies and emotional well-being."
+      },
+      "stats": {
+        "satisfaction": "User Satisfaction",
+        "availability": "Availability",
+        "privacy": "Privacy"
+      }
     }
   },
   "faq": {

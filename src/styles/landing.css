@@ -338,6 +338,161 @@
   border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
+.accordion-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  margin: 0;
+}
+
+.accordion-item {
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 24px;
+  border: 1px solid rgba(0, 121, 107, 0.14);
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.04),
+    0 0 1px rgba(0, 0, 0, 0.03);
+}
+
+.accordion-item:hover {
+  box-shadow:
+    0 14px 32px rgba(0, 121, 107, 0.08),
+    0 0 1px rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 121, 107, 0.24);
+}
+
+.accordion-trigger {
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 1.35rem 1.4rem;
+  cursor: pointer;
+  text-align: left;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.accordion-trigger:hover {
+  background: rgba(0, 121, 107, 0.05);
+}
+
+.accordion-trigger:focus {
+  outline: none;
+  background: rgba(0, 121, 107, 0.08);
+  box-shadow: inset 0 0 0 2px rgba(0, 121, 107, 0.3);
+}
+
+.accordion-header {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  flex: 1;
+  width: 100%;
+}
+
+.accordion-icon {
+  color: var(--primary-color);
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  background: rgba(0, 121, 107, 0.08);
+  padding: 0.55rem;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.accordion-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-color);
+  flex: 1;
+  letter-spacing: -0.3px;
+}
+
+.chevron-icon {
+  color: var(--primary-color);
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.accordion-trigger[aria-expanded="true"] .chevron-icon {
+  transform: scaleY(-1);
+}
+
+.accordion-content {
+  overflow: hidden;
+}
+
+.accordion-body {
+  padding: 0 1.35rem 1.35rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.2rem;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tradeoff-item {
+  padding: 1rem;
+  border-radius: 18px;
+  border-left: 4px solid var(--primary-color);
+}
+
+.tradeoff-item.advantage {
+  background: rgba(0, 168, 107, 0.08);
+  border-left-color: #00a86b;
+}
+
+.tradeoff-item.disadvantage {
+  background: rgba(255, 152, 0, 0.08);
+  border-left-color: #ff9800;
+}
+
+.tradeoff-item.mitigation {
+  background: rgba(33, 150, 243, 0.08);
+  border-left-color: #2196f3;
+}
+
+.tradeoff-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+.tradeoff-item p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text-color); opacity: 0.85;
+}
+
 .feature-card {
   padding: 2rem;
   background: rgba(255, 255, 255, 0.7);
@@ -1327,39 +1482,36 @@
 
 /* Technical Decisions Section */
 .technical-section {
-  padding: 8rem 2rem; /* Increased padding */
-  background: rgba(241, 243, 244, 0.4);
+  padding: 6rem 2rem;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(248, 249, 250, 0.5) 50%,
+    rgba(255, 255, 255, 0.3) 100%
+  );
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  max-width: 1400px;
+  margin: 0 auto;
+  border-radius: 32px;
 }
 
 .app.dark .technical-section {
-  background: rgba(32, 33, 36, 0.4);
+  background: linear-gradient(
+    135deg,
+    rgba(32, 33, 36, 0.5) 0%,
+    rgba(19, 19, 20, 0.6) 50%,
+    rgba(32, 33, 36, 0.5) 100%
+  );
 }
 
+/* Old grid styles - disabled for new accordion layout */
 .technical-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Further reduced to fit ultra-small mobile */
-  gap: 2.5rem; /* Increased gap */
-  max-width: 1400px;
-  margin: 0 auto;
+  display: none;
 }
 
 .tradeoff-card {
-  background: var(--card-background);
-  border-radius: 28px; /* More expressive radius */
-  padding: 2.5rem;
-  border: 1px solid var(--border-color);
-  box-shadow: var(--md-sys-elevation-1);
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  transition: all 0.4s cubic-bezier(0.2, 0, 0, 1);
-}
-
-.tradeoff-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--md-sys-elevation-2);
-  border-color: var(--primary-color);
+  display: none;
 }
 
 .tradeoff-header {
