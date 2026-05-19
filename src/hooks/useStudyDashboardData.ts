@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
-import type { StudyDashboardState } from '../components/study-dashboard/types';
-import { createStudyLog, createStudyDashboardViewModel, readStudyLogs, readTelemetryMetrics, saveStudyLogs } from '../components/study-dashboard/data';
-import type { StudyTranslation } from '../components/study-dashboard/types';
+import type { StudyDashboardState } from '@/components/features/study-dashboard/types';
+import { createStudyLog, createStudyDashboardViewModel, readStudyLogs, readTelemetryMetrics, saveStudyLogs } from '@/components/features/study-dashboard/data';
+import type { StudyTranslation } from '@/components/features/study-dashboard/types';
 
 const createInitialState = (t: StudyTranslation): StudyDashboardState => ({
   logs: [],
@@ -16,7 +16,7 @@ export const useStudyDashboardData = (isOpen: boolean, t: StudyTranslation) => {
   useEffect(() => {
     if (!isOpen) return;
 
-    setState((previousState) => ({
+    setState((previousState: StudyDashboardState) => ({
       ...previousState,
       status: 'loading',
     }));
@@ -39,7 +39,7 @@ export const useStudyDashboardData = (isOpen: boolean, t: StudyTranslation) => {
   const actions = useMemo(
     () => ({
       addLog(topic: string, minutes: number) {
-        setState((currentState) => {
+        setState((currentState: StudyDashboardState) => {
           const newLog = createStudyLog(topic, minutes);
           const logs = [...currentState.logs, newLog];
           saveStudyLogs(logs);

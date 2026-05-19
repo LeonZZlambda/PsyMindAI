@@ -1,5 +1,6 @@
 // Test script for the recommendation engine
-import { recommendationEngine, TopicProficiency, QuestionMetadata, IRTItemParameters, IRTModel } from './recommendationEngine.ts';
+import { describe, expect, it } from 'vitest';
+import { recommendationEngine, TopicProficiency, QuestionMetadata, IRTModel } from './recommendationEngine.ts';
 import { SRSItem } from './srsAlgorithm.ts';
 
 // Mock data for testing
@@ -128,44 +129,41 @@ const mockQuestions: QuestionMetadata[] = [
   }
 ];
 
-// Test the recommendation engine
-console.log('Testing Recommendation Engine...');
+describe('Recommendation Engine', () => {
+  it('should get recommendations correctly', () => {
+    const recommendations = recommendationEngine.getRecommendations(
+      mockProficiencies,
+      mockSRSData,
+      mockQuestions,
+      [], // No session history
+      3
+    );
 
-const recommendations = recommendationEngine.getRecommendations(
-  mockProficiencies,
-  mockSRSData,
-  mockQuestions,
-  [], // No session history
-  3
-);
+    expect(recommendations).toBeDefined();
+    expect(recommendations.length).toBeGreaterThan(0);
+    expect(recommendations.length).toBeLessThanOrEqual(3);
+  });
 
-console.log('Recommended questions:');
-recommendations.forEach((q, i) => {
-  console.log(`${i + 1}. ${q.topic} - Difficulty: ${q.difficulty} - Tags: ${q.tags.join(', ')}`);
-  if (q.irtParams) {
-    console.log(`   IRT Params: difficulty=${q.irtParams.difficulty.toFixed(2)}, discrimination=${q.irtParams.discrimination.toFixed(2)}, guessing=${q.irtParams.guessing.toFixed(2)}`);
-  }
+  it('should compute IRT probability correct', () => {
+    mockQuestions.forEach(q => {
+      const proficiency = mockProficiencies[q.topic];
+      if (q.irtParams && proficiency) {
+        const prob = IRTModel.probabilityCorrect(proficiency.theta, q.irtParams);
+        expect(prob).toBeGreaterThanOrEqual(0);
+        expect(prob).toBeLessThanOrEqual(1);
+      }
+    });
+  });
+
+  it('should estimate ability from responses', () => {
+    const responses = [1, 0, 1, 1, 0]; // Correct, wrong, correct, correct, wrong
+    const questionIRTParams = mockQuestions.slice(0, 5).map(q => q.irtParams!).filter(p => p);
+    const irtResponses = responses.map((correct, i) => ({
+      item: questionIRTParams[i],
+      correct: correct === 1
+    }));
+    const estimatedAbility = IRTModel.estimateAbilityEAP(irtResponses);
+    expect(estimatedAbility.theta).toBeDefined();
+    expect(estimatedAbility.se).toBeGreaterThanOrEqual(0);
+  });
 });
-
-// Test IRT model calculations
-console.log('\nTesting IRT Model Calculations:');
-mockQuestions.forEach(q => {
-  const proficiency = mockProficiencies[q.topic];
-  if (q.irtParams && proficiency) {
-    const prob = IRTModel.probabilityCorrect(proficiency.theta, q.irtParams);
-    console.log(`Question ${q.id}: P(correct|θ=${proficiency.theta.toFixed(2)}) = ${prob.toFixed(3)}`);
-  }
-});
-
-// Test ability estimation
-console.log('\nTesting Ability Estimation:');
-const responses = [1, 0, 1, 1, 0]; // Correct, wrong, correct, correct, wrong
-const questionIRTParams = mockQuestions.slice(0, 5).map(q => q.irtParams!).filter(p => p);
-const irtResponses = responses.map((correct, i) => ({
-  item: questionIRTParams[i],
-  correct: correct === 1
-}));
-const estimatedAbility = IRTModel.estimateAbilityEAP(irtResponses);
-console.log(`Estimated ability from responses ${responses.join(',')}: θ = ${estimatedAbility.theta.toFixed(3)}, SE = ${estimatedAbility.se.toFixed(3)}`);
-
-export {}; // Make this a module

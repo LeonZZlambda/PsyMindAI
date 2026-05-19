@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
-import Snackbar from '../components/Snackbar';
+import Snackbar from '@/components/ui/Snackbar';
 import { SnackbarContext, SnackbarMessage } from './SnackbarContext';
 
 export const SnackbarProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {

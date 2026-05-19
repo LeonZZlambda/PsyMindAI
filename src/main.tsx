@@ -25,7 +25,7 @@ import { SnackbarProvider } from './context/SnackbarProvider'
 import { GamificationProvider } from './context/GamificationProvider'
 import { BrowserRouter } from 'react-router-dom'
 import { protectMaterialIcons } from './utils/protectMaterialIcons'
-import GlobalRipple from './components/GlobalRipple'
+import GlobalRipple from '@/components/layout/GlobalRipple'
 
 const rootElement = document.getElementById('root')
 if (!rootElement) throw new Error('Root element not found')

@@ -9,12 +9,12 @@ import './styles/base.css'
 import './styles/animations.css'
 import './styles/layout.css'
 import './styles/components.css'
-import { SkeletonLandingPage, SkeletonChatPage } from './components/SkeletonScreen'
-import ErrorFallback from './components/ErrorFallback'
-import TelemetryConsent from './components/TelemetryConsent'
-import ModalRenderer from './components/ModalRenderer'
-import ScrollToTop from './components/ScrollToTop'
-import useKeyboardShortcuts from './components/KeyboardShortcuts'
+import { SkeletonLandingPage, SkeletonChatPage } from '@/components/ui/SkeletonScreen'
+import ErrorFallback from '@/components/layout/ErrorFallback'
+import TelemetryConsent from '@/components/features/TelemetryConsent'
+import ModalRenderer from '@/components/modals/ModalRenderer'
+import ScrollToTop from '@/components/layout/ScrollToTop'
+import useKeyboardShortcuts from './hooks/useKeyboardShortcuts'
 import { useTheme } from './hooks/context/useTheme'
 import { useChat } from './hooks/context/useChat'
 import { useModal } from './hooks/context/useModal'
@@ -31,8 +31,8 @@ const TermsOfUsePage = lazy(() => import('./pages/TermsOfUsePage'))
 const TransparencyPage = lazy(() => import('./pages/TransparencyPage'))
 const AnalyticsPage = lazy(() => import('./pages/AnalyticsPage'))
 // Shell components — lazy loaded because they're only used in the app routes (not landing)
-const Header = lazy(() => import('./components/Header'))
-const Sidebar = lazy(() => import('./components/Sidebar'))
+const Header = lazy(() => import('./components/layout/Header'))
+const Sidebar = lazy(() => import('./components/layout/Sidebar'))
 
 function App() {
   const {

@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { useTheme } from '../hooks/context/useTheme'
 import '../styles/roadmap.css'
-import Footer from '../components/Footer'
-import ScrollToTopButton from '../components/ScrollToTopButton'
-import LandingHeader from '../components/LandingHeader'
+import Footer from '@/components/layout/Footer'
+import ScrollToTopButton from '@/components/ui/ScrollToTopButton'
+import LandingHeader from '@/components/layout/LandingHeader'
 
 const RoadmapPage: React.FC = () => {
   const navigate = useNavigate()

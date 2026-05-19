@@ -2,9 +2,9 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { useTheme } from '../hooks/context/useTheme'
-import Footer from '../components/Footer'
-import ScrollToTopButton from '../components/ScrollToTopButton'
-import LandingHeader from '../components/LandingHeader'
+import Footer from '@/components/layout/Footer'
+import ScrollToTopButton from '@/components/ui/ScrollToTopButton'
+import LandingHeader from '@/components/layout/LandingHeader'
 import '../styles/styleguide.css'
 
 const StyleGuidePage: React.FC = () => {

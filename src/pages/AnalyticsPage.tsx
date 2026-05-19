@@ -7,9 +7,9 @@ import '../styles/roadmap.css'
 import { Telemetry } from '../services/analytics/telemetry'
 import { generateMetaInsight } from '../services/chat/chatService'
 import { defaultConfig } from '../services/config/apiConfig'
-import Footer from '../components/Footer'
-import ScrollToTopButton from '../components/ScrollToTopButton'
-import LandingHeader from '../components/LandingHeader'
+import Footer from '@/components/layout/Footer'
+import ScrollToTopButton from '@/components/ui/ScrollToTopButton'
+import LandingHeader from '@/components/layout/LandingHeader'
 
 interface DerivedMetrics {
   transformationScore: number;

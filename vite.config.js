@@ -150,10 +150,10 @@ export default defineConfig({
           // Main App Shell & Chat Logic — group together to avoid chaining
           if (
             id.includes('src/pages/ChatPage') ||
-            id.includes('src/components/MessageList') ||
-            id.includes('src/components/Header') ||
-            id.includes('src/components/Sidebar') ||
-            id.includes('src/components/ChatInput')
+            id.includes('src/components/chat/MessageList') ||
+            id.includes('src/components/layout/Header') ||
+            id.includes('src/components/layout/Sidebar') ||
+            id.includes('src/components/chat/InputArea')
           ) {
             return 'chat-core'
           }

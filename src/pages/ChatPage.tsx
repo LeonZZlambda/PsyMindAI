@@ -1,8 +1,8 @@
 import React, { lazy, Suspense } from 'react'
-import { SkeletonChatPage } from '../components/SkeletonScreen'
+import { SkeletonChatPage } from '@/components/ui/SkeletonScreen'
 
-const MessageList = lazy(() => import('../components/MessageList'))
-const InputArea = lazy(() => import('../components/InputArea'))
+const MessageList = lazy(() => import('../components/chat/MessageList'))
+const InputArea = lazy(() => import('../components/chat/InputArea'))
 
 interface ChatPageProps {
   inputRef?: React.RefObject<HTMLInputElement | HTMLTextAreaElement | null>

@@ -3,15 +3,15 @@ import { m } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import '../styles/landing.css'
 import '../styles/landing-enhanced.css'
-import LandingHeader from '../components/LandingHeader'
-import CTAButton from '../components/CTAButton'
+import LandingHeader from '@/components/layout/LandingHeader'
+import CTAButton from '@/components/ui/CTAButton'
 import TelemetryService from '../services/TelemetryService'
 
 // Lazy load non-critical components
-const Footer = lazy(() => import('../components/Footer'))
-const ScrollToTopButton = lazy(() => import('../components/ScrollToTopButton'))
-const PsyBot = lazy(() => import('../components/PsyBot'))
-const LandingSections = lazy(() => import('../components/LandingSections'))
+const Footer = lazy(() => import('../components/layout/Footer'))
+const ScrollToTopButton = lazy(() => import('../components/ui/ScrollToTopButton'))
+const PsyBot = lazy(() => import('../components/chat/PsyBot'))
+const LandingSections = lazy(() => import('../components/features/landing/LandingSections'))
 
 const LandingPage: React.FC = () => {
   const landingPageRef = useRef<HTMLDivElement | null>(null)
