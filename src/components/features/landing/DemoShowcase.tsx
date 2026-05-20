@@ -3,7 +3,7 @@ import { m } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import TelemetryService from '@/services/TelemetryService'
 
-type MockupId = 'guided_learning' | 'exams' | 'reflections'
+type MockupId = 'guided_learning' | 'exams' | 'reflections' | 'mood_tracker' | 'pomodoro' | 'soundscapes' | 'study_stats'
 
 const DemoShowcase: React.FC = () => {
   const { t } = useTranslation(['landing', 'learning', 'reflections', 'translation'])
@@ -11,6 +11,10 @@ const DemoShowcase: React.FC = () => {
   const guidedLearningFeatures = t('landing.demo.guided_learning.features', { returnObjects: true }) as string[]
   const examsFeatures = t('landing.demo.exams.features', { returnObjects: true }) as string[]
   const reflectionsFeatures = t('landing.demo.reflections.features', { returnObjects: true }) as string[]
+  const moodTrackerFeatures = t('landing.demo.mood_tracker.features', { returnObjects: true }) as string[]
+  const pomodoroFeatures = t('landing.demo.pomodoro.features', { returnObjects: true }) as string[]
+  const soundscapesFeatures = t('landing.demo.soundscapes.features', { returnObjects: true }) as string[]
+  const studyStatsFeatures = t('landing.demo.study_stats.features', { returnObjects: true }) as string[]
 
   const mockups: Array<{
     id: MockupId
@@ -39,6 +43,34 @@ const DemoShowcase: React.FC = () => {
       description: t('landing.demo.reflections.description'),
       icon: 'auto_awesome',
       features: reflectionsFeatures
+    },
+    {
+      id: 'mood_tracker',
+      title: t('landing.demo.mood_tracker.preview.title'),
+      description: t('landing.demo.mood_tracker.description'),
+      icon: 'mood',
+      features: moodTrackerFeatures
+    },
+    {
+      id: 'pomodoro',
+      title: t('landing.demo.pomodoro.preview.title'),
+      description: t('landing.demo.pomodoro.description'),
+      icon: 'timer',
+      features: pomodoroFeatures
+    },
+    {
+      id: 'soundscapes',
+      title: t('landing.demo.soundscapes.preview.title'),
+      description: t('landing.demo.soundscapes.description'),
+      icon: 'headphones',
+      features: soundscapesFeatures
+    },
+    {
+      id: 'study_stats',
+      title: t('landing.demo.study_stats.preview.title'),
+      description: t('landing.demo.study_stats.description'),
+      icon: 'insights',
+      features: studyStatsFeatures
     }
   ]
 
@@ -143,7 +175,8 @@ const DemoShowcase: React.FC = () => {
       )
     }
 
-    return (
+    if (mockupId === 'reflections') {
+      return (
         <div className="tool-preview reflections-preview">
         <div className="preview-hero">
           <div>
@@ -196,7 +229,147 @@ const DemoShowcase: React.FC = () => {
           <span>{t('landing.demo.reflections.preview.footer')}</span>
         </div>
       </div>
+      )
+    }
+
+    if (mockupId === 'mood_tracker') {
+      return (
+        <div className="tool-preview mood-preview">
+          <div className="preview-hero">
+            <div>
+              <p className="preview-eyebrow">{t('landing.demo.mood_tracker.preview.badge')}</p>
+              <strong>{t('landing.demo.mood_tracker.preview.title')}</strong>
+            </div>
+            <div className="preview-pill">
+              <span className="material-symbols-outlined" aria-hidden="true">mood</span>
+              <span>{t('landing.demo.mood_tracker.preview.badge')}</span>
+            </div>
+          </div>
+          <div className="mood-preview__question">
+            <strong>{t('landing.demo.mood_tracker.preview.question')}</strong>
+          </div>
+          <div className="mood-preview__options">
+            <div className="mood-option active">
+              <span className="material-symbols-outlined">sentiment_very_satisfied</span>
+              <span>{t('landing.demo.mood_tracker.preview.mood_great')}</span>
+            </div>
+            <div className="mood-option">
+              <span className="material-symbols-outlined">sentiment_satisfied</span>
+              <span>{t('landing.demo.mood_tracker.preview.mood_good')}</span>
+            </div>
+            <div className="mood-option">
+              <span className="material-symbols-outlined">sentiment_neutral</span>
+              <span>{t('landing.demo.mood_tracker.preview.mood_okay')}</span>
+            </div>
+          </div>
+          <div className="guided-preview__footer">
+            <span className="material-symbols-outlined" aria-hidden="true">analytics</span>
+            <span>{t('landing.demo.mood_tracker.preview.footer')}</span>
+          </div>
+        </div>
+      )
+    }
+
+    if (mockupId === 'pomodoro') {
+      return (
+        <div className="tool-preview pomodoro-preview">
+          <div className="preview-hero">
+            <div>
+              <p className="preview-eyebrow">{t('landing.demo.pomodoro.preview.badge')}</p>
+              <strong>{t('landing.demo.pomodoro.preview.title')}</strong>
+            </div>
+            <div className="preview-pill preview-pill--soft">
+              <span className="material-symbols-outlined" aria-hidden="true">timer</span>
+              <span>{t('landing.demo.pomodoro.preview.badge')}</span>
+            </div>
+          </div>
+          <div className="pomodoro-preview__circle">
+            <div className="pomodoro-preview__time">{t('landing.demo.pomodoro.preview.time')}</div>
+            <div className="pomodoro-preview__type">{t('landing.demo.pomodoro.preview.session_type')}</div>
+          </div>
+          <div className="pomodoro-preview__action">
+            <span className="material-symbols-outlined">play_arrow</span>
+            <span>{t('landing.demo.pomodoro.preview.action_start')}</span>
+          </div>
+          <div className="guided-preview__footer">
+            <span className="material-symbols-outlined" aria-hidden="true">schedule</span>
+            <span>{t('landing.demo.pomodoro.preview.footer')}</span>
+          </div>
+        </div>
+      )
+    }
+
+    if (mockupId === 'soundscapes') {
+      return (
+        <div className="tool-preview soundscapes-preview">
+          <div className="preview-hero">
+            <div>
+              <p className="preview-eyebrow">{t('landing.demo.soundscapes.preview.badge')}</p>
+              <strong>{t('landing.demo.soundscapes.preview.title')}</strong>
+            </div>
+            <div className="preview-pill">
+              <span className="material-symbols-outlined" aria-hidden="true">headphones</span>
+              <span>{t('landing.demo.soundscapes.preview.badge')}</span>
+            </div>
+          </div>
+          <div className="soundscapes-preview__playing">
+            <div className="soundscapes-preview__icon">
+              <span className="material-symbols-outlined">music_note</span>
+            </div>
+            <div className="soundscapes-preview__info">
+              <strong>{t('landing.demo.soundscapes.preview.now_playing')}</strong>
+              <span>{t('landing.demo.soundscapes.preview.volume')}</span>
+            </div>
+          </div>
+          <div className="soundscapes-preview__bars">
+            <div className="bar"></div><div className="bar"></div><div className="bar"></div>
+            <div className="bar"></div><div className="bar"></div><div className="bar"></div>
+          </div>
+          <div className="guided-preview__footer">
+            <span className="material-symbols-outlined" aria-hidden="true">graphic_eq</span>
+            <span>{t('landing.demo.soundscapes.preview.footer')}</span>
+          </div>
+        </div>
+      )
+    }
+
+    return (
+      <div className="tool-preview stats-preview">
+        <div className="preview-hero">
+          <div>
+            <p className="preview-eyebrow">{t('landing.demo.study_stats.preview.badge')}</p>
+            <strong>{t('landing.demo.study_stats.preview.title')}</strong>
+          </div>
+          <div className="preview-pill preview-pill--soft">
+            <span className="material-symbols-outlined" aria-hidden="true">insights</span>
+            <span>{t('landing.demo.study_stats.preview.badge')}</span>
+          </div>
+        </div>
+        <div className="stats-preview__row">
+          <div className="stats-card">
+            <span className="material-symbols-outlined">local_fire_department</span>
+            <strong>{t('landing.demo.study_stats.preview.stat_streak')}</strong>
+          </div>
+          <div className="stats-card">
+            <span className="material-symbols-outlined">schedule</span>
+            <strong>{t('landing.demo.study_stats.preview.stat_hours')}</strong>
+          </div>
+        </div>
+        <div className="stats-preview__chart">
+          <p>{t('landing.demo.study_stats.preview.chart_label')}</p>
+          <div className="chart-bars">
+            <div className="c-bar h-40"></div><div className="c-bar h-70"></div>
+            <div className="c-bar h-100"></div><div className="c-bar h-30"></div>
+            <div className="c-bar h-80"></div>
+          </div>
+        </div>
+        <div className="guided-preview__footer">
+          <span className="material-symbols-outlined" aria-hidden="true">trending_up</span>
+          <span>{t('landing.demo.study_stats.preview.footer')}</span>
+        </div>
+      </div>
     )
+
   }
 
   return (
@@ -212,50 +385,87 @@ const DemoShowcase: React.FC = () => {
           <p>{t('landing.demo.subtitle')}</p>
         </m.div>
 
-        <div className="mockups-grid">
-          {mockups.map((mockup, index) => (
-            <m.div
-              key={mockup.id}
-              className="mockup-card"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.2 }}
-              whileHover={{ scale: 1.02, transition: { type: 'spring', stiffness: 300, damping: 15 } }}
-            >
-              <div className="mockup-header">
-                <div className="mockup-icon-wrapper">
-                  <span className="material-symbols-outlined">{mockup.icon}</span>
-                </div>
-                <h3>{mockup.title}</h3>
-              </div>
-
-              <div className="mockup-preview">
-                <div className="preview-window">
-                  <div className="window-header">
-                    <div className="window-dots">
-                      <div className="dot red"></div>
-                      <div className="dot yellow"></div>
-                      <div className="dot green"></div>
-                    </div>
-                    <div className="window-title">{mockup.title}</div>
+        <div className="mockups-carousel-container">
+          <div className="mockups-grid mockups-track">
+            {/* First Set */}
+            {mockups.map((mockup, index) => (
+              <div
+                key={`${mockup.id}-1`}
+                className="mockup-card"
+              >
+                <div className="mockup-header">
+                  <div className="mockup-icon-wrapper">
+                    <span className="material-symbols-outlined">{mockup.icon}</span>
                   </div>
-                  <div className="window-content">{renderPreview(mockup.id)}</div>
+                  <h3>{mockup.title}</h3>
                 </div>
+
+                <div className="mockup-preview">
+                  <div className="preview-window">
+                    <div className="window-header">
+                      <div className="window-dots">
+                        <div className="dot red"></div>
+                        <div className="dot yellow"></div>
+                        <div className="dot green"></div>
+                      </div>
+                      <div className="window-title">{mockup.title}</div>
+                    </div>
+                    <div className="window-content">{renderPreview(mockup.id)}</div>
+                  </div>
+                </div>
+
+                <p className="mockup-description">{mockup.description}</p>
+
+                <ul className="mockup-features">
+                  {mockup.features.map((feature, featureIndex) => (
+                    <li key={featureIndex}>
+                      <span className="material-symbols-outlined check-icon">check_circle</span>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
               </div>
+            ))}
+            {/* Second Set (Duplicate for seamless looping) */}
+            {mockups.map((mockup, index) => (
+              <div
+                key={`${mockup.id}-2`}
+                className="mockup-card"
+              >
+                <div className="mockup-header">
+                  <div className="mockup-icon-wrapper">
+                    <span className="material-symbols-outlined">{mockup.icon}</span>
+                  </div>
+                  <h3>{mockup.title}</h3>
+                </div>
 
-              <p className="mockup-description">{mockup.description}</p>
+                <div className="mockup-preview">
+                  <div className="preview-window">
+                    <div className="window-header">
+                      <div className="window-dots">
+                        <div className="dot red"></div>
+                        <div className="dot yellow"></div>
+                        <div className="dot green"></div>
+                      </div>
+                      <div className="window-title">{mockup.title}</div>
+                    </div>
+                    <div className="window-content">{renderPreview(mockup.id)}</div>
+                  </div>
+                </div>
 
-              <ul className="mockup-features">
-                {mockup.features.map((feature, featureIndex) => (
-                  <li key={featureIndex}>
-                    <span className="material-symbols-outlined check-icon">check_circle</span>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            </m.div>
-          ))}
+                <p className="mockup-description">{mockup.description}</p>
+
+                <ul className="mockup-features">
+                  {mockup.features.map((feature, featureIndex) => (
+                    <li key={featureIndex}>
+                      <span className="material-symbols-outlined check-icon">check_circle</span>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     </>

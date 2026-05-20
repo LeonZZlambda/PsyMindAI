@@ -18,6 +18,7 @@ const VocationalTestModal = lazy(() => import('./VocationalTestModal'));
 const KindnessModal = lazy(() => import('./KindnessModal'));
 const SoundscapesModal = lazy(() => import('./SoundscapesModal'));
 const WeeklyScheduleModal = lazy(() => import('../features/weekly-schedule/components/WeeklyScheduleModal'));
+const ExternalLinkModal = lazy(() => import('./ExternalLinkModal'));
 
 import { ModalState, ModalName } from '../../context/ModalContext';
 
@@ -25,6 +26,9 @@ interface ModalRendererProps {
   openModals: ModalState;
   toggleModal: (modalName: ModalName) => void;
   helpInitialTab?: string;
+  externalLinkData?: any;
+  onProceedExternalLink?: () => void;
+  onCancelExternalLink?: () => void;
 }
 
 /**
@@ -36,7 +40,14 @@ interface ModalRendererProps {
  * - toggleModal: Function to toggle modal state
  * - helpInitialTab: Tab to open HelpModal with
  */
-export const ModalRenderer: React.FC<ModalRendererProps> = ({ openModals, toggleModal, helpInitialTab = 'faq' }) => {
+export const ModalRenderer: React.FC<ModalRendererProps> = ({ 
+  openModals, 
+  toggleModal, 
+  helpInitialTab = 'faq',
+  externalLinkData,
+  onProceedExternalLink,
+  onCancelExternalLink
+}) => {
   return (
     <Suspense fallback={null}>
       {/* Account Modal */}
@@ -188,6 +199,17 @@ export const ModalRenderer: React.FC<ModalRendererProps> = ({ openModals, toggle
         )}
       </AnimatePresence>
 
+      {/* External Link Modal */}
+      <AnimatePresence>
+        {openModals.externalLink && externalLinkData && onProceedExternalLink && onCancelExternalLink && (
+          <ExternalLinkModal
+            isOpen={openModals.externalLink}
+            onClose={onCancelExternalLink}
+            onProceed={onProceedExternalLink}
+            linkData={externalLinkData}
+          />
+        )}
+      </AnimatePresence>
     </Suspense>
   );
 };

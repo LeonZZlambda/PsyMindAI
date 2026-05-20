@@ -19,7 +19,8 @@ export type ModalName =
   | 'soundscapes'
   | 'studyStats'
   | 'importContext'
-  | 'weeklySchedule';
+  | 'weeklySchedule'
+  | 'externalLink';
 
 /**
  * Modal state: mapping of modal names to open/closed status

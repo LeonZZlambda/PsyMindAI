@@ -287,6 +287,71 @@
           "action_explore": "Explorar temas",
           "footer": "Fluxo real do modal de reflexões."
         }
+      },
+      "mood_tracker": {
+        "description": "Registre seu humor diariamente para identificar padrões emocionais.",
+        "features": [
+          "Registro diário",
+          "Rastreamento de emoções",
+          "Padrões e insights"
+        ],
+        "preview": {
+          "title": "Monitor de Humor",
+          "badge": "Autoconhecimento",
+          "question": "Como você está se sentindo hoje?",
+          "mood_great": "Ótimo",
+          "mood_good": "Bem",
+          "mood_okay": "Ok",
+          "footer": "Fluxo real do modal de humor."
+        }
+      },
+      "pomodoro": {
+        "description": "Mantenha o foco com intervalos de estudo customizáveis e pausas relaxantes.",
+        "features": [
+          "Timer de foco",
+          "Pausas curtas e longas",
+          "Sessões de estudo"
+        ],
+        "preview": {
+          "title": "Timer Pomodoro",
+          "badge": "Foco Profundo",
+          "time": "25:00",
+          "session_type": "Sessão de Foco",
+          "action_start": "Iniciar Foco",
+          "footer": "Fluxo real do modal pomodoro."
+        }
+      },
+      "soundscapes": {
+        "description": "Melhore a sua concentração com sons ambientes e beats lo-fi curados.",
+        "features": [
+          "Beats Lo-fi",
+          "Sons da natureza",
+          "Playlists de foco"
+        ],
+        "preview": {
+          "title": "Soundscapes",
+          "badge": "Foco em áudio",
+          "now_playing": "Café com Chuva",
+          "volume": "Volume 70%",
+          "action_play": "Tocar",
+          "footer": "Fluxo real do modal de soundscapes."
+        }
+      },
+      "study_stats": {
+        "description": "Visualize seu progresso, acompanhe metas e mantenha sua ofensiva de estudos.",
+        "features": [
+          "Ofensiva de dias",
+          "Tempo rastreado",
+          "Conclusão de metas"
+        ],
+        "preview": {
+          "title": "Estatísticas",
+          "badge": "Progresso",
+          "stat_streak": "5 Dias de Ofensiva",
+          "stat_hours": "12h Estudadas",
+          "chart_label": "Atividade Semanal",
+          "footer": "Fluxo real do modal de estatísticas."
+        }
       }
     },
     "trust": {

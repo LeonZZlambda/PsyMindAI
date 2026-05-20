@@ -27,6 +27,7 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
     studyStats: false,
     importContext: false,
     weeklySchedule: false,
+    externalLink: false,
   });
 
   /**

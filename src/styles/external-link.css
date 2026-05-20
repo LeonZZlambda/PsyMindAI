@@ -1,0 +1,71 @@
+.external-link-modal {
+  max-width: 450px !important;
+}
+
+.external-link-content {
+  padding: 1rem 0;
+}
+
+.external-link-modal .domain-preview {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--surface-container-low);
+  border: 1px solid var(--border-color);
+  padding: 1.25rem;
+  border-radius: 16px;
+  margin-bottom: 1.5rem;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.external-link-modal .domain-icon {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  background: var(--surface);
+  padding: 0.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.external-link-modal .destination-label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
+}
+
+.external-link-modal .domain-name {
+  display: block;
+  font-size: 1.25rem;
+  color: var(--text-color);
+}
+
+.external-link-warning {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  font-size: 1.05rem;
+  color: var(--text-color);
+  opacity: 0.9;
+}
+
+.full-url-preview {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  background: var(--surface-container);
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-mono, monospace);
+}
+
+.external-proceed-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}

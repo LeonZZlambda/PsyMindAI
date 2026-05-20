@@ -287,6 +287,71 @@
           "action_explore": "Explore themes",
           "footer": "Real flow from the reflections modal."
         }
+      },
+      "mood_tracker": {
+        "description": "Log your mood daily to spot emotional patterns and receive tailored advice.",
+        "features": [
+          "Daily mood logging",
+          "Emotion tracking",
+          "Pattern insights"
+        ],
+        "preview": {
+          "title": "Mood Tracker",
+          "badge": "Self-awareness",
+          "question": "How are you feeling today?",
+          "mood_great": "Great",
+          "mood_good": "Good",
+          "mood_okay": "Okay",
+          "footer": "Real flow from the mood tracker modal."
+        }
+      },
+      "pomodoro": {
+        "description": "Stay focused with customizable study intervals and relaxing breaks.",
+        "features": [
+          "Focus timer",
+          "Short & long breaks",
+          "Study sessions"
+        ],
+        "preview": {
+          "title": "Pomodoro Timer",
+          "badge": "Deep Focus",
+          "time": "25:00",
+          "session_type": "Focus Session",
+          "action_start": "Start Focus",
+          "footer": "Real flow from the pomodoro modal."
+        }
+      },
+      "soundscapes": {
+        "description": "Enhance your concentration with curated ambient sounds and lo-fi beats.",
+        "features": [
+          "Lo-fi beats",
+          "Nature sounds",
+          "Focus playlists"
+        ],
+        "preview": {
+          "title": "Soundscapes",
+          "badge": "Audio focus",
+          "now_playing": "Rainy Cafe Study",
+          "volume": "Volume 70%",
+          "action_play": "Play",
+          "footer": "Real flow from the soundscapes modal."
+        }
+      },
+      "study_stats": {
+        "description": "Visualize your progress, track goals, and maintain your learning streaks.",
+        "features": [
+          "Study streaks",
+          "Time tracking",
+          "Goal completion"
+        ],
+        "preview": {
+          "title": "Study Stats",
+          "badge": "Progress",
+          "stat_streak": "5 Day Streak",
+          "stat_hours": "12h Studied",
+          "chart_label": "Weekly Activity",
+          "footer": "Real flow from the study stats modal."
+        }
       }
     },
     "trust": {

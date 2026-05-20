@@ -216,46 +216,125 @@
       "start": "Começar"
     },
     "demo": {
-      "title": "Veja o PsyMind.AI em Ação",
-      "subtitle": "Explore as funcionalidades através de demonstrações interativas e reais.",
-      "chat": {
-        "title": "Chat Emocional Inteligente",
-        "description": "Conversas naturais e empáticas com IA especializada em suporte emocional adolescente.",
+      "title": "Mira a PsyMind.AI en Acción",
+      "subtitle": "Explora las herramientas a través de vistas previas reales.",
+      "guided_learning": {
+        "description": "Rutas guiadas con flashcards, quizzes y progreso para un repaso metódico.",
+        "features": [
+          "Rutas, flashcards y quizzes",
+          "Importar y exportar rutas",
+          "Progreso de etapas y repaso"
+        ],
         "preview": {
-          "message1": "Olá! Estou sentindo muita ansiedade com o ENEM se aproximando. Você pode me ajudar?",
-          "message2": "Claro! Vamos trabalhar juntos nessa ansiedade. Primeiro, que tal fazermos uma respiração profunda?"
-        },
-        "features": [
-          "Respostas contextualizadas baseadas em psicologia",
-          "Suporte 24/7 sem julgamentos",
-          "Técnicas de mindfulness personalizadas"
-        ]
+          "title": "Ruta activa",
+          "badge": "Modo estudio",
+          "trail_title": "Gestión de ansiedad",
+          "trail_description": "Flashcards y un quiz rápido para repasar antes del examen.",
+          "step_active": "Quiz en curso",
+          "footer": "Flujo real del modal de aprendizaje."
+        }
       },
-      "dashboard": {
-        "title": "Dashboard de Bem-Estar",
-        "description": "Acompanhe seu progresso emocional e acadêmico com métricas visuais intuitivas.",
-        "stats": {
-          "mood": "Humor Médio",
-          "sessions": "Sessões Realizadas"
-        },
+      "exams": {
+        "description": "Exámenes, materias y temas con un camino a planes, quizzes y Judge.",
         "features": [
-          "Gráficos de evolução do humor",
-          "Relatórios de progresso semanal",
-          "Metas personalizadas alcançáveis"
-        ]
-      },
-      "insights": {
-        "title": "Insights Personalizados",
-        "description": "Análises profundas do seu padrão emocional para crescimento pessoal contínuo.",
+          "Categorías de exámenes",
+          "Selección de materias y temas",
+          "Plan, quiz y Judge"
+        ],
         "preview": {
-          "title": "Padrão Identificado",
-          "description": "Você tende a ter mais ansiedade nas segundas-feiras. Que tal começarmos a semana com uma rotina de mindfulness?"
-        },
+          "title": "Selección de Examen",
+          "badge": "Foco ENEM",
+          "exam_name": "ENEM",
+          "exam_subtitle": "Ciencias de la Naturaleza · 12 temas",
+          "score": "3 etapas",
+          "action_plan": "Plan",
+          "action_quiz": "Quiz",
+          "action_judge": "Judge",
+          "footer": "Flujo real del modal de exámenes."
+        }
+      },
+      "reflections": {
+        "description": "Frases, temas y respiración guiada para reflexión y regulación.",
         "features": [
-          "Análises baseadas em dados reais",
-          "Recomendações personalizadas",
-          "Acompanhamento de evolução"
-        ]
+          "Reflexión del día",
+          "Temas y categorías",
+          "Respiración guiada"
+        ],
+        "preview": {
+          "title": "Reflexión del día",
+          "badge": "Calma activa",
+          "quote": "La felicidad no es algo ya hecho. Viene de tus propias acciones.",
+          "author": "Dalai Lama",
+          "action_reflect": "Reflexionar ahora",
+          "action_breathe": "Respiración guiada",
+          "action_explore": "Explorar temas",
+          "footer": "Flujo real del modal de reflexiones."
+        }
+      },
+      "mood_tracker": {
+        "description": "Registra tu estado de ánimo a diario para detectar patrones emocionales.",
+        "features": [
+          "Registro diario",
+          "Seguimiento de emociones",
+          "Patrones y consejos"
+        ],
+        "preview": {
+          "title": "Monitor de Ánimo",
+          "badge": "Autoconocimiento",
+          "question": "¿Cómo te sientes hoy?",
+          "mood_great": "Genial",
+          "mood_good": "Bien",
+          "mood_okay": "Ok",
+          "footer": "Flujo real del modal de estado de ánimo."
+        }
+      },
+      "pomodoro": {
+        "description": "Mantén el foco con intervalos de estudio personalizables y descansos.",
+        "features": [
+          "Temporizador de foco",
+          "Descansos cortos y largos",
+          "Sesiones de estudio"
+        ],
+        "preview": {
+          "title": "Timer Pomodoro",
+          "badge": "Foco Profundo",
+          "time": "25:00",
+          "session_type": "Sesión de Foco",
+          "action_start": "Iniciar Foco",
+          "footer": "Flujo real del modal pomodoro."
+        }
+      },
+      "soundscapes": {
+        "description": "Mejora tu concentración con sonidos ambientales y ritmos lo-fi.",
+        "features": [
+          "Beats Lo-fi",
+          "Sonidos de la naturaleza",
+          "Playlists de foco"
+        ],
+        "preview": {
+          "title": "Soundscapes",
+          "badge": "Foco en audio",
+          "now_playing": "Café con Lluvia",
+          "volume": "Volumen 70%",
+          "action_play": "Reproducir",
+          "footer": "Flujo real del modal de soundscapes."
+        }
+      },
+      "study_stats": {
+        "description": "Visualiza tu progreso, haz seguimiento de metas y mantén tu racha.",
+        "features": [
+          "Racha de estudio",
+          "Tiempo rastreado",
+          "Finalización de metas"
+        ],
+        "preview": {
+          "title": "Estadísticas",
+          "badge": "Progreso",
+          "stat_streak": "Racha 5 Días",
+          "stat_hours": "12h Estudiadas",
+          "chart_label": "Actividad Semanal",
+          "footer": "Flujo real del modal de estadísticas."
+        }
       }
     },
     "trust": {

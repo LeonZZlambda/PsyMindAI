@@ -20,6 +20,7 @@ import { useChat } from './hooks/context/useChat'
 import { useModal } from './hooks/context/useModal'
 import { Telemetry } from './services/analytics/telemetry'
 import logger from './utils/logger'
+import { useExternalLinkInterceptor } from './hooks/useExternalLinkInterceptor'
 
 const ChatPage = lazy(() => import('./pages/ChatPage'))
 const LandingPage = lazy(() => import('./pages/LandingPage'))
@@ -47,6 +48,7 @@ function App() {
   } = useTheme()
   const { clearHistory, setInput, isLoading, startAnonymousChat } = useChat()
   const { openModals, toggleModal } = useModal()
+  const { externalLinkData, proceedToExternalLink, cancelExternalLink } = useExternalLinkInterceptor()
   const { i18n, t } = useTranslation()
   const location = useLocation()
   const publicRoutes = [
@@ -270,6 +272,9 @@ function App() {
               openModals={openModals}
               toggleModal={toggleModal}
               helpInitialTab={helpInitialTab}
+              externalLinkData={externalLinkData}
+              onProceedExternalLink={proceedToExternalLink}
+              onCancelExternalLink={cancelExternalLink}
             />
             <TelemetryConsent />
           </div>
