@@ -569,7 +569,7 @@
 
 .technical-pill-row {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: 0.85rem;
 }
 
@@ -1124,7 +1124,8 @@
   border: 1px solid var(--border-color);
   overflow: hidden;
   width: 100%;
-  height: clamp(280px, 27vw, 340px);
+  flex: 1;
+  min-height: clamp(280px, 27vw, 340px);
   display: flex;
   flex-direction: column;
   box-shadow:
@@ -2029,7 +2030,9 @@
   }
 
   .preview-window {
-    height: 280px;
+    min-height: 280px;
+    height: auto;
+    flex: 1;
   }
 
   .window-content {
@@ -2049,7 +2052,9 @@
   }
 
   .preview-window {
-    height: 260px;
+    min-height: 260px;
+    height: auto;
+    flex: 1;
   }
 
   .preview-hero {
@@ -2214,16 +2219,16 @@
 .journey-detail {
   background: var(--surface);
   border: 1px solid var(--border-color);
-  border-radius: var(--shape-corner-extra-large, 28px);
-  padding: 2rem;
+  border-radius: 16px;
+  padding: 1.5rem;
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.08),
     0 0 1px rgba(0, 0, 0, 0.05);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  position: sticky;
-  top: calc(5.75rem + env(safe-area-inset-top, 0px));
-  align-self: start;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
 }
 
 .detail-header {
@@ -2265,9 +2270,13 @@
   letter-spacing: 0.5px;
 }
 
-.detail-scenario,
-.detail-benefits {
+.detail-scenario {
   margin-bottom: 2rem;
+}
+
+.detail-benefits {
+  margin-top: auto;
+  margin-bottom: 0;
 }
 
 .detail-scenario h4,

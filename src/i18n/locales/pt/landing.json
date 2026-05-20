@@ -76,6 +76,18 @@
       "screen_reader": {
         "title": "Leitores de Tela",
         "desc": "Semântica HTML5 rigorosa e atributos ARIA para uma experiência auditiva fluida."
+      },
+      "reduced_motion": {
+        "title": "Redução de Movimento",
+        "desc": "Animações e transições controladas para evitar vertigem e cansaço visual."
+      },
+      "font_scaling": {
+        "title": "Ajuste de Tipografia",
+        "desc": "Suporte nativo ao redimensionamento de fontes sem quebrar o layout da página."
+      },
+      "color_blind": {
+        "title": "Paleta Adaptativa",
+        "desc": "Cores e contrastes otimizados para daltonismo (deuteranopia, protanopia e tritanopia)."
       }
     },
     "tech_stack": {

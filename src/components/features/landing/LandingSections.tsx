@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { m } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import TelemetryService from '@/services/TelemetryService'
@@ -107,6 +107,135 @@ const LandingSections: React.FC = () => {
   const activeTechnicalItem =
     technicalItems.find((item) => item.id === selectedTechnicalId) ?? technicalItems[0]
 
+  const a11yItems = [
+    {
+      key: 'contrast',
+      icon: 'contrast',
+      title: t('landing.accessibility.contrast.title'),
+      desc: t('landing.accessibility.contrast.desc'),
+    },
+    {
+      key: 'keyboard',
+      icon: 'keyboard',
+      title: t('landing.accessibility.keyboard.title'),
+      desc: t('landing.accessibility.keyboard.desc'),
+    },
+    {
+      key: 'screen_reader',
+      icon: 'record_voice_over',
+      title: t('landing.accessibility.screen_reader.title'),
+      desc: t('landing.accessibility.screen_reader.desc'),
+    },
+    {
+      key: 'reduced_motion',
+      icon: 'motion_photos_off',
+      title: t('landing.accessibility.reduced_motion.title'),
+      desc: t('landing.accessibility.reduced_motion.desc'),
+    },
+    {
+      key: 'font_scaling',
+      icon: 'text_fields',
+      title: t('landing.accessibility.font_scaling.title'),
+      desc: t('landing.accessibility.font_scaling.desc'),
+    },
+    {
+      key: 'color_blind',
+      icon: 'palette',
+      title: t('landing.accessibility.color_blind.title'),
+      desc: t('landing.accessibility.color_blind.desc'),
+    },
+  ]
+
+  const carouselRef = useRef<HTMLDivElement>(null)
+  const [activeDot, setActiveDot] = useState(0)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(true)
+  const [visibleCount, setVisibleCount] = useState(3)
+
+  const updateVisibleCount = () => {
+    const container = carouselRef.current
+    if (!container) return
+
+    const containerWidth = container.clientWidth
+    const card = container.firstElementChild as HTMLElement
+    if (card) {
+      const cardWidth = card.offsetWidth + 24
+      const count = Math.round(containerWidth / cardWidth)
+      setVisibleCount(Math.max(1, Math.min(count, a11yItems.length)))
+    }
+  }
+
+  const scroll = (direction: 'left' | 'right') => {
+    const container = carouselRef.current
+    if (!container) return
+
+    if (direction === 'right' && !canScrollRight) {
+      container.scrollTo({ left: 0, behavior: 'smooth' })
+      return
+    }
+
+    const cardWidth = container.firstElementChild
+      ? (container.firstElementChild as HTMLElement).offsetWidth + 24
+      : 300
+
+    const scrollAmount = direction === 'left' ? -cardWidth : cardWidth
+    container.scrollBy({ left: scrollAmount, behavior: 'smooth' })
+  }
+
+  const handleScroll = () => {
+    const container = carouselRef.current
+    if (!container) return
+
+    const scrollLeft = container.scrollLeft
+    const maxScroll = container.scrollWidth - container.clientWidth
+
+    setCanScrollLeft(scrollLeft > 5)
+    setCanScrollRight(scrollLeft < maxScroll - 5)
+
+    const card = container.firstElementChild as HTMLElement
+    if (card) {
+      const cardWidth = card.offsetWidth + 24
+      const index = Math.round(scrollLeft / cardWidth)
+      
+      // Calculate activeDot correctly based on visibleCount
+      const maxIndex = Math.max(0, a11yItems.length - visibleCount)
+      setActiveDot(Math.max(0, Math.min(index, maxIndex)))
+    }
+  }
+
+  const scrollToCard = (index: number) => {
+    const container = carouselRef.current
+    if (!container) return
+
+    const card = container.firstElementChild as HTMLElement
+    if (card) {
+      const cardWidth = card.offsetWidth + 24
+      container.scrollTo({ left: index * cardWidth, behavior: 'smooth' })
+    }
+  }
+
+  useEffect(() => {
+    const container = carouselRef.current
+    if (!container) return () => {}
+
+    container.addEventListener('scroll', handleScroll)
+    
+    const timer = setTimeout(() => {
+      updateVisibleCount()
+      handleScroll()
+    }, 100)
+
+    window.addEventListener('resize', handleScroll)
+    window.addEventListener('resize', updateVisibleCount)
+
+    return () => {
+      container.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', handleScroll)
+      window.removeEventListener('resize', updateVisibleCount)
+      clearTimeout(timer)
+    }
+  }, [visibleCount])
+
   return (
     <>
       <section id="about" className="about-section">
@@ -156,6 +285,16 @@ const LandingSections: React.FC = () => {
       </section>
 
       <section id="modules" className="features-section">
+        <m.div
+          className="section-header"
+          onViewportEnter={() =>
+            TelemetryService.trackEvent('section_view', { section: 'modules' })
+          }
+        >
+          <h2>{t('landing.modules.title')}</h2>
+          <p>{t('landing.modules.subtitle')}</p>
+        </m.div>
+
         <div className="modules-grid">
           {moduleCards.map((item) => (
             <m.article
@@ -184,16 +323,6 @@ const LandingSections: React.FC = () => {
             </m.article>
           ))}
         </div>
-
-        <m.div
-          className="section-header"
-          onViewportEnter={() =>
-            TelemetryService.trackEvent('section_view', { section: 'modules' })
-          }
-        >
-          <h2>{t('landing.modules.title')}</h2>
-          <p>{t('landing.modules.subtitle')}</p>
-        </m.div>
       </section>
 
       <section id="accessibility" className="accessibility-section">
@@ -206,45 +335,58 @@ const LandingSections: React.FC = () => {
           <h2>{t('landing.accessibility.title')}</h2>
           <p>{t('landing.accessibility.subtitle')}</p>
         </m.div>
-        <div className="accessibility-grid">
-          <m.div
-            className="a11y-card"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+
+        <div className="a11y-carousel-container">
+          <button
+            className={`carousel-btn prev-btn ${!canScrollLeft ? 'disabled' : ''}`}
+            onClick={() => scroll('left')}
+            aria-label={t('landing.accessibility.carousel.prev', { defaultValue: 'Previous slide' })}
+            disabled={!canScrollLeft}
           >
-            <div className="a11y-icon-wrapper">
-              <span className="material-symbols-outlined">contrast</span>
-            </div>
-            <h3>{t('landing.accessibility.contrast.title')}</h3>
-            <p>{t('landing.accessibility.contrast.desc')}</p>
-          </m.div>
-          <m.div
-            className="a11y-card"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
+            <span className="material-symbols-outlined">chevron_left</span>
+          </button>
+
+          <div
+            ref={carouselRef}
+            className="accessibility-grid carousel-track"
+            aria-label={t('landing.accessibility.title')}
           >
-            <div className="a11y-icon-wrapper">
-              <span className="material-symbols-outlined">keyboard</span>
-            </div>
-            <h3>{t('landing.accessibility.keyboard.title')}</h3>
-            <p>{t('landing.accessibility.keyboard.desc')}</p>
-          </m.div>
-          <m.div
-            className="a11y-card"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
+            {a11yItems.map((item, index) => (
+              <m.div
+                key={item.key}
+                className="a11y-card"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.05 }}
+              >
+                <div className="a11y-icon-wrapper">
+                  <span className="material-symbols-outlined">{item.icon}</span>
+                </div>
+                <h3>{item.title}</h3>
+                <p>{item.desc}</p>
+              </m.div>
+            ))}
+          </div>
+
+          <button
+            className="carousel-btn next-btn"
+            onClick={() => scroll('right')}
+            aria-label={t('landing.accessibility.carousel.next', { defaultValue: 'Next slide' })}
           >
-            <div className="a11y-icon-wrapper">
-              <span className="material-symbols-outlined">record_voice_over</span>
-            </div>
-            <h3>{t('landing.accessibility.screen_reader.title')}</h3>
-            <p>{t('landing.accessibility.screen_reader.desc')}</p>
-          </m.div>
+            <span className="material-symbols-outlined">chevron_right</span>
+          </button>
+        </div>
+
+        <div className="carousel-dots" aria-label="Carousel pagination">
+          {a11yItems.slice(0, Math.max(1, a11yItems.length - visibleCount + 1)).map((_, index) => (
+            <button
+              key={index}
+              className={`dot-btn ${activeDot === index ? 'active' : ''}`}
+              onClick={() => scrollToCard(index)}
+              aria-label={t('landing.accessibility.carousel.go_to', { defaultValue: `Go to slide ${index + 1}` })}
+            />
+          ))}
         </div>
       </section>
 

@@ -76,6 +76,18 @@
       "screen_reader": {
         "title": "Screen Readers",
         "desc": "Rigorous HTML5 semantics and ARIA attributes for a fluid auditory experience."
+      },
+      "reduced_motion": {
+        "title": "Reduced Motion",
+        "desc": "Fully customizable animations and transitions to prevent vertigo and visual fatigue."
+      },
+      "font_scaling": {
+        "title": "Dynamic Font Scaling",
+        "desc": "Symmetrical layout stretching supporting system-level and custom typography scaling."
+      },
+      "color_blind": {
+        "title": "Color-Blind Friendly",
+        "desc": "Palettes and patterns optimized for deuteranopia, protanopia, and tritanopia contrast."
       }
     },
     "tech_stack": {

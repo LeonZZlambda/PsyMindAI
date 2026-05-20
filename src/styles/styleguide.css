@@ -389,7 +389,8 @@
   align-items: center;
   justify-content: center;
   background: var(--secondary-color);
-  min-height: 200px;
+  flex: 1;
+  min-height: 220px;
 }
 
 .sg-preview-button {
@@ -501,7 +502,8 @@
   font-family: monospace;
   font-size: 0.88rem;
   overflow-x: auto;
-  max-height: 200px;
+  flex: 1;
+  min-height: 220px;
   border: 1px solid #333;
 }
 

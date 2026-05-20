@@ -322,9 +322,6 @@
 .w-40 { width: 40%; }
 
 .features-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
   padding: 4rem;
   max-width: 1400px;
   margin: 0 auto;
@@ -1339,8 +1336,6 @@
 
   .features-section {
     padding: 2rem 1.5rem;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
   }
   
   /* Hide the visual example on mobile */
@@ -1568,27 +1563,198 @@
 /* Accessibility Section */
 .accessibility-section {
   padding: 8rem 2rem;
+  width: 100%;
   max-width: 1400px;
   margin: 0 auto;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.a11y-carousel-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  box-sizing: border-box;
 }
 
 .accessibility-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Force 3 columns on desktop */
-  gap: 3rem;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
   align-items: stretch;
 }
 
-@media (max-width: 1024px) {
+.accessibility-grid.carousel-track {
+  display: flex !important;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  gap: 1.25rem;
+  padding: 1.5rem 1.25rem; /* Bleed space for centering */
+  margin: -1.5rem -1.25rem;
+  scrollbar-width: none; /* Hide scrollbar Firefox */
+  flex: 1;
+  min-width: 0; /* CRITICAL: Prevents flex child from stretching parent beyond viewport */
+}
+
+.accessibility-grid.carousel-track::-webkit-scrollbar {
+  display: none; /* Hide scrollbar Chrome/Safari */
+}
+
+/* Card sizing - Mobile First (default: Mobile S/M peeking layout) */
+.carousel-track .a11y-card {
+  flex: 0 0 85%; /* Allows peeking at the next card */
+  scroll-snap-align: center;
+  padding: 2rem 1.25rem; /* Reduced padding on mobile */
+  gap: 1.25rem; /* Reduced gap on mobile */
+  height: auto;
+}
+
+.carousel-track .a11y-card .a11y-icon-wrapper {
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+}
+
+.carousel-track .a11y-card .a11y-icon-wrapper .material-symbols-outlined {
+  font-size: 2.25rem;
+}
+
+.carousel-track .a11y-card h3 {
+  font-size: 1.35rem;
+}
+
+.carousel-track .a11y-card p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Tablet (min-width: 600px) */
+@media (min-width: 600px) {
   .accessibility-grid {
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Reduced for small mobile */
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+  }
+
+  .carousel-track .a11y-card {
+    flex: 0 0 calc((100% - 1.25rem) / 2); /* 2 items visible */
+    scroll-snap-align: start;
+    padding: 2.5rem 1.5rem;
+    gap: 1.5rem;
   }
 }
 
-@media (max-width: 768px) {
+/* Desktop (min-width: 1024px) */
+@media (min-width: 1024px) {
   .accessibility-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
   }
+
+  .carousel-track .a11y-card {
+    flex: 0 0 calc((100% - 2 * 1.5rem) / 3); /* 3 items visible */
+    scroll-snap-align: start;
+    padding: 3rem 2rem;
+    gap: 1.75rem;
+  }
+  
+  .carousel-track .a11y-card .a11y-icon-wrapper {
+    width: 90px;
+    height: 90px;
+    border-radius: 24px;
+  }
+
+  .carousel-track .a11y-card .a11y-icon-wrapper .material-symbols-outlined {
+    font-size: 2.75rem;
+  }
+
+  .carousel-track .a11y-card h3 {
+    font-size: 1.6rem;
+  }
+
+  .carousel-track .a11y-card p {
+    font-size: 1.05rem;
+  }
+  
+  .a11y-carousel-container {
+    gap: 1.5rem;
+  }
+}
+
+.carousel-btn {
+  background: var(--card-background);
+  border: 1px solid var(--border-color);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-color);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  transition: all 180ms ease-out;
+  flex-shrink: 0;
+  z-index: 10;
+  padding: 0;
+}
+
+.carousel-btn:hover:not(:disabled) {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+  transform: scale(1.08);
+}
+
+.carousel-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+@media (max-width: 600px) {
+  .carousel-btn {
+    display: none;
+  }
+  .a11y-carousel-container {
+    gap: 0;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.dot-btn {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: var(--border-color);
+  cursor: pointer;
+  transition: all 180ms ease-out;
+  padding: 0;
+}
+
+.dot-btn.active {
+  background: var(--primary-color);
+  width: 24px;
+  border-radius: 5px;
+}
+
+.dot-btn:hover {
+  background: var(--primary-color);
+  opacity: 0.7;
 }
 
 .a11y-card {
@@ -1936,10 +2102,6 @@
     font-size: 1.2rem;
   }
 
-  .a11y-card {
-    padding: 2.5rem 1.5rem;
-  }
-
   .tech-badges {
     gap: 1rem;
     row-gap: 1.5rem;
@@ -1983,10 +2145,6 @@
 
   .tradeoff-item {
     font-size: 0.9rem;
-  }
-
-  .a11y-card h3 {
-    font-size: 1.35rem;
   }
 
   .final-cta h2 {
