@@ -25,7 +25,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       // Disable automatic injection of the register script so we can supply a safer registration
       injectRegister: null,
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+      includeAssets: ['psymind.svg'],
       manifest: {
         name: 'PsyMind AI',
         short_name: 'PsyMind',
@@ -33,15 +33,11 @@ export default defineConfig({
         theme_color: '#ffffff',
         icons: [
           {
-            src: 'pwa-192x192.png',
-            sizes: '192x192',
-            type: 'image/png',
-          },
-          {
-            src: 'pwa-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-          },
+            src: 'psymind.svg',
+            sizes: '192x192 512x512',
+            type: 'image/svg+xml',
+            purpose: 'any maskable'
+          }
         ],
       },
       workbox: {
@@ -109,8 +105,7 @@ export default defineConfig({
       'X-Content-Type-Options': 'nosniff',
       'Referrer-Policy': 'strict-origin-when-cross-origin',
       'Cross-Origin-Opener-Policy': 'same-origin',
-      'Cross-Origin-Embedder-Policy': 'credentialless',
-      // CSP will be set by the cspNonce plugin for preview as well
+      // COEP intentionally omitted from preview — it blocks Lighthouse external resource loading
     },
   },
   // Ensure certain i18n libs are pre-bundled / not externalized by SSR/PWA builds
@@ -122,7 +117,9 @@ export default defineConfig({
   },
   build: {
     target: 'esnext',
-    sourcemap: true,
+    // 'hidden' generates source maps for error tracking without linking them
+    // from the minified output — keeps Lighthouse happy and files truly minified
+    sourcemap: 'hidden',
     modulePreload: {
       polyfill: true
     },

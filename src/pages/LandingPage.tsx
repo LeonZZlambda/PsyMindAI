@@ -22,20 +22,15 @@ const LandingPage: React.FC = () => {
       <m.div
         ref={landingPageRef}
         className="landing-page"
-        initial={{ opacity: 0 }}
+        initial={false}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.3 }}
       >
         <LandingHeader />
 
         <main className="landing-hero">
-          <m.div
-            className="hero-content"
-            initial={{ y: 30 }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.1 }}
-          >
+          <div className="hero-content">
             <h1 className="hero-title">
               <span className="gradient-text">{t('landing.hero.title_main')}</span>
               <br />
@@ -68,7 +63,7 @@ const LandingPage: React.FC = () => {
               />
             </div>
 
-          </m.div>
+          </div>
 
           <m.div
             className="hero-visual"

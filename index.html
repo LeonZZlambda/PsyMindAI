@@ -42,7 +42,12 @@
     <!-- Safe service worker registration (handles failures and secure-context checks) -->
     <script src="/register-sw-safe.js" defer></script>
 
-    <!-- Fonts: Unified Google Fonts request with display=swap -->
+    <!-- Fonts: Non-blocking load — never delays FCP/LCP -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"
+    />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"

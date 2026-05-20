@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useEffect } from 'react'
 import { m } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import TelemetryService from '@/services/TelemetryService'
@@ -73,6 +73,78 @@ const DemoShowcase: React.FC = () => {
       features: studyStatsFeatures
     }
   ]
+
+  
+
+  const carouselRef = useRef<HTMLDivElement>(null)
+  const setOneRef = useRef<HTMLDivElement>(null)
+  const isHovered = useRef(false)
+  const exactScrollLeft = useRef(0)
+
+  useEffect(() => {
+    let animationId: number;
+    let manualScrollTimeout: ReturnType<typeof setTimeout>;
+    let isManualScrolling = false;
+    let lastTime = performance.now();
+
+    // Detect manual scrolling so we don't fight it
+    const handleScroll = () => {
+      if (carouselRef.current) {
+        // Keep our exact tracker in sync with manual scrolling!
+        exactScrollLeft.current = carouselRef.current.scrollLeft;
+      }
+      isManualScrolling = true;
+      clearTimeout(manualScrollTimeout);
+      manualScrollTimeout = setTimeout(() => {
+        isManualScrolling = false;
+        lastTime = performance.now(); // reset delta calculation
+      }, 500); // Resume auto-scroll after 500ms of no scrolling
+    };
+
+    const container = carouselRef.current;
+    if (container) {
+      container.addEventListener('scroll', handleScroll, { passive: true });
+    }
+
+    const playScroll = (time: number) => {
+      const delta = time - lastTime;
+      lastTime = time;
+
+      if (!isHovered.current && !isManualScrolling && container && setOneRef.current) {
+        // Scroll exactly the width of one set + the gap
+        const setWidth = setOneRef.current.offsetWidth;
+        const gap = 32; // 2rem
+        const resetPoint = setWidth + gap;
+
+        // Smooth floating point increment: 30 pixels per second -> ~0.5px per 16ms frame (at 60 FPS)
+        // Using delta makes it equally fast regardless of the monitor's refresh rate!
+        exactScrollLeft.current += (30 * delta) / 1000;
+
+        if (exactScrollLeft.current >= resetPoint) {
+          exactScrollLeft.current -= resetPoint;
+        }
+
+        container.scrollLeft = exactScrollLeft.current;
+      }
+      
+      animationId = requestAnimationFrame(playScroll);
+    };
+
+    animationId = requestAnimationFrame(playScroll);
+
+    return () => {
+      cancelAnimationFrame(animationId);
+      if (container) container.removeEventListener('scroll', handleScroll);
+      clearTimeout(manualScrollTimeout);
+    };
+  }, [])
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (carouselRef.current) {
+      const scrollAmount = 400; // card width + gap
+      carouselRef.current.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
+    }
+  }
 
   const renderPreview = (mockupId: MockupId) => {
     if (mockupId === 'guided_learning') {
@@ -385,13 +457,25 @@ const DemoShowcase: React.FC = () => {
           <p>{t('landing.demo.subtitle')}</p>
         </m.div>
 
-        <div className="mockups-carousel-container">
+        <div className="mockups-carousel-wrapper">
+          <button className="carousel-control prev" onClick={() => scroll('left')} aria-label="Previous">
+            <span className="material-symbols-outlined">chevron_left</span>
+          </button>
+          <div 
+            className="mockups-carousel-container" 
+            ref={carouselRef}
+            onMouseEnter={() => (isHovered.current = true)}
+            onMouseLeave={() => (isHovered.current = false)}
+            onTouchStart={() => (isHovered.current = true)}
+            onTouchEnd={() => (isHovered.current = false)}
+          >
           <div className="mockups-grid mockups-track">
             {/* First Set */}
-            {mockups.map((mockup, index) => (
-              <div
-                key={`${mockup.id}-1`}
-                className="mockup-card"
+            <div className="mockups-set" ref={setOneRef}>
+              {mockups.map((mockup, index) => (
+                <div
+                  key={`${mockup.id}-1`}
+                  className="mockup-card"
               >
                 <div className="mockup-header">
                   <div className="mockup-icon-wrapper">
@@ -424,48 +508,55 @@ const DemoShowcase: React.FC = () => {
                     </li>
                   ))}
                 </ul>
-              </div>
-            ))}
-            {/* Second Set (Duplicate for seamless looping) */}
-            {mockups.map((mockup, index) => (
-              <div
-                key={`${mockup.id}-2`}
-                className="mockup-card"
-              >
-                <div className="mockup-header">
-                  <div className="mockup-icon-wrapper">
-                    <span className="material-symbols-outlined">{mockup.icon}</span>
-                  </div>
-                  <h3>{mockup.title}</h3>
                 </div>
-
-                <div className="mockup-preview">
-                  <div className="preview-window">
-                    <div className="window-header">
-                      <div className="window-dots">
-                        <div className="dot red"></div>
-                        <div className="dot yellow"></div>
-                        <div className="dot green"></div>
-                      </div>
-                      <div className="window-title">{mockup.title}</div>
+              ))}
+            </div>
+            {/* Second Set */}
+            <div className="mockups-set">
+              {mockups.map((mockup, index) => (
+                <div
+                  key={`${mockup.id}-2`}
+                  className="mockup-card"
+                >
+                  <div className="mockup-header">
+                    <div className="mockup-icon-wrapper">
+                      <span className="material-symbols-outlined">{mockup.icon}</span>
                     </div>
-                    <div className="window-content">{renderPreview(mockup.id)}</div>
+                    <h3>{mockup.title}</h3>
                   </div>
+
+                  <div className="mockup-preview">
+                    <div className="preview-window">
+                      <div className="window-header">
+                        <div className="window-dots">
+                          <div className="dot red"></div>
+                          <div className="dot yellow"></div>
+                          <div className="dot green"></div>
+                        </div>
+                        <div className="window-title">{mockup.title}</div>
+                      </div>
+                      <div className="window-content">{renderPreview(mockup.id)}</div>
+                    </div>
+                  </div>
+
+                  <p className="mockup-description">{mockup.description}</p>
+
+                  <ul className="mockup-features">
+                    {mockup.features.map((feature, featureIndex) => (
+                      <li key={featureIndex}>
+                        <span className="material-symbols-outlined check-icon">check_circle</span>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-
-                <p className="mockup-description">{mockup.description}</p>
-
-                <ul className="mockup-features">
-                  {mockup.features.map((feature, featureIndex) => (
-                    <li key={featureIndex}>
-                      <span className="material-symbols-outlined check-icon">check_circle</span>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
+          </div>
+          <button className="carousel-control next" onClick={() => scroll('right')} aria-label="Next">
+            <span className="material-symbols-outlined">chevron_right</span>
+          </button>
         </div>
       </section>
     </>

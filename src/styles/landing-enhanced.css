@@ -1070,38 +1070,74 @@
   border-block: 1px solid rgba(0, 0, 0, 0.04);
 }
 
-.mockups-carousel-container {
-  overflow: hidden;
-  width: 100vw;
+.mockups-carousel-wrapper {
   position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  padding: 1rem 0 3rem 0;
-  display: flex;
-  mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem 0;
 }
+
+.mockups-carousel-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 1rem 0.5rem 3rem 0.5rem;
+  display: flex;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.mockups-carousel-container::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: var(--surface);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+}
+.carousel-control:hover {
+  background: var(--primary-color);
+  color: white;
+}
+.carousel-control.prev {
+  left: -1rem;
+}
+.carousel-control.next {
+  right: -1rem;
+}
+
 
 .mockups-track {
   display: flex;
   gap: 2rem;
   width: max-content;
-  animation: scroll-mockups 60s linear infinite;
   padding: 0 1rem;
 }
 
-.mockups-carousel-container:hover .mockups-track {
-  animation-play-state: paused;
+.mockups-set {
+  display: flex;
+  gap: 2rem;
+}
+.demo-section .mockup-card {
 }
 
-@keyframes scroll-mockups {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(calc(-50% - 1rem)); } /* Shifts exactly one full set (half the track minus half gap) */
-}
 
-.mockup-card {
+
+
+
+.demo-section .mockup-card {
   width: 380px;
   flex-shrink: 0;
   background: var(--surface);
@@ -2131,7 +2167,7 @@
   );
 }
 
-.app.dark .mockup-card {
+.app.dark .demo-section .mockup-card {
   background: var(--surface-container-low);
   border-color: rgba(0, 121, 107, 0.2);
 }
@@ -2286,14 +2322,13 @@
 
   .mockups-track {
     gap: 1.5rem;
-    animation: scroll-mockups 40s linear infinite;
   }
   
-  .mockup-card {
+  .demo-section .mockup-card {
     width: 300px;
   }
 
-  .mockup-card {
+  .demo-section .mockup-card {
     padding: 1.5rem;
   }
 
