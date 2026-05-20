@@ -1,83 +1,106 @@
-# Setup
+# PsyMind.AI Local Setup Guide
 
-## Prerequisites
+Follow this guide to configure and run the PsyMind.AI application locally for development and testing.
 
-- Node.js ≥ 18 (LTS recommended)
-- npm or yarn
+---
 
-Recommended: use `nvm` to pin Node.js for reproducible builds:
+## 📋 Prerequisites
+
+- **Node.js**: `≥ 18.0.0` (LTS recommended)
+- **Package Manager**: `npm` (packaged with Node.js)
+
+We highly recommend pinning your Node runtime environment using `nvm` (Node Version Manager):
 
 ```bash
+# Pin Node.js to LTS version
 nvm install --lts
 nvm use --lts
 ```
 
-## Gemini API Key
+---
 
-### 1. Get a key
+## 🔑 Gemini API Key Configuration
 
-1. Go to [Google AI Studio](https://makersuite.google.com/app/apikey)
-2. Sign in with your Google account
-3. Click **Get API Key** → **Create API Key**
-4. Copy the generated key
+To experience real AI-generated study paths and self-regulation chats, you need a Google Gemini API Key.
 
-### 2. Configure
+### 1. Get an API Key
+1. Navigate to [Google AI Studio](https://aistudio.google.com/).
+2. Log in with your Google account.
+3. Click **Get API Key** and create a new key.
+4. Copy your generated key to your clipboard.
+
+### 2. Configure the Environment
+Duplicate the environment template file at the project root:
 
 ```bash
 cp .env.example .env
 ```
 
-Open `.env` and set:
+Open `.env` in your text editor and set your key:
 
-```
-VITE_GEMINI_API_KEY=your_key_here
+```env
+VITE_GEMINI_API_KEY=your_copied_api_key_here
 ```
 
-### 3. Run
+---
+
+## 📦 Running the Application
+
+Install the node modules and start the Vite local development server:
 
 ```bash
+# Install dependencies
 npm install
+
+# Start Vite hot-reloading development server
 npm run dev
 ```
 
----
-
-## Demo Mode
-
-If no API key is set, the app runs in **demo mode** — all UI features work with simulated AI responses. Useful for development and UI testing without consuming API quota.
+The terminal will print the local host URI (default: `http://localhost:5173`). Open it in your browser.
 
 ---
 
-## Troubleshooting
+## 🧪 Demo Mode Fallback
 
-**`API Key not configured`**
-- Confirm `.env` exists at the project root
-- Confirm the variable is named exactly `VITE_GEMINI_API_KEY`
-- Restart the dev server after editing `.env`
-
-**`Failed to fetch`**
-- Check your internet connection
-- Validate the key in [Google AI Studio](https://makersuite.google.com/app/apikey)
-- Check if you've exceeded the free tier quota
+If you don't configure `VITE_GEMINI_API_KEY` in `.env`, the application automatically falls back to **Demo Mode**.
+- Simulated streaming logic runs client-side to emulate Gemini API responses.
+- Enables complete visual evaluation and testing of all UI features (chats, modals, OBI Judge) without consuming Google API quotas or requiring an active internet connection.
 
 ---
 
-## Free Tier Limits
+## ⚡ Production Verification Commands
 
-| Limit | Value |
+To validate that your modifications build and test cleanly before submitting, execute these build scripts:
+
+```bash
+# 1. Type-Checking (Validate TypeScript compiling)
+npm run type-check
+
+# 2. Linting (Validate code syntax & style conformance)
+npm run lint
+
+# 3. Unit Testing (Run Vitest suites)
+npm run test
+
+# 4. CI Test Run (Run Vitest with code coverage analysis)
+npm run test:ci
+
+# 5. Production Compilation
+npm run build
+
+# 6. Local Preview (Serve the compiled dist folder locally)
+npm run preview
+```
+
+---
+
+## 📊 Google AI Studio Free Tier Quota Limits
+
+If your API key requests fail with HTTP `429 Too Many Requests`, check your usage against the Google Free Tier quotas:
+
+| Metric | Quota Value |
 |---|---|
-| Requests per minute | 60 |
-| Requests per day | 1,500 |
+| Requests Per Minute (RPM) | 15 requests |
+| Requests Per Day (RPD) | 1,500 requests |
 
-For production use, consider upgrading to a paid plan.
-
----
-
-## Google Technologies Used
-
-| Tool | Purpose |
-|---|---|
-| Gemini 1.5 Flash | Core AI model |
-| NotebookLM | Prompt engineering and refinement |
-| Gemini Gems | Personality and tone calibration |
-| Google AI Studio | API key management |
+*Note: Quota limits can be verified or upgraded directly inside the [Google AI Studio Console](https://aistudio.google.com/).*

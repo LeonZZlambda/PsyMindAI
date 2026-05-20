@@ -1,54 +1,79 @@
 # Contributing to PsyMind.AI
 
-Thank you for considering a contribution to PsyMind.AI. This document explains the expected workflow for code, documentation, and design contributions.
+Thank you for contributing to PsyMind.AI! We welcome community contributions to help improve our psychoeducational self-regulation tools, OBI evaluations, and accessibility features.
 
-## Quickstart
+To maintain professional, senior-level open-source quality (similar to Google/MIT repositories), please follow these guidelines when opening issues, submitting code, or writing documentation.
 
-1. Fork this repository.
-2. Create a descriptive branch: `git checkout -b feature/my-feature`.
-3. Make small, atomic commits with clear messages.
-4. Open a Pull Request (PR) against the `main` branch of the original repository.
+---
 
-## Local development
+## 🤝 Code Standards
 
-Install dependencies and run the dev server:
+We use a modern TypeScript (React 19) client-side stack. When writing code:
+- **TypeScript Strictness**: Define proper interfaces/types for all component properties, hooks, and services. Avoid the use of `any` types.
+- **Path Aliases**: Utilize Vite absolute path imports mapped to the `@/` alias (e.g. `import { CustomSelect } from '@/components/ui/CustomSelect'`).
+- **Separation of Concerns**: UI components should be thin and declarative. Business logic must be encapsulated in React Context Providers (`src/context/`), Custom Hooks (`src/hooks/`), or pure logic services (`src/services/`).
+- **Linter & Formatting**: All files must comply with ESLint configurations. Verify syntax by running `npm run lint`.
 
+---
+
+## 🌐 Localization & Translations
+
+PsyMind.AI supports multiple international languages. Translations are organized in JSON files under:
+```text
+src/i18n/locales/<lang_code>/translation.json
+```
+If you add UI labels or text parameters:
+1. Add matching translation keys to the relevant language translation files (e.g., `src/i18n/locales/pt/translation.json`, `src/i18n/locales/en/translation.json`).
+2. Utilize the `useTranslation` hook inside your components to interpolate translations dynamically.
+
+---
+
+## 🧪 Testing with Vitest
+
+We run automated unit and integration tests using **Vitest** and **jsdom** to prevent regressions across self-regulation logic and the memory engine.
+
+### 1. Running Tests
 ```bash
-npm install
-npm run dev
+# Run tests in watch mode
+npm run test
+
+# Run tests once with code coverage analysis
+npm run test:ci
 ```
 
-Run `npm run lint` before opening a PR.
+### 2. Testing Strategies & Engineering
+A senior-level PR is expected to have appropriate test coverage. Write tests following these core principles:
+- **Service & Logic Mocking**: When writing tests for modules that make external API requests (such as the Gemini client), mock the service layer to avoid hitting Google AI quotas:
+  ```typescript
+  import { vi, describe, it, expect } from 'vitest';
+  import { sendChatMessage } from '@/services/chat/chatService';
 
-## Code standards
+  vi.mock('@/services/api/providers/GeminiProvider', () => ({
+    GeminiProvider: vi.fn().mockImplementation(() => ({
+      generateStream: vi.fn().mockResolvedValue(['Mock response chunk'])
+    }))
+  }));
+  ```
+- **Temporal Mocks (Fake Timers)**: For tools containing interval timing or time decay calculations (like Pomodoro timers or Spaced Repetition logs), use fake timers to evaluate time offsets deterministically:
+  ```typescript
+  vi.useFakeTimers();
+  // ... trigger interval start
+  vi.advanceTimersByTime(25 * 60 * 1000); // Advance 25 minutes
+  expect(timerState.completed).toBe(true);
+  vi.useRealTimers();
+  ```
+- **Accessibility & Focus Tests**: Verify keyboard navigation and modals. For example, testing that our modal renderer locks keyboard tab index focus and closes cleanly when hitting the `Escape` key.
+- **State Ingestion Tests**: Check that context state values are properly formatted and correctly appended into system prompt builders.
 
-- Follow the ESLint rules configured in the repository. Run `npm run lint`.
-- Avoid large, unrelated formatting changes; keep diffs focused.
-- React components should be functional and use hooks where appropriate.
+---
 
-## Tests
+## 🚀 Pull Request Checklist
 
-There is currently no automated test suite. If you add tests, include instructions in the PR and update `package.json` to expose `npm test`.
+Before submitting a Pull Request, verify your branch complies with the development standards:
 
-## Pull requests
-
-Please include in your PR:
-
-- Traduções: se você estiver contribuindo com traduções da UI, inclua as novas chaves nos arquivos de tradução (pt/translation.json e en/translation.json) e descreva no PR o que foi traduzido.
-- A short description of the issue or feature
-- Steps to test locally
-- Checklist:
-  - [ ] Local build works (`npm run dev`)
-  - [ ] `npm run lint` passes
-  - [ ] Documentation updated (README/SETUP/ARCHITECTURE when applicable)
-  - [ ] `CHANGELOG.md` updated with a suitable note
-
-## Security
-
-If you discover a security vulnerability, follow the instructions in `SECURITY.md`. Do not disclose details in a public issue until a coordinated fix is available.
-
-## Code of conduct
-
-Treat maintainers and other contributors respectfully. See `CODE_OF_CONDUCT.md` for details.
-
-Thank you for helping improve PsyMind.AI!
+- [ ] **Type-checking passes**: Run `npm run type-check` to confirm no compiler errors.
+- [ ] **Linter passes**: Run `npm run lint` to guarantee syntax formatting conforms to rules.
+- [ ] **Vitest passes**: Run `npm run test:ci` to verify all 32 tests compile and pass successfully.
+- [ ] **Production builds successfully**: Run `npm run build` and `npm run preview` to verify Vite asset compression compiles without asset load failures.
+- [ ] **Documentation is updated**: Document any changes to configuration keys or architectures.
+- [ ] **Translations are mapped**: Check that all new UI text fields have corresponding translation entries.

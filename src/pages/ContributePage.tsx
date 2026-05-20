@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { motion } from 'framer-motion'
+import { motion, Variants } from 'framer-motion'
 import '../styles/contribute.css'
 import Footer from '@/components/layout/Footer'
 import ScrollToTopButton from '@/components/ui/ScrollToTopButton'
@@ -13,13 +13,34 @@ const ContributePage: React.FC = () => {
 
   const contributeCards = t('contribute_page.cards', { returnObjects: true }) as any[]
 
+  // Framer Motion animation bounds (smooth, discrete easing)
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08,
+        ease: 'easeOut'
+      }
+    }
+  }
+
+  const cardVariants: Variants = {
+    hidden: { opacity: 0, y: 12 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.35, ease: 'easeOut' }
+    }
+  }
+
   return (
     <motion.div 
       className="landing-page contribute-page"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.4 }}
     >
       <LandingHeader />
 
@@ -29,24 +50,31 @@ const ContributePage: React.FC = () => {
           <p>{t('contribute_page.subtitle')}</p>
         </div>
 
-        <div className="contribute-grid">
+        <motion.div 
+          className="contribute-grid"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {contributeCards.map((card, idx) => (
             <motion.div 
               key={idx}
               className="contribute-card"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: (idx + 1) * 0.1 }}
+              variants={cardVariants}
             >
               <div className={`icon-box ${card.icon}`}>
                 <span className="material-symbols-outlined">{card.icon}</span>
               </div>
               <h3>{card.title}</h3>
               <p>{card.description}</p>
+              
               <a 
-                href={idx === 0 ? "https://github.com/LeonZZlambda/PsyMindAI" : "#"}
-                target={idx === 0 ? "_blank" : undefined}
-                rel={idx === 0 ? "noopener noreferrer" : undefined}
+                href={
+                  idx === 0 ? "https://github.com/LeonZZlambda/PsyMindAI" :
+                  idx === 2 ? "https://github.com/LeonZZlambda/PsyMindAI/blob/main/ARCHITECTURE.md" : "#"
+                }
+                target={idx !== 1 ? "_blank" : undefined}
+                rel={idx !== 1 ? "noopener noreferrer" : undefined}
                 className="text-link"
                 onClick={(e) => {
                   if (idx === 1) {
@@ -58,24 +86,51 @@ const ContributePage: React.FC = () => {
                   }
                 }}
               >
-                {card.link_text} <span className="material-symbols-outlined icon-rtl-flip">arrow_forward</span>
+                {card.link_text} 
+                <span className="material-symbols-outlined icon-rtl-flip">arrow_forward</span>
               </a>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         <div className="steps-section">
           <h2>{t('contribute_page.steps.title')}</h2>
           <div className="steps-list">
-            {(t('contribute_page.steps.items', { returnObjects: true }) as any[]).map((step: any, idx: number) => (
-              <div key={idx} className="step-item">
-                <div className="step-number">{step.number}</div>
-                <div className="step-text">
-                  <h4>{step.title}</h4>
-                  <p>{step.description}</p>
-                </div>
+            <div className="step-item">
+              <div className="step-number">1</div>
+              <div className="step-text">
+                <h4>Fork & Clone</h4>
+                <p>Fork the repository on GitHub and clone it locally to set up your environment.</p>
+                <code>git clone https://github.com/...</code>
               </div>
-            ))}
+            </div>
+            
+            <div className="step-item">
+              <div className="step-number">2</div>
+              <div className="step-text">
+                <h4>Create Feature Branch</h4>
+                <p>Create a dedicated branch for your modifications.</p>
+                <code>git checkout -b feature/my-feature</code>
+              </div>
+            </div>
+
+            <div className="step-item">
+              <div className="step-number">3</div>
+              <div className="step-text">
+                <h4>Commit Progress</h4>
+                <p>Verify code via linter and test suite, then commit changes.</p>
+                <code>git commit -m "feat: add feature"</code>
+              </div>
+            </div>
+
+            <div className="step-item">
+              <div className="step-number">4</div>
+              <div className="step-text">
+                <h4>Open Pull Request</h4>
+                <p>Push to your fork and submit a PR to merge into the main branch.</p>
+                <code>git push origin feature/my-feature</code>
+              </div>
+            </div>
           </div>
         </div>
       </main>

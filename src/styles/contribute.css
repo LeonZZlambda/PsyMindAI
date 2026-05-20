@@ -3,7 +3,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #fff;
+  background: var(--background-color);
 }
 
 .contribute-content {
@@ -22,15 +22,15 @@
 }
 
 .contribute-header h1 {
-  font-size: 2.5rem;
-  color: #202124;
+  font-size: 2.8rem;
+  color: var(--primary-color);
   margin-bottom: 1rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .contribute-header p {
   font-size: 1.1rem;
-  color: #5f6368;
+  color: var(--text-light);
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
@@ -38,25 +38,27 @@
 
 .contribute-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 2rem;
   margin-bottom: 4rem;
 }
 
 .contribute-card {
-  background: #f8f9fa;
-  border-radius: 24px;
-  padding: 2rem;
+  background: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg, 24px);
+  padding: 2.5rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  transition: all 0.2s ease;
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, background 0.2s ease-out;
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(12px);
 }
 
 .contribute-card:hover {
-  background: #fff;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
   transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
 }
 
 .icon-box {
@@ -70,143 +72,122 @@
 }
 
 .icon-box.code { background: #e8f0fe; color: #1a73e8; }
-.icon-box.design { background: #fce8e6; color: #d93025; }
-.icon-box.docs { background: #e6f4ea; color: #188038; }
+.icon-box.palette { background: #fce8e6; color: #d93025; }
+.icon-box.menu_book { background: #e6f4ea; color: #188038; }
+.icon-box.language { background: #f3e5f5; color: #8e24aa; }
+
+.app.dark .icon-box.code { background: rgba(26, 115, 232, 0.15); color: #8ab4f8; }
+.app.dark .icon-box.palette { background: rgba(217, 48, 37, 0.15); color: #f28b82; }
+.app.dark .icon-box.menu_book { background: rgba(24, 128, 56, 0.15); color: #81c784; }
+.app.dark .icon-box.language { background: rgba(142, 36, 170, 0.15); color: #d7ffd9; }
 
 .contribute-card h3 {
-  font-size: 1.25rem;
-  color: #202124;
+  font-size: 1.3rem;
+  color: var(--text-color);
   margin-bottom: 1rem;
+  font-weight: 600;
 }
 
 .contribute-card p {
-  color: #5f6368;
+  color: var(--text-light);
   line-height: 1.6;
   margin-bottom: 1.5rem;
   flex: 1;
+  font-size: 0.95rem;
 }
 
 .text-link {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #1a73e8;
-  font-weight: 500;
+  color: var(--primary-color);
+  font-weight: 600;
   text-decoration: none;
   transition: gap 0.2s ease;
+  font-size: 0.95rem;
 }
 
 .text-link:hover {
   gap: 0.75rem;
-  text-decoration: underline;
 }
 
 .steps-section {
-  background: #fff;
-  border: 1px solid #dadce0;
-  border-radius: 24px;
+  background: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg, 24px);
   padding: 3rem;
+  box-shadow: var(--shadow-soft);
 }
 
 .steps-section h2 {
   text-align: center;
   margin-bottom: 3rem;
-  color: #202124;
+  color: var(--text-color);
+  font-size: 1.8rem;
+  font-weight: 600;
 }
 
 .steps-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 2rem;
+  align-items: stretch;
 }
 
 .step-item {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
+  text-align: left;
   gap: 1rem;
+  height: 100%;
 }
 
 .step-number {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: #1a73e8;
+  background: var(--primary-color);
   color: #fff;
-  font-weight: 600;
+  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.1rem;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.step-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
 }
 
 .step-text h4 {
-  color: #202124;
+  color: var(--text-color);
   margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
 .step-text p {
-  color: #5f6368;
+  color: var(--text-light);
   font-size: 0.9rem;
-  line-height: 1.5;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  flex: 1;
 }
 
 .step-text code {
-  background: #f1f3f4;
-  padding: 0.2rem 0.4rem;
-  border-radius: 4px;
+  background: var(--secondary-color);
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
   font-family: monospace;
   font-size: 0.85rem;
-}
-
-/* Dark Mode Support for Contribute */
-.app.dark .contribute-page {
-  background: var(--background-color);
-}
-
-.app.dark .contribute-header h1,
-.app.dark .contribute-card h3,
-.app.dark .steps-section h2,
-.app.dark .step-text h4 {
   color: var(--text-color);
-}
-
-.app.dark .contribute-header p,
-.app.dark .contribute-card p,
-.app.dark .step-text p {
-  color: var(--text-light);
-}
-
-.app.dark .contribute-card {
-  background: var(--card-background);
-}
-
-.app.dark .contribute-card:hover {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.app.dark .icon-box.code { background: rgba(128, 203, 196, 0.2); color: var(--primary-color); }
-.app.dark .icon-box.design { background: rgba(179, 157, 219, 0.2); color: var(--gradient-end); }
-.app.dark .icon-box.docs { background: rgba(66, 133, 244, 0.2); color: var(--gradient-mid); }
-
-.app.dark .text-link {
-  color: var(--primary-color);
-}
-
-.app.dark .steps-section {
-  background: var(--card-background);
-  border-color: var(--border-color);
-}
-
-.app.dark .step-number {
-  background: #8ab4f8;
-  color: #131314;
-}
-
-.app.dark .step-text code {
-  background: #303134;
-  color: #e3e3e3;
+  display: inline-block;
+  border: 1px solid var(--border-color);
 }
 
 @media (max-width: 768px) {
@@ -215,15 +196,23 @@
   }
 
   .contribute-header h1 {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
 
   .steps-list {
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }
-  
-  .contribute-grid {
-    grid-template-columns: 1fr;
+}
+
+/* ACCESSIBILITY PREFERS-REDUCED-MOTION SUPPORT */
+@media (prefers-reduced-motion: reduce) {
+  .contribute-page,
+  .contribute-card,
+  .text-link,
+  .steps-section {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
   }
 }

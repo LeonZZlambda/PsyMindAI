@@ -1,43 +1,61 @@
-## PsyMind.AI — AI-assistant instructions
+## PsyMind.AI — AI Pair-Programming Instructions
 
-Keep this short and actionable. Focus on repository-specific patterns, conventions, and where to edit behavior.
+Use these guidelines when generating components, modifying hooks, or updating application behavior. Follow these patterns to maintain codebase consistency and architectural standards.
 
-- **Project type & run**: Vite + React (client-only). Start with:
-  - `npm install` then `npm run dev` (see `package.json`). Node >=14.
+---
 
-- **Entry points**: `src/main.jsx` mounts providers and `src/App.jsx` contains routes and top-level UI layout.
+### 🚀 Stack & Core Architecture
 
-- **Global state / where logic lives**:
-  - Context providers live in `src/context/` and are authoritative for app behavior: `ThemeContext`, `ChatContext`, `PomodoroContext`, `SoundContext`, `MoodContext`.
-  - If you need to change message persistence, modify `ChatContext` — it reads/writes `localStorage` key `chatMessages` and simulates AI streaming in `sendMessage`.
+- **Stack**: React 19 + TypeScript + Vite + Vanilla CSS (client-only).
+- **Build & Launch**: Run `npm install` then `npm run dev`. Node `≥ 18.0.0` required.
+- **Entry Points**:
+  - `src/main.tsx`: Mounts the React providers shell.
+  - `src/routes/AppRoutes.tsx`: Defines routing structures, separating landing layouts from internal dashboard views.
+  - `src/App.tsx`: Renders notifications toaster, ripple animation frames, and routes.
 
-- **Routing & pages**:
-  - Routes are defined in `src/App.jsx`. Public landing routes are listed in the `publicRoutes` array; update that when adding/removing public pages.
-  - Add pages under `src/pages/` and routes in `App.jsx` (example: `ChatPage` is at `/chat`).
+---
 
-- **UI conventions**:
-  - Components live in `src/components/`. Modals are lazy-loaded via `React.lazy` and rendered inside a `Suspense` block in `App.jsx` — follow that pattern for new large components to keep initial bundle size small.
-  - Styles are split by feature in `src/styles/` (e.g., `chat.css`, `sidebar.css`). Prefer adding component-specific styles there.
+### 📂 Directory Structure Conventions
 
-- **Accessibility & motion**:
-  - `ThemeContext` exposes flags like `reducedMotion`, `highContrast`, and `colorBlindMode`. Components respect `reducedMotion` (see `ChatContext` streaming behavior) and `MotionConfig` in `App.jsx`.
+When adding or refactoring files, respect this modular structure:
+- **`src/components/ui/`**: Atomic visual primitives (e.g. `CustomSelect`, `Snackbar`, `TextField`).
+- **`src/components/layout/`**: Structural containers (e.g. `Header`, `Sidebar`, `GlobalRipple`).
+- **`src/components/chat/`**: Elements specific to the chat area (e.g. `InputArea`, `MessageList`, `PsyBot`).
+- **`src/components/modals/`**: Shared overlay views (e.g. `BaseModal`, `ReflectionsModal`, `HelpModal`).
+- **`src/components/features/`**: Code grouped by specific functional modules:
+  - `landing/` (Home section frames)
+  - `study-dashboard/` (Diagnostic lists, Pomodoro stats, charts)
+  - `weekly-schedule/` (Planners, calendars)
+- **`src/services/`**: Infrastructure, external clients, prompts, and storage adapters.
+- **`src/hooks/`**: Context and custom hooks. Global state context wrappers live inside `src/hooks/context/`.
 
-- **Keyboard shortcuts & global hotkeys**:
-  - Global hotkeys (new chat, toggle sidebar, open settings/help) are implemented in `src/App.jsx` — if you change shortcuts, update that file.
+---
 
-- **Third-party libs used**: `framer-motion`, `sonner` (Toaster), `react-error-boundary`, `react-router-dom`. Follow their usage patterns as already used in `App.jsx` and `main.jsx`.
+### 🧠 State Management & Data Flow
 
-- **No server code**: This repo is client-only. The AI behavior is simulated in `ChatContext`. To integrate a real API, replace `sendMessage` logic and add a new network client module (e.g., `src/api/aiClient.js`) and move message serialization there.
+- **Authoritative States**: Global application states live in dedicated Context files inside `src/context/` (e.g., `ChatContext`, `ThemeContext`, `PomodoroContext`, `SoundContext`, `MoodContext`).
+- **State Hooks**: Access global states through custom hooks located in `src/hooks/context/` (e.g. `useChat`, `useTheme`, `usePomodoro`).
+- **Local Context Injection**: System prompts in `src/services/prompts/systemPrompts.ts` dynamically load on-device records (Pomodoros, mood logs) from local storage context to inject them into the outgoing system prompt.
 
-- **Common edits examples**:
-  - Add a modal: create `src/components/MyModal.jsx`, lazy-import in `App.jsx`, add state toggle and render inside the existing `Suspense` block.
-  - Persist new chat metadata: update `ChatContext` (where `localStorage` is read/written) and ensure any new fields are serialized/deserialized consistently.
-  - Add a new route: add page under `src/pages/`, import in `App.jsx`, add route and update `publicRoutes` if it should be treated as landing/public.
+---
 
-- **Testing & linting**: No test suite detected. Linting runs with `npm run lint` (ESLint configured). Run lint before PRs.
+### 🤖 AI Providers & Clients
 
-- **PR guidance**:
-  - Keep changes focused: styling is separated by file in `src/styles/` so avoid large multi-file style changes.
-  - For behavior changes to user-facing flows (chat, keyboard shortcuts, theme), update the matching context first and keep UI components thin.
+- **API Integration**: Production mode utilizes `@google/genai` to stream chunks directly to the UI.
+- **Client Configuration**: API client and retry helpers are located in `src/services/api/`.
+- **Offline Fallback**: If `VITE_GEMINI_API_KEY` is undefined, the application switches to a local mock streaming flow. Maintain this fallback capability when updating prompt behaviors.
 
-If anything here is unclear or you'd like the instructions to include more examples (e.g., adding a real AI backend, or the Provider dependency order in `src/main.jsx`), tell me what to expand.
+---
+
+### 🎨 Styling & Accessibilities
+
+- **CSS Files**: Avoid global style leaks. Put component-specific rules in modular stylesheets under `src/styles/` (e.g. `chat.css`, `sidebar.css`, `modal-base.css`).
+- **Accessibility features**: Elements must support accessibility rules. Respect states exposed by `ThemeContext` such as `reducedMotion`, `highContrast`, and `colorBlindMode`.
+
+---
+
+### 🧪 Tests & Quality Assurance
+
+- **Vitest Testing**: Run unit and integration tests using `npm run test` or `npm run test:ci`.
+- **Coverage**: Verify new hooks, helper logic, or utility algorithms have matching test specifications. Mock external API services and use fake timers for time-dependent functions.
+- **ESLint Conformance**: Always verify changes by running `npm run lint` before committing.
