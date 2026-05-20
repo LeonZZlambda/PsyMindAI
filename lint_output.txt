@@ -1,0 +1,481 @@
+
+> psy_mind@0.0.0 lint
+> eslint .
+
+
+/Users/leonzz/Dev/PsyMindAI/public/theme-init.js
+  11:12  warning  'e' is defined but never used  no-unused-vars
+  11:12  warning  'e' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/App.tsx
+  121:16  warning  'e' is defined but never used  no-unused-vars
+  121:16  warning  'e' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/chat/InputArea.tsx
+   11:15  warning  'FileAttachment' is defined but never used     no-unused-vars
+   11:15  warning  'FileAttachment' is defined but never used     @typescript-eslint/no-unused-vars
+   44:3   warning  'onOpenHelp' is defined but never used         no-unused-vars
+   44:3   warning  'onOpenHelp' is defined but never used         @typescript-eslint/no-unused-vars
+   51:41  warning  'isTyping' is assigned a value but never used  no-unused-vars
+   51:41  warning  'isTyping' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  209:18  warning  'e' is defined but never used                  no-unused-vars
+  209:18  warning  'e' is defined but never used                  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/chat/MessageList.tsx
+   80:16  warning  'writeErr' is defined but never used  no-unused-vars
+   80:16  warning  'writeErr' is defined but never used  @typescript-eslint/no-unused-vars
+  252:16  warning  'e' is defined but never used         no-unused-vars
+  252:16  warning  'e' is defined but never used         @typescript-eslint/no-unused-vars
+  267:16  warning  'e' is defined but never used         no-unused-vars
+  267:16  warning  'e' is defined but never used         @typescript-eslint/no-unused-vars
+  422:34  warning  'e' is defined but never used         no-unused-vars
+  422:34  warning  'e' is defined but never used         @typescript-eslint/no-unused-vars
+  590:32  warning  'node' is defined but never used      no-unused-vars
+  590:32  warning  'node' is defined but never used      @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/chat/PsyBot.tsx
+  35:10  warning  'clickCount' is assigned a value but never used  no-unused-vars
+  35:10  warning  'clickCount' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/features/TelemetryConsent.tsx
+  91:75  warning  'e' is defined but never used  no-unused-vars
+  91:75  warning  'e' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/features/weekly-schedule/components/Cards/ActivityCard.tsx
+  13:14  warning  'activity' is defined but never used     no-unused-vars
+  14:21  warning  'activityId' is defined but never used   no-unused-vars
+  14:41  warning  'deltaPixels' is defined but never used  no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/features/weekly-schedule/components/CurrentTimeIndicator.tsx
+   1:15  warning  'Typography' is defined but never used   no-unused-vars
+   1:15  warning  'Typography' is defined but never used   @typescript-eslint/no-unused-vars
+   2:27  warning  'useMemo' is defined but never used      no-unused-vars
+   2:27  warning  'useMemo' is defined but never used      @typescript-eslint/no-unused-vars
+   6:18  warning  'minutes' is defined but never used      no-unused-vars
+  14:5   warning  'dayIndex' is defined but never used     no-unused-vars
+  14:5   warning  'dayIndex' is defined but never used     @typescript-eslint/no-unused-vars
+  16:5   warning  'rowHeightPx' is defined but never used  no-unused-vars
+  16:5   warning  'rowHeightPx' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/features/weekly-schedule/components/Forms/ActivityForm.tsx
+   87:14  warning  'input' is defined but never used           no-unused-vars
+   87:40  warning  'activityId' is defined but never used      no-unused-vars
+   88:15  warning  'activityId' is defined but never used      no-unused-vars
+  174:5   warning  'watch' is assigned a value but never used  no-unused-vars
+  174:5   warning  'watch' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/features/weekly-schedule/components/Forms/DurationPicker.tsx
+   6:14  warning  'minutes' is defined but never used                   no-unused-vars
+  22:9   warning  'displayDuration' is assigned a value but never used  no-unused-vars
+  22:9   warning  'displayDuration' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/features/weekly-schedule/components/Forms/TimePickerField.tsx
+  6:14  warning  'minutes' is defined but never used  no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/features/weekly-schedule/components/Grid/WeeklyGrid.tsx
+   67:41  warning  'key' is defined but never used      no-unused-vars
+   67:54  warning  'options' is defined but never used  no-unused-vars
+  311:47  warning  'index' is defined but never used    no-unused-vars
+  311:47  warning  'index' is defined but never used    @typescript-eslint/no-unused-vars
+  356:41  warning  'date' is defined but never used     no-unused-vars
+  356:41  warning  'date' is defined but never used     @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/features/weekly-schedule/components/ScheduleSearch.tsx
+  8:20  warning  'filtered' is defined but never used  no-unused-vars
+  9:20  warning  'query' is defined but never used     no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/features/weekly-schedule/store/useScheduleStore.ts
+  10:20  warning  'input' is defined but never used            no-unused-vars
+  10:46  warning  'activityId' is defined but never used       no-unused-vars
+  11:20  warning  'activityId' is defined but never used       no-unused-vars
+  12:20  warning  'activityId' is defined but never used       no-unused-vars
+  12:40  warning  'durationMinutes' is defined but never used  no-unused-vars
+  13:18  warning  'activityId' is defined but never used       no-unused-vars
+  13:38  warning  'day' is defined but never used              no-unused-vars
+  13:54  warning  'startMinutes' is defined but never used     no-unused-vars
+  14:20  warning  'settings' is defined but never used         no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/features/weekly-schedule/types.ts
+   2:3  warning  'CLASS' is defined but never used      no-unused-vars
+   3:3  warning  'STUDY' is defined but never used      no-unused-vars
+   4:3  warning  'REVIEW' is defined but never used     no-unused-vars
+   5:3  warning  'EXTRA' is defined but never used      no-unused-vars
+   9:3  warning  'MONDAY' is defined but never used     no-unused-vars
+  10:3  warning  'TUESDAY' is defined but never used    no-unused-vars
+  11:3  warning  'WEDNESDAY' is defined but never used  no-unused-vars
+  12:3  warning  'THURSDAY' is defined but never used   no-unused-vars
+  13:3  warning  'FRIDAY' is defined but never used     no-unused-vars
+  14:3  warning  'SATURDAY' is defined but never used   no-unused-vars
+  15:3  warning  'SUNDAY' is defined but never used     no-unused-vars
+  19:3  warning  'PRIMARY' is defined but never used    no-unused-vars
+  20:3  warning  'SECONDARY' is defined but never used  no-unused-vars
+  21:3  warning  'TERTIARY' is defined but never used   no-unused-vars
+  22:3  warning  'ERROR' is defined but never used      no-unused-vars
+  23:3  warning  'CUSTOM' is defined but never used     no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/layout/Header.tsx
+  15:83  warning  'onOpenStudyStats' is defined but never used  no-unused-vars
+  15:83  warning  'onOpenStudyStats' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/layout/Sidebar.tsx
+  17:16  warning  'tab' is defined but never used                no-unused-vars
+  21:9   warning  'navigate' is assigned a value but never used  no-unused-vars
+  21:9   warning  'navigate' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/modals/BaseModal.tsx
+  23:35  warning  'handleClose' is defined but never used  no-unused-vars
+  94:74  warning  'err' is defined but never used          no-unused-vars
+  94:74  warning  'err' is defined but never used          @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/modals/GuidedLearningModal.tsx
+  204:9   warning  'now' is assigned a value but never used         no-unused-vars
+  204:9   warning  'now' is assigned a value but never used         @typescript-eslint/no-unused-vars
+  367:15  warning  'likelihood' is assigned a value but never used  no-unused-vars
+  367:15  warning  'likelihood' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/modals/HelpModal.tsx
+  4:26  warning  'Trans' is defined but never used  no-unused-vars
+  4:26  warning  'Trans' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/modals/KindnessModal.tsx
+  49:14  warning  'error' is defined but never used  no-unused-vars
+  49:14  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/modals/LearningGoalsModal.tsx
+  16:11  warning  't' is assigned a value but never used  no-unused-vars
+  16:11  warning  't' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/modals/ModalRenderer.tsx
+   1:26  warning  'useState' is defined but never used   no-unused-vars
+   1:26  warning  'useState' is defined but never used   @typescript-eslint/no-unused-vars
+  26:17  warning  'modalName' is defined but never used  no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/modals/MoodTrackerModal.tsx
+  56:14  warning  'error' is defined but never used  no-unused-vars
+  56:14  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/modals/PomodoroModal.tsx
+  53:14  warning  'error' is defined but never used  no-unused-vars
+  53:14  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/modals/ReflectionsModal.tsx
+   37:11  warning  'Category' is defined but never used                      no-unused-vars
+   37:11  warning  'Category' is defined but never used                      @typescript-eslint/no-unused-vars
+   56:10  warning  'selectedTechnique' is assigned a value but never used    no-unused-vars
+   56:10  warning  'selectedTechnique' is assigned a value but never used    @typescript-eslint/no-unused-vars
+   57:10  warning  'selectedCategory' is assigned a value but never used     no-unused-vars
+   57:10  warning  'selectedCategory' is assigned a value but never used     @typescript-eslint/no-unused-vars
+   88:14  warning  'error' is defined but never used                         no-unused-vars
+   88:14  warning  'error' is defined but never used                         @typescript-eslint/no-unused-vars
+  106:14  warning  'error' is defined but never used                         no-unused-vars
+  106:14  warning  'error' is defined but never used                         @typescript-eslint/no-unused-vars
+  113:9   warning  'handleClose' is assigned a value but never used          no-unused-vars
+  113:9   warning  'handleClose' is assigned a value but never used          @typescript-eslint/no-unused-vars
+  150:9   warning  'handleCloseInternal' is assigned a value but never used  no-unused-vars
+  150:9   warning  'handleCloseInternal' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/modals/SettingsModal.tsx
+  1:28  warning  'useRef' is defined but never used  no-unused-vars
+  1:28  warning  'useRef' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/modals/StudyStatsModal.tsx
+  17:14  warning  'topic' is defined but never used    no-unused-vars
+  17:29  warning  'minutes' is defined but never used  no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/modals/SupportModal.tsx
+   44:11  warning  'isDarkMode' is assigned a value but never used  no-unused-vars
+   44:11  warning  'isDarkMode' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  387:13  warning  'situation' is assigned a value but never used   no-unused-vars
+  387:13  warning  'situation' is assigned a value but never used   @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/modals/VocationalTestModal.tsx
+  185:12  warning  'error' is defined but never used                  no-unused-vars
+  185:12  warning  'error' is defined but never used                  @typescript-eslint/no-unused-vars
+  233:10  warning  'isProcessing' is assigned a value but never used  no-unused-vars
+  233:10  warning  'isProcessing' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/modals/account-modal/PersonalizationView.tsx
+  11:50  warning  'key' is defined but never used    no-unused-vars
+  11:58  warning  'value' is defined but never used  no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/modals/account-modal/SegmentedControl.tsx
+  6:14  warning  'val' is defined but never used  no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/modals/exams-modal/ExamsViews.tsx
+  11:22  warning  'category' is defined but never used  no-unused-vars
+  16:18  warning  'exam' is defined but never used      no-unused-vars
+  22:21  warning  'subject' is defined but never used   no-unused-vars
+  28:20  warning  'topic' is defined but never used     no-unused-vars
+  30:20  warning  'config' is defined but never used    no-unused-vars
+  32:17  warning  'config' is defined but never used    no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/ui/CustomSelect.tsx
+  10:14  warning  'value' is defined but never used  no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/components/ui/TechnicalAccordion.tsx
+  3:10  warning  'useTranslation' is defined but never used  no-unused-vars
+  3:10  warning  'useTranslation' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/context/ChatContext.tsx
+  13:17  warning  'text' is defined but never used    no-unused-vars
+  13:31  warning  'files' is defined but never used   no-unused-vars
+  15:14  warning  'chatId' is defined but never used  no-unused-vars
+  18:16  warning  'chatId' is defined but never used  no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/context/ChatProvider.tsx
+    6:3   warning  'Dispatch' is defined but never used               no-unused-vars
+    6:3   warning  'Dispatch' is defined but never used               @typescript-eslint/no-unused-vars
+    7:3   warning  'SetStateAction' is defined but never used         no-unused-vars
+    7:3   warning  'SetStateAction' is defined but never used         @typescript-eslint/no-unused-vars
+    9:3   warning  'MutableRefObject' is defined but never used       no-unused-vars
+    9:3   warning  'MutableRefObject' is defined but never used       @typescript-eslint/no-unused-vars
+   48:21  warning  'setIsLoading' is assigned a value but never used  no-unused-vars
+   48:21  warning  'setIsLoading' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  225:16  warning  'e' is defined but never used                      no-unused-vars
+  225:16  warning  'e' is defined but never used                      @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/context/EmotionalJournalContext.tsx
+   1:8   warning  'React' is defined but never used      no-unused-vars
+   1:8   warning  'React' is defined but never used      @typescript-eslint/no-unused-vars
+  22:14  warning  'responses' is defined but never used  no-unused-vars
+  23:17  warning  'id' is defined but never used         no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/context/GamificationContext.tsx
+  1:8   warning  'React' is defined but never used   no-unused-vars
+  1:8   warning  'React' is defined but never used   @typescript-eslint/no-unused-vars
+  6:20  warning  'action' is defined but never used  no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/context/LearningGoalsContext.tsx
+   1:8   warning  'React' is defined but never used           no-unused-vars
+   1:8   warning  'React' is defined but never used           @typescript-eslint/no-unused-vars
+   9:16  warning  'template' is defined but never used        no-unused-vars
+   9:40  warning  'customDeadline' is defined but never used  no-unused-vars
+  10:22  warning  'title' is defined but never used           no-unused-vars
+  10:37  warning  'description' is defined but never used     no-unused-vars
+  10:58  warning  'target' is defined but never used          no-unused-vars
+  10:90  warning  'deadline' is defined but never used        no-unused-vars
+  11:24  warning  'goalId' is defined but never used          no-unused-vars
+  11:40  warning  'action' is defined but never used          no-unused-vars
+  15:16  warning  'goalId' is defined but never used          no-unused-vars
+  16:21  warning  'goalId' is defined but never used          no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/context/ModalContext.tsx
+   1:8   warning  'React' is defined but never used      no-unused-vars
+   1:8   warning  'React' is defined but never used      @typescript-eslint/no-unused-vars
+  34:17  warning  'modalName' is defined but never used  no-unused-vars
+  35:15  warning  'modalName' is defined but never used  no-unused-vars
+  36:16  warning  'modalName' is defined but never used  no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/context/MoodContext.tsx
+   1:8   warning  'React' is defined but never used  no-unused-vars
+   1:8   warning  'React' is defined but never used  @typescript-eslint/no-unused-vars
+  37:18  warning  'mood' is defined but never used   no-unused-vars
+  37:30  warning  'note' is defined but never used   no-unused-vars
+  38:21  warning  'id' is defined but never used     no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/context/PomodoroContext.tsx
+   1:8   warning  'React' is defined but never used    no-unused-vars
+   1:8   warning  'React' is defined but never used    @typescript-eslint/no-unused-vars
+  28:16  warning  'newMode' is defined but never used  no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/context/PomodoroProvider.tsx
+  10:9  warning  'timerRef' is assigned a value but never used  no-unused-vars
+  10:9  warning  'timerRef' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/context/SnackbarContext.tsx
+   1:8   warning  'React' is defined but never used       no-unused-vars
+   1:8   warning  'React' is defined but never used       @typescript-eslint/no-unused-vars
+  12:18  warning  'message' is defined but never used     no-unused-vars
+  12:35  warning  'actionText' is defined but never used  no-unused-vars
+  12:56  warning  'onAction' is defined but never used    no-unused-vars
+  12:79  warning  'duration' is defined but never used    no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/context/SoundContext.tsx
+   1:8   warning  'React' is defined but never used     no-unused-vars
+   1:8   warning  'React' is defined but never used     @typescript-eslint/no-unused-vars
+  27:17  warning  'newSound' is defined but never used  no-unused-vars
+  28:15  warning  'volume' is defined but never used    no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/context/SoundProvider.tsx
+  213:16  warning  'e' is defined but never used  no-unused-vars
+  213:16  warning  'e' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/context/ThemeContext.tsx
+   1:25  warning  'useState' is defined but never used                no-unused-vars
+   1:25  warning  'useState' is defined but never used                @typescript-eslint/no-unused-vars
+   1:35  warning  'useEffect' is defined but never used               no-unused-vars
+   1:35  warning  'useEffect' is defined but never used               @typescript-eslint/no-unused-vars
+   1:46  warning  'ReactNode' is defined but never used               no-unused-vars
+   1:46  warning  'ReactNode' is defined but never used               @typescript-eslint/no-unused-vars
+   2:10  warning  'loadSetting' is defined but never used             no-unused-vars
+   2:10  warning  'loadSetting' is defined but never used             @typescript-eslint/no-unused-vars
+   2:23  warning  'saveSetting' is defined but never used             no-unused-vars
+   2:23  warning  'saveSetting' is defined but never used             @typescript-eslint/no-unused-vars
+   2:36  warning  'loadBooleanSetting' is defined but never used      no-unused-vars
+   2:36  warning  'loadBooleanSetting' is defined but never used      @typescript-eslint/no-unused-vars
+   3:10  warning  'animateThemeTransition' is defined but never used  no-unused-vars
+   3:10  warning  'animateThemeTransition' is defined but never used  @typescript-eslint/no-unused-vars
+  28:17  warning  'e' is defined but never used                       no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/context/types/ModalContext.ts
+  34:17  warning  'modalName' is defined but never used  no-unused-vars
+  35:15  warning  'modalName' is defined but never used  no-unused-vars
+  36:16  warning  'modalName' is defined but never used  no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/hooks/index.d.ts
+  1:35  warning  'onClose' is defined but never used       no-unused-vars
+  2:30  warning  'callback' is defined but never used      no-unused-vars
+  2:53  warning  'isActive' is defined but never used      no-unused-vars
+  4:40  warning  'key' is defined but never used           no-unused-vars
+  4:53  warning  'initialValue' is defined but never used  no-unused-vars
+  4:77  warning  'v' is defined but never used             no-unused-vars
+  4:86  warning  'prev' is defined but never used          no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/hooks/useExamTelemetry.ts
+  2:21  warning  'ExamTelemetryPayload' is defined but never used  no-unused-vars
+  2:21  warning  'ExamTelemetryPayload' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/hooks/useKeyboardShortcuts.ts
+  21:17  warning  'tab' is defined but never used  no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/hooks/useStorageKey.ts
+   1:20  warning  'useEffect' is defined but never used  no-unused-vars
+   1:20  warning  'useEffect' is defined but never used  @typescript-eslint/no-unused-vars
+  32:70  warning  'value' is defined but never used      no-unused-vars
+  32:83  warning  'prev' is defined but never used       no-unused-vars
+  45:22  warning  'prev' is defined but never used       no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/pages/AnalyticsPage.tsx
+  68:14  warning  'e' is defined but never used  no-unused-vars
+  68:14  warning  'e' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/pages/ContributePage.tsx
+  13:11  warning  'isDarkMode' is assigned a value but never used   no-unused-vars
+  13:11  warning  'isDarkMode' is assigned a value but never used   @typescript-eslint/no-unused-vars
+  13:23  warning  'toggleTheme' is assigned a value but never used  no-unused-vars
+  13:23  warning  'toggleTheme' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/pages/RoadmapPage.tsx
+  12:9   warning  'navigate' is assigned a value but never used     no-unused-vars
+  12:9   warning  'navigate' is assigned a value but never used     @typescript-eslint/no-unused-vars
+  13:11  warning  'isDarkMode' is assigned a value but never used   no-unused-vars
+  13:11  warning  'isDarkMode' is assigned a value but never used   @typescript-eslint/no-unused-vars
+  13:23  warning  'toggleTheme' is assigned a value but never used  no-unused-vars
+  13:23  warning  'toggleTheme' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/pages/StyleGuidePage.tsx
+  11:11  warning  'isDarkMode' is assigned a value but never used  no-unused-vars
+  11:11  warning  'isDarkMode' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/plugins/cspNonce.ts
+  31:16  warning  'e' is defined but never used        no-unused-vars
+  31:16  warning  'e' is defined but never used        @typescript-eslint/no-unused-vars
+  43:20  warning  'options' is defined but never used  no-unused-vars
+  43:20  warning  'options' is defined but never used  @typescript-eslint/no-unused-vars
+  43:29  warning  'bundle' is defined but never used   no-unused-vars
+  43:29  warning  'bundle' is defined but never used   @typescript-eslint/no-unused-vars
+  48:16  warning  'e' is defined but never used        no-unused-vars
+  48:16  warning  'e' is defined but never used        @typescript-eslint/no-unused-vars
+  69:18  warning  'e' is defined but never used        no-unused-vars
+  69:18  warning  'e' is defined but never used        @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/security.ts
+  7:22  warning  'name' is defined but never used   no-unused-vars
+  7:36  warning  'rules' is defined but never used  no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/services/adapters/storageAdapter.ts
+  4:7   warning  'key' is defined but never used    no-unused-vars
+  5:7   warning  'key' is defined but never used    no-unused-vars
+  5:20  warning  'value' is defined but never used  no-unused-vars
+  6:10  warning  'key' is defined but never used    no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/services/analytics/telemetry.ts
+  69:16  warning  'e' is defined but never used  no-unused-vars
+  69:16  warning  'e' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/services/api/errorHandler.ts
+   8:3  warning  'API_KEY_MISSING' is defined but never used  no-unused-vars
+   9:3  warning  'INVALID_KEY' is defined but never used      no-unused-vars
+  10:3  warning  'RATE_LIMIT' is defined but never used       no-unused-vars
+  11:3  warning  'FORBIDDEN' is defined but never used        no-unused-vars
+  12:3  warning  'NOT_FOUND' is defined but never used        no-unused-vars
+  13:3  warning  'SERVER_ERROR' is defined but never used     no-unused-vars
+  14:3  warning  'UNAVAILABLE' is defined but never used      no-unused-vars
+  15:3  warning  'EMPTY_RESPONSE' is defined but never used   no-unused-vars
+  16:3  warning  'NETWORK' is defined but never used          no-unused-vars
+  17:3  warning  'UNKNOWN' is defined but never used          no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/services/chat/chatService.ts
+  4:79  warning  'ApiError' is defined but never used  no-unused-vars
+  4:79  warning  'ApiError' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/services/chat/messageFormatter.ts
+  1:28  warning  'MessageRole' is defined but never used  no-unused-vars
+  1:28  warning  'MessageRole' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/services/config/apiConfig.ts
+  40:12  warning  'e' is defined but never used  no-unused-vars
+  40:12  warning  'e' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/services/storage/chatStorage.test.js
+  45:42  warning  'e' is defined but never used  no-unused-vars
+  45:42  warning  'e' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/services/storage/chatStorage.ts
+  2:34  warning  'CreateChatInput' is defined but never used  no-unused-vars
+  2:34  warning  'CreateChatInput' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/services/storage/settingsStorage.ts
+   4:62  warning  '_storage' is assigned a value but never used  no-unused-vars
+   4:62  warning  '_storage' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  19:55  warning  '_storage' is assigned a value but never used  no-unused-vars
+  19:55  warning  '_storage' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  24:71  warning  '_storage' is assigned a value but never used  no-unused-vars
+  24:71  warning  '_storage' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/types/globals.d.ts
+  14:13  warning  'type' is defined but never used      no-unused-vars
+  21:17  warning  'text' is defined but never used      no-unused-vars
+  21:31  warning  'grammar' is defined but never used   no-unused-vars
+  21:49  warning  'language' is defined but never used  no-unused-vars
+  22:24  warning  'element' is defined but never used   no-unused-vars
+  22:42  warning  'async' is defined but never used     no-unused-vars
+  22:59  warning  'callback' is defined but never used  no-unused-vars
+  22:71  warning  'element' is defined but never used   no-unused-vars
+  23:20  warning  'async' is defined but never used     no-unused-vars
+  23:37  warning  'callback' is defined but never used  no-unused-vars
+  33:17  warning  'this' is defined but never used      no-unused-vars
+  33:42  warning  'ev' is defined but never used        no-unused-vars
+  34:16  warning  'this' is defined but never used      no-unused-vars
+  34:41  warning  'ev' is defined but never used        no-unused-vars
+  35:14  warning  'this' is defined but never used      no-unused-vars
+  35:39  warning  'ev' is defined but never used        no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/types/storage.ts
+  59:7   warning  'key' is defined but never used    no-unused-vars
+  60:7   warning  'key' is defined but never used    no-unused-vars
+  60:20  warning  'value' is defined but never used  no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/utils/materialIconsTests.ts
+  127:14  warning  'e' is defined but never used  no-unused-vars
+  127:14  warning  'e' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/utils/recommendationEngine.ts
+   47:5   warning  'userProficiencies' is defined but never used    no-unused-vars
+   48:5   warning  'srsData' is defined but never used              no-unused-vars
+   49:5   warning  'availableQuestions' is defined but never used   no-unused-vars
+   50:5   warning  'sessionHistory' is defined but never used       no-unused-vars
+   51:5   warning  'targetCount' is defined but never used          no-unused-vars
+  128:13  warning  'likelihood' is assigned a value but never used  no-unused-vars
+  128:13  warning  'likelihood' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/src/utils/textStreaming.ts
+  3:21  warning  'chunk' is defined but never used  no-unused-vars
+  9:39  warning  'chunk' is defined but never used  no-unused-vars
+
+/Users/leonzz/Dev/PsyMindAI/vite.config.js
+  12:10  warning  'e' is defined but never used  no-unused-vars
+  12:10  warning  'e' is defined but never used  @typescript-eslint/no-unused-vars
+
+✖ 326 problems (0 errors, 326 warnings)
+

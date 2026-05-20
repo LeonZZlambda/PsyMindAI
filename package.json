@@ -1,6 +1,9 @@
 {
   "name": "psy_mind",
   "private": true,
+  "sideEffects": [
+    "*.css"
+  ],
   "version": "0.0.0",
   "type": "module",
   "engines": {

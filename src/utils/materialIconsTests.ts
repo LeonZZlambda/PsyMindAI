@@ -239,6 +239,4 @@ export function runAllTests() {
   console.log('✅ All tests completed. Check console for results.');
 }
 
-// Usage in browser console:
-// import { runAllTests } from './path/to/this/file'
-// runAllTests()
+

@@ -53,8 +53,6 @@ const ReflectionsModal: React.FC<ReflectionsModalProps> = ({ isOpen, onClose }) 
   const [currentReflection, setCurrentReflection] = useState<Reflection | null>(null);
   const [breathingActive, setBreathingActive] = useState(false);
   const [breathingPhase, setBreathingPhase] = useState('inhale');
-  const [selectedTechnique, setSelectedTechnique] = useState<Technique | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const breathingTimerRef = useRef<NodeJS.Timeout | null>(null);
   const [aiReflection, setAiReflection] = useState('');
   const [isLoadingReflection, setIsLoadingReflection] = useState(false);
@@ -110,14 +108,7 @@ const ReflectionsModal: React.FC<ReflectionsModalProps> = ({ isOpen, onClose }) 
     setLoadingMode(null);
   };
 
-  const handleClose = () => {
-    if (breathingTimerRef.current) clearTimeout(breathingTimerRef.current);
-    setBreathingActive(false);
-    onClose();
-  };
-
   const startBreathing = (technique: Technique) => {
-    setSelectedTechnique(technique);
     setBreathingActive(true);
     setBreathingPhase('inhale');
     runBreathingCycle(technique, 'inhale');
@@ -126,7 +117,6 @@ const ReflectionsModal: React.FC<ReflectionsModalProps> = ({ isOpen, onClose }) 
   const stopBreathing = () => {
     if (breathingTimerRef.current) clearTimeout(breathingTimerRef.current);
     setBreathingActive(false);
-    setSelectedTechnique(null);
   };
 
   const runBreathingCycle = (technique: Technique, phase: string) => {
@@ -146,11 +136,6 @@ const ReflectionsModal: React.FC<ReflectionsModalProps> = ({ isOpen, onClose }) 
       if (breathingTimerRef.current) clearTimeout(breathingTimerRef.current);
     };
   }, []);
-
-  const handleCloseInternal = () => {
-    if (breathingTimerRef.current) clearTimeout(breathingTimerRef.current);
-    setBreathingActive(false);
-  };
 
   const handleDiscussReflection = () => {
     if (!currentReflection) return;
@@ -183,7 +168,7 @@ const ReflectionsModal: React.FC<ReflectionsModalProps> = ({ isOpen, onClose }) 
         </button>
         <button 
           className={`reflections-tab-btn ${activeTab === 'explore' ? 'active' : ''}`}
-          onClick={() => { setSelectedCategory(null); setActiveTab('explore'); }}
+          onClick={() => { setActiveTab('explore'); }}
         >
           <span className="material-symbols-outlined">explore</span>
           <span>{t('reflections.tabs.explore')}</span>

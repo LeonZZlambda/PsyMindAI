@@ -41,7 +41,7 @@ interface SupportModalProps {
 
 const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
   const { setInput } = useChat();
-  const { isDarkMode, reducedMotion } = useTheme();
+  const { reducedMotion } = useTheme();
   const [activeTab, setActiveTab] = useState('immediate');
   const { t } = useTranslation(['support', 'translation']); // 'immediate', 'investigate', 'reframing'
   const timersRef = useRef<NodeJS.Timeout[]>([]);
@@ -384,7 +384,6 @@ const SupportModal: React.FC<SupportModalProps> = ({ isOpen, onClose }) => {
     }
     
     const timer5 = setTimeout(() => {
-      const situation = reframingData.situation.toLowerCase();
       const thought = reframingData.thought.toLowerCase();
       
       let result = {

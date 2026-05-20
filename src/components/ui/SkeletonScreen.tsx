@@ -95,48 +95,6 @@ export const SkeletonSuggestionCard: React.FC = () => (
   </div>
 );
 
-/**
- * Skeleton for `.message` in the chat.
- * Avatar circle + content lines.
- */
-interface SkeletonChatMessageProps {
-  /** Whether this represents a user message (right-aligned) */
-  isUser?: boolean;
-}
-
-export const SkeletonChatMessage: React.FC<SkeletonChatMessageProps> = ({ isUser = false }) => (
-  <div
-    className={`skeleton-chat-message ${isUser ? 'skeleton-chat-message--user' : ''}`}
-    aria-hidden="true"
-  >
-    {!isUser && (
-      <Skeleton variant="circle" className="skeleton-chat-message__avatar" />
-    )}
-    <div className="skeleton-chat-message__content">
-      <Skeleton variant="text" />
-      <Skeleton variant="text" />
-      {!isUser && <Skeleton variant="text" />}
-    </div>
-  </div>
-);
-
-/**
- * Skeleton for `.modal-card` / `.modal-hero`.
- * Icon + title header, then 3 text lines.
- */
-export const SkeletonModalCard: React.FC = () => (
-  <div className="skeleton-modal-card" aria-hidden="true">
-    <div className="skeleton-modal-card__header">
-      <Skeleton variant="icon" />
-      <Skeleton variant="title" width="40%" />
-    </div>
-    <div className="skeleton-modal-card__lines">
-      <Skeleton variant="text" />
-      <Skeleton variant="text" />
-      <Skeleton variant="text" />
-    </div>
-  </div>
-);
 
 /* ==========================================================================
    Page-level Skeletons — Used as Suspense fallback

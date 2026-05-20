@@ -230,7 +230,6 @@ const VocationalTestModal: React.FC<{ isOpen: boolean; onClose: () => void }> = 
   )
   const [currentStep, setCurrentStep] = useState(0)
   const [answers, setAnswers] = useState<Record<number, number>>({})
-  const [isProcessing, setIsProcessing] = useState(false)
   const [result, setResult] = useState<any>(null)
 
   const progress =
@@ -266,7 +265,6 @@ const VocationalTestModal: React.FC<{ isOpen: boolean; onClose: () => void }> = 
   }
 
   const processResults = async (finalAnswers: Record<number, number> = answers) => {
-    setIsProcessing(true)
     try {
       // Simulacao de chamada à API ou logica local RIASEC
       const scores: Record<Dimension, number> = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 }
@@ -344,7 +342,6 @@ const VocationalTestModal: React.FC<{ isOpen: boolean; onClose: () => void }> = 
         const parsed = parseVocationalResult(response.text)
         if (parsed) {
           setResult(parsed)
-          setIsProcessing(false)
           setPhase('results')
           return
         }
@@ -359,11 +356,9 @@ const VocationalTestModal: React.FC<{ isOpen: boolean; onClose: () => void }> = 
         archetype: finalResult.archetype,
         top_area: finalResult.topAreas[0].area,
       })
-      setIsProcessing(false)
       setPhase('results')
     } catch (e) {
       logger.error('Error processing vocational test', e)
-      setIsProcessing(false)
     }
   }
 

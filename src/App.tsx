@@ -230,7 +230,6 @@ function App() {
                     isSidebarOpen={isSidebarOpen}
                     toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
                     isLoading={isLoading}
-                    onOpenStudyStats={() => toggleModal('studyStats')}
                   />
                 </>
               )}

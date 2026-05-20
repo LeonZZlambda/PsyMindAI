@@ -32,7 +32,6 @@ const PsyBot: React.FC<PsyBotProps> = ({
   const [isBlinking, setIsBlinking] = useState(false);
   const [isSleeping, setIsSleeping] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [clickCount, setClickCount] = useState(0);
   const [internalWink, setInternalWink] = useState(false);
   const [internalDizzy, setInternalDizzy] = useState(false);
   const idleTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -82,21 +81,6 @@ const PsyBot: React.FC<PsyBotProps> = ({
     onClick?.();
 
     if (effectiveDizzy) return;
-
-    setClickCount((previousValue) => {
-      const nextValue = previousValue + 1;
-
-      if (nextValue >= 5) {
-        setInternalDizzy(true);
-        setTimeout(() => {
-          setInternalDizzy(false);
-          setClickCount(0);
-        }, 3000);
-        return 0;
-      }
-
-      return nextValue;
-    });
 
     if (!effectiveWink) {
       setInternalWink(true);

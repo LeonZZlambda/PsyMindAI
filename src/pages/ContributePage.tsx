@@ -2,7 +2,6 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
-import { useTheme } from '../hooks/context/useTheme'
 import '../styles/contribute.css'
 import Footer from '@/components/layout/Footer'
 import ScrollToTopButton from '@/components/ui/ScrollToTopButton'
@@ -10,7 +9,6 @@ import LandingHeader from '@/components/layout/LandingHeader'
 
 const ContributePage: React.FC = () => {
   const navigate = useNavigate()
-  const { isDarkMode, toggleTheme } = useTheme()
   const { t } = useTranslation(['support', 'translation'])
 
   const contributeCards = t('contribute_page.cards', { returnObjects: true }) as any[]

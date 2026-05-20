@@ -1,16 +1,12 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
-import { useTheme } from '../hooks/context/useTheme'
 import '../styles/roadmap.css'
 import Footer from '@/components/layout/Footer'
 import ScrollToTopButton from '@/components/ui/ScrollToTopButton'
 import LandingHeader from '@/components/layout/LandingHeader'
 
 const RoadmapPage: React.FC = () => {
-  const navigate = useNavigate()
-  const { isDarkMode, toggleTheme } = useTheme()
   const { t } = useTranslation(['learning', 'translation'])
 
   const roadmapItems = t('roadmap_page.phases', { returnObjects: true }) as any[]

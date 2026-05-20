@@ -201,7 +201,6 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
   }, [topicProficiencies]);
 
   // SRS Filter for Flashcards Tab
-  const now = useMemo(() => Date.now(), []); // Stable reference for a single render cycle, though it might need periodic update if session is long. Actually better to use it in useMemo dependencies.
   // Flashcards that are due or haven't been reviewed
   const baseFlashcards = useMemo(() => 
     trails.filter(t => completedTrails[t.id]).flatMap(t => t.content.filter((c): c is FlashcardItem => c.type === "flashcard")),
@@ -317,7 +316,6 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
     if (isTrailMode) nextTrailStep();
     else setCurrentFlashcard((prev) => (prev + 1) % Math.max(1, ALL_FLASHCARDS.length - 1 || 1));
   };
-  // const handleNextFlashcard = () => { setIsFlipped(false); setCurrentFlashcard((prev) => (prev + 1) % Math.max(1, ALL_FLASHCARDS.length)); };
   
   const currentStep = activeTrailContent ? activeTrailContent[trailStepIndex] : null;
 
@@ -362,9 +360,7 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
         // Probabilidade esperada usando modelo 3PL
         const expectedProb = guessing + (1 - guessing) / (1 + Math.exp(-discrimination * (current.theta - difficulty)));
 
-        // Atualização bayesiana da habilidade usando EAP (Expected A Posteriori)
         const actualProb = wasCorrect ? 1 : 0;
-        const likelihood = actualProb * expectedProb + (1 - actualProb) * (1 - expectedProb);
 
         // Atualização incremental baseada na diferença
         const learningRate = 0.15;

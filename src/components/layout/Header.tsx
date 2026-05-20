@@ -9,10 +9,9 @@ interface HeaderProps {
   isSidebarOpen: boolean;
   toggleSidebar: () => void;
   isLoading?: boolean;
-  onOpenStudyStats?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ isSidebarOpen, toggleSidebar, isLoading, onOpenStudyStats }) => {
+const Header: React.FC<HeaderProps> = ({ isSidebarOpen, toggleSidebar, isLoading }) => {
   const { isDarkMode, toggleTheme } = useTheme()
   const { isPlaying } = useSound()
   const { toggleModal } = useModal()

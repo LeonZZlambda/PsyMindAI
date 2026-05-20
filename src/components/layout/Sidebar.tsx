@@ -1,5 +1,4 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
 import '../../styles/sidebar.css'
 import { toast } from 'sonner'
 import { useTranslation } from 'react-i18next'
@@ -18,7 +17,6 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, onNewChat, onAnonymousChat, onChatSelect, isNewChatAnimating, onOpenSettings, onOpenHelp }) => {
-  const navigate = useNavigate()
   const { loadChat, chats = [], currentChatId, deleteChat } = useChat()
   const { t } = useTranslation()
   
