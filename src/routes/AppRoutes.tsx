@@ -1,13 +1,15 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import ChatPage from '../pages/ChatPage';
+
+import { lazy, Suspense } from 'react';
 import LandingPage from '../pages/LandingPage';
-import RoadmapPage from '../pages/RoadmapPage';
-import ContributePage from '../pages/ContributePage';
-import StyleGuidePage from '../pages/StyleGuidePage';
-import PrivacyPolicyPage from '../pages/PrivacyPolicyPage';
-import TermsOfUsePage from '../pages/TermsOfUsePage';
-import TransparencyPage from '../pages/TransparencyPage';
-import AnalyticsPage from '../pages/AnalyticsPage';
+const RoadmapPage = lazy(() => import('../pages/RoadmapPage'));
+const ContributePage = lazy(() => import('../pages/ContributePage'));
+const StyleGuidePage = lazy(() => import('../pages/StyleGuidePage'));
+const PrivacyPolicyPage = lazy(() => import('../pages/PrivacyPolicyPage'));
+const TermsOfUsePage = lazy(() => import('../pages/TermsOfUsePage'));
+const TransparencyPage = lazy(() => import('../pages/TransparencyPage'));
+const AnalyticsPage = lazy(() => import('../pages/AnalyticsPage'));
 
 interface AppRoutesProps {
   inputRef: React.RefObject<HTMLTextAreaElement>;
@@ -31,13 +33,13 @@ export const AppRoutes: React.FC<AppRoutesProps> = ({
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
-      <Route path="/roadmap" element={<RoadmapPage />} />
-      <Route path="/analytics" element={<AnalyticsPage />} />
-      <Route path="/transparency" element={<TransparencyPage />} />
-      <Route path="/contribute" element={<ContributePage />} />
-      <Route path="/style-guide" element={<StyleGuidePage />} />
-      <Route path="/privacy" element={<PrivacyPolicyPage />} />
-      <Route path="/terms" element={<TermsOfUsePage />} />
+      <Route path="/roadmap" element={<Suspense fallback={<div className="app-loading-skeleton">Loading...</div>}><RoadmapPage /></Suspense>} />
+      <Route path="/analytics" element={<Suspense fallback={<div className="app-loading-skeleton">Loading...</div>}><AnalyticsPage /></Suspense>} />
+      <Route path="/transparency" element={<Suspense fallback={<div className="app-loading-skeleton">Loading...</div>}><TransparencyPage /></Suspense>} />
+      <Route path="/contribute" element={<Suspense fallback={<div className="app-loading-skeleton">Loading...</div>}><ContributePage /></Suspense>} />
+      <Route path="/style-guide" element={<Suspense fallback={<div className="app-loading-skeleton">Loading...</div>}><StyleGuidePage /></Suspense>} />
+      <Route path="/privacy" element={<Suspense fallback={<div className="app-loading-skeleton">Loading...</div>}><PrivacyPolicyPage /></Suspense>} />
+      <Route path="/terms" element={<Suspense fallback={<div className="app-loading-skeleton">Loading...</div>}><TermsOfUsePage /></Suspense>} />
       <Route 
         path="/chat" 
         element={

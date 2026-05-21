@@ -112,7 +112,10 @@ const DemoShowcase: React.FC = () => {
 
       if (!isHovered.current && !isManualScrolling && container && setOneRef.current) {
         // Scroll exactly the width of one set + the gap
-        const setWidth = setOneRef.current.offsetWidth;
+        // Using a closure variable or memoization would be slightly better, but avoiding layout thrashing in RAF:
+        const cachedWidth = (setOneRef.current as any).cachedWidth || setOneRef.current.offsetWidth;
+        (setOneRef.current as any).cachedWidth = cachedWidth;
+        const setWidth = cachedWidth;
         const gap = 32; // 2rem
         const resetPoint = setWidth + gap;
 

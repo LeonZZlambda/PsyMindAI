@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import { m, AnimatePresence } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { useTheme } from '../../hooks/context/useTheme'
-import AccountModal from '@/components/modals/AccountModal'
+// AccountModal dynamically imported
+const AccountModal = React.lazy(() => import('@/components/modals/AccountModal'))
 import '../../styles/landing-header.css'
 
 const LandingHeader: React.FC = () => {
@@ -83,10 +84,12 @@ const LandingHeader: React.FC = () => {
               className={`app ${isDarkMode ? 'dark' : ''} ${fontSize === 'large' ? 'font-large' : ''} ${reducedMotion ? 'reduced-motion' : ''} ${highContrast ? 'high-contrast' : ''} color-blind-${colorBlindMode}`}
               style={{ display: 'contents' }}
             >
-              <AccountModal
+              <React.Suspense fallback={null}>
+                <AccountModal
                 isOpen={isAccountModalOpen}
                 onClose={() => setIsAccountModalOpen(false)}
               />
+              </React.Suspense>
             </div>
           )}
         </AnimatePresence>,

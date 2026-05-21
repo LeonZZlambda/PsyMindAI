@@ -129,7 +129,7 @@ const UserJourney: React.FC = () => {
                 <span className="material-symbols-outlined">{step.icon}</span>
               </div>
               <div className="step-content">
-                <h4>{step.title}</h4>
+                <h3 className="step-title-inline">{step.title}</h3>
                 <p>{step.description}</p>
                 <div className="step-duration">{step.duration}</div>
               </div>

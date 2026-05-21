@@ -124,6 +124,13 @@ export default defineConfig({
       polyfill: true
     },
     rollupOptions: {
+      onwarn(warning, warn) {
+        // Suppress warning about statically imported modules being in the dynamic import glob
+        if (warning.message.includes('dynamic import will not move module into another chunk')) {
+          return;
+        }
+        warn(warning);
+      },
       // Optional visualizer plugin - only active if devDependency is installed
       plugins: [
         visualizer &&
@@ -148,8 +155,8 @@ export default defineConfig({
           if (
             id.includes('src/pages/ChatPage') ||
             id.includes('src/components/chat/MessageList') ||
-            id.includes('src/components/layout/Header') ||
-            id.includes('src/components/layout/Sidebar') ||
+            id.includes('src/components/layout/Header.tsx') ||
+            id.includes('src/components/layout/Sidebar.tsx') ||
             id.includes('src/components/chat/InputArea')
           ) {
             return 'chat-core'

@@ -3,6 +3,13 @@ import { initReactI18next } from 'react-i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import resourcesToBackend from 'i18next-resources-to-backend'
 
+// Eagerly import critical Portuguese namespaces to prevent NO_LCP / Total Blocking Time failures from Suspense
+import ptLanding from './locales/pt/landing.json'
+import ptTranslation from './locales/pt/translation.json'
+import enLanding from './locales/en/landing.json'
+import enTranslation from './locales/en/translation.json'
+
+
 /**
  * i18n Configuration — Senior Architecture
  *
@@ -23,6 +30,18 @@ i18n
     }),
   )
   .init({
+    // Preload critical local resources immediately so Suspense is skipped for Portuguese
+    partialBundledLanguages: true,
+    resources: {
+      pt: {
+        landing: ptLanding,
+        translation: ptTranslation
+      },
+      en: {
+        landing: enLanding,
+        translation: enTranslation
+      }
+    },
     // Namespaces to load eagerly on startup
     ns: [
       'translation',

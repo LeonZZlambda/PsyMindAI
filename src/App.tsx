@@ -23,7 +23,7 @@ import logger from './utils/logger'
 import { useExternalLinkInterceptor } from './hooks/useExternalLinkInterceptor'
 
 const ChatPage = lazy(() => import('./pages/ChatPage'))
-const LandingPage = lazy(() => import('./pages/LandingPage'))
+import LandingPage from './pages/LandingPage'
 const RoadmapPage = lazy(() => import('./pages/RoadmapPage'))
 const ContributePage = lazy(() => import('./pages/ContributePage'))
 const StyleGuidePage = lazy(() => import('./pages/StyleGuidePage'))
