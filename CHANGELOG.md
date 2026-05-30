@@ -6,6 +6,20 @@ Formato seguindo "Keep a Changelog" e versionamento semântico.
 
 ## [Unreleased]
 
+### 🏗️ Enterprise Architecture & Production Readiness (May 30, 2026)
+- **Advanced Automated Testing Suite**:
+  - Implemented end-to-end (**E2E**) testing architecture using **Playwright**, featuring real-browser simulations for critical UI paths like the Chat Journey and App boot sequences.
+  - Deployed **Promptfoo** to continuously test, assert, and prevent behavioral backsliding and prompt regressions across the Gemini models.
+  - Setup structured Unit/Integration tests with **Vitest** + React Testing Library (verified with coverage).
+- **Comprehensive Observability Stack**:
+  - Integrated **Sentry** for full-stack error tracking, including advanced browser tracing and privacy-filtered session replays.
+  - Embedded **PostHog** for granular auto-capture product analytics and usage flow telemetry.
+  - Setup **Langfuse/Helicone** foundations to monitor LLM token usage, prompt variations, and API latency, ensuring structured debuggability of AI responses.
+- **PWA & Edge Performance Mastery**:
+  - Added strict bundle analysis via `rollup-plugin-visualizer` to surgically split heavy vendor chunks (React, MUI, GenAI SDK) via Vite's `manualChunks`, eliminating Total Blocking Time (TBT).
+  - Configured advanced **Workbox** PWA Service Workers with discrete cache strategies: `CacheFirst` for static assets/fonts, `StaleWhileRevalidate` for application scripts, and explicit offline SPA fallback routing (`NetworkOnly` for streaming API integration).
+  - Achieved structural preparedness for **Lighthouse 95+** consistency.
+
 ### 🚀 Features & Core Enhancements
 - **Meta-Insight AI Engine (`generateMetaInsight`)**: Introduced a secondary AI pass that autonomously cross-references local usage data (Mood Tracker, Pomodoro sessions, Learning Trails) to surface behavioral patterns and synthesize individualized cognitive insights.
 - **Embedded Privacy-First Analytics**: Transitioned from a generic analytics placeholder to a dual-view architecture (Global Mock-up vs. Local "Meu Uso" dashboard), explicitly communicating the frontend-only state via a clear _Mockup Warning_, whilst delivering robust on-device metric analysis.

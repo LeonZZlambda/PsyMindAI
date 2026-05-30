@@ -27,6 +27,8 @@
 ## ⚡ Why It Is Technically Interesting
 - **Client-Side prompt assembly:** Injects active local metrics (mood logs, Pomodoro focus blocks) into the LLM system context entirely on the edge, avoiding backend request hops and protecting data privacy.
 - **Active clinical guardrails:** Automatically detects mental distress signals locally and locks the AI layer, instantly routing the user to hotlines and professional networks.
+- **Enterprise-Grade Testing & Observability:** Hardened with E2E Playwright tests, AI behavior regression tracking via Promptfoo, and built-in hooks for Sentry (Error Tracking), Posthog (Product Analytics), and Langfuse (LLM Observability).
+- **Lighthouse 95+ PWA & Edge Routing:** Relies on advanced Workbox strategies combining `StaleWhileRevalidate`, precaching, vendor bundle splitting (`rollup-plugin-visualizer`), and graceful offline SPA fallbacks.
 - **Custom Spaced Repetition (SRS) Engine:** Dynamically calculates memory decay and user proficiencies to adjust study card queues on the fly.
 - **Privacy-First telemetry:** Telemetry logging runs completely on the device with local analytical dashboards, requiring explicit user consent before storing opt-in metrics in local databases.
 
@@ -42,6 +44,22 @@ git clone https://github.com/LeonZZlambda/PsyMindAI.git && cd PsyMindAI
 npm install && cp .env.example .env && npm run dev
 ```
 *Note: If no Gemini API Key is configured in `.env`, the system automatically activates a **zero-cost mock/demo mode** with simulated streaming logic for instant local evaluation.*
+
+### 🛠️ Working with Enterprise Tools
+```bash
+# Run Unit & Integration Tests (Vitest)
+npm run test
+
+# Run AI Behavior / Prompt Regression tests (Promptfoo)
+npm run test:prompts
+
+# Run UI E2E Tests (Playwright)
+npm run test:e2e
+npm run test:e2e:ui # Interactive visual mode
+
+# Visualize bundle sizes & heavy dependencies
+npm run analyze:ui
+```
 
 ---
 
