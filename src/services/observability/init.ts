@@ -25,18 +25,24 @@ export function initObservability() {
         api_host: import.meta.env.VITE_POSTHOG_HOST || 'https://app.posthog.com',
         autocapture: true, // Tracks forms, clicks, and pageviews automatically
         capture_pageview: false, // If managed by React Router later
-      });
+      })
     } else {
-      console.warn('[Observability] VITE_POSTHOG_KEY is missing. PostHog will not be initialized.');
+      console.warn('[Observability] VITE_POSTHOG_KEY is missing. PostHog will not be initialized.')
     }
   }
 }
 
 // Langfuse Configuration - LLM Observability
-const langfuseClient = new Langfuse({
-  publicKey: import.meta.env.VITE_LANGFUSE_PUBLIC_KEY || '',
-  secretKey: import.meta.env.VITE_LANGFUSE_SECRET_KEY || '',
-  baseUrl: import.meta.env.VITE_LANGFUSE_BASE_URL || 'https://cloud.langfuse.com',
-})
+let langfuseClient: Langfuse | null = null
+
+if (import.meta.env.VITE_LANGFUSE_PUBLIC_KEY && import.meta.env.VITE_LANGFUSE_SECRET_KEY) {
+  langfuseClient = new Langfuse({
+    publicKey: import.meta.env.VITE_LANGFUSE_PUBLIC_KEY,
+    secretKey: import.meta.env.VITE_LANGFUSE_SECRET_KEY,
+    baseUrl: import.meta.env.VITE_LANGFUSE_BASE_URL || 'https://cloud.langfuse.com',
+  })
+} else {
+  console.warn('[Observability] VITE_LANGFUSE keys are missing. Langfuse will not be initialized.')
+}
 
 export const getLangfuse = () => langfuseClient
