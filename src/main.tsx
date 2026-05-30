@@ -1,9 +1,13 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { initSecurityPolicies } from './security'
+import { initObservability } from './services/observability/init'
+
+// Initialize Observability (Sentry & PostHog)
+initObservability()
 
 // Initialize Trusted Types as soon as possible to mitigate DOM-based XSS
-initSecurityPolicies();
+initSecurityPolicies()
 
 import './i18n/config'
 import './index.css'
@@ -31,7 +35,7 @@ const rootElement = document.getElementById('root')
 if (!rootElement) throw new Error('Root element not found')
 
 // Protect Material Icons from translation
-protectMaterialIcons();
+protectMaterialIcons()
 
 createRoot(rootElement).render(
   <StrictMode>

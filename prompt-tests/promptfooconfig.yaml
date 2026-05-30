@@ -1,0 +1,24 @@
+description: 'PsyMindAI - Prompt Behavior Tests'
+
+prompts:
+  - 'Você é um assistente de estudos. Responda à seguinte pergunta: {{question}}'
+
+providers:
+  # É preciso garantir ter $GEMINI_API_KEY no ambiente
+  - id: gemini:gemini-1.5-pro
+
+tests:
+  - vars:
+      question: 'O que é React?'
+    assert:
+      - type: icontains
+        value: 'biblioteca'
+      - type: icontains
+        value: 'JavaScript'
+  - vars:
+      question: 'Como o Pomodoro ajuda nos estudos?'
+    assert:
+      - type: icontains
+        value: 'foco'
+      - type: icontains
+        value: 'pausa'
