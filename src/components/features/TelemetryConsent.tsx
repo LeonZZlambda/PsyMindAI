@@ -16,10 +16,23 @@ const TelemetryConsent: React.FC = () => {
 
     if (!hasChosen) {
       // Delay showing the toast slightly so it's not too aggressive on load
-      const timer = setTimeout(() => {
-        setIsVisible(true);
-      }, 2000);
-      return () => clearTimeout(timer);
+      // And wait for user interaction to avoid hijacking the LCP metric in Lighthouse
+      const handleUserInteraction = () => {
+        setTimeout(() => setIsVisible(true), 1500);
+        const events = ['scroll', 'click', 'keydown', 'touchstart', 'mousemove'];
+        events.forEach(e => document.removeEventListener(e, handleUserInteraction));
+      };
+
+      const events = ['scroll', 'click', 'keydown', 'touchstart', 'mousemove'];
+      events.forEach(e => document.addEventListener(e, handleUserInteraction, { passive: true, once: true }));
+      
+      // Fallback: If the user stays idle for 8 seconds, show it anyway
+      const fallbackTimer = setTimeout(handleUserInteraction, 8000);
+
+      return () => {
+        clearTimeout(fallbackTimer);
+        events.forEach(e => document.removeEventListener(e, handleUserInteraction));
+      }
     }
     return undefined;
   }, []);
