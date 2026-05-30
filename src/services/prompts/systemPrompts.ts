@@ -5,7 +5,7 @@ import logger from '../../utils/logger';
  */
 export async function getMemoryUpdatePrompt(history: any[], oldMemory: string, language: string = 'pt'): Promise<string> {
   const isEn = language.startsWith('en');
-  return isEn 
+  return isEn
     ? `You are a psychologist and educator. Analyze this recent segment of the user's conversation and update the existing long-term memory.
 Current memory: ${oldMemory}
 
@@ -36,7 +36,7 @@ Sem markdown de conversação, apenas o JSON válido.`;
 export function getMetaInsightPrompt(data: any, language: string = 'pt'): string {
   const isEn = language.startsWith('en');
   const { longtermMemory, moodHistory, pomodoroStats, telemetryStats } = data;
-  
+
   return isEn
     ? `Acting as an analytical advisor, relate the following real data from the student's use of this educational/emotional app:
 Long-Term Memory: ${longtermMemory}
@@ -92,13 +92,13 @@ export function getSystemPrompt(language: string = 'pt'): string {
   const importedContext = typeof window !== 'undefined' ? localStorage.getItem('psymind_imported_context') : null;
   const userProfileStr = typeof window !== 'undefined' ? localStorage.getItem('psymind_user_profile') : null;
   const longtermMemoryStr = typeof window !== 'undefined' ? localStorage.getItem('psymind_longterm_memory') : null;
-  
+
   const moodHistoryStr = typeof window !== 'undefined' ? localStorage.getItem('psymind_mood_history') : null;
   const pomodoroStatsStr = typeof window !== 'undefined' ? localStorage.getItem('psymind_pomodoro_stats') : null;
   const emotionalJournalStr = typeof window !== 'undefined' ? localStorage.getItem('emotionalJournalEntries') : null;
   const completedTrailsStr = typeof window !== 'undefined' ? localStorage.getItem('psy_mind_completed_trails') : null;
   const customTrailsStr = typeof window !== 'undefined' ? localStorage.getItem('psy_mind_custom_trails') : null;
-  
+
   let userProfile: UserProfile | null = null;
   let longtermMemory: LongTermMemory | null = null;
   let latestMood: any = null;
@@ -116,7 +116,7 @@ export function getSystemPrompt(language: string = 'pt'): string {
   if (moodHistoryStr) {
     try {
       const history = JSON.parse(moodHistoryStr);
-      if (Array.isArray(history) && history.length > 0) latestMood = history[history.length - 1]; 
+      if (Array.isArray(history) && history.length > 0) latestMood = history[history.length - 1];
     } catch (e) { logger.warn('Failed to parse psymind_mood_history:', e); }
   }
   if (pomodoroStatsStr) {
@@ -135,7 +135,7 @@ export function getSystemPrompt(language: string = 'pt'): string {
     try { activeTrails = JSON.parse(customTrailsStr); } catch (e) { logger.warn('Failed to parse psy_mind_custom_trails:', e); }
   }
 
-  let basePrompt = isEn 
+  let basePrompt = isEn
     ? `You are PsyMind.AI, an educational and emotional support AI assistant for high school students.
 
 POSTURE:
@@ -214,29 +214,29 @@ IDIOMA E TRATAMENTO MULTILÍNGUE:
   if (userProfile) {
     if (userProfile.responseMode) {
       basePrompt += isEn ? `\n\n=== ACTIVE RESPONSE PROFILE ===\n` : `\n\n=== PERFIL DE RESPOSTA ATIVO ===\n`;
-      switch(userProfile.responseMode) {
+      switch (userProfile.responseMode) {
         case 'reflective':
-          basePrompt += isEn 
+          basePrompt += isEn
             ? `- REFLECTIVE MODE: Focus on guided self-reflection and understanding learning/emotional triggers. Explicitly remind the user that you are an educational tool and not a therapist. Ask questions that lead to self-reflection instead of just giving the solution.\n`
             : `- MODO REFLEXIVO: Foque em autorreflexão guiada e no entendimento de gatilhos de aprendizado/emocionais. Lembre explicitamente ao usuário de que você é uma ferramenta educacional e não um terapeuta. Faça perguntas que o levem à autorreflexão ao invés de apenas dar a solução.\n`;
           break;
         case 'action':
-          basePrompt += isEn 
+          basePrompt += isEn
             ? `- ACTION MODE: Be straight to the point. Focus on immediate and practical solutions. Offer clear, actionable, and structured steps. Less theory, more execution.\n`
             : `- MODO DE AÇÃO: Seja direto ao ponto. Foque em soluções imediatas e práticas. Ofereça passos claros, acionáveis e estruturados. Menos teoria, mais execução.\n`;
           break;
         case 'learning':
-          basePrompt += isEn 
+          basePrompt += isEn
             ? `- DIDACTIC MODE (LEARNING): Be like a patient tutor. Demand cognitive effort from the user. Give didactic explanations using easy everyday analogies, focus on learning progression and gradual growth.\n`
             : `- MODO DIDÁTICO (LEARNING): Seja como um tutor paciente. Exija esforço cognitivo do usuário. Dê explicações didáticas usando analogias fáceis do dia a dia, foque na progressão do aprendizado e no crescimento gradual.\n`;
           break;
         case 'support':
-          basePrompt += isEn 
+          basePrompt += isEn
             ? `- WELCOMING MODE: Focus on emotional validation of the student. Use even lighter, more affectionate, and empathetic language. Your priority is to make the person feel understood, safe, and not judged before proposing any solution.\n`
             : `- MODO DE ACOLHIMENTO: Foque na validação emocional do estudante. Use linguagem ainda mais leve, afetuosa e empática. Sua prioridade é fazer a pessoa se sentir compreendida, segura e não julgada antes de propor qualquer solução.\n`;
           break;
         default:
-          basePrompt += isEn 
+          basePrompt += isEn
             ? `- DEFAULT MODE: Balanced posture, offering a mix of light emotional support and gradual solutions, staying adaptable to what the student needs.\n`
             : `- MODO PADRÃO: Postura equilibrada, oferecendo um misto de apoio emocional leve e soluções graduais, mantendo-se adaptável ao que o estudante precisar.\n`;
           break;
@@ -244,7 +244,7 @@ IDIOMA E TRATAMENTO MULTILÍNGUE:
     }
 
     basePrompt += isEn ? `\n\n=== MANUAL FINE-TUNING ===\n` : `\n\n=== AJUSTES FINOS MANUAIS ===\n`;
-    
+
     if (userProfile.basicStyle === 'concise') basePrompt += isEn ? `- Style: Respond much more concisely and directly.\n` : `- Estilo: Responda de forma muito mais concisa e direta.\n`;
     else if (userProfile.basicStyle === 'detailed') basePrompt += isEn ? `- Style: Respond more in-depth.\n` : `- Estilo: Responda de forma mais aprofundada.\n`;
     else if (userProfile.basicStyle === 'casual') basePrompt += isEn ? `- Style: Adopt an informal and casual tone.\n` : `- Estilo: Adote um tom informal e casual.\n`;
@@ -264,13 +264,13 @@ IDIOMA E TRATAMENTO MULTILÍNGUE:
     else basePrompt += isEn ? `- Emojis: Use emojis occasionally.\n` : `- Emojis: Use emojis ocasionalmente.\n`;
 
     if (userProfile.instantResponses) {
-       basePrompt += isEn 
+      basePrompt += isEn
         ? `- Fast Mode: Respond instantly based on your pure knowledge, with fewer restriction checks and greater autonomy.\n`
         : `- Modo Rápido: Responda instantaneamente baseando-se no seu conhecimento puro, com menos checagens de restrição e maior autonomia.\n`;
     }
 
     if (userProfile.customInstructions && userProfile.customInstructions.trim()) {
-       basePrompt += isEn 
+      basePrompt += isEn
         ? `\nManual Instruction for you to strictly obey:\n"${userProfile.customInstructions.trim()}"\n`
         : `\nInstrução Manual para você obedecer estritamente:\n"${userProfile.customInstructions.trim()}"\n`;
     }
@@ -279,7 +279,7 @@ IDIOMA E TRATAMENTO MULTILÍNGUE:
   }
 
   if (longtermMemory) {
-    basePrompt += isEn 
+    basePrompt += isEn
       ? `\n\n=== USER LONG-TERM MEMORY ===
 (This is information interpreted from the student's history and profile over time. Use this actively to personalize your approach).
 - Learning Patterns: ${longtermMemory.padroesDeAprendizagem?.join('; ') || 'None'}
@@ -297,43 +297,91 @@ IDIOMA E TRATAMENTO MULTILÍNGUE:
   }
 
   if (latestMood || pomodoroData || latestJournalEntry || activeTrails.length > 0 || completedTrails.length > 0) {
-    basePrompt += isEn 
+    basePrompt += isEn
       ? `\n\n=== CURRENT SYSTEM STATUS (PsyMind Tools) ===
 (You are part of an ecosystem. App tools are collecting this data passively. Refer to this ONLY if it is very natural and highly relevant to the conversation, so as not to startle the user):\n`
       : `\n\n=== STATUS ATUAL DO SISTEMA (PsyMind Tools) ===
 (Você é parte de um ecossistema. Ferramentas do aplicativo estão coletando estes dados passivamente. Refira-se a isso APENAS se for muito natural e altamente pertinente para a conversa, para não assustar o usuário):\n`;
-    
+
     if (latestMood) {
-      basePrompt += isEn 
+      basePrompt += isEn
         ? `- LATEST MOOD RECORD: The student recorded a mood of intensity ${latestMood.intensity}/5, describing the raw emotions as: ${latestMood.emotions?.join(', ') || 'None'}. Associated notes: "${latestMood.notes || 'Empty'}". (Welcome this if the user demonstrates sadness or celebrate if it is positive).\n`
         : `- ÚLTIMO REGISTRO DE HUMOR: O estudante registrou humor de intensidade ${latestMood.intensity}/5, descrevendo as emoções brutas como: ${latestMood.emotions?.join(', ') || 'Nenhuma'}. Notas associadas: "${latestMood.notes || 'Vazio'}". (Acolha isso se o usuário demonstrar tristeza ou comemore se for positivo).\n`;
     }
-    
+
     if (latestJournalEntry) {
-      basePrompt += isEn 
+      basePrompt += isEn
         ? `- EMOTIONAL JOURNAL: Last venting written by them: "${latestJournalEntry.content.substring(0, 150)}...". (Be subtle, use this information only if it truly connects with what they asked now).\n`
         : `- DIÁRIO EMOCIONAL: Último desabafo escrito por ele(a): "${latestJournalEntry.content.substring(0, 150)}...". (Seja sutil, use essa informação apenas se conectar de verdade com o que ele perguntou agora).\n`;
     }
-    
+
     if (pomodoroData) {
-      basePrompt += isEn 
+      basePrompt += isEn
         ? `- FOCUS STATISTICS (Pomodoro): The student completed ${pomodoroData.completedPomodoros || 0} continuous focus sessions recently (Total of ${pomodoroData.totalFocusTime || 0} minutes studied). (Recognize their effort, or suggest using the "Timer/Pomodoro" tool if they say they are distracted).\n`
         : `- ESTATÍSTICAS DE FOCO (Pomodoro): O estudante concluiu ${pomodoroData.completedPomodoros || 0} sessões de foco contínuo ultimamente (Total de ${pomodoroData.totalFocusTime || 0} minutos estudados). (Reconheça o esforço dele, ou sugira o uso da ferramenta "Timer/Pomodoro" se ele se disser distraído).\n`;
     }
-    
+
     if (activeTrails.length > 0 || completedTrails.length > 0) {
-      basePrompt += isEn 
+      basePrompt += isEn
         ? `- LEARNING TRAILS: The user has ${completedTrails.length} completed trails and ${activeTrails.length} in progress. (This indicates how much they are trying to learn structured topics. Praise the progress).\n`
         : `- TRILHAS DE APRENDIZADO: O usuário possui ${completedTrails.length} trilhas completadas e ${activeTrails.length} em andamento. (Isso indica o quanto ele está tentando aprender temas estruturados. Elogie o progresso).\n`;
     }
   }
 
   if (importedContext && importedContext.trim()) {
-    basePrompt += isEn 
+    basePrompt += isEn
       ? `\n\n=== USER CONTEXT (Memorize and act accordingly) ===\n${importedContext.trim()}`
       : `\n\n=== CONTEXTO DO USUÁRIO (Memorize e aja de acordo) ===\n${importedContext.trim()}`;
   }
-  
+
+  basePrompt += isEn
+    ? `\n\n=== ORCHESTRATION PIPELINE & OUTPUT FORMAT ===
+You MUST execute the following pipeline internally before responding:
+1. Emotion Detection: Classify the user's emotion into one of: ["Anxious", "Sad", "Angry", "Neutral", "Happy", "Motivated", "Tired", "Overwhelmed"].
+2. Risk Detection: Classify the risk level: ["None", "Low", "Medium", "High"].
+3. Intent Detection: Briefly classify what the user seeks (e.g., "Venting", "Seeking Advice").
+4. Educational Reasoning: Explain your pedagogical approach and the psychological theory you are applying.
+5. Response: Formulate the final text.
+
+You MUST return ONLY a valid JSON object matching exactly this schema:
+{
+  "classification": {
+    "emotion": "...",
+    "intent": "...",
+    "riskLevel": "..."
+  },
+  "explainability": {
+    "reasoning": "...",
+    "psychologicalTheory": "...",
+    "confidenceScore": 95
+  },
+  "response": "Your actual response to the user here (use markdown)."
+}
+Do NOT wrap the JSON in backticks or markdown code blocks. Return ONLY the raw JSON string.`
+    : `\n\n=== PIPELINE DE ORQUESTRAÇÃO E FORMATO DE SAÍDA ===
+Você DEVE executar o seguinte pipeline internamente antes de responder:
+1. Detecção de Emoção: Classifique a emoção do usuário em uma de: ["Ansioso", "Triste", "Irritado", "Neutro", "Feliz", "Motivado", "Cansado", "Sobrecarragado"].
+2. Detecção de Risco: Classifique o nível de risco: ["Baixo", "Médio", "Alto"].
+3. Detecção de Intenção: Classifique brevemente o que o usuário busca (ex: "Desabafo", "Buscando Conselho").
+4. Raciocínio Educacional: Explique sua abordagem pedagógica e a teoria psicológica que você está aplicando.
+5. Resposta: Formule o texto final.
+
+Você DEVE retornar APENAS um objeto JSON válido, combinando exatamente com este schema:
+{
+  "classification": {
+    "emotion": "...",
+    "intent": "...",
+    "riskLevel": "..."
+  },
+  "explainability": {
+    "reasoning": "...",
+    "psychologicalTheory": "...",
+    "confidenceScore": 95
+  },
+  "response": "Sua resposta final ao usuário aqui (pode usar markdown)."
+}
+NÃO envolva o JSON em crases ou blocos de código markdown. Retorne APENAS a string JSON crua.`;
+
   return basePrompt;
 }
 
@@ -353,7 +401,7 @@ export function getObiJudgePrompt(): string {
  */
 export function getTitleGeneratorPrompt(text: string, language: string = 'pt'): string {
   const isEn = language.startsWith('en');
-  return isEn 
+  return isEn
     ? `Summarize this message in at most 4 words: "${text}". Respond ONLY with the summary, without quotes or extra punctuation.`
     : `Resuma esta mensagem em no máximo 4 palavras: "${text}". Responda APENAS com o resumo, sem aspas ou pontuação extra.`;
 }

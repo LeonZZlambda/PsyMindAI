@@ -114,11 +114,13 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
 
       // Try Gemini API first, fallback to demo
       let fullResponse: string;
+      let explainability: any = undefined;
 
       if (isGeminiConfigured()) {
         const result = (await sendMessageToGemini(text, messages)) as SendMessageResponse;
         if (result.success) {
           fullResponse = result.text;
+          explainability = result.explainability;
         } else {
           // For backend errors like RATE_LIMIT, UNKNOWN, etc., send a friendly message
           const backendErrors = [
@@ -143,7 +145,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
         typingTimeoutRef.current = null;
         setIsTyping(false);
 
-        const aiMessage = createAIMessage(fullResponse, false);
+        const aiMessage = createAIMessage(fullResponse, false, explainability);
 
         if (reducedMotion) {
           setMessages((prev) => [...prev, aiMessage]);
@@ -159,7 +161,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
           return;
         }
 
-        setMessages((prev) => [...prev, createAIMessage('', true)]);
+        setMessages((prev) => [...prev, createAIMessage('', true, explainability)]);
         setIsStreaming(true);
 
         const streamer = new TextStreamer(
@@ -191,7 +193,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
               setChats((prev) =>
                 prev.map((chat) =>
                   chat.id === chatId
-                    ? updateChat(chat, { messages: [...chat.messages, createAIMessage(fullResponse, false)] })
+                    ? updateChat(chat, { messages: [...chat.messages, createAIMessage(fullResponse, false, explainability)] })
                     : chat
                 )
               );

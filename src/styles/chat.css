@@ -1573,3 +1573,89 @@
     justify-content: flex-start;
   }
 }
+
+/* AI Insight Styles */
+.ai-insight-container {
+  margin-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  padding-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.confidence-warning {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background-color: rgba(244, 180, 0, 0.1);
+  color: #f4b400;
+  border-radius: var(--shape-corner-medium);
+  font-size: 0.85rem;
+}
+
+.confidence-warning .material-symbols-outlined {
+  font-size: 1.2rem;
+}
+
+.ai-insight-accordion {
+  border: 1px solid var(--border-color);
+  border-radius: var(--shape-corner-medium);
+  overflow: hidden;
+  background-color: var(--surface-container-low);
+}
+
+.ai-insight-accordion summary {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  color: var(--primary-color);
+  user-select: none;
+  background-color: var(--surface-container);
+  transition: background-color 0.2s ease;
+}
+
+.ai-insight-accordion summary:hover {
+  background-color: var(--surface-container-high);
+}
+
+.ai-insight-accordion summary .material-symbols-outlined {
+  font-size: 1.2rem;
+}
+
+.ai-insight-content {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.insight-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.insight-row strong {
+  min-width: 80px;
+  color: var(--text-color);
+}
+
+.insight-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background-color: var(--surface-container-highest);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.insight-badge.risk-low { background-color: rgba(15, 157, 88, 0.2); color: #0f9d58; }
+.insight-badge.risk-medium { background-color: rgba(244, 180, 0, 0.2); color: #f4b400; }
+.insight-badge.risk-high { background-color: rgba(217, 48, 37, 0.2); color: #d93025; }

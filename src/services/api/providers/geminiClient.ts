@@ -1,6 +1,7 @@
 export interface GenerateContentParams {
   model: string;
   contents: any[];
+  config?: any;
 }
 
 export class GeminiClient {
@@ -29,11 +30,11 @@ export class GeminiClient {
     return !!this.apiKey;
   }
 
-  async generateContent({ model, contents }: GenerateContentParams): Promise<any> {
+  async generateContent({ model, contents, config }: GenerateContentParams): Promise<any> {
     const client = await this.getClient();
     if (!client) {
       throw new Error('API_KEY_MISSING');
     }
-    return await client.models.generateContent({ model, contents });
+    return await client.models.generateContent({ model, contents, config });
   }
 }

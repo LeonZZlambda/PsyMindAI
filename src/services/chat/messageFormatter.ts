@@ -52,7 +52,8 @@ export function createUserMessage(
  */
 export function createAIMessage(
   content: string,
-  isStreaming: boolean = false
+  isStreaming: boolean = false,
+  explainability?: ChatMessage['explainability']
 ): ChatMessage {
-  return { type: 'ai', content, isStreaming };
+  return { type: 'ai', content, isStreaming, explainability };
 }

@@ -13,6 +13,15 @@ export interface FileAttachment {
   data?: string;
 }
 
+export interface MessageExplainability {
+  emotion: string;
+  intent: string;
+  riskLevel: string;
+  reasoning: string;
+  psychologicalTheory: string;
+  confidenceScore: number;
+}
+
 /**
  * Single message in a chat
  */
@@ -21,6 +30,7 @@ export interface ChatMessage {
   content: string;
   files?: FileAttachment[];
   isStreaming?: boolean;
+  explainability?: MessageExplainability;
 }
 
 /**

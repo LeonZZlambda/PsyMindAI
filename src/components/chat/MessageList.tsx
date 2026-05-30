@@ -631,6 +631,29 @@ const MessageList: React.FC = () => {
                     >
                       {message.content}
                     </ReactMarkdown>
+                    {message.type === 'ai' && message.explainability && !message.isStreaming && (
+                      <div className="ai-insight-container">
+                        {message.explainability.confidenceScore < 60 && (
+                          <div className="confidence-warning">
+                            <span className="material-symbols-outlined">warning</span>
+                            <span>Nota: A IA gerou esta resposta com menor nível de certeza do que o habitual ({message.explainability.confidenceScore}%).</span>
+                          </div>
+                        )}
+                        <details className="ai-insight-accordion">
+                          <summary>
+                            <span className="material-symbols-outlined">lightbulb</span>
+                            Ver raciocínio da IA
+                          </summary>
+                          <div className="ai-insight-content">
+                            <div className="insight-row"><strong>Emoção:</strong> <span className="insight-badge">{message.explainability.emotion}</span></div>
+                            <div className="insight-row"><strong>Intenção:</strong> <span>{message.explainability.intent}</span></div>
+                            <div className="insight-row"><strong>Risco:</strong> <span className={`insight-badge risk-${message.explainability.riskLevel?.toLowerCase()}`}>{message.explainability.riskLevel}</span></div>
+                            <div className="insight-row"><strong>Teoria:</strong> <span>{message.explainability.psychologicalTheory}</span></div>
+                            <div className="insight-row"><strong>Raciocínio:</strong> <span>{message.explainability.reasoning}</span></div>
+                          </div>
+                        </details>
+                      </div>
+                    )}
                   </div>
                   <div className="message-actions">
                     <button

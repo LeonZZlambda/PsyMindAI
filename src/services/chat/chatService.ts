@@ -25,6 +25,14 @@ export interface SendMessageOptions {
 export interface SendMessageSuccess {
   success: true;
   text: string;
+  explainability?: {
+    emotion: string;
+    intent: string;
+    riskLevel: string;
+    reasoning: string;
+    psychologicalTheory: string;
+    confidenceScore: number;
+  };
 }
 
 /**
@@ -61,6 +69,20 @@ const LongTermMemorySchema = z.object({
 const MetaInsightSchema = z.object({
   pattern: z.string(),
   suggestion: z.string()
+});
+
+export const ExplainabilitySchema = z.object({
+  classification: z.object({
+    emotion: z.string(),
+    intent: z.string(),
+    riskLevel: z.string()
+  }),
+  explainability: z.object({
+    reasoning: z.string(),
+    psychologicalTheory: z.string(),
+    confidenceScore: z.number()
+  }),
+  response: z.string()
 });
 
 /**
@@ -109,12 +131,28 @@ export async function sendMessage(
     const response = await withRetry(async () => {
       return await geminiClient.generateContent({
         model: 'gemini-2.5-flash',
-        contents
+        contents,
+        config: {
+          responseMimeType: "application/json"
+        }
       });
     });
 
     if (!response?.text) {
       throw new Error('EMPTY_RESPONSE');
+    }
+
+    let parsedResponse;
+    try {
+      parsedResponse = ExplainabilitySchema.parse(JSON.parse(response.text));
+    } catch (parseError) {
+      logger.error('Failed to parse Gemini orchestration JSON:', parseError);
+      // Fallback
+      parsedResponse = {
+        classification: { emotion: 'Neutral', intent: 'Unknown', riskLevel: 'Low' },
+        explainability: { reasoning: 'Fallback response due to JSON parse error.', psychologicalTheory: 'None', confidenceScore: 0 },
+        response: response.text
+      };
     }
 
     // Async trigger: updates long-term memory in background every 5 messages
@@ -124,12 +162,20 @@ export async function sendMessage(
       history.length > 2 &&
       (history.length + 1) % 5 === 0
     ) {
-      updateLongTermMemory([...history, { type: 'user', content: message }, { type: 'ai', content: response.text }]).catch(logger.error);
+      updateLongTermMemory([...history, { type: 'user', content: message }, { type: 'ai', content: parsedResponse.response }]).catch(logger.error);
     }
 
     return {
       success: true,
-      text: response.text
+      text: parsedResponse.response,
+      explainability: {
+        emotion: parsedResponse.classification.emotion,
+        intent: parsedResponse.classification.intent,
+        riskLevel: parsedResponse.classification.riskLevel,
+        reasoning: parsedResponse.explainability.reasoning,
+        psychologicalTheory: parsedResponse.explainability.psychologicalTheory,
+        confidenceScore: parsedResponse.explainability.confidenceScore
+      }
     };
   } catch (error) {
     logger.error('Erro Gemini:', error);
