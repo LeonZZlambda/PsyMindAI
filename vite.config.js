@@ -36,15 +36,13 @@ export default defineConfig({
             src: 'psymind.svg',
             sizes: '192x192 512x512',
             type: 'image/svg+xml',
-            purpose: 'any maskable'
-          }
+            purpose: 'any maskable',
+          },
         ],
       },
       workbox: {
         // Optimize precache: exclude large assets and development files
-        globPatterns: [
-          '**/*.{js,css,html,ico,png,svg,woff2}',
-        ],
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
         // Exclude large files from precache to reduce initial load
         globIgnores: [
           '**/stats.html', // Build analyzer output
@@ -70,12 +68,14 @@ export default defineConfig({
         ],
       },
     }),
-    visualizer ? visualizer({
-      filename: 'dist/stats.html',
-      open: false,
-      gzipSize: true,
-      brotliSize: true
-    }) : null
+    visualizer
+      ? visualizer({
+          filename: 'dist/stats.html',
+          open: false,
+          gzipSize: true,
+          brotliSize: true,
+        })
+      : null,
   ].filter(Boolean),
   resolve: {
     alias: {
@@ -117,14 +117,13 @@ export default defineConfig({
   },
   build: {
     target: 'esnext',
-    // 'hidden' generates source maps for error tracking without linking them
-    // from the minified output — keeps Lighthouse happy and files truly minified
-    sourcemap: 'hidden',
+    // Generate full source maps so Lighthouse can analyze them and provide insights.
+    sourcemap: true,
     modulePreload: {
       polyfill: true,
       resolveDependencies: (filename, deps, { hostId, hostType }) => {
         // Prevent preloading heavy chunks that are not needed for LandingPage FCP
-        return deps.filter(dep => {
+        return deps.filter((dep) => {
           if (
             dep.includes('chat-core') ||
             dep.includes('markdown-vendor') ||
@@ -133,19 +132,19 @@ export default defineConfig({
             dep.includes('genai-vendor') ||
             dep.includes('sonner-vendor')
           ) {
-            return false;
+            return false
           }
-          return true;
-        });
-      }
+          return true
+        })
+      },
     },
     rollupOptions: {
       onwarn(warning, warn) {
         // Suppress warning about statically imported modules being in the dynamic import glob
         if (warning.message.includes('dynamic import will not move module into another chunk')) {
-          return;
+          return
         }
-        warn(warning);
+        warn(warning)
       },
       // Optional visualizer plugin - only active if devDependency is installed
       plugins: [
@@ -167,19 +166,12 @@ export default defineConfig({
             return 'core-vendor'
           }
 
-          // Main App Shell & Chat Logic — group together to avoid chaining
-          if (
-            id.includes('src/pages/ChatPage') ||
-            id.includes('src/components/chat/MessageList') ||
-            id.includes('src/components/layout/Header.tsx') ||
-            id.includes('src/components/layout/Sidebar.tsx') ||
-            id.includes('src/components/chat/InputArea')
-          ) {
-            return 'chat-core'
-          }
-
           // Heavy dynamic libraries - move to dedicated chunks
-          if (id.includes('node_modules/react-markdown/') || id.includes('node_modules/remark') || id.includes('node_modules/rehype')) {
+          if (
+            id.includes('node_modules/react-markdown/') ||
+            id.includes('node_modules/remark') ||
+            id.includes('node_modules/rehype')
+          ) {
             return 'markdown-vendor'
           }
           if (id.includes('node_modules/@google/genai/')) {
@@ -197,13 +189,16 @@ export default defineConfig({
           if (id.includes('node_modules/sonner/')) {
             return 'sonner-vendor'
           }
-          
+          if (id.includes('node_modules/@mui/') || id.includes('node_modules/@emotion/')) {
+            return 'ui-vendor'
+          }
+
           // Let Vite handle the rest of node_modules automatically
           // This avoids the "misc-vendor" bloat on initial load
         },
       },
     },
-    chunkSizeWarningLimit: 400,
+    chunkSizeWarningLimit: 800,
     // Enhanced CSS optimization for LCP
     cssCodeSplit: true,
     cssMinify: true,
