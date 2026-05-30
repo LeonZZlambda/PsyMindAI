@@ -12,7 +12,7 @@ import './styles/components.css'
 import { SkeletonLandingPage, SkeletonChatPage } from '@/components/ui/SkeletonScreen'
 import ErrorFallback from '@/components/layout/ErrorFallback'
 import TelemetryConsent from '@/components/features/TelemetryConsent'
-import ModalRenderer from '@/components/modals/ModalRenderer'
+const ModalRenderer = lazy(() => import('@/components/modals/ModalRenderer'))
 import ScrollToTop from '@/components/layout/ScrollToTop'
 import useKeyboardShortcuts from './hooks/useKeyboardShortcuts'
 import { useTheme } from './hooks/context/useTheme'
@@ -268,14 +268,16 @@ function App() {
               </Suspense>
             </main>
 
-            <ModalRenderer
-              openModals={openModals}
+            <Suspense fallback={null}>
+              <ModalRenderer
+                openModals={openModals}
               toggleModal={toggleModal}
               helpInitialTab={helpInitialTab}
               externalLinkData={externalLinkData}
               onProceedExternalLink={proceedToExternalLink}
-              onCancelExternalLink={cancelExternalLink}
-            />
+                onCancelExternalLink={cancelExternalLink}
+              />
+            </Suspense>
             <TelemetryConsent />
           </div>
         </MotionConfig>

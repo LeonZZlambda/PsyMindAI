@@ -56,6 +56,7 @@
       "speech_stop": "Parar leitura",
       "speech_play": "Ouvir mensagem",
       "speech_error": "Seu navegador não suporta síntese de voz",
+      "crisis_redirect": "⚠️ **Aviso Importante:** Percebi que você pode estar passando por um momento muito difícil e de risco. Como sou uma inteligência artificial educacional, não tenho capacidade para oferecer o suporte clínico e humano adequado para essa situação.\n\nPor favor, procure ajuda imediatamente:\n- **Ligue para o CVV (Centro de Valorização da Vida) no número 188** (ligação gratuita e sigilosa).\n- Entre em contato com os serviços de emergência (SAMU 192).\n- Fale com seus responsáveis ou busque o apoio da coordenação da sua escola.\n\nVocê não está sozinho.",
       "suggestions": {
         "anxiety_title": "Ansiedade com provas",
         "anxiety_desc": "Como lidar com a ansiedade antes dos exames",

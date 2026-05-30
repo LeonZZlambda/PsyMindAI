@@ -121,7 +121,23 @@ export default defineConfig({
     // from the minified output — keeps Lighthouse happy and files truly minified
     sourcemap: 'hidden',
     modulePreload: {
-      polyfill: true
+      polyfill: true,
+      resolveDependencies: (filename, deps, { hostId, hostType }) => {
+        // Prevent preloading heavy chunks that are not needed for LandingPage FCP
+        return deps.filter(dep => {
+          if (
+            dep.includes('chat-core') ||
+            dep.includes('markdown-vendor') ||
+            dep.includes('prism-vendor') ||
+            dep.includes('zod-vendor') ||
+            dep.includes('genai-vendor') ||
+            dep.includes('sonner-vendor')
+          ) {
+            return false;
+          }
+          return true;
+        });
+      }
     },
     rollupOptions: {
       onwarn(warning, warn) {

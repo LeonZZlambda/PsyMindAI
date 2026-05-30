@@ -56,6 +56,7 @@
       "speech_stop": "Stop reading",
       "speech_play": "Read aloud",
       "speech_error": "Your browser doesn't support speech synthesis",
+      "crisis_redirect": "⚠️ **Important Notice:** I noticed that you might be going through a very difficult time and are at risk. Because I am an educational artificial intelligence, I cannot provide the appropriate clinical or human support for this situation.\n\nPlease seek help immediately:\n- Contact local emergency services or a crisis hotline in your region (e.g., 911 or 988 in the US/Canada).\n- Talk to your parents, guardians, or school counselors.\n\nYou are not alone.",
       "suggestions": {
         "anxiety_title": "Exam anxiety",
         "anxiety_desc": "How to deal with anxiety before exams",

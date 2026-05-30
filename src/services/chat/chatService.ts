@@ -6,6 +6,7 @@ import { withRetry } from '../api/retryHandler';
 import { getSystemPrompt, getMemoryUpdatePrompt, getMetaInsightPrompt, getTitleGeneratorPrompt } from '../prompts/systemPrompts';
 import { formatHistoryForGemini } from './messageFormatter';
 import { defaultConfig } from '../config/apiConfig';
+import { detectCrisis } from './crisisDetection';
 import type { ChatMessage } from '@/types/storage';
 
 let geminiClient = new GeminiClient(defaultConfig.getApiKey());
@@ -88,6 +89,18 @@ export async function sendMessage(
   const skipMemoryUpdate = options.skipMemoryUpdate === true;
 
   try {
+    if (detectCrisis(message)) {
+      const isEn = lang.startsWith('en');
+      const crisisText = isEn
+        ? "⚠️ **Important Notice:** I noticed that you might be going through a very difficult time and are at risk. Because I am an educational artificial intelligence, I cannot provide the appropriate clinical or human support for this situation.\n\nPlease seek help immediately:\n- Contact local emergency services or a crisis hotline in your region (e.g., 911 or 988 in the US/Canada).\n- Talk to your parents, guardians, or school counselors.\n\nYou are not alone."
+        : "⚠️ **Aviso Importante:** Percebi que você pode estar passando por um momento muito difícil e de risco. Como sou uma inteligência artificial educacional, não tenho capacidade para oferecer o suporte clínico e humano adequado para essa situação.\n\nPor favor, procure ajuda imediatamente:\n- **Ligue para o CVV (Centro de Valorização da Vida) no número 188** (ligação gratuita e sigilosa).\n- Entre em contato com os serviços de emergência (SAMU 192).\n- Fale com seus responsáveis ou busque o apoio da coordenação da sua escola.\n\nVocê não está sozinho.";
+      
+      return {
+        success: true,
+        text: crisisText
+      };
+    }
+
     const contents = [
       ...formatHistoryForGemini(history, systemPrompt),
       { role: 'user', parts: [{ text: message }] }
