@@ -1,5 +1,5 @@
 import React from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { useTranslation, Trans } from 'react-i18next'
 import Footer from '@/components/layout/Footer'
 import ScrollToTopButton from '@/components/ui/ScrollToTopButton'
@@ -10,7 +10,7 @@ const PrivacyPolicyPage: React.FC = () => {
   const { t } = useTranslation()
 
   return (
-    <motion.div 
+    <m.div 
       className="landing-page legal-page"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -65,7 +65,7 @@ const PrivacyPolicyPage: React.FC = () => {
 
       <Footer />
       <ScrollToTopButton />
-    </motion.div>
+    </m.div>
   )
 }
 

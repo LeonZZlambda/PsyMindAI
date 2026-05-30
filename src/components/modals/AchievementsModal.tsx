@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { useGamification } from '../../hooks/context/useGamification';
 import { GamificationSystem } from '../../utils/gamification';
 import BaseModal from './BaseModal';
@@ -100,7 +100,7 @@ export default function AchievementsModal({ isOpen = true, onClose, isEmbedded =
             const isUnlocked = !!unlockedAchievement;
 
             return (
-              <motion.div
+              <m.div
                 key={achievement.id}
                 className={`achievement-card ${isUnlocked ? 'unlocked' : 'locked'}`}
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -153,7 +153,7 @@ export default function AchievementsModal({ isOpen = true, onClose, isEmbedded =
                     </span>
                   </div>
                 )}
-              </motion.div>
+              </m.div>
             );
           })}
         </AnimatePresence>

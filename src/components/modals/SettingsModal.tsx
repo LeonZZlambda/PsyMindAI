@@ -9,7 +9,7 @@ import { setApiKey as updateApiKey } from '../../services/chat/chatService';
 import { Telemetry } from '../../services/analytics/telemetry';
 
 import { useTranslation } from 'react-i18next';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import BaseModal from './BaseModal';
 import CustomSelect from '@/components/ui/CustomSelect';
 import TextField from '@/components/ui/TextField';
@@ -404,7 +404,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, onOpenIm
 
               <AnimatePresence mode="wait">
                 {!confirmingClear ? (
-                  <motion.button
+                  <m.button
                     key="clear-btn"
                     className="danger-btn"
                     onClick={handleClearHistory}
@@ -417,9 +417,9 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, onOpenIm
                   >
                     <span className="material-symbols-outlined">delete_forever</span>
                     {t('settings.history.clear')}
-                  </motion.button>
+                  </m.button>
                 ) : (
-                  <motion.div
+                  <m.div
                     key="confirm-row"
                     className="clear-confirm-row"
                     initial={{ opacity: 0, x: 16 }}
@@ -443,7 +443,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, onOpenIm
                       <span className="material-symbols-outlined">delete_forever</span>
                       {t('settings.history.confirm_btn', { defaultValue: 'Confirmar' })}
                     </button>
-                  </motion.div>
+                  </m.div>
                 )}
               </AnimatePresence>
             </div>

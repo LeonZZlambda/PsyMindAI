@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import BaseModal from './BaseModal'
 import { useChat } from '../../hooks/context/useChat'
 import { useTheme } from '../../hooks/context/useTheme'
@@ -383,7 +383,7 @@ const VocationalTestModal: React.FC<{ isOpen: boolean; onClose: () => void }> = 
 
         <AnimatePresence mode="wait">
           {phase === 'introduction' && (
-            <motion.div
+            <m.div
               key="introduction"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -419,10 +419,10 @@ const VocationalTestModal: React.FC<{ isOpen: boolean; onClose: () => void }> = 
                   {t('exams.vocational.introduction.start_button')}
                 </button>
               </div>
-            </motion.div>
+            </m.div>
           )}
           {phase === 'questions' && (
-            <motion.div
+            <m.div
               key={currentStep}
               initial={{ x: 20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
@@ -473,7 +473,7 @@ const VocationalTestModal: React.FC<{ isOpen: boolean; onClose: () => void }> = 
 
               <div className="vocational-options">
                 {LIKERT_OPTIONS.map((option) => (
-                  <motion.button
+                  <m.button
                     key={option.value}
                     onClick={() => handleAnswer(option.value)}
                     whileTap={{ scale: 0.98 }}
@@ -487,13 +487,13 @@ const VocationalTestModal: React.FC<{ isOpen: boolean; onClose: () => void }> = 
                     <span className="vocational-option__label">
                       {t(`exams.vocational.likert.${option.value}`)}
                     </span>
-                  </motion.button>
+                  </m.button>
                 ))}
               </div>
-            </motion.div>
+            </m.div>
           )}
           {phase === 'processing' && (
-            <motion.div
+            <m.div
               key="loading"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -504,10 +504,10 @@ const VocationalTestModal: React.FC<{ isOpen: boolean; onClose: () => void }> = 
                 <PsyBot isAnalyzing isHappy reducedMotion={reducedMotion} />
                 <p className="psybot-loader__text">{t('exams.vocational.processing')}</p>
               </div>
-            </motion.div>
+            </m.div>
           )}
           {phase === 'results' && result && (
-            <motion.div
+            <m.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               className="vocational-results"
@@ -546,7 +546,7 @@ const VocationalTestModal: React.FC<{ isOpen: boolean; onClose: () => void }> = 
                   {t('exams.vocational.result.cta_plan')}
                 </button>
               </div>
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
       </div>

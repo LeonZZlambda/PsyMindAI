@@ -24,7 +24,8 @@ const LandingSections: React.FC = () => {
       icon: 'support_agent',
       title: t('landing.modules.tools.support.title'),
       description: t('landing.modules.tools.support.description'),
-      bullets: t('landing.modules.tools.support.bullets', { returnObjects: true }) as string[],
+      bullets:
+        (t('landing.modules.tools.support.bullets', { returnObjects: true }) as string[]) ?? [],
       accent: 'support',
     },
     {
@@ -32,7 +33,9 @@ const LandingSections: React.FC = () => {
       icon: 'school',
       title: t('landing.modules.tools.guided_learning.title'),
       description: t('landing.modules.tools.guided_learning.description'),
-      bullets: t('landing.modules.tools.guided_learning.bullets', { returnObjects: true }) as string[],
+      bullets:
+        (t('landing.modules.tools.guided_learning.bullets', { returnObjects: true }) as string[]) ??
+        [],
       accent: 'guided',
     },
     {
@@ -40,7 +43,8 @@ const LandingSections: React.FC = () => {
       icon: 'assignment',
       title: t('landing.modules.tools.exams.title'),
       description: t('landing.modules.tools.exams.description'),
-      bullets: t('landing.modules.tools.exams.bullets', { returnObjects: true }) as string[],
+      bullets:
+        (t('landing.modules.tools.exams.bullets', { returnObjects: true }) as string[]) ?? [],
       accent: 'exams',
     },
     {
@@ -48,7 +52,8 @@ const LandingSections: React.FC = () => {
       icon: 'auto_awesome',
       title: t('landing.modules.tools.reflections.title'),
       description: t('landing.modules.tools.reflections.description'),
-      bullets: t('landing.modules.tools.reflections.bullets', { returnObjects: true }) as string[],
+      bullets:
+        (t('landing.modules.tools.reflections.bullets', { returnObjects: true }) as string[]) ?? [],
       accent: 'reflections',
     },
     {
@@ -56,7 +61,9 @@ const LandingSections: React.FC = () => {
       icon: 'monitor_heart',
       title: t('landing.modules.tools.mood_tracker.title'),
       description: t('landing.modules.tools.mood_tracker.description'),
-      bullets: t('landing.modules.tools.mood_tracker.bullets', { returnObjects: true }) as string[],
+      bullets:
+        (t('landing.modules.tools.mood_tracker.bullets', { returnObjects: true }) as string[]) ??
+        [],
       accent: 'mood',
     },
     {
@@ -64,7 +71,10 @@ const LandingSections: React.FC = () => {
       icon: 'menu_book',
       title: t('landing.modules.tools.emotional_journal.title'),
       description: t('landing.modules.tools.emotional_journal.description'),
-      bullets: t('landing.modules.tools.emotional_journal.bullets', { returnObjects: true }) as string[],
+      bullets:
+        (t('landing.modules.tools.emotional_journal.bullets', {
+          returnObjects: true,
+        }) as string[]) ?? [],
       accent: 'journal',
     },
   ]
@@ -196,7 +206,7 @@ const LandingSections: React.FC = () => {
     if (card) {
       const cardWidth = card.offsetWidth + 24
       const index = Math.round(scrollLeft / cardWidth)
-      
+
       // Calculate activeDot correctly based on visibleCount
       const maxIndex = Math.max(0, a11yItems.length - visibleCount)
       setActiveDot(Math.max(0, Math.min(index, maxIndex)))
@@ -219,7 +229,7 @@ const LandingSections: React.FC = () => {
     if (!container) return () => {}
 
     container.addEventListener('scroll', handleScroll)
-    
+
     const timer = setTimeout(() => {
       updateVisibleCount()
       handleScroll()
@@ -316,9 +326,9 @@ const LandingSections: React.FC = () => {
               </div>
               <p className="module-card__description">{item.description}</p>
               <ul className="module-card__bullets">
-                {item.bullets.map((bullet) => (
-                  <li key={bullet}>{bullet}</li>
-                ))}
+                {Array.isArray(item.bullets)
+                  ? item.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)
+                  : null}
               </ul>
             </m.article>
           ))}
@@ -340,7 +350,9 @@ const LandingSections: React.FC = () => {
           <button
             className={`carousel-btn prev-btn ${!canScrollLeft ? 'disabled' : ''}`}
             onClick={() => scroll('left')}
-            aria-label={t('landing.accessibility.carousel.prev', { defaultValue: 'Previous slide' })}
+            aria-label={t('landing.accessibility.carousel.prev', {
+              defaultValue: 'Previous slide',
+            })}
             disabled={!canScrollLeft}
           >
             <span className="material-symbols-outlined">chevron_left</span>
@@ -384,7 +396,9 @@ const LandingSections: React.FC = () => {
               key={index}
               className={`dot-btn ${activeDot === index ? 'active' : ''}`}
               onClick={() => scrollToCard(index)}
-              aria-label={t('landing.accessibility.carousel.go_to', { defaultValue: `Go to slide ${index + 1}` })}
+              aria-label={t('landing.accessibility.carousel.go_to', {
+                defaultValue: `Go to slide ${index + 1}`,
+              })}
             />
           ))}
         </div>
@@ -449,7 +463,9 @@ const LandingSections: React.FC = () => {
                   </span>
                 </div>
                 <div>
-                  <p className="technical-shell__eyebrow">{t('landing.technical.table.decision')}</p>
+                  <p className="technical-shell__eyebrow">
+                    {t('landing.technical.table.decision')}
+                  </p>
                   <h3>{activeTechnicalItem.title}</h3>
                   <p>{t('landing.technical.summary.description')}</p>
                 </div>
@@ -461,11 +477,15 @@ const LandingSections: React.FC = () => {
                   <p>{activeTechnicalItem.advantage}</p>
                 </div>
                 <div className="tradeoff-card disadvantage">
-                  <span className="tradeoff-label">⚠ {t('landing.technical.table.disadvantage')}</span>
+                  <span className="tradeoff-label">
+                    ⚠ {t('landing.technical.table.disadvantage')}
+                  </span>
                   <p>{activeTechnicalItem.disadvantage}</p>
                 </div>
                 <div className="tradeoff-card mitigation">
-                  <span className="tradeoff-label">🔧 {t('landing.technical.table.mitigation')}</span>
+                  <span className="tradeoff-label">
+                    🔧 {t('landing.technical.table.mitigation')}
+                  </span>
                   <p>{activeTechnicalItem.mitigation}</p>
                 </div>
               </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import BaseModal from './BaseModal';
 import { useLearningGoals } from '../../hooks/context/useLearningGoals';
 import { LearningGoalsSystem, GoalTemplate } from '../../utils/learningGoals';
@@ -57,7 +57,7 @@ const LearningGoalsModal: React.FC<LearningGoalsModalProps> = ({ isOpen = true, 
     const motivationalMessage = LearningGoalsSystem.getMotivationalMessage(goal);
 
     return (
-      <motion.div
+      <m.div
         className={`goal-card ${isCompleted ? 'completed' : ''}`}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -148,7 +148,7 @@ const LearningGoalsModal: React.FC<LearningGoalsModalProps> = ({ isOpen = true, 
             Concluída em {goal.completedAt.toLocaleDateString()}
           </div>
         )}
-      </motion.div>
+      </m.div>
     );
   };
 
@@ -177,7 +177,7 @@ const LearningGoalsModal: React.FC<LearningGoalsModalProps> = ({ isOpen = true, 
 
       <AnimatePresence mode="wait">
         {activeTab === 'active' && (
-          <motion.div
+          <m.div
             key="active"
             className="goals-content"
             initial={{ opacity: 0, x: -20 }}
@@ -198,11 +198,11 @@ const LearningGoalsModal: React.FC<LearningGoalsModalProps> = ({ isOpen = true, 
                 ))}
               </div>
             )}
-          </motion.div>
+          </m.div>
         )}
 
         {activeTab === 'completed' && (
-          <motion.div
+          <m.div
             key="completed"
             className="goals-content"
             initial={{ opacity: 0, x: -20 }}
@@ -223,11 +223,11 @@ const LearningGoalsModal: React.FC<LearningGoalsModalProps> = ({ isOpen = true, 
                 ))}
               </div>
             )}
-          </motion.div>
+          </m.div>
         )}
 
         {activeTab === 'create' && (
-          <motion.div
+          <m.div
             key="create"
             className="goals-content"
             initial={{ opacity: 0, x: -20 }}
@@ -264,7 +264,7 @@ const LearningGoalsModal: React.FC<LearningGoalsModalProps> = ({ isOpen = true, 
                 </button>
 
                 {showCreateForm && (
-                  <motion.div
+                  <m.div
                     className="custom-goal-form"
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
@@ -374,11 +374,11 @@ const LearningGoalsModal: React.FC<LearningGoalsModalProps> = ({ isOpen = true, 
                     >
                       Criar Meta Personalizada
                     </button>
-                  </motion.div>
+                  </m.div>
                 )}
               </div>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

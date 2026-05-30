@@ -120,7 +120,7 @@ export default defineConfig({
     // Generate full source maps so Lighthouse can analyze them and provide insights.
     sourcemap: true,
     modulePreload: {
-      polyfill: true,
+      polyfill: false,
       resolveDependencies: (filename, deps, { hostId, hostType }) => {
         // Prevent preloading heavy chunks that are not needed for LandingPage FCP
         return deps.filter((dep) => {
@@ -130,7 +130,9 @@ export default defineConfig({
             dep.includes('prism-vendor') ||
             dep.includes('zod-vendor') ||
             dep.includes('genai-vendor') ||
-            dep.includes('sonner-vendor')
+            dep.includes('sonner-vendor') ||
+            dep.includes('motion-vendor') ||
+            dep.includes('ui-vendor')
           ) {
             return false
           }
@@ -161,7 +163,10 @@ export default defineConfig({
             id.includes('node_modules/react-router-dom/') ||
             id.includes('node_modules/react-router/') ||
             id.includes('node_modules/react-error-boundary/') ||
-            id.includes('node_modules/scheduler/')
+            id.includes('node_modules/scheduler/') ||
+            id.includes('node_modules/i18next/') ||
+            id.includes('node_modules/react-i18next/') ||
+            id.includes('node_modules/i18next-browser-languagedetector/')
           ) {
             return 'core-vendor'
           }

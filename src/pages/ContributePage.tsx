@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { motion, Variants } from 'framer-motion'
+import { m, Variants } from 'framer-motion'
 import '../styles/contribute.css'
 import Footer from '@/components/layout/Footer'
 import ScrollToTopButton from '@/components/ui/ScrollToTopButton'
@@ -35,7 +35,7 @@ const ContributePage: React.FC = () => {
   }
 
   return (
-    <motion.div 
+    <m.div 
       className="landing-page contribute-page"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -50,14 +50,14 @@ const ContributePage: React.FC = () => {
           <p>{t('contribute_page.subtitle')}</p>
         </div>
 
-        <motion.div 
+        <m.div 
           className="contribute-grid"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
           {contributeCards.map((card, idx) => (
-            <motion.div 
+            <m.div 
               key={idx}
               className="contribute-card"
               variants={cardVariants}
@@ -89,9 +89,9 @@ const ContributePage: React.FC = () => {
                 {card.link_text} 
                 <span className="material-symbols-outlined icon-rtl-flip">arrow_forward</span>
               </a>
-            </motion.div>
+            </m.div>
           ))}
-        </motion.div>
+        </m.div>
 
         <div className="steps-section">
           <h2>{t('contribute_page.steps.title')}</h2>
@@ -137,7 +137,7 @@ const ContributePage: React.FC = () => {
 
       <Footer />
       <ScrollToTopButton />
-    </motion.div>
+    </m.div>
   )
 }
 

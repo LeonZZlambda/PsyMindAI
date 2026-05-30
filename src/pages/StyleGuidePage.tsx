@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'sonner'
 import Footer from '@/components/layout/Footer'
@@ -52,7 +52,7 @@ const StyleGuidePage: React.FC = () => {
     },
     modal: {
       title: 'Modal Overlay Container',
-      jsx: `<div className="modal-backdrop" onClick={onClose}>\n  <motion.div \n    className="modal-container" \n    initial={{ opacity: 0, y: 15 }} \n    animate={{ opacity: 1, y: 0 }}\n  >\n    <h2>Modal Content</h2>\n  </motion.div>\n</div>`,
+      jsx: `<div className="modal-backdrop" onClick={onClose}>\n  <m.div \n    className="modal-container" \n    initial={{ opacity: 0, y: 15 }} \n    animate={{ opacity: 1, y: 0 }}\n  >\n    <h2>Modal Content</h2>\n  </m.div>\n</div>`,
       css: `.modal-backdrop {\n  position: fixed;\n  inset: 0;\n  background: rgba(0, 0, 0, 0.4);\n  backdrop-filter: blur(4px);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}`
     }
   }
@@ -60,7 +60,7 @@ const StyleGuidePage: React.FC = () => {
   const iconsList = ['psychology', 'timer', 'chat', 'shield', 'bar_chart', 'menu', 'close', 'settings', 'arrow_forward', 'check_circle', 'error', 'language']
 
   return (
-    <motion.div 
+    <m.div 
       className="landing-page styleguide-page"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -356,7 +356,7 @@ const StyleGuidePage: React.FC = () => {
 
       <Footer />
       <ScrollToTopButton />
-    </motion.div>
+    </m.div>
   )
 }
 

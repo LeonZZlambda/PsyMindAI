@@ -2,7 +2,8 @@
   "name": "psy_mind",
   "private": true,
   "sideEffects": [
-    "*.css"
+    "*.css",
+    "src/i18n/config.js"
   ],
   "version": "0.0.0",
   "type": "module",

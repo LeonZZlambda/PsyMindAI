@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useTranslation, Trans } from "react-i18next";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import ReactMarkdown from 'react-markdown';
 import logger from '../../utils/logger';
 import { SmartReminderSystem } from '../../utils/smartReminders';
@@ -786,26 +786,26 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
     }
 
     return (
-      <motion.div 
+      <m.div 
          initial={{ scale: 0.8, opacity: 0, y: 30 }} 
          animate={{ scale: 1, opacity: 1, y: 0 }} 
          transition={{ type: "spring", bounce: 0.5, duration: 0.8 }}
          className="quiz-card completion-splash" 
          style={{ textAlign: "center", padding: "50px 20px", display: "flex", flexDirection: "column", alignItems: "center" }}
       >
-         <motion.div 
+         <m.div 
             animate={{ y: [0, -10, 0], scale: [1, 1.05, 1] }} 
             transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
          >
             <span className="material-symbols-outlined" style={{ fontSize: "80px", color: color, marginBottom: "16px", filter: `drop-shadow(0 4px 12px ${color}66)` }}>{icon}</span>
-         </motion.div>
+         </m.div>
          <h4 style={{ fontSize: "1.8rem", marginBottom: "12px", color: "var(--text-color)", fontWeight: "800" }}>{title}</h4>
           <p style={{ fontSize: "1.1rem", color: "var(--text-light)", marginBottom: "24px", maxWidth: "400px" }}>
             <Trans i18nKey="guided_learning.completion.stats" values={{ correct: correct.toString(), total: total.toString(), percentage: percentage.toString() }} />
             <br/><br/>
             {message}
           </p>
-         <motion.button 
+         <m.button 
             whileHover={{ scale: 1.05 }} 
             whileTap={{ scale: 0.95 }} 
             className="primary-btn cta" 
@@ -813,8 +813,8 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
             style={{ margin: "0 auto", gap: "8px" }}
          >
             <span className="material-symbols-outlined">{actionIcon}</span> {actionText}
-         </motion.button>
-      </motion.div>
+         </m.button>
+      </m.div>
     );
   };
 
@@ -879,7 +879,7 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
                <div className="trail-content-area">
                   <AnimatePresence mode="wait">
                      {isTrailFinished ? (
-                        <motion.div key="trail-splash" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: "40px" }}>
+                        <m.div key="trail-splash" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: "40px" }}>
                            {renderCompletionSplash(
                               t("guided_learning.completion.title"),
                               currentTrailStats.correct,
@@ -888,11 +888,11 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
                               "route",
                               closeTrail
                            )}
-                        </motion.div>
+                        </m.div>
                      ) : (
-                        <motion.div key={trailStepIndex} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                        <m.div key={trailStepIndex} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                            {currentStep?.type === "open_ended" ? renderOpenEnded(currentStep, true) : currentStep?.type === "flashcard" ? renderFlashcardWrapper(currentStep, true) : currentStep ? renderQuiz(currentStep as QuizItem, true) : null}
-                        </motion.div>
+                        </m.div>
                      )}
                   </AnimatePresence>
                </div>
@@ -914,11 +914,11 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
                <div className="learning-content">
                   <AnimatePresence mode="wait">
                      {activeTab === "trails" && (
-                        <motion.div key="trails" className="learning-tab-content" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
+                        <m.div key="trails" className="learning-tab-content" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
                            
                            <AnimatePresence mode="wait">
                               {isCreatingTrail ? (
-                                 <motion.div key="ai-create" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="ai-create-container">
+                                 <m.div key="ai-create" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="ai-create-container">
                                     <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px'}}>
                                        <h3 style={{margin: 0, color: 'var(--text-color)'}}>{t("guided_learning.create.title")}</h3>
                                        <button className="icon-btn" onClick={() => setIsCreatingTrail(false)}><span className="material-symbols-outlined">close</span></button>
@@ -938,9 +938,9 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
                                           {isGenerating ? t("guided_learning.create.btn_generating") : t("guided_learning.create.btn_create")}
                                        </button>
                                     </div>
-                                 </motion.div>
+                                 </m.div>
                               ) : (
-                                 <motion.div key="trails-grid" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}>
+                                 <m.div key="trails-grid" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}>
                                     <div className="trails-header" style={{ paddingBottom: '16px' }}>
                                        <h3>{t("guided_learning.explore.title")}</h3>
                                        <div className="trails-header-actions">
@@ -984,14 +984,14 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
                                           );
                                        })}
                                     </div>
-                                 </motion.div>
+                                 </m.div>
                               )}
                            </AnimatePresence>
-                        </motion.div>
+                        </m.div>
                      )}
 
                      {activeTab === "flashcards" && (
-                        <motion.div key="flashcards" className="learning-tab-content flashcards-container" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
+                        <m.div key="flashcards" className="learning-tab-content flashcards-container" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
                            <div className="flashcards-header">
                               <h3>{t("guided_learning.status.practice")}</h3>
                            </div>
@@ -1012,11 +1012,11 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
                                  <p style={{ color: "var(--text-light)" }}>{t("guided_learning.empty_flashcards.desc")}</p>
                               </div>
                            )}
-                        </motion.div>
+                        </m.div>
                      )}
 
                      {activeTab === "quizzes" && (
-                        <motion.div key="quizzes" className="learning-tab-content quizzes-container" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
+                        <m.div key="quizzes" className="learning-tab-content quizzes-container" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
                            <div className="quizzes-header">
                               <h3>{t("guided_learning.status.quick_quiz")}</h3>
                            </div>
@@ -1046,7 +1046,7 @@ export default function GuidedLearningModal({ isOpen, onClose }: GuidedLearningM
                                  <p style={{ color: "var(--text-light)" }}>{t("guided_learning.empty_quizzes.desc")}</p>
                               </div>
                            )}
-                        </motion.div>
+                        </m.div>
                      )}
                   </AnimatePresence>
                </div>

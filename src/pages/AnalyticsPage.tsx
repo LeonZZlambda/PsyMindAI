@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { useTheme } from '../hooks/context/useTheme'
 import '../styles/roadmap.css'
 import { Telemetry } from '../services/analytics/telemetry'
@@ -110,7 +110,7 @@ const AnalyticsPage: React.FC = () => {
   const chartData = getChartData()
 
   return (
-    <motion.div 
+    <m.div 
       className={`landing-page ${isDarkMode ? 'dark' : ''}`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -125,7 +125,7 @@ const AnalyticsPage: React.FC = () => {
 	          <p>{t('analytics_page.subtitle')}</p>
 	        </div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -202,7 +202,7 @@ const AnalyticsPage: React.FC = () => {
                           {item.label}
                         </span>
                         <div style={{ flex: 1, backgroundColor: 'var(--hover-color)', height: '24px', borderRadius: '12px', overflow: 'hidden', position: 'relative' }}>
-                          <motion.div 
+                          <m.div 
                             initial={{ width: 0 }}
                             animate={{ width: `${item.pct}%` }}
                             transition={{ duration: 1, delay: idx * 0.1, ease: 'easeOut' }}
@@ -253,7 +253,7 @@ const AnalyticsPage: React.FC = () => {
                   </div>
                   
                   {metaInsight && (
-                    <motion.div 
+                    <m.div 
                       initial={{ opacity: 0, height: 0 }} 
                       animate={{ opacity: 1, height: 'auto' }} 
                       style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '12px', marginTop: '10px' }}
@@ -272,7 +272,7 @@ const AnalyticsPage: React.FC = () => {
                       >
                         {t('analytics_page.meta_analysis.generate_new')}
                       </button>
-                    </motion.div>
+                    </m.div>
                   )}
                 </div>
 
@@ -314,7 +314,7 @@ const AnalyticsPage: React.FC = () => {
                           {item.label}
                         </span>
                         <div style={{ flex: 1, backgroundColor: 'var(--hover-color)', height: '24px', borderRadius: '12px', overflow: 'hidden', position: 'relative' }}>
-                          <motion.div 
+                          <m.div 
                             initial={{ width: 0 }}
                             animate={{ width: `${item.pct}%` }}
                             transition={{ duration: 1, delay: idx * 0.1, ease: 'easeOut' }}
@@ -347,12 +347,12 @@ const AnalyticsPage: React.FC = () => {
             )
           )}
 
-        </motion.div>
+        </m.div>
       </main>
 
       <ScrollToTopButton />
       <Footer />
-    </motion.div>
+    </m.div>
   )
 }
 

@@ -6,121 +6,128 @@ import React, {
   Dispatch,
   SetStateAction,
   useRef,
-  MutableRefObject
-} from 'react';
-import { useTranslation } from 'react-i18next';
-import { useTheme } from '../hooks/context/useTheme';
-import {
-  sendMessage as sendMessageToGemini,
-  isConfigured as isGeminiConfigured,
-  generateTitle as generateChatTitle,
-  type SendMessageResponse
-} from '../services/chat/chatService';
-import { loadChats, saveChats, createChat, updateChat } from '../services/storage/chatStorage';
-import { createUserMessage, createAIMessage } from '../services/chat/messageFormatter';
-import { TextStreamer } from '../utils/textStreaming';
-import { ChatContext, ChatContextValue } from './ChatContext';
-import type { Chat, ChatMessage } from '@/types/storage';
+  MutableRefObject,
+} from 'react'
+import { useTranslation } from 'react-i18next'
+import { useTheme } from '../hooks/context/useTheme'
+import { loadChats, saveChats, createChat, updateChat } from '../services/storage/chatStorage'
+import { createUserMessage, createAIMessage } from '../services/chat/messageFormatter'
+import { TextStreamer } from '../utils/textStreaming'
+import { ChatContext, ChatContextValue } from './ChatContext'
+import type { Chat, ChatMessage } from '@/types/storage'
 
 export const ChatProvider = ({ children }: { children: ReactNode }) => {
-  const { t } = useTranslation(['chat', 'translation']);
-  const { reducedMotion } = useTheme();
-  const [chats, setChats] = useState<Chat[]>([]);
-  const [chatsLoaded, setChatsLoaded] = useState(false);
+  const { t } = useTranslation(['chat', 'translation'])
+  const { reducedMotion } = useTheme()
+  const [chats, setChats] = useState<Chat[]>([])
+  const [chatsLoaded, setChatsLoaded] = useState(false)
 
   useEffect(() => {
     loadChats()
       .then((loaded) => {
-        setChats(Array.isArray(loaded) ? loaded : []);
-        setChatsLoaded(true);
+        setChats(Array.isArray(loaded) ? loaded : [])
+        setChatsLoaded(true)
       })
       .catch(() => {
-        setChats([]);
-        setChatsLoaded(true);
-      });
-  }, []);
+        setChats([])
+        setChatsLoaded(true)
+      })
+  }, [])
 
-  const [currentChatId, setCurrentChatId] = useState<string | null>(null);
-  const [isAnonymous, setIsAnonymous] = useState(false);
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [input, setInput] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isStreaming, setIsStreaming] = useState(false);
-  const typingTimeoutRef = useRef<number | null>(null);
-  const delayedStartTimeoutRef = useRef<number | null>(null);
-  const streamTimeoutRef = useRef<TextStreamer | null>(null);
+  const [currentChatId, setCurrentChatId] = useState<string | null>(null)
+  const [isAnonymous, setIsAnonymous] = useState(false)
+  const [messages, setMessages] = useState<ChatMessage[]>([])
+  const [input, setInput] = useState('')
+  const [isTyping, setIsTyping] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [isStreaming, setIsStreaming] = useState(false)
+  const typingTimeoutRef = useRef<number | null>(null)
+  const delayedStartTimeoutRef = useRef<number | null>(null)
+  const streamTimeoutRef = useRef<TextStreamer | null>(null)
 
   useEffect(() => {
     if (chatsLoaded) {
       // Don't save anonymous chats to storage
-      saveChats(chats.filter((c) => !c.isAnonymous));
+      saveChats(chats.filter((c) => !c.isAnonymous))
     }
-  }, [chats, chatsLoaded]);
+  }, [chats, chatsLoaded])
 
   useEffect(() => {
     if (currentChatId) {
-      const chat = chats.find((c) => c.id === currentChatId);
+      const chat = chats.find((c) => c.id === currentChatId)
       if (chat) {
-        setMessages(chat.messages);
+        setMessages(chat.messages)
       }
     }
-  }, [currentChatId, chats]);
+  }, [currentChatId, chats])
 
   const sendMessage = useCallback(
     async (text: string, files: (File | Blob)[] = []): Promise<void> => {
-      if (!text.trim() && files.length === 0) return;
+      if (!text.trim() && files.length === 0) return
 
-        // Normalize File/Blob inputs into FileAttachment shape expected by storage
-        const fileAttachments = Array.isArray(files)
-          ? files.map((f) => ({ name: (f as File).name || 'file', size: (f as File).size || 0, type: (f as File).type || 'application/octet-stream' }))
-          : [];
+      // Normalize File/Blob inputs into FileAttachment shape expected by storage
+      const fileAttachments = Array.isArray(files)
+        ? files.map((f) => ({
+            name: (f as File).name || 'file',
+            size: (f as File).size || 0,
+            type: (f as File).type || 'application/octet-stream',
+          }))
+        : []
 
-        const userMessage = createUserMessage(text, fileAttachments);
+      const userMessage = createUserMessage(text, fileAttachments)
 
-      let chatId = currentChatId;
+      let chatId = currentChatId
       if (!chatId) {
         // Use crypto.randomUUID when available in the browser, fallback to timestamp
-        chatId = (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function')
-          ? crypto.randomUUID()
-          : Date.now().toString();
-        const tempTitle = isAnonymous ? 'Modo Anônimo' : text.slice(0, 40) + (text.length > 40 ? '...' : '');
-        const newChat = createChat(chatId as string, tempTitle, [userMessage]);
-        if (isAnonymous) newChat.isAnonymous = true;
+        chatId =
+          typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
+            ? crypto.randomUUID()
+            : Date.now().toString()
+        const tempTitle = isAnonymous
+          ? 'Modo Anônimo'
+          : text.slice(0, 40) + (text.length > 40 ? '...' : '')
+        const newChat = createChat(chatId as string, tempTitle, [userMessage])
+        if (isAnonymous) newChat.isAnonymous = true
 
-        setChats((prev) => [newChat, ...prev]);
-        setCurrentChatId(chatId);
+        setChats((prev) => [newChat, ...prev])
+        setCurrentChatId(chatId)
 
         if (!isAnonymous) {
           generateChatTitle(text).then((title) => {
             setChats((prev) =>
-              prev.map((chat) => (chat.id === chatId ? updateChat(chat, { title }) : chat))
-            );
-          });
+              prev.map((chat) => (chat.id === chatId ? updateChat(chat, { title }) : chat)),
+            )
+          })
         }
       } else {
         setChats((prev) =>
           prev.map((chat) =>
             chat.id === chatId
               ? updateChat(chat, { messages: [...chat.messages, userMessage] })
-              : chat
-          )
-        );
+              : chat,
+          ),
+        )
       }
 
-      setMessages((prev) => [...prev, userMessage]);
-      setInput('');
-      setIsTyping(true);
+      setMessages((prev) => [...prev, userMessage])
+      setInput('')
+      setIsTyping(true)
 
       // Try Gemini API first, fallback to demo
-      let fullResponse: string;
-      let explainability: any = undefined;
+      let fullResponse: string
+      let explainability: any = undefined
+
+      const {
+        isConfigured: isGeminiConfigured,
+        sendMessage: sendMessageToGemini,
+        generateTitle: generateChatTitle,
+      } = await import('../services/chat/chatService')
 
       if (isGeminiConfigured()) {
-        const result = (await sendMessageToGemini(text, messages)) as SendMessageResponse;
+        const result = (await sendMessageToGemini(text, messages)) as any
         if (result.success) {
-          fullResponse = result.text;
-          explainability = result.explainability;
+          fullResponse = result.text
+          explainability = result.explainability
         } else {
           // For backend errors like RATE_LIMIT, UNKNOWN, etc., send a friendly message
           const backendErrors = [
@@ -129,169 +136,174 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
             'SERVER_ERROR',
             'UNAVAILABLE',
             'NETWORK',
-            'EMPTY_RESPONSE'
-          ];
+            'EMPTY_RESPONSE',
+          ]
           if (backendErrors.includes(result.error as string)) {
-            fullResponse = result.userMessage;
+            fullResponse = result.userMessage
           } else {
-            fullResponse = `${result.userMessage}\n\n${t('chat.errors.limited_continue')}`;
+            fullResponse = `${result.userMessage}\n\n${t('chat.errors.limited_continue')}`
           }
         }
       } else {
-        fullResponse = t('chat.errors.demo_mode');
+        fullResponse = t('chat.errors.demo_mode')
       }
 
       typingTimeoutRef.current = window.setTimeout(() => {
-        typingTimeoutRef.current = null;
-        setIsTyping(false);
+        typingTimeoutRef.current = null
+        setIsTyping(false)
 
-        const aiMessage = createAIMessage(fullResponse, false, explainability);
+        const aiMessage = createAIMessage(fullResponse, false, explainability)
 
         if (reducedMotion) {
-          setMessages((prev) => [...prev, aiMessage]);
+          setMessages((prev) => [...prev, aiMessage])
           if (chatId) {
             setChats((prev) =>
               prev.map((chat) =>
                 chat.id === chatId
                   ? updateChat(chat, { messages: [...chat.messages, aiMessage] })
-                  : chat
-              )
-            );
+                  : chat,
+              ),
+            )
           }
-          return;
+          return
         }
 
-        setMessages((prev) => [...prev, createAIMessage('', true, explainability)]);
-        setIsStreaming(true);
+        setMessages((prev) => [...prev, createAIMessage('', true, explainability)])
+        setIsStreaming(true)
 
         const streamer = new TextStreamer(
           fullResponse,
           (chunk: string) => {
             setMessages((prev) => {
-              const newMessages = [...prev];
-              const lastIndex = newMessages.length - 1;
+              const newMessages = [...prev]
+              const lastIndex = newMessages.length - 1
               if (lastIndex >= 0 && newMessages[lastIndex].type === 'ai') {
                 newMessages[lastIndex] = {
                   ...newMessages[lastIndex],
-                  content: (newMessages[lastIndex].content || '') + chunk
-                };
+                  content: (newMessages[lastIndex].content || '') + chunk,
+                }
               }
-              return newMessages;
-            });
+              return newMessages
+            })
           },
           () => {
             setMessages((prev) => {
-              const newMessages = [...prev];
-              const lastIndex = newMessages.length - 1;
+              const newMessages = [...prev]
+              const lastIndex = newMessages.length - 1
               if (lastIndex >= 0) {
-                newMessages[lastIndex] = { ...newMessages[lastIndex], isStreaming: false };
+                newMessages[lastIndex] = { ...newMessages[lastIndex], isStreaming: false }
               }
-              return newMessages;
-            });
+              return newMessages
+            })
 
             if (chatId) {
               setChats((prev) =>
                 prev.map((chat) =>
                   chat.id === chatId
-                    ? updateChat(chat, { messages: [...chat.messages, createAIMessage(fullResponse, false, explainability)] })
-                    : chat
-                )
-              );
+                    ? updateChat(chat, {
+                        messages: [
+                          ...chat.messages,
+                          createAIMessage(fullResponse, false, explainability),
+                        ],
+                      })
+                    : chat,
+                ),
+              )
             }
-            setIsStreaming(false);
-            streamTimeoutRef.current = null;
+            setIsStreaming(false)
+            streamTimeoutRef.current = null
           },
-          reducedMotion
-        );
+          reducedMotion,
+        )
 
         // Schedule start of streaming and keep the timeout id so we can cancel it
         delayedStartTimeoutRef.current = window.setTimeout(() => {
-          delayedStartTimeoutRef.current = null;
-          streamTimeoutRef.current = streamer;
-          streamer.start(0); // Start immediately as we already waited 800ms
-        }, 800);
-      }, 800);
+          delayedStartTimeoutRef.current = null
+          streamTimeoutRef.current = streamer
+          streamer.start(0) // Start immediately as we already waited 800ms
+        }, 800)
+      }, 800)
     },
-    [messages, reducedMotion, currentChatId, chats, isAnonymous, t]
-  );
+    [messages, reducedMotion, currentChatId, chats, isAnonymous, t],
+  )
 
   const stopStreaming = useCallback((): void => {
     if (delayedStartTimeoutRef.current) {
-      clearTimeout(delayedStartTimeoutRef.current);
-      delayedStartTimeoutRef.current = null;
+      clearTimeout(delayedStartTimeoutRef.current)
+      delayedStartTimeoutRef.current = null
     }
 
     if (streamTimeoutRef.current) {
       try {
-        streamTimeoutRef.current.stop();
+        streamTimeoutRef.current.stop()
       } catch (e) {
         // ignore
       }
-      streamTimeoutRef.current = null;
+      streamTimeoutRef.current = null
     }
-    setIsStreaming(false);
-    setIsTyping(false);
+    setIsStreaming(false)
+    setIsTyping(false)
 
     setMessages((prev) => {
-      const newMessages = [...prev];
-      const lastIndex = newMessages.length - 1;
+      const newMessages = [...prev]
+      const lastIndex = newMessages.length - 1
       if (lastIndex >= 0 && newMessages[lastIndex].type === 'ai') {
-        newMessages[lastIndex] = { ...newMessages[lastIndex], isStreaming: false };
+        newMessages[lastIndex] = { ...newMessages[lastIndex], isStreaming: false }
       }
-      return newMessages;
-    });
-  }, []);
+      return newMessages
+    })
+  }, [])
 
   const startAnonymousChat = useCallback((): void => {
-    setMessages([]);
-    setCurrentChatId(null);
-    setIsAnonymous(true);
-    setInput('');
-  }, []);
+    setMessages([])
+    setCurrentChatId(null)
+    setIsAnonymous(true)
+    setInput('')
+  }, [])
 
   const clearHistory = useCallback((): void => {
     // Clear all persisted chats from storage
-    saveChats([]);
+    saveChats([])
     // Reset all in-memory state
-    setChats([]);
-    setMessages([]);
-    setCurrentChatId(null);
-    setIsAnonymous(false);
-    setInput('');
-  }, []);
+    setChats([])
+    setMessages([])
+    setCurrentChatId(null)
+    setIsAnonymous(false)
+    setInput('')
+  }, [])
 
   const loadChat = useCallback(
     (chatId: string): void => {
-      setCurrentChatId(chatId);
-      setIsAnonymous(false);
-      const chat = chats.find((c) => c.id === chatId);
+      setCurrentChatId(chatId)
+      setIsAnonymous(false)
+      const chat = chats.find((c) => c.id === chatId)
       if (chat) {
-        setMessages(chat.messages);
+        setMessages(chat.messages)
       }
     },
-    [chats]
-  );
+    [chats],
+  )
 
   const deleteChat = useCallback(
     (chatId: string): void => {
-      setChats((prev) => prev.filter((c) => c.id !== chatId));
+      setChats((prev) => prev.filter((c) => c.id !== chatId))
       if (currentChatId === chatId) {
-        setMessages([]);
-        setCurrentChatId(null);
+        setMessages([])
+        setCurrentChatId(null)
       }
     },
-    [currentChatId]
-  );
+    [currentChatId],
+  )
 
   // Cleanup on unmount
   useEffect(() => {
     return () => {
-      stopStreaming();
+      stopStreaming()
       if (typingTimeoutRef.current) {
-        clearTimeout(typingTimeoutRef.current);
+        clearTimeout(typingTimeoutRef.current)
       }
-    };
-  }, [stopStreaming]);
+    }
+  }, [stopStreaming])
 
   const value: ChatContextValue = {
     messages,
@@ -308,12 +320,8 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
     isStreaming,
     stopStreaming,
     isAnonymous,
-    startAnonymousChat
-  };
+    startAnonymousChat,
+  }
 
-  return (
-    <ChatContext.Provider value={value}>
-      {children}
-    </ChatContext.Provider>
-  );
-};
+  return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>
+}

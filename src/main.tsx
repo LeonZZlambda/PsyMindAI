@@ -1,15 +1,9 @@
-import { StrictMode } from 'react'
+import { StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
+import { I18nextProvider } from 'react-i18next'
 import { initSecurityPolicies } from './security'
 import { initObservability } from './services/observability/init'
-
-// Initialize Observability (Sentry & PostHog)
-initObservability()
-
-// Initialize Trusted Types as soon as possible to mitigate DOM-based XSS
-initSecurityPolicies()
-
-import './i18n/config'
+import i18n from './i18n/config'
 import './index.css'
 import './styles/variables.css'
 import './styles/components.css'
@@ -31,6 +25,16 @@ import { BrowserRouter } from 'react-router-dom'
 import { protectMaterialIcons } from './utils/protectMaterialIcons'
 import GlobalRipple from '@/components/layout/GlobalRipple'
 
+// Initialize Trusted Types as soon as possible to mitigate DOM-based XSS
+initSecurityPolicies()
+
+// Defer observability to prevent LCP/TBT delays
+if ('requestIdleCallback' in window) {
+  window.requestIdleCallback(() => initObservability(), { timeout: 2000 })
+} else {
+  setTimeout(() => initObservability(), 1000)
+}
+
 const rootElement = document.getElementById('root')
 if (!rootElement) throw new Error('Root element not found')
 
@@ -39,32 +43,36 @@ protectMaterialIcons()
 
 createRoot(rootElement).render(
   <StrictMode>
-    <BrowserRouter>
-      <ModalProvider>
-        <DirectionProvider>
-          <ThemeProvider>
-            <ChatProvider>
-              <PomodoroProvider>
-                <SoundProvider>
-                  <MoodProvider>
-                    <EmotionalJournalProvider>
-                      <SnackbarProvider>
-                        <GamificationProvider>
-                          <LearningGoalsProvider>
-                            <GlobalRipple />
-                            <App />
-                          </LearningGoalsProvider>
-                        </GamificationProvider>
-                      </SnackbarProvider>
-                    </EmotionalJournalProvider>
-                  </MoodProvider>
-                </SoundProvider>
-              </PomodoroProvider>
-            </ChatProvider>
-          </ThemeProvider>
-        </DirectionProvider>
-      </ModalProvider>
-    </BrowserRouter>
+    <I18nextProvider i18n={i18n}>
+      <Suspense fallback={null}>
+        <BrowserRouter>
+          <ModalProvider>
+            <DirectionProvider>
+              <ThemeProvider>
+                <ChatProvider>
+                  <PomodoroProvider>
+                    <SoundProvider>
+                      <MoodProvider>
+                        <EmotionalJournalProvider>
+                          <SnackbarProvider>
+                            <GamificationProvider>
+                              <LearningGoalsProvider>
+                                <GlobalRipple />
+                                <App />
+                              </LearningGoalsProvider>
+                            </GamificationProvider>
+                          </SnackbarProvider>
+                        </EmotionalJournalProvider>
+                      </MoodProvider>
+                    </SoundProvider>
+                  </PomodoroProvider>
+                </ChatProvider>
+              </ThemeProvider>
+            </DirectionProvider>
+          </ModalProvider>
+        </BrowserRouter>
+      </Suspense>
+    </I18nextProvider>
   </StrictMode>,
 )
 

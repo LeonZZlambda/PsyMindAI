@@ -3,18 +3,35 @@ import { m } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import TelemetryService from '@/services/TelemetryService'
 
-type MockupId = 'guided_learning' | 'exams' | 'reflections' | 'mood_tracker' | 'pomodoro' | 'soundscapes' | 'study_stats'
+type MockupId =
+  | 'guided_learning'
+  | 'exams'
+  | 'reflections'
+  | 'mood_tracker'
+  | 'pomodoro'
+  | 'soundscapes'
+  | 'study_stats'
 
 const DemoShowcase: React.FC = () => {
   const { t } = useTranslation(['landing', 'learning', 'reflections', 'translation'])
 
-  const guidedLearningFeatures = t('landing.demo.guided_learning.features', { returnObjects: true }) as string[]
+  const guidedLearningFeatures = t('landing.demo.guided_learning.features', {
+    returnObjects: true,
+  }) as string[]
   const examsFeatures = t('landing.demo.exams.features', { returnObjects: true }) as string[]
-  const reflectionsFeatures = t('landing.demo.reflections.features', { returnObjects: true }) as string[]
-  const moodTrackerFeatures = t('landing.demo.mood_tracker.features', { returnObjects: true }) as string[]
+  const reflectionsFeatures = t('landing.demo.reflections.features', {
+    returnObjects: true,
+  }) as string[]
+  const moodTrackerFeatures = t('landing.demo.mood_tracker.features', {
+    returnObjects: true,
+  }) as string[]
   const pomodoroFeatures = t('landing.demo.pomodoro.features', { returnObjects: true }) as string[]
-  const soundscapesFeatures = t('landing.demo.soundscapes.features', { returnObjects: true }) as string[]
-  const studyStatsFeatures = t('landing.demo.study_stats.features', { returnObjects: true }) as string[]
+  const soundscapesFeatures = t('landing.demo.soundscapes.features', {
+    returnObjects: true,
+  }) as string[]
+  const studyStatsFeatures = t('landing.demo.study_stats.features', {
+    returnObjects: true,
+  }) as string[]
 
   const mockups: Array<{
     id: MockupId
@@ -28,53 +45,51 @@ const DemoShowcase: React.FC = () => {
       title: t('guided_learning.title', { ns: 'learning' }),
       description: t('landing.demo.guided_learning.description'),
       icon: 'school',
-      features: guidedLearningFeatures
+      features: guidedLearningFeatures,
     },
     {
       id: 'exams',
       title: t('learning:exams.title'),
       description: t('landing.demo.exams.description'),
       icon: 'workspace_premium',
-      features: examsFeatures
+      features: examsFeatures,
     },
     {
       id: 'reflections',
       title: t('reflections.title', { ns: 'reflections' }),
       description: t('landing.demo.reflections.description'),
       icon: 'auto_awesome',
-      features: reflectionsFeatures
+      features: reflectionsFeatures,
     },
     {
       id: 'mood_tracker',
       title: t('landing.demo.mood_tracker.preview.title'),
       description: t('landing.demo.mood_tracker.description'),
       icon: 'mood',
-      features: moodTrackerFeatures
+      features: moodTrackerFeatures,
     },
     {
       id: 'pomodoro',
       title: t('landing.demo.pomodoro.preview.title'),
       description: t('landing.demo.pomodoro.description'),
       icon: 'timer',
-      features: pomodoroFeatures
+      features: pomodoroFeatures,
     },
     {
       id: 'soundscapes',
       title: t('landing.demo.soundscapes.preview.title'),
       description: t('landing.demo.soundscapes.description'),
       icon: 'headphones',
-      features: soundscapesFeatures
+      features: soundscapesFeatures,
     },
     {
       id: 'study_stats',
       title: t('landing.demo.study_stats.preview.title'),
       description: t('landing.demo.study_stats.description'),
       icon: 'insights',
-      features: studyStatsFeatures
-    }
+      features: studyStatsFeatures,
+    },
   ]
-
-  
 
   const carouselRef = useRef<HTMLDivElement>(null)
   const setOneRef = useRef<HTMLDivElement>(null)
@@ -82,70 +97,73 @@ const DemoShowcase: React.FC = () => {
   const exactScrollLeft = useRef(0)
 
   useEffect(() => {
-    let animationId: number;
-    let manualScrollTimeout: ReturnType<typeof setTimeout>;
-    let isManualScrolling = false;
-    let lastTime = performance.now();
+    let animationId: number
+    let manualScrollTimeout: ReturnType<typeof setTimeout>
+    let isManualScrolling = false
+    let lastTime = performance.now()
 
     // Detect manual scrolling so we don't fight it
     const handleScroll = () => {
       if (carouselRef.current) {
         // Keep our exact tracker in sync with manual scrolling!
-        exactScrollLeft.current = carouselRef.current.scrollLeft;
+        exactScrollLeft.current = carouselRef.current.scrollLeft
       }
-      isManualScrolling = true;
-      clearTimeout(manualScrollTimeout);
+      isManualScrolling = true
+      clearTimeout(manualScrollTimeout)
       manualScrollTimeout = setTimeout(() => {
-        isManualScrolling = false;
-        lastTime = performance.now(); // reset delta calculation
-      }, 500); // Resume auto-scroll after 500ms of no scrolling
-    };
+        isManualScrolling = false
+        lastTime = performance.now() // reset delta calculation
+      }, 500) // Resume auto-scroll after 500ms of no scrolling
+    }
 
-    const container = carouselRef.current;
+    const container = carouselRef.current
     if (container) {
-      container.addEventListener('scroll', handleScroll, { passive: true });
+      container.addEventListener('scroll', handleScroll, { passive: true })
     }
 
     const playScroll = (time: number) => {
-      const delta = time - lastTime;
-      lastTime = time;
+      const delta = time - lastTime
+      lastTime = time
 
       if (!isHovered.current && !isManualScrolling && container && setOneRef.current) {
         // Scroll exactly the width of one set + the gap
         // Using a closure variable or memoization would be slightly better, but avoiding layout thrashing in RAF:
-        const cachedWidth = (setOneRef.current as any).cachedWidth || setOneRef.current.offsetWidth;
-        (setOneRef.current as any).cachedWidth = cachedWidth;
-        const setWidth = cachedWidth;
-        const gap = 32; // 2rem
-        const resetPoint = setWidth + gap;
+        const cachedWidth = (setOneRef.current as any).cachedWidth || setOneRef.current.offsetWidth
+        ;(setOneRef.current as any).cachedWidth = cachedWidth
+        const setWidth = cachedWidth
+        const gap = 32 // 2rem
+        const resetPoint = setWidth + gap
 
         // Smooth floating point increment: 30 pixels per second -> ~0.5px per 16ms frame (at 60 FPS)
         // Using delta makes it equally fast regardless of the monitor's refresh rate!
-        exactScrollLeft.current += (30 * delta) / 1000;
+        exactScrollLeft.current += (30 * delta) / 1000
 
         if (exactScrollLeft.current >= resetPoint) {
-          exactScrollLeft.current -= resetPoint;
+          exactScrollLeft.current -= resetPoint
         }
 
-        container.scrollLeft = exactScrollLeft.current;
+        container.scrollLeft = exactScrollLeft.current
       }
-      
-      animationId = requestAnimationFrame(playScroll);
-    };
 
-    animationId = requestAnimationFrame(playScroll);
+      animationId = requestAnimationFrame(playScroll)
+    }
+
+    animationId = requestAnimationFrame(playScroll)
 
     return () => {
-      cancelAnimationFrame(animationId);
-      if (container) container.removeEventListener('scroll', handleScroll);
-      clearTimeout(manualScrollTimeout);
-    };
+      cancelAnimationFrame(animationId)
+      if (container) container.removeEventListener('scroll', handleScroll)
+      clearTimeout(manualScrollTimeout)
+    }
   }, [])
 
   const scroll = (direction: 'left' | 'right') => {
     if (carouselRef.current) {
-      const scrollAmount = 400; // card width + gap
-      carouselRef.current.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
+      const scrollAmount = 400 // card width + gap
+      carouselRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth',
+      })
     }
   }
 
@@ -155,7 +173,9 @@ const DemoShowcase: React.FC = () => {
         <div className="tool-preview guided-preview">
           <div className="preview-hero">
             <div>
-              <p className="preview-eyebrow">{t('guided_learning.tabs.trails', { ns: 'learning' })}</p>
+              <p className="preview-eyebrow">
+                {t('guided_learning.tabs.trails', { ns: 'learning' })}
+              </p>
               <strong>{t('landing.demo.guided_learning.preview.title')}</strong>
             </div>
             <div className="preview-pill">
@@ -235,7 +255,9 @@ const DemoShowcase: React.FC = () => {
               <span className="exams-preview__score">{t('landing.demo.exams.preview.score')}</span>
             </div>
             <div className="exams-preview__actions">
-              <span className="exams-action active">{t('landing.demo.exams.preview.action_plan')}</span>
+              <span className="exams-action active">
+                {t('landing.demo.exams.preview.action_plan')}
+              </span>
               <span className="exams-action">{t('landing.demo.exams.preview.action_quiz')}</span>
               <span className="exams-action">{t('landing.demo.exams.preview.action_judge')}</span>
             </div>
@@ -253,57 +275,63 @@ const DemoShowcase: React.FC = () => {
     if (mockupId === 'reflections') {
       return (
         <div className="tool-preview reflections-preview">
-        <div className="preview-hero">
-          <div>
-            <p className="preview-eyebrow">{t('reflections.tabs.daily', { ns: 'reflections' })}</p>
-            <strong>{t('landing.demo.reflections.preview.title')}</strong>
+          <div className="preview-hero">
+            <div>
+              <p className="preview-eyebrow">
+                {t('reflections.tabs.daily', { ns: 'reflections' })}
+              </p>
+              <strong>{t('landing.demo.reflections.preview.title')}</strong>
+            </div>
+            <div className="preview-pill">
+              <span className="material-symbols-outlined" aria-hidden="true">
+                self_improvement
+              </span>
+              <span>{t('landing.demo.reflections.preview.badge')}</span>
+            </div>
           </div>
-          <div className="preview-pill">
-            <span className="material-symbols-outlined" aria-hidden="true">
-              self_improvement
-            </span>
-            <span>{t('landing.demo.reflections.preview.badge')}</span>
-          </div>
-        </div>
-        <div className="reflections-preview__quote">
-          <span className="material-symbols-outlined" aria-hidden="true">
-            format_quote
-          </span>
-          <p>{t('landing.demo.reflections.preview.quote')}</p>
-          <strong>{t('landing.demo.reflections.preview.author')}</strong>
-        </div>
-        <div className="mockup-tag-row">
-          <span className="mockup-tag">{t('reflections.tabs.daily', { ns: 'reflections' })}</span>
-          <span className="mockup-tag">{t('reflections.tabs.explore', { ns: 'reflections' })}</span>
-          <span className="mockup-tag">{t('reflections.tabs.breathing', { ns: 'reflections' })}</span>
-        </div>
-        <div className="reflections-preview__actions">
-          <div className="preview-action">
+          <div className="reflections-preview__quote">
             <span className="material-symbols-outlined" aria-hidden="true">
               format_quote
             </span>
-            <span>{t('landing.demo.reflections.preview.action_reflect')}</span>
+            <p>{t('landing.demo.reflections.preview.quote')}</p>
+            <strong>{t('landing.demo.reflections.preview.author')}</strong>
           </div>
-          <div className="preview-action">
-            <span className="material-symbols-outlined" aria-hidden="true">
-              air
+          <div className="mockup-tag-row">
+            <span className="mockup-tag">{t('reflections.tabs.daily', { ns: 'reflections' })}</span>
+            <span className="mockup-tag">
+              {t('reflections.tabs.explore', { ns: 'reflections' })}
             </span>
-            <span>{t('landing.demo.reflections.preview.action_breathe')}</span>
+            <span className="mockup-tag">
+              {t('reflections.tabs.breathing', { ns: 'reflections' })}
+            </span>
           </div>
-          <div className="preview-action">
+          <div className="reflections-preview__actions">
+            <div className="preview-action">
+              <span className="material-symbols-outlined" aria-hidden="true">
+                format_quote
+              </span>
+              <span>{t('landing.demo.reflections.preview.action_reflect')}</span>
+            </div>
+            <div className="preview-action">
+              <span className="material-symbols-outlined" aria-hidden="true">
+                air
+              </span>
+              <span>{t('landing.demo.reflections.preview.action_breathe')}</span>
+            </div>
+            <div className="preview-action">
+              <span className="material-symbols-outlined" aria-hidden="true">
+                explore
+              </span>
+              <span>{t('landing.demo.reflections.preview.action_explore')}</span>
+            </div>
+          </div>
+          <div className="guided-preview__footer">
             <span className="material-symbols-outlined" aria-hidden="true">
-              explore
+              auto_awesome
             </span>
-            <span>{t('landing.demo.reflections.preview.action_explore')}</span>
+            <span>{t('landing.demo.reflections.preview.footer')}</span>
           </div>
         </div>
-        <div className="guided-preview__footer">
-          <span className="material-symbols-outlined" aria-hidden="true">
-            auto_awesome
-          </span>
-          <span>{t('landing.demo.reflections.preview.footer')}</span>
-        </div>
-      </div>
       )
     }
 
@@ -316,7 +344,9 @@ const DemoShowcase: React.FC = () => {
               <strong>{t('landing.demo.mood_tracker.preview.title')}</strong>
             </div>
             <div className="preview-pill">
-              <span className="material-symbols-outlined" aria-hidden="true">mood</span>
+              <span className="material-symbols-outlined" aria-hidden="true">
+                mood
+              </span>
               <span>{t('landing.demo.mood_tracker.preview.badge')}</span>
             </div>
           </div>
@@ -338,7 +368,9 @@ const DemoShowcase: React.FC = () => {
             </div>
           </div>
           <div className="guided-preview__footer">
-            <span className="material-symbols-outlined" aria-hidden="true">analytics</span>
+            <span className="material-symbols-outlined" aria-hidden="true">
+              analytics
+            </span>
             <span>{t('landing.demo.mood_tracker.preview.footer')}</span>
           </div>
         </div>
@@ -354,20 +386,26 @@ const DemoShowcase: React.FC = () => {
               <strong>{t('landing.demo.pomodoro.preview.title')}</strong>
             </div>
             <div className="preview-pill preview-pill--soft">
-              <span className="material-symbols-outlined" aria-hidden="true">timer</span>
+              <span className="material-symbols-outlined" aria-hidden="true">
+                timer
+              </span>
               <span>{t('landing.demo.pomodoro.preview.badge')}</span>
             </div>
           </div>
           <div className="pomodoro-preview__circle">
             <div className="pomodoro-preview__time">{t('landing.demo.pomodoro.preview.time')}</div>
-            <div className="pomodoro-preview__type">{t('landing.demo.pomodoro.preview.session_type')}</div>
+            <div className="pomodoro-preview__type">
+              {t('landing.demo.pomodoro.preview.session_type')}
+            </div>
           </div>
           <div className="pomodoro-preview__action">
             <span className="material-symbols-outlined">play_arrow</span>
             <span>{t('landing.demo.pomodoro.preview.action_start')}</span>
           </div>
           <div className="guided-preview__footer">
-            <span className="material-symbols-outlined" aria-hidden="true">schedule</span>
+            <span className="material-symbols-outlined" aria-hidden="true">
+              schedule
+            </span>
             <span>{t('landing.demo.pomodoro.preview.footer')}</span>
           </div>
         </div>
@@ -383,7 +421,9 @@ const DemoShowcase: React.FC = () => {
               <strong>{t('landing.demo.soundscapes.preview.title')}</strong>
             </div>
             <div className="preview-pill">
-              <span className="material-symbols-outlined" aria-hidden="true">headphones</span>
+              <span className="material-symbols-outlined" aria-hidden="true">
+                headphones
+              </span>
               <span>{t('landing.demo.soundscapes.preview.badge')}</span>
             </div>
           </div>
@@ -397,11 +437,17 @@ const DemoShowcase: React.FC = () => {
             </div>
           </div>
           <div className="soundscapes-preview__bars">
-            <div className="bar"></div><div className="bar"></div><div className="bar"></div>
-            <div className="bar"></div><div className="bar"></div><div className="bar"></div>
+            <div className="bar"></div>
+            <div className="bar"></div>
+            <div className="bar"></div>
+            <div className="bar"></div>
+            <div className="bar"></div>
+            <div className="bar"></div>
           </div>
           <div className="guided-preview__footer">
-            <span className="material-symbols-outlined" aria-hidden="true">graphic_eq</span>
+            <span className="material-symbols-outlined" aria-hidden="true">
+              graphic_eq
+            </span>
             <span>{t('landing.demo.soundscapes.preview.footer')}</span>
           </div>
         </div>
@@ -416,7 +462,9 @@ const DemoShowcase: React.FC = () => {
             <strong>{t('landing.demo.study_stats.preview.title')}</strong>
           </div>
           <div className="preview-pill preview-pill--soft">
-            <span className="material-symbols-outlined" aria-hidden="true">insights</span>
+            <span className="material-symbols-outlined" aria-hidden="true">
+              insights
+            </span>
             <span>{t('landing.demo.study_stats.preview.badge')}</span>
           </div>
         </div>
@@ -433,18 +481,21 @@ const DemoShowcase: React.FC = () => {
         <div className="stats-preview__chart">
           <p>{t('landing.demo.study_stats.preview.chart_label')}</p>
           <div className="chart-bars">
-            <div className="c-bar h-40"></div><div className="c-bar h-70"></div>
-            <div className="c-bar h-100"></div><div className="c-bar h-30"></div>
+            <div className="c-bar h-40"></div>
+            <div className="c-bar h-70"></div>
+            <div className="c-bar h-100"></div>
+            <div className="c-bar h-30"></div>
             <div className="c-bar h-80"></div>
           </div>
         </div>
         <div className="guided-preview__footer">
-          <span className="material-symbols-outlined" aria-hidden="true">trending_up</span>
+          <span className="material-symbols-outlined" aria-hidden="true">
+            trending_up
+          </span>
           <span>{t('landing.demo.study_stats.preview.footer')}</span>
         </div>
       </div>
     )
-
   }
 
   return (
@@ -461,103 +512,113 @@ const DemoShowcase: React.FC = () => {
         </m.div>
 
         <div className="mockups-carousel-wrapper">
-          <button className="carousel-control prev" onClick={() => scroll('left')} aria-label="Previous">
+          <button
+            className="carousel-control prev"
+            onClick={() => scroll('left')}
+            aria-label="Previous"
+          >
             <span className="material-symbols-outlined">chevron_left</span>
           </button>
-          <div 
-            className="mockups-carousel-container" 
+          <div
+            className="mockups-carousel-container"
             ref={carouselRef}
             onMouseEnter={() => (isHovered.current = true)}
             onMouseLeave={() => (isHovered.current = false)}
             onTouchStart={() => (isHovered.current = true)}
             onTouchEnd={() => (isHovered.current = false)}
           >
-          <div className="mockups-grid mockups-track">
-            {/* First Set */}
-            <div className="mockups-set" ref={setOneRef}>
-              {mockups.map((mockup, index) => (
-                <div
-                  key={`${mockup.id}-1`}
-                  className="mockup-card"
-              >
-                <div className="mockup-header">
-                  <div className="mockup-icon-wrapper">
-                    <span className="material-symbols-outlined">{mockup.icon}</span>
-                  </div>
-                  <h3>{mockup.title}</h3>
-                </div>
-
-                <div className="mockup-preview">
-                  <div className="preview-window">
-                    <div className="window-header">
-                      <div className="window-dots">
-                        <div className="dot red"></div>
-                        <div className="dot yellow"></div>
-                        <div className="dot green"></div>
+            <div className="mockups-grid mockups-track">
+              {/* First Set */}
+              <div className="mockups-set" ref={setOneRef}>
+                {mockups.map((mockup, index) => (
+                  <div key={`${mockup.id}-1`} className="mockup-card">
+                    <div className="mockup-header">
+                      <div className="mockup-icon-wrapper">
+                        <span className="material-symbols-outlined">{mockup.icon}</span>
                       </div>
-                      <div className="window-title">{mockup.title}</div>
+                      <h3>{mockup.title}</h3>
                     </div>
-                    <div className="window-content">{renderPreview(mockup.id)}</div>
-                  </div>
-                </div>
 
-                <p className="mockup-description">{mockup.description}</p>
-
-                <ul className="mockup-features">
-                  {mockup.features.map((feature, featureIndex) => (
-                    <li key={featureIndex}>
-                      <span className="material-symbols-outlined check-icon">check_circle</span>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                </div>
-              ))}
-            </div>
-            {/* Second Set */}
-            <div className="mockups-set">
-              {mockups.map((mockup, index) => (
-                <div
-                  key={`${mockup.id}-2`}
-                  className="mockup-card"
-                >
-                  <div className="mockup-header">
-                    <div className="mockup-icon-wrapper">
-                      <span className="material-symbols-outlined">{mockup.icon}</span>
-                    </div>
-                    <h3>{mockup.title}</h3>
-                  </div>
-
-                  <div className="mockup-preview">
-                    <div className="preview-window">
-                      <div className="window-header">
-                        <div className="window-dots">
-                          <div className="dot red"></div>
-                          <div className="dot yellow"></div>
-                          <div className="dot green"></div>
+                    <div className="mockup-preview">
+                      <div className="preview-window">
+                        <div className="window-header">
+                          <div className="window-dots">
+                            <div className="dot red"></div>
+                            <div className="dot yellow"></div>
+                            <div className="dot green"></div>
+                          </div>
+                          <div className="window-title">{mockup.title}</div>
                         </div>
-                        <div className="window-title">{mockup.title}</div>
+                        <div className="window-content">{renderPreview(mockup.id)}</div>
                       </div>
-                      <div className="window-content">{renderPreview(mockup.id)}</div>
                     </div>
+
+                    <p className="mockup-description">{mockup.description}</p>
+
+                    <ul className="mockup-features">
+                      {Array.isArray(mockup.features)
+                        ? mockup.features.map((feature, featureIndex) => (
+                            <li key={featureIndex}>
+                              <span className="material-symbols-outlined check-icon">
+                                check_circle
+                              </span>
+                              {feature}
+                            </li>
+                          ))
+                        : null}
+                    </ul>
                   </div>
+                ))}
+              </div>
+              {/* Second Set */}
+              <div className="mockups-set">
+                {mockups.map((mockup, index) => (
+                  <div key={`${mockup.id}-2`} className="mockup-card">
+                    <div className="mockup-header">
+                      <div className="mockup-icon-wrapper">
+                        <span className="material-symbols-outlined">{mockup.icon}</span>
+                      </div>
+                      <h3>{mockup.title}</h3>
+                    </div>
 
-                  <p className="mockup-description">{mockup.description}</p>
+                    <div className="mockup-preview">
+                      <div className="preview-window">
+                        <div className="window-header">
+                          <div className="window-dots">
+                            <div className="dot red"></div>
+                            <div className="dot yellow"></div>
+                            <div className="dot green"></div>
+                          </div>
+                          <div className="window-title">{mockup.title}</div>
+                        </div>
+                        <div className="window-content">{renderPreview(mockup.id)}</div>
+                      </div>
+                    </div>
 
-                  <ul className="mockup-features">
-                    {mockup.features.map((feature, featureIndex) => (
-                      <li key={featureIndex}>
-                        <span className="material-symbols-outlined check-icon">check_circle</span>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+                    <p className="mockup-description">{mockup.description}</p>
+
+                    <ul className="mockup-features">
+                      {Array.isArray(mockup.features)
+                        ? mockup.features.map((feature, featureIndex) => (
+                            <li key={featureIndex}>
+                              <span className="material-symbols-outlined check-icon">
+                                check_circle
+                              </span>
+                              {feature}
+                            </li>
+                          ))
+                        : null}
+                    </ul>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-          </div>
-          <button className="carousel-control next" onClick={() => scroll('right')} aria-label="Next">
+          <button
+            className="carousel-control next"
+            onClick={() => scroll('right')}
+            aria-label="Next"
+          >
             <span className="material-symbols-outlined">chevron_right</span>
           </button>
         </div>

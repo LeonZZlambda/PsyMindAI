@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import '../styles/roadmap.css'
 import Footer from '@/components/layout/Footer'
 import ScrollToTopButton from '@/components/ui/ScrollToTopButton'
@@ -68,7 +68,7 @@ const RoadmapPage: React.FC = () => {
   }
 
   return (
-    <motion.div 
+    <m.div 
       className="landing-page roadmap-page"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -92,7 +92,7 @@ const RoadmapPage: React.FC = () => {
               const milestones = techMilestones[index]
 
               return (
-                <motion.div 
+                <m.div 
                   key={index}
                   className={`roadmap-card-container ${phase.status} ${index % 2 === 0 ? 'left-align' : 'right-align'}`}
                   initial={{ opacity: 0, y: 15 }}
@@ -128,7 +128,7 @@ const RoadmapPage: React.FC = () => {
 
                     <AnimatePresence initial={false}>
                       {isExpanded && (
-                        <motion.div
+                        <m.div
                           className="card-expanded-content"
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: 'auto', opacity: 1 }}
@@ -162,11 +162,11 @@ const RoadmapPage: React.FC = () => {
                               </div>
                             )}
                           </div>
-                        </motion.div>
+                        </m.div>
                       )}
                     </AnimatePresence>
                   </div>
-                </motion.div>
+                </m.div>
               )
             })}
           </div>
@@ -175,7 +175,7 @@ const RoadmapPage: React.FC = () => {
 
       <Footer />
       <ScrollToTopButton />
-    </motion.div>
+    </m.div>
   )
 }
 

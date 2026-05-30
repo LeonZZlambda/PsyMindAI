@@ -9,6 +9,43 @@ import ptTranslation from './locales/pt/translation.json'
 import enLanding from './locales/en/landing.json'
 import enTranslation from './locales/en/translation.json'
 
+const fallbackLanguage = 'pt'
+const localeLoaders = import.meta.glob('./locales/*/*.json')
+
+const bundledResources = {
+  pt: {
+    landing: ptLanding,
+    translation: ptTranslation,
+  },
+  en: {
+    landing: enLanding,
+    translation: enTranslation,
+  },
+}
+
+const getLanguageCandidates = (language) => {
+  const normalizedLanguage = language || fallbackLanguage
+  const baseLanguage = normalizedLanguage.split('-')[0]
+
+  return [...new Set([normalizedLanguage, baseLanguage, fallbackLanguage])]
+}
+
+const loadNamespaceResource = async (language, namespace) => {
+  for (const candidateLanguage of getLanguageCandidates(language)) {
+    const bundledResource = bundledResources[candidateLanguage]?.[namespace]
+    if (bundledResource) return bundledResource
+
+    const resourcePath = `./locales/${candidateLanguage}/${namespace}.json`
+    const loadResource = localeLoaders[resourcePath]
+    if (loadResource) {
+      const resource = await loadResource()
+      return resource.default ?? resource
+    }
+  }
+
+  return {}
+}
+
 
 /**
  * i18n Configuration — Senior Architecture
@@ -26,22 +63,13 @@ i18n
   .use(initReactI18next)
   .use(
     resourcesToBackend((language, namespace) => {
-      return import(`./locales/${language}/${namespace}.json`)
+      return loadNamespaceResource(language, namespace)
     }),
   )
   .init({
     // Preload critical local resources immediately so Suspense is skipped for Portuguese
     partialBundledLanguages: true,
-    resources: {
-      pt: {
-        landing: ptLanding,
-        translation: ptTranslation
-      },
-      en: {
-        landing: enLanding,
-        translation: enTranslation
-      }
-    },
+    resources: bundledResources,
     // Namespaces to load eagerly on startup
     ns: [
       'translation',
@@ -59,7 +87,7 @@ i18n
     ],
     defaultNS: 'translation',
     fallbackNS: ['translation', 'schedule'],
-    fallbackLng: 'pt',
+    fallbackLng: fallbackLanguage,
     supportedLngs: ['pt', 'en', 'es', 'fr', 'de', 'it', 'ja', 'ko', 'zh', 'zh-TW', 'ru', 'ar', 'fa', 'ur', 'hi', 'la'],
     interpolation: {
       escapeValue: false,
