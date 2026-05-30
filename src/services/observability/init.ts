@@ -26,8 +26,6 @@ export function initObservability() {
         autocapture: true, // Tracks forms, clicks, and pageviews automatically
         capture_pageview: false, // If managed by React Router later
       })
-    } else {
-      console.warn('[Observability] VITE_POSTHOG_KEY is missing. PostHog will not be initialized.')
     }
   }
 }
@@ -41,8 +39,6 @@ if (import.meta.env.VITE_LANGFUSE_PUBLIC_KEY && import.meta.env.VITE_LANGFUSE_SE
     secretKey: import.meta.env.VITE_LANGFUSE_SECRET_KEY,
     baseUrl: import.meta.env.VITE_LANGFUSE_BASE_URL || 'https://cloud.langfuse.com',
   })
-} else {
-  console.warn('[Observability] VITE_LANGFUSE keys are missing. Langfuse will not be initialized.')
 }
 
 export const getLangfuse = () => langfuseClient
