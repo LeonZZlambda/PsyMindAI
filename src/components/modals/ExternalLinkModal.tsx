@@ -60,7 +60,7 @@ const ExternalLinkModal: React.FC<ExternalLinkModalProps> = ({
           {t('common.cancel', { defaultValue: 'Cancel' })}
         </button>
         <button 
-          className="primary-btn external-proceed-btn" 
+          className="primary-btn filled external-proceed-btn" 
           onClick={onProceed}
         >
           {t('common.continue', { defaultValue: 'Continue' })}
