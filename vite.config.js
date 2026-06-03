@@ -89,12 +89,9 @@ export default defineConfig({
   },
   server: {
     headers: {
-      'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
       'X-Frame-Options': 'DENY',
       'X-Content-Type-Options': 'nosniff',
       'Referrer-Policy': 'strict-origin-when-cross-origin',
-      'Cross-Origin-Opener-Policy': 'same-origin',
-      'Cross-Origin-Embedder-Policy': 'credentialless',
       // CSP will be set by the cspNonce plugin
     },
   },

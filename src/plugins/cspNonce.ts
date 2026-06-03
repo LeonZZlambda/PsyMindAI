@@ -17,7 +17,7 @@ export function cspNonce(): Plugin {
       server.middlewares.use((req, res, next) => {
         res.setHeader(
           'Content-Security-Policy',
-          `base-uri 'self'; upgrade-insecure-requests; default-src 'self'; script-src 'self' 'unsafe-inline' 'nonce-${devNonce}'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://generativelanguage.googleapis.com https://fonts.googleapis.com https://fonts.gstatic.com; frame-ancestors 'none'; require-trusted-types-for 'script'; trusted-types default goog#html vue dompurify 'allow-duplicates';`,
+          `base-uri 'self'; default-src 'self'; script-src 'self' 'unsafe-inline' 'nonce-${devNonce}'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: http:; connect-src 'self' https://generativelanguage.googleapis.com https://fonts.googleapis.com https://fonts.gstatic.com ws: wss:; frame-ancestors 'none'; require-trusted-types-for 'script'; trusted-types default goog#html vue dompurify 'allow-duplicates';`,
         )
         next()
       })
@@ -37,7 +37,7 @@ export function cspNonce(): Plugin {
       server.middlewares.use((req, res, next) => {
         res.setHeader(
           'Content-Security-Policy',
-          `base-uri 'self'; upgrade-insecure-requests; default-src 'self'; script-src 'self' 'unsafe-inline' 'nonce-${productionNonce}'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://generativelanguage.googleapis.com https://fonts.googleapis.com https://fonts.gstatic.com; frame-ancestors 'none'; require-trusted-types-for 'script'; trusted-types default goog#html vue dompurify 'allow-duplicates';`,
+          `base-uri 'self'; default-src 'self'; script-src 'self' 'unsafe-inline' 'nonce-${productionNonce}'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: http:; connect-src 'self' https://generativelanguage.googleapis.com https://fonts.googleapis.com https://fonts.gstatic.com ws: wss:; frame-ancestors 'none'; require-trusted-types-for 'script'; trusted-types default goog#html vue dompurify 'allow-duplicates';`,
         )
         next()
       })
@@ -74,7 +74,9 @@ export function cspNonce(): Plugin {
       }
 
       // Use unsafe-inline for styles in all modes to handle Vite's dynamic injection
-      const cspContent = `base-uri 'self'; upgrade-insecure-requests; default-src 'self'; script-src 'self' 'unsafe-inline' 'nonce-${nonce}'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://generativelanguage.googleapis.com https://fonts.googleapis.com https://fonts.gstatic.com; require-trusted-types-for 'script'; trusted-types default goog#html vue dompurify 'allow-duplicates';`
+      const cspContent = isDevelopment
+        ? `base-uri 'self'; default-src 'self'; script-src 'self' 'unsafe-inline' 'nonce-${nonce}'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: http:; connect-src 'self' https://generativelanguage.googleapis.com https://fonts.googleapis.com https://fonts.gstatic.com ws: wss:; require-trusted-types-for 'script'; trusted-types default goog#html vue dompurify 'allow-duplicates';`
+        : `base-uri 'self'; upgrade-insecure-requests; default-src 'self'; script-src 'self' 'unsafe-inline' 'nonce-${nonce}'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://generativelanguage.googleapis.com https://fonts.googleapis.com https://fonts.gstatic.com; require-trusted-types-for 'script'; trusted-types default goog#html vue dompurify 'allow-duplicates';`
 
       // Replace the CSP meta tag
       html = html.replace(

@@ -6,20 +6,29 @@ import { useChat } from '../../hooks/context/useChat'
 import { Telemetry } from '../../services/analytics/telemetry'
 
 interface SidebarProps {
-  isOpen: boolean;
-  toggleSidebar: () => void;
-  onNewChat: () => void;
-  onAnonymousChat: () => void;
-  onChatSelect: () => void;
-  isNewChatAnimating: boolean;
-  onOpenSettings: () => void;
-  onOpenHelp: (tab?: string) => void;
+  isOpen: boolean
+  toggleSidebar: () => void
+  onNewChat: () => void
+  onAnonymousChat: () => void
+  onChatSelect: () => void
+  isNewChatAnimating: boolean
+  onOpenSettings: () => void
+  onOpenHelp: (tab?: string) => void
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, onNewChat, onAnonymousChat, onChatSelect, isNewChatAnimating, onOpenSettings, onOpenHelp }) => {
+const Sidebar: React.FC<SidebarProps> = ({
+  isOpen,
+  toggleSidebar,
+  onNewChat,
+  onAnonymousChat,
+  onChatSelect,
+  isNewChatAnimating,
+  onOpenSettings,
+  onOpenHelp,
+}) => {
   const { loadChat, chats = [], currentChatId, deleteChat } = useChat()
   const { t } = useTranslation()
-  
+
   const isMac = typeof navigator !== 'undefined' && /Mac|iPod|iPhone|iPad/.test(navigator.platform)
   const cmdKey = isMac ? '⌘' : 'Ctrl'
   const shiftKey = isMac ? '⇧' : 'Shift'
@@ -28,13 +37,13 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, onNewChat, onA
     loadChat(chatId)
     if (onChatSelect) onChatSelect()
   }
-  
+
   const handleDeleteChat = (e: React.MouseEvent, chatId: string) => {
     e.stopPropagation()
     deleteChat(chatId)
     toast.success(t('sidebar.chat_deleted'))
   }
-  
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
     const now = new Date()
@@ -42,25 +51,25 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, onNewChat, onA
     const diffMins = Math.floor(diffMs / 60000)
     const diffHours = Math.floor(diffMs / 3600000)
     const diffDays = Math.floor(diffMs / 86400000)
-    
+
     if (diffMins < 1) return t('sidebar.time.now')
     if (diffMins < 60) return t('sidebar.time.minutes_ago', { count: diffMins })
     if (diffHours < 24) return t('sidebar.time.hours_ago', { count: diffHours })
     if (diffDays === 1) return t('sidebar.time.yesterday')
     if (diffDays < 7) return t('sidebar.time.days_ago', { count: diffDays })
-    
-    return t('sidebar.time.date', { 
-      day: date.getDate().toString().padStart(2, '0'), 
-      month: (date.getMonth() + 1).toString().padStart(2, '0') 
+
+    return t('sidebar.time.date', {
+      day: date.getDate().toString().padStart(2, '0'),
+      month: (date.getMonth() + 1).toString().padStart(2, '0'),
     })
   }
 
   return (
     <aside className={`sidebar ${!isOpen ? 'closed' : ''}`} aria-label={t('sidebar.menu_aria')}>
       <div className="sidebar-header">
-        <button 
-          className="menu-btn" 
-          onClick={toggleSidebar} 
+        <button
+          className="menu-btn"
+          onClick={toggleSidebar}
           title={t('sidebar.close_menu')}
           aria-label={t('sidebar.close_menu')}
         >
@@ -68,9 +77,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, onNewChat, onA
         </button>
       </div>
       <div style={{ padding: '0 12px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-        <button 
+        <button
           className={`new-chat-btn ${isNewChatAnimating ? 'active' : ''}`}
-          onClick={onNewChat} 
+          onClick={onNewChat}
           title={`${t('sidebar.new_chat')} (${cmdKey} + ${shiftKey} + O)`}
           aria-label={t('sidebar.new_chat')}
         >
@@ -85,9 +94,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, onNewChat, onA
           )}
         </button>
 
-        <button 
+        <button
           className="new-chat-btn secondary anonymous-btn"
-          onClick={onAnonymousChat} 
+          onClick={onAnonymousChat}
           title={t('sidebar.anonymous_tooltip')}
           aria-label={t('sidebar.anonymous_chat')}
         >
@@ -95,10 +104,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, onNewChat, onA
           <span>{t('sidebar.anonymous_chat')}</span>
         </button>
       </div>
-      
+
       <div className="recent-chats" role="group" aria-label={t('sidebar.recent_label')}>
         {chats.length > 0 && <span className="recent-label">{t('sidebar.recent_label')}</span>}
-        {chats.map(chat => (
+        {chats.map((chat) => (
           <div
             key={chat.id}
             className={`recent-item ${currentChatId === chat.id ? 'active' : ''}`}
@@ -125,10 +134,13 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, onNewChat, onA
       </div>
 
       <div className="sidebar-footer">
-        <button 
-          className="sidebar-item" 
+        <button
+          className="sidebar-item"
           title={`${t('sidebar.help')} (${cmdKey} + /)`}
-          onClick={() => { Telemetry.trackFeature('help', 'opened'); onOpenHelp('faq'); }}
+          onClick={() => {
+            Telemetry.trackFeature('help', 'opened')
+            onOpenHelp('faq')
+          }}
           aria-label={t('sidebar.help')}
         >
           <span className="material-symbols-outlined">help</span>
@@ -140,10 +152,13 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, onNewChat, onA
             </div>
           )}
         </button>
-        <button 
-          className="sidebar-item" 
+        <button
+          className="sidebar-item"
           title={`${t('sidebar.settings')} (${cmdKey} + ,)`}
-          onClick={() => { Telemetry.trackFeature('settings', 'opened'); onOpenSettings(); }}
+          onClick={() => {
+            Telemetry.trackFeature('settings', 'opened')
+            onOpenSettings()
+          }}
           aria-label={t('sidebar.settings')}
         >
           <span className="material-symbols-outlined">settings</span>

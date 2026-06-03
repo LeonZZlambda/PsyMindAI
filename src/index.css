@@ -28,7 +28,8 @@ button {
   -webkit-user-select: none;
 }
 
-input, textarea {
+input,
+textarea {
   font-family: inherit;
   unicode-bidi: plaintext;
   text-align: start;
@@ -97,7 +98,8 @@ small {
   letter-spacing: var(--ls-body-s);
 }
 
-label, .label-text {
+label,
+.label-text {
   font-size: var(--ts-label-l);
   line-height: var(--lh-label-l);
   font-weight: var(--fw-label-l);
@@ -128,7 +130,9 @@ kbd {
   font-size: 0.75rem;
   font-weight: 700;
   color: var(--text-color);
-  box-shadow: 0 2px 0 var(--border-color), 0 3px 6px rgba(0,0,0,0.05);
+  box-shadow:
+    0 2px 0 var(--border-color),
+    0 3px 6px rgba(0, 0, 0, 0.05);
   text-transform: uppercase;
   transition: all 0.2s var(--md-sys-motion-easing-standard);
   margin: 0 2px;
@@ -143,7 +147,9 @@ kbd.wide {
 
 .app.dark kbd {
   background-color: var(--surface-container-low);
-  box-shadow: 0 2px 0 rgba(0,0,0,0.3), 0 3px 6px rgba(0,0,0,0.2);
+  box-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.3),
+    0 3px 6px rgba(0, 0, 0, 0.2);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -159,11 +165,11 @@ kbd.wide {
 }
 
 /* Force inherit border-radius for focus outlines where possible */
-button:focus-visible, 
-input:focus-visible, 
-textarea:focus-visible, 
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
 a:focus-visible,
-[role="button"]:focus-visible {
+[role='button']:focus-visible {
   border-radius: inherit;
 }
 
@@ -201,15 +207,25 @@ a:focus-visible,
 
 /* Hide keyboard shortcuts on touch devices */
 @media (hover: none) and (pointer: coarse), (max-width: 768px) {
-  .shortcut-keys { 
-    display: none !important; 
+  .shortcut-keys {
+    display: none !important;
   }
 }
-
 
 /* Align shortcuts to the right in sidebar context */
 .sidebar .shortcut-keys {
   margin-inline-start: auto;
+  flex-shrink: 0;
+  gap: 0.25rem;
+}
+
+.sidebar .shortcut-keys kbd {
+  min-width: 20px;
+  height: 20px;
+  padding: 0 4px;
+  font-size: 0.6rem;
+  margin: 0;
+  border-radius: 4px;
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -217,33 +233,65 @@ a:focus-visible,
    ═══════════════════════════════════════════════════════════════ */
 
 /* Spacing */
-.ps-1 { padding-inline-start: var(--spacing-inline-xs); }
-.ps-2 { padding-inline-start: var(--spacing-inline-sm); }
-.ps-3 { padding-inline-start: var(--spacing-inline-md); }
+.ps-1 {
+  padding-inline-start: var(--spacing-inline-xs);
+}
+.ps-2 {
+  padding-inline-start: var(--spacing-inline-sm);
+}
+.ps-3 {
+  padding-inline-start: var(--spacing-inline-md);
+}
 
-.pe-1 { padding-inline-end: var(--spacing-inline-xs); }
-.pe-2 { padding-inline-end: var(--spacing-inline-sm); }
-.pe-3 { padding-inline-end: var(--spacing-inline-md); }
+.pe-1 {
+  padding-inline-end: var(--spacing-inline-xs);
+}
+.pe-2 {
+  padding-inline-end: var(--spacing-inline-sm);
+}
+.pe-3 {
+  padding-inline-end: var(--spacing-inline-md);
+}
 
-.ms-1 { margin-inline-start: var(--spacing-inline-xs); }
-.ms-2 { margin-inline-start: var(--spacing-inline-sm); }
-.ms-3 { margin-inline-start: var(--spacing-inline-md); }
+.ms-1 {
+  margin-inline-start: var(--spacing-inline-xs);
+}
+.ms-2 {
+  margin-inline-start: var(--spacing-inline-sm);
+}
+.ms-3 {
+  margin-inline-start: var(--spacing-inline-md);
+}
 
-.me-1 { margin-inline-end: var(--spacing-inline-xs); }
-.me-2 { margin-inline-end: var(--spacing-inline-sm); }
-.me-3 { margin-inline-end: var(--spacing-inline-md); }
+.me-1 {
+  margin-inline-end: var(--spacing-inline-xs);
+}
+.me-2 {
+  margin-inline-end: var(--spacing-inline-sm);
+}
+.me-3 {
+  margin-inline-end: var(--spacing-inline-md);
+}
 
 /* Positioning */
-.start-0 { inset-inline-start: 0; }
-.end-0 { inset-inline-end: 0; }
+.start-0 {
+  inset-inline-start: 0;
+}
+.end-0 {
+  inset-inline-end: 0;
+}
 
 /* Flex/Grid Alignment */
-.text-start { text-align: start; }
-.text-end { text-align: end; }
+.text-start {
+  text-align: start;
+}
+.text-end {
+  text-align: end;
+}
 
 /* Icon Mirroring */
-[dir="rtl"] .icon-rtl-flip,
-[dir="rtl"] [data-direction="forward"],
-[dir="rtl"] [data-direction="back"] {
+[dir='rtl'] .icon-rtl-flip,
+[dir='rtl'] [data-direction='forward'],
+[dir='rtl'] [data-direction='back'] {
   transform: scaleX(-1);
 }
