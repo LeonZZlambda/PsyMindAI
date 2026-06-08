@@ -129,6 +129,7 @@ export default defineConfig({
             dep.includes('genai-vendor') ||
             dep.includes('sonner-vendor') ||
             dep.includes('motion-vendor') ||
+            dep.includes('i18n-vendor') ||
             dep.includes('ui-vendor')
           ) {
             return false
@@ -153,19 +154,25 @@ export default defineConfig({
       output: {
         // Preload critical chunks for better FCP/LCP
         manualChunks(id) {
-          // Core React ecosystem — largest chunk, loaded first
+          // Core React ecosystem — smallest possible critical chunk
           if (
             id.includes('node_modules/react/') ||
             id.includes('node_modules/react-dom/') ||
             id.includes('node_modules/react-router-dom/') ||
             id.includes('node_modules/react-router/') ||
             id.includes('node_modules/react-error-boundary/') ||
-            id.includes('node_modules/scheduler/') ||
+            id.includes('node_modules/scheduler/')
+          ) {
+            return 'core-vendor'
+          }
+
+          // i18n — loaded async after React, not needed for first paint
+          if (
             id.includes('node_modules/i18next/') ||
             id.includes('node_modules/react-i18next/') ||
             id.includes('node_modules/i18next-browser-languagedetector/')
           ) {
-            return 'core-vendor'
+            return 'i18n-vendor'
           }
 
           // Heavy dynamic libraries - move to dedicated chunks

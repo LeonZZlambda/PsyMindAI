@@ -45,15 +45,30 @@
     <script src="/register-sw-safe.js" defer></script>
 
     <!-- Fonts: Non-blocking load — never delays FCP/LCP -->
+    <!-- Step 1: preload with fetchpriority=high so the browser discovers fonts early -->
     <link
       rel="preload"
       as="style"
+      fetchpriority="high"
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"
     />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"
-    />
+    <!-- Step 2: inject as async stylesheet via script — receives nonce from cspNonce plugin -->
+    <script>
+      ;(function () {
+        var l = document.createElement('link')
+        l.rel = 'stylesheet'
+        l.href =
+          'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap'
+        document.head.appendChild(l)
+      })()
+    </script>
+    <!-- Step 3: noscript fallback for users without JS -->
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"
+      />
+    </noscript>
 
     <!-- Critical CSS for first paint - LCP optimization -->
     <style>
@@ -416,6 +431,7 @@
         font-weight: normal;
         font-style: normal;
         font-size: 24px;
+        font-display: swap;
         line-height: 1;
         letter-spacing: normal;
         text-transform: none;
