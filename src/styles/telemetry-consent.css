@@ -1,3 +1,25 @@
+/* ─── Toast-specific keyframes ─────────────────────────────────────────────── */
+/* Defined here to be self-contained and avoid conflicts with global keyframes  */
+@keyframes toastSlideUp {
+  from { transform: translateY(calc(100% + 2rem)); opacity: 0; }
+  to   { transform: translateY(0);                 opacity: 1; }
+}
+
+@keyframes toastSlideDown {
+  from { transform: translateY(0);                 opacity: 1; }
+  to   { transform: translateY(calc(100% + 2rem)); opacity: 0; }
+}
+
+@keyframes bottomSheetSlideUp {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0);    }
+}
+
+@keyframes bottomSheetSlideDown {
+  from { transform: translateY(0);    }
+  to   { transform: translateY(100%); }
+}
+
 /* Telemetry Consent Toast */
 .telemetry-consent-toast {
   position: fixed;
@@ -10,11 +32,11 @@
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
   width: calc(100% - 4rem);
   max-width: 420px;
-  animation: slideUp 0.4s cubic-bezier(0.2, 0, 0, 1) forwards;
+  animation: toastSlideUp 0.4s cubic-bezier(0.2, 0, 0, 1) forwards;
 }
 
 .telemetry-consent-toast.closing {
-  animation: slideDown 0.3s cubic-bezier(0.4, 0, 1, 1) forwards;
+  animation: toastSlideDown 0.3s cubic-bezier(0.4, 0, 1, 1) forwards;
 }
 
 .app.dark .telemetry-consent-toast,

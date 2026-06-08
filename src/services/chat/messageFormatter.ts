@@ -37,6 +37,13 @@ export function formatHistoryForGemini(
   ];
 }
 
+export function generateId(): string {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+  return `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
+}
+
 /**
  * Creates a user message object
  */
@@ -44,7 +51,7 @@ export function createUserMessage(
   text: string,
   files: FileAttachment[] = []
 ): ChatMessage {
-  return { type: 'user', content: text, files };
+  return { id: generateId(), type: 'user', content: text, files };
 }
 
 /**
@@ -55,5 +62,5 @@ export function createAIMessage(
   isStreaming: boolean = false,
   explainability?: ChatMessage['explainability']
 ): ChatMessage {
-  return { type: 'ai', content, isStreaming, explainability };
+  return { id: generateId(), type: 'ai', content, isStreaming, explainability };
 }

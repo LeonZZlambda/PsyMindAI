@@ -21,12 +21,47 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
   const { reducedMotion } = useTheme()
   const [chats, setChats] = useState<Chat[]>([])
   const [chatsLoaded, setChatsLoaded] = useState(false)
+  const [visibleCounts, setVisibleCounts] = useState<Record<string, number>>({})
+
+  const loadMoreMessages = useCallback((chatId: string) => {
+    setVisibleCounts((prev) => ({
+      ...prev,
+      [chatId]: (prev[chatId] ?? 25) + 25,
+    }))
+  }, [])
 
   useEffect(() => {
     loadChats()
       .then((loaded) => {
-        setChats(Array.isArray(loaded) ? loaded : [])
+        const rawChats = Array.isArray(loaded) ? loaded : []
+        let hasChanges = false
+        const chatsWithIds = rawChats.map((chat) => {
+          let chatChanged = false
+          const messagesWithIds = chat.messages.map((msg) => {
+            if (!msg.id) {
+              chatChanged = true
+              hasChanges = true
+              return {
+                ...msg,
+                id: typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
+                  ? crypto.randomUUID()
+                  : `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
+              }
+            }
+            return msg
+          })
+          if (chatChanged) {
+            return { ...chat, messages: messagesWithIds }
+          }
+          return chat
+        })
+
+        setChats(chatsWithIds)
         setChatsLoaded(true)
+
+        if (hasChanges) {
+          saveChats(chatsWithIds.filter((c) => !c.isAnonymous))
+        }
       })
       .catch(() => {
         setChats([])
@@ -64,6 +99,12 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
   const sendMessage = useCallback(
     async (text: string, files: (File | Blob)[] = []): Promise<void> => {
       if (!text.trim() && files.length === 0) return
+
+      const {
+        isConfigured: isGeminiConfigured,
+        sendMessage: sendMessageToGemini,
+        generateTitle: generateChatTitle,
+      } = await import('../services/chat/chatService')
 
       // Normalize File/Blob inputs into FileAttachment shape expected by storage
       const fileAttachments = Array.isArray(files)
@@ -116,12 +157,6 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
       // Try Gemini API first, fallback to demo
       let fullResponse: string
       let explainability: any = undefined
-
-      const {
-        isConfigured: isGeminiConfigured,
-        sendMessage: sendMessageToGemini,
-        generateTitle: generateChatTitle,
-      } = await import('../services/chat/chatService')
 
       if (isGeminiConfigured()) {
         const result = (await sendMessageToGemini(text, messages)) as any
@@ -287,6 +322,11 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
   const deleteChat = useCallback(
     (chatId: string): void => {
       setChats((prev) => prev.filter((c) => c.id !== chatId))
+      setVisibleCounts((prev) => {
+        const next = { ...prev }
+        delete next[chatId]
+        return next
+      })
       if (currentChatId === chatId) {
         setMessages([])
         setCurrentChatId(null)
@@ -321,6 +361,8 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
     stopStreaming,
     isAnonymous,
     startAnonymousChat,
+    visibleCounts,
+    loadMoreMessages,
   }
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>

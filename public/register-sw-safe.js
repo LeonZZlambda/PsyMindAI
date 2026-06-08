@@ -16,7 +16,19 @@
         return;
       }
 
-      const reg = await navigator.serviceWorker.register(swUrl, { scope: '/' });
+      let scriptUrl = swUrl;
+      if (window.trustedTypes && window.trustedTypes.createPolicy) {
+        try {
+          const policy = window.trustedTypes.createPolicy('dompurify', {
+            createScriptURL: function(s) { return s; }
+          });
+          scriptUrl = policy.createScriptURL(swUrl);
+        } catch (e) {
+          console.warn('[SW] Trusted Types policy creation failed, using raw URL:', e);
+        }
+      }
+
+      const reg = await navigator.serviceWorker.register(scriptUrl, { scope: '/' });
       console.info('[SW] registered', reg);
     } catch (err) {
       // Gracefully handle registration failures without leaving uncaught promise rejections

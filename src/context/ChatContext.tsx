@@ -20,6 +20,8 @@ export interface ChatContextValue {
   stopStreaming: () => void;
   isAnonymous: boolean;
   startAnonymousChat: () => void;
+  visibleCounts: Record<string, number>;
+  loadMoreMessages: (chatId: string) => void;
 }
 
 export const ChatContext = createContext<ChatContextValue | undefined>(undefined);

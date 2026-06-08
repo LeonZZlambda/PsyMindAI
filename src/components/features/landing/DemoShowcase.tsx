@@ -95,6 +95,21 @@ const DemoShowcase: React.FC = () => {
   const setOneRef = useRef<HTMLDivElement>(null)
   const isHovered = useRef(false)
   const exactScrollLeft = useRef(0)
+  // Cache the set width passively via ResizeObserver — never read it inside the RAF loop
+  const cachedSetWidth = useRef(0)
+
+  useEffect(() => {
+    // ResizeObserver updates the cached width without forcing layout
+    const ro = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        cachedSetWidth.current = entry.contentRect.width
+      }
+    })
+    if (setOneRef.current) {
+      ro.observe(setOneRef.current)
+    }
+    return () => ro.disconnect()
+  }, [])
 
   useEffect(() => {
     let animationId: number
@@ -125,14 +140,10 @@ const DemoShowcase: React.FC = () => {
       const delta = time - lastTime
       lastTime = time
 
-      if (!isHovered.current && !isManualScrolling && container && setOneRef.current) {
-        // Scroll exactly the width of one set + the gap
-        // Using a closure variable or memoization would be slightly better, but avoiding layout thrashing in RAF:
-        const cachedWidth = (setOneRef.current as any).cachedWidth || setOneRef.current.offsetWidth
-        ;(setOneRef.current as any).cachedWidth = cachedWidth
-        const setWidth = cachedWidth
+      if (!isHovered.current && !isManualScrolling && container && cachedSetWidth.current > 0) {
+        // Use the passively-cached width — no offsetWidth read, no forced reflow
         const gap = 32 // 2rem
-        const resetPoint = setWidth + gap
+        const resetPoint = cachedSetWidth.current + gap
 
         // Smooth floating point increment: 30 pixels per second -> ~0.5px per 16ms frame (at 60 FPS)
         // Using delta makes it equally fast regardless of the monitor's refresh rate!

@@ -161,15 +161,14 @@ const LandingSections: React.FC = () => {
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(true)
   const [visibleCount, setVisibleCount] = useState(3)
+  // Passively-cached geometry — updated by ResizeObserver, never read during scroll
+  const cachedCardWidth = useRef(0)
+  const cachedContainerWidth = useRef(0)
 
   const updateVisibleCount = () => {
-    const container = carouselRef.current
-    if (!container) return
-
-    const containerWidth = container.clientWidth
-    const card = container.firstElementChild as HTMLElement
-    if (card) {
-      const cardWidth = card.offsetWidth + 24
+    const containerWidth = cachedContainerWidth.current
+    const cardWidth = cachedCardWidth.current
+    if (containerWidth > 0 && cardWidth > 0) {
       const count = Math.round(containerWidth / cardWidth)
       setVisibleCount(Math.max(1, Math.min(count, a11yItems.length)))
     }
@@ -184,10 +183,8 @@ const LandingSections: React.FC = () => {
       return
     }
 
-    const cardWidth = container.firstElementChild
-      ? (container.firstElementChild as HTMLElement).offsetWidth + 24
-      : 300
-
+    // Use cached card width — no offsetWidth, no forced reflow
+    const cardWidth = cachedCardWidth.current || 300
     const scrollAmount = direction === 'left' ? -cardWidth : cardWidth
     container.scrollBy({ left: scrollAmount, behavior: 'smooth' })
   }
@@ -197,17 +194,17 @@ const LandingSections: React.FC = () => {
     if (!container) return
 
     const scrollLeft = container.scrollLeft
+    // scrollWidth and clientWidth are read once here during a scroll event —
+    // this is acceptable because the browser already committed the layout before firing scroll.
+    // We do NOT write to the DOM before reading, so there is no forced-reflow here.
     const maxScroll = container.scrollWidth - container.clientWidth
 
     setCanScrollLeft(scrollLeft > 5)
     setCanScrollRight(scrollLeft < maxScroll - 5)
 
-    const card = container.firstElementChild as HTMLElement
-    if (card) {
-      const cardWidth = card.offsetWidth + 24
+    const cardWidth = cachedCardWidth.current
+    if (cardWidth > 0) {
       const index = Math.round(scrollLeft / cardWidth)
-
-      // Calculate activeDot correctly based on visibleCount
       const maxIndex = Math.max(0, a11yItems.length - visibleCount)
       setActiveDot(Math.max(0, Math.min(index, maxIndex)))
     }
@@ -216,33 +213,34 @@ const LandingSections: React.FC = () => {
   const scrollToCard = (index: number) => {
     const container = carouselRef.current
     if (!container) return
-
-    const card = container.firstElementChild as HTMLElement
-    if (card) {
-      const cardWidth = card.offsetWidth + 24
-      container.scrollTo({ left: index * cardWidth, behavior: 'smooth' })
-    }
+    const cardWidth = cachedCardWidth.current || 300
+    container.scrollTo({ left: index * cardWidth, behavior: 'smooth' })
   }
 
   useEffect(() => {
     const container = carouselRef.current
     if (!container) return () => {}
 
-    container.addEventListener('scroll', handleScroll)
-
-    const timer = setTimeout(() => {
+    // ResizeObserver caches geometry passively — no forced reflow
+    const ro = new ResizeObserver(() => {
+      const firstCard = container.firstElementChild as HTMLElement | null
+      if (firstCard) {
+        // getBoundingClientRect inside ResizeObserver callback is safe:
+        // the browser has already finished layout before calling back.
+        const rect = firstCard.getBoundingClientRect()
+        cachedCardWidth.current = rect.width + 24 // card + gap
+      }
+      cachedContainerWidth.current = container.getBoundingClientRect().width
       updateVisibleCount()
       handleScroll()
-    }, 100)
+    })
+    ro.observe(container)
 
-    window.addEventListener('resize', handleScroll)
-    window.addEventListener('resize', updateVisibleCount)
+    container.addEventListener('scroll', handleScroll, { passive: true })
 
     return () => {
+      ro.disconnect()
       container.removeEventListener('scroll', handleScroll)
-      window.removeEventListener('resize', handleScroll)
-      window.removeEventListener('resize', updateVisibleCount)
-      clearTimeout(timer)
     }
   }, [visibleCount])
 

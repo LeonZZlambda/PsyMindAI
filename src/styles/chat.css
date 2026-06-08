@@ -1659,3 +1659,50 @@
 .insight-badge.risk-low { background-color: rgba(15, 157, 88, 0.2); color: #0f9d58; }
 .insight-badge.risk-medium { background-color: rgba(244, 180, 0, 0.2); color: #f4b400; }
 .insight-badge.risk-high { background-color: rgba(217, 48, 37, 0.2); color: #d93025; }
+
+/* Load More History Button */
+.load-more-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 1.5rem 0 0.5rem 0;
+  padding: 0;
+}
+
+.load-more-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: var(--shape-corner-full, 24px);
+  border: 1px solid var(--border-color, #e0e0e0);
+  background-color: var(--surface-container-low, #f8f9fa);
+  color: var(--primary-color, #0b57d0);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.load-more-btn:hover:not(:disabled) {
+  background-color: var(--surface-container-high, #f1f3f4);
+  border-color: var(--primary-color, #0b57d0);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+.load-more-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.load-more-btn .loading-spinner {
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

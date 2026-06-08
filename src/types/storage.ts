@@ -26,6 +26,7 @@ export interface MessageExplainability {
  * Single message in a chat
  */
 export interface ChatMessage {
+  id: string;
   type: MessageRole;
   content: string;
   files?: FileAttachment[];

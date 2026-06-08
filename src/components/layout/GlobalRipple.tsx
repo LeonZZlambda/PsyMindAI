@@ -11,9 +11,13 @@ export const GlobalRipple: React.FC = () => {
 
       if (!target) return;
 
-      // Ensure the target has relative positioning and hidden overflow
+      // ── READ phase (no DOM writes yet — avoids forced reflow) ────────────────
       const style = window.getComputedStyle(target);
-      if (style.position === 'static') {
+      const isStatic = style.position === 'static';
+      const rect = target.getBoundingClientRect();
+
+      // ── WRITE phase (all mutations happen after all reads) ───────────────────
+      if (isStatic) {
         target.style.position = 'relative';
       }
       target.style.overflow = 'hidden';
@@ -24,17 +28,12 @@ export const GlobalRipple: React.FC = () => {
         container = document.createElement('div');
         container.className = 'ripple-container';
         // pointer-events: none ensures it doesn't block clicks
-        container.style.pointerEvents = 'none';
-        container.style.position = 'absolute';
-        container.style.inset = '0';
-        container.style.overflow = 'hidden';
-        container.style.borderRadius = 'inherit';
-        container.style.zIndex = '0';
+        container.style.cssText =
+          'pointer-events:none;position:absolute;inset:0;overflow:hidden;border-radius:inherit;z-index:0;';
         target.appendChild(container);
       }
 
-      // Calculate size and position
-      const rect = target.getBoundingClientRect();
+      // Calculate size and position using the already-read rect (no second reflow)
       const size = Math.max(rect.width, rect.height) * 2;
       const x = e.clientX - rect.left - size / 2;
       const y = e.clientY - rect.top - size / 2;
@@ -42,10 +41,7 @@ export const GlobalRipple: React.FC = () => {
       // Create the ripple span
       const ripple = document.createElement('span');
       ripple.className = 'ripple-span';
-      ripple.style.width = `${size}px`;
-      ripple.style.height = `${size}px`;
-      ripple.style.left = `${x}px`;
-      ripple.style.top = `${y}px`;
+      ripple.style.cssText = `width:${size}px;height:${size}px;left:${x}px;top:${y}px;`;
 
       container.appendChild(ripple);
 

@@ -338,7 +338,7 @@ IDIOMA E TRATAMENTO MULTILÍNGUE:
     ? `\n\n=== ORCHESTRATION PIPELINE & OUTPUT FORMAT ===
 You MUST execute the following pipeline internally before responding:
 1. Emotion Detection: Classify the user's emotion into one of: ["Anxious", "Sad", "Angry", "Neutral", "Happy", "Motivated", "Tired", "Overwhelmed"].
-2. Risk Detection: Classify the risk level: ["None", "Low", "Medium", "High"].
+2. Risk Detection: Classify the risk level: ["Low", "Medium", "High"].
 3. Intent Detection: Briefly classify what the user seeks (e.g., "Venting", "Seeking Advice").
 4. Educational Reasoning: Explain your pedagogical approach and the psychological theory you are applying.
 5. Response: Formulate the final text.
