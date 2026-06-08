@@ -242,7 +242,7 @@ const DemoShowcase: React.FC = () => {
         <div className="tool-preview exams-preview">
           <div className="preview-hero">
             <div>
-              <p className="preview-eyebrow">{t('learning:exams.categories_title.national')}</p>
+              <p className="preview-eyebrow">{t('learning:exams.categories_title.undergraduate_admissions')}</p>
               <strong>{t('landing.demo.exams.preview.title')}</strong>
             </div>
             <div className="preview-pill preview-pill--soft">
@@ -253,8 +253,8 @@ const DemoShowcase: React.FC = () => {
             </div>
           </div>
           <div className="exams-preview__chips">
-            <span className="mockup-tag">{t('learning:exams.categories_title.national')}</span>
-            <span className="mockup-tag">{t('learning:exams.categories_title.regional')}</span>
+            <span className="mockup-tag">{t('learning:exams.categories_title.undergraduate_admissions')}</span>
+            <span className="mockup-tag">{t('learning:exams.categories_title.language_proficiency')}</span>
             <span className="mockup-tag">{t('learning:exams.categories_title.olympiads')}</span>
           </div>
           <div className="exams-preview__panel">

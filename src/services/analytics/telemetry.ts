@@ -21,7 +21,12 @@ export interface TelemetryEvent {
 /**
  * Vestibular Refactoring Interfaces
  */
-export type ExamCategoryType = 'Nacional' | 'Internacional' | 'Regional' | 'Olimpíadas';
+export type ExamCategoryType =
+  | 'undergraduate_admissions'
+  | 'language_proficiency'
+  | 'international_curricula'
+  | 'graduate_professional'
+  | 'olympiads';
 
 export interface ExamTelemetryPayload {
   category?: ExamCategoryType;

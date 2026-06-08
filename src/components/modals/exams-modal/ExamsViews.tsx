@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import type { ExamCategory, ExamDefinition, JudgeConfig, QuizConfig } from './types';
+import { AdmissionsCalculator } from './AdmissionsCalculator';
 import { EnemCalculator } from './EnemCalculator';
 import { getSubjectConfig } from './data';
 import { useExamTelemetry } from '../../../hooks/useExamTelemetry';
@@ -114,7 +115,7 @@ export const SubjectsView: React.FC<SubjectsViewProps> = ({ exam, onClose, onSel
     return (
       <div className="exams-subjects-view">
         <div className="modal-card exams-calculator-shell">
-          <EnemCalculator onClose={onClose} />
+          {exam.calculatorType === 'enem' || !exam.calculatorType ? <EnemCalculator onClose={onClose} /> : <AdmissionsCalculator exam={exam} onClose={onClose} />}
         </div>
       </div>
     );

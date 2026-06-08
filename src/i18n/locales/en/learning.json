@@ -432,12 +432,11 @@
       "available_options_other": "{{count}} options available"
     },
     "categories_title": {
-      "international": "International",
-      "national": "National",
-      "regional": "Regional",
-      "military": "Military",
-      "olympiads": "Olympiads",
-      "public_service": "Public Service Exams"
+      "undergraduate_admissions": "Undergraduate Admissions",
+      "language_proficiency": "Language Proficiency",
+      "international_curricula": "International Curricula",
+      "graduate_professional": "Graduate & Professional",
+      "olympiads": "International Olympiads"
     },
     "topics_header": "Reference Matrix and Contents",
     "actions": {

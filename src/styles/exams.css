@@ -902,6 +902,12 @@
   line-height: 1.4;
 }
 
+.calc-result-detail {
+  color: #444746;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
 /* Dark Mode Result Styling */
 .app.dark .calc-result {
   background: #1e1f20;
@@ -941,6 +947,10 @@
 
 .app.dark .calc-result .note {
   color: #8e918f;
+}
+
+.app.dark .calc-result-detail {
+  color: #c4c7c5;
 }
 
 /* Toggle Switch Style for Checkbox */

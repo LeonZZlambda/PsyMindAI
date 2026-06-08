@@ -432,12 +432,11 @@
       "available_options_other": "{{count}} opções disponíveis"
     },
     "categories_title": {
-      "international": "Internacionais",
-      "national": "Nacionais",
-      "regional": "Regionais",
-      "military": "Militares",
-      "olympiads": "Olimpíadas",
-      "public_service": "Concursos Públicos"
+      "undergraduate_admissions": "Admissão Universitária",
+      "language_proficiency": "Proficiência Linguística",
+      "international_curricula": "Currículos Internacionais",
+      "graduate_professional": "Pós-graduação e Profissional",
+      "olympiads": "Olimpíadas Internacionais"
     },
     "topics_header": "Matriz de Referência e Conteúdos",
     "actions": {

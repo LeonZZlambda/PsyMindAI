@@ -1,4 +1,5 @@
 export interface ExamDefinition {
+  calculatorType?: 'act' | 'alevels' | 'abitur' | 'enem' | 'gaokao' | 'gmat' | 'gre' | 'ib' | 'ielts' | 'jee_main' | 'sat' | 'toefl';
   fullName: string;
   isCalculator?: boolean;
   name: string;
@@ -10,7 +11,7 @@ export interface ExamCategory {
   color: string;
   exams: ExamDefinition[];
   icon: string;
-  id: 'international' | 'national' | 'regional' | 'olympiads' | 'military' | 'public_service';
+  id: 'undergraduate_admissions' | 'language_proficiency' | 'international_curricula' | 'graduate_professional' | 'exam_score_calculators' | 'olympiads';
   title: string;
 }
 
