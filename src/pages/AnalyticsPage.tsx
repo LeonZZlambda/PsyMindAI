@@ -34,9 +34,56 @@ interface FeatureUsedEntry {
 }
 
 const AnalyticsPage: React.FC = () => {
-  const { t } = useTranslation(['dashboard', 'translation'])
+  const { t, i18n } = useTranslation(['dashboard', 'translation'])
   const navigate = useNavigate()
   const { isDarkMode } = useTheme()
+
+  const formatCompact = (value: number) => {
+    try {
+      return new Intl.NumberFormat(i18n.language, {
+        notation: 'compact',
+        compactDisplay: 'short',
+        maximumFractionDigits: 1
+      }).format(value)
+    } catch (e) {
+      return value.toString()
+    }
+  }
+
+  const formatDecimal = (value: number) => {
+    try {
+      return new Intl.NumberFormat(i18n.language, {
+        minimumFractionDigits: 1,
+        maximumFractionDigits: 1
+      }).format(value)
+    } catch (e) {
+      return value.toString()
+    }
+  }
+
+  const translateFeatureName = (label: string) => {
+    const featureKeyMap: Record<string, string> = {
+      pomodoro: 'analytics_page.features.pomodoro',
+      weeklySchedule: 'analytics_page.features.weeklySchedule',
+      mood: 'analytics_page.features.mood',
+      journal: 'analytics_page.features.journal',
+      reflexoes: 'analytics_page.features.reflexoes',
+      vestibulares: 'analytics_page.features.vestibulares',
+      vocational: 'analytics_page.features.vocational',
+      kindness: 'analytics_page.features.kindness',
+      helpline: 'analytics_page.features.helpline',
+      learning: 'analytics_page.features.learning',
+      settings: 'analytics_page.features.settings',
+      help: 'analytics_page.features.help',
+      chat: 'analytics_page.features.chat'
+    }
+
+    const key = featureKeyMap[label] || featureKeyMap[label.toLowerCase()]
+    if (key) {
+      return t(key)
+    }
+    return t(`analytics_page.features.${label}`, { defaultValue: label })
+  }
   
   const [derived, setDerived] = useState<DerivedMetrics | null>(null)
   const [stats, setStats] = useState<TelemetryStats | null>(null)
@@ -78,10 +125,10 @@ const AnalyticsPage: React.FC = () => {
 
   // Mock global data since the app is currently client-only
   const globalStats = {
-    activeUsers: '14.2K+',
-    totalSessions: '1.2M+',
-    avgSessionMinutes: '12.4',
-    transformationScore: '89.4k',
+    activeUsers: `${formatCompact(14200)}+`,
+    totalSessions: `${formatCompact(1200000)}+`,
+    avgSessionMinutes: formatDecimal(12.4),
+    transformationScore: formatCompact(89400),
     topFeatures: [
       { label: t('analytics_page.mock.top_features.assistant_chat'), val: 42500, pct: 100 },
       { label: t('analytics_page.mock.top_features.emotional_journal'), val: 28400, pct: 66.8 },
@@ -210,7 +257,7 @@ const AnalyticsPage: React.FC = () => {
                           />
                         </div>
                         <span style={{ width: '50px', fontSize: '0.9rem', fontWeight: 'bold', color: 'var(--text-color)', textAlign: 'right' }}>
-                          {item.val >= 1000 ? (item.val/1000).toFixed(1)+'k' : item.val}
+                          {formatCompact(item.val)}
                         </span>
                       </div>
                     ))}
@@ -280,22 +327,22 @@ const AnalyticsPage: React.FC = () => {
 	                <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
 	                  <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>psychology_alt</span>
 	                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{t('analytics_page.metrics.transformation_score')}</span>
-	                  <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{derived.transformationScore} {t('analytics_page.units.points_short')}</span>
+	                  <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{new Intl.NumberFormat(i18n.language).format(derived.transformationScore)} {t('analytics_page.units.points_short')}</span>
 	                </div>
 	                <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
 	                  <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>timer</span>
 	                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{t('analytics_page.metrics.avg_session')}</span>
-	                  <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{derived.avgSessionMinutes} {t('analytics_page.units.minutes_short')}</span>
+	                  <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{new Intl.NumberFormat(i18n.language, { maximumFractionDigits: 1 }).format(Number.parseFloat(derived.avgSessionMinutes.toString()))} {t('analytics_page.units.minutes_short')}</span>
 	                </div>
 	                <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
 	                  <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>calendar_month</span>
 	                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{t('analytics_page.metrics.retention')}</span>
-	                  <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{t('analytics_page.units.days', { count: derived.daysActive })}</span>
+	                  <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{derived.daysActive} {t('analytics_page.units.days', { count: derived.daysActive })}</span>
 	                </div>
 	                <div style={{ background: 'var(--card-background)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border-color)', display: 'flex', flexDirection: 'column' }}>
 	                  <span className="material-symbols-outlined" style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '10px' }}>error</span>
 	                  <span style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{t('analytics_page.metrics.error_count')}</span>
-	                  <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{t('analytics_page.units.errors', { count: derived.errorCount })}</span>
+	                  <span style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{derived.errorCount} {t('analytics_page.units.errors', { count: derived.errorCount })}</span>
 	                </div>
 	              </div>
 
@@ -311,7 +358,7 @@ const AnalyticsPage: React.FC = () => {
                     {chartData.map((item: FeatureUsedEntry, idx: number) => (
                       <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                         <span style={{ width: '100px', fontSize: '0.95rem', color: 'var(--text-color)', textTransform: 'capitalize', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                          {item.label}
+                          {translateFeatureName(item.label)}
                         </span>
                         <div style={{ flex: 1, backgroundColor: 'var(--hover-color)', height: '24px', borderRadius: '12px', overflow: 'hidden', position: 'relative' }}>
                           <m.div 
@@ -322,7 +369,7 @@ const AnalyticsPage: React.FC = () => {
                           />
                         </div>
                         <span style={{ width: '30px', fontSize: '0.9rem', fontWeight: 'bold', color: 'var(--text-color)', textAlign: 'right' }}>
-                          {item.val}
+                          {new Intl.NumberFormat(i18n.language).format(item.val)}
                         </span>
                       </div>
                     ))}

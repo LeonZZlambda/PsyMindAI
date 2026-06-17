@@ -1,0 +1,70 @@
+{
+  "achievements": {
+    "title": "Conquistas & Medalhas",
+    "level": "Nível {{level}}",
+    "xp_to_next": "{{xp}} XP para o próximo nível",
+    "recent": "Conquistas Recentes",
+    "reward": "Recompensa",
+    "unlocked_at": "Desbloqueada em {{date}}",
+    "categories": {
+      "all": "Todas",
+      "learning": "Aprendizado",
+      "streak": "Frequência",
+      "social": "Social",
+      "special": "Especiais"
+    },
+    "requirements": {
+      "questions_answered": "Responder {{value}} questões",
+      "correct_answers": "Acertar {{value}} questões",
+      "streak_days": "Sequência de {{value}} dias",
+      "topics_mastered": "Dominar {{value}} tópicos",
+      "study_time": "Estudar por {{value}} minutos",
+      "trails_completed": "Completar {{value}} trilhas"
+    },
+    "stats": {
+      "title": "Resumo de Estatísticas",
+      "questions_answered": "Questões Respondidas",
+      "correct_answers": "Questões Acertadas",
+      "study_time": "Tempo de Estudo",
+      "trails_completed": "Trilhas Concluídas"
+    },
+    "list": {
+      "first_question": {
+        "title": "Primeira Questão",
+        "description": "Responda sua primeira questão"
+      },
+      "quiz_master": {
+        "title": "Mestre dos Quizzes",
+        "description": "Responda 100 questões corretamente"
+      },
+      "scholar": {
+        "title": "Erudito",
+        "description": "Responda 500 questões corretamente"
+      },
+      "topic_expert": {
+        "title": "Especialista",
+        "description": "Domine 5 tópicos diferentes"
+      },
+      "consistent_learner": {
+        "title": "Aprendiz Consistente",
+        "description": "Estude por 7 dias consecutivos"
+      },
+      "dedicated_student": {
+        "title": "Estudante Dedicado",
+        "description": "Estude por 30 dias consecutivos"
+      },
+      "study_beginner": {
+        "title": "Iniciante",
+        "description": "Estude por 1 hora"
+      },
+      "study_warrior": {
+        "title": "Guerreiro do Estudo",
+        "description": "Estude por 10 horas"
+      },
+      "trail_explorer": {
+        "title": "Explorador de Trilhas",
+        "description": "Complete 5 trilhas de aprendizado"
+      }
+    }
+  }
+}

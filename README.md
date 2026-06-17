@@ -6,7 +6,7 @@
   <p><strong>A privacy-first, edge-only AI psychoeducational system and self-regulation platform built for students.</strong></p>
 
   <p>
-    <a href="https://psymindai.onrender.com"><strong>🚀 Try the Live Demo: psymindai.onrender.com</strong></a>
+    <a href="https://psymindai.onrender.com"><strong>Try the Live Demo: psymindai.onrender.com</strong></a>
   </p>
 
   <p>
@@ -21,11 +21,11 @@
 
 ---
 
-## 📖 What It Is
+## What It Is
 
 **PsyMind.AI** is an advanced psychoeducational system that integrates behavioral self-regulation tools, automated skill evaluations, and AI-guided study paths. Grounded in Cognitive Behavioral Therapy (CBT), Self-Determination Theory, and color psychology, it provides a safe, on-device environment for adolescents to manage academic stress and emotional well-being.
 
-## ⚡ Why It Is Technically Interesting
+## Why It Is Technically Interesting
 
 - **Client-Side prompt assembly:** Injects active local metrics (mood logs, Pomodoro focus blocks) into the LLM system context entirely on the edge, avoiding backend request hops and protecting data privacy.
 - **Active clinical guardrails:** Automatically detects mental distress signals locally and locks the AI layer, instantly routing the user to hotlines and professional networks.
@@ -36,7 +36,7 @@
 
 ---
 
-## 🚀 60-Second Quickstart
+## 60-Second Quickstart
 
 ```bash
 # Clone the repository
@@ -67,7 +67,7 @@ npm run analyze:ui
 
 ---
 
-## 🎨 System Design Highlights
+## System Design Highlights
 
 ### 1. Context-Injection Prompt Assembly
 
@@ -134,19 +134,19 @@ graph LR
 
 ---
 
-## ✨ Premium Features
+## Premium Features
 
-### 🧪 OBI Judge Mode (Interactive Code Evaluation)
+### OBI Judge Mode (Interactive Code Evaluation)
 
 Enables students to write, execute, and evaluate algorithms locally. Provides real-time execution outputs, logic debugging tools, and modular testing panels.
 ![OBI Judge](./src/assets/obi-judge.png)
 
-### 📚 Guided Learning (AI Study Paths)
+### Guided Learning (AI Study Paths)
 
 Generates personalized study structures and custom flashcards tailored to individual learning styles. Evaluates student proficiencies using active recall diagnostics.
 ![Guided Learning](./src/assets/guided-learning.png)
 
-### 🧠 Emotional Support & Self-Regulation Chat
+### Emotional Support & Self-Regulation Chat
 
 An AI companion that listens, structures thoughts, and recommends cognitive restructuring techniques.
 ![Chat](./src/assets/chat.png)
@@ -155,28 +155,28 @@ An AI companion that listens, structures thoughts, and recommends cognitive rest
 
 ## 🛠️ Engineering & Optimization Decisions
 
-### 🏗️ Architectural Foundations
+### Architectural Foundations
 
 - **Why client-side AI?** Eliminates server runtime overhead, simplifies deployment, and guarantees that user chat data never touches middle-tier databases.
 - **Why Vite over Next.js?** Allows compiling the application into a standard static single-page app (SPA), making it trivial to host on serverless CDNs (GitHub Pages, Render) and enable offline-ready progressive web app (PWA) behaviors.
 - **Why Gemini 1.5 Flash?** Outperforms models in its class with ultra-low latency, native streaming support, and structured JSON responses required for matching user states to specific UI layouts.
 - **Why local-first telemetry?** Offers GDPR-by-design. Users maintain absolute ownership of their analytics; data is never transmitted to tracking servers.
 
-### ⚡ Performance Optimization
+### Performance Optimization
 
 - **Vite manual chunk splitting:** Configured custom bundles separating core vendors, `framer-motion`, `zod`, `markdown-vendor`, and `genai-vendor` to keep the main bundle thin and interactive under 2s on mobile connections.
 - **Lazy-loaded modals:** Dynamically loads large modular panels (e.g. `GuidedLearningModal`, `VocationalTestModal`) via `React.lazy` only when requested.
 - **Skeleton-first layouts:** Reduces perceived latency using skeleton cards during asynchronous content streams.
 - **Active tree-shaking:** Implemented `"sideEffects": ["*.css"]` in `package.json` to enable optimal asset tree-shaking by the bundler.
 
-### 🛡️ Security & Privacy
+### Security & Privacy
 
 - **Client-only boundaries:** API keys are injected at build time (Vite env) or dynamically loaded from user settings, stored securely on their local device storage.
 - **No remote synchronization:** Chat database updates, settings, and behavioral logs reside strictly in the client's local database.
 
 ---
 
-## 🧪 Verification & Testing
+## Verification & Testing
 
 Our test suite verifies components, logic, and state adapters using **Vitest**.
 
@@ -197,11 +197,11 @@ npm run build && npm run preview
 
 Explore detailed documentations:
 
-- 🏗️ **[Architecture Details](./ARCHITECTURE.md)**: Class definitions, module boundaries, and sequence schemas.
-- 🚀 **[Setup & Installation](./SETUP.md)**: Node versions, custom keys, and environment instructions.
-- 🔄 **[Migration Guide](./MIGRATION_GUIDE.md)**: How to extract these tools or switch database adapters.
-- 🤝 **[Contributing](./CONTRIBUTING.md)**: Standards for adding features, testing, and writing translations.
-- 📜 **[Security & Conduct](./SECURITY.md)**: Security report policies and Code of Conduct.
+- **[Architecture Details](./ARCHITECTURE.md)**: Class definitions, module boundaries, and sequence schemas.
+- **[Setup & Installation](./SETUP.md)**: Node versions, custom keys, and environment instructions.
+- **[Migration Guide](./MIGRATION_GUIDE.md)**: How to extract these tools or switch database adapters.
+- **[Contributing](./CONTRIBUTING.md)**: Standards for adding features, testing, and writing translations.
+- **[Security & Conduct](./SECURITY.md)**: Security report policies and Code of Conduct.
 
 ---
 

@@ -5,6 +5,11 @@
   },
   "study_stats": {
     "title": "Study Dashboard",
+    "tabs": {
+      "dashboard": "Dashboard",
+      "goals": "Goals",
+      "achievements": "Achievements"
+    },
     "close": "Close",
     "add_session": "Session",
     "hide_form": "Hide entry",
@@ -14,6 +19,15 @@
     "weekly_caption": "Last 7 days, with today highlighted",
     "telemetry_off": "Telemetry disabled",
     "telemetry_disabled": "Your in-app usage metrics are disabled in Settings. The dashboard still shows study entries, but journey indicators remain hidden.",
+    "duration_format": {
+      "zero": "0m",
+      "minutes": "{{minutes}}m",
+      "hours": "{{hours}}h",
+      "hours_minutes": "{{hours}}h {{minutes}}m"
+    },
+    "units": {
+      "minutes_short": "min"
+    },
     "form": {
       "title": "Log Study (Today)",
       "topic_placeholder": "Subject / Topic",
@@ -38,7 +52,10 @@
       "total_study_time": "Total Time",
       "this_journey": "in this journey",
       "transformation": "Transformation",
-      "active_days": "Active Days"
+      "active_days": "Active Days",
+      "transformation_supporting": "{{minutes}} min/session",
+      "app_sessions_supporting_one": "{{count}} app session",
+      "app_sessions_supporting_other": "{{count}} app sessions"
     },
     "charts": {
       "weekly_title": "Weekly Rhythm",
@@ -106,6 +123,21 @@
         "resolution_wall": "Resolutions Wall",
         "mind_maps": "Mind Maps"
       }
+    },
+    "features": {
+      "pomodoro": "Pomodoro",
+      "weeklySchedule": "Weekly Schedule",
+      "mood": "Mood Tracker",
+      "journal": "Emotional Journal",
+      "reflexoes": "Reflections",
+      "vestibulares": "Exams",
+      "vocational": "Vocational Test",
+      "kindness": "Kindness Acts",
+      "helpline": "Helpline",
+      "learning": "Guided Learning",
+      "settings": "Settings",
+      "help": "Help & FAQ",
+      "chat": "Assistant Chat"
     },
     "meta_analysis": {
       "title": "Meta Mode: Pattern Analysis (AI)",

@@ -138,38 +138,41 @@ const WeeklyStudyChart: React.FC<WeeklyStudyChartProps> = ({ caption, items, tit
   </div>
 );
 
-const DisciplineBreakdown: React.FC<DisciplineBreakdownProps> = ({ emptyMessage, items, title }) => (
-  <div className="modal-card study-dashboard__panel">
-    <div className="study-dashboard__panel-header">
-      <div>
-        <h3 className="study-dashboard__panel-title">{title}</h3>
+const DisciplineBreakdown: React.FC<DisciplineBreakdownProps> = ({ emptyMessage, items, title }) => {
+  const { t } = useTranslation(['dashboard', 'translation']);
+  return (
+    <div className="modal-card study-dashboard__panel">
+      <div className="study-dashboard__panel-header">
+        <div>
+          <h3 className="study-dashboard__panel-title">{title}</h3>
+        </div>
       </div>
-    </div>
 
-    {items.length > 0 ? (
-      <div className="study-dashboard__progress-list">
-        {items.map((item) => (
-          <div key={item.topic} className="study-dashboard__progress-item">
-            <div className="study-dashboard__progress-meta">
-              <span className="study-dashboard__progress-topic">{item.topic}</span>
-              <span className="study-dashboard__progress-share">
-                {item.share}% · {item.minutes} min
-              </span>
+      {items.length > 0 ? (
+        <div className="study-dashboard__progress-list">
+          {items.map((item) => (
+            <div key={item.topic} className="study-dashboard__progress-item">
+              <div className="study-dashboard__progress-meta">
+                <span className="study-dashboard__progress-topic">{item.topic}</span>
+                <span className="study-dashboard__progress-share">
+                  {item.share}% · {item.minutes} {t('study_stats.units.minutes_short', 'min')}
+                </span>
+              </div>
+              <div className="study-dashboard__progress-track">
+                <div className="study-dashboard__progress-bar" style={{ width: `${Math.max(item.share, 8)}%` }} />
+              </div>
             </div>
-            <div className="study-dashboard__progress-track">
-              <div className="study-dashboard__progress-bar" style={{ width: `${Math.max(item.share, 8)}%` }} />
-            </div>
-          </div>
-        ))}
-      </div>
-    ) : (
-      <div className="study-dashboard__empty-state">
-        <span className="material-symbols-outlined">library_books</span>
-        <p>{emptyMessage}</p>
-      </div>
-    )}
-  </div>
-);
+          ))}
+        </div>
+      ) : (
+        <div className="study-dashboard__empty-state">
+          <span className="material-symbols-outlined">library_books</span>
+          <p>{emptyMessage}</p>
+        </div>
+      )}
+    </div>
+  );
+};
 
 const StudyStatsModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const { t } = useTranslation(['dashboard', 'translation']);

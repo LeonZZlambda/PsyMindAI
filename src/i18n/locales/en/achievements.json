@@ -1,0 +1,70 @@
+{
+  "achievements": {
+    "title": "Achievements & Badges",
+    "level": "Level {{level}}",
+    "xp_to_next": "{{xp}} XP to next level",
+    "recent": "Recent Achievements",
+    "reward": "Reward",
+    "unlocked_at": "Unlocked on {{date}}",
+    "categories": {
+      "all": "All",
+      "learning": "Learning",
+      "streak": "Streak",
+      "social": "Social",
+      "special": "Special"
+    },
+    "requirements": {
+      "questions_answered": "Answer {{value}} questions",
+      "correct_answers": "Answer {{value}} questions correctly",
+      "streak_days": "Streak of {{value}} days",
+      "topics_mastered": "Master {{value}} topics",
+      "study_time": "Study for {{value}} minutes",
+      "trails_completed": "Complete {{value}} learning trails"
+    },
+    "stats": {
+      "title": "Stats Summary",
+      "questions_answered": "Questions Answered",
+      "correct_answers": "Correct Answers",
+      "study_time": "Study Time",
+      "trails_completed": "Trails Completed"
+    },
+    "list": {
+      "first_question": {
+        "title": "First Step",
+        "description": "Answer your first question"
+      },
+      "quiz_master": {
+        "title": "Quiz Master",
+        "description": "Answer 100 questions correctly"
+      },
+      "scholar": {
+        "title": "Scholar",
+        "description": "Answer 500 questions correctly"
+      },
+      "topic_expert": {
+        "title": "Topic Expert",
+        "description": "Master 5 different topics"
+      },
+      "consistent_learner": {
+        "title": "Consistent Learner",
+        "description": "Study for 7 consecutive days"
+      },
+      "dedicated_student": {
+        "title": "Dedicated Student",
+        "description": "Study for 30 consecutive days"
+      },
+      "study_beginner": {
+        "title": "Beginner",
+        "description": "Study for 1 hour"
+      },
+      "study_warrior": {
+        "title": "Study Warrior",
+        "description": "Study for 10 hours"
+      },
+      "trail_explorer": {
+        "title": "Trail Explorer",
+        "description": "Complete 5 learning trails"
+      }
+    }
+  }
+}

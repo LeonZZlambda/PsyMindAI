@@ -1,8 +1,15 @@
 import { describe, expect, it } from 'vitest';
 import { createStudyDashboardViewModel, formatMinutes, readStudyLogs } from './data';
-import type { DerivedTelemetryMetrics, StudyLog } from './types';
+import type { DerivedTelemetryMetrics, StudyLog, StudyTranslation } from './types';
 
-const translate = (key: string, options?: Record<string, unknown>) => {
+const translate: StudyTranslation = ((key: string, options?: any) => {
+  if (options && typeof options === 'object' && 'defaultValue' in options) {
+    return options.defaultValue;
+  }
+  if (typeof options === 'string') {
+    return options;
+  }
+
   if (key === 'study_stats.metrics.entries_logged') {
     return `${options?.count} entries`;
   }
@@ -16,7 +23,7 @@ const translate = (key: string, options?: Record<string, unknown>) => {
   }
 
   return key;
-};
+}) as StudyTranslation;
 
 describe('study dashboard data helpers', () => {
   it('formats minutes into compact labels', () => {
@@ -24,6 +31,13 @@ describe('study dashboard data helpers', () => {
     expect(formatMinutes(45)).toBe('45m');
     expect(formatMinutes(60)).toBe('1h');
     expect(formatMinutes(135)).toBe('2h 15m');
+  });
+
+  it('formats minutes with translation function', () => {
+    expect(formatMinutes(0, translate)).toBe('0m');
+    expect(formatMinutes(45, translate)).toBe('45m');
+    expect(formatMinutes(60, translate)).toBe('1h');
+    expect(formatMinutes(135, translate)).toBe('2h 15m');
   });
 
   it('ignores malformed study logs in storage', () => {

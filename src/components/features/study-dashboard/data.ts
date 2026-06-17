@@ -51,15 +51,19 @@ export const createStudyLog = (topic: string, minutes: number, now = new Date())
   topic: topic.trim(),
 });
 
-export const formatMinutes = (minutes: number): string => {
-  if (minutes <= 0) return '0m';
+export const formatMinutes = (minutes: number, t?: StudyTranslation): string => {
+  if (minutes <= 0) return t ? t('study_stats.duration_format.zero', { defaultValue: '0m' }) : '0m';
 
   const hours = Math.floor(minutes / 60);
   const remainingMinutes = minutes % 60;
 
-  if (hours === 0) return `${remainingMinutes}m`;
-  if (remainingMinutes === 0) return `${hours}h`;
-  return `${hours}h ${remainingMinutes}m`;
+  if (hours === 0) {
+    return t ? t('study_stats.duration_format.minutes', { minutes: remainingMinutes, defaultValue: `${remainingMinutes}m` }) : `${remainingMinutes}m`;
+  }
+  if (remainingMinutes === 0) {
+    return t ? t('study_stats.duration_format.hours', { hours, defaultValue: `${hours}h` }) : `${hours}h`;
+  }
+  return t ? t('study_stats.duration_format.hours_minutes', { hours, minutes: remainingMinutes, defaultValue: `${hours}h ${remainingMinutes}m` }) : `${hours}h ${remainingMinutes}m`;
 };
 
 export const readStudyLogs = (storage: Storage = window.localStorage): StudyLog[] => {
@@ -147,7 +151,7 @@ const createWeeklyStudy = (logs: StudyLog[], t: StudyTranslation, now = new Date
       day: label,
       isToday: index === todayIndex,
       minutes,
-      valueLabel: formatMinutes(minutes),
+      valueLabel: formatMinutes(minutes, t),
     };
   });
 
@@ -191,7 +195,7 @@ const createMetricCards = (
       icon: 'timer',
       label: t('study_stats.metrics.avg_focus'),
       tone: toneByMetric.avgFocus,
-      value: formatMinutes(averageFocus),
+      value: formatMinutes(averageFocus, t),
       supportingText: totalStudySessions > 0 ? t('study_stats.metrics.entries_logged', { count: totalStudySessions }) : t('study_stats.empty'),
     },
     {
@@ -199,7 +203,7 @@ const createMetricCards = (
       icon: 'school',
       label: t('study_stats.metrics.total_study_time'),
       tone: toneByMetric.totalStudyTime,
-      value: formatMinutes(totalStudyMinutes),
+      value: formatMinutes(totalStudyMinutes, t),
       supportingText: totalStudyMinutes > 0 ? t('study_stats.metrics.this_journey') : t('study_stats.empty'),
     },
     {
@@ -208,7 +212,7 @@ const createMetricCards = (
       label: t('study_stats.metrics.transformation'),
       tone: toneByMetric.transformation,
       value: telemetry ? `${Math.round(telemetry.transformationScore)}` : '--',
-      supportingText: telemetry ? `${Math.round(telemetry.avgSessionMinutes)} min/${t('study_stats.metrics.session')}` : t('study_stats.telemetry_off'),
+      supportingText: telemetry ? t('study_stats.metrics.transformation_supporting', { minutes: Math.round(telemetry.avgSessionMinutes), defaultValue: `${Math.round(telemetry.avgSessionMinutes)} min/session` }) : t('study_stats.telemetry_off'),
     },
     {
       id: 'activeDays',
@@ -216,7 +220,7 @@ const createMetricCards = (
       label: t('study_stats.metrics.active_days'),
       tone: toneByMetric.activeDays,
       value: telemetry ? `${telemetry.daysActive}` : '--',
-      supportingText: telemetry ? `${telemetry.totalSessions} ${t('study_stats.metrics.app_sessions')}` : t('study_stats.telemetry_off'),
+      supportingText: telemetry ? t('study_stats.metrics.app_sessions_supporting', { count: telemetry.totalSessions, defaultValue: `${telemetry.totalSessions} app sessions` }) : t('study_stats.telemetry_off'),
     },
   ];
 };

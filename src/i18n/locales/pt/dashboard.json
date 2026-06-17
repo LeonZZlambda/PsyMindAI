@@ -5,6 +5,11 @@
   },
   "study_stats": {
     "title": "Dashboard de Estudos",
+    "tabs": {
+      "dashboard": "Dashboard",
+      "goals": "Metas",
+      "achievements": "Conquistas"
+    },
     "close": "Fechar",
     "add_session": "Sessão",
     "hide_form": "Ocultar registro",
@@ -14,6 +19,15 @@
     "weekly_caption": "Últimos 7 dias, com destaque para hoje",
     "telemetry_off": "Telemetria desativada",
     "telemetry_disabled": "Os dados do seu uso no app estão desativados em Configurações. O dashboard continua mostrando seus registros de estudo, mas os indicadores de jornada permanecem ocultos.",
+    "duration_format": {
+      "zero": "0m",
+      "minutes": "{{minutes}}m",
+      "hours": "{{hours}}h",
+      "hours_minutes": "{{hours}}h {{minutes}}m"
+    },
+    "units": {
+      "minutes_short": "min"
+    },
     "form": {
       "title": "Registrar Estudo (Dia Atual)",
       "topic_placeholder": "Matéria / Tópico",
@@ -38,7 +52,10 @@
       "total_study_time": "Tempo Total",
       "this_journey": "nesta jornada",
       "transformation": "Transformação",
-      "active_days": "Dias Ativos"
+      "active_days": "Dias Ativos",
+      "transformation_supporting": "{{minutes}} min/sessão",
+      "app_sessions_supporting_one": "{{count}} sessão no app",
+      "app_sessions_supporting_other": "{{count}} sessões no app"
     },
     "charts": {
       "weekly_title": "Ritmo Semanal",
@@ -106,6 +123,21 @@
         "resolution_wall": "Mural de Resoluções",
         "mind_maps": "Mapas Mentais"
       }
+    },
+    "features": {
+      "pomodoro": "Pomodoro",
+      "weeklySchedule": "Grade Semanal",
+      "mood": "Monitor de Humor",
+      "journal": "Diário Emocional",
+      "reflexoes": "Reflexões",
+      "vestibulares": "Simulados",
+      "vocational": "Teste Vocacional",
+      "kindness": "Atos de Gentileza",
+      "helpline": "Canal de Apoio",
+      "learning": "Jornada de Aprendizado",
+      "settings": "Configurações",
+      "help": "Ajuda & FAQ",
+      "chat": "Chat Assistente"
     },
     "meta_analysis": {
       "title": "Modo Meta: Análise de Padrão (IA)",

@@ -18,8 +18,16 @@ export default function AchievementsModal({ isOpen = true, onClose, isEmbedded =
   const { userProgress, getRecentAchievements, getLevelProgress } = useGamification();
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'learning' | 'streak' | 'social' | 'special'>('all');
 
-  const allAchievements = GamificationSystem.getAchievements();
-  const recentAchievements = getRecentAchievements();
+  const allAchievements = GamificationSystem.getAchievements().map(achievement => ({
+    ...achievement,
+    title: t(`achievements.list.${achievement.id}.title`, achievement.title),
+    description: t(`achievements.list.${achievement.id}.description`, achievement.description)
+  }));
+  const recentAchievements = getRecentAchievements().map(achievement => ({
+    ...achievement,
+    title: t(`achievements.list.${achievement.id}.title`, achievement.title),
+    description: t(`achievements.list.${achievement.id}.description`, achievement.description)
+  }));
   const levelProgress = getLevelProgress();
 
   const filteredAchievements = selectedCategory === 'all'
@@ -43,7 +51,7 @@ export default function AchievementsModal({ isOpen = true, onClose, isEmbedded =
             <h3>{t('achievements.level', { level: userProgress.level })}</h3>
             <div className="xp-info">
               <span>{userProgress.xp} XP</span>
-              <span>{userProgress.xpToNext} XP para o próximo nível</span>
+              <span>{t('achievements.xp_to_next', { xp: userProgress.xpToNext })}</span>
             </div>
           </div>
           <div className="level-badge">
@@ -123,12 +131,9 @@ export default function AchievementsModal({ isOpen = true, onClose, isEmbedded =
                 <div className="achievement-requirements">
                   <div className="requirement-item">
                     <span className="requirement-text">
-                      {achievement.requirements.type === 'questions_answered' && `Responder ${achievement.requirements.value} questões`}
-                      {achievement.requirements.type === 'correct_answers' && `Acertar ${achievement.requirements.value} questões`}
-                      {achievement.requirements.type === 'streak_days' && `Sequência de ${achievement.requirements.value} dias`}
-                      {achievement.requirements.type === 'topics_mastered' && `Dominar ${achievement.requirements.value} tópicos`}
-                      {achievement.requirements.type === 'study_time' && `Estudar por ${achievement.requirements.value} minutos`}
-                      {achievement.requirements.type === 'trails_completed' && `Completar ${achievement.requirements.value} trilhas`}
+                      {t(`achievements.requirements.${achievement.requirements.type}`, {
+                        value: achievement.requirements.value
+                      })}
                     </span>
                     <span className={`requirement-status ${isUnlocked ? 'met' : 'pending'}`}>
                       {isUnlocked ? '✓' : '○'}

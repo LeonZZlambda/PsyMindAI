@@ -84,6 +84,7 @@ i18n
       'schedule',
       'reflections',
       'mood_tracker',
+      'achievements',
     ],
     defaultNS: 'translation',
     fallbackNS: ['translation', 'schedule'],
