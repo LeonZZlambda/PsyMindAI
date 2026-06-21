@@ -30,7 +30,13 @@
       "rain": "Chuva Suave",
       "focus": "Foco Profundo",
       "white": "Ruído Branco",
-      "binaural": "Batidas Binaurais"
+      "binaural": "Batidas Binaurais",
+      "ocean": "海",
+      "forest": "森",
+      "fire": "暖炉",
+      "thunder": "雷",
+      "coffee": "カフェ",
+      "cave": "洞窟"
     }
   },
   "judge": {

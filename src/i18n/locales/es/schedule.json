@@ -55,5 +55,21 @@
     "icalDescription": "Exporta en formato iCalendar para sincronizar con tu calendario.",
     "noActivities": "No hay actividades para exportar."
   },
-  "resizeHint": "Arrastra el borde inferior para redimensionar"
+  "resizeHint": "Arrastra el borde inferior para redimensionar",
+  "days": {
+    "MONDAY": "Lun",
+    "TUESDAY": "Mar",
+    "WEDNESDAY": "Mié",
+    "THURSDAY": "Jue",
+    "FRIDAY": "Vie",
+    "SATURDAY": "Sáb",
+    "SUNDAY": "Dom"
+  },
+  "colors": {
+    "PRIMARY": "Primaria",
+    "SECONDARY": "Secundaria",
+    "TERTIARY": "Terciaria",
+    "ERROR": "Error",
+    "CUSTOM": "Personalizado"
+  }
 }

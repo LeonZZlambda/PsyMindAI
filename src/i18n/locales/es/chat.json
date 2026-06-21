@@ -19,6 +19,7 @@
       "file": "Arquivo",
       "tools": {
         "pomodoro": "Pomodoro",
+        "weeklySchedule": "Horario Semanal",
         "mood": "Diário de Emoções",
         "journal": "Repertório Emocional",
         "reflexoes": "Reflexões",

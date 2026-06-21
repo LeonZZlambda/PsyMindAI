@@ -30,7 +30,13 @@
       "rain": "Soft Rain",
       "focus": "Deep Focus",
       "white": "White Noise",
-      "binaural": "Binaural Beats"
+      "binaural": "Binaural Beats",
+      "ocean": "Ocean",
+      "forest": "Forest",
+      "fire": "Fireplace",
+      "thunder": "Thunder",
+      "coffee": "Café",
+      "cave": "Cave"
     }
   },
   "judge": {

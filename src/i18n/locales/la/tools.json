@@ -30,7 +30,13 @@
       "rain": "Soft Rain",
       "focus": "Deep Focus",
       "white": "White Noise",
-      "binaural": "Binaural Beats"
+      "binaural": "Binaural Beats",
+      "ocean": "Oceanus",
+      "forest": "Silva",
+      "fire": "Camines",
+      "thunder": "Tonitru",
+      "coffee": "Taberna Coffearia",
+      "cave": "Spelunca"
     }
   },
   "judge": {

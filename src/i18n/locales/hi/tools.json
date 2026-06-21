@@ -30,7 +30,13 @@
       "rain": "Chuva Suave",
       "focus": "Foco Profundo",
       "white": "Ruído Branco",
-      "binaural": "Batidas Binaurais"
+      "binaural": "Batidas Binaurais",
+      "ocean": "समुद्र",
+      "forest": "वन",
+      "fire": "अलाव",
+      "thunder": "गरज",
+      "coffee": "कॉफी शॉप",
+      "cave": "गुफा"
     }
   },
   "judge": {

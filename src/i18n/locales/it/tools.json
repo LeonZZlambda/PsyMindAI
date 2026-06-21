@@ -30,7 +30,13 @@
       "rain": "Pioggia leggera",
       "focus": "Concentrazione profonda",
       "white": "Rumore bianco",
-      "binaural": "Battiti binaurali"
+      "binaural": "Battiti binaurali",
+      "ocean": "Oceano",
+      "forest": "Foresta",
+      "fire": "Caminetto",
+      "thunder": "Tuono",
+      "coffee": "Caffè",
+      "cave": "Grotta"
     }
   },
   "judge": {

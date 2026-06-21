@@ -30,7 +30,13 @@
       "rain": "Chuva Suave",
       "focus": "Foco Profundo",
       "white": "Ruído Branco",
-      "binaural": "Batidas Binaurais"
+      "binaural": "Batidas Binaurais",
+      "ocean": "Океан",
+      "forest": "Лес",
+      "fire": "Камин",
+      "thunder": "Гром",
+      "coffee": "Кафе",
+      "cave": "Пещера"
     }
   },
   "judge": {

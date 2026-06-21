@@ -21,6 +21,7 @@
       "file": "File",
       "tools": {
         "pomodoro": "Pomodoro",
+        "weeklySchedule": "Weekly Schedule",
         "mood": "Mood Tracker",
         "journal": "Emotional Journal",
         "reflexoes": "Reflections",

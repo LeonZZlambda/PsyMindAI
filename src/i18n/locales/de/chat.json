@@ -19,6 +19,7 @@
       "file": "Datei",
       "tools": {
         "pomodoro": "Pomodoro",
+        "weeklySchedule": "Wochenplan",
         "mood": "Stimmungstagebuch",
         "journal": "Emotionsjournal",
         "reflexoes": "Reflexionen",
